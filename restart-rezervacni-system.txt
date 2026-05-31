@@ -111,6 +111,7 @@ Aktuální stav 2026-05-31 23:52 CEST:
 - SEO metadata homepage/root layoutu jsou přesnější pro český rezervační systém; struktura interních odkazů navazuje na existující oborové stránky a inspiraci ze SEO rozcestníku AutoERP.
 - `npm run check` prošlo 2026-05-31 23:45 CEST: 556 Vitest testů, migrations check, type-check, lint i produkční build.
 - Lokálně zkontrolované screenshoty homepage na 1366x768, 390x1200 a full-page 1366x900; Playwright proklik mockupu a public route smoke prošly bez console errors.
+- Vercel production deploy `dpl_E1eW4Sf9TjJoq6Si2ed7kNe1BnzC` je na aliasu `https://rezervacni-system-xi.vercel.app`; externí public smoke prošel 2026-05-31 23:55 CEST 8/8 a produkční proklik mockupu potvrdil stabilní šířku.
 - `npx playwright test` prošlo 2026-05-31: 9 testů prošlo, 4 authenticated runtime testy se bez `E2E_AUTHENTICATED_SMOKE=true` přeskočily.
 - `npm run check` prošlo 2026-05-08 18:41 CEST po pobočkách: 521 Vitest testů, migrations check, type-check, lint i produkční build.
 - `npm run check` prošlo 2026-05-08 18:11 CEST po resources vrstvě: 517 Vitest testů, migrations check, type-check, lint i produkční build.

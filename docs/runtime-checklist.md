@@ -24,7 +24,8 @@ Aktuální známý stav:
 
 - `npm run check` prošlo 2026-05-31 23:45 CEST po homepage visual/interakčním polishi: 556 Vitest testů, migrations check, type-check, lint a produkční build.
 - Lokální Playwright kontrola 2026-05-31 23:45 CEST prošla: homepage screenshoty desktop/mobil/full-page, stabilní šířka produktového mockupu při přepínání `Dnes / Booking / Klient`, klikatelné sekce `Přehled / Kalendář / Klienti / Signály` a public route smoke bez console errors.
-- Vercel deploy alias: `https://rezervacni-system-xi.vercel.app`. Aktuálně běží bez Supabase/Resend/Stripe/Upstash env, takže `/api/health` je očekávaně `degraded`, ale public demo stránky fungují přes demo fallback.
+- Vercel deploy alias: `https://rezervacni-system-xi.vercel.app`, aktuální deploy `dpl_E1eW4Sf9TjJoq6Si2ed7kNe1BnzC`. Aktuálně běží bez Supabase/Resend/Stripe/Upstash env, takže `/api/health` je očekávaně `degraded`, ale public demo stránky fungují přes demo fallback.
+- Externí Vercel smoke prošel 2026-05-31 23:55 CEST: `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` má 8/8 testů zelených; produkční proklik homepage mockupu potvrdil stabilní šířku a title `Rezervační systém pro služby | Temaro`.
 - GitHub login connection ve Vercelu je propojený; aktuální production deploy je `dpl_4Zogqwr6XLj2utWu7cbc9sCh5ePe`.
 - Ověřeno na Vercelu: `/api/health` nevrací názvy interních secret env; `checks.env.missing` je číslo a ne seznam názvů proměnných.
 - Externí Vercel smoke prošel 2026-05-31 22:52 CEST: `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` má 8/8 testů zelených.
