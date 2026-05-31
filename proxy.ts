@@ -28,6 +28,8 @@ const PROTECTED_ROUTES = [
   "/vouchers",
 ];
 
+const PUBLIC_ROUTES = ["/account/login"];
+
 function hasSupabaseSessionCookie(request: NextRequest) {
   return request.cookies.getAll().some((cookie) => {
     const isSupabaseAuthCookie =
@@ -42,6 +44,16 @@ export async function proxy(request: NextRequest) {
   const response = NextResponse.next({
     request,
   });
+
+  const isPublicRoute = PUBLIC_ROUTES.some(
+    (route) =>
+      request.nextUrl.pathname === route ||
+      request.nextUrl.pathname.startsWith(`${route}/`),
+  );
+
+  if (isPublicRoute) {
+    return response;
+  }
 
   const isProtectedRoute = PROTECTED_ROUTES.some(
     (route) =>

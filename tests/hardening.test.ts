@@ -34,6 +34,15 @@ describe("security headers", () => {
     expect(csp).toContain("https://*.upstash.io");
   });
 
+  it("nastavuje X-Frame-Options DENY mimo booking widget", async () => {
+    const headers = await nextConfig.headers?.();
+
+    const globalHeaders = headers?.find((entry) => entry.source === "/((?!embed/booking/).*)")?.headers ?? [];
+    const xFrameOptions = globalHeaders.find((header) => header.key === "X-Frame-Options")?.value;
+
+    expect(xFrameOptions).toBe("DENY");
+  });
+
   it("povoluje framovani pouze pro verejny booking widget", async () => {
     const headers = await nextConfig.headers?.();
 

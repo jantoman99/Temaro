@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Aktualizováno: 2026-05-08 20:06 CEST
+Aktualizováno: 2026-05-31 19:56 CEST
 
 Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historické analýzy a staré design audity jsou přesunuté do `docs/archive/`.
 
@@ -99,7 +99,7 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - `/design-preview` už není samostatná stará preview stránka; přesměruje na aktuální homepage.
 - Lighthouse audit landing page je v `docs/15-performance-audit.md`.
 - První niche/answer SEO stránky jsou implementované jako statické routy: `/rezervacni-system-pro-barbery`, `/rezervacni-system-pro-kadernictvi`, `/rezervacni-system-pro-kosmeticky-salon`, `/rezervacni-system-pro-masaze`, `/rezervacni-system-pro-wellness` a `/jak-snizit-no-show`.
-- Homepage obsahuje interní prolinkování na první niche/answer stránky včetně `/sms-pripominky-rezervaci` a `/rezervacni-system-bez-marketplace-provizi`; proof metrika testů je sjednocená na aktuálních `448`.
+- Homepage obsahuje interní prolinkování na první niche/answer stránky včetně `/sms-pripominky-rezervaci` a `/rezervacni-system-bez-marketplace-provizi`; proof metrika testů je sjednocená na aktuálních `556`.
 - Landing page má novou sekci `Dva typy účtů`, která odděluje podnikatelskou registraci od zákaznického Google účtu.
 - Landing page nově komunikuje další produktovou vrstvu: vyhledání podniků podle města/lokality/oboru, mapa podniku a plný Google Calendar sync po současném iCal exportu.
 - Homepage navigace a footer odkazují na `/podniky`; katalog je zatím bez marketplace provizí a bez externí mapové API integrace.
@@ -114,6 +114,12 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 
 ## Poslední změna
 
+- Pre-demo hardening pro GitHub/Vercel přípravu: aktualizovaný Next.js a `eslint-config-next` na `16.2.6`, `npm audit --audit-level=moderate` vrací `found 0 vulnerabilities`.
+- Globální non-embed routy mají navíc `X-Frame-Options: DENY`; embed booking route zůstává framovatelná jen přes vlastní CSP.
+- `/account/login` už není omylem chráněný account proxy guardem, takže zákaznické Google přihlášení je veřejně dostupné.
+- `/demo-barber` používá demo booking fallback i při nakonfigurovaném, ale nedostupném Supabase admin runtime, aby portfolio/public smoke nepadal na lokální DB konfiguraci.
+- E2E authenticated smoke vyžaduje explicitní `E2E_AUTHENTICATED_SMOKE=true`; bez něj se runtime DB testy přeskočí a public smoke běží stabilně.
+- Ověření 2026-05-31: `npm audit --audit-level=moderate` prošlo bez zranitelností, `npx vitest run tests/proxy.test.ts tests/hardening.test.ts` prošlo 31 testů, `npx playwright test` prošlo 9 testů a 4 authenticated runtime testy byly korektně přeskočené. `npm run check` prošlo s 556 Vitest testy, migrations check, type-check, lint a produkční build.
 - Doplněný měřitelný Google Business Profile CTA odkaz do booking share kitu. Odkaz používá existující bezpečný tracking zdroj `google`, `source_detail=business_profile` a UTM parametry.
 - Aktualizovaný `BookingShareKit` a `tests/booking-share-kit.test.ts`.
 - `npm run check` prošlo 2026-05-08 20:06 CEST po Google Business Profile CTA: 554 Vitest testů, migrations check, type-check, lint i produkční build.

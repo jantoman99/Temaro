@@ -3,7 +3,11 @@ import { expect, type Page } from "@playwright/test";
 import { randomUUID } from "node:crypto";
 
 export function hasSupabaseAdminRuntime() {
-  return Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY);
+  return Boolean(
+    process.env.E2E_AUTHENTICATED_SMOKE === "true" &&
+      process.env.NEXT_PUBLIC_SUPABASE_URL &&
+      process.env.SUPABASE_SERVICE_ROLE_KEY,
+  );
 }
 
 export function createAdminClient() {

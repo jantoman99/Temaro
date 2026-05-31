@@ -148,6 +148,12 @@ describe("proxy auth guard", () => {
     expect(response.headers.get("location")).toBe("http://localhost:3000/login?redirectedFrom=%2Faccount");
   });
 
+  it("pusti prihlaseni zakaznickeho uctu bez session cookie", async () => {
+    const response = await proxy(createRequest("/account/login"));
+
+    expect(response.status).toBe(200);
+  });
+
   it("chrani detail zakaznicke rezervace bez Supabase session cookie", async () => {
     const response = await proxy(createRequest("/account/bookings/11111111-1111-4111-8111-111111111111"));
 

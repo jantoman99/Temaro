@@ -1,6 +1,6 @@
 # Runtime checklist
 
-Aktualizováno: 2026-05-08 20:06 CEST
+Aktualizováno: 2026-05-31 19:56 CEST
 
 Tento checklist je pro první reálné ověření mimo demo režim.
 
@@ -22,6 +22,10 @@ curl -I http://localhost:3000
 
 Aktuální známý stav:
 
+- `npm run check` prošlo 2026-05-31 19:56 CEST po pre-demo hardeningu: 556 Vitest testů, migrations check, type-check, lint a produkční build.
+- `npm audit --audit-level=moderate` prošlo 2026-05-31 po aktualizaci Next.js na `16.2.6`: `found 0 vulnerabilities`.
+- `npx playwright test` prošlo 2026-05-31: 9 testů prošlo, 4 authenticated runtime testy byly přeskočené bez `E2E_AUTHENTICATED_SMOKE=true`. Pro reálný Supabase runtime smoke nastavit `E2E_AUTHENTICATED_SMOKE=true` a platné Supabase env.
+- Runtime ověřit, že `/demo-barber` zůstává dostupný i při nedostupné Supabase DB, `/account/login` nepadá do proxy redirectu a non-embed routy vrací `X-Frame-Options: DENY`.
 - `npm run check` prošlo 2026-05-08 20:06 CEST po Google Business Profile CTA: 554 Vitest testů, migrations check, type-check, lint a produkční build.
 - Google Business Profile CTA nevyžaduje migraci; runtime ověřit v `/booking-page`, že odkaz obsahuje `source=google`, `source_detail=business_profile` a UTM parametry a že rezervace z odkazu se propíše do reportingu zdrojů.
 - `npm run check` prošlo 2026-05-08 20:01 CEST po integracích: 554 Vitest testů, migrations check, type-check, lint a produkční build.

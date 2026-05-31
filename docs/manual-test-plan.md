@@ -17,6 +17,7 @@ Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 - Otevrit `http://localhost:3000`.
 - Otevřít `http://localhost:3000/api/health` a ověřit, že vrací JSON se `status`, `checks.env`, `checks.supabase`, `checks.rate_limit` a `version`; nesmí obsahovat konkrétní hodnoty tajných env proměnných.
 - Přes `curl -I http://localhost:3000` nebo DevTools Network ověřit, že response obsahuje `Content-Security-Policy`.
+- Přes `curl -I http://localhost:3000` nebo DevTools Network ověřit, že běžné routy obsahují `X-Frame-Options: DENY`; `/embed/booking/<slug>` ho mít nemá, protože booking widget musí jít vložit do iframe.
 - Zkontrolovat root landing page `/`: aktualni smer je `docs/15-design-system-v3.md` jako Temaro Signal OS, ne archivni design směry.
 - Zkontrolovat top bar landing page: musi obsahovat `Produkt`, `Pro koho`, `Ceník`, `Bezpečnost`, `Demo`, `Přihlášení` a primary CTA `Začít zdarma`.
 - Přepnout theme toggle mezi světlým a tmavým režimem; landing se nesmí vizuálně rozpadnout ani ztratit kontrast textu.
@@ -24,7 +25,7 @@ Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 - Proklikat top bar kotvy a overit, ze vedou na odpovidajici sekce, ne na prazdne nebo neexistujici stranky.
 - Na mobilni sirce zkontrolovat, ze top navigace nezmizi a jde horizontalne posouvat.
 - Na landing page zkontrolovat hero: eyebrow `Rezervační systém pro služby`, claim `Méně telefonátů. Klidnější provoz.`, subhead pro salony/ordinace/trenéry/autoservisy a primary CTA `Začít zdarma`.
-- Pod hero CTA zkontrolovat proof metriky s aktuálním počtem automatických testů, `0 %`, `24 h`; nemaji byt duplicitne zopakovane jako samostatna spodni proof sekce.
+- Pod hero CTA zkontrolovat proof metriky s aktuálním počtem automatických testů `556`, `0 %`, `24 h`; nemaji byt duplicitne zopakovane jako samostatna spodni proof sekce.
 - Na landing page zkontrolovat sekci `Dva typy účtů`: podnikatelský účet vede na `/register`, zákaznický účet vede na `/account/login`.
 - Na landing page zkontrolovat sekci další produktové vrstvy: vyhledání podniků, mapa podniku a plný Google Calendar sync jsou komunikované jako další vrstva, ne jako hotová funkce.
 - Otevřít `/podniky`, ověřit demo/veřejný výpis, hledání podle textu, města a oboru, booking CTA a odkaz `Otevřít mapu`.
@@ -45,6 +46,7 @@ Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 - Google OAuth runtime test je odložený až po zakoupení produkční domény; do té doby Google provider v Supabase nezapínat.
 - Po zakoupení domény na `/register` vyplnit název podniku a jméno vlastníka, kliknout `Vytvořit podnik přes Google` a ověřit, že po callbacku vznikne nový tenant a dashboard se otevře jako owner.
 - Po zakoupení domény otevřít `/account/login`, přihlásit se Google účtem bez tenant metadata a ověřit, že `/account` zobrazí jen rezervace podle ověřeného e-mailu.
+- Před Google OAuth runtime testem ověřit, že `/account/login` bez session cookie zobrazuje zákaznický login a nepřesměruje na `/login`.
 - V `/account` kliknout na `Detail rezervace`; `/account/bookings/<bookingId>` má zobrazit jen rezervaci patřící klientovi se stejným ověřeným e-mailem, bez interních poznámek podniku.
 - V `/account` ověřit oddělené sekce `Aktivní rezervace` a `Minulé a uzavřené termíny`; completed/cancelled/no-show rezervace mají být v historii.
 - V `/account/profile` ověřit zobrazení ověřeného e-mailu, změnu jména/telefonu a propsání do klientských záznamů se stejným e-mailem; interní poznámky podniku se nesmí zobrazit.

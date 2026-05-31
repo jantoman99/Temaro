@@ -106,7 +106,7 @@ const trustItems = [
 ] as const;
 
 const proofMetrics = [
-  ["448", "automatických testů chrání core flow"],
+  ["556", "automatických testů chrání core flow"],
   ["0 %", "marketplace provize z vlastních klientů"],
   ["24 h", "reminder vrstva připravená pro ostrý provoz"],
 ] as const;
@@ -455,7 +455,7 @@ export default async function Home() {
             </article>
           ))}
           <article className="motion-reveal rounded-xl border border-border bg-card p-5 shadow-sm">
-            <p className="nums-tabular text-3xl font-semibold text-primary">422</p>
+            <p className="nums-tabular text-3xl font-semibold text-primary">556</p>
             <p className="mt-2 text-sm font-bold text-foreground">automatických testů</p>
             <p className="mt-1 text-xs font-medium leading-5 text-muted-foreground">Core flow hlídané před pilotem.</p>
           </article>

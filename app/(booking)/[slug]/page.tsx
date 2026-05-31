@@ -136,6 +136,49 @@ function PublicBookingLoadError() {
   );
 }
 
+function DemoBookingPage({
+  slug,
+  sourceTracking,
+}: {
+  slug: string;
+  sourceTracking: ReturnType<typeof getBookingSourceTracking>;
+}) {
+  const timeZone = getSafeTimeZone(demoTenant.timezone);
+  const jsonLd = buildTenantLocalBusinessJsonLd({ services: demoServices, tenant: demoTenant });
+  const availabilitySlots = getAvailabilitySlots({
+    bookings: demoBookings,
+    services: demoServices,
+    staff: demoStaff,
+    timeZone,
+  });
+
+  return (
+    <main className="signal-hero signal-grid min-h-screen px-4 py-10 text-foreground">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <div className="mx-auto grid w-full max-w-6xl gap-6 lg:grid-cols-[0.86fr_1.14fr]">
+        <div className="lg:col-span-2">
+          <DemoBanner />
+        </div>
+        <BookingHeader
+          description="Tohle je ukázková veřejná rezervační stránka. Rezervace se zatím reálně neukládá."
+          eyebrow="Demo booking"
+          name={demoTenant.name}
+        />
+        <PublicBookingForm
+          availabilitySlots={availabilitySlots}
+          services={demoServices}
+          slug={slug}
+          sourceTracking={sourceTracking}
+          staff={demoStaff}
+        />
+      </div>
+    </main>
+  );
+}
+
 export default async function BookingPage({ params, searchParams }: BookingPageProps) {
   const { slug: rawSlug } = await params;
   const sourceTracking = getBookingSourceTracking(await searchParams);
@@ -148,40 +191,7 @@ export default async function BookingPage({ params, searchParams }: BookingPageP
   const slug = parsedSlug.data;
 
   if (!hasSupabaseAdminEnv()) {
-    const timeZone = getSafeTimeZone(demoTenant.timezone);
-    const jsonLd = buildTenantLocalBusinessJsonLd({ services: demoServices, tenant: demoTenant });
-    const availabilitySlots = getAvailabilitySlots({
-      bookings: demoBookings,
-      services: demoServices,
-      staff: demoStaff,
-      timeZone,
-    });
-
-    return (
-    <main className="signal-hero signal-grid min-h-screen px-4 py-10 text-foreground">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <div className="mx-auto grid w-full max-w-6xl gap-6 lg:grid-cols-[0.86fr_1.14fr]">
-          <div className="lg:col-span-2">
-            <DemoBanner />
-          </div>
-          <BookingHeader
-            description="Tohle je ukázková veřejná rezervační stránka. Rezervace se zatím reálně neukládá."
-            eyebrow="Demo booking"
-            name={demoTenant.name}
-          />
-          <PublicBookingForm
-            availabilitySlots={availabilitySlots}
-            services={demoServices}
-            slug={slug || demoTenant.slug}
-            sourceTracking={sourceTracking}
-            staff={demoStaff}
-          />
-        </div>
-      </main>
-    );
+    return <DemoBookingPage slug={slug || demoTenant.slug} sourceTracking={sourceTracking} />;
   }
 
   const supabase = createAdminClient();
@@ -192,46 +202,17 @@ export default async function BookingPage({ params, searchParams }: BookingPageP
     .is("deleted_at", null)
     .maybeSingle();
 
+  if (tenantError && slug === demoTenant.slug) {
+    return <DemoBookingPage slug={demoTenant.slug} sourceTracking={sourceTracking} />;
+  }
+
   if (tenantError) {
     return <PublicBookingLoadError />;
   }
 
   if (!tenant) {
     if (slug === demoTenant.slug) {
-      const demoTimeZone = getSafeTimeZone(demoTenant.timezone);
-      const jsonLd = buildTenantLocalBusinessJsonLd({ services: demoServices, tenant: demoTenant });
-      const availabilitySlots = getAvailabilitySlots({
-        bookings: demoBookings,
-        services: demoServices,
-        staff: demoStaff,
-        timeZone: demoTimeZone,
-      });
-
-      return (
-    <main className="signal-hero signal-grid min-h-screen px-4 py-10 text-foreground">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <div className="mx-auto grid w-full max-w-6xl gap-6 lg:grid-cols-[0.86fr_1.14fr]">
-            <div className="lg:col-span-2">
-              <DemoBanner />
-            </div>
-            <BookingHeader
-              description="Tohle je ukázková veřejná rezervační stránka. Rezervace se zatím reálně neukládá."
-              eyebrow="Demo booking"
-              name={demoTenant.name}
-            />
-            <PublicBookingForm
-              availabilitySlots={availabilitySlots}
-              services={demoServices}
-              slug={demoTenant.slug}
-              sourceTracking={sourceTracking}
-              staff={demoStaff}
-            />
-          </div>
-        </main>
-      );
+      return <DemoBookingPage slug={demoTenant.slug} sourceTracking={sourceTracking} />;
     }
 
     notFound();
