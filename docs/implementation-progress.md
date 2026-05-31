@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Aktualizováno: 2026-06-01 00:30 CEST
+Aktualizováno: 2026-06-01 00:41 CEST
 
 Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historické analýzy a staré design audity jsou přesunuté do `docs/archive/`.
 
@@ -113,6 +113,7 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 
 ## Poslední změna
 
+- Navazující landing/design úkol pro další session: aktuální demo je funkční a nasazené, ale portfolio dojem není hotový. Opravit reference na naše vygenerované segmentové obrázky `public/marketing/*-ai.webp`, odstranit slabé copy `Postaveno v Brně`, přestavět hero produktový náhled tak, aby odpovídal reálnému systému, a screenshotově projít desktop/mobil před dalším deployem.
 - Landing hero mockup opravený po vizuálním regresu: odstraněný viewport-based `2xl` dvousloupec a pravý `Booking náhled`, protože se zapínal podle šířky okna místo skutečné šířky komponenty a rozbíjel lineární layout. Mockup je teď jeden konzistentní panel.
 - Ověření 2026-06-01 00:23 CEST: `npm run check` prošlo s 556 Vitest testy, migrations check, type-check, lint a produkční build. Playwright screenshoty na 1470x956 a 1800x956 a proklik na 1366/1470/1536/1800 px potvrdily stabilní šířku mockupu a `bookingPanel=false`.
 - Vercel production deploy `dpl_GTBd3UAtuQhYg6Jhzz1epxNhmhvX` je na aliasu `https://rezervacni-system-xi.vercel.app`; externí smoke 2026-06-01 00:27 CEST prošel 8/8 a produkční měření 1470/1800 px potvrdilo `bookingPanel=false`.

@@ -21,7 +21,7 @@ Důležité chování:
 - Ruční testy jsou odložené do `docs/manual-test-plan.md`.
 - Dokumentaci aktualizuj při smysluplné změně.
 
-Aktuální stav 2026-06-01 00:30 CEST:
+Aktuální stav 2026-06-01 00:41 CEST:
 - Produkt se jmenuje `Temaro`.
 - Codex CLI profily jsou v `~/.codex/config.toml`; projektový `.codex/config.toml` už neobsahuje nepodporované `profiles`.
 - Supabase MCP config je nastavený pro projekt `dkbnuvrrmegnbnwungvi` a OAuth login byl obnovený; pokud se auth chyba vrátí, spustit `codex mcp login supabase`.
@@ -113,6 +113,7 @@ Aktuální stav 2026-06-01 00:30 CEST:
 - Lokálně zkontrolované screenshoty homepage na 1366x768, 390x1200 a full-page 1366x900; Playwright proklik mockupu a public route smoke prošly bez console errors.
 - Ověření landing fixu 2026-06-01 00:23 CEST: `npm run check` prošlo s 556 Vitest testy, migrations check, type-check, lint a produkční build; Playwright screenshoty 1470x956 a 1800x956 a měření na 1366/1470/1536/1800 px potvrdily stabilní šířku a `bookingPanel=false`.
 - Vercel production deploy `dpl_GTBd3UAtuQhYg6Jhzz1epxNhmhvX` je na aliasu `https://rezervacni-system-xi.vercel.app`; externí public smoke prošel 2026-06-01 00:27 CEST 8/8 a produkční měření 1470/1800 px potvrdilo stabilní šířku a `bookingPanel=false`.
+- Další navázání: landing je funkční, ale portfolio vizuál není hotový. Opravit reference na naše vygenerované obrázky `public/marketing/*-ai.webp`, odstranit copy `Postaveno v Brně`, přestavět hero produktový náhled podle reálného dashboardu/kalendáře/bookingu/klientského účtu a vyřešit prázdný spacing mezi herem a další sekcí. Před deployem udělat Playwright screenshoty desktop/mobil.
 - `npx playwright test` prošlo 2026-05-31: 9 testů prošlo, 4 authenticated runtime testy se bez `E2E_AUTHENTICATED_SMOKE=true` přeskočily.
 - `npm run check` prošlo 2026-05-08 18:41 CEST po pobočkách: 521 Vitest testů, migrations check, type-check, lint i produkční build.
 - `npm run check` prošlo 2026-05-08 18:11 CEST po resources vrstvě: 517 Vitest testů, migrations check, type-check, lint i produkční build.
