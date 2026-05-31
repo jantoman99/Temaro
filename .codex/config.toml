@@ -1,0 +1,13 @@
+# Codex CLI – Konfigurace projektu
+# Rezervační systém
+
+# ─── Výchozí model a reasoning ───────────────────────────────────────────────
+
+model = "gpt-5.4"
+model_reasoning_effort = "medium"
+model_reasoning_summary = "auto"
+
+# ─── Subagenti ───────────────────────────────────────────────────────────────
+
+[agents]
+max_depth = 1

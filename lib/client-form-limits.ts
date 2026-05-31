@@ -1,0 +1,2 @@
+export const CLIENT_NOTES_MAX_LENGTH = 1000;
+export const CLIENT_FLAG_REASON_MAX_LENGTH = 500;

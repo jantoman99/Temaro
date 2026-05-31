@@ -1,0 +1,385 @@
+# Manualni test plan
+
+Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
+
+## 1. Priprava
+
+- Doplnit `.env.local`.
+- Spustit `npm run env:check`.
+- Spustit migrace v Supabase.
+- Po migracích spustit `npm run runtime:schema-smoke`; musí projít kontroly `service_deposit_policy`, `booking_payments`, `calendar_feed_tokens` a `staff_directory_metrics`.
+- Aktuální připojená Supabase databáze má runtime schema smoke ověřené 2026-05-03 14:20 CEST; další ruční test může rovnou ověřovat zálohy, platby a iCal UI.
+- Přihlášený Playwright smoke 2026-05-03 15:46 CEST automaticky ověřil vytvoření, veřejné načtení iCal feedu, odvolání feedu a 404 na původní `.ics` URL; ručně ještě ověřit subjektivní UI.
+- Pokud chceš plný kalendář a klientská data, spustit `npm run seed:demo`.
+- Po seedu zkontrolovat, že dashboard, služby, tým, klienti a kalendář nejsou prázdné.
+- V kalendáři má být vidět mix stavů pending, confirmed, completed, cancelled a no-show.
+- Spustit aplikaci pres `npm run dev` nebo `start-localhost.bat`.
+- Otevrit `http://localhost:3000`.
+- Otevřít `http://localhost:3000/api/health` a ověřit, že vrací JSON se `status`, `checks.env`, `checks.supabase`, `checks.rate_limit` a `version`; nesmí obsahovat konkrétní hodnoty tajných env proměnných.
+- Přes `curl -I http://localhost:3000` nebo DevTools Network ověřit, že response obsahuje `Content-Security-Policy`.
+- Zkontrolovat root landing page `/`: aktualni smer je `docs/15-design-system-v3.md` jako Temaro Signal OS, ne archivni design směry.
+- Zkontrolovat top bar landing page: musi obsahovat `Produkt`, `Pro koho`, `Ceník`, `Bezpečnost`, `Demo`, `Přihlášení` a primary CTA `Začít zdarma`.
+- Přepnout theme toggle mezi světlým a tmavým režimem; landing se nesmí vizuálně rozpadnout ani ztratit kontrast textu.
+- Ověřit, že theme toggle nabízí jen `Světlý` a `Tmavý`; volba `System` nemá být v UI.
+- Proklikat top bar kotvy a overit, ze vedou na odpovidajici sekce, ne na prazdne nebo neexistujici stranky.
+- Na mobilni sirce zkontrolovat, ze top navigace nezmizi a jde horizontalne posouvat.
+- Na landing page zkontrolovat hero: eyebrow `Rezervační systém pro služby`, claim `Méně telefonátů. Klidnější provoz.`, subhead pro salony/ordinace/trenéry/autoservisy a primary CTA `Začít zdarma`.
+- Pod hero CTA zkontrolovat proof metriky s aktuálním počtem automatických testů, `0 %`, `24 h`; nemaji byt duplicitne zopakovane jako samostatna spodni proof sekce.
+- Na landing page zkontrolovat sekci `Dva typy účtů`: podnikatelský účet vede na `/register`, zákaznický účet vede na `/account/login`.
+- Na landing page zkontrolovat sekci další produktové vrstvy: vyhledání podniků, mapa podniku a plný Google Calendar sync jsou komunikované jako další vrstva, ne jako hotová funkce.
+- Otevřít `/podniky`, ověřit demo/veřejný výpis, hledání podle textu, města a oboru, booking CTA a odkaz `Otevřít mapu`.
+- Na landing page zkontrolovat signal-grid pozadi na desktopu, neutral/command produktovy mockup, fialovo-modry brand signal a konkretni provozni copy.
+- Na landing page zkontrolovat product mockup: musi mit produktovy chrome, command hint a kapacitni graf, ne jen statickou kartu.
+- V hero product mockupu proklikat scénáře `Dnes`, `Booking` a `Klient`; metriky a checkout panel se mají měnit bez reloadu stránky.
+- Na landing page zkontrolovat nove sekce `Pro koho`, `Ceník` a `Bezpečnost`: maji pusobit jako realny SaaS web, ne jako placeholder text pod hero sekci.
+- Zkontrolovat tmavou sekci `Rezervační tok`; má rozbíjet monotónnost karet a vysvětlit flow klient -> kalendář -> historie.
+- Zkontrolovat novou sekci `Bento provozu`; má rozbíjet lineární scroll a být čitelná na desktopu i mobilu.
+- Zkontrolovat novou sekci `Praktické návody`; má prolinkovat `/rezervacni-system-pro-barbery`, `/rezervacni-system-pro-kadernictvi`, `/rezervacni-system-pro-kosmeticky-salon`, `/rezervacni-system-pro-masaze`, `/jak-snizit-no-show`, `/sms-pripominky-rezervaci` a `/rezervacni-system-bez-marketplace-provizi`.
+- Zkontrolovat `Signal Map` sekci; má působit jako vlastní brand motiv Temara, ne jako další běžná card sekce.
+- V `Ceník` zkontrolovat karty `Pilot`, `Solo`, `Tým` a to, ze finalni ceny nejsou falesne vymyslene.
+- Zkontrolovat, ze landing nepouziva falesne reference; ověřitelné projektové metriky jsou v hero proof baru.
+- Na landing page zkontrolovat, ze produktovy mockup vypada jako provozni konzole se signaly dne, ne jako genericky bily wireframe.
+- Zkontrolovat, ze prohlizec pouziva Temaro favicon a ze SVG loga v `public/brand` maji transparentni pozadi.
+- Otevrit `http://localhost:3000/design-preview` a zkontrolovat, ze presmeruje na aktualni homepage; zastarale preview uz nema byt samostatny zdroj pravdy.
+- Otevrit `/login` a `/register` a zkontrolovat centrovane auth karty s Temaro logem, bez marketing hero bloku a demo dat.
+- Google OAuth runtime test je odložený až po zakoupení produkční domény; do té doby Google provider v Supabase nezapínat.
+- Po zakoupení domény na `/register` vyplnit název podniku a jméno vlastníka, kliknout `Vytvořit podnik přes Google` a ověřit, že po callbacku vznikne nový tenant a dashboard se otevře jako owner.
+- Po zakoupení domény otevřít `/account/login`, přihlásit se Google účtem bez tenant metadata a ověřit, že `/account` zobrazí jen rezervace podle ověřeného e-mailu.
+- V `/account` kliknout na `Detail rezervace`; `/account/bookings/<bookingId>` má zobrazit jen rezervaci patřící klientovi se stejným ověřeným e-mailem, bez interních poznámek podniku.
+- V `/account` ověřit oddělené sekce `Aktivní rezervace` a `Minulé a uzavřené termíny`; completed/cancelled/no-show rezervace mají být v historii.
+- V `/account/profile` ověřit zobrazení ověřeného e-mailu, změnu jména/telefonu a propsání do klientských záznamů se stejným e-mailem; interní poznámky podniku se nesmí zobrazit.
+- Z detailu vlastní pending/confirmed rezervace v `/account/bookings/<bookingId>` kliknout `Zrušit rezervaci`; očekávání je změna stavu na `cancelled`, audit event `cancelled`, přeskočené remindery, revokované manage tokeny a cancellation e-mail.
+- Z detailu vlastní pending/confirmed rezervace v `/account/bookings/<bookingId>` vybrat nový termín a kliknout `Přesunout rezervaci`; očekávání je změna termínu, audit event `rescheduled`, přeskočené staré remindery, nový manage token, reschedule e-mail a nový reminder.
+- U rezervace po storno lhůtě ověřit, že tlačítko zrušení v zákaznickém účtu je blokované a vysvětluje důvod podle storno pravidel.
+- Otevřít cizí nebo neplatné `/account/bookings/<bookingId>`; očekávání je 404 nebo login redirect, nikdy zobrazení cizí rezervace.
+- Automatika už ověřuje, že `/account/login` renderuje zákaznický Google vstup; reálný Supabase Google callback a data v `/account` ověřit až po doméně.
+- Ověřit, že stejný zákaznický účet bez tenant metadata nemá přístup do `/dashboard`, `/calendar`, `/clients`, `/services`, `/staff`, `/settings` ani `/payments`.
+- Otevřít `/rezervacni-system-pro-barbery` a ověřit title/hero/FAQ/CTA, desktop i mobil, světlý i tmavý režim.
+- Otevřít `/rezervacni-system-pro-kadernictvi` a ověřit title/hero/FAQ/CTA, desktop i mobil, světlý i tmavý režim.
+- Otevřít `/rezervacni-system-pro-kosmeticky-salon` a ověřit title/hero/FAQ/CTA, desktop i mobil, světlý i tmavý režim.
+- Otevřít `/rezervacni-system-pro-masaze` a ověřit title/hero/FAQ/CTA, desktop i mobil, světlý i tmavý režim.
+- Otevřít `/rezervacni-system-pro-wellness` a ověřit title/hero/FAQ/CTA, desktop i mobil, světlý i tmavý režim.
+- Otevřít `/jak-snizit-no-show` a ověřit article layout, FAQ, interní odkazy a CTA, desktop i mobil, světlý i tmavý režim.
+- Otevřít `/sms-pripominky-rezervaci` a ověřit article layout, FAQ, interní odkazy a CTA, desktop i mobil, světlý i tmavý režim.
+- Otevřít `/rezervacni-system-bez-marketplace-provizi` a ověřit article layout, FAQ, interní odkazy a CTA, desktop i mobil, světlý i tmavý režim.
+- Ve footeru homepage ověřit odkazy `Pro barbery`, `Pro kadeřnictví`, `Pro beauty salon`, `Pro masáže`, `No-show guide`, `SMS připomínky` a `Bez marketplace provizí`.
+- Po prihlaseni otevrit dashboard a zkontrolovat Signal OS shell: Temaro logo v tmavem ink sidebaru, fialovo-modry aktivni signal, topbar search, CTA pro novou rezervaci a logout.
+- Na desktopu zkontrolovat, že dashboard entity neplavou v úzkém centrovaném sloupci; pracovní plocha má využívat dostupnou šířku mezi sidebarem a pravým okrajem.
+- Na mobilni sirce dashboardu zkontrolovat horizontalni app navigaci pod topbarem, protoze desktop sidebar je skryty.
+- Zkontrolovat, ze dashboard sidebar nepusobi jako stary marketingovy shell, ale jako provozni konzole s citelnym aktivnim stavem.
+- Proklikat sidebar a mobilni app navigaci: aktivni stav se musi prepnout podle aktualni URL (`Přehled`, `Kalendář`, `Start`, `Booking stránka`, `Klienti`, `Služby`, `Tým`, `Platby`, `Reporty`, `Nastavení`), ne zustavat porad na `Přehled`.
+- Proklikat novou sekci `Import` v sidebaru i mobilní navigaci; bez session musí `/import` přesměrovat na login.
+- Proklikat novou sekci `Pobočky`; bez session musí `/locations` přesměrovat na login.
+- V `Pobočky` vytvořit primární pobočku s adresou, kontaktem a souřadnicemi; ověřit, že se zobrazí štítek `Primární`, stav `Aktivní` a uložená adresa.
+- V `Pobočky` vytvořit druhou pobočku bez primárního stavu; ověřit, že původní primární zůstane primární.
+- V `Pobočky` vytvořit novou pobočku jako primární; ověřit, že původní primární se přepne na běžnou pobočku.
+- V `Pobočky` zkusit uložit jen jednu souřadnici bez druhé; očekávání je validační chyba před zápisem.
+- Proklikat novou sekci `Lekce`; bez session musí `/classes` přesměrovat na login.
+- V `Lekce` vytvořit skupinovou lekci se službou, začátkem, koncem a kapacitou; ověřit zobrazení obsazenosti `0/N`.
+- V `Lekce` přihlásit klienta na lekci; obsazenost se má zvýšit a účastník se má objevit v seznamu.
+- V `Lekce` zkusit přihlásit stejného klienta znovu; očekávání je bezpečná chyba bez interního DB detailu.
+- V `Lekce` otestovat plnou kapacitu na malé lekci, například kapacita 1; druhý klient se nesmí přihlásit.
+- Proklikat novou sekci `Referral`; bez session musí `/referrals` přesměrovat na login.
+- V `Referral` vytvořit doporučovací program, vydat kód klientovi a ověřit, že celý kód se zobrazí jen po vydání, zatímco v seznamu je jen poslední čtyřčíslí.
+- Proklikat novou sekci `Provize`; bez session musí `/commissions` přesměrovat na login.
+- V `Provize` nastavit procentní pravidlo pro člena týmu, ověřit zobrazení pravidla a výpočet odhadu provize podle zaplacených plateb za posledních 30 dní.
+- V `Provize` nastavit fixní pravidlo za hotovou rezervaci a ověřit, že odhad provize odpovídá počtu hotových rezervací.
+- Proklikat novou sekci `Recovery`; bez session musí `/recovery` přesměrovat na login.
+- V `Recovery` vytvořit nabídku uvolněného termínu se službou, časem, volitelným členem týmu, slevou a poznámkou; očekávání je zobrazení nabídky v seznamu bez automatického odeslání klientům.
+- V `Recovery` přidat klienta k nabídce; očekávání je zvýšení počtu klientů u nabídky a zobrazení klienta v seznamu vybraných klientů.
+- V `Recovery` zkusit přidat stejného klienta ke stejné nabídce znovu; očekávání je bezpečná chyba bez interního DB detailu.
+- Proklikat novou sekci `Integrace`; bez session musí `/integrations` přesměrovat na login.
+- V `Integrace` vytvořit API klíč, ověřit jednorázové zobrazení raw tokenu a po refreshi ověřit, že zůstává jen prefix a poslední čtyři znaky.
+- Zavolat `GET /api/partners/v1/bookings?limit=10` s hlavičkou `Authorization: Bearer <token>`; odpověď má vrátit jen rezervace daného tenantu a nikdy `token_hash`.
+- V `Integrace` API klíč odvolat a zopakovat stejné API volání; očekávání je `401 Unauthorized`.
+- Na dashboardu zkontrolovat, ze hlavni plocha resi denni provoz a neobsahuje onboarding checklist; prvni kroky maji byt v samostatne sekci `Start`.
+- Otevrit `Start` a zkontrolovat onboarding checklist oddeleny od bezneho provozniho dashboardu.
+- V `Start` změnit `Obor podniku`, uložit a ověřit, že se zobrazí úspěšná hláška a doporučené šablony služeb odpovídají vybranému segmentu.
+- Ze `Start` kliknout na doporučenou šablonu služby; `/services?template=...` má otevřít služby s předvyplněným formulářem pro daný obor.
+- Automatika už ověřuje, že nově registrovaný owner otevře `/start`; ručně pořád ověřit hlavně UX checklistu a návaznost odkazů.
+- Otevrit `Booking stránka` a zkontrolovat nahled zákaznického pohledu, verejny odkaz, popis, barvu, logo a cover fotku.
+- V `Booking stránka` zmenit barvu nebo veřejný popis, ulozit a otevrit verejny booking odkaz; zmena se ma propsat do veřejné stránky.
+- V `Booking stránka` vyplnit vlastní text potvrzení, připomínky a zrušení; uložit a při runtime testu ověřit, že se text objeví v příslušném e-mailu bez odstranění termínu, služby a manage odkazu.
+- V `Booking stránka` nahrat logo a úvodní fotku pres file input; po uložení se mají zobrazit v náhledu i ve veřejném bookingu.
+- V `Booking stránka` zkopírovat booking button embed kód, vložit ho do jednoduché HTML stránky a ověřit, že se zobrazí tlačítko `Rezervovat termín` vedoucí na veřejný booking odkaz podniku.
+- V `Booking stránka` zkopírovat iframe widget embed kód, vložit ho do jednoduché externí HTML stránky a ověřit, že se zobrazí celý booking flow bez rozbití stylů hostující stránky.
+- U iframe widgetu ověřit, že snippet neobsahuje tenant ID ani query string s interními hodnotami, iframe míří na `/embed/booking/[slug]?source=widget`, má `loading="lazy"`, sandbox/referrer policy a rezervace se uloží se zdrojem `widget`.
+- Ověřit přes response headers, že běžné admin/booking routy mají `frame-ancestors 'none'`, zatímco pouze `/embed/booking/[slug]` má widget CSP s povoleným framováním.
+- Na veřejném booking odkazu otevřít zdroj stránky nebo DevTools Elements a ověřit přítomnost `application/ld+json` s `LocalBusiness` a `Service`; data nesmí obsahovat interní tenant ID.
+- Automatika už ověřuje browser render booking button embedu pro `demo-barber`; ručně pořád ověřit snippet vygenerovaný konkrétním tenantem z `/booking-page`.
+- U embed tlačítka ověřit, že funguje i po změně brand barvy; iframe widget ověřit samostatně podle kroků výše.
+- V `Booking stránka` ověřit sdílecí kit: bio text, story/post text a QR kód. QR obrázek se nesmí blokovat CSP hlavičkou.
+- V `Booking stránka` ověřit Google Business Profile booking CTA odkaz: musí obsahovat `source=google`, `source_detail=business_profile`, `utm_source=google`, `utm_medium=profile` a `utm_campaign=booking_cta`.
+- Přes Google Business Profile CTA odkaz vytvořit testovací rezervaci a v kalendáři/reportingu ověřit zdroj `Google`.
+- Automatika už ověřuje, že nově registrovaný owner vidí v `/booking-page` share kit, embed sekci a náhled rezervačního tlačítka; ručně pořád ověřit konkrétní tenant branding a QR obrázek v prohlížeči.
+- V `Nastavení` vybrat `Obor podniku`, vyplnit `Veřejný katalog a mapa`, zapnout zalistování a ověřit, že se obor/adresa/mapový odkaz propíše do veřejné booking stránky i `/podniky`.
+- V `Nastavení` vyplnit `Odkaz na recenze`, uložit a ověřit, že validní HTTPS URL projde; neplatný text má vrátit validační chybu.
+- Po vyplnění `Odkaz na recenze` dokončit potvrzenou rezervaci v kalendáři a ověřit, že klient s e-mailem dostane review request; v `notifications` má vzniknout záznam `type = review_request`.
+- Zopakovat dokončení rezervace u tenantu bez `review_url`; očekávání je dokončená rezervace bez review e-mailu a bez interní chyby v UI.
+- V `Služby` ověřit, že panel `Šablony služeb` odpovídá oboru podniku; klik na šablonu má předvyplnit formulář `Přidat službu` a po úpravě má jít službu uložit běžným flow.
+- Na dashboardu zkontrolovat 7denní trend rezervací a měsíční rozpad stavů.
+- Na dashboardu zkontrolovat `Obsazenost dnes` a `No-show rate měsíc`; hodnoty mají být procenta a nesmí padat při nulových rezervacích nebo nulových volných slotech.
+- Pri prihlaseni a prechodech mezi admin strankami sledovat subjektivni rychlost; pokud bude UI stale pusobit pomalu i po request cache auth helperu, zmerit konkretni route timing v devtools.
+- Zkontrolovat, ze brand primary barva je jen na logu, CTA, aktivni navigaci a vybranych volbach; success/warning/risk barvy maji zustat jen u skutecnych stavu rezervaci nebo systemove zpetne vazby.
+- Zkontrolovat hlavni buttony napric aplikaci: zadna hardcoded modra, zadny lift hover, zadny `font-black`; primary button ma `bg-primary`, mensi radius a jen jemny `shadow-sm`.
+- Na dashboardu zkontrolovat hustotu dat: zadny dekorativni hero greeting, jen maly header a rovnou provozni data.
+- Otevrit verejny booking odkaz podniku a zkontrolovat mobile-first flow: service cards, vyber poskytovatele, time grid, kontaktni pole a summary CTA.
+- Na verejnem booking odkazu zkontrolovat desktop split layout: levy command brand panel, pravy appointment checkout a sirsi layout nez puvodnich 480 px.
+- Na verejnem booking odkazu zkontrolovat, ze booking pusobi jako checkout, ne jako obycejny formular.
+- Na verejnem booking odkazu zkontrolovat horní progress rámec formuláře: služba, termín, kontakt.
+- Na verejnem booking odkazu zkontrolovat, ze horní rámec průběžně ukazuje vybranou službu a termín.
+- Na kalendari zkontrolovat, ze prazdny pravy panel neni videt, dokud neni vybrana rezervace nebo draft rucni rezervace, a ze tydenni pohled zobrazuje staff sloupce i pro zamestnance bez rezervaci.
+- Na kalendáři zkontrolovat, že starý signal strip `zobrazeno / dnes / čeká` už není v hlavní pracovní ploše.
+- Na kalendáři zkontrolovat denní a týdenní pohled: hlavičky, radiusy, hover stavy a čitelnost booking karet.
+- Na týdenním kalendáři zkontrolovat Google-like chování: dny v týdnu jsou sloupce, čas je vlevo a rezervace jsou barevné eventy v jedné mřížce.
+- Na kalendáři zkontrolovat, že se nezobrazují redundantní texty typu `Zobrazeno X z Y`, počty v toolbaru nebo počty rezervací vedle data dne.
+- Na kalendáři zkontrolovat, že hlavní přepínač ukazuje jen `Den` a `Týden`; `Tým` nemá být prominentní volba v základním UI.
+- U rozsahu týdne/dne v hlavičce kalendáře zkontrolovat šipky zpět/vpřed a ověřit, že přepínají správné období.
+- V hlavičce kalendáře vybrat konkrétní datum přes date input a ověřit, že kalendář skočí na daný den.
+- V hlavičce kalendáře přepnout rozsah na `1 den`, `3 dny` a `7 dní`; ověřit, že třídenní pohled začíná vybraným datem.
+- V denním pohledu zkontrolovat, že se zobrazuje časová mřížka s jedním sloupcem dne, ne seznam velkých tlačítek `Volný slot`.
+- Na týdenním kalendáři zkontrolovat překryvy: ve stejném čase má být vidět více rezervací různých zaměstnanců vedle sebe/ve vrstvách.
+- Při zapnutí více zaměstnanců zkontrolovat subjektivní čitelnost překryvů; při 8+ lidech je potřeba rozhodnout, jestli defaultně ukazovat jen osobní/favoritní vrstvy, skupiny nebo samostatný staff-lanes režim.
+- Ve filtru zaměstnanců zkontrolovat checkboxy: výběr jednoho nebo více zaměstnanců mění viditelné vrstvy v kalendáři.
+- Ve filtru zaměstnanců zkontrolovat, že barevná tečka je u každého jména jen jednou.
+- U zaměstnance otevřít `Barva`, vybrat barvu z palety, obnovit kalendář a ověřit změnu barvy jeho rezervací.
+- Zkontrolovat, že barvy rezervací jsou výraznější než původní pastelové pozadí, ale stále nebijí do očí.
+- Na týdenním kalendáři zkontrolovat, že předchozí/další přepíná po týdnech.
+- Na týdenním kalendáři zkusit kliknout a táhnout v prázdném slotu; má se otevřít popup nové ruční rezervace s předvybraným časem.
+- Na týmovém kalendáři zkontrolovat, že zobrazuje jeden vybraný den se sloupci zaměstnanců, ne sedm dnů pod sebou.
+- Na týmovém kalendáři zkontrolovat, že krátké booking karty nepřetékají, používají barevný signál zaměstnance/stavu a že pod kalendářem není duplicitní seznam všech rezervací.
+- Na týmovém kalendáři zkontrolovat, že tlačítka předchozí/další přepínají po dnech.
+- Na kalendáři zkontrolovat, že hledání, stav, zdroj a zaměstnanci jsou v pravém filtračním panelu, ne jako velký blok nad mřížkou.
+- Na kalendáři zkontrolovat, že přepínání období a `Den / Týden` je v hlavičce kalendářového rámu.
+- V týmovém kalendáři kliknout do prázdného místa ve sloupci zaměstnance, táhnout přes čas a pustit; má se otevřít popup nové ruční rezervace s předvybraným zaměstnancem a časem.
+- V týdenním/team kalendáři kliknout na existující rezervaci; detail se má otevřít jako popup nad kalendářem, ne jako iframe ani boční panel.
+- Zavřít popup klikem mimo obsah nebo tlačítkem zavření a ověřit, že zůstane stejný kalendářový pohled, den a filtry.
+- Automatika už ověřuje render reálné rezervace v kalendáři přes přihlášený Playwright smoke test; ručně pořád ověřit hlavně drag-to-create a ruční formulář nové rezervace.
+- Automatika už ověřuje i vytvoření ruční rezervace přes admin formulář; ručně pořád ověřit hlavně běžný klik/drag pocit, předvyplnění času a návrat do správného kalendářového období.
+
+## 2. Registrace a dashboard
+
+- Kliknout na registraci.
+- Vytvorit novy podnik.
+- Po registraci zkontrolovat, ze se otevrel dashboard.
+- Zkontrolovat, ze dashboard ukazuje onboarding a rychle akce.
+
+## 3. Nastaveni podniku
+
+- Otevrit `Nastaveni`.
+- Zkontrolovat nastavení bez dekorativniho hero stripu: subnav/settings layout, oddelene sekce identity/lokalizace/storno lhuty a booking URL.
+- Zmenit nazev podniku.
+- Zmenit timezone, locale, menu a storno lhutu.
+- Ulozit.
+- Zkontrolovat, ze se hodnoty po refreshi neztratily.
+- V sekci iCal export kliknout na vytvoření feedu, zkopírovat vygenerovanou URL a otevřít ji v nové záložce s `.ics`; odpověď má být kalendářový soubor bez potřeby přihlášení.
+- Ověřit, že iCal URL neobsahuje tenant ID ani email a že se token zobrazí jen jednou po vytvoření.
+- V sekci `Vlastní doména` uložit testovací doménu bez `https://`, ověřit zobrazení TXT názvu `_temaro.<doména>` a hodnoty `temaro-domain-verification=...`.
+- Po přidání DNS TXT záznamu kliknout na `Ověřit DNS`; při správném záznamu se stav má změnit na ověřeno.
+- Po nasměrování domény na hosting otevřít kořen vlastní domény; má zobrazit booking flow daného tenantu bez `/slug`, zatímco běžný platform host `/` má dál zobrazit landing.
+- Odvolat iCal feed a znovu otevřít stejnou URL; očekávání je 404 nebo nepřístupný feed.
+
+## 4. Sluzby
+
+- Otevrit `Sluzby`.
+- Zkontrolovat app-first seznam/grid, search, neutralni service karty a edit modal/sheet.
+- Zkontrolovat Signal OS framing vyhledávání služeb a to, že formulář nové služby není hlavní obsah stránky; má být dostupný až přes akci `Přidat službu`.
+- Zkontrolovat, že služby jsou kompaktní tabulka, na stránce není duplicitní tlačítko/panel pro přidání a hledání filtruje výsledky okamžitě při psaní.
+- V menu `Sloupce` skrýt a znovu zobrazit sloupec služby; po refreshi má volba zůstat uložená.
+- Zkontrolovat stránkování služeb: default 10 řádků, přepnutí na 25/50, tlačítka předchozí/další a součet ve footeru tabulky.
+- Kliknout na hlavičky `Služba`, `Délka`, `Cena`, `Buffer` a ověřit řazení vzestupně/sestupně.
+- Kliknout na hlavičku `Záloha` a ověřit řazení podle hodnoty zálohy.
+- Otevřít `Filtry` a ověřit podmínky placené/zdarma/s bufferem/se zálohou.
+- Pridat sluzbu bez zálohy.
+- Přidat nebo upravit službu s fixní zálohou, např. cena `600`, záloha `100`.
+- Přidat nebo upravit službu s procentní zálohou, např. cena `1000`, záloha `30 %`.
+- Zkusit nastavit fixní zálohu vyšší než cena služby; formulář má vrátit validační chybu.
+- Upravit sluzbu.
+- Zkontrolovat cenu, delku a menu.
+- Zkusit vyhledavani.
+- Skryt sluzbu.
+
+## 5. Zamestnanci
+
+- Otevrit `Zamestnanci`.
+- Zkontrolovat seznam tymu, pracovni hodiny editor, neutralni avatary a bez dekorativniho hero stripu.
+- Zkontrolovat Signal OS framing týmového vyhledávání/stat karet a to, že formuláře pro přidání/pozvánku nejsou hlavní obsah stránky; mají být dostupné přes akci `Přidat člena týmu`.
+- Zkontrolovat, že tým je kompaktní tabulka, na stránce není duplicitní panel pro přidání a hledání filtruje výsledky okamžitě při psaní.
+- V menu `Sloupce` skrýt a znovu zobrazit sloupec týmu; po refreshi má volba zůstat uložená.
+- Zkontrolovat stránkování týmu: default 10 řádků, přepnutí na 25/50, tlačítka předchozí/další a součet ve footeru tabulky.
+- Kliknout na hlavičky sloupců týmu a ověřit řazení vzestupně/sestupně.
+- Otevřít `Filtry` a ověřit podmínky s účtem / bez účtu / s výjimkou.
+- Pridat zamestnance.
+- Automatika už ověřuje vytvoření zaměstnance v izolovaném tenantovi; ručně pořád ověřit běžný klik na tlačítko `Přidat zaměstnance`, zavření/otevření panelu a celkový pocit z formuláře.
+- Nastavit pracovni dny a casy.
+- Priradit sluzbu zamestnanci.
+- Pridat vyjimku volna.
+- Zkontrolovat vyhledavani.
+- V detailu klienta změnit preferovaný kontakt, preferovaný čas dne, preference poznámky a profil klienta `Trusted/VIP` nebo `Rizikový`; po uložení se údaje mají zobrazit jen v interním dashboard detailu klienta.
+
+## 6. Verejna rezervace
+
+- Otevrit verejny booking odkaz podniku.
+- Otevrit verejny booking odkaz i s tracking parametry, napr. `?source=qr&source_detail=Recepce&utm_source=instagram&utm_medium=social&utm_campaign=jaro`.
+- Vybrat sluzbu.
+- Pokud má služba zálohu, ověřit, že karta služby i summary ukazují výši zálohy a nepředstírají online platbu.
+- Vybrat zamestnance nebo moznost `komukoliv`.
+- Vybrat termin.
+- Vyplnit klienta.
+- Zkusit zadat prilis kratky telefon s mezerami, napr. `1 2 3 4 5`, a zkontrolovat, ze formular ukaze chybu.
+- Zkusit zadat bezne formatovany telefon s mezerami/pomlckami, napr. `+420 777-123-456`, a zkontrolovat, ze ho formular zbytecne nezkrati.
+- Odeslat rezervaci.
+- Ocekavani: UI nespadne a rezervace vznikne jako `pending`.
+- V kalendáři potom ověřit filtr `Zdroj`; rezervace z tracking URL má ukázat `QR · Recepce` a nesmí se zobrazit jako ruční rezervace.
+- Najít kombinaci služby/poskytovatele bez volných termínů nebo dočasně obsadit dostupné sloty a ověřit, že veřejný booking nabídne tlačítko `Přidat na čekací listinu`.
+- Vyplnit jméno a telefon nebo e-mail, odeslat čekací listinu a ověřit bezpečnou success hlášku bez interních detailů.
+- V kalendáři jako owner ověřit panel `Čekací listina`; nový záznam má ukazovat klienta, službu, případně zaměstnance, kontakt a čitelný zdroj včetně detailu.
+- Zkusit odeslat čekací listinu bez telefonu i e-mailu; očekávání je validační chyba před zápisem do databáze.
+- Zkusit neplatný zdroj, např. `?source=external-script`; očekávání je bezpečný fallback nebo validační chyba bez interního detailu.
+- Po úspěchu ověřit receipt-style potvrzení, animovaný checkmark, souhrn služby/termínu/kontaktu a `.ics` download.
+- Pokud má služba zálohu, ověřit v receiptu řádek `Záloha` a že další zaplacení probíhá přes self-service/manage odkaz, ne přes editovatelnou částku v klientském formuláři.
+- Ověřit, že manage/self-service odkaz dál přijde e-mailem.
+- Otevřít self-service manage odkaz rezervace se zálohou a bez nastaveného `STRIPE_SECRET_KEY`; karta zálohy má ukázat stav čeká a informaci, že online platba zatím není u podniku zapnutá.
+- U rezervace se zálohou a vyplněnou storno lhůtou ověřit, že self-service manage stránka ukazuje storno informaci k záloze; po překročení storno lhůty má být zrušení i přesun blokovaný.
+- U zaplacené zálohy po překročení storno lhůty ověřit, že hláška říká, že zálohu je potřeba řešit přímo s podnikem podle storno podmínek.
+- U self-service zrušení před storno lhůtou ověřit v `booking_events.metadata`, že obsahuje `cancellation_notice_hours`, `hours_until_start`, `deposit_amount` a `deposit_paid`.
+- Nastavit `STRIPE_SECRET_KEY` a `STRIPE_WEBHOOK_SECRET`, restartovat server, otevřít self-service manage odkaz rezervace se zálohou a kliknout na zaplacení zálohy. Očekávání je redirect do Stripe Checkout bez možnosti měnit částku na klientovi.
+- V `Platby` u existující platby kliknout na `Otevřít` ve sloupci `Doklad`; očekávání je nová záložka s tiskovým dokladem, částkou, klientem, službou, metodou a tlačítkem `Vytisknout / uložit PDF`.
+- Otevřít neplatné `/payments/receipt/neplatne-id`; očekávání je 404 bez interních detailů.
+- Po úspěšné testovací platbě a doručení webhooku ověřit návrat na `/manage/<token>?payment=success`, `bookings.deposit_paid = true`, `booking_payments.provider = stripe`, `booking_payments.status = paid`, metodu `online_card` a audit event `payment_recorded`.
+- Zkusit zopakovat stejný webhook nebo obnovit success stránku; očekávání je bez duplicitní zaplacené platby.
+- Ověřit cancel z Checkoutu; návrat na `/manage/<token>?payment=cancelled` nesmí označit zálohu jako zaplacenou.
+
+## 7. Kalendar
+
+- Otevrit `Kalendar`.
+- Zkontrolovat denni/tydenni pohled s vyssi hustotou dat, Google-like týden, sekundární týmový pohled, popup detail a citelne casy.
+- Najit novou online rezervaci.
+- Otevrit detail rezervace.
+- Ověřit, že detail rezervace se otevře v popup okně nad kalendářem.
+- U rezervace vytvořené přes službu se zálohou ověřit v detailu řádek `Záloha`, částku a stav `Čeká na platbu nebo doplatek u podniku`.
+- V detailu rezervace zaevidovat platbu typu `Záloha` metodou `Hotově` nebo `Karta na místě`; po uložení se má zobrazit v seznamu plateb.
+- Automatický admin mutation smoke 2026-05-03 15:08 CEST ověřil zaevidování platby z detailu rezervace a její zobrazení v `/payments`; ručně ještě ověřit subjektivní UX a CSV obsah po stažení.
+- Pokud částka pokryje požadovanou zálohu, obnovit detail rezervace a ověřit, že záloha je označená jako zaplacená.
+- Zaevidovat doplatek a ověřit součet `Platby` v detailu rezervace.
+- Otevřít `Platby` z boční navigace a ověřit, že zaevidovaná záloha nebo doplatek je v seznamu posledních plateb.
+- U online zaplacené Stripe zálohy ověřit, že je v `Platby` vidět jako online karta a v exportu má správnou částku, měnu a vazbu na rezervaci.
+- Otevřít `Reporty` z boční navigace a ověřit, že zaevidované zaplacené platby vstupují do tržeb podle služby, zaměstnance a zdroje rezervace.
+- V `Reporty` přepnout období `30 dní`, `90 dní` a `Rok`; hodnoty se mají změnit bez zobrazení cizích tenant dat.
+- Bez přihlášení otevřít `/reports?period=90d` a ověřit redirect na login s `redirectedFrom=/reports?period=90d`.
+- Otevřít `POS` z boční navigace a ověřit, že stránka ukazuje dnešní pending/confirmed/completed rezervace s cenou, zaplaceno a doplatkem.
+- U rezervace s doplatkem v `POS` vybrat metodu `Hotově` nebo `Karta na místě`, volitelně doplnit poznámku a kliknout na `Dokončit a zaevidovat platbu`.
+- Po POS checkoutu ověřit, že vznikl záznam v `booking_payments`, rezervace je `completed`, v audit historii je `payment_recorded` a v `/payments` i `/reports` se částka projeví jako zaplacená.
+- Zkusit otevřít `/pos` bez přihlášení; očekávání je redirect na login s `redirectedFrom=/pos`.
+- Otevřít `Sklad` z boční navigace a založit produkt s názvem, SKU, jednotkou, počátečním skladem, nízkým prahem, nákupní a prodejní cenou.
+- Ve `Sklad` ověřit souhrn produktů, nízkého skladu a nákupní hodnoty zásob; produkt s množstvím pod prahem má být označený jako `Nízký sklad`.
+- Zaevidovat skladový příjem kladným množstvím a ověřit navýšení stavu i záznam v posledních pohybech.
+- Zaevidovat spotřebu/prodej záporným množstvím a ověřit snížení stavu i záznam v posledních pohybech.
+- Zkusit skladový pohyb, který by poslal produkt do mínusu; očekávání je bezpečná chyba bez interního detailu a bez změny skladu.
+- Zkusit otevřít `/inventory` bez přihlášení; očekávání je redirect na login s `redirectedFrom=/inventory`.
+- Otevřít `Vouchery` z boční navigace a vystavit voucher s částkou, měnou, volitelným jménem/e-mailem a expirací.
+- Po vystavení voucheru si zkontrolovat jednorázově zobrazený kód; v seznamu se má zobrazit jen poslední čtveřice, ne celý kód.
+- Vyčerpat část voucheru přes formulář `Čerpat voucher`; očekávání je snížení zůstatku a nový záznam v posledních čerpáních.
+- Vyčerpat zbytek voucheru; očekávání je stav `Vyčerpaný` a nulový zůstatek.
+- Zkusit přečerpat voucher nebo zadat neplatný kód; očekávání je bezpečná chyba bez interního detailu a bez změny zůstatku.
+- Zkusit otevřít `/vouchers` bez přihlášení; očekávání je redirect na login s `redirectedFrom=/vouchers`.
+- Otevřít `Balíčky` z boční navigace a vytvořit permanentku na vstupy s počtem vstupů, cenou, volitelnou službou a platností ve dnech.
+- V `Balíčky` vytvořit kreditní balíček s částkou kreditu a cenou.
+- Přiřadit balíček existujícímu klientovi a ověřit, že vznikne klientská permanentka se správným zůstatkem a expirací.
+- Vyčerpat jeden vstup z permanentky a ověřit snížení zůstatku i záznam v posledních čerpáních.
+- Vyčerpat část kreditu z kreditního balíčku a ověřit snížení zůstatku v haléřích/korunách.
+- Zkusit přečerpat permanentku nebo čerpat kredit jako vstupy; očekávání je bezpečná chyba bez interního detailu a bez změny zůstatku.
+- Zkusit otevřít `/packages` bez přihlášení; očekávání je redirect na login s `redirectedFrom=/packages`.
+- Otevřít `Členství` z boční navigace a vytvořit měsíční plán s cenou, volitelnými vstupy/kreditem a popisem.
+- Přiřadit členství existujícímu klientovi a ověřit, že vznikne aktivní členství se správným dalším billing datem podle periody.
+- V `Členství` pozastavit aktivní členství, znovu ho aktivovat a potom zrušit; stav se má změnit bez úniku cizích tenant dat.
+- Zkusit otevřít `/memberships` bez přihlášení; očekávání je redirect na login s `redirectedFrom=/memberships`.
+- Otevřít `Kampaně` z boční navigace a uložit e-mail kampaň pro segment `Neaktivní 60 dní`.
+- V `Kampaně` uložit SMS kampaň pro segment `No-show riziko`; očekávání je draft bez pokusu o reálné odeslání, dokud není vybraný produkční provider.
+- Vytvořit Last Minute nabídku s časem, službou, zaměstnancem a slevou; očekávání je zobrazení v seznamu nabídek.
+- Zkusit Last Minute nabídku s koncem před začátkem; očekávání je validační chyba bez zápisu.
+- Zkusit otevřít `/campaigns` bez přihlášení; očekávání je redirect na login s `redirectedFrom=/campaigns`.
+- V `Nastavení` u veřejného katalogu vyplnit zeměpisnou šířku i délku podniku a uložit; pokud je vyplněná jen jedna hodnota, formulář má vrátit validační chybu.
+- Otevřít `/podniky?lat=49.1951&lng=16.6068&radius=10` a ověřit, že podniky se souřadnicemi ukazují vzdálenost v km a výsledky mimo radius se nezobrazí.
+- V `/podniky` zadat nevalidní `lat/lng/radius` parametry; očekávání je bezpečný fallback bez pádu stránky.
+- V `Nastavení` vyplnit veřejné hodnocení, počet recenzí a zdroj recenzí; uložit a ověřit, že `/podniky` zobrazí reputační štítek.
+- V `Nastavení` zkusit uložit hodnocení bez počtu recenzí; očekávání je validační chyba.
+- V produkčním buildu otevřít `/manifest.webmanifest` a ověřit název `Temaro`, `display: standalone`, ikony a `start_url=/dashboard`.
+- V produkčním buildu v DevTools Application ověřit registraci `/sw.js`; service worker nesmí cachovat `/api`, `/payments` ani `/auth`.
+- Na mobilním prohlížeči ověřit instalovatelnost PWA a otevření appky na dashboard/login podle session.
+- Otevřít `Resources` z boční navigace, vytvořit místnost nebo židli s kapacitou a ověřit zobrazení v seznamu zdrojů.
+- V `Resources` přiřadit zdroj ke službě a ověřit zobrazení vazby služba -> zdroj.
+- Zkusit otevřít `/resources` bez přihlášení; očekávání je redirect na login s `redirectedFrom=/resources`.
+- V `Import` vložit vzorové CSV klientů, spustit dry-run a ověřit validní/duplicitní/chybové řádky bez zápisu do databáze.
+- V `Import` vypnout dry-run a importovat validní klienty; ověřit, že se objeví v `Klienti` a že CSV nemůže změnit tenant_id.
+- V `Import` vložit vzorové CSV služeb, spustit dry-run a ostrý import; ověřit ceny v haléřích, délku/buffer v minutách a zálohy.
+- V `Import` vložit vzorové CSV rezervací, spustit dry-run a ověřit spárování klienta, služby, zaměstnance, lokálního data a času.
+- U importu rezervací otestovat neexistující službu a zaměstnance bez přiřazené služby; řádek má skončit jako chyba před ostrým importem.
+- V `Import` vypnout dry-run a importovat validní rezervaci; ověřit, že se vytvoří v `Kalendář` a double-booking konflikt skončí čitelnou chybou.
+- V `Import` otestovat duplicitní službu a duplicitního klienta; řádek se má přeskočit s čitelnou hláškou.
+- Kliknout na `Export CSV` a ověřit stažení souboru `temaro-platby-YYYY-MM-DD.csv`.
+- V CSV ověřit sloupce datum, stav, typ platby, metoda, částka, měna, termín rezervace, klient, kontakt, služba a zaměstnanec.
+- Bez přihlášení otevřít `/payments/export` a ověřit redirect na login s `redirectedFrom=/payments/export`.
+- V týdenním/team pohledu vytvořit ruční rezervaci kliknutím a tažením v prázdném časovém slotu.
+- Potvrdit rezervaci.
+- Zkontrolovat historii zmen.
+- Presunout rezervaci.
+- Zrusit rezervaci s duvodem.
+- Vytvorit rucni rezervaci.
+- Oznacit jinou rezervaci jako dokonceno.
+- Oznacit jinou rezervaci jako no-show.
+
+## 8. Klienti
+
+- Otevrit `Klienti`.
+- Zkontrolovat klientsky list/table, filtry, detail ve sheetu nebo detail page bez dekorativniho hero stripu.
+- Zkontrolovat Signal OS framing klientských statistik, filtrů a vyhledávání.
+- Zkontrolovat, že hlavní seznam klientů je kompaktní CRM tabulka, ne roztažené karty.
+- V klientské tabulce zkontrolovat sloupce klient, kontakt, riziko/no-show, poznámka, vytvořeno a akce.
+- Zkontrolovat, že na stránce není duplicitní tlačítko/panel pro přidání klienta.
+- Psát do hledání v klientské tabulce a ověřit, že se výsledky filtrují průběžně bez kliknutí na `Hledat`.
+- V menu `Sloupce` skrýt a znovu zobrazit klientský sloupec; po refreshi má volba zůstat uložená.
+- Zkontrolovat stránkování klientů: default 10 řádků, přepnutí na 25/50, tlačítka předchozí/další a součet ve footeru tabulky.
+- Kliknout na hlavičky klientských sloupců a ověřit řazení vzestupně/sestupně.
+- Otevřít `Filtry` a ověřit podmínky flagovaní / no-show.
+- Ověřit, že akce `Flag` má stejnou šířku pro běžné i flagované klienty a neroztahuje řádek.
+- V klientské tabulce zkusit otevřít detail, vytvořit rezervaci, otevřít kompaktní flag popover a skrýt klienta.
+- Zkontrolovat, že formulář nového klienta není hlavní obsah stránky; má být dostupný přes akci `Přidat klienta`.
+- Najit klienta z verejne rezervace.
+- Otevrit detail klienta.
+- Upravit poznamku.
+- Zkusit zadat prilis kratky telefon s mezerami, napr. `1 2 3 4 5`, a zkontrolovat, ze formular ukaze chybu.
+- Zkusit zadat bezne formatovany telefon s mezerami/pomlckami, napr. `+420 777-123-456`, a zkontrolovat, ze ho formular zbytecne nezkrati.
+- Nastavit oblibeneho zamestnance.
+- Oznacit klienta jako flagovaneho.
+- Zkontrolovat, ze varovani je videt v kalendari.
+
+## 9. Self-service odkaz
+
+- V emailu nebo databazi najit manage odkaz rezervace.
+- Otevrit `/manage/[token]`.
+- Zkontrolovat self-service detail a formulare presunu/zruseni.
+- Zkusit presun rezervace.
+- Zkusit zruseni rezervace.
+- Zkontrolovat, ze po zruseni uz nejde stejny token zneuzit.
+
+## 10. Email a cron
+
+- Otestovat potvrzovaci email.
+- Otestovat email pri presunu.
+- Otestovat email pri zruseni.
+- Spustit `/api/cron/reminders` s headerem `Authorization: Bearer <CRON_SECRET>`.
+- Spustit cron podruhe.
+- Ocekavani: stejny reminder se neposle dvakrat.
+- Pokud je zapnuté `SMS_REMINDERS_ENABLED=true` a `SMS_WEBHOOK_URL`, vytvořit rezervaci s telefonem ve formátu `+420...`, potvrdit ji a ověřit pending `notifications` řádek s `channel = sms`.
+- Spustit `/api/cron/sms-reminders` s headerem `Authorization: Bearer <CRON_SECRET>`.
+- Očekávání: SMS webhook dostane JSON s `to`, `text`, `type: "reminder"` a notification se označí jako `sent`.
+- Bez `SMS_WEBHOOK_URL` ověřit, že `/api/cron/sms-reminders` vrací `skipped: "sms_webhook_not_configured"` a nic neposílá.
+
+## 11. Staff role
+
+- Pozvat staff uzivatele.
+- Prihlasit se jako staff.
+- Zkontrolovat, ze staff vidi jen dashboard a kalendar.
+- Zkontrolovat, ze staff nevidi owner akce.
+- Zkontrolovat, ze staff vidi jen svoje rezervace.

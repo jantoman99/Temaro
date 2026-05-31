@@ -1,0 +1,1 @@
+export const EMAIL_INPUT_MAX_LENGTH = 254;

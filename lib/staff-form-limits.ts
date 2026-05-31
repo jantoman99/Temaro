@@ -1,0 +1,2 @@
+export const STAFF_BIO_MAX_LENGTH = 500;
+export const STAFF_EXCEPTION_NOTE_MAX_LENGTH = 250;

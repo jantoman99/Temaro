@@ -1,0 +1,464 @@
+# Runtime checklist
+
+Aktualizováno: 2026-05-08 20:06 CEST
+
+Tento checklist je pro první reálné ověření mimo demo režim.
+
+## 0. Automatická kontrola
+
+Před runtime testem spustit:
+
+```bash
+npm run check
+npm run env:check
+npm run migrations:list
+npm run runtime:schema-smoke
+npm run test:coverage
+npm run perf:smoke
+npm run test:e2e
+curl -s http://localhost:3000/api/health
+curl -I http://localhost:3000
+```
+
+Aktuální známý stav:
+
+- `npm run check` prošlo 2026-05-08 20:06 CEST po Google Business Profile CTA: 554 Vitest testů, migrations check, type-check, lint a produkční build.
+- Google Business Profile CTA nevyžaduje migraci; runtime ověřit v `/booking-page`, že odkaz obsahuje `source=google`, `source_detail=business_profile` a UTM parametry a že rezervace z odkazu se propíše do reportingu zdrojů.
+- `npm run check` prošlo 2026-05-08 20:01 CEST po integracích: 554 Vitest testů, migrations check, type-check, lint a produkční build.
+- Přidaná migrace `20260508195500_create_tenant_api_keys.sql` vytváří `tenant_api_keys`; před runtime testem ji aplikovat do Supabase a opravit migration history.
+- Runtime ověřit `/integrations`: vytvořit API klíč, uložit si jednorázově zobrazený token, ověřit že seznam ukazuje jen prefix/poslední 4 znaky, zavolat `/api/partners/v1/bookings` s `Authorization: Bearer <token>`, odvolat klíč a ověřit následný `401`.
+- `npm run check` prošlo 2026-05-08 19:51 CEST po recovery vrstvě: 547 Vitest testů, migrations check, type-check, lint a produkční build.
+- Přidaná migrace `20260508194500_create_empty_slot_recovery.sql` vytváří `empty_slot_recovery_offers` a `empty_slot_recovery_recipients`; před runtime testem ji aplikovat do Supabase a opravit migration history.
+- Runtime ověřit `/recovery`: vytvořit recovery nabídku se službou/časem/slevou/poznámkou, přidat klienta, ověřit zobrazení počtu klientů u nabídky, duplicitního klienta odmítnout bezpečnou chybou a bez přihlášení ověřit redirect na login.
+- `npm run check` prošlo 2026-05-08 19:37 CEST po provizích: 542 Vitest testů, migrations check, type-check, lint a produkční build.
+- Přidaná migrace `20260508193500_create_staff_commission_rules.sql` vytváří `staff_commission_rules`; před runtime testem ji aplikovat do Supabase a opravit migration history.
+- Runtime ověřit `/commissions`: nastavit procentní provizi členovi týmu, ověřit výpočet podle zaplacených plateb, nastavit fixní provizi za hotovou rezervaci a ověřit bezpečnou chybu u neplatné hodnoty.
+- `npm run check` prošlo 2026-05-08 19:26 CEST po referral vrstvě: 537 Vitest testů, migrations check, type-check, lint a produkční build.
+- Přidaná migrace `20260508192500_create_referrals.sql` vytváří `referral_programs` a `referral_codes`; před runtime testem ji aplikovat do Supabase a opravit migration history.
+- Runtime ověřit `/referrals`: vytvořit program, vydat kód klientovi, ověřit jednorázové zobrazení celého kódu, v seznamu jen poslední 4 znaky a žádný raw kód v databázi.
+- `npm run check` prošlo 2026-05-08 19:19 CEST po klientských preferencích: 532 Vitest testů, migrations check, type-check, lint a produkční build.
+- Přidaná migrace `20260508191500_add_client_preferences_and_tier.sql` rozšiřuje `clients`; před runtime testem ji aplikovat do Supabase a opravit migration history.
+- Runtime ověřit `/clients/[clientId]`: změnit preferovaný kontakt, čas dne, preference poznámky a profil klienta na `Trusted/VIP` i `Rizikový`; po uložení se údaje musí zobrazit v interních informacích a nesmí být veřejně viditelné v booking flow.
+- `npm run check` prošlo 2026-05-08 19:08 CEST po dokladech: 531 Vitest testů, migrations check, type-check, lint a produkční build.
+- Účtenky/provozní doklady nevyžadují migraci; používají existující `booking_payments`, `bookings`, `clients`, `services`, `staff` a `tenants`.
+- Runtime ověřit `/payments`: u platby kliknout `Otevřít` ve sloupci doklad, ověřit tiskové HTML, částku, klienta, službu a tlačítko `Vytisknout / uložit PDF`. Cizí nebo neplatné payment ID má vrátit 404/403 bez interního detailu.
+- `npm run check` prošlo 2026-05-08 18:57 CEST po skupinových lekcích: 526 Vitest testů, migrations check, type-check, lint a produkční build.
+- Přidaná migrace `20260508184500_create_group_classes.sql` vytváří `group_classes`, `group_class_attendees` a RPC `enroll_group_class`; před runtime testem ji aplikovat do Supabase a opravit migration history.
+- Runtime ověřit `/classes`: vytvořit lekci se službou, časem a kapacitou, přihlásit klienta, ověřit obsazenost, zkusit duplicitního klienta a plnou kapacitu. Bez přihlášení musí `/classes` redirectovat na login.
+- `npm run check` prošlo 2026-05-08 18:41 CEST po pobočkách: 521 Vitest testů, migrations check, type-check, lint a produkční build.
+- Přidaná migrace `20260508181500_create_tenant_locations.sql` vytváří `tenant_locations`; před runtime testem ji aplikovat do Supabase a opravit migration history.
+- Runtime ověřit `/locations`: vytvořit primární pobočku, vytvořit druhou neprimární pobočku, vytvořit novou primární pobočku a ověřit, že původní primární se přepne na neprimární. Bez přihlášení musí `/locations` redirectovat na login.
+- `npm run check` prošlo 2026-05-08 18:11 CEST po resources vrstvě: 517 Vitest testů, migrations check, type-check, lint a produkční build.
+- Přidaná migrace `20260508175500_create_bookable_resources.sql` vytváří `bookable_resources` a `service_resources`; před runtime testem ji aplikovat do Supabase a opravit migration history.
+- Runtime ověřit `/resources`: vytvořit místnost/židli/vybavení, přiřadit ke službě a ověřit, že bez přihlášení `/resources` redirectuje na login.
+- `npm run check` prošlo 2026-05-08 17:54 CEST po PWA vrstvě: 512 Vitest testů, migrations check, type-check, lint a produkční build.
+- PWA vrstva nevyžaduje migraci; runtime ověřit `/manifest.webmanifest`, produkční registraci `/sw.js`, instalovatelnost v prohlížeči a to, že service worker necachuje `/api`, `/payments` ani `/auth`.
+- `npm run check` prošlo 2026-05-08 17:39 CEST po reputačním souhrnu katalogu: 510 Vitest testů, migrations check, type-check, lint a produkční build.
+- Přidaná migrace `20260508172500_add_tenant_review_summary.sql` přidává veřejný reputační souhrn `review_rating`, `review_count`, `review_source_label`; před runtime testem ji aplikovat do Supabase a opravit migration history.
+- Runtime ověřit `Nastavení` a `/podniky`: uložit rating, počet recenzí a zdroj, ověřit reputační štítek v katalogu a validační chybu při ratingu bez počtu recenzí.
+- `npm run check` prošlo 2026-05-08 17:24 CEST po katalogu/discovery souřadnicích: 509 Vitest testů, migrations check, type-check, lint a produkční build.
+- Přidaná migrace `20260508171000_add_tenant_public_coordinates.sql` přidává `tenants.public_latitude` a `tenants.public_longitude`; před runtime testem ji aplikovat do Supabase a opravit migration history.
+- Runtime ověřit `Nastavení` a `/podniky`: uložit souřadnice podniku, otevřít `/podniky?lat=49.1951&lng=16.6068&radius=10`, ověřit vzdálenost v km, radius filtr a bezpečné odmítnutí nekompletních souřadnic v nastavení.
+- `npm run check` prošlo 2026-05-08 17:08 CEST po kampaních/Last Minute: 506 Vitest testů, migrations check, type-check, lint a produkční build.
+- Přidaná migrace `20260508170000_create_marketing_campaigns.sql` vytváří `marketing_campaigns` a `last_minute_offers`; před runtime testem ji aplikovat do Supabase a opravit migration history.
+- Runtime ověřit `/campaigns`: uložit e-mail draft pro segment, uložit SMS draft, vytvořit Last Minute nabídku s časem/službou/zaměstnancem/slevou a ověřit odmítnutí konce před začátkem.
+- `npm run check` prošlo 2026-05-08 16:58 CEST po členstvích: 500 Vitest testů, migrations check, type-check, lint a produkční build.
+- Přidaná migrace `20260508164500_create_memberships.sql` vytváří `membership_plans` a `client_memberships`; před runtime testem ji aplikovat do Supabase a opravit migration history.
+- Runtime ověřit `/memberships`: vytvořit měsíční plán, přiřadit klientovi, ověřit další billing datum, pozastavit, znovu aktivovat a zrušit členství.
+- `npm run check` prošlo 2026-05-08 16:44 CEST po balíčcích/permanentkách: 493 Vitest testů, migrations check, type-check, lint a produkční build.
+- Přidaná migrace `20260508163500_create_client_passes.sql` vytváří `service_packages`, `client_passes`, `client_pass_redemptions` a RPC `redeem_client_pass`; před runtime testem ji aplikovat do Supabase a opravit migration history.
+- Runtime ověřit `/packages`: vytvořit permanentku na vstupy, vytvořit kreditní balíček, přiřadit klientovi, vyčerpat vstup, vyčerpat kredit, ověřit zůstatky, poslední čerpání a odmítnutí přečerpání nebo špatného typu čerpání.
+- `npm run check` prošlo 2026-05-08 16:33 CEST po voucherech: 486 Vitest testů, migrations check, type-check, lint a produkční build.
+- Přidaná migrace `20260508162500_create_vouchers.sql` vytváří `vouchers`, `voucher_redemptions` a RPC `redeem_voucher`; před runtime testem ji aplikovat do Supabase a opravit migration history.
+- Runtime ověřit `/vouchers`: vystavit voucher, uložit si jednorázově zobrazený kód, ověřit že seznam ukazuje jen poslední 4 znaky, vyčerpat část zůstatku, vyčerpat zbytek, a ověřit odmítnutí přečerpání nebo neplatného kódu.
+- `npm run check` prošlo 2026-05-08 16:24 CEST po skladu: 480 Vitest testů, migrations check, type-check, lint a produkční build.
+- Přidaná migrace `20260508162000_create_inventory.sql` vytváří `inventory_products`, `inventory_movements` a RPC `record_inventory_movement`; před runtime testem ji aplikovat do Supabase a opravit migration history.
+- Runtime ověřit `/inventory`: založit produkt, zaevidovat příjem, zaevidovat spotřebu/prodej, ověřit nízký sklad, poslední pohyby a odmítnutí pohybu, který by poslal sklad do mínusu.
+- `npm run check` prošlo 2026-05-08 16:12 CEST po POS pokladně: 474 Vitest testů, migrations check, type-check, lint a produkční build.
+- POS pokladna nevyžaduje migraci; používá existující `booking_payments`, `bookings`, `booking_events` a owner auth tenant kontext. Runtime ověřit `/pos` s dnešní rezervací a doplatkem.
+- `npm run check` prošlo 2026-05-08 16:04 CEST po vlastní doméně booking stránky: 470 Vitest testů, migrations check, type-check, lint a produkční build.
+- Přidaná migrace `20260508155300_add_tenant_custom_domain.sql` rozšiřuje `tenants` o `custom_domain`, stav, verification token a ověřený čas; před runtime testem ji aplikovat do Supabase a opravit migration history.
+- Runtime ověřit vlastní doménu: uložit doménu v `Nastavení`, přidat TXT `_temaro.<doména>`, spustit ověření, nasměrovat DNS na hosting a otevřít kořen domény; má se zobrazit booking flow tenantu, zatímco platform host `/` dál zobrazuje landing.
+- `npm run check` prošlo 2026-05-08 15:53 CEST po CSV importu rezervací: 465 Vitest testů, migrations check, type-check, lint a produkční build.
+- CSV import rezervací nevyžaduje migraci; používá existující `clients`, `services`, `staff`, `bookings`, tenant timezone a RPC `create_booking`, takže double-booking ochrana zůstává na DB vrstvě.
+- Runtime ověřit `/import` pro rezervace: dry-run s validním spárováním klient/služba/zaměstnanec, odmítnutí neexistující služby, odmítnutí zaměstnance bez přiřazené služby, ostrý import a zápis do kalendáře.
+- `npm run check` prošlo 2026-05-08 15:44 CEST po CSV importu klientů a služeb: 463 Vitest testů, migrations check, type-check, lint a produkční build.
+- CSV import klientů a služeb nevyžaduje migraci; používá existující `clients` a `services`, server action `/import`, Zod validace, dry-run, velikostní limit a owner auth tenant kontext.
+- Runtime ověřit `/import`: dry-run pro klienty, ostrý import klientů, dry-run pro služby, ostrý import služeb, duplicitní řádky a nevalidní řádky; CSV nesmí obsahovat ani ovlivnit `tenant_id`.
+- `npm run check` prošlo 2026-05-08 15:32 CEST po reportingu tržeb: 457 Vitest testů, migrations check, type-check, lint a produkční build.
+- Reporting tržeb nevyžaduje migraci; používá existující `booking_payments`, composite vazbu na `bookings`, `services`, `staff` a bezpečný owner auth kontext.
+- Runtime ověřit `/reports?period=30d`, `/reports?period=90d` a `/reports?period=year`: mají ukazovat jen zaplacené platby daného tenantu a rozpady podle služby, zaměstnance a zdroje.
+- `npm run check` prošlo 2026-05-08 15:20 CEST po plném iframe widgetu: 452 Vitest testů, migrations check, type-check, lint a produkční build.
+- Plný iframe widget nevyžaduje migraci; používá existující veřejný booking flow, route `/embed/booking/[slug]`, statický script `public/embed/booking-widget.js` a tracking zdroj `widget`.
+- Runtime ověřit, že globální CSP s `frame-ancestors 'none'` neplatí pro `/embed/booking/[slug]`; pouze embed route má widget CSP a běžné admin stránky zůstávají neframovatelné.
+- `npm run check` prošlo 2026-05-08 15:10 CEST po implementaci zákaznického profilu: 448 Vitest testů, migrations check, type-check, lint a produkční build.
+- Zákaznický profil nevyžaduje migraci; používá existující `clients.full_name`, `clients.phone` a ověřený auth e-mail.
+- Zákaznický detail rezervace nevyžaduje migraci; runtime ověření potřebuje Google/customer auth účet s e-mailem odpovídajícím klientovi v `clients.email`.
+- Přihlášené zrušení rezervace nevyžaduje migraci; používá existující `bookings`, `booking_events`, `notifications` a `booking_self_service_tokens`.
+- Přihlášený přesun rezervace nevyžaduje migraci; používá existující dostupnostní helpery, RPC `reschedule_booking_self_service`, `booking_events`, `notifications` a `booking_self_service_tokens`.
+- Storno pravidla nevyžadují novou DB migraci; používají `tenants.cancellation_notice_hours`, `bookings.deposit_amount`, `bookings.deposit_paid` a audit metadata v `booking_events`.
+- `npm run env:check` prošlo 2026-05-08 14:18 CEST; Stripe env jsou volitelné, ale pokud se nastaví, musí být vyplněné společně.
+- `npm audit --audit-level=moderate` prošlo 2026-05-08 14:13 CEST: `found 0 vulnerabilities`.
+- Stripe online záloha nepřidává novou DB migraci; používá existující `booking_payments`, `bookings.deposit_paid` a `booking_events.payment_recorded`.
+- Pro reálný Stripe runtime doplnit `STRIPE_SECRET_KEY` a `STRIPE_WEBHOOK_SECRET`. Env checker hlídá prefixy `sk_` a `whsec_` a vyžaduje obě hodnoty společně.
+- Stripe webhook URL pro provider/Stripe CLI je `/api/payments/stripe/webhook`; route vyžaduje raw body a hlavičku `stripe-signature`.
+- `npm run check` prošlo 2026-05-08 14:02 CEST po implementaci review requestu: 440 Vitest testů, migrations check, type-check, lint a produkční build.
+- Přidaná migrace `20260508121000_add_review_request_notification_type.sql` rozšiřuje `notifications.type` o `review_request`; byla aplikovaná do připojené Supabase databáze a remote migration history je opravená jako applied.
+- `npm run check` prošlo 2026-05-08 12:07 CEST po implementaci čekací listiny a opravě composite FK: 436 Vitest testů, migrations check, type-check, lint a produkční build.
+- Přidaná migrace `20260508114500_create_waitlist_entries.sql` vytváří tenant izolovanou tabulku `waitlist_entries`, owner-only RLS, unikátní aktivní kontakt pro stejnou službu/staff a service-role RPC `create_waitlist_entry`; byla aplikovaná do připojené Supabase databáze 2026-05-08 přes `npx supabase db query --linked --file` a remote migration history je opravená jako applied.
+- Opravná migrace `20260508115800_fix_waitlist_composite_fk_delete_actions.sql` odstraňuje `ON DELETE SET NULL` z composite FK s `tenant_id`; je aplikovaná v připojené Supabase databázi a `npx supabase migration list` ji ukazuje lokálně i remote.
+- `npm run check` prošlo 2026-05-08 11:38 CEST po první implementaci zdrojů rezervací: 430 Vitest testů, migrations check, type-check, lint a produkční build.
+- Přidaná migrace `20260508112500_add_booking_source_tracking.sql` rozšiřuje `bookings` o `source_detail`, `source_metadata`, širší allowlist zdrojů a index `bookings_source_idx`; byla aplikovaná do připojené Supabase databáze 2026-05-08 přes `npx supabase db query --linked --file` a remote migration history je opravená jako applied.
+- Scope změna 2026-05-08 11:25 CEST je dokumentační/product rozhodnutí: pre-launch MVP nově zahrnuje všechny významné konkurenční funkce. Neobsahuje změnu runtime, migrací ani testů.
+- Dokumentační změna 2026-05-08 11:13 CEST přidala hloubkovou konkurenční analýzu `docs/20-competitive-analysis-booking-systems-2026.md` a scope doporučení; neobsahuje změnu runtime, migrací ani testů.
+- Codex CLI tooling: projektový `.codex/config.toml` už neobsahuje nepodporované `profiles`; profily jsou v `~/.codex/config.toml`.
+- Supabase MCP: OAuth login byl obnoven 2026-05-08 přes `codex mcp login supabase`; pokud se auth chyba vrátí, zopakovat stejný login a dokončit OAuth v prohlížeči.
+- `npm run check` prošlo 2026-05-08 11:01 CEST po onboarding volbě oboru: 425 Vitest testů, migrations check, type-check, lint a produkční build.
+- `npm run check` prošlo 2026-05-03 17:36 CEST po custom notification textech: 422 Vitest testů, migrations check, type-check, lint a produkční build.
+- Migrace `20260503173000_add_tenant_notification_messages.sql` byla aplikovaná do připojené Supabase databáze a `npx supabase migration list` ji ukazuje lokálně i remote.
+- Cíleně prošlo 2026-05-03 17:32 CEST: `npm run type-check` a `npm run test -- tests/validations.test.ts tests/db-hardening-migrations.test.ts tests/email-notifications.test.ts tests/reminders-cron.test.ts`.
+- `npm run check` prošlo 2026-05-03 17:26 CEST po dashboard reporting metrikách: 417 Vitest testů, migrations check, type-check, lint a produkční build.
+- Cíleně prošlo 2026-05-03 17:22 CEST: `npm run type-check` a `npm run test -- tests/dashboard-metrics.test.ts tests/admin-performance-budget.test.ts`.
+- `npm run check` prošlo 2026-05-03 17:17 CEST po review link poli: 413 Vitest testů, migrations check, type-check, lint a produkční build.
+- Migrace `20260503171500_add_tenant_review_url.sql` byla aplikovaná do připojené Supabase databáze a `npx supabase migration list` ji ukazuje lokálně i remote.
+- Cíleně prošlo 2026-05-03 17:14 CEST: `npm run type-check` a `npm run test -- tests/validations.test.ts tests/db-hardening-migrations.test.ts`.
+- Cíleně prošlo 2026-05-03 17:10 CEST: `npm run type-check` a `npm run test -- tests/local-business-schema.test.ts tests/service-templates.test.ts`.
+- `npm run check` prošlo 2026-05-03 17:07 CEST po oborových šablonách služeb: 408 Vitest testů, migrations check, type-check, lint a produkční build.
+- Cíleně prošlo 2026-05-03 17:01 CEST: `npm run type-check` a `npm run test -- tests/service-templates.test.ts tests/tenant-industry.test.ts`.
+- `npm run check` prošlo 2026-05-03 16:55 CEST po oborovém filtru katalogu: 404 Vitest testů, migrations check, type-check, lint a produkční build.
+- Migrace `20260503164500_add_tenant_industry.sql` byla aplikovaná do připojené Supabase databáze a `npx supabase migration list` ji ukazuje lokálně i remote.
+- `npm run check` prošlo 2026-05-03 16:25 CEST po katalog/map location základu: 399 Vitest testů, migrations check, type-check, lint a produkční build.
+- Migrace `20260503161500_add_tenant_public_location.sql` byla aplikovaná do připojené Supabase databáze a `npx supabase migration list` ji ukazuje lokálně i remote.
+- `npm run check` prošlo 2026-05-03 16:13 CEST po landing update pro dva typy účtů a další produktovou vrstvu: 393 Vitest testů, migrations check, type-check, lint a produkční build.
+- `npm run check` prošlo znovu 2026-05-03 15:20 CEST po rozšíření platebního E2E o CSV export: 383 Vitest testů, migrations check, type-check, lint i produkční build.
+- Anonymní Playwright admin smoke teď hlídá redirect na login i pro `/start`, `/booking-page`, `/payments`, `/payments/export` a `/settings`.
+- Admin mutation smoke pro ruční rezervaci používá programové `requestSubmit`, protože klik na submit v kalendářovém detail panelu byl při plném E2E průchodu křehký a někdy nechal URL s draft parametry.
+- `PLAYWRIGHT_BASE_URL=http://127.0.0.1:3000 npm run test:e2e -- tests/e2e/admin-mutations.spec.ts` prošlo 2026-05-03 15:27 CEST po stabilizaci ručního booking submitu.
+- `PLAYWRIGHT_BASE_URL=http://127.0.0.1:3000 npm run test:e2e` prošlo 2026-05-03 15:28 CEST: 13 Playwright testů ve 4 souborech.
+- `npm run check` prošlo znovu 2026-05-03 15:31 CEST po stabilizaci ručního booking E2E submitu: 383 Vitest testů, migrations check, type-check, lint i produkční build.
+- Produkční server byl po posledním buildu restartovaný přes `npm run start -- -H 0.0.0.0`.
+- Warm `PERF_RETRIES=0 npm run perf:smoke` prošel 2026-05-03 15:31 CEST po posledním restartu: veřejné stránky cca 28-1185 ms, `/api/health` cca 1185 ms, chráněné admin redirecty cca 1-7 ms.
+- Přidaný `tests/payments-export-route.test.ts` pokrývá auth/role guard, query validaci, CSV response a explicitní FK embed v `/payments/export`.
+- `npm run test -- tests/payments-export-route.test.ts` prošlo 2026-05-03 15:35 CEST: 4 testy.
+- `npm run check` prošlo 2026-05-03 15:36 CEST po route testu pro `/payments/export`: 387 Vitest testů, migrations check, type-check, lint i produkční build.
+- `npm run test:coverage` prošlo 2026-05-03 15:37 CEST: 387 testů, statement coverage 75.48 %, branch coverage 68.12 %, function coverage 82.56 %, line coverage 75.36 %.
+- Přidaný `tests/calendar-feed-route.test.ts` pokrývá neplatný/odvolaný token, `text/calendar` odpověď, `last_used_at`, explicitní FK embed a obecnou 500 chybu bez interních detailů.
+- Přihlášený admin E2E nově ověřuje i odvolání iCal feedu a následný 404 response původní `.ics` URL.
+- `/payments/export` route testy nově pokrývají prázdný CSV export i DB error bez úniku interní chyby.
+- Statická bezpečnostní kontrola tenant/service-role vzorů 2026-05-03 15:45 CEST nenašla přímé čtení `tenant_id` z URL/body/query; service role výskyty jsou jen v admin helperu, runtime skriptech, cron/health/account/public booking/self-service/iCal čtení a testech.
+- `npm run test -- tests/calendar-feed-route.test.ts tests/payments-export-route.test.ts` prošlo 2026-05-03 15:44 CEST: 10 testů.
+- `PLAYWRIGHT_BASE_URL=http://127.0.0.1:3000 npm run test:e2e -- tests/e2e/admin-authenticated.spec.ts` prošlo 2026-05-03 15:46 CEST po doplnění iCal revoke flow.
+- `npm run check` prošlo 2026-05-03 15:48 CEST: 393 Vitest testů, migrations check, type-check, lint i produkční build.
+- `PLAYWRIGHT_BASE_URL=http://127.0.0.1:3000 npm run test:e2e` prošlo 2026-05-03 15:49 CEST: 13 Playwright testů ve 4 souborech.
+- `npm run test:coverage` prošlo 2026-05-03 15:49 CEST: 393 testů, statement coverage 76.54 %, branch coverage 68.93 %, function coverage 83.10 %, line coverage 76.43 %.
+- Produkční server byl po posledním buildu restartovaný přes `npm run start -- -H 0.0.0.0`.
+- Warm `PERF_RETRIES=0 npm run perf:smoke` prošel 2026-05-03 15:50 CEST po posledním restartu: veřejné stránky cca 27-994 ms, `/api/health` cca 994 ms, chráněné admin redirecty cca 1-6 ms.
+- `npm audit --audit-level=moderate` prošlo 2026-05-03 15:50 CEST: `found 0 vulnerabilities`.
+- `PLAYWRIGHT_BASE_URL=http://127.0.0.1:3000 npm run test:e2e -- tests/e2e/admin-demo-smoke.spec.ts` prošlo 2026-05-03 15:22 CEST.
+- Produkční server byl po buildu restartovaný přes `npm run start -- -H 0.0.0.0`.
+- Warm `PERF_RETRIES=0 npm run perf:smoke` prošel 2026-05-03 15:25 CEST po restartu produkčního serveru: veřejné stránky cca 29-1399 ms, `/api/health` cca 1399 ms, chráněné admin redirecty cca 1-6 ms.
+- `PLAYWRIGHT_BASE_URL=http://127.0.0.1:3000 npm run test:e2e -- tests/e2e/admin-mutations.spec.ts` prošlo 2026-05-03 15:18 CEST: platební test ověřuje i `/payments/export` CSV response a obsah.
+- `npm run check` prošlo 2026-05-03 15:11 CEST po platebním E2E smoke a opravě Supabase FK embedů pro `/payments` a CSV export: 383 Vitest testů, migrations check, type-check, lint a produkční build.
+- `npx playwright test --list` prošlo 2026-05-03 15:12 CEST; eviduje 13 Playwright testů ve 4 souborech.
+- `npm run test:e2e` prošlo 2026-05-03 15:14 CEST proti čerstvému produkčnímu serveru: 13 Playwright testů ve 4 souborech.
+- `npm run runtime:schema-smoke` prošlo znovu 2026-05-03 15:15 CEST.
+- Produkční server běží přes `npm run start -- -H 0.0.0.0`.
+- `npm run perf:smoke` prošlo 2026-05-03 15:15 CEST proti produkčnímu serveru; warm `PERF_RETRIES=0 npm run perf:smoke` prošel také.
+- Poslední warm `PERF_RETRIES=0 npm run perf:smoke` 2026-05-03 15:15 CEST: veřejné stránky cca 5-943 ms, `/api/health` cca 943 ms, chráněné admin redirecty cca 2-23 ms.
+- `curl -s http://localhost:3000/api/health` 2026-05-03 15:16 CEST vrátil `status: "ok"`; Supabase je dostupný, rate limit není nakonfigurovaný.
+- `curl -I http://localhost:3000` 2026-05-03 15:16 CEST potvrdil `Content-Security-Policy`.
+- `npm audit --audit-level=moderate` prošlo 2026-05-03 15:16 CEST: `found 0 vulnerabilities`.
+- `npm run test:e2e -- tests/e2e/admin-mutations.spec.ts` prošlo 2026-05-03 15:08 CEST proti čerstvému produkčnímu serveru: 3 admin mutation testy včetně vytvoření staff člena, ruční rezervace a zaevidování platby.
+- `/payments` a `/payments/export` mají explicitní Supabase embed vazby přes konkrétní FK constrainty; tím je odstraněná PostgREST chyba s více vztahy mezi `bookings` a navázanými tabulkami.
+- `npm run check` prošlo znovu 2026-05-03 14:43 CEST po doplnění iCal E2E smoke: 383 Vitest testů, migrations check, type-check, lint a produkční build.
+- `npm run test:e2e -- tests/e2e/admin-authenticated.spec.ts` prošlo 2026-05-03 14:41 CEST proti běžícímu serveru; ověřuje registraci ownera, hlavní admin sekce, `/start`, `/booking-page`, iCal feed a kalendář s reálnou rezervací.
+- `npm run check` prošlo znovu 2026-05-03 14:37 CEST po dokumentační aktualizaci a aplikaci Supabase migrací: 383 Vitest testů, migrations check, type-check, lint a produkční build.
+- Supabase CLI je přihlášené a projekt je linknutý na `dkbnuvrrmegnbnwungvi`.
+- Migrace `20260426070000_create_booking_events.sql`, `20260503113000_add_service_deposit_policy.sql`, `20260503115000_create_booking_payments.sql` a `20260503123000_create_calendar_feed_tokens.sql` byly aplikované do připojené Supabase databáze 2026-05-03 přes `npx supabase db query --linked --file`.
+- Remote migration history byla 2026-05-03 srovnaná přes `npx supabase migration repair --status applied ...`; `supabase migration list` páruje všechny lokální migrace s remote historií a navíc ukazuje starší remote-only ad-hoc/MCP záznamy.
+- `npm run runtime:schema-smoke` prošlo 2026-05-03 14:20 CEST po aplikaci Supabase migrací.
+- `npx supabase db advisors --linked --type security` 2026-05-03 14:24 CEST hlásí jen `Leaked Password Protection Disabled`.
+- `npx supabase db advisors --linked --type performance` 2026-05-03 14:25 CEST neproběhl kvůli chybějícímu `SUPABASE_DB_PASSWORD` a dočasnému pooler `ECIRCUITBREAKER`.
+- `npm run env:check` prošlo 2026-05-03 14:23 CEST; povinné env jsou vyplněné, volitelné Resend/SMS/Upstash/Cron hodnoty zatím chybí.
+- `npm run test:e2e -- tests/e2e/admin-authenticated.spec.ts tests/e2e/admin-mutations.spec.ts` prošlo 2026-05-03 14:25 CEST: 3 přihlášené admin E2E testy.
+- `npm audit --audit-level=moderate` prošlo 2026-05-03 14:26 CEST: `found 0 vulnerabilities`.
+- `npx playwright test --list` prošlo 2026-05-03 14:26 CEST; eviduje 12 Playwright testů ve 4 souborech.
+- `npm run perf:smoke` prošlo 2026-05-03 14:31 CEST proti běžícímu produkčnímu serveru; warm `PERF_RETRIES=0 npm run perf:smoke` také prošel.
+- Poslední warm `PERF_RETRIES=0 npm run perf:smoke` 2026-05-03 14:31 CEST: veřejné stránky cca 4-187 ms, `/api/health` cca 106 ms, chráněné admin redirecty cca 1-3 ms.
+- `PLAYWRIGHT_BASE_URL=http://127.0.0.1:3000 npm run test:e2e` prošlo 2026-05-03 14:33 CEST: 12 Playwright testů ve 4 souborech.
+- `npm run check` prošlo znovu 2026-05-03 14:14 CEST po sjednocení landing proof metriky na `383`: 383 Vitest testů, migrations check, type-check, lint a produkční build.
+- `npm run check` prošlo 2026-05-03 14:11 CEST po runtime schema smoke skriptu: 383 Vitest testů, migrations check, type-check, lint a produkční build.
+- `npm run test -- tests/runtime-schema-smoke.test.ts` prošlo 2026-05-03 14:08 CEST: 2 testy.
+- `npm run runtime:schema-smoke` 2026-05-03 14:08 CEST selhal očekávaně na chybějících migracích `20260503113000_add_service_deposit_policy.sql`, `20260503115000_create_booking_payments.sql` a `20260503123000_create_calendar_feed_tokens.sql`; `staff_directory_metrics` prošla.
+- `npm run check` prošlo 2026-05-03 14:04 CEST po rozšíření přihlášeného admin smoke: 381 Vitest testů, migrations check, type-check, lint a produkční build.
+- `npm run test:e2e -- tests/e2e/admin-authenticated.spec.ts` prošlo 2026-05-03 14:01 CEST: registrovaný owner otevře hlavní admin sekce včetně `/start` a `/booking-page`, share/embed bloky a kalendář s reálnou rezervací.
+- `npm run check` prošlo 2026-05-03 13:48 CEST po E2E public smoke rozšíření: 381 Vitest testů, migrations check, type-check, lint a produkční build.
+- `npm run test:e2e -- tests/e2e/public-smoke.spec.ts` prošlo 2026-05-03 13:45 CEST: 8 Playwright testů včetně `/account/login` a browser renderu booking button embedu.
+- `npm run check` prošlo 2026-05-03 13:39 CEST po booking share kitu: 381 Vitest testů, migrations check, type-check, lint a produkční build.
+- Cíleně prošlo 2026-05-03 13:36 CEST: `npm run type-check` a `npm run test -- tests/booking-share-kit.test.ts tests/booking-embed.test.ts tests/hardening.test.ts`.
+- `npm run check` prošlo 2026-05-03 13:35 CEST po zákaznickém `/account`: 380 Vitest testů, migrations check, type-check, lint a produkční build.
+- Cíleně prošlo 2026-05-03 13:31 CEST: `npm run type-check` a `npm run test -- tests/auth-callback-route.test.ts tests/helpers.test.ts tests/proxy.test.ts`.
+- `npm run check` prošlo 2026-05-03 13:26 CEST po Google OAuth registraci/přihlášení a dokumentační aktualizaci: 378 Vitest testů, migrations check, type-check, lint a produkční build.
+- Cíleně prošlo 2026-05-03 13:18 CEST: `npm run type-check` a `npm run test -- tests/auth-callback-route.test.ts tests/server-actions.test.ts tests/validations.test.ts`.
+- `npm run check` prošlo 2026-05-03 12:49 CEST po booking button embedu a dokumentační aktualizaci: 376 Vitest testů, migrations check, type-check, lint a produkční build.
+- Cíleně prošlo 2026-05-03 12:44 CEST: `npm run test -- tests/booking-embed.test.ts tests/hardening.test.ts` a `npm run type-check`.
+- `npm run check` prošlo 2026-05-03 12:42 CEST po iCal feed exportu a dokumentační aktualizaci: 373 Vitest testů, migrations check, type-check, lint a produkční build.
+- Cíleně prošlo 2026-05-03 12:32 CEST: `npm run test -- tests/calendar-ical.test.ts tests/db-hardening-migrations.test.ts tests/server-actions.test.ts`, `npm run type-check` a `npm run migrations:check`.
+- Cíleně prošlo 2026-05-03 12:06 CEST: `npm run type-check` a `npm run test -- tests/payments-export.test.ts tests/proxy.test.ts`.
+- Cíleně prošlo 2026-05-03 12:19 CEST: `npm run type-check` a `npm run test -- tests/email-notifications.test.ts tests/sms-reminders.test.ts tests/runtime-env-check.test.ts tests/reminders-cron.test.ts`.
+- `npm run check` prošlo 2026-05-03 12:26 CEST po SMS reminder základu: 369 Vitest testů, migrations check, type-check, lint a produkční build.
+- `npm run env:check` prošlo 2026-05-03 12:26 CEST; povinné env jsou vyplněné, volitelné Resend/SMS/Upstash/Cron hodnoty zatím chybí.
+- `npm run check` prošlo 2026-05-03 12:13 CEST po přehledu plateb a CSV exportu: 360 Vitest testů, migrations check, type-check, lint a produkční build.
+- `npm run test:e2e -- tests/e2e/public-smoke.spec.ts` prošlo 2026-05-03 11:07 CEST: 6 Playwright testů, včetně `/rezervacni-system-bez-marketplace-provizi`.
+- Cíleně prošlo 2026-05-03 11:50 CEST: `npm run type-check`, `npm run migrations:check` a vybrané Vitest testy pro validace/server actions/DB guard.
+- `npm run check` prošlo 2026-05-03 11:57 CEST po evidenci plateb rezervací: 355 Vitest testů, migrations check, type-check, lint a produkční build.
+- `npm run check` prošlo 2026-05-03 11:44 CEST po zálohovém základu služeb: 352 Vitest testů, migrations check, type-check, lint a produkční build.
+- Cíleně prošlo 2026-05-03 11:35 CEST: `npm run type-check`, `npm run migrations:check` a vybrané Vitest testy pro validace/server actions/DB guard/availability.
+- `npm run check` prošlo 2026-05-03 11:12 CEST: 348 Vitest testů, migrations check, type-check, lint a produkční build.
+- Produkční build nyní prerenderuje i `/rezervacni-system-bez-marketplace-provizi`.
+- `npm run test:e2e -- tests/e2e/public-smoke.spec.ts` prošlo 2026-05-03 10:58 CEST: 6 Playwright testů, včetně `/sms-pripominky-rezervaci`.
+- `npm run check` prošlo 2026-05-03 11:03 CEST: 348 Vitest testů, migrations check, type-check, lint a produkční build.
+- Produkční build nyní prerenderuje i `/sms-pripominky-rezervaci`.
+- `npm run test:e2e -- tests/e2e/public-smoke.spec.ts` prošlo 2026-05-03 10:38 CEST: 6 Playwright testů, včetně všech aktuálních niche landing pages.
+- `npm run check` prošlo 2026-05-03 10:42 CEST: 348 Vitest testů, migrations check, type-check, lint a produkční build.
+- Produkční build nyní prerenderuje i `/rezervacni-system-pro-kadernictvi`, `/rezervacni-system-pro-kosmeticky-salon`, `/rezervacni-system-pro-masaze` a `/rezervacni-system-pro-wellness`.
+
+- `npm run check` prošlo 2026-05-02 18:52 CEST po implementaci hlavních tasků z `docs/16-design-trends-2026-implementation.md`.
+- Prošlo 331 testů, migrations check, type-check, lint i produkční build.
+- Stabilizační `npm run check` prošlo znovu 2026-05-02 19:13 CEST: 331 testů, migrations check, type-check, lint a produkční build.
+- Po UI token cleanupu prošlo `npm run check` znovu 2026-05-02 19:20 CEST: 331 testů, migrations check, type-check, lint a produkční build.
+- Po DB hardeningu prošlo `npm run check` znovu 2026-05-02 19:28 CEST: 331 testů, migrations check, type-check, lint a produkční build.
+- `npm run env:check` prošlo; povinné env pro reálný běh jsou vyplněné.
+- Volitelné env zatím chybí: `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, `SMS_REMINDERS_ENABLED`, `SMS_WEBHOOK_SECRET`, `SMS_WEBHOOK_URL`, `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`, `CRON_SECRET`.
+- Supabase security advisor po DB hardeningu hlásí už jen vypnutou leaked password protection v Auth nastavení.
+- Supabase performance advisor už nehlásí neindexované FK; po navazující optimalizaci nehlásí ani RLS initplan warningy.
+- Po RLS initplan optimalizaci prošlo `npm run check` znovu 2026-05-02 19:33 CEST: 331 testů, migrations check, type-check, lint a produkční build.
+- Supabase performance advisor už nehlásí RLS initplan warningy; zbývá jen `unused_index` INFO u nových/nízce používaných indexů.
+- DB runtime smoke 2026-05-02 19:35 CEST ověřil owner `create_booking` RPC po přepnutí na `security invoker` a anon deny pro `create_public_booking`; oba testy běžely v rollback transakcích.
+- `npm audit --audit-level=moderate` proběhl 2026-05-02 19:37 CEST a hlásí 5 moderate transitive nálezů v `next/postcss` a `resend/svix/uuid`.
+- Aktuální registry verze `next` a `resend` jsou stejné jako v projektu; nepouštět `npm audit fix --force`, dokud nebude jasný bezpečný upgrade.
+- `tests/db-hardening-migrations.test.ts` hlídá DB hardening migrace proti regresi.
+- `npm run check` prošlo 2026-05-02 19:44 CEST: 335 testů, migrations check, type-check, lint a produkční build.
+- Non-breaking dependency update pro `@supabase/supabase-js`, `lucide-react`, `shadcn` a `zod` proběhl 2026-05-02 19:49 CEST.
+- `npm run check` po dependency update prošlo 2026-05-02 19:49 CEST: 335 testů, migrations check, type-check, lint a produkční build.
+- `package.json` overrides pro `postcss@^8.5.13` a `svix@^1.92.2` vyřešily transitive audit nálezy bez `--force`.
+- `npm audit --audit-level=moderate` prošlo 2026-05-02 19:54 CEST: `found 0 vulnerabilities`.
+- `npm run check` po audit fixu prošlo 2026-05-02 19:54 CEST: 335 testů, migrations check, type-check, lint a produkční build.
+- `npm run check` po přidání prvních SEO/GEO/AEO stránek prošlo 2026-05-02 20:15 CEST: 335 testů, migrations check, type-check, lint a produkční build.
+- `npm run check` po CSP, health endpointu a post-commit refaktoru prošlo 2026-05-02 20:34 CEST: 340 testů, migrations check, type-check, lint a produkční build.
+- `npm run test:coverage` prošlo 2026-05-02 20:38 CEST: 340 testů, statement coverage 80.42 %, branch coverage 71.91 %, function coverage 86.27 %, line coverage 80.37 %.
+- `npm run check` po Dependabotu a coverage configu prošlo 2026-05-02 20:44 CEST: 340 testů, migrations check, type-check, lint a produkční build.
+- `npm run perf:smoke` warm run prošel 2026-05-02 20:54 CEST; chráněné admin routy bez session redirectují na login okolo 455-463 ms.
+- Historicky `npm run test:e2e` blokovala WSL dependency `libnspr4.so`; vyřešeno 2026-05-02 23:35 CEST instalací Playwright Chromium dependencies přes `wsl -u root`.
+- `npm run check` po Playwright scaffoldu a performance smoke skriptu prošlo 2026-05-02 20:56 CEST: 340 testů, migrations check, type-check, lint a produkční build.
+- `tests/admin-performance-budget.test.ts` hlídá, že dashboard netahá neomezené budoucí rezervace, entity stránkují v databázi přes `range(from, to)` a nezávislé dashboard query zůstávají paralelizované.
+- `npm run check` prošlo 2026-05-02 21:53 CEST po admin performance budgetu: 344 testů, migrations check, type-check, lint a produkční build.
+- `npm run test:coverage` prošlo 2026-05-02 22:34 CEST: 344 testů, statement coverage 79.82 %, branch coverage 71.58 %, function coverage 85.71 %, line coverage 79.76 %.
+- Dev server byl po admin performance změnách restartovaný čistě přes `rm -rf .next && npm run dev`.
+- První cold `npm run perf:smoke` hned po smazání `.next` narazil na Turbopack `ChunkLoadError` na root route; warm opakování prošlo 2026-05-02 21:56 CEST.
+- `npm run perf:smoke` warm run prošel 2026-05-02 21:56 CEST; chráněné admin routy bez session redirectují na login okolo 660-669 ms.
+- `npm run check` prošlo 2026-05-02 22:45 CEST po `staff_directory_metrics` view a přesném staff řazení: 344 testů, migrations check, type-check, lint a produkční build.
+- `npm run perf:smoke` prošlo 2026-05-02 22:45 CEST; chráněné admin routy bez session redirectují na login okolo 457-479 ms.
+- GitHub Actions `check.yml` spouští samostatně `npm run check`, `npm run test:coverage`, Playwright smoke testy s `npx playwright install --with-deps chromium` a produkční `perf:smoke`.
+- `npx playwright test --list` prošlo 2026-05-02 22:41 CEST; eviduje 5 Playwright testů ve 2 souborech. Lokální WSL browser dependencies byly později doinstalované a `npm run test:e2e` prošlo.
+- `npm run check` prošlo 2026-05-02 22:45 CEST po CI workflow rozšíření a admin demo smoke testu: 344 Vitest testů, migrations check, type-check, lint a produkční build.
+- `npm run test:coverage` prošlo 2026-05-02 22:50 CEST po URL-state helper testu: 347 testů, statement coverage 80.12 %, branch coverage 71.91 %, function coverage 85.76 %, line coverage 80.06 %.
+- `npm run check` prošlo 2026-05-02 22:48 CEST po URL-state helper testu: 347 Vitest testů, migrations check, type-check, lint a produkční build.
+- `npm run perf:smoke` warm run prošel 2026-05-02 22:50 CEST; chráněné admin routy bez session redirectují na login okolo 569-594 ms.
+- `npm run check` prošlo znovu 2026-05-02 22:54 CEST po sjednocení landing proof metriky: 347 Vitest testů, migrations check, type-check, lint a produkční build.
+- Dev server byl restartovaný čistě přes `rm -rf .next && npm run dev -H 0.0.0.0`; warm `npm run perf:smoke` prošel 2026-05-02 22:55 CEST a chráněné admin routy bez session redirectují na login okolo 651-658 ms.
+- `npx playwright test --list` prošlo znovu 2026-05-02 22:57 CEST po zpevnění demo cookie podle `PLAYWRIGHT_BASE_URL`; eviduje 5 testů ve 2 souborech.
+- `npm run check` prošlo znovu 2026-05-02 23:01 CEST po Playwright demo cookie úpravě: 347 Vitest testů, migrations check, type-check, lint a produkční build.
+- Dev server byl po produkčním buildu restartovaný čistě přes `rm -rf .next && npm run dev -H 0.0.0.0`; warm `npm run perf:smoke` prošel 2026-05-02 23:03 CEST a chráněné admin routy bez session redirectují na login okolo 1124-1216 ms.
+- Statická bezpečnostní kontrola tenant vzorů 2026-05-02 23:04 CEST nenašla přímé čtení `tenant_id` z URL, body ani query v aplikačním kódu.
+- `perf:smoke` skript byl zpevněný: při neběžícím serveru vrací čitelný `ERR/ECONNREFUSED`, mimo CI měří sekvenčně a lze ho řídit přes `PERF_RETRIES` a `PERF_CONCURRENCY`.
+- `npm run check` prošlo 2026-05-02 23:17 CEST po zpevnění performance smoke skriptu: 347 Vitest testů, migrations check, type-check, lint a produkční build.
+- Dev server byl po produkčním buildu restartovaný čistě přes `rm -rf .next && npm run dev -H 0.0.0.0`; `npm run perf:smoke` prošlo 2026-05-02 23:18 CEST po čistém restartu díky lokálnímu retry.
+- Poslední warm `PERF_RETRIES=0 npm run perf:smoke` 2026-05-02 23:18 CEST: veřejné stránky cca 110-552 ms, chráněné admin redirecty cca 25-34 ms.
+- `npm run test -- tests/admin-performance-budget.test.ts` prošlo 2026-05-02 23:22 CEST: 5 testů.
+- `npm run check` prošlo 2026-05-02 23:25 CEST po přidání performance smoke guard testu a sjednocení proof metriky: 348 Vitest testů, migrations check, type-check, lint a produkční build.
+- Dev server byl po produkčním buildu restartovaný čistě přes `rm -rf .next && npm run dev -H 0.0.0.0`; `npm run perf:smoke` prošlo 2026-05-02 23:26 CEST po čistém restartu díky lokálnímu retry.
+- Poslední warm `PERF_RETRIES=0 npm run perf:smoke` 2026-05-02 23:26 CEST: veřejné stránky cca 121-563 ms, chráněné admin redirecty cca 24-32 ms.
+- `npm audit --audit-level=moderate` prošlo znovu 2026-05-02 23:27 CEST: `found 0 vulnerabilities`.
+- Playwright Chromium systémové dependencies byly do WSL nainstalované 2026-05-02 23:35 CEST přes `wsl -u root` z PowerShellu.
+- Playwright webServer běží pro smoke testy proti produkčnímu `next build && next start` serveru jedním workerem; tím se obchází lokální Turbopack dev chunk race.
+- `npm run test:e2e` prošlo 2026-05-02 23:44 CEST: 5 Playwright testů v Chromium.
+- `npm run check` prošlo 2026-05-02 23:47 CEST po E2E úpravách: 348 Vitest testů, migrations check, type-check, lint a produkční build.
+- Dev server běží znovu po `npm run dev -H 0.0.0.0`; `npm run perf:smoke` prošlo 2026-05-02 23:49 CEST po lokálním retry.
+- Poslední warm `PERF_RETRIES=0 npm run perf:smoke` 2026-05-02 23:49 CEST: veřejné stránky cca 71-272 ms, chráněné admin redirecty cca 14-19 ms.
+- Demo public booking action pro slug `demo-barber` v demo režimu nezkouší reálné Supabase RPC; demo booking E2E tak neprovádí zápis do DB ani s vyplněnými Supabase env.
+- `npm run check` prošlo 2026-05-03 00:04 CEST po demo booking/E2E stabilizaci: 348 Vitest testů, migrations check, type-check, lint a produkční build.
+- `npm run test:e2e` prošlo 2026-05-03 00:06 CEST: 6 Playwright testů v Chromium. Public smoke pokrývá health/CSP, landing, SEO stránky, render demo bookingu a odeslání demo rezervace bez DB zápisu; admin smoke pokrývá anonymní redirect na login.
+- `npx playwright test --list` prošlo 2026-05-03 00:08 CEST; eviduje 6 Playwright testů ve 2 souborech.
+- `npm run perf:smoke` prošlo 2026-05-03 00:07 CEST proti produkčnímu `next start` serveru; warm průchod bez retry přes `PERF_RETRIES=0 npm run perf:smoke` prošel také.
+- Poslední warm `PERF_RETRIES=0 npm run perf:smoke` 2026-05-03 00:07 CEST: veřejné stránky cca 5-260 ms, chráněné admin redirecty cca 2-5 ms.
+- Playwright public smoke nově hlídá i validaci kontaktních údajů: špatný telefon ve veřejném bookingu ukáže validační chybu a nepřejde do success receipt.
+- `npm run test:e2e` prošlo 2026-05-03 00:16 CEST: 7 Playwright testů v Chromium.
+- `npm run check` prošlo 2026-05-03 00:18 CEST po rozšíření E2E validace: 348 Vitest testů, migrations check, type-check, lint a produkční build.
+- `npx playwright test --list` prošlo 2026-05-03 00:19 CEST; eviduje 7 Playwright testů ve 2 souborech.
+- `npm run perf:smoke` prošlo 2026-05-03 00:19 CEST proti produkčnímu serveru; warm průchod bez retry přes `PERF_RETRIES=0 npm run perf:smoke` prošel také.
+- Poslední warm `PERF_RETRIES=0 npm run perf:smoke` 2026-05-03 00:19 CEST: veřejné stránky cca 5-231 ms, chráněné admin redirecty cca 1-4 ms.
+- Přidaný přihlášený Playwright admin smoke test: vytvoří unikátní owner účet a tenant přes registraci, ověří dashboard, kalendář, klienty, služby, tým a nastavení, a po testu uklidí tenant i auth user přes service role.
+- Pokud v prostředí chybí Supabase admin env, přihlášený admin E2E se přeskočí; public/anonymní smoke testy zůstávají použitelné i bez reálného Supabase runtime.
+- `npm run test:e2e` prošlo 2026-05-03 00:22 CEST: 8 Playwright testů ve 3 souborech.
+- `npm run check` prošlo 2026-05-03 00:25 CEST po přihlášeném admin E2E: 348 Vitest testů, migrations check, type-check, lint a produkční build.
+- `npx playwright test --list` prošlo 2026-05-03 00:25 CEST; eviduje 8 Playwright testů ve 3 souborech.
+- `npm run perf:smoke` prošlo 2026-05-03 00:26 CEST proti produkčnímu serveru; warm průchod bez retry přes `PERF_RETRIES=0 npm run perf:smoke` prošel také.
+- Poslední warm `PERF_RETRIES=0 npm run perf:smoke` 2026-05-03 00:26 CEST: veřejné stránky cca 2-192 ms, chráněné admin redirecty cca 1-2 ms.
+- Přihlášený Playwright admin smoke byl rozšířený o mutace v izolovaném tenantovi: přes UI vytvoří službu, ověří její persistenci po reloadu, vytvoří klienta a ověří jeho persistenci po reloadu.
+- `npm run test:e2e -- tests/e2e/admin-authenticated.spec.ts` prošlo 2026-05-03 00:34 CEST po rozšíření admin mutací.
+- `npm run test:e2e` prošlo 2026-05-03 00:35 CEST: 8 Playwright testů ve 3 souborech.
+- `npm run check` prošlo 2026-05-03 00:38 CEST po rozšíření admin mutací: 348 Vitest testů, migrations check, type-check, lint i produkční build.
+- `npm run perf:smoke` prošlo 2026-05-03 00:39 CEST proti produkčnímu serveru; warm průchod bez retry přes `PERF_RETRIES=0 npm run perf:smoke` prošel také.
+- Poslední warm `PERF_RETRIES=0 npm run perf:smoke` 2026-05-03 00:39 CEST: veřejné stránky cca 2-173 ms, chráněné admin redirecty cca 1-2 ms.
+- Staff UI mutace je nově pokrytá samostatným krátkým Playwright admin mutation smoke testem mimo dlouhý admin smoke.
+- `npm run test:e2e -- tests/e2e/admin-authenticated.spec.ts` prošlo 2026-05-03 00:51 CEST po návratu na stabilní registrace + služba + klient scénář.
+- `npm run test:e2e` prošlo 2026-05-03 00:53 CEST: 8 Playwright testů ve 3 souborech.
+- `npm run check` prošlo 2026-05-03 00:58 CEST: 348 Vitest testů, migrations check, type-check, lint i produkční build.
+- `npm run perf:smoke` prošlo 2026-05-03 00:59 CEST proti produkčnímu serveru; warm průchod bez retry přes `PERF_RETRIES=0 npm run perf:smoke` prošel také.
+- Poslední warm `PERF_RETRIES=0 npm run perf:smoke` 2026-05-03 00:59 CEST: veřejné stránky cca 5-301 ms, chráněné admin redirecty cca 1-7 ms.
+- Přihlášený Playwright admin smoke byl zpevněný: po registraci v izolovaném tenantovi seeduje přes service role službu, staff, klienta a rezervaci a ověřuje, že kalendář zobrazuje reálnou rezervaci.
+- Ruční booking formulář je nově pokrytý samostatným krátkým Playwright admin mutation smoke testem; dlouhý admin smoke dál ověřuje render reálné rezervace v kalendáři.
+- `npm run test:e2e -- tests/e2e/admin-authenticated.spec.ts` prošlo 2026-05-03 01:21 CEST.
+- `npx playwright test --list` prošlo 2026-05-03 01:24 CEST; eviduje 8 Playwright testů ve 3 souborech.
+- `npm run test:e2e` prošlo 2026-05-03 01:27 CEST: 8 Playwright testů ve 3 souborech.
+- `npm run check` prošlo 2026-05-03 01:29 CEST: 348 Vitest testů, migrations check, type-check, lint i produkční build.
+- `npm run perf:smoke` prošlo 2026-05-03 01:30 CEST proti produkčnímu serveru; warm průchod bez retry přes `PERF_RETRIES=0 npm run perf:smoke` prošel také.
+- Poslední warm `PERF_RETRIES=0 npm run perf:smoke` 2026-05-03 01:30 CEST: veřejné stránky cca 2-186 ms, chráněné admin redirecty cca 1-2 ms.
+- `npm run test:e2e -- tests/e2e/admin-authenticated.spec.ts` prošlo znovu 2026-05-03 01:33 CEST po dokumentační aktualizaci.
+- Dev server běží znovu přes `rm -rf .next && npm run dev -- -H 0.0.0.0`.
+- `npm run test:e2e -- tests/e2e/admin-mutations.spec.ts` prošlo 2026-05-03 02:06 CEST: 2 mutační admin Playwright testy.
+- `npm run check` prošlo 2026-05-03 02:11 CEST: 348 Vitest testů, migrations check, type-check, lint i produkční build.
+- `npm run test:e2e` prošlo 2026-05-03 02:12 CEST: 10 Playwright testů ve 4 souborech.
+- `npx playwright test --list` prošlo 2026-05-03 02:14 CEST; eviduje 10 Playwright testů ve 4 souborech.
+- `npm run perf:smoke` prošlo 2026-05-03 02:13 CEST proti produkčnímu serveru; warm průchod bez retry přes `PERF_RETRIES=0 npm run perf:smoke` prošel také.
+- Poslední warm `PERF_RETRIES=0 npm run perf:smoke` 2026-05-03 02:13 CEST: veřejné stránky cca 5-302 ms, chráněné admin redirecty cca 1-6 ms.
+- Dev server byl restartovaný čistě přes `rm -rf .next && npm run dev`.
+- Dev server byl po SEO/GEO/AEO stránkách znovu restartovaný čistě přes `rm -rf .next && npm run dev`.
+- Statická bezpečnostní kontrola po UI změnách nenašla tenant leak v aplikačních routech; citlivé service role výskyty jsou omezené na admin helper, env check, testy a seed skript.
+- Admin proxy byla zrychlena: server log po změně ukazuje proxy část navigace kolem 13-20 ms místo původních cca 150 ms až 1 s.
+- Výchozí `Týden` je Google-like kalendář s dny jako sloupci a časem vlevo; `Tým` je sekundární denní pohled se sloupci zaměstnanců a není v hlavním přepínači.
+- Kalendářový filtr zaměstnanců je checkboxový multi-select a obsahuje paletu barev pro `staff.color`.
+- Kalendář nemá redundantní počty v headeru/toolbaru/hlavičkách dnů; testovat hlavně čitelnost mřížky a filtrů.
+- Filtry kalendáře jsou v pravém panelu; navigace období, šipky zpět/vpřed, výběr data, rozsah `1 den / 3 dny / 7 dní` a přepínač pohledu jsou v hlavičce kalendářového rámu.
+- Ručně ověřit, že staff filtr neduplikuje barevnou tečku a eventy mají dost výrazné barvy podle zaměstnance.
+- Ručně ověřit, že denní pohled používá jednu časovou mřížku, ne starý list samostatných volných slotů.
+- Dashboard entity používají full-width pracovní plochu bez centrovaného `max-w-[1320px]`.
+- Admin dashboard už neobsahuje onboarding checklist; první kroky jsou v `/start`.
+- Zákaznický náhled a branding veřejného bookingu jsou v `/booking-page`.
+- `Služby`, `Klienti` a `Tým` mají zakládací formuláře skryté pod akcí `Přidat`.
+- Klienti, služby a tým jsou kompaktní CRM/ERP tabulky; ručně ověřit čitelnost na desktopu i horizontální scroll na menší šířce.
+- V tabulkách klientů, služeb a týmu ručně ověřit okamžité hledání při psaní a persistenci viditelných sloupců po refreshi.
+- V tabulkách klientů, služeb a týmu ručně ověřit stránkování, default 10 řádků, volbu 10/25/50 a součet záznamů ve footeru tabulky.
+- V tabulkách klientů, služeb a týmu ručně ověřit řazení klikem na hlavičku, rozbalovací `Filtry` a konzistentní šířku řádkových akcí.
+- Ručně ověřit dark mode tokeny a dvoustavový theme toggle na landing i dashboardu; default má být světlý režim.
+- V dark mode ručně ověřit kontrast landing hero textu, `Bento provozu` a `Signal Map`; kontrast byl opravený v CSS, ale browser proklik zatím není hotový.
+- Ručně ověřit booking receipt success state, animaci při běžném motion nastavení a statický stav při `prefers-reduced-motion`.
+- Branding veřejného bookingu používá tenant pole `public_description`, `logo_url`, `cover_image_url` a `brand_color`.
+- Branding veřejného bookingu umí nahrát logo/cover do Supabase Storage bucketu `tenant-assets`.
+- Dashboard reporting obsahuje 7denní trend rezervací a měsíční rozpad stavů.
+- `npm run seed:demo` proběhl 2026-05-02 14:03 CEST pro dva aktivní tenanty a nahrál do každého 5 služeb, 3 členy týmu, 7 klientů a 16 rezervací včetně překryvů.
+- Seed audit historie přeskočil, protože aktuální Supabase databáze nevrátila `public.booking_events` ve schema cache.
+- Lighthouse root landing page: desktop performance 100, mobile performance 93.
+- Detail Lighthouse je v `docs/15-performance-audit.md`.
+- Statické SEO/GEO/AEO stránky `/rezervacni-system-pro-barbery` a `/jak-snizit-no-show` jsou prerenderované jako static routes v produkčním buildu.
+- `/api/health` je dynamická route a v buildu je server-rendered on demand.
+- `Content-Security-Policy` je nastavený globálně v `next.config.ts`; při runtime testu ověřit, že neblokuje Supabase Storage logo/cover obrázky, Upstash requesty ani Next assets.
+- Lokální `curl -s http://localhost:3000/api/health` vrátil 2026-05-02 20:36 CEST `status: "ok"`; `rate_limit.configured` je zatím `false`, protože Upstash env nejsou vyplněné.
+- Lokální `curl -I http://localhost:3000` potvrdil `Content-Security-Policy`.
+- Performance smoke měří veřejné stránky, `/api/health` a redirect chráněných admin rout bez session. Playwright smoke navíc ověřuje veřejné stránky, demo booking render, demo booking submit bez DB zápisu, validaci špatného telefonu, zákaznický `/account/login`, booking button embed v browseru, anonymní admin redirect, přihlášený owner smoke přes izolovaně vytvořený tenant, `/start`, `/booking-page`, share/embed bloky, render reálné rezervace v kalendáři, vytvoření staff člena a ruční rezervaci.
+- Performance smoke v lokálním dev režimu měří mimo CI sekvenčně a má jeden retry, aby po čistém `rm -rf .next` nepadal na paralelním Turbopack cold chunk buildu. Čistý warm průchod bez retry spustíš přes `PERF_RETRIES=0 npm run perf:smoke`; paralelizaci lze řídit `PERF_CONCURRENCY`.
+- Dashboard stránka má budoucí rezervace pro výpočet volných slotů a trendu omezené na 8denní horizont.
+- Klienti, služby a tým mají server-side stránkování, základní server-side filtry, řazení a URL stav. URL state má čistý helper pokrytý Vitest testy. Staff tabulka používá view `staff_directory_metrics` pro přesné DB řazení podle `hours`, `services` a `exceptions`.
+- Migrace `20260502223000_create_staff_directory_metrics_view.sql` přidává `security_invoker` view `staff_directory_metrics`; v aktuální připojené Supabase databázi byla aplikovaná 2026-05-02 22:33 CEST.
+- `npm run runtime:schema-smoke` 2026-05-03 14:08 CEST ověřil, že `staff_directory_metrics` je v aktuálně připojené databázi dostupná přes PostgREST.
+- Migrace `20260503113000_add_service_deposit_policy.sql` přidává nastavení záloh u služeb a přepočet `bookings.deposit_amount`; v aktuální připojené Supabase databázi byla aplikovaná 2026-05-03.
+- Sekce `/payments` a export `/payments/export` vyžadují aplikovanou migraci `20260503115000_create_booking_payments.sql`; v aktuální připojené Supabase databázi byla aplikovaná 2026-05-03.
+- Migrace `20260503123000_create_calendar_feed_tokens.sql` přidává hashované tokeny pro read-only iCal feed; v aktuální připojené Supabase databázi byla aplikovaná 2026-05-03.
+- `npm run runtime:schema-smoke` 2026-05-03 14:20 CEST potvrdil, že zálohové sloupce služeb, `booking_payments`, `calendar_feed_tokens` a `staff_directory_metrics` jsou dostupné přes PostgREST.
+
+## 1. Supabase
+
+- Založit Supabase projekt.
+- Doplnit `.env.local` podle `.env.local.example`.
+- Spustit `npm run env:check`.
+- Spustit `npm run migrations:list`.
+- Aplikovat všechny SQL soubory ze `supabase/migrations` ve vzestupném pořadí.
+- Aktuálně poslední migrace je `20260508121000_add_review_request_notification_type.sql`.
+- Jako zdroj pravdy používat pouze jednotlivé soubory v `supabase/migrations`.
+- `public.booking_events` je v aktuální připojené Supabase databázi aplikovaná; při dalším seedu ověřit, že ji PostgREST schema cache vrací i pro audit historii.
+- Ověřit, že Supabase Auth má povolené email pozvánky.
+- Ověřit, že migrace `20260502150500_add_tenant_booking_branding.sql` je aplikovaná; v aktuální připojené Supabase databázi byla aplikovaná 2026-05-02 15:24 CEST.
+- Ověřit, že migrace `20260502152500_create_tenant_assets_bucket.sql` je aplikovaná; v aktuální připojené Supabase databázi byla aplikovaná 2026-05-02 17:12 CEST.
+- Ověřit, že migrace `20260502192000_harden_function_grants_and_fk_indexes.sql` je aplikovaná; v aktuální připojené Supabase databázi byla aplikovaná 2026-05-02 19:24 CEST.
+- Ověřit, že migrace `20260502194000_reduce_security_definer_surface.sql` je aplikovaná; v aktuální připojené Supabase databázi byla aplikovaná 2026-05-02 19:26 CEST.
+- Ověřit, že migrace `20260502195000_optimize_auth_rls_initplans.sql` je aplikovaná; v aktuální připojené Supabase databázi byla aplikovaná 2026-05-02 19:30 CEST.
+- Ověřit, že migrace `20260502223000_create_staff_directory_metrics_view.sql` je aplikovaná; v aktuální připojené Supabase databázi byla aplikovaná 2026-05-02 22:33 CEST.
+- Ověřit, že migrace `20260508112500_add_booking_source_tracking.sql`, `20260508114500_create_waitlist_entries.sql`, `20260508115800_fix_waitlist_composite_fk_delete_actions.sql` a `20260508121000_add_review_request_notification_type.sql` jsou aplikované; v aktuální připojené Supabase databázi jsou aplikované a remote migration history je opravená jako applied.
+- V nové databázi aplikovat migraci `20260503113000_add_service_deposit_policy.sql`; v aktuální připojené databázi je aplikovaná. Runtime vytvořit službu se zálohou a ověřit veřejnou rezervaci s vyplněnou `deposit_amount`.
+- V nové databázi aplikovat migraci `20260503115000_create_booking_payments.sql`; v aktuální připojené databázi je aplikovaná. V detailu rezervace zaevidovat zálohu a ověřit řádek v `booking_payments` i `bookings.deposit_paid = true`.
+- Po aplikaci payment migrace otevřít `/payments`, ověřit zobrazení zaevidované platby a stáhnout `/payments/export`; CSV má obsahovat klienta, službu, termín, typ platby, metodu a částku. Na aktuální databázi to automaticky pokrývá admin mutation smoke.
+- V nové databázi aplikovat migraci `20260503123000_create_calendar_feed_tokens.sql`; v aktuální připojené databázi je aplikovaná a přihlášený Playwright smoke už ověřuje vytvoření a načtení iCal feedu.
+- Po vygenerování iCal feedu ověřit, že URL neobsahuje tenant ID, feed obsahuje aktivní rezervace, `last_used_at` se po načtení aktualizuje a po odvolání feed vrací 404.
+- V `/booking-page` ověřit booking button embed snippet, vložit ho do jednoduché HTML stránky a potvrdit, že vykreslí tlačítko vedoucí na veřejný booking slug.
+- V `/booking-page` ověřit sdílecí kit: Instagram bio text, story/post text a QR kód; CSP nesmí blokovat `chart.googleapis.com`.
+- Na landing page ověřit sekci `Dva typy účtů` a další produktovou vrstvu: vyhledání podniků, mapa podniku a plný Google Calendar sync jsou budoucí vrstva, ne hotová funkce.
+- V `/settings` vyplnit veřejnou adresu/město/mapový odkaz, zapnout zalistování, ověřit `/podniky` a veřejnou booking stránku; katalog má ukazovat jen veřejná tenant pole.
+- Leaked password protection zatím nezapínat na Free plánu; zapnout až před spuštěním při přechodu na Supabase Pro/prod provoz. Podle Supabase docs je dostupná na Pro plánu a výš.
+- Před pilotem znovu ověřit `npm audit --audit-level=moderate`; při budoucím upgradu Next/Resend zkusit odstranit overrides pro `postcss` a `svix`.
+- Ověřit, že `/api/health` se Supabase env vrací `status: "ok"` a bez úniku konkrétních env hodnot.
+- Ověřit, že `curl -I` na root vrací `Content-Security-Policy`.
+- Google provider v Supabase Auth zatím nezapínat; runtime aktivace je odložená až před spuštěním po zakoupení/napojení produkční domény.
+- Před spuštěním zapnout Supabase Pro/leaked password protection, Google provider, finální `Site URL`, redirect allow list `${NEXT_PUBLIC_APP_URL}/auth/callback`, Google OAuth origin produkční domény a Supabase callback URI `https://dkbnuvrrmegnbnwungvi.supabase.co/auth/v1/callback`; potom ověřit Google login a registraci.
+- Po zapnutí Google provideru ověřit zákaznický `/account`: Google účet bez tenant metadata se smí dostat jen do `/account`, ne do dashboardu; rezervace se zobrazí jen podle ověřeného e-mailu.
+
+## 1.1 Testovací data
+
+- Pro lokální demo bez Supabase env se používá rozšířený dataset v `lib/demo/data.ts`.
+- Pro reálnou Supabase databázi spustit `npm run seed:demo`.
+- Pokud je v databázi více tenantů, seed výchozí nahrává data do všech aktivních tenantů.
+- Pro jeden konkrétní tenant použít `SEED_TENANT_ID=<tenant_uuid> npm run seed:demo`.
+- Seed je idempotentní pro vlastní demo řádky a používá tenant-specific UUID, aby nevznikaly kolize mezi tenanty.
+- Demo rezervace obsahují překryvy ve stejných časových oknech pro různé zaměstnance, aby šel otestovat Google-like týdenní kalendář.
+
+## 2. Email
+
+- Doplnit `RESEND_API_KEY`.
+- Doplnit `RESEND_FROM_EMAIL`.
+- `RESEND_FROM_EMAIL` musí být platný email.
+- Resend hodnoty musí být vyplněné obě najednou.
+- Ověřit, že odesílací doména v Resendu je validovaná.
+
+## 3. Rate limit
+
+- Doplnit `UPSTASH_REDIS_REST_URL`.
+- Doplnit `UPSTASH_REDIS_REST_TOKEN`.
+- `UPSTASH_REDIS_REST_URL` musí být platná http/https URL.
+- Upstash hodnoty musí být vyplněné obě najednou.
+- Bez těchto hodnot se rate limit v lokálním vývoji přeskočí.
+
+## 4. Cron
+
+- Doplnit `CRON_SECRET`.
+- `CRON_SECRET` musí mít alespoň 24 znaků.
+- `CRON_SECRET` nesmí obsahovat mezery ani jiné whitespace znaky.
+- Na hostingu volat `/api/cron/reminders` s headerem `Authorization: Bearer <CRON_SECRET>`.
+- Pro SMS reminder doplnit `SMS_REMINDERS_ENABLED=true`.
+- Pro SMS reminder doplnit `SMS_WEBHOOK_URL`; musí být platná http/https URL.
+- Volitelně doplnit `SMS_WEBHOOK_SECRET`; pokud je vyplněný, SMS webhook dostane `Authorization: Bearer <SMS_WEBHOOK_SECRET>`.
+- Na hostingu volat `/api/cron/sms-reminders` se stejným headerem `Authorization: Bearer <CRON_SECRET>`.
+- Bez `SMS_WEBHOOK_URL` endpoint `/api/cron/sms-reminders` vrací `skipped: "sms_webhook_not_configured"` a neposílá SMS.
+
+## 5. End-to-end runtime test
+
+- Registrovat podnik.
+- Nastavit timezone, locale, měnu a storno lhůtu.
+- Přidat službu.
+- Přidat zaměstnance, pracovní dobu a přiřazení služby.
+- Vytvořit veřejnou rezervaci přes `/{slug}`.
+- Potvrdit rezervaci v kalendáři.
+- Ověřit email klientovi a provozovateli.
+- Přes emailový manage odkaz zkusit přesun a zrušení rezervace.
+- Ověřit, že staff účet vidí jen vlastní rezervace.
+- Ověřit, že veřejné metadata a hlavní shell používají název Temaro.
+- Ověřit, že favicon/apple ikona a brand assety používají transparentní Temaro SVG.
