@@ -1,6 +1,6 @@
 # Handoff
 
-Aktualizováno: 2026-05-31 21:21 CEST
+Aktualizováno: 2026-05-31 21:47 CEST
 
 ## Jak navázat
 
@@ -31,7 +31,7 @@ Aktualizováno: 2026-05-31 21:21 CEST
 - Čekací listina má tabulku `waitlist_entries`, service-role RPC `create_waitlist_entry`, veřejné CTA při obsazených termínech a owner přehled v kalendáři; migrace `20260508114500_create_waitlist_entries.sql` je aplikovaná lokálně i remote.
 - Review request používá tenant `review_url`; po owner dokončení rezervace odešle klientovi e-mail a uloží notification typ `review_request`. Migrace `20260508121000_add_review_request_notification_type.sql` je aplikovaná lokálně i remote.
 - Online záloha přes Stripe používá self-service manage odkaz, route `/api/payments/stripe/checkout`, webhook `/api/payments/stripe/webhook`, pending/paid záznamy v `booking_payments` a audit event `payment_recorded`.
-- Poslední ověření: `npm run check` prošlo 2026-05-31 21:20 CEST s 556 Vitest testy, migrations check, type-check, lint i produkčním buildem.
+- Poslední ověření: `npm run check` prošlo 2026-05-31 21:47 CEST s 556 Vitest testy, migrations check, type-check, lint i produkčním buildem.
 - Vercel production deploy je hotový: `https://rezervacni-system-xi.vercel.app`.
 - Public health endpoint nevrací názvy chybějících secret env; vrací jen počet v `checks.env.missing`.
 - GitHub login connection ve Vercelu je propojený; před propojením byly nové deploymenty private repa `BLOCKED`, aktuální production deploy je `dpl_AffMKKfVRea9jtgNZnQZj7wajXZz`.
@@ -41,6 +41,7 @@ Aktualizováno: 2026-05-31 21:21 CEST
 - Stabilní handoff soubor je nově `docs/handoff.md` bez data v názvu.
 - Landing page má první copy/design cleanup: kratší proof labely pro mobil, méně interní design-audit copy a civilnější footer.
 - Druhá homepage design iterace: kratší hero subhead, obrazová sekce `Reálné provozy`, marketing mockup bez falešné tržby a bez tvrzení `živá ukázka`; metriky se v dark mode neořezávají.
+- Obrázky v sekci `Reálné provozy` jsou vlastní vygenerované assety a jsou uložené jako optimalizované WebP v `public/marketing/*-ai.webp`.
 - Pre-demo hardening 2026-05-31: Next.js a `eslint-config-next` jsou na `16.2.6`, `npm audit --audit-level=moderate` vrací 0 vulnerabilities, non-embed routy mají `X-Frame-Options: DENY`, `/account/login` je veřejně dostupný a `/demo-barber` má demo fallback i při nedostupné Supabase DB.
 - Playwright 2026-05-31: `npx playwright test` prošlo 9 testů; 4 authenticated runtime testy se bez `E2E_AUTHENTICATED_SMOKE=true` korektně přeskočí.
 - Historické analýzy a design audity jsou v `docs/archive/`.

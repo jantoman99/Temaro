@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Aktualizováno: 2026-05-31 21:21 CEST
+Aktualizováno: 2026-05-31 21:47 CEST
 
 Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historické analýzy a staré design audity jsou přesunuté do `docs/archive/`.
 
@@ -114,6 +114,8 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 
 ## Poslední změna
 
+- Marketing obrázky v sekci `Reálné provozy` jsou nově vlastní vygenerované assety uložené jako optimalizované WebP: `barber-studio-ai.webp`, `salon-interior-ai.webp`, `training-studio-ai.webp`.
+- Ověření 2026-05-31 21:47 CEST: `npm run check` prošlo s 556 Vitest testy, migrations check, type-check, lint a produkční build.
 - Druhá homepage design iterace po vizuální zpětné vazbě: hero claim je kratší, marketing mockup už netvrdí `živá ukázka`, neobsahuje falešnou tržbu a metriky se v dark mode neořezávají.
 - Přidaná obrazová sekce `Reálné provozy` s existujícími marketing fotkami pro barber/salon/training segmenty.
 - Ověření 2026-05-31 21:20 CEST: `npm run check` prošlo s 556 Vitest testy, migrations check, type-check, lint a produkční build.

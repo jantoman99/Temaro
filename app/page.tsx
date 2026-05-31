@@ -57,19 +57,19 @@ const visualSegments = [
   {
     title: "Barber a salon",
     text: "Online termíny, oblíbený člověk a rychlé přeobjednání bez zpráv tam a zpět.",
-    image: "/marketing/barber-studio.jpg",
+    image: "/marketing/barber-studio-ai.webp",
     alt: "Barber studio s pracovním křeslem",
   },
   {
     title: "Beauty provoz",
     text: "Klientská historie, poznámky a kapacita dne pro opakované návštěvy.",
-    image: "/marketing/salon-interior.jpg",
+    image: "/marketing/salon-interior-ai.webp",
     alt: "Interiér salonu připravený pro klienty",
   },
   {
     title: "Trenéři a konzultace",
     text: "Jeden booking odkaz pro termíny, které klient zvládne vybrat sám.",
-    image: "/marketing/training-studio.jpg",
+    image: "/marketing/training-studio-ai.webp",
     alt: "Tréninkové studio s volnou plochou",
   },
 ] as const;
