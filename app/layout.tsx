@@ -24,9 +24,22 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  title: "Temaro | Rezervační systém pro služby",
-  description: "Temaro je multi-tenant SaaS booking platforma pro správu služeb, klientů a rezervací.",
+  title: {
+    default: "Rezervační systém pro služby | Temaro",
+    template: "%s",
+  },
+  description:
+    "Temaro je český rezervační systém pro salony, barbery, ordinace, trenéry a lokální služby. Online booking, týmový kalendář, klientská historie a méně telefonátů.",
   applicationName: "Temaro",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? "https://rezervacni-system-xi.vercel.app"),
+  openGraph: {
+    title: "Rezervační systém pro služby | Temaro",
+    description:
+      "Online rezervace, týmový kalendář a klientský kontext pro provozy, kde každý volný termín stojí peníze.",
+    locale: "cs_CZ",
+    siteName: "Temaro",
+    type: "website",
+  },
   icons: {
     icon: [
       { url: "/icon.svg", type: "image/svg+xml" },

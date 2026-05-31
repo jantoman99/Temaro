@@ -1,6 +1,6 @@
 # Handoff
 
-Aktualizováno: 2026-05-31 22:52 CEST
+Aktualizováno: 2026-05-31 23:52 CEST
 
 ## Jak navázat
 
@@ -31,7 +31,7 @@ Aktualizováno: 2026-05-31 22:52 CEST
 - Čekací listina má tabulku `waitlist_entries`, service-role RPC `create_waitlist_entry`, veřejné CTA při obsazených termínech a owner přehled v kalendáři; migrace `20260508114500_create_waitlist_entries.sql` je aplikovaná lokálně i remote.
 - Review request používá tenant `review_url`; po owner dokončení rezervace odešle klientovi e-mail a uloží notification typ `review_request`. Migrace `20260508121000_add_review_request_notification_type.sql` je aplikovaná lokálně i remote.
 - Online záloha přes Stripe používá self-service manage odkaz, route `/api/payments/stripe/checkout`, webhook `/api/payments/stripe/webhook`, pending/paid záznamy v `booking_payments` a audit event `payment_recorded`.
-- Poslední ověření: `npm run check` prošlo 2026-05-31 22:39 CEST s 556 Vitest testy, migrations check, type-check, lint i produkčním buildem; externí public smoke proti Vercelu prošel 2026-05-31 22:52 CEST.
+- Poslední ověření: `npm run check` prošlo 2026-05-31 23:45 CEST s 556 Vitest testy, migrations check, type-check, lint i produkčním buildem; lokální public route smoke a vizuální Playwright kontrola homepage prošly, externí public smoke proti Vercelu naposledy prošel 2026-05-31 22:52 CEST.
 - Vercel production deploy je hotový: `https://rezervacni-system-xi.vercel.app`.
 - Public health endpoint nevrací názvy chybějících secret env; vrací jen počet v `checks.env.missing`.
 - GitHub login connection ve Vercelu je propojený; před propojením byly nové deploymenty private repa `BLOCKED`, aktuální production deploy je `dpl_4Zogqwr6XLj2utWu7cbc9sCh5ePe`.
@@ -127,6 +127,11 @@ Aktualizováno: 2026-05-31 22:52 CEST
 
 ## Poslední změna
 
+- Homepage visual polish podle `temaro-vizualni-oziveni.md` a inspirace ze struktury AutoERP: sekce střídají světlé/tónované/tmavé pozadí, feature/audience karty používají více barevných tokenů, mobilní proof metriky jsou kompaktní a marketing fotky v `Reálné provozy` jsou vizuálně odlišnější.
+- Produktový mockup v heru je opravený: `Dnes / Booking / Klient` nemění šířku okna, sidebar `Přehled / Kalendář / Klienti / Signály` je klikací a běžný desktop používá kompaktní layout bez překryvu pravého booking panelu.
+- SEO metadata homepage/root layoutu jsou přesnější pro český rezervační systém a navazují na existující oborové landing pages a footer prolinkování.
+- Lokální kontrola 2026-05-31 23:45 CEST: screenshoty `/` na 1366x768, 390x1200 a full-page 1366x900, Playwright proklik mockupu bez console errors, public route smoke pro `/`, `/demo-barber`, `/podniky`, SEO stránky, `/login`, `/register`, `/account/login`.
+- `npm run check` prošlo 2026-05-31 23:45 CEST: 556 Vitest testů, migrations check, type-check, lint a produkční build.
 - Homepage review implementace podle `C:\Users\hanys\Downloads\temaro-landing-review.md`: stránka je kratší, mobilní nav je jednodušší, produktový mockup má nižší mobilní min-height, warning tone používá design token a Instrument Serif má `display: "swap"`.
 - Lokální vizuální kontrola 2026-05-31: screenshoty `/` na 1366x768, 320x1000 a 390x1000 potvrdily viditelné CTA, nerozbité hero texty a funkční zkrácenou navigaci.
 - `npm run check` prošlo 2026-05-31 22:39 CEST: 556 Vitest testů, migrations check, type-check, lint a produkční build.

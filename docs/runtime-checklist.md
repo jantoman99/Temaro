@@ -1,6 +1,6 @@
 # Runtime checklist
 
-Aktualizováno: 2026-05-31 22:52 CEST
+Aktualizováno: 2026-05-31 23:52 CEST
 
 Tento checklist je pro první reálné ověření mimo demo režim.
 
@@ -22,6 +22,8 @@ curl -I http://localhost:3000
 
 Aktuální známý stav:
 
+- `npm run check` prošlo 2026-05-31 23:45 CEST po homepage visual/interakčním polishi: 556 Vitest testů, migrations check, type-check, lint a produkční build.
+- Lokální Playwright kontrola 2026-05-31 23:45 CEST prošla: homepage screenshoty desktop/mobil/full-page, stabilní šířka produktového mockupu při přepínání `Dnes / Booking / Klient`, klikatelné sekce `Přehled / Kalendář / Klienti / Signály` a public route smoke bez console errors.
 - Vercel deploy alias: `https://rezervacni-system-xi.vercel.app`. Aktuálně běží bez Supabase/Resend/Stripe/Upstash env, takže `/api/health` je očekávaně `degraded`, ale public demo stránky fungují přes demo fallback.
 - GitHub login connection ve Vercelu je propojený; aktuální production deploy je `dpl_4Zogqwr6XLj2utWu7cbc9sCh5ePe`.
 - Ověřeno na Vercelu: `/api/health` nevrací názvy interních secret env; `checks.env.missing` je číslo a ne seznam názvů proměnných.

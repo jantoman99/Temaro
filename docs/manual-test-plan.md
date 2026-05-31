@@ -35,6 +35,9 @@ Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 - Na landing page zkontrolovat signal-grid pozadi na desktopu, neutral/command produktovy mockup, fialovo-modry brand signal a konkretni provozni copy.
 - Na landing page zkontrolovat product mockup: musi mit produktovy chrome, command hint a kapacitni graf, ne jen statickou kartu.
 - V hero product mockupu proklikat scénáře `Dnes`, `Booking` a `Klient`; metriky a checkout panel se mají měnit bez reloadu stránky.
+- Při přepínání `Dnes`, `Booking` a `Klient` ověřit, že se nemění šířka produktového okna a žádný panel neleze přes jiný obsah.
+- V hero product mockupu proklikat sidebar `Přehled`, `Kalendář`, `Klienti` a `Signály`; aktivní stav i obsah se mají přepnout bez reloadu stránky.
+- Na běžném desktop viewportu kolem 1366 px ověřit, že mockup používá kompaktní layout bez pravého booking panelu přes hlavní kartu; na širokém viewportu může zobrazit plný dvousloupec.
 - Na landing page zkontrolovat nove sekce `Pro koho`, `Ceník` a `Bezpečnost`: maji pusobit jako realny SaaS web, ne jako placeholder text pod hero sekci.
 - Zkontrolovat zkrácenou sekci `Praktické návody`: hlavní stránka má ukazovat jen čtyři segmentové odkazy, zatímco ostatní SEO/answer odkazy zůstávají dostupné ve footeru.
 - Ověřit, že staré redundantní bloky `Signal Map`, `Rezervační tok`, `Bento provozu`, `Dva typy účtů` a future-layer sekce už na homepage nejsou; stránka má působit kratší a konverznější.

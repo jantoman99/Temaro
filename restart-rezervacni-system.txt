@@ -21,7 +21,7 @@ Důležité chování:
 - Ruční testy jsou odložené do `docs/manual-test-plan.md`.
 - Dokumentaci aktualizuj při smysluplné změně.
 
-Aktuální stav 2026-05-31 22:52 CEST:
+Aktuální stav 2026-05-31 23:52 CEST:
 - Produkt se jmenuje `Temaro`.
 - Codex CLI profily jsou v `~/.codex/config.toml`; projektový `.codex/config.toml` už neobsahuje nepodporované `profiles`.
 - Supabase MCP config je nastavený pro projekt `dkbnuvrrmegnbnwungvi` a OAuth login byl obnovený; pokud se auth chyba vrátí, spustit `codex mcp login supabase`.
@@ -105,11 +105,12 @@ Aktuální stav 2026-05-31 22:52 CEST:
 - Project/docs/design review je v `docs/project-review.md`.
 - README je přepsané pro portfolio/onboarding a `docs/README.md` mapuje dokumentaci.
 - Stabilní handoff soubor je `docs/handoff.md`.
-- Landing page je po review zkrácená: hero/demo, value props, odlišné segmentové obrázky, obory, zkrácené návody, ceník, bezpečnost a footer. Redundantní signal-map, flow, bento, účty a future-layer bloky jsou odstraněné.
-- Proof metriky v heru jsou zákaznické (`3 kroky`, `0 Kč`, `0 %`) a top nav má jen `Produkt`, `Obory`, `Ceník`, `Demo`.
-- Obrázky v sekci `Reálné provozy` jsou vlastní přegenerované WebP assety v `public/marketing/*-ai.webp`: barber je tmavý řemeslný interiér, beauty je světlé studio a fitness je denní tréninkový prostor.
-- `npm run check` prošlo 2026-05-31 22:39 CEST: 556 Vitest testů, migrations check, type-check, lint i produkční build.
-- Lokálně zkontrolované screenshoty homepage na 1366x768, 320x1000 a 390x1000.
+- Landing page je po review zkrácená a vizuálně oživená: hero/demo, value props, odlišné segmentové fotky, obory, tmavá sekce návodů, ceník, bezpečnost a footer. Redundantní signal-map, flow, bento, účty a future-layer bloky jsou odstraněné.
+- Proof metriky v heru jsou zákaznické (`3 kroky`, `0 Kč`, `0 %`), na mobilu jsou kompaktní ve třech sloupcích a top nav má jen `Produkt`, `Obory`, `Ceník`, `Demo`.
+- Hero produktový mockup je interaktivní: `Dnes / Booking / Klient` přepíná scénáře bez změny šířky okna a sidebar `Přehled / Kalendář / Klienti / Signály` je klikací. Na běžném desktopu se používá kompaktní layout bez překryvu panelů.
+- SEO metadata homepage/root layoutu jsou přesnější pro český rezervační systém; struktura interních odkazů navazuje na existující oborové stránky a inspiraci ze SEO rozcestníku AutoERP.
+- `npm run check` prošlo 2026-05-31 23:45 CEST: 556 Vitest testů, migrations check, type-check, lint i produkční build.
+- Lokálně zkontrolované screenshoty homepage na 1366x768, 390x1200 a full-page 1366x900; Playwright proklik mockupu a public route smoke prošly bez console errors.
 - `npx playwright test` prošlo 2026-05-31: 9 testů prošlo, 4 authenticated runtime testy se bez `E2E_AUTHENTICATED_SMOKE=true` přeskočily.
 - `npm run check` prošlo 2026-05-08 18:41 CEST po pobočkách: 521 Vitest testů, migrations check, type-check, lint i produkční build.
 - `npm run check` prošlo 2026-05-08 18:11 CEST po resources vrstvě: 517 Vitest testů, migrations check, type-check, lint i produkční build.

@@ -8,6 +8,7 @@ import {
   ShieldCheck,
   UsersRound,
 } from "lucide-react";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { headers } from "next/headers";
@@ -19,6 +20,23 @@ import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { isLikelyPlatformHost, normalizeRequestHost } from "@/lib/custom-domain";
 import { hasSupabaseAdminEnv } from "@/lib/env";
 import { createAdminClient } from "@/lib/supabase/admin";
+
+export const metadata: Metadata = {
+  title: "Rezervační systém pro služby | Temaro",
+  description:
+    "Temaro je český rezervační systém pro salony, barbery, ordinace, trenéry a lokální služby. Online booking, týmový kalendář, klientská historie a méně telefonátů.",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "Rezervační systém pro služby | Temaro",
+    description:
+      "Online rezervace, týmový kalendář a klientský kontext pro provozy, kde každý volný termín stojí peníze.",
+    type: "website",
+    locale: "cs_CZ",
+    siteName: "Temaro",
+  },
+};
 
 const CTA = {
   primary: { href: "/register", label: "Začít zdarma" },
@@ -37,16 +55,19 @@ const features = [
     icon: PhoneOff,
     title: "Méně telefonátů",
     description: "Rezervace vznikne bez zpráv tam a zpět. Vy řešíte práci, ne hledání volného okna.",
+    tone: "border-info/25 bg-info/10 text-info hover:border-info/45",
   },
   {
     icon: AlertTriangle,
     title: "No-show pod kontrolou",
     description: "Rizikový klient nebo čekající termín se neztratí v poznámkách. Systém ho vytáhne dopředu.",
+    tone: "border-warning/25 bg-warning/10 text-warning hover:border-warning/45",
   },
   {
     icon: UsersRound,
     title: "Paměť podniku",
     description: "Historie návštěv, preference a poznámky zůstávají u klienta, ne v hlavě jednoho člověka.",
+    tone: "border-success/25 bg-success/10 text-success hover:border-success/45",
   },
 ] as const;
 
@@ -54,20 +75,20 @@ const visualSegments = [
   {
     title: "Barber a salon",
     text: "Online termíny, oblíbený člověk a rychlé přeobjednání bez zpráv tam a zpět.",
-    image: "/marketing/barber-studio-ai.webp",
-    alt: "Barber studio s pracovním křeslem",
+    image: "/marketing/barber-studio.jpg",
+    alt: "Detail barber služby během úpravy vousů",
   },
   {
     title: "Beauty provoz",
     text: "Klientská historie, poznámky a kapacita dne pro opakované návštěvy.",
-    image: "/marketing/salon-interior-ai.webp",
-    alt: "Interiér salonu připravený pro klienty",
+    image: "/marketing/salon-interior.jpg",
+    alt: "Klientka s upravenými vlasy v salonním prostředí",
   },
   {
     title: "Trenéři a konzultace",
     text: "Jeden booking odkaz pro termíny, které klient zvládne vybrat sám.",
-    image: "/marketing/training-studio-ai.webp",
-    alt: "Tréninkové studio s volnou plochou",
+    image: "/marketing/training-studio.jpg",
+    alt: "Trénink s činkou ve fitness studiu",
   },
 ] as const;
 
@@ -76,21 +97,29 @@ const audienceSegments = [
     title: "Salony a barber shopy",
     text: "Klient si vybere službu, člověka i čas. Tým má přehled bez papírového diáře.",
     points: ["oblíbený zaměstnanec", "historie návštěv", "rychlé přeobjednání"],
+    tone: "border-l-tag-blue",
+    iconTone: "bg-tag-blue/10 text-tag-blue",
   },
   {
     title: "Trenéři a konzultanti",
     text: "Pošlete jeden odkaz a klient si najde čas, který sedí oběma stranám.",
     points: ["veřejný booking link", "volná okna", "potvrzení e-mailem"],
+    tone: "border-l-tag-green",
+    iconTone: "bg-tag-green/10 text-tag-green",
   },
   {
     title: "Ordinace a péče",
     text: "Přehledné potvrzování, změny termínů a historie bez zbytečného provozního hluku.",
     points: ["čekající rezervace", "audit změn", "bezpečné self-service odkazy"],
+    tone: "border-l-tag-amber",
+    iconTone: "bg-tag-amber/10 text-tag-amber",
   },
   {
     title: "Autoservisy a lokální služby",
     text: "Kapacita dne, kontakt na klienta a interní poznámky jsou dostupné ve správný moment.",
     points: ["kapacita dne", "interní poznámky", "rizikové termíny"],
+    tone: "border-l-tag-violet",
+    iconTone: "bg-tag-violet/10 text-tag-violet",
   },
 ] as const;
 
@@ -125,9 +154,9 @@ const trustItems = [
 ] as const;
 
 const proofMetrics = [
-  ["3 kroky", "rezervace"],
-  ["0 Kč", "pilot"],
-  ["0 %", "provize"],
+  [CheckCircle2, "3 kroky", "rezervace", "bg-info/10 text-info"],
+  [BadgeEuro, "0 Kč", "pilot", "bg-success/10 text-success"],
+  [ShieldCheck, "0 %", "provize", "bg-warning/10 text-warning"],
 ] as const;
 
 const guideLinks = [
@@ -272,11 +301,18 @@ export default async function Home() {
                 </Link>
               </div>
 
-              <div id="dukaz" className="motion-reveal mt-8 grid gap-3 sm:grid-cols-3">
-                {proofMetrics.map(([value, label]) => (
-                  <div key={label} className="rounded-xl border border-border/80 bg-card/78 p-4 shadow-sm backdrop-blur sm:min-h-32">
-                    <p className="nums-tabular text-3xl font-semibold tracking-tight text-primary">{value}</p>
-                    <p className="mt-2 max-w-[15rem] text-sm font-medium leading-5 text-muted-foreground">{label}</p>
+              <div id="dukaz" className="motion-reveal mt-8 grid grid-cols-3 gap-2 sm:gap-3">
+                {proofMetrics.map(([Icon, value, label, tone]) => (
+                  <div key={label} className="rounded-xl border border-border/80 bg-card/78 p-3 shadow-sm backdrop-blur sm:min-h-32 sm:p-4">
+                    <div className={`mb-3 grid size-8 place-items-center rounded-lg sm:size-9 ${tone}`}>
+                      <Icon className="size-4" strokeWidth={1.9} />
+                    </div>
+                    <p className="nums-tabular text-2xl font-semibold tracking-tight text-primary sm:text-3xl">
+                      {value}
+                    </p>
+                    <p className="mt-1 max-w-[15rem] text-xs font-medium leading-4 text-muted-foreground sm:mt-2 sm:text-sm sm:leading-5">
+                      {label}
+                    </p>
                   </div>
                 ))}
               </div>
@@ -303,9 +339,9 @@ export default async function Home() {
             {features.map((feature) => (
               <article
                 key={feature.title}
-                className="relative overflow-hidden rounded-2xl border border-border bg-card p-5 shadow-sm"
+                className={`relative overflow-hidden rounded-2xl border bg-card p-5 shadow-sm transition hover:-translate-y-1 ${feature.tone}`}
               >
-                <div className="mb-5 flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary" aria-hidden>
+                <div className={`mb-5 flex size-11 items-center justify-center rounded-xl ${feature.tone}`} aria-hidden>
                   <feature.icon className="h-5 w-5" strokeWidth={1.9} />
                 </div>
                 <h3 className="text-lg font-semibold tracking-tight text-foreground">{feature.title}</h3>
@@ -316,7 +352,8 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-[1180px] px-4 pb-20 sm:px-6 lg:px-8">
+      <section className="bg-secondary/70 py-20">
+        <div className="mx-auto w-full max-w-[1180px] px-4 sm:px-6 lg:px-8">
         <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Reálné provozy</p>
@@ -348,9 +385,10 @@ export default async function Home() {
             </article>
           ))}
         </div>
+        </div>
       </section>
 
-      <section id="pro-koho" className="mx-auto w-full max-w-[1180px] px-4 pb-20 sm:px-6 lg:px-8">
+      <section id="pro-koho" className="mx-auto w-full max-w-[1180px] px-4 py-20 sm:px-6 lg:px-8">
         <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Pro koho</p>
@@ -365,9 +403,12 @@ export default async function Home() {
 
         <div className="grid gap-3 md:grid-cols-2">
           {audienceSegments.map((segment, index) => (
-            <article key={segment.title} className="rounded-2xl border border-border bg-card p-5 shadow-sm">
+            <article
+              key={segment.title}
+              className={`rounded-2xl border border-l-4 border-border bg-card p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-md ${segment.tone}`}
+            >
               <div className="mb-5 flex items-center justify-between">
-                <span className="grid size-10 place-items-center rounded-xl bg-primary/10 text-primary">
+                <span className={`grid size-10 place-items-center rounded-xl ${segment.iconTone}`}>
                   <Building2 className="size-5" strokeWidth={1.9} />
                 </span>
                 <span className="nums-tabular text-xs font-bold text-muted-foreground">{`0${index + 1}`}</span>
@@ -386,14 +427,14 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-[1180px] px-4 pb-20 sm:px-6 lg:px-8">
-        <div className="grid gap-6 rounded-xl border border-border bg-card p-5 shadow-sm lg:grid-cols-[0.82fr_1.18fr] lg:p-6">
+      <section className="command-surface interactive-demo-shell py-20">
+        <div className="mx-auto grid w-full max-w-[1180px] gap-6 px-4 sm:px-6 lg:grid-cols-[0.82fr_1.18fr] lg:px-8">
           <header>
-            <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Praktické návody</p>
-            <h2 className="mt-3 text-balance text-3xl font-semibold leading-[1.08] tracking-tight sm:text-4xl">
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-white/58">Praktické návody</p>
+            <h2 className="mt-3 text-balance text-3xl font-semibold leading-[1.08] tracking-tight text-white sm:text-4xl">
               Začínáme tam, kde české provozovny nejvíc bolí čas a výpadky.
             </h2>
-            <p className="mt-4 max-w-md text-sm font-medium leading-6 text-muted-foreground">
+            <p className="mt-4 max-w-md text-sm font-medium leading-6 text-white/68">
               První SEO/GEO vrstva není obecný blog. Je to produktový obsah pro konkrétní segmenty a časté provozní
               otázky, které mají přivádět relevantní piloty.
             </p>
@@ -404,20 +445,20 @@ export default async function Home() {
               <Link
                 key={guide.href}
                 href={guide.href}
-                className="group rounded-2xl border border-border bg-secondary/80 p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-primary/35 hover:bg-secondary"
+                className="group rounded-2xl border border-white/10 bg-white/8 p-5 shadow-sm transition hover:-translate-y-1 hover:border-primary/45 hover:bg-white/12"
               >
                 <div className="flex items-start justify-between gap-4">
-                  <h3 className="text-lg font-semibold tracking-tight text-foreground">{guide.title}</h3>
+                  <h3 className="text-lg font-semibold tracking-tight text-white">{guide.title}</h3>
                   <ArrowRight className="mt-1 size-4 shrink-0 text-primary transition group-hover:translate-x-0.5" />
                 </div>
-                <p className="mt-3 text-sm font-medium leading-6 text-muted-foreground">{guide.text}</p>
+                <p className="mt-3 text-sm font-medium leading-6 text-white/62">{guide.text}</p>
               </Link>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="cenik" className="mx-auto w-full max-w-[1180px] px-4 pb-20 sm:px-6 lg:px-8">
+      <section id="cenik" className="mx-auto w-full max-w-[1180px] px-4 py-20 sm:px-6 lg:px-8">
         <div className="grid overflow-hidden rounded-xl border border-border bg-card shadow-sm lg:grid-cols-[0.9fr_1.1fr]">
           <div className="command-surface p-6 sm:p-8">
             <div className="mb-8 grid size-12 place-items-center rounded-2xl bg-primary text-primary-foreground">
@@ -474,8 +515,8 @@ export default async function Home() {
         </div>
       </section>
 
-      <section id="bezpecnost" className="mx-auto w-full max-w-[1180px] px-4 pb-20 sm:px-6 lg:px-8">
-        <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+      <section id="bezpecnost" className="bg-secondary/70 py-20">
+        <div className="mx-auto grid w-full max-w-[1180px] gap-8 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
           <header>
             <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Bezpečnost a důvěra</p>
             <h2 className="mt-3 text-balance text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
