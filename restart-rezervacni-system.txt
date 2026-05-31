@@ -21,7 +21,7 @@ Důležité chování:
 - Ruční testy jsou odložené do `docs/manual-test-plan.md`.
 - Dokumentaci aktualizuj při smysluplné změně.
 
-Aktuální stav 2026-06-01 00:20 CEST:
+Aktuální stav 2026-06-01 00:30 CEST:
 - Produkt se jmenuje `Temaro`.
 - Codex CLI profily jsou v `~/.codex/config.toml`; projektový `.codex/config.toml` už neobsahuje nepodporované `profiles`.
 - Supabase MCP config je nastavený pro projekt `dkbnuvrrmegnbnwungvi` a OAuth login byl obnovený; pokud se auth chyba vrátí, spustit `codex mcp login supabase`.
@@ -99,8 +99,8 @@ Aktuální stav 2026-06-01 00:20 CEST:
 - Pre-demo hardening 2026-05-31 je hotový: Next.js a `eslint-config-next` jsou na `16.2.6`, `npm audit --audit-level=moderate` vrací 0 vulnerabilities, non-embed routy mají `X-Frame-Options: DENY`, `/account/login` je veřejně dostupný a `/demo-barber` má demo fallback i při nedostupné Supabase DB.
 - Vercel projekt je založený: `hanyst7-5998s-projects/rezervacni-system`, veřejný alias `https://rezervacni-system-xi.vercel.app`. Bez produkčních env je `/api/health` očekávaně `degraded`.
 - Health endpoint neodhaluje názvy chybějících secret env; `checks.env.missing` je počet.
-- Vercel GitHub login connection je propojený; aktuální production deploy je `dpl_4Zogqwr6XLj2utWu7cbc9sCh5ePe`.
-- Externí Vercel smoke prošel 2026-05-31 22:52 CEST: `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` má 8/8 testů zelených.
+- Vercel GitHub login connection je propojený; aktuální production deploy je `dpl_GTBd3UAtuQhYg6Jhzz1epxNhmhvX`.
+- Externí Vercel smoke prošel 2026-06-01 00:27 CEST: `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` má 8/8 testů zelených.
 - CTA routy na aktuálním Vercel deployi vrací 200: `/register`, `/demo-barber`, `/login`, `/account/login`.
 - Project/docs/design review je v `docs/project-review.md`.
 - README je přepsané pro portfolio/onboarding a `docs/README.md` mapuje dokumentaci.
@@ -112,7 +112,7 @@ Aktuální stav 2026-06-01 00:20 CEST:
 - `npm run check` prošlo 2026-05-31 23:45 CEST: 556 Vitest testů, migrations check, type-check, lint i produkční build.
 - Lokálně zkontrolované screenshoty homepage na 1366x768, 390x1200 a full-page 1366x900; Playwright proklik mockupu a public route smoke prošly bez console errors.
 - Ověření landing fixu 2026-06-01 00:23 CEST: `npm run check` prošlo s 556 Vitest testy, migrations check, type-check, lint a produkční build; Playwright screenshoty 1470x956 a 1800x956 a měření na 1366/1470/1536/1800 px potvrdily stabilní šířku a `bookingPanel=false`.
-- Vercel production deploy `dpl_E1eW4Sf9TjJoq6Si2ed7kNe1BnzC` je na aliasu `https://rezervacni-system-xi.vercel.app`; externí public smoke prošel 2026-05-31 23:55 CEST 8/8 a produkční proklik mockupu potvrdil stabilní šířku.
+- Vercel production deploy `dpl_GTBd3UAtuQhYg6Jhzz1epxNhmhvX` je na aliasu `https://rezervacni-system-xi.vercel.app`; externí public smoke prošel 2026-06-01 00:27 CEST 8/8 a produkční měření 1470/1800 px potvrdilo stabilní šířku a `bookingPanel=false`.
 - `npx playwright test` prošlo 2026-05-31: 9 testů prošlo, 4 authenticated runtime testy se bez `E2E_AUTHENTICATED_SMOKE=true` přeskočily.
 - `npm run check` prošlo 2026-05-08 18:41 CEST po pobočkách: 521 Vitest testů, migrations check, type-check, lint i produkční build.
 - `npm run check` prošlo 2026-05-08 18:11 CEST po resources vrstvě: 517 Vitest testů, migrations check, type-check, lint i produkční build.

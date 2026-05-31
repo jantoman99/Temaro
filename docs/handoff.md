@@ -1,6 +1,6 @@
 # Handoff
 
-Aktualizováno: 2026-06-01 00:20 CEST
+Aktualizováno: 2026-06-01 00:30 CEST
 
 ## Jak navázat
 
@@ -31,8 +31,8 @@ Aktualizováno: 2026-06-01 00:20 CEST
 - Čekací listina má tabulku `waitlist_entries`, service-role RPC `create_waitlist_entry`, veřejné CTA při obsazených termínech a owner přehled v kalendáři; migrace `20260508114500_create_waitlist_entries.sql` je aplikovaná lokálně i remote.
 - Review request používá tenant `review_url`; po owner dokončení rezervace odešle klientovi e-mail a uloží notification typ `review_request`. Migrace `20260508121000_add_review_request_notification_type.sql` je aplikovaná lokálně i remote.
 - Online záloha přes Stripe používá self-service manage odkaz, route `/api/payments/stripe/checkout`, webhook `/api/payments/stripe/webhook`, pending/paid záznamy v `booking_payments` a audit event `payment_recorded`.
-- Poslední ověření: `npm run check` prošlo 2026-05-31 23:45 CEST s 556 Vitest testy, migrations check, type-check, lint i produkčním buildem; lokální public route smoke a vizuální Playwright kontrola homepage prošly, externí public smoke proti Vercelu prošel 2026-05-31 23:55 CEST.
-- Vercel production deploy je hotový: `https://rezervacni-system-xi.vercel.app`, aktuální deploy `dpl_E1eW4Sf9TjJoq6Si2ed7kNe1BnzC`.
+- Poslední ověření: `npm run check` prošlo 2026-06-01 00:23 CEST s 556 Vitest testy, migrations check, type-check, lint i produkčním buildem; externí public smoke proti Vercelu prošel 2026-06-01 00:27 CEST 8/8.
+- Vercel production deploy je hotový: `https://rezervacni-system-xi.vercel.app`, aktuální deploy `dpl_GTBd3UAtuQhYg6Jhzz1epxNhmhvX`.
 - Public health endpoint nevrací názvy chybějících secret env; vrací jen počet v `checks.env.missing`.
 - GitHub login connection ve Vercelu je propojený; před propojením byly nové deploymenty private repa `BLOCKED`, aktuální production deploy je `dpl_4Zogqwr6XLj2utWu7cbc9sCh5ePe`.
 - Externí Vercel smoke prošel 2026-05-31 22:52 CEST: `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` má 8/8 testů zelených.
@@ -128,6 +128,7 @@ Aktualizováno: 2026-06-01 00:20 CEST
 ## Poslední změna
 
 - Opravený rozbitý hero produktový mockup na landing page: pryč je viewport-based `2xl` pravý `Booking náhled`, který se při větším okně/zoomu zapnul do úzkého hero sloupce a překrýval hlavní panel. Mockup je teď lineární single-panel dashboard.
+- Vercel production deploy `dpl_GTBd3UAtuQhYg6Jhzz1epxNhmhvX` je nasazený na `https://rezervacni-system-xi.vercel.app`; externí public smoke prošel 2026-06-01 00:27 CEST 8/8 a produkční měření 1470/1800 px potvrdilo stabilní šířku a `bookingPanel=false`.
 - Ověření 2026-06-01 00:23 CEST: `npm run check` prošlo s 556 Vitest testy, migrations check, type-check, lint a produkční build; Playwright screenshoty 1470x956 a 1800x956 a měření na 1366/1470/1536/1800 px potvrdily stabilní šířku a `bookingPanel=false`.
 - Homepage visual polish podle `temaro-vizualni-oziveni.md` a inspirace ze struktury AutoERP: sekce střídají světlé/tónované/tmavé pozadí, feature/audience karty používají více barevných tokenů, mobilní proof metriky jsou kompaktní a marketing fotky v `Reálné provozy` jsou vizuálně odlišnější.
 - Produktový mockup v heru je opravený: `Dnes / Booking / Klient` nemění šířku okna, sidebar `Přehled / Kalendář / Klienti / Signály` je klikací a běžný desktop používá kompaktní layout bez překryvu pravého booking panelu.
