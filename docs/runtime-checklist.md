@@ -25,7 +25,7 @@ Aktuální známý stav:
 - Vercel deploy alias: `https://rezervacni-system-xi.vercel.app`. Aktuálně běží bez Supabase/Resend/Stripe/Upstash env, takže `/api/health` je očekávaně `degraded`, ale public demo stránky fungují přes demo fallback.
 - GitHub login connection ve Vercelu je propojený; production deploy po propojení prošel.
 - Ověřeno na Vercelu: `/api/health` nevrací názvy interních secret env; `checks.env.missing` je číslo a ne seznam názvů proměnných.
-- Externí Vercel smoke prošel 2026-05-31 21:09 CEST: `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` má 8/8 testů zelených.
+- Externí Vercel smoke prošel 2026-05-31 21:27 CEST: `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` má 8/8 testů zelených.
 - Stabilní navazovací dokument je `docs/handoff.md`; datum v názvu starého handoff souboru bylo odstraněné.
 - `npm run check` prošlo 2026-05-31 21:20 CEST po homepage image/design iteraci: 556 Vitest testů, migrations check, type-check, lint a produkční build.
 - `npm audit --audit-level=moderate` prošlo 2026-05-31 po aktualizaci Next.js na `16.2.6`: `found 0 vulnerabilities`.

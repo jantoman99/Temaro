@@ -34,8 +34,8 @@ Aktualizováno: 2026-05-31 21:21 CEST
 - Poslední ověření: `npm run check` prošlo 2026-05-31 21:20 CEST s 556 Vitest testy, migrations check, type-check, lint i produkčním buildem.
 - Vercel production deploy je hotový: `https://rezervacni-system-xi.vercel.app`.
 - Public health endpoint nevrací názvy chybějících secret env; vrací jen počet v `checks.env.missing`.
-- GitHub login connection ve Vercelu je propojený; před propojením byly nové deploymenty private repa `BLOCKED`, aktuální production deploy je `dpl_ARiaCocUaBKUKj8QWERQhLSjpKwD`.
-- Externí Vercel smoke prošel 2026-05-31 21:09 CEST: `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` má 8/8 testů zelených.
+- GitHub login connection ve Vercelu je propojený; před propojením byly nové deploymenty private repa `BLOCKED`, aktuální production deploy je `dpl_AffMKKfVRea9jtgNZnQZj7wajXZz`.
+- Externí Vercel smoke prošel 2026-05-31 21:27 CEST: `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` má 8/8 testů zelených.
 - Project/docs/design review je v `docs/project-review.md`.
 - README je přepsané pro portfolio/onboarding a `docs/README.md` mapuje dokumentaci.
 - Stabilní handoff soubor je nově `docs/handoff.md` bez data v názvu.
