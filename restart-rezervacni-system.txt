@@ -21,7 +21,7 @@ Důležité chování:
 - Ruční testy jsou odložené do `docs/manual-test-plan.md`.
 - Dokumentaci aktualizuj při smysluplné změně.
 
-Aktuální stav 2026-05-31 23:52 CEST:
+Aktuální stav 2026-06-01 00:20 CEST:
 - Produkt se jmenuje `Temaro`.
 - Codex CLI profily jsou v `~/.codex/config.toml`; projektový `.codex/config.toml` už neobsahuje nepodporované `profiles`.
 - Supabase MCP config je nastavený pro projekt `dkbnuvrrmegnbnwungvi` a OAuth login byl obnovený; pokud se auth chyba vrátí, spustit `codex mcp login supabase`.
@@ -107,10 +107,11 @@ Aktuální stav 2026-05-31 23:52 CEST:
 - Stabilní handoff soubor je `docs/handoff.md`.
 - Landing page je po review zkrácená a vizuálně oživená: hero/demo, value props, odlišné segmentové fotky, obory, tmavá sekce návodů, ceník, bezpečnost a footer. Redundantní signal-map, flow, bento, účty a future-layer bloky jsou odstraněné.
 - Proof metriky v heru jsou zákaznické (`3 kroky`, `0 Kč`, `0 %`), na mobilu jsou kompaktní ve třech sloupcích a top nav má jen `Produkt`, `Obory`, `Ceník`, `Demo`.
-- Hero produktový mockup je interaktivní: `Dnes / Booking / Klient` přepíná scénáře bez změny šířky okna a sidebar `Přehled / Kalendář / Klienti / Signály` je klikací. Na běžném desktopu se používá kompaktní layout bez překryvu panelů.
+- Hero produktový mockup je interaktivní: `Dnes / Booking / Klient` přepíná scénáře bez změny šířky okna a sidebar `Přehled / Kalendář / Klienti / Signály` je klikací. Po regresu z 2026-06-01 je opravený na jeden lineární panel bez pravého `Booking náhled`, který se při větším okně/zoomu překrýval.
 - SEO metadata homepage/root layoutu jsou přesnější pro český rezervační systém; struktura interních odkazů navazuje na existující oborové stránky a inspiraci ze SEO rozcestníku AutoERP.
 - `npm run check` prošlo 2026-05-31 23:45 CEST: 556 Vitest testů, migrations check, type-check, lint i produkční build.
 - Lokálně zkontrolované screenshoty homepage na 1366x768, 390x1200 a full-page 1366x900; Playwright proklik mockupu a public route smoke prošly bez console errors.
+- Ověření landing fixu 2026-06-01 00:23 CEST: `npm run check` prošlo s 556 Vitest testy, migrations check, type-check, lint a produkční build; Playwright screenshoty 1470x956 a 1800x956 a měření na 1366/1470/1536/1800 px potvrdily stabilní šířku a `bookingPanel=false`.
 - Vercel production deploy `dpl_E1eW4Sf9TjJoq6Si2ed7kNe1BnzC` je na aliasu `https://rezervacni-system-xi.vercel.app`; externí public smoke prošel 2026-05-31 23:55 CEST 8/8 a produkční proklik mockupu potvrdil stabilní šířku.
 - `npx playwright test` prošlo 2026-05-31: 9 testů prošlo, 4 authenticated runtime testy se bez `E2E_AUTHENTICATED_SMOKE=true` přeskočily.
 - `npm run check` prošlo 2026-05-08 18:41 CEST po pobočkách: 521 Vitest testů, migrations check, type-check, lint i produkční build.

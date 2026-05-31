@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Aktualizováno: 2026-05-31 23:52 CEST
+Aktualizováno: 2026-06-01 00:20 CEST
 
 Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historické analýzy a staré design audity jsou přesunuté do `docs/archive/`.
 
@@ -113,6 +113,8 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 
 ## Poslední změna
 
+- Landing hero mockup opravený po vizuálním regresu: odstraněný viewport-based `2xl` dvousloupec a pravý `Booking náhled`, protože se zapínal podle šířky okna místo skutečné šířky komponenty a rozbíjel lineární layout. Mockup je teď jeden konzistentní panel.
+- Ověření 2026-06-01 00:23 CEST: `npm run check` prošlo s 556 Vitest testy, migrations check, type-check, lint a produkční build. Playwright screenshoty na 1470x956 a 1800x956 a proklik na 1366/1470/1536/1800 px potvrdily stabilní šířku mockupu a `bookingPanel=false`.
 - Homepage dostala další visual/UX polish podle `C:\Users\hanys\Downloads\temaro-vizualni-oziveni.md` a srovnání s `https://autoerp.cz/`: silnější rytmus světlých/tónovaných/tmavých sekcí, barevné akcenty z existující palety, kompaktnější mobilní proof metriky, odlišnější provozní fotky a přesnější SEO metadata homepage.
 - Hero produktový mockup je nově skutečně interaktivní: `Dnes / Booking / Klient` přepíná scénáře bez změny šířky okna a sidebar položky `Přehled / Kalendář / Klienti / Signály` jsou klikatelné. Na běžném desktopu se používá kompaktní layout bez překryvu panelů; plný dvousloupec se zapne až na širokém viewportu.
 - Lokální vizuální a klikací kontrola 2026-05-31 23:45 CEST: screenshoty `/` na 1366x768, 390x1200 a full-page 1366x900; Playwright proklik `Dnes / Booking / Klient / Přehled / Kalendář / Klienti / Signály` potvrdil stabilní šířku mockupu a žádné console errors. Public route smoke lokálně prošel pro `/`, `/demo-barber`, `/podniky`, SEO stránky, `/login`, `/register` a `/account/login`.

@@ -1,6 +1,6 @@
 # Handoff
 
-Aktualizováno: 2026-05-31 23:52 CEST
+Aktualizováno: 2026-06-01 00:20 CEST
 
 ## Jak navázat
 
@@ -127,6 +127,8 @@ Aktualizováno: 2026-05-31 23:52 CEST
 
 ## Poslední změna
 
+- Opravený rozbitý hero produktový mockup na landing page: pryč je viewport-based `2xl` pravý `Booking náhled`, který se při větším okně/zoomu zapnul do úzkého hero sloupce a překrýval hlavní panel. Mockup je teď lineární single-panel dashboard.
+- Ověření 2026-06-01 00:23 CEST: `npm run check` prošlo s 556 Vitest testy, migrations check, type-check, lint a produkční build; Playwright screenshoty 1470x956 a 1800x956 a měření na 1366/1470/1536/1800 px potvrdily stabilní šířku a `bookingPanel=false`.
 - Homepage visual polish podle `temaro-vizualni-oziveni.md` a inspirace ze struktury AutoERP: sekce střídají světlé/tónované/tmavé pozadí, feature/audience karty používají více barevných tokenů, mobilní proof metriky jsou kompaktní a marketing fotky v `Reálné provozy` jsou vizuálně odlišnější.
 - Produktový mockup v heru je opravený: `Dnes / Booking / Klient` nemění šířku okna, sidebar `Přehled / Kalendář / Klienti / Signály` je klikací a běžný desktop používá kompaktní layout bez překryvu pravého booking panelu.
 - SEO metadata homepage/root layoutu jsou přesnější pro český rezervační systém a navazují na existující oborové landing pages a footer prolinkování.
