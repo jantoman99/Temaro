@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Aktualizováno: 2026-05-31 20:18 CEST
+Aktualizováno: 2026-05-31 21:05 CEST
 
 Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historické analýzy a staré design audity jsou přesunuté do `docs/archive/`.
 
@@ -114,6 +114,11 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 
 ## Poslední změna
 
+- Project/docs/design review je zapsané v `docs/project-review.md`.
+- `README.md` je přepsané pro portfolio/onboarding: obsahuje live demo, stack, kontroly, deployment stav a mapu dokumentace.
+- Přidaný `docs/README.md` jako mapa aktivní dokumentace.
+- `docs/handoff-2026-04-26.md` je přejmenovaný na stabilní `docs/handoff.md`; `AGENTS.md` a restart prompt odkazují na nový název.
+- Landing page má první copy/design cleanup po Vercel deployi: kratší proof labely pro mobil, méně interní design-audit copy a civilnější footer.
 - Vercel production deploy je hotový pod projektem `hanyst7-5998s-projects/rezervacni-system`; veřejný alias je `https://rezervacni-system-xi.vercel.app`.
 - Public health endpoint při chybějících env nevrací interní názvy proměnných; `checks.env.missing` je jen počet chybějících povinných env.
 - Externí smoke proti Vercel URL prošel 2026-05-31: `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` má 8/8 testů zelených. Ověřené jsou health/security headers, landing, segment stránky, `/demo-barber`, `/account/login` a embed button.

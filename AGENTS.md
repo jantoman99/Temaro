@@ -154,7 +154,7 @@ Dokumentaci aktualizuj průběžně při každé smysluplné změně. Cíl: po p
   - aktuální počet testů,
   - poslední technické zpevnění,
   - známé limity a další kroky.
-- `docs/handoff-2026-04-26.md`
+- `docs/handoff.md`
   - rychlý navazovací kontext,
   - co se právě změnilo,
   - poslední ověření,

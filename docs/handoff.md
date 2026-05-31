@@ -1,6 +1,6 @@
-# Handoff 2026-04-26
+# Handoff
 
-Aktualizováno: 2026-05-31 20:18 CEST
+Aktualizováno: 2026-05-31 21:05 CEST
 
 ## Jak navázat
 
@@ -31,11 +31,15 @@ Aktualizováno: 2026-05-31 20:18 CEST
 - Čekací listina má tabulku `waitlist_entries`, service-role RPC `create_waitlist_entry`, veřejné CTA při obsazených termínech a owner přehled v kalendáři; migrace `20260508114500_create_waitlist_entries.sql` je aplikovaná lokálně i remote.
 - Review request používá tenant `review_url`; po owner dokončení rezervace odešle klientovi e-mail a uloží notification typ `review_request`. Migrace `20260508121000_add_review_request_notification_type.sql` je aplikovaná lokálně i remote.
 - Online záloha přes Stripe používá self-service manage odkaz, route `/api/payments/stripe/checkout`, webhook `/api/payments/stripe/webhook`, pending/paid záznamy v `booking_payments` a audit event `payment_recorded`.
-- Poslední ověření: `npm run check` prošlo 2026-05-31 20:20 CEST s 556 Vitest testy, migrations check, type-check, lint i produkčním buildem.
+- Poslední ověření: `npm run check` prošlo 2026-05-31 21:04 CEST s 556 Vitest testy, migrations check, type-check, lint i produkčním buildem.
 - Vercel production deploy je hotový: `https://rezervacni-system-xi.vercel.app`.
 - Public health endpoint nevrací názvy chybějících secret env; vrací jen počet v `checks.env.missing`.
 - GitHub login connection ve Vercelu je propojený; před propojením byly nové deploymenty private repa `BLOCKED`, po propojení prošel production deploy `dpl_6ueFRyptxj4KJSgyWXEYdVxYXeU9`.
 - Externí Vercel smoke prošel 2026-05-31: `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` má 8/8 testů zelených.
+- Project/docs/design review je v `docs/project-review.md`.
+- README je přepsané pro portfolio/onboarding a `docs/README.md` mapuje dokumentaci.
+- Stabilní handoff soubor je nově `docs/handoff.md` bez data v názvu.
+- Landing page má první copy/design cleanup: kratší proof labely pro mobil, méně interní design-audit copy a civilnější footer.
 - Pre-demo hardening 2026-05-31: Next.js a `eslint-config-next` jsou na `16.2.6`, `npm audit --audit-level=moderate` vrací 0 vulnerabilities, non-embed routy mají `X-Frame-Options: DENY`, `/account/login` je veřejně dostupný a `/demo-barber` má demo fallback i při nedostupné Supabase DB.
 - Playwright 2026-05-31: `npx playwright test` prošlo 9 testů; 4 authenticated runtime testy se bez `E2E_AUTHENTICATED_SMOKE=true` korektně přeskočí.
 - Historické analýzy a design audity jsou v `docs/archive/`.

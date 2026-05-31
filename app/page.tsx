@@ -106,9 +106,9 @@ const trustItems = [
 ] as const;
 
 const proofMetrics = [
-  ["556", "automatických testů chrání core flow"],
-  ["0 %", "marketplace provize z vlastních klientů"],
-  ["24 h", "reminder vrstva připravená pro ostrý provoz"],
+  ["556", "automatických testů"],
+  ["0 %", "bez provize"],
+  ["24 h", "reminder vrstva"],
 ] as const;
 
 const guideLinks = [
@@ -262,7 +262,7 @@ export default async function Home() {
             </div>
           </header>
 
-          <div className="grid flex-1 items-center gap-10 py-14 lg:grid-cols-[0.9fr_1.1fr] lg:py-20">
+          <div className="grid flex-1 items-center gap-10 py-14 lg:grid-cols-[0.92fr_1.08fr] lg:py-20">
             <section className="mx-auto max-w-2xl lg:mx-0">
               <div className="motion-reveal inline-flex items-center gap-2 rounded-full border border-primary/15 bg-card/75 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-primary shadow-sm backdrop-blur">
                 <span className="signal-pulse size-2 rounded-full bg-primary" />
@@ -297,9 +297,9 @@ export default async function Home() {
 
               <div id="dukaz" className="motion-reveal mt-12 grid gap-3 sm:grid-cols-3">
                 {proofMetrics.map(([value, label]) => (
-                  <div key={label} className="rounded-xl border border-border/80 bg-card/78 p-4 shadow-sm backdrop-blur">
+                  <div key={label} className="rounded-xl border border-border/80 bg-card/78 p-4 shadow-sm backdrop-blur sm:min-h-32">
                     <p className="nums-tabular text-3xl font-semibold tracking-tight text-primary">{value}</p>
-                    <p className="mt-2 text-sm font-medium leading-5 text-muted-foreground">{label}</p>
+                    <p className="mt-2 max-w-[15rem] text-sm font-medium leading-5 text-muted-foreground">{label}</p>
                   </div>
                 ))}
               </div>
@@ -342,13 +342,13 @@ export default async function Home() {
       <section className="mx-auto w-full max-w-[1180px] px-4 pb-20 sm:px-6 lg:px-8">
         <div className="grid gap-8 lg:grid-cols-[0.78fr_1.22fr] lg:items-center">
           <header>
-            <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Temaro Signal Map</p>
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Jak Temaro pracuje</p>
             <h2 className="mt-3 text-balance text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
-              Vizuální podpis, který není jen další <span className="text-primary">SaaS karta</span>.
+              Každá rezervace má kontext, stav a další krok.
             </h2>
             <p className="mt-5 max-w-md text-sm font-medium leading-6 text-muted-foreground">
-              Každá rezervace je signál. Temaro ho propojí s kapacitou dne, klientem, rizikem a dalším krokem. Tenhle
-              motiv se má opakovat napříč landingem, bookingem i aplikací.
+              Temaro propojí klienta, volný slot, týmovou kapacitu, no-show riziko a historii do jednoho provozního
+              pohledu. Podnik tak neřeší jen nový termín, ale celý dopad na den.
             </p>
           </header>
 
@@ -415,18 +415,19 @@ export default async function Home() {
       <section id="bento" className="mx-auto w-full max-w-[1180px] px-4 pb-20 sm:px-6 lg:px-8">
         <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Bento provozu</p>
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Provozní vrstva</p>
             <h2 className="mt-3 max-w-2xl text-balance text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
               Jeden systém. Více provozních signálů.
             </h2>
           </div>
           <p className="max-w-sm text-sm font-medium leading-6 text-muted-foreground">
-            Bento vrstva ukazuje produkt po částech: kalendář, klient, riziko, důkaz a použitelnost v různých oborech.
+            Kalendář, klientská historie, riziko a výkon dne musí být čitelné vedle sebe, ne schované v oddělených
+            nástrojích.
           </p>
         </div>
         <div className="grid auto-rows-[11rem] gap-4 md:grid-cols-4">
           <article className="motion-reveal relative overflow-hidden rounded-xl border border-border bg-card p-5 shadow-sm md:col-span-2 md:row-span-2">
-            <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Client memory</p>
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Paměť klienta</p>
             <h3 className="mt-3 max-w-sm text-3xl font-semibold tracking-tight">Klient není jen jméno v kalendáři.</h3>
             <p className="mt-3 max-w-md text-sm font-medium leading-6 text-muted-foreground">
               Poznámka, historie, preferovaný člověk a no-show signál jsou dostupné dřív, než vznikne další problém.
@@ -571,7 +572,7 @@ export default async function Home() {
         <div className="rounded-xl border border-border bg-card p-5 shadow-sm sm:p-6">
           <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Další produktová vrstva</p>
+              <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Co přijde po core flow</p>
               <h2 className="mt-3 max-w-2xl text-balance text-3xl font-semibold leading-[1.08] tracking-tight sm:text-4xl">
                 Od vlastního booking odkazu k vyhledání podniku.
               </h2>
@@ -595,7 +596,7 @@ export default async function Home() {
       <section className="mx-auto w-full max-w-[1180px] px-4 pb-20 sm:px-6 lg:px-8">
         <div className="grid gap-6 rounded-xl border border-border bg-card p-5 shadow-sm lg:grid-cols-[0.82fr_1.18fr] lg:p-6">
           <header>
-            <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Praktické návody</p>
+              <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Praktické návody</p>
             <h2 className="mt-3 text-balance text-3xl font-semibold leading-[1.08] tracking-tight sm:text-4xl">
               Začínáme tam, kde české provozovny nejvíc bolí čas a výpadky.
             </h2>
@@ -629,7 +630,7 @@ export default async function Home() {
             <div className="mb-8 grid size-12 place-items-center rounded-2xl bg-primary text-primary-foreground">
               <BadgeEuro className="size-6" strokeWidth={1.8} />
             </div>
-            <p className="text-xs font-bold uppercase tracking-[0.16em] text-white/58">Ceník</p>
+              <p className="text-xs font-bold uppercase tracking-[0.16em] text-white/58">Ceník</p>
             <h2 className="mt-3 text-balance text-4xl font-semibold leading-[1.05] tracking-tight text-white sm:text-5xl">
               Transparentní cena bez marketplace překvapení.
             </h2>
@@ -730,7 +731,7 @@ export default async function Home() {
           <div className="lg:col-span-2">
             <TemaroLogo />
             <p className="mt-3 max-w-sm text-sm font-medium leading-6 text-muted-foreground">
-              Signal OS pro salony, ordinace, trenéry a další služby. Vyrobeno v Česku, připraveno pro EU provoz.
+              Rezervační systém pro salony, ordinace, trenéry a další služby. Vyrobeno v Česku, připraveno pro EU provoz.
             </p>
           </div>
           <div>
@@ -765,8 +766,8 @@ export default async function Home() {
         </div>
         <div className="border-t border-border">
           <div className="mx-auto flex w-full max-w-[1180px] flex-col gap-2 px-4 py-4 text-xs font-semibold text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
-            <p>© 2026 Temaro · Signal OS v3</p>
-            <p className="font-mono">made with coffee in Brno</p>
+            <p>© 2026 Temaro</p>
+            <p className="font-mono">postaveno v Brně</p>
           </div>
         </div>
       </footer>

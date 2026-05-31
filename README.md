@@ -1,54 +1,34 @@
-# Temaro – Projektová dokumentace
+# Temaro
 
-Temaro je univerzální SaaS rezervační systém pro lokální služby.
+Temaro je multi-tenant SaaS rezervační systém pro lokální služby: salony, barbery, ordinace, trenéry, konzultanty a další provozy, které potřebují online booking, týmový kalendář a klientský kontext bez marketplace provizí.
 
-Brand assety jsou v `public/brand` jako transparentní SVG:
+Live demo: https://rezervacni-system-xi.vercel.app  
+Demo booking: https://rezervacni-system-xi.vercel.app/demo-barber
 
-- `temaro-mark.svg` - samotný logomark.
-- `temaro-logo.svg` - horizontální logo pro světlé pozadí.
-- `temaro-logo-light.svg` - horizontální logo pro tmavé pozadí.
-Aktuální positioning: méně telefonátů, klidnější provoz, bez marketplace provizí z vlastních klientů.
+## Co projekt ukazuje
 
----
+- Veřejný booking flow s ukázkovým demo režimem bez nutnosti produkční databáze.
+- Admin vrstvu pro služby, tým, klienty, kalendář, reporting a provozní nastavení.
+- Multi-tenant architekturu nad Supabase PostgreSQL.
+- Bezpečnostní pravidla pro tenant izolaci, Zod validaci a server-side autorizaci.
+- Automatické kontroly: unit/integration testy, migrace, type-check, lint, build a Playwright smoke.
+- Vercel production deployment s bezpečnými hlavičkami a externě ověřeným public smoke testem.
 
-## Struktura projektu
+Aktuální proof point: `556` Vitest testů plus Playwright smoke pro veřejné demo.
 
-```
-rezervacni-system/
-├── AGENTS.md              ← Codex CLI čte automaticky (instrukce + bezpečnost)
-├── README.md              ← Tento soubor
-└── docs/
-    ├── 02-funkce-a-diferenciace.md – Feature list + co máme navíc
-    ├── 03-architektura.md          – Aktuální technická architektura
-    ├── 06-databazovy-model.md      – Kompletní DB schema (SQL)
-    ├── 07-user-flows.md            – Všechny flows (klient, admin, staff)
-    ├── 08-mvp-scope.md             – Co je v MVP, pořadí vývoje
-    ├── 14-market-analysis-booking-systems.md – Tržní analýza, must-have gapy a diferenciace
-    ├── 15-design-system-v3.md      – Aktuální vizuální směr Temaro Signal OS
-    ├── 15-performance-audit.md     – Lighthouse audit landing page
-    ├── business-model.md           – Aktuální pricing/GTm rámec
-    ├── handoff-2026-04-26.md       – Kontext pro navázání další den
-    ├── implementation-progress.md  – Aktuální stav implementace
-    ├── roadmap.md                  – Aktuální produktová roadmapa
-    ├── manual-test-plan.md         – Přesný ruční testovací scénář na později
-    ├── runtime-checklist.md        – Jednoduchý checklist pro reálné ověření
-    └── archive/                    – Historické analýzy, design audity a paletové náhledy
-```
+## Stack
 
----
-
-## Rychlý přehled projektu
-
-- **Typ:** Multi-tenant SaaS
-- **Název produktu:** Temaro
-- **Cíl:** Univerzální rezervační systém pro služby (barbershopy, salony, lékaři, trenéři...)
-- **Hlavní diferenciace:** Anti-no-show ochrana, klientská paměť, flat fee bez marketplace provizí
-- **Stack:** Next.js 16 + Supabase + Resend + Cloudflare + Vercel
-- **Stav:** MVP základ je implementovaný; strategické gapy pro placený pilot jsou popsané v `docs/14-market-analysis-booking-systems.md`
-- **Design:** Aktuální zdroj pravdy je `docs/15-design-system-v3.md` – Temaro Signal OS. Starší design audity jsou v `docs/archive/`.
-- **Business:** Aktuální pricing/GTm rámec je v `docs/business-model.md`.
-
----
+| Vrstva | Technologie |
+| --- | --- |
+| Frontend | Next.js 16, TypeScript, Tailwind CSS, shadcn/ui |
+| Backend | Next.js Server Actions, API Routes |
+| Databáze | Supabase PostgreSQL |
+| Auth | Supabase Auth |
+| E-mail | Resend |
+| Platby | Stripe připravený ve flow, produkční zapnutí až po env/runtime kontrole |
+| Hosting | Vercel |
+| Rate limit | Upstash Redis |
+| Validace | Zod |
 
 ## Lokální spuštění
 
@@ -57,49 +37,65 @@ npm install
 npm run dev
 ```
 
-Web běží na:
+Lokální web běží na:
 
 ```text
 http://localhost:3000
 ```
 
-Bez Supabase env proměnných se spustí demo režim s ukázkovými daty.
+Bez Supabase env proměnných aplikace používá demo fallback pro veřejný booking. Reálný runtime vyžaduje hodnoty z `.env.local.example`.
 
----
-
-## Kontroly před předáním
+## Kontroly
 
 ```bash
 npm run check
-npm run env:check
-npm run migrations:check
-npm run migrations:list
-npm test
-npm run type-check
-npm run lint
-npm run build
+npm run test:e2e
+npm audit --audit-level=moderate
 ```
 
-Po nahrani na GitHub je pripraveny workflow `.github/workflows/check.yml`, ktery spousti `npm run check`.
+`npm run check` spouští:
 
----
+- `vitest run`
+- kontrolu migrací
+- TypeScript type-check
+- ESLint
+- produkční Next.js build
 
-## Jak pokračovat ve vývoji
+Externí smoke proti Vercelu:
 
-1. Otevři terminál v kořeni projektu
-2. Spusť `codex` – automaticky načte `AGENTS.md`
-3. Před větší změnou čti relevantní dokumentaci v `docs/`
-4. Aktuální stav práce je v `docs/implementation-progress.md`
+```bash
+PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts
+```
 
----
+## Dokumentace
 
-## Fáze vývoje
+Aktivní dokumentace je v `docs/`. Starší analýzy a design audity jsou v `docs/archive/`.
 
-### MVP (aktuální fáze)
-Auth → Staff + Služby → Booking flow → Kalendář → Klientské profily → Notifikace → Audit historie
+Nejdůležitější soubory:
 
-### Fáze 2
-SMS nebo Stripe zálohy podle pilotní poptávky → branding booking profilu → widget/iCal → reporting
+- `docs/README.md` - mapa dokumentace.
+- `docs/handoff.md` - rychlý kontext pro navázání práce.
+- `docs/implementation-progress.md` - aktuální implementační stav.
+- `docs/runtime-checklist.md` - env, deploy a runtime ověření.
+- `docs/manual-test-plan.md` - ruční proklikávací scénáře.
+- `docs/project-review.md` - aktuální project/code/UI/UX review.
+- `docs/15-design-system-v3.md` - aktivní vizuální směr.
+- `docs/08-mvp-scope.md` - pre-launch MVP scope.
+- `docs/20-competitive-analysis-booking-systems-2026.md` - konkurenční gapy.
 
-### Fáze 3+
-Google/Outlook sync → waitlist → vouchery/permanentky → AI funkce → marketplace → více poboček
+## Deployment
+
+Production deploy běží na Vercelu:
+
+```text
+https://rezervacni-system-xi.vercel.app
+```
+
+Aktuální production demo běží bez produkčních Supabase/Resend/Stripe/Upstash env, proto `/api/health` vrací `degraded`. To je pro portfolio demo očekávané. Endpoint nevrací názvy ani hodnoty secret env proměnných.
+
+## Repo poznámky
+
+- `.env.local` se necommituje.
+- `.vercel`, `.next`, coverage reporty, Playwright reporty a test-results jsou ignorované.
+- `AGENTS.md` obsahuje pracovní a bezpečnostní pravidla pro Codex.
+- Při změnách databáze je zdrojem pravdy `supabase/migrations`.
