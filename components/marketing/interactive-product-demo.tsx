@@ -63,7 +63,7 @@ const agenda = [
 
 const toneClassNames = {
   confirm: "border-l-success bg-success/10 text-success",
-  wait: "border-l-warning bg-warning/10 text-amber-800",
+  wait: "border-l-warning bg-warning/10 text-warning",
   risk: "border-l-destructive bg-destructive/10 text-destructive",
 } as const;
 
@@ -81,10 +81,10 @@ export function InteractiveProductDemo() {
               <span className="size-2.5 rounded-full bg-warning/80" />
               <span className="size-2.5 rounded-full bg-success/80" />
             </div>
-            <div className="rounded-full border border-white/10 bg-white/8 px-3 py-1 text-xs font-semibold text-white/62">
+            <div className="rounded-full border border-white/10 bg-white/8 px-3 py-1 text-xs font-semibold text-white/72">
               Ukázka provozního přehledu
             </div>
-            <div className="nums-tabular text-xs font-semibold text-white/42">⌘ K</div>
+            <div className="nums-tabular text-xs font-semibold text-white/55">⌘ K</div>
           </div>
 
           <div className="border-b border-white/10 px-4 py-3">
@@ -106,7 +106,7 @@ export function InteractiveProductDemo() {
             </div>
           </div>
 
-          <div className="grid min-h-[38rem] lg:grid-cols-[14rem_1fr]">
+          <div className="grid min-h-[31rem] lg:min-h-[38rem] lg:grid-cols-[14rem_1fr]">
             <aside className="hidden border-r border-white/10 p-4 lg:block">
               <div className="flex items-center gap-3">
                 <span className="grid size-10 place-items-center rounded-xl bg-primary text-sm font-semibold text-primary-foreground">

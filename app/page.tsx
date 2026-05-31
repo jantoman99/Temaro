@@ -27,11 +27,8 @@ const CTA = {
 
 const navLinks = [
   ["#produkt", "Produkt"],
-  ["#ucty", "Účty"],
-  ["#pro-koho", "Pro koho"],
-  ["/podniky", "Podniky"],
+  ["#pro-koho", "Obory"],
   ["#cenik", "Ceník"],
-  ["#bezpecnost", "Bezpečnost"],
   [CTA.secondary.href, "Demo"],
 ] as const;
 
@@ -128,9 +125,9 @@ const trustItems = [
 ] as const;
 
 const proofMetrics = [
-  ["556", "automatických testů"],
-  ["0 %", "bez provize"],
-  ["24 h", "reminder vrstva"],
+  ["3 kroky", "rezervace"],
+  ["0 Kč", "pilot"],
+  ["0 %", "provize"],
 ] as const;
 
 const guideLinks = [
@@ -169,48 +166,6 @@ const guideLinks = [
     href: "/rezervacni-system-bez-marketplace-provizi",
     text: "Proč některé provozy chtějí vlastní booking link, vlastní klientský vztah a bez provize z rezervací, které získaly samy.",
   },
-] as const;
-
-const flowSteps = [
-  ["01", "Klient rezervuje", "Vybere službu, osobu a volný termín bez telefonátu."],
-  ["02", "Podnik vidí signál", "Termín se objeví v kalendáři jako potvrzený nebo čekající."],
-  ["03", "Historie zůstává", "Klientský kontext se použije při další návštěvě i změně termínu."],
-] as const;
-
-const accountTypes = [
-  {
-    label: "Účet pro podnikatele",
-    title: "Provoz, tým a kalendář pod kontrolou",
-    href: "/register",
-    cta: "Registrovat podnik",
-    points: ["služby, zaměstnanci a pracovní doba", "kalendář, klienti a platby", "booking stránka, sdílení a iCal export"],
-  },
-  {
-    label: "Účet pro zákazníka",
-    title: "Rezervace a historie bez volání",
-    href: "/account/login",
-    cta: "Přihlásit se jako zákazník",
-    points: ["přihlášení přes Google", "přehled rezervací podle ověřeného e-mailu", "bez přístupu do admin dashboardu"],
-  },
-] as const;
-
-const nextProductLayers = [
-  ["Vyhledání podniků", "Veřejný katalog podle města, lokality a oboru, aby klient našel podnik podobně jako u velkých rezervačních platforem."],
-  ["Mapa podniku", "Adresa, poloha na mapě a navigační kontext u veřejného profilu podniku i v discovery výsledcích."],
-  ["Plný Google Calendar sync", "Obousměrnější integrace po současném iCal exportu, hlavně pro solo profesionály žijící v Google Kalendáři."],
-] as const;
-
-const signalMapNodes = [
-  ["Klient", "pošle požadavek", "left-[8%] top-[18%]"],
-  ["Slot", "najde volné okno", "left-[38%] top-[10%]"],
-  ["Kalendář", "ověří kapacitu", "right-[10%] top-[25%]"],
-  ["Riziko", "zvýrazní no-show", "left-[18%] bottom-[15%]"],
-  ["Historie", "uloží kontext", "right-[18%] bottom-[12%]"],
-] as const;
-
-const bentoItems = [
-  ["No-show signál", "Rizikový klient nezůstane schovaný v poznámce. Temaro ho ukáže tam, kde se rozhoduje o čase.", "2 potvrzení", "1 riziko"],
-  ["Paměť klienta", "Historie, preference a poznámky se vrací do další rezervace bez hledání.", "6 návštěv", "VIP kontext"],
 ] as const;
 
 async function getCustomDomainTenantSlug() {
@@ -254,12 +209,12 @@ export default async function Home() {
               <TemaroLogo />
             </Link>
 
-            <nav className="order-3 flex w-full gap-1 overflow-x-auto border-t border-border/70 pt-2 lg:order-none lg:w-auto lg:border-t-0 lg:pt-0">
+            <nav className="order-3 grid w-full grid-cols-4 gap-1 border-t border-border/70 pt-2 lg:order-none lg:flex lg:w-auto lg:border-t-0 lg:pt-0">
               {navLinks.map(([href, label]) => (
                 <Link
                   key={href}
                   href={href}
-                  className="shrink-0 rounded-md px-3 py-2 text-sm font-semibold text-muted-foreground transition hover:bg-muted hover:text-foreground"
+                  className="rounded-md px-2 py-2 text-center text-sm font-semibold text-muted-foreground transition hover:bg-muted hover:text-foreground lg:px-3"
                 >
                   {label}
                 </Link>
@@ -276,7 +231,7 @@ export default async function Home() {
               </Link>
               <Link
                 href={CTA.primary.href}
-                className="inline-flex h-10 items-center justify-center gap-2 rounded-md bg-primary px-4 text-sm font-semibold text-primary-foreground shadow-sm transition hover:bg-primary/92"
+                className="inline-flex h-10 items-center justify-center gap-2 whitespace-nowrap rounded-md bg-primary px-4 text-sm font-semibold text-primary-foreground shadow-sm transition hover:bg-primary/92"
               >
                 {CTA.primary.label}
                 <ArrowRight className="h-4 w-4" />
@@ -284,7 +239,7 @@ export default async function Home() {
             </div>
           </header>
 
-          <div className="grid flex-1 items-center gap-10 py-14 lg:grid-cols-[0.92fr_1.08fr] lg:py-20">
+          <div className="grid flex-1 items-center gap-10 py-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-start lg:py-12">
             <section className="mx-auto max-w-2xl lg:mx-0">
               <div className="motion-reveal inline-flex items-center gap-2 rounded-full border border-primary/15 bg-card/75 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-primary shadow-sm backdrop-blur">
                 <span className="signal-pulse size-2 rounded-full bg-primary" />
@@ -294,7 +249,8 @@ export default async function Home() {
               <h1 className="motion-reveal mt-7 max-w-4xl text-balance text-5xl font-semibold leading-[0.98] tracking-[-0.045em] text-foreground sm:text-6xl lg:text-7xl">
                 Méně telefonátů.
                 <br />
-                <span className="font-serif-accent text-primary">Klidnější</span> provoz.
+                <span className="font-serif-accent text-primary">Klidnější</span>{" "}
+                provoz.
               </h1>
               <p className="motion-reveal mt-6 max-w-xl text-lg font-medium leading-[1.55] text-muted-foreground sm:text-xl">
                 Online rezervace, týmový kalendář a klientský kontext pro provozy, kde každý volný termín stojí peníze.
@@ -303,20 +259,20 @@ export default async function Home() {
               <div className="motion-reveal mt-9 flex flex-col gap-3 sm:flex-row">
                 <Link
                   href={CTA.primary.href}
-                  className="group/cta inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-primary px-6 text-base font-semibold text-primary-foreground shadow-[var(--shadow-primary-glow)] transition hover:-translate-y-0.5 hover:bg-primary/92"
+                  className="group/cta inline-flex h-12 min-w-44 items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-primary px-6 text-base font-semibold text-primary-foreground shadow-[var(--shadow-primary-glow)] transition hover:-translate-y-0.5 hover:bg-primary/92"
                 >
                   {CTA.primary.label}
                   <ArrowRight className="h-5 w-5 transition group-hover/cta:translate-x-0.5" />
                 </Link>
                 <Link
                   href={CTA.secondary.href}
-                  className="inline-flex h-12 items-center justify-center rounded-lg border border-border bg-card/85 px-6 text-base font-semibold text-foreground shadow-sm transition hover:-translate-y-0.5 hover:bg-card"
+                  className="inline-flex h-12 min-w-40 items-center justify-center whitespace-nowrap rounded-lg border border-border bg-card/85 px-6 text-base font-semibold text-foreground shadow-sm transition hover:-translate-y-0.5 hover:bg-card"
                 >
                   {CTA.secondary.label}
                 </Link>
               </div>
 
-              <div id="dukaz" className="motion-reveal mt-12 grid gap-3 sm:grid-cols-3">
+              <div id="dukaz" className="motion-reveal mt-8 grid gap-3 sm:grid-cols-3">
                 {proofMetrics.map(([value, label]) => (
                   <div key={label} className="rounded-xl border border-border/80 bg-card/78 p-4 shadow-sm backdrop-blur sm:min-h-32">
                     <p className="nums-tabular text-3xl font-semibold tracking-tight text-primary">{value}</p>
@@ -394,154 +350,6 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-[1180px] px-4 pb-20 sm:px-6 lg:px-8">
-        <div className="grid gap-8 lg:grid-cols-[0.78fr_1.22fr] lg:items-center">
-          <header>
-            <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Jak Temaro pracuje</p>
-            <h2 className="mt-3 text-balance text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
-              Každá rezervace má kontext, stav a další krok.
-            </h2>
-            <p className="mt-5 max-w-md text-sm font-medium leading-6 text-muted-foreground">
-              Temaro propojí klienta, volný slot, týmovou kapacitu, no-show riziko a historii do jednoho provozního
-              pohledu. Podnik tak neřeší jen nový termín, ale celý dopad na den.
-            </p>
-          </header>
-
-          <div className="signal-map relative min-h-[28rem] overflow-hidden rounded-xl border border-border bg-card p-5 shadow-sm">
-            <div className="absolute left-1/2 top-1/2 h-28 w-28 -translate-x-1/2 -translate-y-1/2 rounded-full border border-primary/20 bg-primary/10" />
-            <div className="absolute left-1/2 top-1/2 grid h-20 w-20 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-2xl bg-primary text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/20">
-              Temaro
-            </div>
-            <div className="signal-flow absolute left-[14%] right-[14%] top-1/2 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
-            <div className="signal-flow absolute bottom-[20%] left-1/2 top-[18%] w-px bg-gradient-to-b from-transparent via-info/45 to-transparent" />
-            {signalMapNodes.map(([title, text, position], index) => (
-              <div
-                key={title}
-                className={`motion-reveal absolute ${position} w-36 rounded-2xl border border-border bg-card/88 p-4 shadow-sm backdrop-blur`}
-                style={{ animationDelay: `${index * 90}ms` }}
-              >
-                <div className="mb-3 flex items-center justify-between">
-                  <span className="grid size-8 place-items-center rounded-lg bg-primary/10 text-xs font-bold text-primary">
-                    {index + 1}
-                  </span>
-                  <span className="size-2 rounded-full bg-primary" />
-                </div>
-                <h3 className="text-sm font-semibold tracking-tight">{title}</h3>
-                <p className="mt-1 text-xs font-semibold leading-5 text-muted-foreground">{text}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto w-full max-w-[1180px] px-4 pb-20 sm:px-6 lg:px-8">
-        <div className="command-surface interactive-demo-shell overflow-hidden rounded-xl p-5 shadow-[var(--shadow-command)] sm:p-6">
-          <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-white/58">Rezervační tok</p>
-              <h2 className="mt-3 text-balance text-4xl font-semibold leading-[1.05] tracking-tight text-white sm:text-5xl">
-                Od volného okna k návratu klienta.
-              </h2>
-              <p className="mt-5 max-w-md text-base font-medium leading-7 text-white/68">
-                Temaro má působit jako provozní systém, ne jen jako online formulář. Každý termín má stav, klienta a
-                další krok.
-              </p>
-            </div>
-
-            <div className="grid gap-3">
-              {flowSteps.map(([number, title, text]) => (
-                <article key={number} className="rounded-2xl border border-white/10 bg-white/8 p-5">
-                  <div className="flex items-start gap-4">
-                    <span className="nums-tabular grid size-10 shrink-0 place-items-center rounded-xl bg-primary text-sm font-semibold text-primary-foreground">
-                      {number}
-                    </span>
-                    <div>
-                      <h3 className="text-lg font-semibold tracking-tight text-white">{title}</h3>
-                      <p className="mt-1 text-sm font-medium leading-6 text-white/62">{text}</p>
-                    </div>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="bento" className="mx-auto w-full max-w-[1180px] px-4 pb-20 sm:px-6 lg:px-8">
-        <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Provozní vrstva</p>
-            <h2 className="mt-3 max-w-2xl text-balance text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
-              Jeden systém. Více provozních signálů.
-            </h2>
-          </div>
-          <p className="max-w-sm text-sm font-medium leading-6 text-muted-foreground">
-            Kalendář, klientská historie, riziko a výkon dne musí být čitelné vedle sebe, ne schované v oddělených
-            nástrojích.
-          </p>
-        </div>
-        <div className="grid auto-rows-[11rem] gap-4 md:grid-cols-4">
-          <article className="motion-reveal relative overflow-hidden rounded-xl border border-border bg-card p-5 shadow-sm md:col-span-2 md:row-span-2">
-            <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Paměť klienta</p>
-            <h3 className="mt-3 max-w-sm text-3xl font-semibold tracking-tight">Klient není jen jméno v kalendáři.</h3>
-            <p className="mt-3 max-w-md text-sm font-medium leading-6 text-muted-foreground">
-              Poznámka, historie, preferovaný člověk a no-show signál jsou dostupné dřív, než vznikne další problém.
-            </p>
-            <div className="absolute bottom-5 left-5 right-5 grid gap-2 sm:grid-cols-3">
-              {["Preference", "Historie", "Riziko"].map((item, index) => (
-                <div key={item} className="rounded-lg border border-border bg-secondary/80 p-3">
-                  <p className="nums-tabular text-lg font-semibold">{index + 1}</p>
-                  <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">{item}</p>
-                </div>
-              ))}
-            </div>
-          </article>
-          {bentoItems.map(([title, text, value, label]) => (
-            <article key={title} className="motion-reveal rounded-xl border border-border bg-card p-5 shadow-sm md:col-span-2">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <h3 className="text-xl font-semibold tracking-tight">{title}</h3>
-                  <p className="mt-2 text-sm font-medium leading-6 text-muted-foreground">{text}</p>
-                </div>
-                <div className="shrink-0 rounded-lg bg-secondary px-3 py-2 text-right">
-                  <p className="nums-tabular text-lg font-semibold">{value}</p>
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">{label}</p>
-                </div>
-              </div>
-            </article>
-          ))}
-          <article className="motion-reveal rounded-xl border border-border bg-card p-5 shadow-sm">
-            <p className="nums-tabular text-3xl font-semibold text-primary">556</p>
-            <p className="mt-2 text-sm font-bold text-foreground">automatických testů</p>
-            <p className="mt-1 text-xs font-medium leading-5 text-muted-foreground">Core flow hlídané před pilotem.</p>
-          </article>
-          <article className="motion-reveal rounded-xl border border-border bg-card p-5 shadow-sm">
-            <p className="nums-tabular text-3xl font-semibold text-primary">0 %</p>
-            <p className="mt-2 text-sm font-bold text-foreground">provize</p>
-            <p className="mt-1 text-xs font-medium leading-5 text-muted-foreground">Vlastní klient zůstává váš.</p>
-          </article>
-          <article className="motion-reveal rounded-xl border border-border bg-card p-5 shadow-sm md:col-span-2">
-            <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Kalendář jako vrstva</p>
-            <div className="mt-4 grid grid-cols-7 gap-1">
-              {[35, 58, 80, 42, 68, 74, 50].map((height, index) => (
-                <div key={`${height}-${index}`} className="flex h-24 items-end rounded-md bg-secondary p-1">
-                  <div className="w-full rounded bg-primary/70" style={{ height: `${height}%` }} />
-                </div>
-              ))}
-            </div>
-          </article>
-          <article className="motion-reveal rounded-xl border border-border bg-card p-5 shadow-sm md:col-span-4">
-            <div className="flex flex-wrap items-center gap-2">
-              {["barber", "salon", "ordinace", "trenér", "autoservis", "konzultace"].map((chip) => (
-                <span key={chip} className="rounded-full border border-border bg-secondary px-3 py-1.5 text-sm font-semibold text-muted-foreground">
-                  {chip}
-                </span>
-              ))}
-            </div>
-          </article>
-        </div>
-      </section>
-
       <section id="pro-koho" className="mx-auto w-full max-w-[1180px] px-4 pb-20 sm:px-6 lg:px-8">
         <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
@@ -578,80 +386,10 @@ export default async function Home() {
         </div>
       </section>
 
-      <section id="ucty" className="mx-auto w-full max-w-[1180px] px-4 pb-20 sm:px-6 lg:px-8">
-        <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-          <header>
-            <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Dva typy účtů</p>
-            <h2 className="mt-3 text-balance text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
-              Jeden systém pro podnik. Druhý pohled pro jeho zákazníky.
-            </h2>
-            <p className="mt-5 max-w-md text-sm font-medium leading-6 text-muted-foreground">
-              Podnikatel spravuje provoz, tým a booking stránku. Zákazník se může přihlásit přes Google a vidět své
-              rezervace podle ověřeného e-mailu, aniž by měl přístup do administrace.
-            </p>
-          </header>
-
-          <div className="grid gap-4">
-            {accountTypes.map((account, index) => (
-              <article key={account.label} className="rounded-2xl border border-border bg-card p-5 shadow-sm">
-                <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                  <div>
-                    <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">{account.label}</p>
-                    <h3 className="mt-2 text-2xl font-semibold tracking-tight">{account.title}</h3>
-                  </div>
-                  <span className="nums-tabular grid size-10 shrink-0 place-items-center rounded-xl bg-primary/10 text-sm font-bold text-primary">
-                    {`0${index + 1}`}
-                  </span>
-                </div>
-                <div className="mt-5 grid gap-2 sm:grid-cols-3">
-                  {account.points.map((point) => (
-                    <div key={point} className="rounded-xl border border-border bg-secondary/75 p-3 text-sm font-semibold leading-5 text-muted-foreground">
-                      {point}
-                    </div>
-                  ))}
-                </div>
-                <Link
-                  href={account.href}
-                  className="mt-5 inline-flex h-10 items-center justify-center gap-2 rounded-md border border-border bg-card px-4 text-sm font-semibold text-foreground shadow-sm transition hover:border-primary/35 hover:text-primary"
-                >
-                  {account.cta}
-                  <ArrowRight className="size-4" />
-                </Link>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto w-full max-w-[1180px] px-4 pb-20 sm:px-6 lg:px-8">
-        <div className="rounded-xl border border-border bg-card p-5 shadow-sm sm:p-6">
-          <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Co přijde po core flow</p>
-              <h2 className="mt-3 max-w-2xl text-balance text-3xl font-semibold leading-[1.08] tracking-tight sm:text-4xl">
-                Od vlastního booking odkazu k vyhledání podniku.
-              </h2>
-            </div>
-            <p className="max-w-sm text-sm font-medium leading-6 text-muted-foreground">
-              Temaro dnes staví na vlastním klientském vztahu bez marketplace provizí. Discovery podle měst, mapa a
-              plný sync kalendáře jsou schválené další vrstvy po stabilním core.
-            </p>
-          </div>
-          <div className="grid gap-3 md:grid-cols-3">
-            {nextProductLayers.map(([title, text]) => (
-              <article key={title} className="rounded-2xl border border-border bg-secondary/75 p-5">
-                <h3 className="text-lg font-semibold tracking-tight">{title}</h3>
-                <p className="mt-2 text-sm font-medium leading-6 text-muted-foreground">{text}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
       <section className="mx-auto w-full max-w-[1180px] px-4 pb-20 sm:px-6 lg:px-8">
         <div className="grid gap-6 rounded-xl border border-border bg-card p-5 shadow-sm lg:grid-cols-[0.82fr_1.18fr] lg:p-6">
           <header>
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Praktické návody</p>
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Praktické návody</p>
             <h2 className="mt-3 text-balance text-3xl font-semibold leading-[1.08] tracking-tight sm:text-4xl">
               Začínáme tam, kde české provozovny nejvíc bolí čas a výpadky.
             </h2>
@@ -661,8 +399,8 @@ export default async function Home() {
             </p>
           </header>
 
-          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-            {guideLinks.map((guide) => (
+          <div className="grid gap-3 sm:grid-cols-2">
+            {guideLinks.slice(0, 4).map((guide) => (
               <Link
                 key={guide.href}
                 href={guide.href}
@@ -685,7 +423,7 @@ export default async function Home() {
             <div className="mb-8 grid size-12 place-items-center rounded-2xl bg-primary text-primary-foreground">
               <BadgeEuro className="size-6" strokeWidth={1.8} />
             </div>
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-white/58">Ceník</p>
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-white/58">Ceník</p>
             <h2 className="mt-3 text-balance text-4xl font-semibold leading-[1.05] tracking-tight text-white sm:text-5xl">
               Transparentní cena bez marketplace překvapení.
             </h2>
@@ -765,25 +503,9 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-[1180px] px-4 pb-20 sm:px-6 lg:px-8">
-        <div className="grid gap-4 rounded-xl border border-border bg-card p-4 shadow-sm lg:grid-cols-3">
-          {[
-            ["Před Temarem", "Telefon, poznámky bokem, ruční přepis a nejasné změny."],
-            ["S Temarem", "Rezervace, potvrzení, klient i riziko jsou vidět v jednom toku."],
-            ["Další krok", "SMS, zálohy a waitlist promění prázdná místa na řešitelný signál."],
-          ].map(([title, text], index) => (
-            <div key={title} className={`rounded-2xl p-5 ${index === 1 ? "command-surface" : "bg-secondary"}`}>
-              <p className="text-xs font-bold uppercase tracking-[0.16em] opacity-70">{`0${index + 1}`}</p>
-              <h3 className="mt-3 text-xl font-semibold tracking-tight">{title}</h3>
-              <p className="mt-2 text-sm font-semibold leading-6 opacity-75">{text}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
       <footer className="border-t border-border bg-card">
-        <div className="mx-auto grid w-full max-w-[1180px] gap-8 px-4 py-12 sm:px-6 lg:grid-cols-4 lg:px-8">
-          <div className="lg:col-span-2">
+        <div className="mx-auto grid w-full max-w-[1180px] gap-8 px-4 py-12 sm:px-6 lg:grid-cols-[1.2fr_0.8fr_1fr_0.8fr] lg:px-8">
+          <div>
             <TemaroLogo />
             <p className="mt-3 max-w-sm text-sm font-medium leading-6 text-muted-foreground">
               Rezervační systém pro salony, ordinace, trenéry a další služby. Vyrobeno v Česku, připraveno pro EU provoz.
@@ -793,9 +515,16 @@ export default async function Home() {
             <p className="text-xs font-bold uppercase tracking-[0.16em] text-muted-foreground">Produkt</p>
             <ul className="mt-4 space-y-2 text-sm font-semibold">
               <li><Link href="#produkt" className="text-foreground hover:underline">Funkce</Link></li>
-              <li><Link href="#ucty" className="text-foreground hover:underline">Typy účtů</Link></li>
               <li><Link href="#pro-koho" className="text-foreground hover:underline">Pro koho</Link></li>
               <li><Link href="/podniky" className="text-foreground hover:underline">Katalog podniků</Link></li>
+              <li><Link href="#cenik" className="text-foreground hover:underline">Ceník</Link></li>
+              <li><Link href="#bezpecnost" className="text-foreground hover:underline">Bezpečnost</Link></li>
+              <li><Link href="/demo-barber" className="text-foreground hover:underline">Demo</Link></li>
+            </ul>
+          </div>
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-muted-foreground">Návody</p>
+            <ul className="mt-4 space-y-2 text-sm font-semibold">
               <li><Link href="/rezervacni-system-pro-barbery" className="text-foreground hover:underline">Pro barbery</Link></li>
               <li><Link href="/rezervacni-system-pro-kadernictvi" className="text-foreground hover:underline">Pro kadeřnictví</Link></li>
               <li><Link href="/rezervacni-system-pro-kosmeticky-salon" className="text-foreground hover:underline">Pro beauty salon</Link></li>
@@ -803,10 +532,6 @@ export default async function Home() {
               <li><Link href="/jak-snizit-no-show" className="text-foreground hover:underline">No-show guide</Link></li>
               <li><Link href="/sms-pripominky-rezervaci" className="text-foreground hover:underline">SMS připomínky</Link></li>
               <li><Link href="/rezervacni-system-bez-marketplace-provizi" className="text-foreground hover:underline">Bez marketplace provizí</Link></li>
-              <li><Link href="#cenik" className="text-foreground hover:underline">Ceník</Link></li>
-              <li><Link href="#bezpecnost" className="text-foreground hover:underline">Bezpečnost</Link></li>
-              <li><Link href="#provoz" className="text-foreground hover:underline">Provoz</Link></li>
-              <li><Link href="/demo-barber" className="text-foreground hover:underline">Demo</Link></li>
             </ul>
           </div>
           <div>

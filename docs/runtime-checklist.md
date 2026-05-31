@@ -1,6 +1,6 @@
 # Runtime checklist
 
-Aktualizováno: 2026-05-31 21:47 CEST
+Aktualizováno: 2026-05-31 22:39 CEST
 
 Tento checklist je pro první reálné ověření mimo demo režim.
 
@@ -27,7 +27,8 @@ Aktuální známý stav:
 - Ověřeno na Vercelu: `/api/health` nevrací názvy interních secret env; `checks.env.missing` je číslo a ne seznam názvů proměnných.
 - Externí Vercel smoke prošel 2026-05-31 21:55 CEST: `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` má 8/8 testů zelených.
 - Stabilní navazovací dokument je `docs/handoff.md`; datum v názvu starého handoff souboru bylo odstraněné.
-- `npm run check` prošlo 2026-05-31 21:47 CEST po přepojení marketing obrázků na vlastní WebP assety: 556 Vitest testů, migrations check, type-check, lint a produkční build.
+- `npm run check` prošlo 2026-05-31 22:39 CEST po zkrácení homepage a přegenerování segmentových WebP assetů: 556 Vitest testů, migrations check, type-check, lint a produkční build.
+- Lokálně zkontrolované screenshoty homepage na 1366x768, 320x1000 a 390x1000: hero CTA je viditelné, zkrácená nav se vejde a odstraněná signal-map už nepředstavuje mobilní riziko.
 - `npm audit --audit-level=moderate` prošlo 2026-05-31 po aktualizaci Next.js na `16.2.6`: `found 0 vulnerabilities`.
 - `npx playwright test` prošlo 2026-05-31: 9 testů prošlo, 4 authenticated runtime testy byly přeskočené bez `E2E_AUTHENTICATED_SMOKE=true`. Pro reálný Supabase runtime smoke nastavit `E2E_AUTHENTICATED_SMOKE=true` a platné Supabase env.
 - Runtime ověřit, že `/demo-barber` zůstává dostupný i při nedostupné Supabase DB, `/account/login` nepadá do proxy redirectu a non-embed routy vrací `X-Frame-Options: DENY`.

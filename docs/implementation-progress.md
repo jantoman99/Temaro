@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Aktualizováno: 2026-05-31 21:47 CEST
+Aktualizováno: 2026-05-31 22:39 CEST
 
 Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historické analýzy a staré design audity jsou přesunuté do `docs/archive/`.
 
@@ -83,7 +83,7 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - Temaro logo komponenta je v `components/brand/temaro-logo.tsx`.
 - Transparentní SVG brand assety jsou v `public/brand`.
 - Root landing page používá aktuální claim `Méně telefonátů. Klidnější provoz.`
-- Landing má top navigaci `Produkt`, `Pro koho`, `Ceník`, `Bezpečnost`, `Demo`.
+- Landing má zkrácenou top navigaci `Produkt`, `Obory`, `Ceník`, `Demo`.
 - Hero má pseudo-interaktivní produktový mockup `InteractiveProductDemo`.
 - Veřejný booking má checkoutovější strukturu a průběžný kontext výběru.
 - Dashboard shell, kalendář, klienti, služby a staff jsou sjednocené do Signal OS stylu.
@@ -91,7 +91,7 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - Tabulky klientů, služeb a týmu mají okamžité hledání při psaní, uživatelsky volitelné sloupce uložené v prohlížeči a v Supabase režimu server-side stránkování/řazení/filtry přes URL stav.
 - Entity klientů, služeb a týmu nemají samostatné statistické/filtrační karty; počet záznamů, stránkování a počet řádků jsou přímo ve spodku tabulky.
 - Entity klientů, služeb a týmu mají jeden hlavní nadpis stránky; tabulka už neduplikuje název entity.
-- Implementovaná první vlna `docs/16-design-trends-2026-implementation.md`: shadow/radius cleanup, dark mode tokeny a toggle, landing bento sekce, density-first dashboard KPI strip, booking receipt success moment, skeleton loading a méně kartové empty state.
+- Implementovaná první vlna `docs/16-design-trends-2026-implementation.md`: shadow/radius cleanup, dark mode tokeny a toggle, density-first dashboard KPI strip, booking receipt success moment, skeleton loading a méně kartové empty state.
 - Admin IA je zjednodušená podle 2026 B2B SaaS trendu progresivního odkrývání: denní dashboard řeší jen provoz, onboarding a booking branding jsou samostatné sekce, zakládací formuláře jsou schované pod akcí `Přidat`.
 - Dashboard sidebar a mobilní app navigace mají aktivní stav podle aktuální URL místo natvrdo zvýrazněného `Přehled`.
 - Dashboard auth helpery používají request-level cache, aby se při jednom server renderu neopakovaly stejné auth/tenant kontroly v layoutu i stránce.
@@ -99,9 +99,8 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - `/design-preview` už není samostatná stará preview stránka; přesměruje na aktuální homepage.
 - Lighthouse audit landing page je v `docs/15-performance-audit.md`.
 - První niche/answer SEO stránky jsou implementované jako statické routy: `/rezervacni-system-pro-barbery`, `/rezervacni-system-pro-kadernictvi`, `/rezervacni-system-pro-kosmeticky-salon`, `/rezervacni-system-pro-masaze`, `/rezervacni-system-pro-wellness` a `/jak-snizit-no-show`.
-- Homepage obsahuje interní prolinkování na první niche/answer stránky včetně `/sms-pripominky-rezervaci` a `/rezervacni-system-bez-marketplace-provizi`; proof metrika testů je sjednocená na aktuálních `556`.
-- Landing page má novou sekci `Dva typy účtů`, která odděluje podnikatelskou registraci od zákaznického Google účtu.
-- Landing page nově komunikuje další produktovou vrstvu: vyhledání podniků podle města/lokality/oboru, mapa podniku a plný Google Calendar sync po současném iCal exportu.
+- Homepage obsahuje interní prolinkování na první niche/answer stránky včetně `/sms-pripominky-rezervaci` a `/rezervacni-system-bez-marketplace-provizi`; hlavní blok návodů ukazuje jen čtyři segmentové stránky a zbytek zůstává ve footeru.
+- Landing page je po review zkrácená: odstraněné jsou redundantní `Signal Map`, `Rezervační tok`, bento/proof blok, samostatná sekce účtů a future-layer blok. Zákaznické/podnikatelské přihlášení zůstává dostupné přes auth routy a footer.
 - Homepage navigace a footer odkazují na `/podniky`; katalog je zatím bez marketplace provizí a bez externí mapové API integrace.
 - Lokální pre-launch hardening má hotové první P0 kroky: CSP header, veřejný `/api/health` endpoint, sdílený `safePostCommit` helper, Dependabot, coverage report, Playwright scaffold, performance smoke skript a statický admin performance budget test.
 
@@ -114,6 +113,9 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 
 ## Poslední změna
 
+- Homepage review implementace podle `C:\Users\hanys\Downloads\temaro-landing-review.md`: kratší landing, zákaznické proof metriky `3 kroky / 0 Kč / 0 %`, jednodušší mobilní nav, méně SEO odkazů v hlavním obsahu, odstraněná signal-map responzivní rizika a nižší mobilní výška produktového mockupu.
+- Tři marketing obrázky byly přegenerované jako výrazně odlišné assety: tmavší barber studio, světlý beauty prostor a denní fitness/training studio. Výstupy jsou uložené v `public/marketing/*-ai.webp`.
+- Ověření 2026-05-31 22:39 CEST: `npm run check` prošlo s 556 Vitest testy, migrations check, type-check, lint a produkční build. Lokálně byly zkontrolované screenshoty homepage na 1366x768, 320x1000 a 390x1000.
 - Marketing obrázky v sekci `Reálné provozy` jsou nově vlastní vygenerované assety uložené jako optimalizované WebP: `barber-studio-ai.webp`, `salon-interior-ai.webp`, `training-studio-ai.webp`.
 - Ověření 2026-05-31 21:47 CEST: `npm run check` prošlo s 556 Vitest testy, migrations check, type-check, lint a produkční build.
 - Druhá homepage design iterace po vizuální zpětné vazbě: hero claim je kratší, marketing mockup už netvrdí `živá ukázka`, neobsahuje falešnou tržbu a metriky se v dark mode neořezávají.
@@ -252,7 +254,7 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - Supabase MCP config zůstává v `~/.codex/config.toml` a OAuth login byl obnoven přes `codex mcp login supabase`; krátký `codex exec` start už neběží s `AuthRequired` chybou.
 - Landing page nově komunikuje dva typy účtů: podnikatelský účet pro správu provozu a zákaznický účet pro přehled rezervací.
 - Landing page má novou sekci další produktové vrstvy: vyhledání podniků podle města/lokality/oboru, mapa podniku a plný Google Calendar sync jsou schválený směr, ne hotová funkce.
-- Proof metrika na landing page je srovnaná na `448` automatických testů.
+- Historická proof metrika počtu automatických testů byla z homepage odstraněná; aktuální hero používá zákaznické metriky `3 kroky`, `0 Kč`, `0 %`.
 - Přidaná migrace `20260503173000_add_tenant_notification_messages.sql` přidává tenantům `confirmation_message`, `reminder_message` a `cancellation_message` s limitem 500 znaků; migrace byla aplikovaná do připojené Supabase databáze a migration history je opravená jako applied.
 - `/booking-page` obsahuje vlastní texty e-mailů; potvrzení, přesun a zrušení je vkládají přímo do e-mailu, reminder text se ukládá do metadata reminder notifikace a cron ho vloží při odeslání.
 - `npm run check` prošlo 2026-05-03 17:36 CEST: 422 Vitest testů, migrations check, type-check, lint i produkční build.
@@ -376,7 +378,7 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - Tabulky klientů, služeb a týmu mají rozbalovací `Filtry` pro podmínky typu flag/no-show, placené/zdarma/buffer nebo účet/výjimky.
 - Kompaktní akce `Flag` v klientské tabulce má fixní šířku, aby flagované řádky nerozbíjely konzistenci akcí.
 - Shadow systém je zredukovaný na `sm/md/lg/command` + sporadický primary glow; odstraněné jsou staré halo/pulse/pop shadow tokeny a arbitrary `rounded-[1.35rem]`.
-- Landing má nový `Bento provozu` grid mezi provozním příběhem a segmenty.
+- Starý `Bento provozu` grid byl při zkrácení homepage odstraněný.
 - Dark mode má token vrstvu, pre-hydration script bez flash efektu a toggle na landing i dashboardu.
 - Theme toggle má jen dva režimy `Světlý/Tmavý`; `System` je odstraněný a výchozí režim je světlý.
 - Landing dark mode má opravený kontrast hero a Signal Map vrstev.
@@ -390,7 +392,7 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - Přidaná statická stránka `/rezervacni-system-pro-barbery` s metadata, FAQ JSON-LD, SoftwareApplication JSON-LD, breadcrumb JSON-LD a CTA na registraci/demo booking.
 - Přidaná statická answer page `/jak-snizit-no-show` s Article JSON-LD, FAQ JSON-LD, breadcrumb JSON-LD a interním prolinkováním na barber stránku.
 - Homepage má novou sekci `Praktické návody` a footer odkazy na první dvě SEO/GEO/AEO stránky.
-- Marketingová proof metrika na landing page je srovnaná na aktuálních `383` automatických testů.
+- Historická marketingová proof metrika počtu testů byla nahrazená zákaznickými proof metrikami v heru.
 - Přidaný `Content-Security-Policy` header v `next.config.ts`; dosavadní security headers `nosniff`, `DENY`, `Referrer-Policy` a `Permissions-Policy` zůstávají.
 - Přidaný veřejný dynamický endpoint `/api/health`, který vrací stav env, Supabase dostupnost, rate limit konfiguraci a verzi bez úniku hodnot tajných proměnných.
 - Post-commit kroky po vytvoření/změně rezervace používají sdílený `safePostCommit` helper místo lokálních `ignorePostCommitError`; v developmentu loguje navazující chyby, v produkci je tichý.

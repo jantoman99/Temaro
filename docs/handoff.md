@@ -1,6 +1,6 @@
 # Handoff
 
-Aktualizováno: 2026-05-31 21:47 CEST
+Aktualizováno: 2026-05-31 22:39 CEST
 
 ## Jak navázat
 
@@ -31,7 +31,7 @@ Aktualizováno: 2026-05-31 21:47 CEST
 - Čekací listina má tabulku `waitlist_entries`, service-role RPC `create_waitlist_entry`, veřejné CTA při obsazených termínech a owner přehled v kalendáři; migrace `20260508114500_create_waitlist_entries.sql` je aplikovaná lokálně i remote.
 - Review request používá tenant `review_url`; po owner dokončení rezervace odešle klientovi e-mail a uloží notification typ `review_request`. Migrace `20260508121000_add_review_request_notification_type.sql` je aplikovaná lokálně i remote.
 - Online záloha přes Stripe používá self-service manage odkaz, route `/api/payments/stripe/checkout`, webhook `/api/payments/stripe/webhook`, pending/paid záznamy v `booking_payments` a audit event `payment_recorded`.
-- Poslední ověření: `npm run check` prošlo 2026-05-31 21:47 CEST s 556 Vitest testy, migrations check, type-check, lint i produkčním buildem.
+- Poslední ověření: `npm run check` prošlo 2026-05-31 22:39 CEST s 556 Vitest testy, migrations check, type-check, lint i produkčním buildem.
 - Vercel production deploy je hotový: `https://rezervacni-system-xi.vercel.app`.
 - Public health endpoint nevrací názvy chybějících secret env; vrací jen počet v `checks.env.missing`.
 - GitHub login connection ve Vercelu je propojený; před propojením byly nové deploymenty private repa `BLOCKED`, aktuální production deploy je `dpl_JCHfjcFCiuv6qDDY61LSwq9bt9wf`.
@@ -39,9 +39,9 @@ Aktualizováno: 2026-05-31 21:47 CEST
 - Project/docs/design review je v `docs/project-review.md`.
 - README je přepsané pro portfolio/onboarding a `docs/README.md` mapuje dokumentaci.
 - Stabilní handoff soubor je nově `docs/handoff.md` bez data v názvu.
-- Landing page má první copy/design cleanup: kratší proof labely pro mobil, méně interní design-audit copy a civilnější footer.
-- Druhá homepage design iterace: kratší hero subhead, obrazová sekce `Reálné provozy`, marketing mockup bez falešné tržby a bez tvrzení `živá ukázka`; metriky se v dark mode neořezávají.
-- Obrázky v sekci `Reálné provozy` jsou vlastní vygenerované assety a jsou uložené jako optimalizované WebP v `public/marketing/*-ai.webp`.
+- Landing page je po review zkrácená: ponechává hero/demo, value props, odlišné segmentové obrázky, obory, zkrácené návody, ceník, bezpečnost a footer. Redundantní signal-map, flow, bento, účty a future-layer bloky jsou odstraněné.
+- Proof metriky v heru jsou zákaznické (`3 kroky`, `0 Kč`, `0 %`) místo interní testovací metriky; top nav má jen `Produkt`, `Obory`, `Ceník`, `Demo`.
+- Obrázky v sekci `Reálné provozy` jsou vlastní přegenerované WebP assety v `public/marketing/*-ai.webp`: barber je tmavý řemeslný interiér, beauty je světlé studio a fitness je denní tréninkový prostor.
 - Pre-demo hardening 2026-05-31: Next.js a `eslint-config-next` jsou na `16.2.6`, `npm audit --audit-level=moderate` vrací 0 vulnerabilities, non-embed routy mají `X-Frame-Options: DENY`, `/account/login` je veřejně dostupný a `/demo-barber` má demo fallback i při nedostupné Supabase DB.
 - Playwright 2026-05-31: `npx playwright test` prošlo 9 testů; 4 authenticated runtime testy se bez `E2E_AUTHENTICATED_SMOKE=true` korektně přeskočí.
 - Historické analýzy a design audity jsou v `docs/archive/`.
@@ -84,7 +84,7 @@ Aktualizováno: 2026-05-31 21:47 CEST
 - `docs/business-model.md` a `docs/roadmap.md` jsou napojené na niche/SEO/GEO/AEO strategii.
 - První aplikace niche/SEO/GEO/AEO strategie je v kódu: statické stránky `/rezervacni-system-pro-barbery`, `/rezervacni-system-pro-kadernictvi`, `/rezervacni-system-pro-kosmeticky-salon`, `/rezervacni-system-pro-masaze`, `/rezervacni-system-pro-wellness` a `/jak-snizit-no-show`.
 - Homepage má sekci `Praktické návody`, footer prolinkování na niche stránky i `/sms-pripominky-rezervaci` a `/rezervacni-system-bez-marketplace-provizi`; proof metrika testů je sjednocená na `556`.
-- Landing page má novou sekci `Dva typy účtů` s CTA na podnikatelskou registraci a zákaznické přihlášení.
+- Samostatná homepage sekce `Dva typy účtů` byla při zkrácení landing page odstraněná; podnikatelská registrace a zákaznické přihlášení zůstávají dostupné přes CTA/footer.
 - Landing page nově ukazuje další produktovou vrstvu: vyhledání podniků podle města/lokality/oboru, mapu podniku a plný Google Calendar sync.
 - Služby mají nastavení záloh `bez zálohy / fixní částka / procento`; booking RPC ukládají vypočtenou `deposit_amount` do rezervace.
 - Veřejný booking i detail rezervace zobrazují požadovanou zálohu; self-service manage stránka umožní zaplatit zálohu online přes Stripe, pokud jsou nastavené Stripe env.
@@ -127,6 +127,9 @@ Aktualizováno: 2026-05-31 21:47 CEST
 
 ## Poslední změna
 
+- Homepage review implementace podle `C:\Users\hanys\Downloads\temaro-landing-review.md`: stránka je kratší, mobilní nav je jednodušší, produktový mockup má nižší mobilní min-height, warning tone používá design token a Instrument Serif má `display: "swap"`.
+- Lokální vizuální kontrola 2026-05-31: screenshoty `/` na 1366x768, 320x1000 a 390x1000 potvrdily viditelné CTA, nerozbité hero texty a funkční zkrácenou navigaci.
+- `npm run check` prošlo 2026-05-31 22:39 CEST: 556 Vitest testů, migrations check, type-check, lint a produkční build.
 - Doplněný Google Business Profile booking CTA do share kitu v `/booking-page`; `npm run check` prošlo 2026-05-08 20:06 CEST: 554 Vitest testů, migrations check, type-check, lint i produkční build.
 - Implementovaná vrstva `API a integrace`: migrace `20260508195500_create_tenant_api_keys.sql`, route `/integrations`, server actions, hash-only API klíče, read-only partner endpoint `/api/partners/v1/bookings` a testy `tests/integrations.test.ts`.
 - `npm run check` prošlo 2026-05-08 20:01 CEST po integracích: 554 Vitest testů, migrations check, type-check, lint i produkční build.
@@ -200,7 +203,7 @@ Aktualizováno: 2026-05-31 21:47 CEST
 - Supabase MCP má platnou server definici a OAuth login byl obnoven přes `codex mcp login supabase`; krátký `codex exec` start už neběží s auth required chybou pro Supabase MCP.
 - Landing page nově komunikuje dva typy účtů: podnikatelský účet pro správu provozu a zákaznický účet pro přehled rezervací.
 - Landing page má novou sekci další produktové vrstvy: vyhledání podniků podle města/lokality/oboru, mapa podniku a plný Google Calendar sync jsou schválený směr, ne hotová funkce.
-- Proof metrika na landing page je srovnaná na `448` automatických testů.
+- Historická proof metrika počtu automatických testů byla z homepage odstraněná; aktuální hero používá zákaznické metriky `3 kroky`, `0 Kč`, `0 %`.
 - Přidaná migrace `20260503173000_add_tenant_notification_messages.sql` byla aplikovaná do připojené Supabase databáze a migration history je opravená jako applied.
 - `/booking-page` má vlastní texty potvrzení, reminderu a zrušení; e-mailové funkce je vkládají bez zásahu do bezpečných systémových údajů.
 - `npm run check` prošlo 2026-05-03 17:36 CEST: 422 Vitest testů, migrations check, type-check, lint i produkční build.
@@ -296,7 +299,7 @@ Aktualizováno: 2026-05-31 21:47 CEST
 - Klik na hlavičku sloupce řadí tabulky klientů, služeb a týmu vzestupně/sestupně.
 - Tlačítko `Filtry` v tabulkách otevírá podmínky podle entity: klient flag/no-show, služba placené/zdarma/buffer, tým účet/výjimky.
 - Kompaktní klientská akce `Flag` má fixní šířku, aby `Upravit flag` neroztahovalo řádek.
-- Landing má nový `Bento provozu` grid a disciplinovanější primary/glow použití.
+- Starý `Bento provozu` grid byl z homepage odstraněný při zkrácení landing page; primary/glow použití zůstává disciplinované.
 - Dark mode toggle je na landing a dashboardu jen ve dvou stavech `Světlý/Tmavý`; volba `System` byla odstraněná a výchozí režim je světlý.
 - Form inputy v klientských, službových a staff formulářích používají standardní `shadow-sm` místo ad-hoc OKLCH shadow hodnot.
 - Brand mark a booking summary jsou napojené na standardní shadow tokeny.
@@ -599,7 +602,7 @@ Aktualizováno: 2026-05-31 21:47 CEST
 - Pokud se v Chrome objeví hydration warning s atributy `bis_*`, nejdřív ověřit anonymní okno bez rozšíření; poslední log ukazoval zásah browser extension.
 - `perf:smoke` v lokálním dev režimu už neběží paralelně; mimo CI používá sekvenční měření a jeden retry. Pro čistý warm průchod bez retry použít `PERF_RETRIES=0 npm run perf:smoke`; pro produkční rozhodnutí měřit i přes `next build && next start`.
 - Ručně ověřit landing bento grid na desktopu i mobilu.
-- Ručně ověřit landing sekci `Dva typy účtů` a další produktovou vrstvu; discovery/mapa/sync nesmí působit jako hotový marketplace, ale jako schválený směr.
+- Ručně ověřit, že z homepage zmizely redundantní účty/future-layer bloky a že CTA routy `/register`, `/demo-barber`, `/login` a `/account/login` fungují.
 - Ručně ověřit `/podniky`, filtrování podle města, owner sekci `Veřejný katalog a mapa` v `/settings` a propsání adresy/mapového odkazu do veřejné booking stránky.
 - Ručně projít veřejnou rezervaci a ověřit nový receipt success state včetně `.ics` downloadu.
 - Ověřit veřejný booking po změně brandingu přes `/booking-page`, včetně uploadu loga a úvodní fotky.

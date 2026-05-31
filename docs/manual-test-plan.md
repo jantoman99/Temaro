@@ -20,27 +20,24 @@ Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 - Přes `curl -I http://localhost:3000` nebo DevTools Network ověřit, že response obsahuje `Content-Security-Policy`.
 - Přes `curl -I http://localhost:3000` nebo DevTools Network ověřit, že běžné routy obsahují `X-Frame-Options: DENY`; `/embed/booking/<slug>` ho mít nemá, protože booking widget musí jít vložit do iframe.
 - Zkontrolovat root landing page `/`: aktualni smer je `docs/15-design-system-v3.md` jako Temaro Signal OS, ne archivni design směry.
-- Zkontrolovat top bar landing page: musi obsahovat `Produkt`, `Pro koho`, `Ceník`, `Bezpečnost`, `Demo`, `Přihlášení` a primary CTA `Začít zdarma`.
+- Zkontrolovat top bar landing page: musi obsahovat `Produkt`, `Obory`, `Ceník`, `Demo`, `Přihlášení` a primary CTA `Začít zdarma`.
 - Přepnout theme toggle mezi světlým a tmavým režimem; landing se nesmí vizuálně rozpadnout ani ztratit kontrast textu.
 - Ověřit, že theme toggle nabízí jen `Světlý` a `Tmavý`; volba `System` nemá být v UI.
 - Proklikat top bar kotvy a overit, ze vedou na odpovidajici sekce, ne na prazdne nebo neexistujici stranky.
-- Na mobilni sirce zkontrolovat, ze top navigace nezmizi a jde horizontalne posouvat.
+- Na mobilni sirce zkontrolovat, ze top navigace nezmizi, nepreteka mimo viewport a ctyri hlavni polozky jsou citelne bez horizontalniho scrollu.
 - Na landing page zkontrolovat hero: eyebrow `Rezervační systém pro služby`, claim `Méně telefonátů. Klidnější provoz.`, subhead pro salony/ordinace/trenéry/autoservisy a primary CTA `Začít zdarma`.
-- Pod hero CTA zkontrolovat proof metriky s aktuálním počtem automatických testů `556`, `0 %`, `24 h`; nemaji byt duplicitne zopakovane jako samostatna spodni proof sekce.
+- Pod hero CTA zkontrolovat proof metriky `3 kroky`, `0 Kč` a `0 %`; nemaji byt duplicitne zopakovane jako samostatna spodni proof sekce.
 - Na mobilní šířce ověřit, že proof labely pod hero CTA jsou čitelné a neslévají se bez mezer.
 - V hero mockupu ověřit, že texty metrik nejsou ořezané v light ani dark mode a že ukázka nepůsobí jako reálný live dashboard s nepravdivými daty.
-- Zkontrolovat sekci `Reálné provozy`: obrázky se musí načíst, mít konzistentní poměr stran a nepůsobit jako generický stock mimo segment služeb.
-- Na landing page zkontrolovat sekci `Dva typy účtů`: podnikatelský účet vede na `/register`, zákaznický účet vede na `/account/login`.
-- Na landing page zkontrolovat sekci další produktové vrstvy: vyhledání podniků, mapa podniku a plný Google Calendar sync jsou komunikované jako další vrstva, ne jako hotová funkce.
+- Zkontrolovat sekci `Reálné provozy`: obrázky se musí načíst, mít konzistentní poměr stran a být vizuálně odlišné pro barber, beauty a fitness/training segment.
+- Ověřit, že podnikatelská registrace `/register` a zákaznický účet `/account/login` zůstávají dostupné přes CTA/footer, i když samostatná homepage sekce `Dva typy účtů` byla odstraněná kvůli zkrácení stránky.
 - Otevřít `/podniky`, ověřit demo/veřejný výpis, hledání podle textu, města a oboru, booking CTA a odkaz `Otevřít mapu`.
 - Na landing page zkontrolovat signal-grid pozadi na desktopu, neutral/command produktovy mockup, fialovo-modry brand signal a konkretni provozni copy.
 - Na landing page zkontrolovat product mockup: musi mit produktovy chrome, command hint a kapacitni graf, ne jen statickou kartu.
 - V hero product mockupu proklikat scénáře `Dnes`, `Booking` a `Klient`; metriky a checkout panel se mají měnit bez reloadu stránky.
 - Na landing page zkontrolovat nove sekce `Pro koho`, `Ceník` a `Bezpečnost`: maji pusobit jako realny SaaS web, ne jako placeholder text pod hero sekci.
-- Zkontrolovat tmavou sekci `Rezervační tok`; má rozbíjet monotónnost karet a vysvětlit flow klient -> kalendář -> historie.
-- Zkontrolovat novou sekci `Bento provozu`; má rozbíjet lineární scroll a být čitelná na desktopu i mobilu.
-- Zkontrolovat novou sekci `Praktické návody`; má prolinkovat `/rezervacni-system-pro-barbery`, `/rezervacni-system-pro-kadernictvi`, `/rezervacni-system-pro-kosmeticky-salon`, `/rezervacni-system-pro-masaze`, `/jak-snizit-no-show`, `/sms-pripominky-rezervaci` a `/rezervacni-system-bez-marketplace-provizi`.
-- Zkontrolovat `Signal Map` sekci; má působit jako vlastní brand motiv Temara, ne jako další běžná card sekce.
+- Zkontrolovat zkrácenou sekci `Praktické návody`: hlavní stránka má ukazovat jen čtyři segmentové odkazy, zatímco ostatní SEO/answer odkazy zůstávají dostupné ve footeru.
+- Ověřit, že staré redundantní bloky `Signal Map`, `Rezervační tok`, `Bento provozu`, `Dva typy účtů` a future-layer sekce už na homepage nejsou; stránka má působit kratší a konverznější.
 - V `Ceník` zkontrolovat karty `Pilot`, `Solo`, `Tým` a to, ze finalni ceny nejsou falesne vymyslene.
 - Zkontrolovat, ze landing nepouziva falesne reference; ověřitelné projektové metriky jsou v hero proof baru.
 - Na landing page zkontrolovat, ze produktovy mockup vypada jako provozni konzole se signaly dne, ne jako genericky bily wireframe.

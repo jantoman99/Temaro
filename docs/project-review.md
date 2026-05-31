@@ -1,6 +1,6 @@
 # Project Review
 
-Aktualizováno: 2026-05-31 21:47 CEST
+Aktualizováno: 2026-05-31 22:39 CEST
 
 ## Shrnutí
 
@@ -10,7 +10,7 @@ Největší slabina před ukazováním firmám nebyla v core kódu, ale v prezen
 
 ## Aktuální ověření
 
-- `npm run check` prošlo 2026-05-31 21:47 CEST s 556 Vitest testy, kontrolou migrací, type-checkem, lintem a produkčním buildem.
+- `npm run check` prošlo 2026-05-31 22:39 CEST s 556 Vitest testy, kontrolou migrací, type-checkem, lintem a produkčním buildem.
 - `npm audit --audit-level=moderate` po aktualizaci Next.js vracelo 0 vulnerabilities.
 - `npx playwright test` lokálně prošlo 9 testů a 4 authenticated runtime testy se korektně přeskočily bez `E2E_AUTHENTICATED_SMOKE=true`.
 - `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` prošlo 2026-05-31 21:55 CEST 8/8 proti Vercelu.
@@ -58,23 +58,26 @@ Silné stránky:
 
 Nálezy:
 
-- Mobilní proof karty měly příliš dlouhé popisky; text se opticky sléval.
-- Veřejná landing copy místy mluvila interně o design systému: `Vizuální podpis`, `Bento vrstva`, `Signal OS`. To působí méně produktově.
-- Stránka má hodně card sekcí. Je použitelná, ale další design posun by měl zmenšit počet samostatných ohraničených bloků a víc pracovat s plnošířkovými pásy, větší typografickou hierarchií a méně opakovanými kartami.
+- Veřejná landing copy dříve místy mluvila interně o design systému: `Vizuální podpis`, `Bento vrstva`, `Signal OS`. To působilo méně produktově.
+- Stránka měla příliš mnoho samostatných produktových bloků. Po review je výrazně kratší, ale další iterace může ještě víc pracovat s plnošířkovými pásy a méně card rytmem.
 - Footer měl interní brand formulaci `Signal OS v3`; pro veřejnost je lepší jednoduché `© 2026 Temaro`.
 
 Provedené úpravy:
 
 - Proof labels jsou kratší a čitelnější na mobilu.
+- Proof metriky jsou nově zákaznické (`3 kroky`, `0 Kč`, `0 %`) místo interní metriky počtu testů.
 - Interní design-audit copy na landing page je přepsaná do produktové řeči.
 - Footer je civilnější a méně interní.
 - Hero mockup už nepoužívá falešnou tržbu ani `živá ukázka`; metriky jsou zarovnané a čitelné v dark mode.
-- Přidaná obrazová sekce `Reálné provozy` z vlastních vygenerovaných WebP assetů.
+- Homepage je zkrácená: odstraněné jsou redundantní `Signal Map`, `Rezervační tok`, bento/proof blok, samostatná sekce účtů a future-layer blok.
+- Hlavní blok `Praktické návody` ukazuje jen čtyři segmentové odkazy; ostatní SEO/answer odkazy zůstávají ve footeru.
+- Obrázková sekce `Reálné provozy` používá nově přegenerované odlišné WebP assety: tmavé barber studio, světlé beauty studio a denní fitness/training prostor.
+- Instrument Serif používá `display: "swap"`, interaktivní demo má nižší mobilní min-height a warning stav v demo komponentě používá design token.
 
 Další design krok:
 
-- Udělat druhou iteraci homepage struktury: sloučit `Signal Map`, `Rezervační tok` a `Provozní vrstva` do jedné silnější produktové sekce, aby landing nebyl tak dlouhý a kartový.
-- Přidat více reálných vizuálních assetů provozů, pokud má homepage sloužit jako prodejní web, ne jen technické portfolio.
+- Po deployi zkontrolovat skutečný Vercel render na mobilu a desktopu, včetně CTA rout `/register`, `/demo-barber`, `/login` a `/account/login`.
+- Pokud má homepage dál růst jako prodejní web, přidávat už jen jednu silnou vizuální sekci po ověřeném copy, ne další samostatné proof/flow bloky.
 
 ## Docs Review
 
@@ -101,7 +104,7 @@ Dokumenty, které nepřekážejí, ale nejsou první čtení:
 
 ## Doporučené další kroky
 
-1. Nechat GitHub Actions doběhnout po posledním pushi a zkontrolovat, že všechny joby jsou zelené.
-2. Udělat druhou design iteraci homepage se zaměřením na zkrácení stránky a méně kartový rytmus.
+1. Nasadit aktuální homepage iteraci na Vercel a ověřit public smoke proti produkční URL.
+2. Zkontrolovat GitHub Actions po pushi.
 3. Přidat do profilu/portfolia demo link a krátký popis: `Temaro - Next.js/Supabase SaaS booking platform, live Vercel demo`.
 4. Teprve potom řešit produkční Supabase env, Google OAuth a Stripe runtime.
