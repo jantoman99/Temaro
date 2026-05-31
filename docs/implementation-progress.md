@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Aktualizováno: 2026-05-31 22:39 CEST
+Aktualizováno: 2026-05-31 22:52 CEST
 
 Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historické analýzy a staré design audity jsou přesunuté do `docs/archive/`.
 
@@ -116,6 +116,7 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - Homepage review implementace podle `C:\Users\hanys\Downloads\temaro-landing-review.md`: kratší landing, zákaznické proof metriky `3 kroky / 0 Kč / 0 %`, jednodušší mobilní nav, méně SEO odkazů v hlavním obsahu, odstraněná signal-map responzivní rizika a nižší mobilní výška produktového mockupu.
 - Tři marketing obrázky byly přegenerované jako výrazně odlišné assety: tmavší barber studio, světlý beauty prostor a denní fitness/training studio. Výstupy jsou uložené v `public/marketing/*-ai.webp`.
 - Ověření 2026-05-31 22:39 CEST: `npm run check` prošlo s 556 Vitest testy, migrations check, type-check, lint a produkční build. Lokálně byly zkontrolované screenshoty homepage na 1366x768, 320x1000 a 390x1000.
+- Vercel production deploy `dpl_4Zogqwr6XLj2utWu7cbc9sCh5ePe` je na aliasu `https://rezervacni-system-xi.vercel.app`; externí public smoke prošel 2026-05-31 22:52 CEST 8/8 a CTA routy `/register`, `/demo-barber`, `/login`, `/account/login` vrací 200.
 - Marketing obrázky v sekci `Reálné provozy` jsou nově vlastní vygenerované assety uložené jako optimalizované WebP: `barber-studio-ai.webp`, `salon-interior-ai.webp`, `training-studio-ai.webp`.
 - Ověření 2026-05-31 21:47 CEST: `npm run check` prošlo s 556 Vitest testy, migrations check, type-check, lint a produkční build.
 - Druhá homepage design iterace po vizuální zpětné vazbě: hero claim je kratší, marketing mockup už netvrdí `živá ukázka`, neobsahuje falešnou tržbu a metriky se v dark mode neořezávají.

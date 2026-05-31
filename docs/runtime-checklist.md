@@ -1,6 +1,6 @@
 # Runtime checklist
 
-Aktualizováno: 2026-05-31 22:39 CEST
+Aktualizováno: 2026-05-31 22:52 CEST
 
 Tento checklist je pro první reálné ověření mimo demo režim.
 
@@ -23,9 +23,10 @@ curl -I http://localhost:3000
 Aktuální známý stav:
 
 - Vercel deploy alias: `https://rezervacni-system-xi.vercel.app`. Aktuálně běží bez Supabase/Resend/Stripe/Upstash env, takže `/api/health` je očekávaně `degraded`, ale public demo stránky fungují přes demo fallback.
-- GitHub login connection ve Vercelu je propojený; production deploy po propojení prošel.
+- GitHub login connection ve Vercelu je propojený; aktuální production deploy je `dpl_4Zogqwr6XLj2utWu7cbc9sCh5ePe`.
 - Ověřeno na Vercelu: `/api/health` nevrací názvy interních secret env; `checks.env.missing` je číslo a ne seznam názvů proměnných.
-- Externí Vercel smoke prošel 2026-05-31 21:55 CEST: `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` má 8/8 testů zelených.
+- Externí Vercel smoke prošel 2026-05-31 22:52 CEST: `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` má 8/8 testů zelených.
+- CTA routy na aktuálním Vercel deployi vrací 200: `/register`, `/demo-barber`, `/login`, `/account/login`.
 - Stabilní navazovací dokument je `docs/handoff.md`; datum v názvu starého handoff souboru bylo odstraněné.
 - `npm run check` prošlo 2026-05-31 22:39 CEST po zkrácení homepage a přegenerování segmentových WebP assetů: 556 Vitest testů, migrations check, type-check, lint a produkční build.
 - Lokálně zkontrolované screenshoty homepage na 1366x768, 320x1000 a 390x1000: hero CTA je viditelné, zkrácená nav se vejde a odstraněná signal-map už nepředstavuje mobilní riziko.

@@ -21,7 +21,7 @@ Důležité chování:
 - Ruční testy jsou odložené do `docs/manual-test-plan.md`.
 - Dokumentaci aktualizuj při smysluplné změně.
 
-Aktuální stav 2026-05-31 22:39 CEST:
+Aktuální stav 2026-05-31 22:52 CEST:
 - Produkt se jmenuje `Temaro`.
 - Codex CLI profily jsou v `~/.codex/config.toml`; projektový `.codex/config.toml` už neobsahuje nepodporované `profiles`.
 - Supabase MCP config je nastavený pro projekt `dkbnuvrrmegnbnwungvi` a OAuth login byl obnovený; pokud se auth chyba vrátí, spustit `codex mcp login supabase`.
@@ -99,8 +99,9 @@ Aktuální stav 2026-05-31 22:39 CEST:
 - Pre-demo hardening 2026-05-31 je hotový: Next.js a `eslint-config-next` jsou na `16.2.6`, `npm audit --audit-level=moderate` vrací 0 vulnerabilities, non-embed routy mají `X-Frame-Options: DENY`, `/account/login` je veřejně dostupný a `/demo-barber` má demo fallback i při nedostupné Supabase DB.
 - Vercel projekt je založený: `hanyst7-5998s-projects/rezervacni-system`, veřejný alias `https://rezervacni-system-xi.vercel.app`. Bez produkčních env je `/api/health` očekávaně `degraded`.
 - Health endpoint neodhaluje názvy chybějících secret env; `checks.env.missing` je počet.
-- Vercel GitHub login connection je propojený; aktuální production deploy je `dpl_JCHfjcFCiuv6qDDY61LSwq9bt9wf`.
-- Externí Vercel smoke prošel 2026-05-31 21:55 CEST: `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` má 8/8 testů zelených.
+- Vercel GitHub login connection je propojený; aktuální production deploy je `dpl_4Zogqwr6XLj2utWu7cbc9sCh5ePe`.
+- Externí Vercel smoke prošel 2026-05-31 22:52 CEST: `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` má 8/8 testů zelených.
+- CTA routy na aktuálním Vercel deployi vrací 200: `/register`, `/demo-barber`, `/login`, `/account/login`.
 - Project/docs/design review je v `docs/project-review.md`.
 - README je přepsané pro portfolio/onboarding a `docs/README.md` mapuje dokumentaci.
 - Stabilní handoff soubor je `docs/handoff.md`.

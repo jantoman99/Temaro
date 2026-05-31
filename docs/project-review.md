@@ -1,6 +1,6 @@
 # Project Review
 
-Aktualizováno: 2026-05-31 22:39 CEST
+Aktualizováno: 2026-05-31 22:52 CEST
 
 ## Shrnutí
 
@@ -13,8 +13,9 @@ Největší slabina před ukazováním firmám nebyla v core kódu, ale v prezen
 - `npm run check` prošlo 2026-05-31 22:39 CEST s 556 Vitest testy, kontrolou migrací, type-checkem, lintem a produkčním buildem.
 - `npm audit --audit-level=moderate` po aktualizaci Next.js vracelo 0 vulnerabilities.
 - `npx playwright test` lokálně prošlo 9 testů a 4 authenticated runtime testy se korektně přeskočily bez `E2E_AUTHENTICATED_SMOKE=true`.
-- `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` prošlo 2026-05-31 21:55 CEST 8/8 proti Vercelu.
+- `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` prošlo 2026-05-31 22:52 CEST 8/8 proti Vercelu.
 - Vercel production deploy: `https://rezervacni-system-xi.vercel.app`.
+- Aktuální deploy ID: `dpl_4Zogqwr6XLj2utWu7cbc9sCh5ePe`; CTA routy `/register`, `/demo-barber`, `/login`, `/account/login` vrací 200.
 
 ## Project Review
 

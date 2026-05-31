@@ -1,6 +1,6 @@
 # Handoff
 
-Aktualizováno: 2026-05-31 22:39 CEST
+Aktualizováno: 2026-05-31 22:52 CEST
 
 ## Jak navázat
 
@@ -31,11 +31,11 @@ Aktualizováno: 2026-05-31 22:39 CEST
 - Čekací listina má tabulku `waitlist_entries`, service-role RPC `create_waitlist_entry`, veřejné CTA při obsazených termínech a owner přehled v kalendáři; migrace `20260508114500_create_waitlist_entries.sql` je aplikovaná lokálně i remote.
 - Review request používá tenant `review_url`; po owner dokončení rezervace odešle klientovi e-mail a uloží notification typ `review_request`. Migrace `20260508121000_add_review_request_notification_type.sql` je aplikovaná lokálně i remote.
 - Online záloha přes Stripe používá self-service manage odkaz, route `/api/payments/stripe/checkout`, webhook `/api/payments/stripe/webhook`, pending/paid záznamy v `booking_payments` a audit event `payment_recorded`.
-- Poslední ověření: `npm run check` prošlo 2026-05-31 22:39 CEST s 556 Vitest testy, migrations check, type-check, lint i produkčním buildem.
+- Poslední ověření: `npm run check` prošlo 2026-05-31 22:39 CEST s 556 Vitest testy, migrations check, type-check, lint i produkčním buildem; externí public smoke proti Vercelu prošel 2026-05-31 22:52 CEST.
 - Vercel production deploy je hotový: `https://rezervacni-system-xi.vercel.app`.
 - Public health endpoint nevrací názvy chybějících secret env; vrací jen počet v `checks.env.missing`.
-- GitHub login connection ve Vercelu je propojený; před propojením byly nové deploymenty private repa `BLOCKED`, aktuální production deploy je `dpl_JCHfjcFCiuv6qDDY61LSwq9bt9wf`.
-- Externí Vercel smoke prošel 2026-05-31 21:55 CEST: `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` má 8/8 testů zelených.
+- GitHub login connection ve Vercelu je propojený; před propojením byly nové deploymenty private repa `BLOCKED`, aktuální production deploy je `dpl_4Zogqwr6XLj2utWu7cbc9sCh5ePe`.
+- Externí Vercel smoke prošel 2026-05-31 22:52 CEST: `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` má 8/8 testů zelených.
 - Project/docs/design review je v `docs/project-review.md`.
 - README je přepsané pro portfolio/onboarding a `docs/README.md` mapuje dokumentaci.
 - Stabilní handoff soubor je nově `docs/handoff.md` bez data v názvu.
@@ -130,6 +130,7 @@ Aktualizováno: 2026-05-31 22:39 CEST
 - Homepage review implementace podle `C:\Users\hanys\Downloads\temaro-landing-review.md`: stránka je kratší, mobilní nav je jednodušší, produktový mockup má nižší mobilní min-height, warning tone používá design token a Instrument Serif má `display: "swap"`.
 - Lokální vizuální kontrola 2026-05-31: screenshoty `/` na 1366x768, 320x1000 a 390x1000 potvrdily viditelné CTA, nerozbité hero texty a funkční zkrácenou navigaci.
 - `npm run check` prošlo 2026-05-31 22:39 CEST: 556 Vitest testů, migrations check, type-check, lint a produkční build.
+- Vercel production deploy `dpl_4Zogqwr6XLj2utWu7cbc9sCh5ePe` je připravený na aliasu `https://rezervacni-system-xi.vercel.app`; CTA routy `/register`, `/demo-barber`, `/login` a `/account/login` vrací 200.
 - Doplněný Google Business Profile booking CTA do share kitu v `/booking-page`; `npm run check` prošlo 2026-05-08 20:06 CEST: 554 Vitest testů, migrations check, type-check, lint i produkční build.
 - Implementovaná vrstva `API a integrace`: migrace `20260508195500_create_tenant_api_keys.sql`, route `/integrations`, server actions, hash-only API klíče, read-only partner endpoint `/api/partners/v1/bookings` a testy `tests/integrations.test.ts`.
 - `npm run check` prošlo 2026-05-08 20:01 CEST po integracích: 554 Vitest testů, migrations check, type-check, lint i produkční build.
