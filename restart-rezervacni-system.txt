@@ -21,7 +21,7 @@ Důležité chování:
 - Ruční testy jsou odložené do `docs/manual-test-plan.md`.
 - Dokumentaci aktualizuj při smysluplné změně.
 
-Aktuální stav 2026-05-31 21:05 CEST:
+Aktuální stav 2026-05-31 21:21 CEST:
 - Produkt se jmenuje `Temaro`.
 - Codex CLI profily jsou v `~/.codex/config.toml`; projektový `.codex/config.toml` už neobsahuje nepodporované `profiles`.
 - Supabase MCP config je nastavený pro projekt `dkbnuvrrmegnbnwungvi` a OAuth login byl obnovený; pokud se auth chyba vrátí, spustit `codex mcp login supabase`.
@@ -105,7 +105,8 @@ Aktuální stav 2026-05-31 21:05 CEST:
 - README je přepsané pro portfolio/onboarding a `docs/README.md` mapuje dokumentaci.
 - Stabilní handoff soubor je `docs/handoff.md`.
 - Landing page má první copy/design cleanup po Vercel deployi: kratší proof labely pro mobil, méně interní design-audit copy a civilnější footer.
-- `npm run check` prošlo 2026-05-31 21:04 CEST: 556 Vitest testů, migrations check, type-check, lint i produkční build.
+- Druhá homepage design iterace: kratší hero subhead, obrazová sekce `Reálné provozy`, marketing mockup bez falešné tržby a bez tvrzení `živá ukázka`; metriky se v dark mode neořezávají.
+- `npm run check` prošlo 2026-05-31 21:20 CEST: 556 Vitest testů, migrations check, type-check, lint i produkční build.
 - `npx playwright test` prošlo 2026-05-31: 9 testů prošlo, 4 authenticated runtime testy se bez `E2E_AUTHENTICATED_SMOKE=true` přeskočily.
 - `npm run check` prošlo 2026-05-08 18:41 CEST po pobočkách: 521 Vitest testů, migrations check, type-check, lint i produkční build.
 - `npm run check` prošlo 2026-05-08 18:11 CEST po resources vrstvě: 517 Vitest testů, migrations check, type-check, lint i produkční build.

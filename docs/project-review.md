@@ -1,6 +1,6 @@
 # Project Review
 
-Aktualizováno: 2026-05-31 21:05 CEST
+Aktualizováno: 2026-05-31 21:21 CEST
 
 ## Shrnutí
 
@@ -10,7 +10,7 @@ Největší slabina před ukazováním firmám nebyla v core kódu, ale v prezen
 
 ## Aktuální ověření
 
-- `npm run check` prošlo 2026-05-31 21:04 CEST s 556 Vitest testy, kontrolou migrací, type-checkem, lintem a produkčním buildem.
+- `npm run check` prošlo 2026-05-31 21:20 CEST s 556 Vitest testy, kontrolou migrací, type-checkem, lintem a produkčním buildem.
 - `npm audit --audit-level=moderate` po aktualizaci Next.js vracelo 0 vulnerabilities.
 - `npx playwright test` lokálně prošlo 9 testů a 4 authenticated runtime testy se korektně přeskočily bez `E2E_AUTHENTICATED_SMOKE=true`.
 - `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` prošlo 2026-05-31 21:09 CEST 8/8 proti Vercelu.
@@ -68,6 +68,8 @@ Provedené úpravy:
 - Proof labels jsou kratší a čitelnější na mobilu.
 - Interní design-audit copy na landing page je přepsaná do produktové řeči.
 - Footer je civilnější a méně interní.
+- Hero mockup už nepoužívá falešnou tržbu ani `živá ukázka`; metriky jsou zarovnané a čitelné v dark mode.
+- Přidaná obrazová sekce `Reálné provozy` z existujících marketing assetů.
 
 Další design krok:
 

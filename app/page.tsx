@@ -8,6 +8,7 @@ import {
   ShieldCheck,
   UsersRound,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { headers } from "next/headers";
 
@@ -49,6 +50,27 @@ const features = [
     icon: UsersRound,
     title: "Paměť podniku",
     description: "Historie návštěv, preference a poznámky zůstávají u klienta, ne v hlavě jednoho člověka.",
+  },
+] as const;
+
+const visualSegments = [
+  {
+    title: "Barber a salon",
+    text: "Online termíny, oblíbený člověk a rychlé přeobjednání bez zpráv tam a zpět.",
+    image: "/marketing/barber-studio.jpg",
+    alt: "Barber studio s pracovním křeslem",
+  },
+  {
+    title: "Beauty provoz",
+    text: "Klientská historie, poznámky a kapacita dne pro opakované návštěvy.",
+    image: "/marketing/salon-interior.jpg",
+    alt: "Interiér salonu připravený pro klienty",
+  },
+  {
+    title: "Trenéři a konzultace",
+    text: "Jeden booking odkaz pro termíny, které klient zvládne vybrat sám.",
+    image: "/marketing/training-studio.jpg",
+    alt: "Tréninkové studio s volnou plochou",
   },
 ] as const;
 
@@ -274,9 +296,8 @@ export default async function Home() {
                 <br />
                 <span className="font-serif-accent text-primary">Klidnější</span> provoz.
               </h1>
-              <p className="motion-reveal mt-6 max-w-xl text-lg font-medium leading-[1.6] text-muted-foreground sm:text-xl">
-                Pro salony, ordinace, trenéry a autoservisy. Klient si zarezervuje online, vy vidíte dnešní termíny,
-                rizika a klientský kontext v jednom přehledu.
+              <p className="motion-reveal mt-6 max-w-xl text-lg font-medium leading-[1.55] text-muted-foreground sm:text-xl">
+                Online rezervace, týmový kalendář a klientský kontext pro provozy, kde každý volný termín stojí peníze.
               </p>
 
               <div className="motion-reveal mt-9 flex flex-col gap-3 sm:flex-row">
@@ -336,6 +357,40 @@ export default async function Home() {
               </article>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="mx-auto w-full max-w-[1180px] px-4 pb-20 sm:px-6 lg:px-8">
+        <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Reálné provozy</p>
+            <h2 className="mt-3 max-w-2xl text-balance text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
+              Vypadá jako systém pro služby, ne jako obecná SaaS šablona.
+            </h2>
+          </div>
+          <p className="max-w-sm text-sm font-medium leading-6 text-muted-foreground">
+            Temaro míří na provozy, kde se střídají klienti, zaměstnanci, termíny a opakované návštěvy.
+          </p>
+        </div>
+        <div className="grid gap-4 md:grid-cols-3">
+          {visualSegments.map((segment) => (
+            <article key={segment.title} className="group overflow-hidden rounded-xl border border-border bg-card shadow-sm">
+              <div className="relative aspect-[4/3] overflow-hidden">
+                <Image
+                  src={segment.image}
+                  alt={segment.alt}
+                  fill
+                  sizes="(min-width: 1024px) 360px, 100vw"
+                  className="object-cover transition duration-500 group-hover:scale-[1.03]"
+                />
+                <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/55 to-transparent" />
+              </div>
+              <div className="p-5">
+                <h3 className="text-xl font-semibold tracking-tight">{segment.title}</h3>
+                <p className="mt-2 text-sm font-medium leading-6 text-muted-foreground">{segment.text}</p>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 

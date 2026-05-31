@@ -10,9 +10,9 @@ const demoModes = [
     title: "Provoz pod kontrolou",
     subtitle: "4 příchody, 2 volná okna, 1 rizikový klient.",
     metrics: [
-      ["8.4k", "tržba dnes"],
-      ["4", "příchody"],
+      ["12", "rezervací"],
       ["2", "volná okna"],
+      ["1", "riziko"],
     ],
     checkout: [
       ["01", "Služba", "Barva + styling", "45 min"],
@@ -82,7 +82,7 @@ export function InteractiveProductDemo() {
               <span className="size-2.5 rounded-full bg-success/80" />
             </div>
             <div className="rounded-full border border-white/10 bg-white/8 px-3 py-1 text-xs font-semibold text-white/62">
-              Temaro Command · živá ukázka
+              Ukázka provozního přehledu
             </div>
             <div className="nums-tabular text-xs font-semibold text-white/42">⌘ K</div>
           </div>
@@ -142,7 +142,7 @@ export function InteractiveProductDemo() {
                   <div className="signal-rail rounded-2xl border border-border bg-card p-5 shadow-sm">
                     <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                       <div>
-                        <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Live signal</p>
+                        <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Dnešní stav</p>
                         <h2 className="mt-1 text-3xl font-semibold tracking-tight">{activeMode.title}</h2>
                         <p className="mt-2 text-sm font-semibold text-muted-foreground">{activeMode.subtitle}</p>
                       </div>
@@ -151,11 +151,11 @@ export function InteractiveProductDemo() {
                       </div>
                     </div>
 
-                    <div className="mt-5 grid gap-3 sm:grid-cols-3">
+                    <div className="mt-5 grid gap-2 sm:grid-cols-3">
                       {activeMode.metrics.map(([value, label]) => (
-                        <div key={label} className="rounded-xl border border-border bg-secondary/75 p-4">
+                        <div key={label} className="min-w-0 rounded-xl border border-border bg-secondary/75 p-3">
                           <p className="nums-tabular text-2xl font-semibold tracking-tight">{value}</p>
-                          <p className="mt-1 text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                          <p className="mt-1 text-[11px] font-bold leading-4 text-muted-foreground">
                             {label}
                           </p>
                         </div>

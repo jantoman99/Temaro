@@ -28,6 +28,8 @@ Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 - Na landing page zkontrolovat hero: eyebrow `Rezervační systém pro služby`, claim `Méně telefonátů. Klidnější provoz.`, subhead pro salony/ordinace/trenéry/autoservisy a primary CTA `Začít zdarma`.
 - Pod hero CTA zkontrolovat proof metriky s aktuálním počtem automatických testů `556`, `0 %`, `24 h`; nemaji byt duplicitne zopakovane jako samostatna spodni proof sekce.
 - Na mobilní šířce ověřit, že proof labely pod hero CTA jsou čitelné a neslévají se bez mezer.
+- V hero mockupu ověřit, že texty metrik nejsou ořezané v light ani dark mode a že ukázka nepůsobí jako reálný live dashboard s nepravdivými daty.
+- Zkontrolovat sekci `Reálné provozy`: obrázky se musí načíst, mít konzistentní poměr stran a nepůsobit jako generický stock mimo segment služeb.
 - Na landing page zkontrolovat sekci `Dva typy účtů`: podnikatelský účet vede na `/register`, zákaznický účet vede na `/account/login`.
 - Na landing page zkontrolovat sekci další produktové vrstvy: vyhledání podniků, mapa podniku a plný Google Calendar sync jsou komunikované jako další vrstva, ne jako hotová funkce.
 - Otevřít `/podniky`, ověřit demo/veřejný výpis, hledání podle textu, města a oboru, booking CTA a odkaz `Otevřít mapu`.
