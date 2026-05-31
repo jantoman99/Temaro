@@ -16,6 +16,7 @@ Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 - Spustit aplikaci pres `npm run dev` nebo `start-localhost.bat`.
 - Otevrit `http://localhost:3000`.
 - Otevřít `http://localhost:3000/api/health` a ověřit, že vrací JSON se `status`, `checks.env`, `checks.supabase`, `checks.rate_limit` a `version`; nesmí obsahovat konkrétní hodnoty tajných env proměnných.
+- Na veřejném deployi bez env otevřít `/api/health` a ověřit, že `checks.env.missing` je číslo, ne seznam názvů interních proměnných.
 - Přes `curl -I http://localhost:3000` nebo DevTools Network ověřit, že response obsahuje `Content-Security-Policy`.
 - Přes `curl -I http://localhost:3000` nebo DevTools Network ověřit, že běžné routy obsahují `X-Frame-Options: DENY`; `/embed/booking/<slug>` ho mít nemá, protože booking widget musí jít vložit do iframe.
 - Zkontrolovat root landing page `/`: aktualni smer je `docs/15-design-system-v3.md` jako Temaro Signal OS, ne archivni design směry.

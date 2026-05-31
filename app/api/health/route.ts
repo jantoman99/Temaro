@@ -18,6 +18,13 @@ function getMissingEnv() {
   return REQUIRED_ENV.filter((key) => !process.env[key]?.trim());
 }
 
+function getPublicEnvCheck(missingEnv: readonly string[]) {
+  return {
+    ok: missingEnv.length === 0,
+    missing: missingEnv.length,
+  };
+}
+
 function getRateLimitCheck() {
   const hasUrl = Boolean(process.env.UPSTASH_REDIS_REST_URL?.trim());
   const hasToken = Boolean(process.env.UPSTASH_REDIS_REST_TOKEN?.trim());
@@ -47,6 +54,7 @@ async function checkSupabase() {
 export async function GET() {
   const missingEnv = getMissingEnv();
   const envOk = hasSupabaseEnv() && hasSupabaseAdminEnv();
+  const env = getPublicEnvCheck(missingEnv);
   const rateLimit = getRateLimitCheck();
 
   try {
@@ -59,8 +67,8 @@ export async function GET() {
         timestamp: new Date().toISOString(),
         checks: {
           env: {
-            ok: envOk,
-            missing: missingEnv,
+            ok: env.ok,
+            missing: env.missing,
           },
           supabase,
           rate_limit: rateLimit,
@@ -76,8 +84,8 @@ export async function GET() {
         timestamp: new Date().toISOString(),
         checks: {
           env: {
-            ok: envOk,
-            missing: missingEnv,
+            ok: env.ok,
+            missing: env.missing,
           },
           supabase: {
             ok: false,

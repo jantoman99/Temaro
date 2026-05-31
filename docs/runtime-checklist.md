@@ -1,6 +1,6 @@
 # Runtime checklist
 
-Aktualizováno: 2026-05-31 19:56 CEST
+Aktualizováno: 2026-05-31 20:18 CEST
 
 Tento checklist je pro první reálné ověření mimo demo režim.
 
@@ -22,7 +22,10 @@ curl -I http://localhost:3000
 
 Aktuální známý stav:
 
-- `npm run check` prošlo 2026-05-31 19:56 CEST po pre-demo hardeningu: 556 Vitest testů, migrations check, type-check, lint a produkční build.
+- Vercel deploy alias: `https://rezervacni-system-xi.vercel.app`. Aktuálně běží bez Supabase/Resend/Stripe/Upstash env, takže `/api/health` je očekávaně `degraded`, ale public demo stránky fungují přes demo fallback.
+- GitHub login connection ve Vercelu zatím není propojený; před automatickými deployi z GitHubu propojit Vercel účet s GitHubem v Account Settings.
+- `/api/health` nesmí vracet názvy interních secret env; kontrolovat, že `checks.env.missing` je číslo a ne seznam názvů proměnných.
+- `npm run check` prošlo 2026-05-31 20:20 CEST po Vercel health hardeningu: 556 Vitest testů, migrations check, type-check, lint a produkční build.
 - `npm audit --audit-level=moderate` prošlo 2026-05-31 po aktualizaci Next.js na `16.2.6`: `found 0 vulnerabilities`.
 - `npx playwright test` prošlo 2026-05-31: 9 testů prošlo, 4 authenticated runtime testy byly přeskočené bez `E2E_AUTHENTICATED_SMOKE=true`. Pro reálný Supabase runtime smoke nastavit `E2E_AUTHENTICATED_SMOKE=true` a platné Supabase env.
 - Runtime ověřit, že `/demo-barber` zůstává dostupný i při nedostupné Supabase DB, `/account/login` nepadá do proxy redirectu a non-embed routy vrací `X-Frame-Options: DENY`.

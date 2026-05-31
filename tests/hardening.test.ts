@@ -67,11 +67,8 @@ describe("GET /api/health", () => {
 
     expect(response.status).toBe(200);
     expect(body.status).toBe("degraded");
-    expect(body.checks.env.missing).toEqual([
-      "NEXT_PUBLIC_SUPABASE_URL",
-      "NEXT_PUBLIC_SUPABASE_ANON_KEY",
-      "SUPABASE_SERVICE_ROLE_KEY",
-    ]);
+    expect(body.checks.env.missing).toBe(3);
+    expect(JSON.stringify(body)).not.toContain("SUPABASE_SERVICE_ROLE_KEY");
     expect(JSON.stringify(body)).not.toContain("service-role-secret");
     expect(mocks.createAdminClient).not.toHaveBeenCalled();
   });
