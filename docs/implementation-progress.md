@@ -114,9 +114,9 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 
 ## Poslední změna
 
-- První Vercel deploy je vytvořený pod projektem `hanyst7-5998s-projects/rezervacni-system`; alias je `https://rezervacni-system-xi.vercel.app`.
-- Public health endpoint už při chybějících env nevrací interní názvy proměnných; `checks.env.missing` je jen počet chybějících povinných env.
-- Externí smoke proti Vercel URL před opravou potvrdil, že landing, segment stránky, `/demo-barber`, `/account/login` a embed button fungují; jediný nález byl health env leak názvu `SUPABASE_SERVICE_ROLE_KEY`, opravený v testu i endpointu.
+- První Vercel deploy je vytvořený pod projektem `hanyst7-5998s-projects/rezervacni-system`; alias `https://rezervacni-system-xi.vercel.app` běží, ale je na starším deploymentu před health env-name fixem.
+- Public health endpoint v kódu už při chybějících env nevrací interní názvy proměnných; `checks.env.missing` je jen počet chybějících povinných env.
+- Externí smoke proti Vercel URL před opravou potvrdil, že landing, segment stránky, `/demo-barber`, `/account/login` a embed button fungují; jediný nález byl health env leak názvu `SUPABASE_SERVICE_ROLE_KEY`, opravený v testu i endpointu. Redeploy po fixu je zatím blokovaný Vercel/GitHub identity kontrolou u private repa.
 - Pre-demo hardening pro GitHub/Vercel přípravu: aktualizovaný Next.js a `eslint-config-next` na `16.2.6`, `npm audit --audit-level=moderate` vrací `found 0 vulnerabilities`.
 - Globální non-embed routy mají navíc `X-Frame-Options: DENY`; embed booking route zůstává framovatelná jen přes vlastní CSP.
 - `/account/login` už není omylem chráněný account proxy guardem, takže zákaznické Google přihlášení je veřejně dostupné.

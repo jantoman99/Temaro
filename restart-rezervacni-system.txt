@@ -97,8 +97,9 @@ Aktuální stav 2026-05-31 20:18 CEST:
 - Google Business Profile CTA je hotové v `/booking-page`: share kit generuje měřitelný booking odkaz se `source=google`, `source_detail=business_profile` a UTM parametry.
 - `npm run check` prošlo 2026-05-08 20:06 CEST po Google Business Profile CTA: 554 Vitest testů, migrations check, type-check, lint i produkční build.
 - Pre-demo hardening 2026-05-31 je hotový: Next.js a `eslint-config-next` jsou na `16.2.6`, `npm audit --audit-level=moderate` vrací 0 vulnerabilities, non-embed routy mají `X-Frame-Options: DENY`, `/account/login` je veřejně dostupný a `/demo-barber` má demo fallback i při nedostupné Supabase DB.
-- Vercel projekt je založený: `hanyst7-5998s-projects/rezervacni-system`, veřejný alias `https://rezervacni-system-xi.vercel.app`. Zatím bez produkčních env, `/api/health` bude `degraded`.
-- Health endpoint už nesmí odhalovat názvy chybějících secret env; `checks.env.missing` je počet.
+- Vercel projekt je založený: `hanyst7-5998s-projects/rezervacni-system`, veřejný alias `https://rezervacni-system-xi.vercel.app`. Alias běží, ale je zatím na starším deploymentu před health env-name fixem; bez produkčních env bude `/api/health` `degraded`.
+- Health endpoint v kódu už nesmí odhalovat názvy chybějících secret env; `checks.env.missing` je počet. Oprava je v GitHubu v commitu `9729681`, ale nový Vercel deploy je blokovaný.
+- Vercel CLI hlásilo `You need to add a Login Connection to your GitHub account first`; nové deploymenty private repa končí `readyState: BLOCKED`. Další krok: propojit GitHub účet `jantoman99` ve Vercel Account Settings / Login Connections.
 - `npm run check` prošlo 2026-05-31 20:20 CEST: 556 Vitest testů, migrations check, type-check, lint i produkční build.
 - `npx playwright test` prošlo 2026-05-31: 9 testů prošlo, 4 authenticated runtime testy se bez `E2E_AUTHENTICATED_SMOKE=true` přeskočily.
 - `npm run check` prošlo 2026-05-08 18:41 CEST po pobočkách: 521 Vitest testů, migrations check, type-check, lint i produkční build.
