@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Aktualizováno: 2026-06-01 00:41 CEST
+Aktualizováno: 2026-06-01 11:18 CEST
 
 Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historické analýzy a staré design audity jsou přesunuté do `docs/archive/`.
 
@@ -113,13 +113,15 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 
 ## Poslední změna
 
-- Navazující landing/design úkol pro další session: aktuální demo je funkční a nasazené, ale portfolio dojem není hotový. Opravit reference na naše vygenerované segmentové obrázky `public/marketing/*-ai.webp`, odstranit slabé copy `Postaveno v Brně`, přestavět hero produktový náhled tak, aby odpovídal reálnému systému, a screenshotově projít desktop/mobil před dalším deployem.
+- Navazující landing/design úkol dokončený: sekce `Reálné provozy` používá naše vygenerované WebP assety `public/marketing/*-ai.webp`, footer už nepoužívá slabé copy `postaveno v Brně`, hero produktový náhled ukazuje reálné plochy `Dashboard`, `Kalendář`, `Booking` a `Účet klienta` a spacing mezi herem a další sekcí je bez prázdné mezery.
+- Přidaný regresní test `tests/landing-polish.test.ts` hlídá WebP reference, odstranění slabého footer copy a pojmenování reálných produktových ploch. Public smoke test embedu byl upravený tak, aby simuloval cizí web přes absolutní URL skriptu místo vkládání `<script>` do hydratované Next stránky.
+- Lokální ověření 2026-06-01 11:18 CEST: `npm run check` prošlo s 559 Vitest testy, migrations check, type-check, lint a produkční build. `PLAYWRIGHT_BASE_URL=http://127.0.0.1:3000 npx playwright test tests/e2e/public-smoke.spec.ts` prošlo 8/8. Playwright screenshoty `output/playwright/landing-desktop.png`, `landing-mobile.png` a `landing-full.png` potvrdily desktop/mobil layout; měření na 1366 a 390 px ukázalo nulový gap mezi herem a `#provoz` a žádný horizontální overflow.
 - Landing hero mockup opravený po vizuálním regresu: odstraněný viewport-based `2xl` dvousloupec a pravý `Booking náhled`, protože se zapínal podle šířky okna místo skutečné šířky komponenty a rozbíjel lineární layout. Mockup je teď jeden konzistentní panel.
 - Ověření 2026-06-01 00:23 CEST: `npm run check` prošlo s 556 Vitest testy, migrations check, type-check, lint a produkční build. Playwright screenshoty na 1470x956 a 1800x956 a proklik na 1366/1470/1536/1800 px potvrdily stabilní šířku mockupu a `bookingPanel=false`.
 - Vercel production deploy `dpl_GTBd3UAtuQhYg6Jhzz1epxNhmhvX` je na aliasu `https://rezervacni-system-xi.vercel.app`; externí smoke 2026-06-01 00:27 CEST prošel 8/8 a produkční měření 1470/1800 px potvrdilo `bookingPanel=false`.
 - Homepage dostala další visual/UX polish podle `C:\Users\hanys\Downloads\temaro-vizualni-oziveni.md` a srovnání s `https://autoerp.cz/`: silnější rytmus světlých/tónovaných/tmavých sekcí, barevné akcenty z existující palety, kompaktnější mobilní proof metriky, odlišnější provozní fotky a přesnější SEO metadata homepage.
-- Hero produktový mockup je nově skutečně interaktivní: `Dnes / Booking / Klient` přepíná scénáře bez změny šířky okna a sidebar položky `Přehled / Kalendář / Klienti / Signály` jsou klikatelné. Layout je záměrně single-panel bez pravého `Booking náhled`, aby se při větším okně ani zoomu nepřekrývaly panely.
-- Lokální vizuální a klikací kontrola 2026-05-31 23:45 CEST: screenshoty `/` na 1366x768, 390x1200 a full-page 1366x900; Playwright proklik `Dnes / Booking / Klient / Přehled / Kalendář / Klienti / Signály` potvrdil stabilní šířku mockupu a žádné console errors. Public route smoke lokálně prošel pro `/`, `/demo-barber`, `/podniky`, SEO stránky, `/login`, `/register` a `/account/login`.
+- Hero produktový mockup je interaktivní přes reálné plochy `Dashboard / Kalendář / Booking / Účet klienta`. Layout je záměrně single-panel bez pravého `Booking náhled`, aby se při větším okně ani zoomu nepřekrývaly panely.
+- Lokální vizuální a klikací kontrola 2026-05-31 23:45 CEST: screenshoty `/` na 1366x768, 390x1200 a full-page 1366x900; tehdejší Playwright proklik mockupu potvrdil stabilní šířku a žádné console errors. Public route smoke lokálně prošel pro `/`, `/demo-barber`, `/podniky`, SEO stránky, `/login`, `/register` a `/account/login`.
 - Ověření 2026-05-31 23:45 CEST: `npm run check` prošlo s 556 Vitest testy, migrations check, type-check, lint a produkční build.
 - Vercel production deploy `dpl_E1eW4Sf9TjJoq6Si2ed7kNe1BnzC` je na aliasu `https://rezervacni-system-xi.vercel.app`; externí smoke 2026-05-31 23:55 CEST prošel 8/8 a produkční proklik mockupu potvrdil stabilní šířku i title `Rezervační systém pro služby | Temaro`.
 - Homepage review implementace podle `C:\Users\hanys\Downloads\temaro-landing-review.md`: kratší landing, zákaznické proof metriky `3 kroky / 0 Kč / 0 %`, jednodušší mobilní nav, méně SEO odkazů v hlavním obsahu, odstraněná signal-map responzivní rizika a nižší mobilní výška produktového mockupu.

@@ -1,6 +1,6 @@
 # Runtime checklist
 
-Aktualizováno: 2026-05-31 23:52 CEST
+Aktualizováno: 2026-06-01 11:18 CEST
 
 Tento checklist je pro první reálné ověření mimo demo režim.
 
@@ -22,8 +22,11 @@ curl -I http://localhost:3000
 
 Aktuální známý stav:
 
+- `npm run check` prošlo 2026-06-01 11:18 CEST po dokončení navazujícího landing/design úkolu: 559 Vitest testů, migrations check, type-check, lint a produkční build.
+- Lokální Playwright kontrola 2026-06-01 11:18 CEST prošla: `PLAYWRIGHT_BASE_URL=http://127.0.0.1:3000 npx playwright test tests/e2e/public-smoke.spec.ts` má 8/8 testů zelených; screenshoty homepage jsou v `output/playwright/landing-desktop.png`, `landing-mobile.png` a `landing-full.png`; měření 1366/390 px potvrdilo nulový gap mezi herem a `#provoz` a žádný horizontální overflow.
+- Homepage po posledním polishi používá WebP segmentové assety `public/marketing/*-ai.webp`, hero demo ukazuje reálné produktové plochy `Dashboard / Kalendář / Booking / Účet klienta` a footer už nepoužívá copy `postaveno v Brně`.
 - `npm run check` prošlo 2026-05-31 23:45 CEST po homepage visual/interakčním polishi: 556 Vitest testů, migrations check, type-check, lint a produkční build.
-- Lokální Playwright kontrola 2026-05-31 23:45 CEST prošla: homepage screenshoty desktop/mobil/full-page, stabilní šířka produktového mockupu při přepínání `Dnes / Booking / Klient`, klikatelné sekce `Přehled / Kalendář / Klienti / Signály` a public route smoke bez console errors.
+- Lokální Playwright kontrola 2026-05-31 23:45 CEST prošla: homepage screenshoty desktop/mobil/full-page, stabilní šířka tehdejšího produktového mockupu při přepínání scénářů a public route smoke bez console errors.
 - Vercel deploy alias: `https://rezervacni-system-xi.vercel.app`, aktuální deploy `dpl_E1eW4Sf9TjJoq6Si2ed7kNe1BnzC`. Aktuálně běží bez Supabase/Resend/Stripe/Upstash env, takže `/api/health` je očekávaně `degraded`, ale public demo stránky fungují přes demo fallback.
 - Externí Vercel smoke prošel 2026-05-31 23:55 CEST: `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` má 8/8 testů zelených; produkční proklik homepage mockupu potvrdil stabilní šířku a title `Rezervační systém pro služby | Temaro`.
 - GitHub login connection ve Vercelu je propojený; aktuální production deploy je `dpl_4Zogqwr6XLj2utWu7cbc9sCh5ePe`.

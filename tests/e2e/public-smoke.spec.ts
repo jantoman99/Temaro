@@ -115,12 +115,13 @@ test.describe("public smoke", () => {
   });
 
   test("booking button embed script renders a safe CTA in browser", async ({ page }) => {
-    await page.goto("/");
+    const baseUrl = process.env.PLAYWRIGHT_BASE_URL ?? "http://127.0.0.1:3000";
+
     await page.setContent(`
       <main>
         <script
           async
-          src="/embed/booking-button.js"
+          src="${baseUrl}/embed/booking-button.js"
           data-slug="demo-barber"
           data-label="Objednat online"
           data-color="#0F766E"

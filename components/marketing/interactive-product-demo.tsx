@@ -4,66 +4,15 @@ import { useState } from "react";
 import {
   BarChart3,
   CalendarDays,
+  ClipboardCheck,
   Search,
-  TriangleAlert,
   UsersRound,
 } from "lucide-react";
 
-const demoModes = [
+const productSurfaces = [
   {
-    id: "today",
-    label: "Dnes",
-    title: "Provoz pod kontrolou",
-    subtitle: "4 příchody, 2 volná okna, 1 rizikový klient.",
-    metrics: [
-      ["12", "rezervací"],
-      ["2", "volná okna"],
-      ["1", "riziko"],
-    ],
-    checkout: [
-      ["01", "Služba", "Barva + styling", "45 min"],
-      ["02", "Termín", "Dnes 13:15", "Eva Nováková"],
-      ["03", "Kontakt", "Klára Dvořáková", "čeká na potvrzení"],
-    ],
-  },
-  {
-    id: "booking",
-    label: "Booking",
-    title: "Klient si vybere sám",
-    subtitle: "Služba, člověk, čas a kontakt bez telefonátu.",
-    metrics: [
-      ["3", "kroky"],
-      ["1 min", "odeslání"],
-      ["0×", "přepis"],
-    ],
-    checkout: [
-      ["01", "Služba", "Pánský střih", "30 min"],
-      ["02", "Termín", "Zítra 10:30", "Adam Novák"],
-      ["03", "Kontakt", "Petr Marek", "potvrzení e-mailem"],
-    ],
-  },
-  {
-    id: "client",
-    label: "Klient",
-    title: "Paměť podniku",
-    subtitle: "Historie, preference a riziko jsou u klienta, ne v hlavě.",
-    metrics: [
-      ["6", "návštěv"],
-      ["1", "no-show"],
-      ["VIP", "poznámka"],
-    ],
-    checkout: [
-      ["01", "Historie", "Posledně 12. 4.", "barva + styling"],
-      ["02", "Preference", "Eva Nováková", "oblíbený člověk"],
-      ["03", "Signál", "Riziko zpoždění", "ověřit předem"],
-    ],
-  },
-] as const;
-
-const demoSections = [
-  {
-    id: "overview",
-    label: "Přehled",
+    id: "dashboard",
+    label: "Dashboard",
     icon: BarChart3,
   },
   {
@@ -72,14 +21,14 @@ const demoSections = [
     icon: CalendarDays,
   },
   {
-    id: "clients",
-    label: "Klienti",
-    icon: UsersRound,
+    id: "booking",
+    label: "Booking",
+    icon: ClipboardCheck,
   },
   {
-    id: "signals",
-    label: "Signály",
-    icon: TriangleAlert,
+    id: "account",
+    label: "Účet klienta",
+    icon: UsersRound,
   },
 ] as const;
 
@@ -104,17 +53,51 @@ const calendarDays = [
   { day: "Pá", bookings: 5, height: 70 },
 ] as const;
 
-const clients = [
-  ["Klára Dvořáková", "barva + styling", "VIP"],
-  ["Adam Novák", "pánský střih", "stálý"],
-  ["Lucie Veselá", "konzultace", "čeká"],
+const bookingSteps = [
+  ["01", "Služba", "Pánský střih", "30 min"],
+  ["02", "Termín", "Zítra 10:30", "Adam Novák"],
+  ["03", "Kontakt", "Petr Marek", "potvrzení e-mailem"],
+] as const;
+
+const dashboardMetrics = [
+  ["12", "rezervací dnes"],
+  ["68 %", "obsazenost"],
+  ["1", "rizikový termín"],
+] as const;
+
+const surfaceMeta = {
+  dashboard: {
+    title: "Dnešní provoz",
+    subtitle: "Rezervace, obsazenost a rizika jsou vidět hned po přihlášení.",
+    route: "/dashboard",
+  },
+  calendar: {
+    title: "Kalendář podle týmu",
+    subtitle: "Týdenní kapacita, volná okna a potvrzené návštěvy v jedné ploše.",
+    route: "/calendar",
+  },
+  booking: {
+    title: "Veřejný booking",
+    subtitle: "Klient projde službu, termín a kontakt bez telefonátu.",
+    route: "/demo-barber",
+  },
+  account: {
+    title: "Účet klienta",
+    subtitle: "Zákazník vidí nadcházející rezervace, historii a bezpečné změny.",
+    route: "/account",
+  },
+} as const;
+
+const accountBookings = [
+  ["Zítra 10:30", "Pánský střih", "Studio Magnolia"],
+  ["12. 6. 15:00", "Úprava vousů", "Studio Magnolia"],
+  ["Historie", "Barva + styling", "dokončeno"],
 ] as const;
 
 export function InteractiveProductDemo() {
-  const [activeModeId, setActiveModeId] = useState<(typeof demoModes)[number]["id"]>("today");
-  const [activeSectionId, setActiveSectionId] = useState<(typeof demoSections)[number]["id"]>("overview");
-  const activeMode = demoModes.find((mode) => mode.id === activeModeId) ?? demoModes[0];
-  const activeSection = demoSections.find((section) => section.id === activeSectionId) ?? demoSections[0];
+  const [activeSurfaceId, setActiveSurfaceId] = useState<(typeof productSurfaces)[number]["id"]>("dashboard");
+  const activeSurface = productSurfaces.find((surface) => surface.id === activeSurfaceId) ?? productSurfaces[0];
+  const activeMeta = surfaceMeta[activeSurface.id];
 
   return (
     <section id="produkt" className="relative min-w-0">
@@ -127,25 +110,25 @@ export function InteractiveProductDemo() {
               <span className="size-2.5 rounded-full bg-success/80" />
             </div>
             <div className="rounded-full border border-white/10 bg-white/8 px-3 py-1 text-xs font-semibold text-white/72">
-              Produktový náhled
+              Temaro MVP
             </div>
-            <div className="nums-tabular text-xs font-semibold text-white/55">⌘ K</div>
+            <div className="nums-tabular text-xs font-semibold text-white/55">Live demo</div>
           </div>
 
           <div className="border-b border-white/10 px-4 py-3 lg:hidden">
             <div className="flex gap-2 overflow-x-auto">
-              {demoSections.map((section) => (
+              {productSurfaces.map((surface) => (
                 <button
-                  key={section.id}
+                  key={surface.id}
                   type="button"
-                  onClick={() => setActiveSectionId(section.id)}
+                  onClick={() => setActiveSurfaceId(surface.id)}
                   className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-bold transition ${
-                    activeSection.id === section.id
+                    activeSurface.id === surface.id
                       ? "bg-primary text-primary-foreground"
                       : "bg-white/8 text-white/62 hover:bg-white/12 hover:text-white"
                   }`}
                 >
-                  {section.label}
+                  {surface.label}
                 </button>
               ))}
             </div>
@@ -164,15 +147,15 @@ export function InteractiveProductDemo() {
               </div>
 
               <div className="mt-8 space-y-1.5 text-sm font-semibold text-white/55">
-                {demoSections.map((section) => {
-                  const Icon = section.icon;
-                  const isActive = activeSection.id === section.id;
+                {productSurfaces.map((surface) => {
+                  const Icon = surface.icon;
+                  const isActive = activeSurface.id === surface.id;
 
                   return (
                     <button
-                      key={section.id}
+                      key={surface.id}
                       type="button"
-                      onClick={() => setActiveSectionId(section.id)}
+                      onClick={() => setActiveSurfaceId(surface.id)}
                       className={`relative flex h-10 w-full items-center gap-3 rounded-xl px-3 py-2 text-left transition ${
                         isActive ? "bg-white/10 text-white" : "hover:bg-white/5 hover:text-white"
                       }`}
@@ -181,7 +164,7 @@ export function InteractiveProductDemo() {
                         <span className="absolute bottom-2 left-0 top-2 w-[3px] rounded-r-full bg-primary" />
                       ) : null}
                       <Icon className="size-4" strokeWidth={1.75} />
-                      {section.label}
+                      {surface.label}
                     </button>
                   );
                 })}
@@ -197,20 +180,15 @@ export function InteractiveProductDemo() {
               </div>
 
               <div className="mb-4 flex gap-2 overflow-x-auto">
-                {demoModes.map((mode) => (
-                  <button
-                    key={mode.id}
-                    type="button"
-                    onClick={() => setActiveModeId(mode.id)}
-                    className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-bold transition ${
-                      activeMode.id === mode.id
-                        ? "bg-primary text-primary-foreground"
-                        : "bg-card text-muted-foreground hover:bg-muted hover:text-foreground"
-                    }`}
-                  >
-                    {mode.label}
-                  </button>
-                ))}
+                <span className="shrink-0 rounded-full bg-primary px-3 py-1.5 text-xs font-bold text-primary-foreground">
+                  {activeMeta.route}
+                </span>
+                <span className="shrink-0 rounded-full bg-card px-3 py-1.5 text-xs font-bold text-muted-foreground">
+                  tenant izolace
+                </span>
+                <span className="shrink-0 rounded-full bg-card px-3 py-1.5 text-xs font-bold text-muted-foreground">
+                  self-service
+                </span>
               </div>
 
               <div className="grid min-w-0 gap-4">
@@ -219,25 +197,13 @@ export function InteractiveProductDemo() {
                     <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                       <div className="min-w-0">
                         <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">
-                          {activeSection.label}
+                          {activeSurface.label}
                         </p>
                         <h2 className="mt-1 min-h-[4.25rem] max-w-[18rem] text-2xl font-semibold leading-[1.05] tracking-tight xl:text-3xl">
-                          {activeSection.id === "overview"
-                            ? activeMode.title
-                            : activeSection.id === "calendar"
-                              ? "Týdenní kapacita"
-                              : activeSection.id === "clients"
-                                ? "Klienti v kontextu"
-                                : "Provozní signály"}
+                          {activeMeta.title}
                         </h2>
                         <p className="mt-2 min-h-10 max-w-[18rem] text-sm font-semibold leading-5 text-muted-foreground">
-                          {activeSection.id === "overview"
-                            ? activeMode.subtitle
-                            : activeSection.id === "calendar"
-                              ? "Volná okna a obsazení dne bez ručního přepočítávání."
-                              : activeSection.id === "clients"
-                                ? "Historie a preference zůstávají u klienta."
-                                : "Čekající termíny a rizika jsou vidět včas."}
+                          {activeMeta.subtitle}
                         </p>
                       </div>
                       <div className="shrink-0 rounded-full border border-success/25 bg-success/10 px-3 py-1.5 text-sm font-bold text-success">
@@ -245,10 +211,10 @@ export function InteractiveProductDemo() {
                       </div>
                     </div>
 
-                    {activeSection.id === "overview" ? (
+                    {activeSurface.id === "dashboard" ? (
                       <>
                         <div className="mt-5 grid gap-2 sm:grid-cols-3">
-                          {activeMode.metrics.map(([value, label]) => (
+                          {dashboardMetrics.map(([value, label]) => (
                             <div key={label} className="min-w-0 rounded-xl border border-border bg-secondary/75 p-3">
                               <p className="nums-tabular truncate text-2xl font-semibold tracking-tight">{value}</p>
                               <p className="mt-1 truncate text-[11px] font-bold leading-4 text-muted-foreground">
@@ -265,12 +231,12 @@ export function InteractiveProductDemo() {
                           </div>
                           <div className="flex h-24 items-end gap-2">
                             {[42, 58, 74, 66, 82, 61, 88].map((height, index) => (
-                              <div key={`${height}-${index}`} className="flex flex-1 flex-col items-center gap-2">
+                              <div key={`${height}-${index}`} className="flex h-full flex-1 flex-col items-center justify-end gap-2">
                                 <span
-                                  className={`w-full rounded-t-md transition-all duration-500 ${
+                                  className={`block w-full rounded-t-md transition-all duration-500 ${
                                     index === 4 ? "bg-primary" : "bg-primary/22"
                                   }`}
-                                  style={{ height: `${height}%` }}
+                                  style={{ height: `${height}px` }}
                                 />
                                 <span className="nums-tabular text-[10px] font-bold text-muted-foreground">
                                   {index + 8}
@@ -282,7 +248,7 @@ export function InteractiveProductDemo() {
                       </>
                     ) : null}
 
-                    {activeSection.id === "calendar" ? (
+                    {activeSurface.id === "calendar" ? (
                       <div className="mt-5 grid grid-cols-5 gap-2">
                         {calendarDays.map((day) => (
                           <div key={day.day} className="rounded-xl border border-border bg-secondary/75 p-2">
@@ -296,28 +262,43 @@ export function InteractiveProductDemo() {
                       </div>
                     ) : null}
 
-                    {activeSection.id === "clients" ? (
+                    {activeSurface.id === "booking" ? (
                       <div className="mt-5 space-y-2">
-                        {clients.map(([name, service, tag]) => (
-                          <div key={name} className="flex items-center gap-3 rounded-xl border border-border bg-secondary/75 p-3">
+                        {bookingSteps.map(([step, title, value, detail]) => (
+                          <div key={step} className="grid grid-cols-[2.5rem_1fr] gap-3 rounded-xl border border-border bg-secondary/75 p-3">
+                            <span className="nums-tabular text-sm font-bold text-primary">{step}</span>
+                            <div className="min-w-0">
+                              <p className="text-sm font-semibold">{title}</p>
+                              <p className="truncate text-sm font-semibold text-foreground">{value}</p>
+                              <p className="truncate text-xs font-semibold text-muted-foreground">{detail}</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    ) : null}
+
+                    {activeSurface.id === "account" ? (
+                      <div className="mt-5 space-y-2">
+                        {accountBookings.map(([date, service, state]) => (
+                          <div key={`${date}-${service}`} className="flex items-center gap-3 rounded-xl border border-border bg-secondary/75 p-3">
                             <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-success/10 text-sm font-bold text-success">
-                              {name.slice(0, 1)}
+                              {date.slice(0, 1)}
                             </span>
                             <div className="min-w-0 flex-1">
-                              <p className="truncate text-sm font-semibold">{name}</p>
-                              <p className="truncate text-xs font-semibold text-muted-foreground">{service}</p>
+                              <p className="truncate text-sm font-semibold">{service}</p>
+                              <p className="truncate text-xs font-semibold text-muted-foreground">{date}</p>
                             </div>
                             <span className="rounded-full border border-border bg-card px-2.5 py-1 text-xs font-bold text-muted-foreground">
-                              {tag}
+                              {state}
                             </span>
                           </div>
                         ))}
                       </div>
                     ) : null}
 
-                    {activeSection.id === "signals" ? (
+                    {activeSurface.id === "dashboard" ? (
                       <div className="mt-5 space-y-2">
-                        {agenda.slice(1).map((item) => (
+                        {agenda.slice(2).map((item) => (
                           <div
                             key={`${item.time}-${item.client}`}
                             className={`grid grid-cols-[3.75rem_1fr_auto] items-center gap-3 rounded-xl border border-border border-l-4 p-3 shadow-sm ${toneClassNames[item.tone]}`}

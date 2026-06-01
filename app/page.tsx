@@ -75,19 +75,19 @@ const visualSegments = [
   {
     title: "Barber a salon",
     text: "Online termíny, oblíbený člověk a rychlé přeobjednání bez zpráv tam a zpět.",
-    image: "/marketing/barber-studio.jpg",
+    image: "/marketing/barber-studio-ai.webp",
     alt: "Detail barber služby během úpravy vousů",
   },
   {
     title: "Beauty provoz",
     text: "Klientská historie, poznámky a kapacita dne pro opakované návštěvy.",
-    image: "/marketing/salon-interior.jpg",
+    image: "/marketing/salon-interior-ai.webp",
     alt: "Klientka s upravenými vlasy v salonním prostředí",
   },
   {
     title: "Trenéři a konzultace",
     text: "Jeden booking odkaz pro termíny, které klient zvládne vybrat sám.",
-    image: "/marketing/training-studio.jpg",
+    image: "/marketing/training-studio-ai.webp",
     alt: "Trénink s činkou ve fitness studiu",
   },
 ] as const;
@@ -232,7 +232,7 @@ export default async function Home() {
   return (
     <main className="min-h-screen overflow-hidden bg-background text-foreground">
       <section className="signal-hero signal-grid relative">
-        <div className="mx-auto flex min-h-screen w-full max-w-[1440px] flex-col px-4 py-4 sm:px-6 lg:px-8">
+        <div className="mx-auto flex min-h-[92vh] w-full max-w-[1440px] flex-col px-4 py-4 sm:px-6 lg:min-h-[88vh] lg:px-8">
           <header className="sticky top-3 z-30 mx-auto flex min-h-16 w-full max-w-6xl flex-wrap items-center justify-between gap-3 rounded-2xl border border-border/80 bg-card/88 px-3 py-3 shadow-lg shadow-primary/5 backdrop-blur-md sm:px-4 lg:backdrop-blur-xl">
             <Link href="/" className="flex items-center gap-3">
               <TemaroLogo />
@@ -268,7 +268,7 @@ export default async function Home() {
             </div>
           </header>
 
-          <div className="grid flex-1 items-center gap-10 py-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-start lg:py-12">
+          <div className="grid flex-1 items-center gap-10 py-8 lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:py-10">
             <section className="mx-auto max-w-2xl lg:mx-0">
               <div className="motion-reveal inline-flex items-center gap-2 rounded-full border border-primary/15 bg-card/75 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-primary shadow-sm backdrop-blur">
                 <span className="signal-pulse size-2 rounded-full bg-primary" />
@@ -323,7 +323,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <section id="provoz" className="relative mx-auto w-full max-w-[1180px] px-4 py-20 sm:px-6 lg:px-8">
+      <section id="provoz" className="relative mx-auto w-full max-w-[1180px] px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-8 lg:grid-cols-[0.82fr_1.18fr]">
           <header>
             <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Provozní realita</p>
@@ -588,7 +588,7 @@ export default async function Home() {
         <div className="border-t border-border">
           <div className="mx-auto flex w-full max-w-[1180px] flex-col gap-2 px-4 py-4 text-xs font-semibold text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
             <p>© 2026 Temaro</p>
-            <p className="font-mono">postaveno v Brně</p>
+            <p className="font-mono">Temaro SaaS booking platform</p>
           </div>
         </div>
       </footer>
