@@ -115,6 +115,7 @@ Aktuální stav 2026-06-01 11:18 CEST:
 - Vercel production deploy `dpl_GTBd3UAtuQhYg6Jhzz1epxNhmhvX` je na aliasu `https://rezervacni-system-xi.vercel.app`; externí public smoke prošel 2026-06-01 00:27 CEST 8/8 a produkční měření 1470/1800 px potvrdilo stabilní šířku a `bookingPanel=false`.
 - Navazující landing/design úkol je hotový: homepage používá `public/marketing/*-ai.webp`, footer copy je `Temaro SaaS booking platform`, hero produktový náhled ukazuje reálné plochy `Dashboard / Kalendář / Booking / Účet klienta` a spacing mezi herem a `#provoz` má v měření gap `0`.
 - Ověření 2026-06-01 11:18 CEST: `npm run check` prošlo s 559 Vitest testy, migrations check, type-check, lint a produkční build. `PLAYWRIGHT_BASE_URL=http://127.0.0.1:3000 npx playwright test tests/e2e/public-smoke.spec.ts` prošlo 8/8. Screenshoty jsou v `output/playwright/landing-desktop.png`, `landing-mobile.png`, `landing-full.png`.
+- Vercel production deploy `dpl_9iZzgkftmZCBnWLzg8FXwSG1tmaz` je na aliasu `https://rezervacni-system-xi.vercel.app`; externí public smoke 2026-06-01 11:28 CEST prošel 8/8.
 - `npx playwright test` prošlo 2026-05-31: 9 testů prošlo, 4 authenticated runtime testy se bez `E2E_AUTHENTICATED_SMOKE=true` přeskočily.
 - `npm run check` prošlo 2026-05-08 18:41 CEST po pobočkách: 521 Vitest testů, migrations check, type-check, lint i produkční build.
 - `npm run check` prošlo 2026-05-08 18:11 CEST po resources vrstvě: 517 Vitest testů, migrations check, type-check, lint i produkční build.
