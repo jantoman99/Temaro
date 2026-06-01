@@ -1,6 +1,6 @@
 # Runtime checklist
 
-Aktualizováno: 2026-06-01 18:47 CEST
+Aktualizováno: 2026-06-01 18:50 CEST
 
 Tento checklist je pro první reálné ověření mimo demo režim.
 
@@ -24,6 +24,7 @@ Aktuální známý stav:
 
 - `npm run check` prošlo 2026-06-01 16:40 CEST po rychlém service/staff/booking-page onboardingu: 572 Vitest testů, migrations check, type-check, lint a produkční build.
 - `npm run check` prošlo 2026-06-01 18:47 CEST po doplnění sdílení do `/start`: 572 Vitest testů, migrations check, type-check, lint a produkční build.
+- Vercel production deploy `dpl_8vaQ4KT4C4NH5tjGaBxQty8pHt51` je na aliasu `https://rezervacni-system-xi.vercel.app`. Externí public smoke 2026-06-01 18:50 CEST prošel: `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` má 10/10 testů zelených.
 - `/start` runtime ověřit po hotovém základu: panel `Pošlete odkaz prvním klientům`, text pro Instagram bio, text pro story/příspěvek, QR kód a CTA `Otevřít stránku klienta`.
 - `/services` runtime ověřit jako rychlé založení nabídky: panel `Přidat tři služby najednou` přidá vybrané oborové šablony a přeskočí už existující názvy.
 - `/staff` runtime ověřit jako rychlé nastavení člověka: výchozí pracovní doba Po-Pá 09:00-17:00 a volba `Přiřadit všechny aktuální služby`.
