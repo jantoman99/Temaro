@@ -31,7 +31,7 @@ test.describe("public smoke", () => {
     await expect(page.getByRole("link", { name: "Pro kadeřnictví", exact: true })).toBeVisible();
     await expect(page.getByRole("link", { name: "Pro beauty salon", exact: true })).toBeVisible();
     await expect(page.getByRole("link", { name: "Pro masáže", exact: true })).toBeVisible();
-    await expect(page.getByRole("link", { name: "No-show guide", exact: true })).toBeVisible();
+    await expect(page.getByRole("link", { name: "No-show návod", exact: true })).toBeVisible();
     await expect(page.getByRole("link", { name: "SMS připomínky", exact: true })).toBeVisible();
     await expect(page.getByRole("link", { name: "Bez marketplace provizí", exact: true })).toBeVisible();
   });
@@ -39,7 +39,7 @@ test.describe("public smoke", () => {
   test("segment SEO pages render and cross-link", async ({ page }) => {
     await page.goto("/rezervacni-system-pro-barbery");
     await expect(page.getByText("Rezervační systém pro barbery").first()).toBeVisible();
-    await expect(page.getByRole("link", { name: "No-show guide", exact: true })).toBeVisible();
+    await expect(page.getByRole("link", { name: "No-show návod", exact: true })).toBeVisible();
 
     await page.goto("/rezervacni-system-pro-kadernictvi");
     await expect(page.getByText("Rezervační systém pro kadeřnictví").first()).toBeVisible();
@@ -63,7 +63,7 @@ test.describe("public smoke", () => {
 
     await page.goto("/sms-pripominky-rezervaci");
     await expect(page.getByRole("heading", { name: /Kdy SMS opravdu/i })).toBeVisible();
-    await expect(page.getByRole("link", { name: "No-show guide", exact: true }).first()).toBeVisible();
+    await expect(page.getByRole("link", { name: "No-show návod", exact: true }).first()).toBeVisible();
 
     await page.goto("/rezervacni-system-bez-marketplace-provizi");
     await expect(page.getByRole("heading", { name: /Vlastní klienti\./i })).toBeVisible();
