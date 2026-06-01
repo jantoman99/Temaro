@@ -4,13 +4,11 @@ import { useEffect, useState } from "react";
 import {
   CalendarDays,
   Clock3,
-  CreditCard,
   LayoutPanelTop,
   Search,
   Settings2,
   ShieldCheck,
   UsersRound,
-  type LucideIcon,
 } from "lucide-react";
 
 const productSurfaces = [
@@ -78,16 +76,6 @@ const accountBookings = [
   ["Historie", "Barva + styling", "Dokončeno"],
 ] as const;
 
-const quickLinks: readonly {
-  icon: LucideIcon;
-  label: string;
-  text: string;
-}[] = [
-  { icon: CreditCard, label: "Platby", text: "zálohy a doplatky" },
-  { icon: UsersRound, label: "Klienti", text: "historie návštěv" },
-  { icon: CalendarDays, label: "Termíny", text: "volná okna" },
-];
-
 const tourSteps: readonly {
   surfaceId: SurfaceId;
   title: string;
@@ -118,7 +106,7 @@ const tourSteps: readonly {
 function SurfacePanel({ activeSurfaceId }: { activeSurfaceId: SurfaceId }) {
   if (activeSurfaceId === "calendar") {
     return (
-      <div className="grid gap-4">
+      <div className="grid h-full content-start gap-4">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Kalendář</p>
@@ -132,16 +120,19 @@ function SurfacePanel({ activeSurfaceId }: { activeSurfaceId: SurfaceId }) {
           {calendarDays.map((day) => (
             <div key={day.day} className="rounded-xl border border-border bg-secondary/75 p-2">
               <p className="text-center text-xs font-bold text-muted-foreground">{day.day}</p>
-              <div className="mt-3 flex h-32 items-end rounded-lg bg-card p-1">
+              <div className="mt-3 flex h-28 items-end rounded-lg bg-card p-1">
                 <div className="w-full rounded-md bg-info/70" style={{ height: `${day.height}%` }} />
               </div>
               <p className="nums-tabular mt-2 text-center text-sm font-semibold">{day.bookings}</p>
             </div>
           ))}
         </div>
-        <div className="rounded-xl border border-border bg-secondary/70 p-3">
-          <p className="text-sm font-semibold">Filtry</p>
-          <p className="mt-1 text-xs font-semibold text-muted-foreground">Klient nebo služba, stav rezervace, člověk v týmu.</p>
+        <div className="grid gap-2 rounded-xl border border-border bg-secondary/70 p-3 sm:grid-cols-3">
+          {["Lidé v týmu", "Stav rezervace", "Služba"].map((label) => (
+            <div key={label} className="rounded-lg bg-card px-3 py-2 text-xs font-bold text-muted-foreground">
+              {label}
+            </div>
+          ))}
         </div>
       </div>
     );
@@ -149,15 +140,15 @@ function SurfacePanel({ activeSurfaceId }: { activeSurfaceId: SurfaceId }) {
 
   if (activeSurfaceId === "bookingPage") {
     return (
-      <div className="grid gap-4">
+      <div className="grid h-full content-start gap-4">
         <div>
           <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Rezervační stránka</p>
           <h2 className="mt-1 text-2xl font-semibold tracking-tight">To, co posíláte klientům</h2>
           <p className="mt-2 text-sm font-semibold leading-5 text-muted-foreground">
-            Náhled, sdílení a vzhled jsou na jednom místě stejně jako v přihlášeném účtu.
+            Náhled, sdílení a vzhled bez další administrace.
           </p>
         </div>
-        <div className="rounded-2xl border border-border bg-secondary/75 p-4">
+        <div className="rounded-2xl border border-border bg-secondary/75 p-4 shadow-sm">
           <div className="flex items-center justify-between gap-3">
             <div>
               <p className="text-sm font-semibold">Studio Magnolia</p>
@@ -170,9 +161,9 @@ function SurfacePanel({ activeSurfaceId }: { activeSurfaceId: SurfaceId }) {
           <button className="mt-4 inline-flex h-9 items-center justify-center rounded-md bg-primary px-3 text-xs font-semibold text-primary-foreground">
             Spravovat rezervace
           </button>
-          <div className="mt-4 grid gap-2">
+          <div className="mt-4 grid gap-2 sm:grid-cols-3">
             {bookingPageItems.map(([title, value]) => (
-              <div key={title} className="rounded-xl border border-border bg-card p-3">
+              <div key={title} className="rounded-xl border border-border bg-card p-3 min-h-24">
                 <p className="text-sm font-semibold">{title}</p>
                 <p className="mt-1 text-xs font-semibold text-muted-foreground">{value}</p>
               </div>
@@ -185,12 +176,12 @@ function SurfacePanel({ activeSurfaceId }: { activeSurfaceId: SurfaceId }) {
 
   if (activeSurfaceId === "clientAccount") {
     return (
-      <div className="grid gap-4">
+      <div className="grid h-full content-start gap-4">
         <div>
           <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Zákaznický účet</p>
           <h2 className="mt-1 text-2xl font-semibold tracking-tight">Moje rezervace</h2>
           <p className="mt-2 text-sm font-semibold leading-5 text-muted-foreground">
-            Klient vidí nadcházející termíny, historii a bezpečné změny bez telefonátu.
+            Klient vidí termíny a změny bez dalšího telefonátu.
           </p>
         </div>
         <div className="space-y-2">
@@ -214,7 +205,7 @@ function SurfacePanel({ activeSurfaceId }: { activeSurfaceId: SurfaceId }) {
   }
 
   return (
-    <div className="grid gap-4">
+    <div className="grid h-full content-start gap-4">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Dnes</p>
@@ -234,7 +225,7 @@ function SurfacePanel({ activeSurfaceId }: { activeSurfaceId: SurfaceId }) {
         ))}
       </div>
       <div className="space-y-2">
-        {agenda.slice(1).map((item) => (
+        {agenda.slice(1, 3).map((item) => (
           <div
             key={`${item.time}-${item.client}`}
             className={`grid grid-cols-[3.5rem_1fr_auto] items-center gap-3 rounded-xl border border-border border-l-4 p-3 shadow-sm ${toneClassNames[item.tone]}`}
@@ -390,11 +381,11 @@ export function InteractiveProductDemo() {
                 </span>
               </div>
 
-              <div className="grid gap-4">
-                <div className="signal-rail h-[31.5rem] overflow-y-auto rounded-2xl border border-border bg-card p-5 shadow-sm">
+              <div>
+                <div className="signal-rail relative h-[31.5rem] overflow-hidden rounded-2xl border border-border bg-card p-5 shadow-sm">
                   <SurfacePanel activeSurfaceId={activeSurface.id} />
                   {activeTourStep && tourStepIndex !== null ? (
-                    <div className="sticky bottom-0 mt-4 rounded-2xl border border-primary/20 bg-card/95 p-4 shadow-lg shadow-primary/10 backdrop-blur">
+                    <div className="absolute bottom-4 left-4 right-4 rounded-2xl border border-primary/20 bg-card/95 p-4 shadow-lg shadow-primary/10 backdrop-blur">
                       <div className="flex items-start justify-between gap-4">
                         <div>
                           <p className="text-xs font-bold uppercase tracking-[0.14em] text-primary">
@@ -427,16 +418,6 @@ export function InteractiveProductDemo() {
                       </button>
                     </div>
                   ) : null}
-                </div>
-
-                <div className="grid gap-2 sm:grid-cols-3">
-                  {quickLinks.map(({ icon: Icon, label, text }) => (
-                    <div key={label} className="rounded-xl border border-border bg-card p-3">
-                      <Icon className="size-4 text-primary" />
-                      <p className="mt-2 text-sm font-semibold">{label}</p>
-                      <p className="mt-1 text-xs font-semibold text-muted-foreground">{text}</p>
-                    </div>
-                  ))}
                 </div>
               </div>
             </div>

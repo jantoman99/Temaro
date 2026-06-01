@@ -21,15 +21,16 @@ Důležité chování:
 - Ruční testy jsou odložené do `docs/manual-test-plan.md`.
 - Dokumentaci aktualizuj při smysluplné změně.
 
-Aktuální stav 2026-06-01 13:22 CEST:
+Aktuální stav 2026-06-01 14:17 CEST:
 - Produkt se jmenuje `Temaro`.
-- Poslední ověření: `npm run check` prošlo 2026-06-01 13:16 CEST s 561 Vitest testy, migrations check, type-check, lint i produkčním buildem.
+- Poslední ověření: `npm run check` prošlo 2026-06-01 14:17 CEST s 561 Vitest testy, migrations check, type-check, lint i produkčním buildem.
 - Lokální Playwright kontrola homepage demo prošla 2026-06-01 13:06 CEST: ručně vybraná `Rezervační stránka` zůstala aktivní i po 6,2 s, `.signal-rail` má `overflow-y: auto`, průvodce `Spustit ukázku` přešel na krok 2 a console errors jsou 0.
 - Lokální axe color-contrast audit homepage prošel 2026-06-01 13:12 CEST: `violationCount: 0`, console errors 0.
 - Poslední lokální Playwright audit veřejného webu prošel 2026-06-01 12:26 CEST: 14/14 kontrolovaných veřejných tras vrací HTTP 200, console errors 0.
 - Produkce je nasazená na `https://rezervacni-system-xi.vercel.app`, aktuální deploy `dpl_Cx2nPdYYMLiwTNsaY5yQLUN9x7b7`; externí public smoke prošel 2026-06-01 13:21 CEST 8/8 a produkční axe color-contrast audit homepage vrátil `violationCount: 0`.
 - Homepage po aktuální UX/copy revizi: menu, hero a `#provoz` jsou na stejné ose `x=93`, `width=1180`; živá ukázka je stabilní `717px` vysoká ve všech scénách a odpovídá reálným přihlášeným obrazovkám `Přehled provozu`, `Kalendář`, `Rezervační stránka`, `Zákaznický účet`.
-- Homepage demo má nativní Salona/Arcade inspirovaný průvodce bez externího embeddu: `Spustit ukázku`, 4 kroky, interní scroll a vypnutí autoplaye po ručním kliknutí.
+- Homepage demo má nativní Salona/Arcade inspirovaný průvodce bez externího embeddu: `Spustit ukázku`, 4 kroky a vypnutí autoplaye po ručním kliknutí.
+- Homepage demo už nepoužívá vnitřní scrollbar ani spodní opakované karty `Platby / Klienti / Termíny`; lokální Playwright 2026-06-01 14:12 CEST potvrdil `overflowY: hidden`, shodné `clientHeight`/`scrollHeight` a žádný useknutý obsah v hlavních plochách.
 - Homepage navigace obsahuje zákaznický proklik `Najít podnik` na `/podniky`.
 - Lighthouse kontrastní nálezy na homepage jsou opravené: muted texty na tónovaných plochách a štítcích byly nahrazené kontrastnějšími foreground barvami a hlídá je `tests/landing-polish.test.ts`.
 - Veřejné texty prošly zákaznickým copy passem: z viditelného marketing UI mizí interní názvy typu `tenant`, `MVP`, `self-service`, `booking flow`; používá se `rezervační odkaz`, `bezpečný odkaz`, `připomínka`, `podnik/provoz`.

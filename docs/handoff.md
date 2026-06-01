@@ -1,6 +1,6 @@
 # Handoff
 
-Aktualizováno: 2026-06-01 13:22 CEST
+Aktualizováno: 2026-06-01 14:17 CEST
 
 ## Jak navázat
 
@@ -44,7 +44,8 @@ Aktualizováno: 2026-06-01 13:22 CEST
 - Obrázky v sekci `Reálné provozy` jsou vlastní přegenerované WebP assety v `public/marketing/*-ai.webp`: barber je tmavý řemeslný interiér, beauty je světlé studio a fitness je denní tréninkový prostor.
 - Marketing web má od 2026-06-01 customer copy pass: technické názvy v zákaznickém UI jsou nahrazené výrazy `rezervační odkaz`, `bezpečný odkaz`, `připomínka`, `podnik/provoz`.
 - Hero demo na homepage se už nesnaží být abstraktní produktová ilustrace; kopíruje reálné přihlášené obrazovky (`Přehled provozu`, `Kalendář`, `Rezervační stránka`, `Zákaznický účet`) a Playwright audit potvrdil stejnou výšku `717px` při všech přepnutích.
-- Hero demo má nativní klikací průvodce inspirovaný Salona/Arcade ukázkami: `Spustit ukázku`, 4 kroky, scroll uvnitř panelu a autoplay se vypne po ručním kliknutí, aby už nepřeskakoval zpět.
+- Hero demo má nativní klikací průvodce inspirovaný Salona/Arcade ukázkami: `Spustit ukázku`, 4 kroky a autoplay se vypne po ručním kliknutí, aby už nepřeskakoval zpět.
+- Hero demo už nepoužívá vnitřní scrollbar ani spodní opakované karty `Platby / Klienti / Termíny`; každá plocha je kompaktní screen bez useknutého obsahu.
 - Homepage navigace nově obsahuje `Najít podnik` na `/podniky`, tedy zákaznickou cestu vedle podnikatelských CTA.
 - Lighthouse kontrastní nálezy na homepage jsou opravené a kryté regresním testem v `tests/landing-polish.test.ts`.
 - Layout homepage je sjednocený na stejnou osu jako navazující sekce: menu, hero grid a `#provoz` mají v desktop auditu `x=93`, `width=1180`; horizontální overflow není.
@@ -134,9 +135,11 @@ Aktualizováno: 2026-06-01 13:22 CEST
 
 ## Poslední změna
 
-- Homepage demo polish po zpětné vazbě 2026-06-01: ukázka je v hero gridu výraznější, má interní scroll, ruční přepnutí zastaví autoplay a tlačítko `Spustit ukázku` spouští nativní 4krokový průvodce bez externího embeddu.
+- Homepage demo cleanup 2026-06-01: odstraněný vnitřní scrollbar a opakované spodní karty z hero ukázky. `Přehled provozu`, `Kalendář`, `Rezervační stránka` i `Zákaznický účet` jsou nově kompaktní obrazovky, které se vejdou do panelu bez scrollování a bez useknutého spodku.
+- Ověření 2026-06-01 14:17 CEST: `npm run check` prošlo s 561 Vitest testy, migrations check, type-check, lint a produkční build. Lokální Playwright kontrola potvrdila `overflowY: hidden`, shodné `clientHeight` a `scrollHeight` pro overview i rezervační stránku, žádné staré karty `Platby / Klienti / Termíny`, stabilní ruční výběr po 6,2 s a console errors 0.
+- Předchozí homepage demo polish po zpětné vazbě 2026-06-01: ukázka je v hero gridu výraznější, ruční přepnutí zastaví autoplay a tlačítko `Spustit ukázku` spouští nativní 4krokový průvodce bez externího embeddu.
 - Homepage kontrastní oprava po Lighthouse reportu: muted texty na tónovaných kartách/sekcích a štítcích jsou nahrazené kontrastnějšími foreground barvami.
-- Ověření 2026-06-01 13:16 CEST: `npm run check` prošlo s 561 Vitest testy, migrations check, type-check, lint a produkční build. Lokální Playwright kontrola potvrdila stabilní ruční výběr po 6,2 s, scrollovatelnou `.signal-rail`, funkční krok 2 průvodce a console errors 0. Axe color-contrast audit homepage vrátil `violationCount: 0`.
+- Ověření 2026-06-01 13:16 CEST: `npm run check` prošlo s 561 Vitest testy, migrations check, type-check, lint a produkční build. Lokální Playwright kontrola potvrdila stabilní ruční výběr po 6,2 s, tehdejší funkční krok 2 průvodce a console errors 0. Axe color-contrast audit homepage vrátil `violationCount: 0`.
 - Vercel production deploy `dpl_Cx2nPdYYMLiwTNsaY5yQLUN9x7b7` je na aliasu `https://rezervacni-system-xi.vercel.app`; externí public smoke 2026-06-01 13:21 CEST prošel 8/8 a produkční axe color-contrast audit homepage vrátil `violationCount: 0`.
 - Navazující landing/design úkol je hotový: homepage používá `public/marketing/*-ai.webp`, footer copy je změněné na `Temaro SaaS booking platform`, hero produktový náhled je přestavěný na reálné plochy `Dashboard / Kalendář / Booking / Účet klienta` a navazující sekce `Provozní realita` začíná bez prázdného gapu.
 - Přidaný `tests/landing-polish.test.ts` a upravený public smoke embed test, aby testoval booking button script jako externí script na čisté HTML stránce, ne jako script vložený do hydratované Next aplikace.

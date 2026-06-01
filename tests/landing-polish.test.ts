@@ -38,11 +38,13 @@ describe("landing polish guard", () => {
     expect(demo).toContain("Spravovat rezervace");
     expect(demo).toContain("selectSurface");
     expect(demo).toContain("setHasInteracted(true)");
-    expect(demo).toContain("overflow-y-auto");
+    expect(demo).toContain("overflow-hidden");
     expect(demo).toContain("Spustit ukázku");
     expect(demo).toContain("Další krok");
     expect(demo).toContain("Zavřít ukázku");
 
+    expect(demo).not.toContain("quickLinks");
+    expect(demo).not.toContain("overflow-y-auto");
     expect(demo).not.toContain("Dashboard");
     expect(demo).not.toContain("Temaro MVP");
     expect(demo).not.toContain("Live demo");
