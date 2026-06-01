@@ -1,6 +1,6 @@
 # Handoff
 
-Aktualizováno: 2026-06-01 16:43 CEST
+Aktualizováno: 2026-06-01 16:46 CEST
 
 ## Jak navázat
 
@@ -31,7 +31,7 @@ Aktualizováno: 2026-06-01 16:43 CEST
 - Čekací listina má tabulku `waitlist_entries`, service-role RPC `create_waitlist_entry`, veřejné CTA při obsazených termínech a owner přehled v kalendáři; migrace `20260508114500_create_waitlist_entries.sql` je aplikovaná lokálně i remote.
 - Review request používá tenant `review_url`; po owner dokončení rezervace odešle klientovi e-mail a uloží notification typ `review_request`. Migrace `20260508121000_add_review_request_notification_type.sql` je aplikovaná lokálně i remote.
 - Online záloha přes Stripe používá self-service manage odkaz, route `/api/payments/stripe/checkout`, webhook `/api/payments/stripe/webhook`, pending/paid záznamy v `booking_payments` a audit event `payment_recorded`.
-- Poslední ověření: `npm run check` prošlo 2026-06-01 16:40 CEST s 572 Vitest testy, migrations check, type-check, lint i produkčním buildem. Lokální Playwright public smoke prošel 2026-06-01 15:12 CEST 10/10 a design check pro `/`, `/podniky`, `/ukazka` potvrdil žádný horizontální overflow, žádná coordinate pole a žádný useknutý demo panel. Produkční deploy `dpl_6ZgkD4UjbWZtxU6mhg5KFEmz3gpD` je na aliasu `https://rezervacni-system-xi.vercel.app`; externí public smoke 2026-06-01 16:19 CEST prošel 10/10.
+- Poslední ověření: `npm run check` prošlo 2026-06-01 16:40 CEST s 572 Vitest testy, migrations check, type-check, lint i produkčním buildem. Lokální Playwright public smoke prošel 2026-06-01 15:12 CEST 10/10 a design check pro `/`, `/podniky`, `/ukazka` potvrdil žádný horizontální overflow, žádná coordinate pole a žádný useknutý demo panel. Produkční deploy `dpl_Fz5xgNTdXkTxLz6gthNHN7z39DBw` je na aliasu `https://rezervacni-system-xi.vercel.app`; externí public smoke 2026-06-01 16:46 CEST prošel 10/10.
 - Vercel production deploy po homepage demo/kontrast opravě je hotový: `https://rezervacni-system-xi.vercel.app`, aktuální deploy `dpl_Cx2nPdYYMLiwTNsaY5yQLUN9x7b7`; externí public smoke 2026-06-01 13:21 CEST prošel 8/8 a produkční axe color-contrast audit homepage vrátil `violationCount: 0`.
 - Public health endpoint nevrací názvy chybějících secret env; vrací jen počet v `checks.env.missing`.
 - GitHub login connection ve Vercelu je propojený; před propojením byly nové deploymenty private repa `BLOCKED`, aktuální production deploy je `dpl_4Zogqwr6XLj2utWu7cbc9sCh5ePe`.
@@ -139,7 +139,7 @@ Aktualizováno: 2026-06-01 16:43 CEST
 
 - Onboarding první rezervace 2026-06-01: registrace nového podniku směřuje do `/start`, stránka ukazuje připravenost, další nejlepší krok, veřejný rezervační odkaz a checklist pro spuštění první online rezervace. Texty v registraci a startu jsou zákaznické, ne interní.
 - Rychlý service/staff onboarding 2026-06-01: `/services` umí přidat tři doporučené služby podle oboru, `/staff` při založení člověka výchozí volbou přiřadí všechny aktuální služby a `/booking-page` ukazuje připravenost rezervační stránky podle služby, týmu, pracovní doby a propojení služby s týmem.
-- Ověření 2026-06-01 16:40 CEST: `npm run check` prošlo s 572 Vitest testy, migrations check, type-check, lint a produkční build.
+- Ověření 2026-06-01 16:40-16:46 CEST: `npm run check` prošlo s 572 Vitest testy, migrations check, type-check, lint a produkční build. Externí public smoke proti Vercelu prošel 10/10.
 - Ověření 2026-06-01 16:11-16:19 CEST: `npm run check` prošlo s 567 Vitest testy, migrations check, type-check, lint a produkční build. Cílené testy `tests/onboarding-setup.test.ts` a `tests/helpers.test.ts` prošly 68/68. Externí public smoke proti Vercelu prošel 10/10.
 - Business/customer split 2026-06-01: homepage navigace rozlišuje `Pro podniky` a `Pro zákazníky`, `/podniky` používá zákaznické adresní hledání bez souřadnic, přibyla `/ukazka` jako samostatná interaktivní ukázka a produktové demo na mobilu už nerozsekává spodní obsah.
 - Ověření 2026-06-01 15:16 CEST: `npm run check` prošlo s 564 Vitest testy, migrations check, type-check, lint a produkční build. `PLAYWRIGHT_BASE_URL=http://127.0.0.1:3000 npx playwright test tests/e2e/public-smoke.spec.ts` prošlo 10/10. Lokální design check pro `/`, `/podniky`, `/ukazka` na desktopu i mobilu potvrdil console errors 0, žádný horizontální overflow, žádná coordinate pole a žádný useknutý demo panel.
