@@ -33,9 +33,9 @@ export function IndustryStartPanel({
       <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(280px,360px)]">
         <div>
           <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Obor podniku</p>
-          <h2 className="mt-1 text-xl font-semibold tracking-tight">Nastavit segment pro rychlejší start</h2>
+          <h2 className="mt-1 text-xl font-semibold tracking-tight">Vybrat obor pro rychlejší nastavení</h2>
           <p className="mt-2 text-sm font-medium leading-6 text-muted-foreground">
-            Obor řídí šablony služeb, veřejný katalog a pozdější doporučené nastavení. Nezamyká produkt, jen zrychluje první setup.
+            Podle oboru nabídneme vhodné služby a texty pro veřejnou stránku. Volbu můžete později změnit.
           </p>
 
           <form action={formAction} className="mt-4 flex flex-col gap-3 sm:flex-row">
@@ -72,7 +72,7 @@ export function IndustryStartPanel({
           ) : null}
           {isDemo ? (
             <p className="mt-3 text-sm font-medium text-muted-foreground">
-              Demo režim používá výchozí hair segment. V reálném účtu se volba uloží k tenantovi.
+              Demo používá výchozí salonní obor. V reálném účtu se volba uloží k vašemu podniku.
             </p>
           ) : null}
         </div>

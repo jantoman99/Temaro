@@ -77,7 +77,7 @@ function getOAuthBusinessRegistrationInput(formData: FormData) {
 
 async function redirectToGoogleOAuth(nextPath: string): Promise<void> {
   if (!hasSupabaseEnv()) {
-    redirect("/dashboard");
+    redirect("/start");
   }
 
   const supabase = await createClient();
@@ -260,7 +260,7 @@ export async function registerAction(
     return { error: "Účet byl vytvořen, ale přihlášení se nepodařilo." };
   }
 
-  redirect("/dashboard");
+  redirect("/start");
 }
 
 export async function loginAction(
@@ -363,7 +363,7 @@ export async function registerWithGoogleAction(formData: FormData): Promise<void
 
   await setOAuthBusinessRegistrationCookie(parsed.data);
 
-  await redirectToGoogleOAuth("/dashboard");
+  await redirectToGoogleOAuth("/start");
 }
 
 export async function logoutAction() {

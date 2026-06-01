@@ -1,6 +1,6 @@
 # Runtime checklist
 
-Aktualizováno: 2026-06-01 15:40 CEST
+Aktualizováno: 2026-06-01 16:14 CEST
 
 Tento checklist je pro první reálné ověření mimo demo režim.
 
@@ -22,6 +22,9 @@ curl -I http://localhost:3000
 
 Aktuální známý stav:
 
+- `npm run check` prošlo 2026-06-01 16:11 CEST po onboarding úpravě: 567 Vitest testů, migrations check, type-check, lint a produkční build.
+- `/start` teď ověřovat jako první obrazovku po registraci podniku: panel připravenosti, CTA na další chybějící krok, veřejný rezervační odkaz, checklist a zákaznické texty bez interních názvů.
+- Registrovaný podnik má po e-mailové i Google registraci skončit na `/start`; běžné přihlášení může dál směřovat na bezpečnou cílovou stránku nebo `/dashboard`.
 - `npm run check` prošlo 2026-06-01 15:16 CEST po business/customer splitu, `/ukazka` a katalog UI úpravě: 564 Vitest testů, migrations check, type-check, lint a produkční build.
 - Lokální Playwright public smoke 2026-06-01 15:12 CEST prošel: `PLAYWRIGHT_BASE_URL=http://127.0.0.1:3000 npx playwright test tests/e2e/public-smoke.spec.ts` má 10/10 testů zelených. Segment SEO test používá `domcontentloaded`, aby nepadal na pomalém `load` čekání statických stránek.
 - Lokální design check 2026-06-01 15:04 CEST prošel pro `/`, `/podniky`, `/ukazka` na 1366px i 390px: console errors 0, horizontální overflow 0, `/podniky` nemá `lat/lng/radius` pole a demo panel nemá useknutý obsah.

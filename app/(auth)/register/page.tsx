@@ -21,11 +21,11 @@ export default async function RegisterPage({ searchParams }: RegisterPageProps) 
       <section className="w-full max-w-[440px]">
         <TemaroLogo className="justify-center" />
         <div className="mt-8 rounded-xl border border-border bg-card p-6 shadow-sm sm:p-8">
-          <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Onboarding</p>
+          <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Nový podnik</p>
           <h1 className="mt-2 text-2xl font-semibold tracking-tight">Založení podniku</h1>
           <p className="mt-2 text-sm leading-6 text-muted-foreground">
-            Vytvoříme podnik, owner účet a první přístup do dashboardu. Po registraci doplníte služby,
-            tým a veřejný booking.
+            Vytvoříme podnik a první přístup do administrace. Hned potom doplníte služby,
+            tým a veřejnou rezervační stránku.
           </p>
           <div className="mt-6">
             <RegisterForm notice={notice} />

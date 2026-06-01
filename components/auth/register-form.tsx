@@ -56,7 +56,7 @@ export function RegisterForm({ notice }: { notice?: string | null }) {
             className={inputClassName}
           />
           <p className="text-sm leading-5 text-muted-foreground">
-            Owner účet bude mít oprávnění spravovat služby, tým a nastavení podniku.
+            Tento účet bude spravovat služby, tým a nastavení podniku.
           </p>
         </div>
         <div className="flex flex-col gap-2.5">
@@ -92,8 +92,7 @@ export function RegisterForm({ notice }: { notice?: string | null }) {
         </div>
       </div>
       <p className="rounded-lg border border-primary/20 bg-primary/10 px-3 py-2.5 text-sm font-medium leading-6 text-primary">
-        Po registraci vznikne nový podnik a váš účet dostane práva vlastníka. Další data se
-        budou ukládat odděleně pro váš provoz.
+        Po registraci vás pošleme do průvodce, kde nastavíte služby, tým a veřejnou rezervační stránku.
       </p>
       {state.error ? (
         <p className="rounded-lg border border-red-200 bg-red-50 px-3 py-2.5 text-sm font-medium leading-6 text-red-700">

@@ -67,6 +67,7 @@ describe("helper functions", () => {
   it("povoli jen bezpecne lokalni presmerovani po loginu", () => {
     expect(getSafeRedirectPath("/calendar?view=day")).toBe("/calendar?view=day");
     expect(getSafeRedirectPath("/account")).toBe("/account");
+    expect(getSafeRedirectPath("/start")).toBe("/start");
     expect(getSafeRedirectPath("https://evil.example")).toBe("/dashboard");
     expect(getSafeRedirectPath("//evil.example")).toBe("/dashboard");
     expect(getSafeRedirectPath("/login")).toBe("/dashboard");

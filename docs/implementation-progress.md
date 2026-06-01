@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Aktualizováno: 2026-06-01 15:40 CEST
+Aktualizováno: 2026-06-01 16:14 CEST
 
 Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historické analýzy a staré design audity jsou přesunuté do `docs/archive/`.
 
@@ -27,6 +27,9 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - Nová stránka `/ukazka` ukazuje klikací průchod Temarem jako realistický pohled po přihlášení: přehled provozu, kalendář týmu, rezervační stránku a zákaznický účet.
 - `/podniky` je nově zákaznická vstupní stránka s hledáním podle služby a místa (`Město, adresa nebo čtvrť`); veřejné UI už neukazuje syrové souřadnice ani radius.
 - Vercel production deploy `dpl_3fZHXGPsangDKVwmMB15oUSb1ZMB` je na aliasu `https://rezervacni-system-xi.vercel.app`; externí public smoke 2026-06-01 15:40 CEST prošel 10/10 a produkční design check pro `/`, `/podniky`, `/ukazka` prošel bez overflow/coordinate/demo clipping nálezů.
+- Onboarding po registraci nově vede na `/start`: stránka má panel připravenosti, jasnou další akci, veřejný rezervační odkaz a checklist `podnik -> služba -> tým/pracovní doba -> rezervační stránka -> první klienti`.
+- E-mailová i Google registrace nového podniku po vytvoření účtu směřuje do `/start`, ne rovnou na běžný provozní dashboard.
+- `npm run check` prošlo 2026-06-01 16:11 CEST po onboarding úpravě: 567 Vitest testů, migrations check, type-check, lint a produkční build.
 - Lighthouse kontrastní nálezy na homepage jsou opravené: muted texty na tónovaných sekcích a štítcích byly zesílené na kontrastnější foreground barvy.
 - Oborové landingy mají v hero části obrazový pás z generovaných assetů `public/marketing/*-ai.webp`, aby stránky nepůsobily jen jako textové karty.
 

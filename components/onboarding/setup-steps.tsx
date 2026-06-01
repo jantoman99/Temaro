@@ -1,5 +1,7 @@
 import Link from "next/link";
-import { CheckCircle2 } from "lucide-react";
+import { ArrowRight, CheckCircle2, ExternalLink } from "lucide-react";
+
+import type { LaunchPlan } from "@/lib/onboarding/setup";
 
 export type SetupStep = {
   description: string;
@@ -15,10 +17,10 @@ export function SetupStepsPanel({ steps }: { steps: SetupStep[] }) {
     <section className="rounded-2xl border border-border bg-card p-5 shadow-sm">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">První kroky</p>
-          <h2 className="mt-1 text-xl font-semibold tracking-tight">Cesta k první rezervaci</h2>
+          <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Spuštění rezervací</p>
+          <h2 className="mt-1 text-xl font-semibold tracking-tight">Co musí být hotové před sdílením</h2>
           <p className="mt-2 text-sm font-medium text-muted-foreground">
-            Hotovo {completedSetupSteps} z {steps.length}. Checklist je stranou od běžného dashboardu.
+            Hotovo {completedSetupSteps} z {steps.length}. Každý krok vede k tomu, aby klient mohl bezpečně poslat rezervaci.
           </p>
         </div>
         <span className="rounded-md bg-primary/10 px-3 py-1 text-sm font-semibold text-primary">
@@ -38,11 +40,84 @@ export function SetupStepsPanel({ steps }: { steps: SetupStep[] }) {
           >
             <p className="flex items-center gap-2 text-sm font-semibold text-foreground">
               <CheckCircle2 className={`h-4 w-4 ${step.done ? "text-emerald-600" : "text-muted-foreground"}`} />
-              {step.done ? "Hotovo" : "Chybí"} · {step.title}
+              {step.done ? "Hotovo" : "Pokračovat"} · {step.title}
             </p>
             <p className="mt-1 text-sm font-medium text-muted-foreground">{step.description}</p>
           </Link>
         ))}
+      </div>
+    </section>
+  );
+}
+
+export function LaunchReadinessPanel({
+  bookingUrl,
+  plan,
+}: {
+  bookingUrl: string;
+  plan: LaunchPlan;
+}) {
+  const readinessLabel = plan.isReadyToShare
+    ? "Rezervační stránka je připravená ke kontrole a sdílení."
+    : "Doplňte základ, aby klient viděl službu, čas i člověka, u kterého se objednává.";
+
+  return (
+    <section className="overflow-hidden rounded-3xl border border-border bg-card shadow-sm">
+      <div className="grid gap-0 lg:grid-cols-[minmax(0,1fr)_360px]">
+        <div className="relative p-6 md:p-8">
+          <div className="absolute inset-x-0 top-0 h-1 bg-primary" aria-hidden="true" />
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-primary">Start podniku</p>
+          <h2 className="mt-3 max-w-2xl text-3xl font-semibold tracking-tight md:text-4xl">
+            Nejkratší cesta k první online rezervaci.
+          </h2>
+          <p className="mt-3 max-w-2xl text-sm font-medium leading-6 text-muted-foreground md:text-base">
+            Temaro potřebuje jen tři věci: co nabízíte, kdo má čas a jak vypadá stránka pro klienta. Zbytek provozu můžete ladit až potom.
+          </p>
+
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+            <Link
+              href={plan.nextAction.href}
+              className="inline-flex h-11 items-center justify-center gap-2 rounded-md bg-primary px-5 text-sm font-semibold text-primary-foreground shadow-sm transition hover:bg-primary/90"
+            >
+              {plan.nextAction.label}
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link
+              href={plan.bookingUrlPath}
+              className="inline-flex h-11 items-center justify-center gap-2 rounded-md border border-border bg-background px-5 text-sm font-semibold text-foreground shadow-sm transition hover:bg-muted"
+            >
+              Náhled stránky klienta
+              <ExternalLink className="h-4 w-4" />
+            </Link>
+          </div>
+
+          <div className="mt-6 rounded-2xl border border-border bg-secondary/70 p-4">
+            <p className="text-sm font-semibold text-foreground">Veřejný odkaz</p>
+            <p className="mt-2 break-all rounded-lg border border-border bg-background px-3 py-2 text-sm font-medium text-muted-foreground">
+              {bookingUrl}
+            </p>
+            <p className="mt-2 text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+              Web podniku · Instagram bio · QR kód · SMS klientům
+            </p>
+          </div>
+        </div>
+
+        <aside className="border-t border-border bg-primary/10 p-6 lg:border-l lg:border-t-0 md:p-8">
+          <div className="flex items-end justify-between gap-4">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-primary">Připravenost</p>
+              <p className="nums-tabular mt-2 text-5xl font-semibold tracking-tight text-foreground">{plan.readiness} %</p>
+            </div>
+            <div className="flex h-20 w-20 items-center justify-center rounded-full border border-primary/25 bg-background text-sm font-bold text-primary shadow-sm">
+              {plan.completedSteps}/{plan.steps.length}
+            </div>
+          </div>
+          <div className="mt-5 h-2 overflow-hidden rounded-full bg-background">
+            <div className="h-full rounded-full bg-primary transition-all" style={{ width: `${plan.readiness}%` }} />
+          </div>
+          <p className="mt-5 text-sm font-semibold leading-6 text-foreground">{readinessLabel}</p>
+          <p className="mt-2 text-sm leading-6 text-muted-foreground">{plan.nextAction.description}</p>
+        </aside>
       </div>
     </section>
   );
