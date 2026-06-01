@@ -1,6 +1,6 @@
 # Runtime checklist
 
-Aktualizováno: 2026-06-01 19:24 CEST
+Aktualizováno: 2026-06-01 19:53 CEST
 
 Tento checklist je pro první reálné ověření mimo demo režim.
 
@@ -28,6 +28,9 @@ Aktuální známý stav:
 - Vercel production env má nastavené Supabase Auth proměnné a `NEXT_PUBLIC_APP_URL=https://rezervacni-system-xi.vercel.app`. Přihlášení ověřit přes `/login`; zapomenuté heslo přes `/forgot-password` a e-mailový callback na `/reset-password`.
 - Vercel production deploy `dpl_8FLnYjPqjeBbbFZXymJvS3hG5yp2` je na aliasu `https://rezervacni-system-xi.vercel.app`. `/api/health` 2026-06-01 19:16 CEST vrací `status=ok`, `env.ok=true`, `supabase.configured=true`. Externí public smoke prošel: `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` má 10/10 testů zelených.
 - Supabase Auth URL Configuration 2026-06-01 19:24 CEST: `site_url=https://rezervacni-system-xi.vercel.app`, `uri_allow_list=https://rezervacni-system-xi.vercel.app/**,http://localhost:3000/**,https://rezervacni-system-*-hanyst7-5998s-projects.vercel.app/**`. Recovery email template používá `{{ .ConfirmationURL }}`.
+- `npm run check` prošlo 2026-06-01 19:53 CEST po onboarding wizardu a produktovém tour: 581 Vitest testů, migrations check, type-check, lint a produkční build.
+- Přihlášený Playwright smoke prošel 2026-06-01 19:49 CEST: `E2E_AUTHENTICATED_SMOKE=true npx playwright test tests/e2e/admin-authenticated.spec.ts`.
+- Runtime ověřit po registraci: nový owner skončí na `/start`, první krok je `Nejdřív vyberte typ podnikání`, navigace má skupiny `Základ` a `Pokročilé`, a tlačítko `Spustit průvodce` otevře 5krokový tour.
 - Vercel production deploy `dpl_8vaQ4KT4C4NH5tjGaBxQty8pHt51` je na aliasu `https://rezervacni-system-xi.vercel.app`. Externí public smoke 2026-06-01 18:50 CEST prošel: `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` má 10/10 testů zelených.
 - `/start` runtime ověřit po hotovém základu: panel `Pošlete odkaz prvním klientům`, text pro Instagram bio, text pro story/příspěvek, QR kód a CTA `Otevřít stránku klienta`.
 - `/services` runtime ověřit jako rychlé založení nabídky: panel `Přidat tři služby najednou` přidá vybrané oborové šablony a přeskočí už existující názvy.

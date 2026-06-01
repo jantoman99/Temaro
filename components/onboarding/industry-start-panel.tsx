@@ -18,10 +18,12 @@ const selectClassName =
 
 export function IndustryStartPanel({
   currentIndustry,
+  hasStoredIndustry = true,
   isDemo = false,
   templates,
 }: {
   currentIndustry: TenantIndustry;
+  hasStoredIndustry?: boolean;
   isDemo?: boolean;
   templates: ServiceTemplate[];
 }) {
@@ -29,16 +31,18 @@ export function IndustryStartPanel({
   const previewTemplates = templates.slice(0, 3);
 
   return (
-    <section className="rounded-2xl border border-border bg-card p-5 shadow-sm">
+    <section id="obor" className="rounded-3xl border border-border bg-card p-5 shadow-sm" data-tour="start">
       <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(280px,360px)]">
         <div>
-          <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Obor podniku</p>
-          <h2 className="mt-1 text-xl font-semibold tracking-tight">Vybrat obor pro rychlejší nastavení</h2>
+          <div className="inline-flex rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-primary">
+            Krok 1
+          </div>
+          <h2 className="mt-3 text-2xl font-semibold tracking-tight">Nejdřív vyberte typ podnikání</h2>
           <p className="mt-2 text-sm font-medium leading-6 text-muted-foreground">
-            Podle oboru nabídneme vhodné služby a texty pro veřejnou stránku. Volbu můžete později změnit.
+            Tím zkrátíme celé nastavení. Temaro hned nabídne služby, délky a ceny, které dávají pro váš obor smysl.
           </p>
 
-          <form action={formAction} className="mt-4 flex flex-col gap-3 sm:flex-row">
+          <form action={formAction} className="mt-5 grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto]">
             <label className="sr-only" htmlFor="onboarding-industry">
               Obor podniku
             </label>
@@ -47,7 +51,7 @@ export function IndustryStartPanel({
               name="industry"
               defaultValue={currentIndustry}
               disabled={isDemo || isPending}
-              className={`${selectClassName} sm:min-w-80`}
+              className={selectClassName}
             >
               {TENANT_INDUSTRIES.map((industry) => (
                 <option key={industry.value} value={industry.value}>
@@ -56,7 +60,7 @@ export function IndustryStartPanel({
               ))}
             </select>
             <Button type="submit" disabled={isDemo || isPending}>
-              {isPending ? "Ukládám..." : "Uložit obor"}
+              {isPending ? "Ukládám..." : hasStoredIndustry ? "Uložit obor" : "Pokračovat"}
             </Button>
           </form>
 
@@ -78,7 +82,10 @@ export function IndustryStartPanel({
         </div>
 
         <div className="rounded-xl border border-border bg-secondary p-4">
-          <p className="text-sm font-semibold text-foreground">Doporučené první služby</p>
+          <p className="text-sm font-semibold text-foreground">Co připravíme dál</p>
+          <p className="mt-1 text-xs font-medium leading-5 text-muted-foreground">
+            Po výběru oboru můžete jedním kliknutím přidat tyto první služby.
+          </p>
           <div className="mt-3 grid gap-2">
             {previewTemplates.map((template) => (
               <Link

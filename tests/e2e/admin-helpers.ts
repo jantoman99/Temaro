@@ -45,8 +45,8 @@ export async function registerE2EOwner(page: Page, setup: ReturnType<typeof crea
   await page.getByLabel("Heslo").fill(setup.password);
   await page.getByRole("button", { name: "Vytvořit podnik", exact: true }).click();
 
-  await expect(page).toHaveURL(/\/dashboard$/);
-  await expect(page.getByRole("heading", { name: "Přehled provozu" })).toBeVisible();
+  await expect(page).toHaveURL(/\/start$/);
+  await expect(page.getByRole("heading", { name: "Nastavení první rezervace" })).toBeVisible();
 }
 
 export async function cleanupE2EAccount(email: string, businessName: string) {

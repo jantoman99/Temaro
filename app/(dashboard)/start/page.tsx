@@ -103,6 +103,7 @@ export default async function StartPage() {
       />
       <IndustryStartPanel
         currentIndustry={industry}
+        hasStoredIndustry={Boolean(tenant?.industry)}
         templates={getServiceTemplatesForIndustry(industry)}
       />
       <SetupStepsPanel steps={launchPlan.steps} />

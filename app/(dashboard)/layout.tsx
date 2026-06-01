@@ -11,6 +11,7 @@ import {
 import { logoutAction } from "@/app/(auth)/actions";
 import { TemaroLogo } from "@/components/brand/temaro-logo";
 import { DashboardMobileNavigation, DashboardSidebarNavigation } from "@/components/layouts/dashboard-navigation";
+import { ProductTour, ProductTourLauncher } from "@/components/onboarding/product-tour";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { getDashboardContextRedirect, requireDashboardContext } from "@/lib/auth/require-dashboard-context";
@@ -106,6 +107,7 @@ export default async function DashboardLayout({
             </div>
             <div className="flex items-center gap-2">
               <ThemeToggle compact />
+              <ProductTourLauncher />
               <button className="grid size-10 place-items-center rounded-md text-muted-foreground transition hover:bg-muted hover:text-foreground">
                 <Bell className="size-4 stroke-[1.75]" />
               </button>
@@ -128,6 +130,7 @@ export default async function DashboardLayout({
           <div className="w-full flex-1 px-4 py-6 sm:px-8 sm:py-8">
             {children}
           </div>
+          <ProductTour />
         </section>
       </div>
     </main>

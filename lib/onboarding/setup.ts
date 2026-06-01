@@ -39,25 +39,32 @@ export function buildLaunchPlan({
   bookingsCount: number;
   servicesCount: number;
   staffCount: number;
-  tenant: { name: string; slug: string };
+  tenant: { industry?: string | null; name: string; slug: string };
 }): LaunchPlan {
   const bookingUrlPath = tenant.slug ? `/${tenant.slug}` : "/booking-page";
+  const hasIndustry = Boolean(tenant.industry);
   const hasBusinessName = tenant.name.trim().length >= 2;
   const hasServices = servicesCount > 0;
   const hasStaff = staffCount > 0;
-  const isReadyToShare = hasBusinessName && hasServices && hasStaff;
+  const isReadyToShare = hasIndustry && hasBusinessName && hasServices && hasStaff;
   const steps: LaunchStep[] = [
+    {
+      done: hasIndustry,
+      href: "/start#obor",
+      title: "Vybrat obor podnikání",
+      description: "Podle oboru připravíme doporučené služby a jednodušší další kroky.",
+    },
     {
       done: hasBusinessName,
       href: "/settings",
       title: "Zkontrolovat podnik",
-      description: "Název, kontakt, adresa, storno pravidla a veřejné údaje.",
+      description: "Stačí název a veřejný odkaz. Detailní kontakty doladíte později.",
     },
     {
       done: hasServices,
       href: "/services",
-      title: "Přidat první službu",
-      description: "Služba, délka, cena a případná záloha pro klienta.",
+      title: "Přidat doporučené služby",
+      description: "Vyberte tři návrhy podle oboru. Ceny a délky můžete upravit později.",
     },
     {
       done: hasStaff,

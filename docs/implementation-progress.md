@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Aktualizováno: 2026-06-01 19:24 CEST
+Aktualizováno: 2026-06-01 19:53 CEST
 
 Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historické analýzy a staré design audity jsou přesunuté do `docs/archive/`.
 
@@ -42,6 +42,10 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - `npm run check` prošlo 2026-06-01 19:13 CEST po doplnění Vercel Auth env a resetu hesla: 577 Vitest testů, migrations check, type-check, lint a produkční build.
 - Vercel production deploy `dpl_8FLnYjPqjeBbbFZXymJvS3hG5yp2` je na aliasu `https://rezervacni-system-xi.vercel.app`; `/api/health` je `ok`, Supabase je `configured=true` a externí public smoke 2026-06-01 19:16 CEST prošel 10/10.
 - Supabase Auth URL Configuration je opravená: `site_url=https://rezervacni-system-xi.vercel.app`, redirect allowlist obsahuje produkční alias, localhost pro vývoj a Vercel preview pattern. Reset hesla už nemá fallbackovat na localhost.
+- Přihlášený onboarding je zjednodušený do wizardu: po registraci `/start` začíná výběrem oboru podnikání, další krok vede na doporučené služby podle oboru, pak tým/pracovní doba, rezervační stránka a sdílení odkazu.
+- Dashboard navigace je odlehčená: hlavní viditelný základ je `Start`, `Kalendář`, `Klienti`, `Služby`, `Tým`, `Rezervační stránka`; ostatní moduly jsou oddělené pod skupinou `Pokročilé`.
+- Přidaný interní produktový průvodce: po prvním vstupu se ukáže krátký 5krokový tour a lze ho znovu spustit tlačítkem `Spustit průvodce`.
+- `npm run check` prošlo 2026-06-01 19:53 CEST po onboarding wizardu a produktovém tour: 581 Vitest testů, migrations check, type-check, lint a produkční build. Přihlášený Playwright smoke `E2E_AUTHENTICATED_SMOKE=true npx playwright test tests/e2e/admin-authenticated.spec.ts` prošel 2026-06-01 19:49 CEST.
 - Lighthouse kontrastní nálezy na homepage jsou opravené: muted texty na tónovaných sekcích a štítcích byly zesílené na kontrastnější foreground barvy.
 - Oborové landingy mají v hero části obrazový pás z generovaných assetů `public/marketing/*-ai.webp`, aby stránky nepůsobily jen jako textové karty.
 

@@ -15,7 +15,7 @@ export function SetupStepsPanel({ steps }: { steps: SetupStep[] }) {
   const completedSetupSteps = steps.filter((step) => step.done).length;
 
   return (
-    <section className="rounded-2xl border border-border bg-card p-5 shadow-sm">
+    <section className="rounded-3xl border border-border bg-card p-5 shadow-sm">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Spuštění rezervací</p>
@@ -28,22 +28,27 @@ export function SetupStepsPanel({ steps }: { steps: SetupStep[] }) {
           {Math.round((completedSetupSteps / steps.length) * 100)} %
         </span>
       </div>
-      <div className="mt-5 grid gap-3 md:grid-cols-2">
-        {steps.map((step) => (
+      <div className="mt-5 grid gap-3">
+        {steps.map((step, index) => (
           <Link
             key={step.title}
             href={step.href}
-            className={`rounded-xl border px-4 py-3 shadow-sm transition ${
+            className={`grid gap-3 rounded-2xl border px-4 py-3 shadow-sm transition sm:grid-cols-[44px_minmax(0,1fr)_auto] sm:items-center ${
               step.done
                 ? "border-emerald-500/25 bg-emerald-500/10"
                 : "border-border bg-background/70 hover:bg-muted/40"
             }`}
           >
-            <p className="flex items-center gap-2 text-sm font-semibold text-foreground">
-              <CheckCircle2 className={`h-4 w-4 ${step.done ? "text-emerald-600" : "text-muted-foreground"}`} />
-              {step.done ? "Hotovo" : "Pokračovat"} · {step.title}
-            </p>
-            <p className="mt-1 text-sm font-medium text-muted-foreground">{step.description}</p>
+            <span className={`grid size-10 place-items-center rounded-full text-sm font-bold ${step.done ? "bg-emerald-600 text-white" : "bg-secondary text-foreground"}`}>
+              {step.done ? <CheckCircle2 className="h-5 w-5" /> : index + 1}
+            </span>
+            <span>
+              <span className="block text-sm font-semibold text-foreground">{step.title}</span>
+              <span className="mt-1 block text-sm font-medium text-muted-foreground">{step.description}</span>
+            </span>
+            <span className={`text-sm font-semibold ${step.done ? "text-emerald-700" : "text-primary"}`}>
+              {step.done ? "Hotovo" : "Pokračovat"}
+            </span>
           </Link>
         ))}
       </div>
@@ -81,6 +86,7 @@ export function LaunchReadinessPanel({
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
             <Link
               href={plan.nextAction.href}
+              data-tour="start"
               className="inline-flex h-11 items-center justify-center gap-2 rounded-md bg-primary px-5 text-sm font-semibold text-primary-foreground shadow-sm transition hover:bg-primary/90"
             >
               {plan.nextAction.label}

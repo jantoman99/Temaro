@@ -26,17 +26,18 @@ test.describe("authenticated admin smoke", () => {
       for (const route of ["/calendar", "/clients", "/services", "/staff", "/start", "/booking-page", "/settings"] as const) {
         await page.goto(route);
         await expect(page).toHaveURL(new RegExp(`${route}$`));
-        await expect(page.getByRole("link", { name: "Přehled" })).toBeVisible();
+        await expect(page.getByRole("link", { name: "Start" }).first()).toBeVisible();
       }
 
       await page.goto("/start");
-      await expect(page.getByRole("heading", { name: "První kroky" })).toBeVisible();
-      await expect(page.getByText("Zkontrolovat booking stránku")).toBeVisible();
+      await expect(page.getByRole("heading", { name: "Nastavení první rezervace" })).toBeVisible();
+      await expect(page.getByText("Nejdřív vyberte typ podnikání")).toBeVisible();
+      await expect(page.getByRole("link", { name: "Přidat doporučené služby", exact: true })).toBeVisible();
 
       await page.goto("/booking-page");
-      await expect(page.getByRole("heading", { name: "Booking stránka", exact: true })).toBeVisible();
-      await expect(page.getByRole("heading", { name: "Instagram a QR minimum" })).toBeVisible();
-      await expect(page.getByRole("heading", { name: "Rezervační tlačítko" })).toBeVisible();
+      await expect(page.getByRole("heading", { name: "Rezervační stránka", exact: true })).toBeVisible();
+      await expect(page.getByRole("heading", { name: "Instagram, Google profil a QR" })).toBeVisible();
+      await expect(page.getByRole("heading", { name: "Rezervační widget" })).toBeVisible();
       await expect(page.getByRole("link", { name: "Rezervovat termín" })).toHaveAttribute("href", /^\/[a-z0-9-]+$/);
 
       await page.goto("/settings");

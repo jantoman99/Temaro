@@ -12,15 +12,16 @@ describe("onboarding setup", () => {
     });
 
     expect(plan.steps.map((step) => step.title)).toEqual([
+      "Vybrat obor podnikání",
       "Zkontrolovat podnik",
-      "Přidat první službu",
+      "Přidat doporučené služby",
       "Nastavit tým a pracovní dobu",
       "Projít rezervační stránku",
       "Poslat odkaz prvním klientům",
     ]);
     expect(plan.nextAction).toMatchObject({
-      href: "/services",
-      label: "Přidat první službu",
+      href: "/start#obor",
+      label: "Vybrat obor podnikání",
     });
     expect(plan.bookingUrlPath).toBe("/studio-magnolia");
     expect(plan.isReadyToShare).toBe(false);
@@ -31,7 +32,7 @@ describe("onboarding setup", () => {
       bookingsCount: 0,
       servicesCount: 2,
       staffCount: 1,
-      tenant: { name: "Studio Magnolia", slug: "studio-magnolia" },
+      tenant: { industry: "hair", name: "Studio Magnolia", slug: "studio-magnolia" },
     });
 
     expect(plan.nextAction).toMatchObject({

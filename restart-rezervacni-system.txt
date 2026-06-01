@@ -21,9 +21,12 @@ Důležité chování:
 - Ruční testy jsou odložené do `docs/manual-test-plan.md`.
 - Dokumentaci aktualizuj při smysluplné změně.
 
-Aktuální stav 2026-06-01 19:24 CEST:
+Aktuální stav 2026-06-01 19:53 CEST:
 - Produkt se jmenuje `Temaro`.
-- Poslední ověření: `npm run check` prošlo 2026-06-01 19:13 CEST s 577 Vitest testy, migrations check, type-check, lint i produkčním buildem.
+- Poslední ověření: `npm run check` prošlo 2026-06-01 19:53 CEST s 581 Vitest testy, migrations check, type-check, lint i produkčním buildem. Přihlášený Playwright smoke prošel 2026-06-01 19:49 CEST.
+- `/start` je wizardový onboarding po registraci: první krok výběr oboru podnikání, potom doporučené služby podle oboru, tým/pracovní doba, rezervační stránka a sdílení odkazu.
+- Dashboard navigace je odlehčená: základ `Start`, `Kalendář`, `Klienti`, `Služby`, `Tým`, `Rezervační stránka`; ostatní moduly jsou ve skupině `Pokročilé`.
+- Přidaný interní produktový tour: po prvním vstupu se ukáže 5 kroků a lze ho znovu spustit tlačítkem `Spustit průvodce`.
 - Produkce je nasazená na `https://rezervacni-system-xi.vercel.app`, aktuální deploy `dpl_8FLnYjPqjeBbbFZXymJvS3hG5yp2`; `/api/health` vrací `ok`, Supabase je `configured=true` a externí public smoke prošel 2026-06-01 19:16 CEST 10/10.
 - Produkční Vercel env pro Supabase Auth jsou nastavené: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` a `NEXT_PUBLIC_APP_URL=https://rezervacni-system-xi.vercel.app`.
 - Login má reset hesla: `/forgot-password` odešle bezpečný e-mailový odkaz bez prozrazení existence účtu a `/reset-password` nastaví nové heslo z recovery session.
