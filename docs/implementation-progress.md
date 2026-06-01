@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Aktualizováno: 2026-06-01 20:21 CEST
+Aktualizováno: 2026-06-01 20:57 CEST
 
 Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historické analýzy a staré design audity jsou přesunuté do `docs/archive/`.
 
@@ -52,6 +52,10 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - `/booking-page` má vizuálnější editor zákaznické stránky: úvodní fotka a logo jsou klikací upload plochy s okamžitým náhledem před uložením, URL pole jsou odsunutá do rozbalené nouzové volby a náhled reaguje i na popis a barvu podniku.
 - `npm run check` prošlo 2026-06-01 20:17 CEST po vizuálním editoru booking stránky: 583 Vitest testů, migrations check, type-check, lint a produkční build. Přihlášený Playwright smoke `E2E_AUTHENTICATED_SMOKE=true npx playwright test tests/e2e/admin-authenticated.spec.ts` prošel 2026-06-01 20:12 CEST.
 - Vercel production deploy `dpl_7QWM11Y5JZ2UwxoCrZvQs3uxSMod` je na aliasu `https://rezervacni-system-xi.vercel.app`; `/api/health` je `ok` a externí public smoke 2026-06-01 20:21 CEST prošel 10/10.
+- Veřejná booking stránka `/[slug]` má profilovější zobrazení inspirované Reservio/Salona: hero galerii, hodnocení, adresu, mapový iframe přes souřadnice, sociální odkazy a štítky vybavení/služeb navíc.
+- `/booking-page` editor ukládá galerii fotek, výhody provozovny a odkazy Instagram/Facebook/TikTok/web. Nová migrace `20260601202500_add_tenant_public_profile_details.sql` byla aplikovaná do remote DB přes `supabase db query --linked` a historie byla označená jako applied.
+- `npm run check` prošlo 2026-06-01 20:52 CEST po veřejném profilu booking stránky: 584 Vitest testů, migrations check, type-check, lint a produkční build. Lokální public smoke prošel 10/10 a přihlášený Playwright smoke prošel 2026-06-01 20:49 CEST.
+- Vercel production deploy `dpl_AXGhH3Wg6NXanoMmsB5ZD4DqhBwF` je na aliasu `https://rezervacni-system-xi.vercel.app`; `/api/health` je `ok`, externí public smoke 2026-06-01 20:56 CEST prošel 10/10 a `/toman-barber` vrací HTTP 200.
 
 ## Hotové funkčně
 

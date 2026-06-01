@@ -1,6 +1,6 @@
 # Handoff
 
-Aktualizováno: 2026-06-01 20:21 CEST
+Aktualizováno: 2026-06-01 20:57 CEST
 
 ## Jak navázat
 
@@ -39,6 +39,10 @@ Aktualizováno: 2026-06-01 20:21 CEST
 - Aktuální UX změna: `/booking-page` má vizuální editor zákaznické stránky. Owner klikne na velkou úvodní fotku nebo logo, nahraje obrázek a okamžitě vidí lokální náhled; ruční URL zůstává jen jako rozbalitelný fallback.
 - Poslední ověření: `npm run check` prošlo 2026-06-01 20:17 CEST s 583 Vitest testy, migrations check, type-check, lint i buildem; přihlášený Playwright smoke prošel 2026-06-01 20:12 CEST.
 - Produkční deploy `dpl_7QWM11Y5JZ2UwxoCrZvQs3uxSMod` je na aliasu `https://rezervacni-system-xi.vercel.app`; `/api/health` je `ok` a externí public smoke prošel 2026-06-01 20:21 CEST 10/10.
+- Aktuální UX změna 2: veřejný booking profil `/[slug]` je blíž Reservio/Salona profilu: galerie, hodnocení, adresa, mapa, sociální odkazy a výhody provozovny. Stejný obsah se nastavuje v `/booking-page` vedle cover/loga.
+- Poslední ověření: `npm run check` prošlo 2026-06-01 20:52 CEST s 584 Vitest testy, migrations check, type-check, lint i buildem; lokální public smoke prošel 10/10 a přihlášený smoke prošel 2026-06-01 20:49 CEST.
+- Produkční deploy `dpl_AXGhH3Wg6NXanoMmsB5ZD4DqhBwF` je na aliasu `https://rezervacni-system-xi.vercel.app`; `/api/health` je `ok`, externí public smoke prošel 2026-06-01 20:56 CEST 10/10 a `/toman-barber` vrací HTTP 200.
+- Supabase poznámka: `supabase db push` je stále blokovaný staršími remote-only migracemi v historii. Nová migrace `20260601202500_add_tenant_public_profile_details.sql` byla proto aplikovaná přes `supabase db query --linked --file ...` a označená jako applied přes `supabase migration repair --status applied 20260601202500`.
 - Vercel production deploy po homepage demo/kontrast opravě je hotový: `https://rezervacni-system-xi.vercel.app`, aktuální deploy `dpl_Cx2nPdYYMLiwTNsaY5yQLUN9x7b7`; externí public smoke 2026-06-01 13:21 CEST prošel 8/8 a produkční axe color-contrast audit homepage vrátil `violationCount: 0`.
 - Public health endpoint nevrací názvy chybějících secret env; vrací jen počet v `checks.env.missing`.
 - GitHub login connection ve Vercelu je propojený; před propojením byly nové deploymenty private repa `BLOCKED`, aktuální production deploy je `dpl_4Zogqwr6XLj2utWu7cbc9sCh5ePe`.

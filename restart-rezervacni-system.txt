@@ -21,8 +21,12 @@ Důležité chování:
 - Ruční testy jsou odložené do `docs/manual-test-plan.md`.
 - Dokumentaci aktualizuj při smysluplné změně.
 
-Aktuální stav 2026-06-01 20:21 CEST:
+Aktuální stav 2026-06-01 20:57 CEST:
 - Produkt se jmenuje `Temaro`.
+- Poslední ověření: `npm run check` prošlo 2026-06-01 20:52 CEST s 584 Vitest testy, migrations check, type-check, lint i produkčním buildem. Lokální public smoke prošel 10/10 a přihlášený Playwright smoke prošel 2026-06-01 20:49 CEST.
+- Produkce je nasazená na `https://rezervacni-system-xi.vercel.app`, aktuální deploy `dpl_AXGhH3Wg6NXanoMmsB5ZD4DqhBwF`; `/api/health` vrací `ok`, externí public smoke prošel 2026-06-01 20:56 CEST 10/10 a `/toman-barber` vrací HTTP 200.
+- Veřejný booking profil `/[slug]` je blíž Reservio/Salona profilu: galerie, hodnocení, adresa, mapový iframe přes souřadnice, sociální odkazy a výhody provozovny.
+- `/booking-page` editor ukládá galerii fotek, výhody provozovny a odkazy Instagram/Facebook/TikTok/web. Remote DB migrace `20260601202500_add_tenant_public_profile_details.sql` byla aplikovaná přes `supabase db query --linked` a označená jako applied.
 - Poslední ověření: `npm run check` prošlo 2026-06-01 20:17 CEST s 583 Vitest testy, migrations check, type-check, lint i produkčním buildem. Přihlášený Playwright smoke prošel 2026-06-01 20:12 CEST.
 - Produkce je nasazená na `https://rezervacni-system-xi.vercel.app`, aktuální deploy `dpl_7QWM11Y5JZ2UwxoCrZvQs3uxSMod`; `/api/health` vrací `ok` a externí public smoke prošel 2026-06-01 20:21 CEST 10/10.
 - `/booking-page` má vizuální editor zákaznické stránky: owner klikne na velkou úvodní fotku nebo logo, nahraje obrázek a hned vidí lokální náhled před uložením; ruční URL zůstává jen jako rozbalitelný fallback.

@@ -1,6 +1,6 @@
 # Runtime checklist
 
-Aktualizováno: 2026-06-01 20:21 CEST
+Aktualizováno: 2026-06-01 20:57 CEST
 
 Tento checklist je pro první reálné ověření mimo demo režim.
 
@@ -35,11 +35,17 @@ Aktuální známý stav:
 - `npm run check` prošlo 2026-06-01 20:17 CEST po vizuálním editoru `/booking-page`: 583 Vitest testů, migrations check, type-check, lint a produkční build.
 - Přihlášený Playwright smoke prošel 2026-06-01 20:12 CEST: `E2E_AUTHENTICATED_SMOKE=true npx playwright test tests/e2e/admin-authenticated.spec.ts`; kontroluje i upload plochu `Úvodní fotka stránky` a okamžitý `Náhled pro klienta`.
 - Vercel production deploy `dpl_7QWM11Y5JZ2UwxoCrZvQs3uxSMod` je na aliasu `https://rezervacni-system-xi.vercel.app`. `/api/health` 2026-06-01 20:20 CEST vrací `status=ok`, `env.ok=true`, `supabase.configured=true`. Externí public smoke prošel: `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` má 10/10 testů zelených.
+- `npm run check` prošlo 2026-06-01 20:52 CEST po veřejném profilu booking stránky: 584 Vitest testů, migrations check, type-check, lint a produkční build.
+- Lokální public smoke prošel 2026-06-01 20:42 CEST: `npx playwright test tests/e2e/public-smoke.spec.ts` má 10/10 testů zelených.
+- Přihlášený Playwright smoke prošel 2026-06-01 20:49 CEST: `E2E_AUTHENTICATED_SMOKE=true npx playwright test tests/e2e/admin-authenticated.spec.ts`.
+- Remote DB má aplikovanou profilovou migraci `20260601202500_add_tenant_public_profile_details.sql`; `supabase db push` je dál blokovaný staršími remote-only migracemi, takže nová migrace byla aplikovaná přes `supabase db query --linked` a historie opravena přes `supabase migration repair --status applied 20260601202500`.
+- Vercel production deploy `dpl_AXGhH3Wg6NXanoMmsB5ZD4DqhBwF` je na aliasu `https://rezervacni-system-xi.vercel.app`. `/api/health` 2026-06-01 20:55 CEST vrací `status=ok`, `env.ok=true`, `supabase.configured=true`. Externí public smoke prošel: `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` má 10/10 testů zelených. `/toman-barber` vrací HTTP 200.
 - Vercel production deploy `dpl_8vaQ4KT4C4NH5tjGaBxQty8pHt51` je na aliasu `https://rezervacni-system-xi.vercel.app`. Externí public smoke 2026-06-01 18:50 CEST prošel: `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` má 10/10 testů zelených.
 - `/start` runtime ověřit po hotovém základu: panel `Pošlete odkaz prvním klientům`, text pro Instagram bio, text pro story/příspěvek, QR kód a CTA `Otevřít stránku klienta`.
 - `/services` runtime ověřit jako rychlé založení nabídky: panel `Přidat tři služby najednou` přidá vybrané oborové šablony a přeskočí už existující názvy.
 - `/staff` runtime ověřit jako rychlé nastavení člověka: výchozí pracovní doba Po-Pá 09:00-17:00 a volba `Přiřadit všechny aktuální služby`.
 - `/booking-page` runtime ověřit podle panelu `Připravenost stránky`: služba, tým, pracovní doba a propojení služby s týmem. V editoru brandingu ověřit klikací upload úvodní fotky/loga, okamžitý lokální náhled a uložení do veřejné stránky.
+- `/booking-page` runtime ověřit také jako profil podniku: galerie fotek, výhody provozovny, Instagram/Facebook/TikTok/web URL a následné zobrazení na veřejném `/[slug]` profilu.
 - Vercel production deploy `dpl_Fz5xgNTdXkTxLz6gthNHN7z39DBw` je na aliasu `https://rezervacni-system-xi.vercel.app`. Externí public smoke 2026-06-01 16:46 CEST prošel: `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` má 10/10 testů zelených.
 - Vercel production deploy `dpl_6ZgkD4UjbWZtxU6mhg5KFEmz3gpD` je na aliasu `https://rezervacni-system-xi.vercel.app`. Externí public smoke 2026-06-01 16:19 CEST prošel: `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` má 10/10 testů zelených.
 - `/start` teď ověřovat jako první obrazovku po registraci podniku: panel připravenosti, CTA na další chybějící krok, veřejný rezervační odkaz, checklist a zákaznické texty bez interních názvů.
