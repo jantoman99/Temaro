@@ -25,6 +25,7 @@ Aktuální stav 2026-06-01 12:31 CEST:
 - Produkt se jmenuje `Temaro`.
 - Poslední ověření: `npm run check` prošlo 2026-06-01 12:31 CEST s 560 Vitest testy, migrations check, type-check, lint i produkčním buildem.
 - Poslední lokální Playwright audit veřejného webu prošel 2026-06-01 12:26 CEST: 14/14 kontrolovaných veřejných tras vrací HTTP 200, console errors 0.
+- Produkce je nasazená na `https://rezervacni-system-xi.vercel.app`, aktuální deploy `dpl_4E4V3JhDnfw3FmqGLHahaoUvnuEB`; externí public smoke prošel 2026-06-01 12:39 CEST 8/8.
 - Homepage po aktuální UX/copy revizi: menu, hero a `#provoz` jsou na stejné ose `x=93`, `width=1180`; živá ukázka je stabilní `717px` vysoká ve všech scénách a odpovídá reálným přihlášeným obrazovkám `Přehled provozu`, `Kalendář`, `Rezervační stránka`, `Zákaznický účet`.
 - Veřejné texty prošly zákaznickým copy passem: z viditelného marketing UI mizí interní názvy typu `tenant`, `MVP`, `self-service`, `booking flow`; používá se `rezervační odkaz`, `bezpečný odkaz`, `připomínka`, `podnik/provoz`.
 - Oborové landingy používají v hero preview obrazový pás z generovaných WebP assetů `public/marketing/*-ai.webp`.

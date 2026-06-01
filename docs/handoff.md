@@ -32,6 +32,7 @@ Aktualizováno: 2026-06-01 12:31 CEST
 - Review request používá tenant `review_url`; po owner dokončení rezervace odešle klientovi e-mail a uloží notification typ `review_request`. Migrace `20260508121000_add_review_request_notification_type.sql` je aplikovaná lokálně i remote.
 - Online záloha přes Stripe používá self-service manage odkaz, route `/api/payments/stripe/checkout`, webhook `/api/payments/stripe/webhook`, pending/paid záznamy v `booking_payments` a audit event `payment_recorded`.
 - Poslední ověření: `npm run check` prošlo 2026-06-01 12:31 CEST s 560 Vitest testy, migrations check, type-check, lint i produkčním buildem; lokální Playwright audit veřejných tras prošel 2026-06-01 12:26 CEST bez console errorů a se 14/14 HTTP 200.
+- Vercel production deploy po marketing copy/vizuál revizi je hotový: `https://rezervacni-system-xi.vercel.app`, aktuální deploy `dpl_4E4V3JhDnfw3FmqGLHahaoUvnuEB`; externí public smoke 2026-06-01 12:39 CEST prošel 8/8.
 - Vercel production deploy je hotový: `https://rezervacni-system-xi.vercel.app`, aktuální deploy `dpl_GTBd3UAtuQhYg6Jhzz1epxNhmhvX`.
 - Public health endpoint nevrací názvy chybějících secret env; vrací jen počet v `checks.env.missing`.
 - GitHub login connection ve Vercelu je propojený; před propojením byly nové deploymenty private repa `BLOCKED`, aktuální production deploy je `dpl_4Zogqwr6XLj2utWu7cbc9sCh5ePe`.
