@@ -12,6 +12,14 @@ export const loginSchema = z.object({
   password: passwordSchema,
 });
 
+export const passwordResetRequestSchema = z.object({
+  email: emailSchema,
+});
+
+export const updatePasswordSchema = z.object({
+  password: passwordSchema,
+});
+
 export const registerSchema = z.object({
   businessName: z
     .string()
@@ -34,4 +42,6 @@ export const oauthBusinessRegistrationSchema = registerSchema.pick({
 
 export type LoginInput = z.infer<typeof loginSchema>;
 export type OauthBusinessRegistrationInput = z.infer<typeof oauthBusinessRegistrationSchema>;
+export type PasswordResetRequestInput = z.infer<typeof passwordResetRequestSchema>;
 export type RegisterInput = z.infer<typeof registerSchema>;
+export type UpdatePasswordInput = z.infer<typeof updatePasswordSchema>;

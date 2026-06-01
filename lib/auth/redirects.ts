@@ -8,6 +8,7 @@ const SAFE_REDIRECT_PREFIXES = [
   "/settings",
   "/staff",
   "/start",
+  "/reset-password",
 ];
 
 export function getSafeRedirectPath(value: string) {

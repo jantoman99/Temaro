@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Aktualizováno: 2026-06-01 18:50 CEST
+Aktualizováno: 2026-06-01 19:13 CEST
 
 Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historické analýzy a staré design audity jsou přesunuté do `docs/archive/`.
 
@@ -37,6 +37,9 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - `/start` má po splnění základního nastavení uzavřený sdílecí krok: odkaz pro klienta, Instagram bio text, krátký příspěvek/story text a QR kód pro provozovnu.
 - `npm run check` prošlo 2026-06-01 18:47 CEST po doplnění sdílení do `/start`: 572 Vitest testů, migrations check, type-check, lint a produkční build.
 - Vercel production deploy `dpl_8vaQ4KT4C4NH5tjGaBxQty8pHt51` je na aliasu `https://rezervacni-system-xi.vercel.app`; externí public smoke 2026-06-01 18:50 CEST prošel 10/10.
+- Produkční Vercel env pro Supabase Auth jsou nastavené: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` a `NEXT_PUBLIC_APP_URL=https://rezervacni-system-xi.vercel.app`.
+- Přihlášení má doplněné reset hesla: `/forgot-password` posílá bezpečný Supabase reset odkaz bez prozrazení existence účtu, `/reset-password` nastaví nové heslo z recovery session a následně uživatele odhlásí pro nové přihlášení.
+- `npm run check` prošlo 2026-06-01 19:13 CEST po doplnění Vercel Auth env a resetu hesla: 577 Vitest testů, migrations check, type-check, lint a produkční build.
 - Lighthouse kontrastní nálezy na homepage jsou opravené: muted texty na tónovaných sekcích a štítcích byly zesílené na kontrastnější foreground barvy.
 - Oborové landingy mají v hero části obrazový pás z generovaných assetů `public/marketing/*-ai.webp`, aby stránky nepůsobily jen jako textové karty.
 

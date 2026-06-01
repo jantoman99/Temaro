@@ -90,7 +90,7 @@ import {
   createPublicBookingAction,
   joinWaitlistAction,
 } from "@/app/(booking)/[slug]/actions";
-import { loginAction, registerAction } from "@/app/(auth)/actions";
+import { loginAction, requestPasswordResetAction, registerAction, updatePasswordAction } from "@/app/(auth)/actions";
 import {
   cancelManagedBookingAction,
   rescheduleManagedBookingAction,
@@ -852,6 +852,74 @@ describe("server actions hardening", () => {
       email: "owner@example.com",
       password: "supersecret",
     });
+  });
+
+  it("reset hesla posle odkaz pres Supabase bez prozrazeni existence uctu", async () => {
+    const resetPasswordForEmail = vi.fn(async () => ({ error: null }));
+
+    mocks.createClient.mockResolvedValue({
+      auth: {
+        resetPasswordForEmail,
+      },
+    });
+
+    const result = await requestPasswordResetAction(
+      {},
+      createFormData({
+        email: "owner@example.com",
+      }),
+    );
+
+    expect(result).toEqual({
+      success: "Pokud e-mail v Temaru existuje, poslali jsme na něj odkaz pro nastavení nového hesla.",
+    });
+    expect(resetPasswordForEmail).toHaveBeenCalledWith("owner@example.com", {
+      redirectTo: "http://localhost:3000/auth/callback?next=%2Freset-password",
+    });
+  });
+
+  it("reset hesla vrati stejnou odpoved i pri Supabase chybe", async () => {
+    const resetPasswordForEmail = vi.fn(async () => ({ error: { message: "User not found" } }));
+
+    mocks.createClient.mockResolvedValue({
+      auth: {
+        resetPasswordForEmail,
+      },
+    });
+
+    const result = await requestPasswordResetAction(
+      {},
+      createFormData({
+        email: "missing@example.com",
+      }),
+    );
+
+    expect(result).toEqual({
+      success: "Pokud e-mail v Temaru existuje, poslali jsme na něj odkaz pro nastavení nového hesla.",
+    });
+  });
+
+  it("nastaveni noveho hesla aktualizuje heslo v aktivni recovery session", async () => {
+    const signOut = vi.fn(async () => ({ error: null }));
+    const updateUser = vi.fn(async () => ({ error: null }));
+
+    mocks.createClient.mockResolvedValue({
+      auth: {
+        signOut,
+        updateUser,
+      },
+    });
+
+    const result = await updatePasswordAction(
+      {},
+      createFormData({
+        password: "newsecret123",
+      }),
+    );
+
+    expect(result).toEqual({ success: "Heslo bylo změněné. Teď se můžete přihlásit." });
+    expect(updateUser).toHaveBeenCalledWith({ password: "newsecret123" });
+    expect(signOut).toHaveBeenCalledOnce();
   });
 
   it("login odhlasi relaci, kdyz po prihlaseni nejde nacist uzivatele", async () => {

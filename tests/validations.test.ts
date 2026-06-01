@@ -22,7 +22,7 @@ import { calendarSearchParamsSchema } from "@/lib/validations/calendar";
 import { createServiceSchema } from "@/lib/validations/services";
 import { tenantBookingBrandingSchema, tenantSettingsSchema } from "@/lib/validations/settings";
 import { createStaffSchema, inviteStaffSchema, staffExceptionSchema, updateStaffSchema } from "@/lib/validations/staff";
-import { loginSchema, registerSchema } from "@/lib/validations/auth";
+import { loginSchema, passwordResetRequestSchema, registerSchema, updatePasswordSchema } from "@/lib/validations/auth";
 import { recordBookingPaymentSchema } from "@/lib/validations/payments";
 
 const UUID_1 = "11111111-1111-4111-8111-111111111111";
@@ -339,6 +339,13 @@ describe("validation schemas", () => {
       email: "jan@example.com",
       password: longPassword,
     }).success).toBe(false);
+  });
+
+  it("validuje reset hesla bez technickych detailu", () => {
+    expect(passwordResetRequestSchema.safeParse({ email: "owner@example.com" }).success).toBe(true);
+    expect(passwordResetRequestSchema.safeParse({ email: "neni-email" }).success).toBe(false);
+    expect(updatePasswordSchema.safeParse({ password: "newsecret123" }).success).toBe(true);
+    expect(updatePasswordSchema.safeParse({ password: "short" }).success).toBe(false);
   });
 
   it("u verejne rezervace vyzaduje UTC termin ze serverove nabidky", () => {

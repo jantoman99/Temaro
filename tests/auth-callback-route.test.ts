@@ -197,6 +197,25 @@ describe("auth callback route", () => {
     expect(supabase.auth.signOut).not.toHaveBeenCalled();
   });
 
+  it("pusti recovery session bez tenant metadata na nastaveni noveho hesla", async () => {
+    const supabase = createSupabaseAuthMock({
+      user: {
+        app_metadata: {},
+        email: "owner@example.com",
+        id: "recovery-user-1",
+      },
+    });
+    mocks.createClient.mockResolvedValue(supabase);
+
+    const response = await GET(createRequest("http://localhost:3000/auth/callback?code=abc&next=/reset-password"));
+
+    expect(response.status).toBe(307);
+    expect(response.headers.get("location")).toBe("http://localhost:3000/reset-password");
+    expect(mocks.consumeOAuthBusinessRegistrationCookie).not.toHaveBeenCalled();
+    expect(mocks.createBusinessForOAuthUser).not.toHaveBeenCalled();
+    expect(supabase.auth.signOut).not.toHaveBeenCalled();
+  });
+
   it("pri neuspesne Google registraci odhlasi uzivatele", async () => {
     const supabase = createSupabaseAuthMock({
       user: {

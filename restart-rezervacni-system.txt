@@ -21,9 +21,11 @@ Důležité chování:
 - Ruční testy jsou odložené do `docs/manual-test-plan.md`.
 - Dokumentaci aktualizuj při smysluplné změně.
 
-Aktuální stav 2026-06-01 18:50 CEST:
+Aktuální stav 2026-06-01 19:13 CEST:
 - Produkt se jmenuje `Temaro`.
-- Poslední ověření: `npm run check` prošlo 2026-06-01 18:47 CEST s 572 Vitest testy, migrations check, type-check, lint i produkčním buildem.
+- Poslední ověření: `npm run check` prošlo 2026-06-01 19:13 CEST s 577 Vitest testy, migrations check, type-check, lint i produkčním buildem.
+- Produkční Vercel env pro Supabase Auth jsou nastavené: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` a `NEXT_PUBLIC_APP_URL=https://rezervacni-system-xi.vercel.app`.
+- Login má reset hesla: `/forgot-password` odešle bezpečný e-mailový odkaz bez prozrazení existence účtu a `/reset-password` nastaví nové heslo z recovery session.
 - Onboarding po registraci nového podniku teď vede na `/start`: panel připravenosti, další nejlepší krok, veřejný rezervační odkaz a checklist pro spuštění první online rezervace. E-mailová i Google registrace směřuje do `/start`, ne rovnou na dashboard.
 - `/start` po hotovém základu ukazuje sdílecí krok: odkaz pro klienta, Instagram bio text, story/příspěvek text, QR kód a CTA na stránku klienta.
 - `/services` umí přidat tři doporučené služby podle oboru, `/staff` při založení člověka výchozí volbou přiřadí všechny aktuální služby a `/booking-page` ukazuje připravenost podle služby, týmu, pracovní doby a propojení služby s týmem.

@@ -12,11 +12,21 @@ import { hasSupabaseAdminEnv, hasSupabaseEnv } from "@/lib/env";
 import { limitLogin, limitRegister } from "@/lib/rate-limit/auth";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
-import { loginSchema, oauthBusinessRegistrationSchema, registerSchema } from "@/lib/validations/auth";
+import {
+  loginSchema,
+  oauthBusinessRegistrationSchema,
+  passwordResetRequestSchema,
+  registerSchema,
+  updatePasswordSchema,
+} from "@/lib/validations/auth";
 
 type AuthActionState = {
   error?: string;
+  success?: string;
 };
+
+const PASSWORD_RESET_SUCCESS =
+  "Pokud e-mail v Temaru existuje, poslali jsme na něj odkaz pro nastavení nového hesla.";
 
 function isDuplicateAuthEmailError(error: unknown) {
   if (!error || typeof error !== "object") {
@@ -65,6 +75,18 @@ function getLoginInput(formData: FormData) {
     email: getStringValue(formData, "email"),
     password: getStringValue(formData, "password"),
     redirectedFrom: getStringValue(formData, "redirectedFrom"),
+  };
+}
+
+function getPasswordResetRequestInput(formData: FormData) {
+  return {
+    email: getStringValue(formData, "email"),
+  };
+}
+
+function getUpdatePasswordInput(formData: FormData) {
+  return {
+    password: getStringValue(formData, "password"),
   };
 }
 
@@ -340,6 +362,67 @@ export async function loginAction(
   }
 
   redirect(getSafeRedirectPath(input.redirectedFrom));
+}
+
+export async function requestPasswordResetAction(
+  _previousState: AuthActionState,
+  formData: FormData,
+): Promise<AuthActionState> {
+  if (!hasSupabaseEnv()) {
+    return { success: PASSWORD_RESET_SUCCESS };
+  }
+
+  const parsed = passwordResetRequestSchema.safeParse(getPasswordResetRequestInput(formData));
+
+  if (!parsed.success) {
+    return { error: parsed.error.issues[0]?.message ?? "Zadejte platný e-mail." };
+  }
+
+  let rateLimit = { success: true };
+
+  try {
+    rateLimit = await limitLogin(parsed.data.email);
+  } catch {
+    rateLimit = { success: true };
+  }
+
+  if (!rateLimit.success) {
+    return { error: "Příliš mnoho pokusů. Zkuste to později." };
+  }
+
+  const supabase = await createClient();
+
+  await supabase.auth.resetPasswordForEmail(parsed.data.email, {
+    redirectTo: `${getBaseAppUrl()}/auth/callback?next=${encodeURIComponent("/reset-password")}`,
+  });
+
+  return { success: PASSWORD_RESET_SUCCESS };
+}
+
+export async function updatePasswordAction(
+  _previousState: AuthActionState,
+  formData: FormData,
+): Promise<AuthActionState> {
+  if (!hasSupabaseEnv()) {
+    return { error: "Změna hesla vyžaduje připojení k účtu." };
+  }
+
+  const parsed = updatePasswordSchema.safeParse(getUpdatePasswordInput(formData));
+
+  if (!parsed.success) {
+    return { error: parsed.error.issues[0]?.message ?? "Zadejte platné nové heslo." };
+  }
+
+  const supabase = await createClient();
+  const { error } = await supabase.auth.updateUser({ password: parsed.data.password });
+
+  if (error) {
+    return { error: "Heslo se nepodařilo změnit. Otevřete odkaz z e-mailu znovu." };
+  }
+
+  await supabase.auth.signOut();
+
+  return { success: "Heslo bylo změněné. Teď se můžete přihlásit." };
 }
 
 export async function signInWithGoogleAction(formData: FormData): Promise<void> {

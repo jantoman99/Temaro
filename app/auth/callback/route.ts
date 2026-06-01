@@ -34,7 +34,7 @@ export async function GET(request: NextRequest) {
 
     let authContextError = getAuthContextError(activeUser);
 
-    if (authContextError === "missing_tenant" && safeNext.startsWith("/account")) {
+    if (authContextError === "missing_tenant" && (safeNext.startsWith("/account") || safeNext === "/reset-password")) {
       authContextError = null;
     }
 
@@ -86,7 +86,7 @@ export async function GET(request: NextRequest) {
 
     const activeAuthContextError = await getActiveAuthContextError(supabase, activeUser);
 
-    if (activeAuthContextError) {
+    if (safeNext !== "/reset-password" && activeAuthContextError) {
       await supabase.auth.signOut();
       return NextResponse.redirect(new URL(`/login?error=${activeAuthContextError}`, requestUrl.origin));
     }

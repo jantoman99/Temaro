@@ -58,9 +58,14 @@ export function LoginForm({
         </p>
       </div>
       <div className="flex flex-col gap-2.5">
-        <label className="text-sm font-medium text-foreground" htmlFor="password">
-          Heslo
-        </label>
+        <div className="flex items-center justify-between gap-3">
+          <label className="text-sm font-medium text-foreground" htmlFor="password">
+            Heslo
+          </label>
+          <Link href="/forgot-password" className="text-sm font-semibold text-primary underline-offset-4 hover:underline">
+            Zapomenuté heslo?
+          </Link>
+        </div>
         <input
           id="password"
           name="password"
