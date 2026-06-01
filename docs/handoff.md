@@ -1,6 +1,6 @@
 # Handoff
 
-Aktualizováno: 2026-06-01 19:13 CEST
+Aktualizováno: 2026-06-01 19:16 CEST
 
 ## Jak navázat
 
@@ -31,7 +31,7 @@ Aktualizováno: 2026-06-01 19:13 CEST
 - Čekací listina má tabulku `waitlist_entries`, service-role RPC `create_waitlist_entry`, veřejné CTA při obsazených termínech a owner přehled v kalendáři; migrace `20260508114500_create_waitlist_entries.sql` je aplikovaná lokálně i remote.
 - Review request používá tenant `review_url`; po owner dokončení rezervace odešle klientovi e-mail a uloží notification typ `review_request`. Migrace `20260508121000_add_review_request_notification_type.sql` je aplikovaná lokálně i remote.
 - Online záloha přes Stripe používá self-service manage odkaz, route `/api/payments/stripe/checkout`, webhook `/api/payments/stripe/webhook`, pending/paid záznamy v `booking_payments` a audit event `payment_recorded`.
-- Poslední ověření: `npm run check` prošlo 2026-06-01 19:13 CEST s 577 Vitest testy, migrations check, type-check, lint i produkčním buildem. Lokální Playwright public smoke prošel 2026-06-01 15:12 CEST 10/10 a design check pro `/`, `/podniky`, `/ukazka` potvrdil žádný horizontální overflow, žádná coordinate pole a žádný useknutý demo panel. Produkční deploy `dpl_8vaQ4KT4C4NH5tjGaBxQty8pHt51` je na aliasu `https://rezervacni-system-xi.vercel.app`; externí public smoke 2026-06-01 18:50 CEST prošel 10/10.
+- Poslední ověření: `npm run check` prošlo 2026-06-01 19:13 CEST s 577 Vitest testy, migrations check, type-check, lint i produkčním buildem. Produkční deploy `dpl_8FLnYjPqjeBbbFZXymJvS3hG5yp2` je na aliasu `https://rezervacni-system-xi.vercel.app`; `/api/health` je `ok`, Supabase je `configured=true` a externí public smoke 2026-06-01 19:16 CEST prošel 10/10.
 - Produkční Vercel env pro Supabase Auth jsou nastavené a login už má reset hesla: `/forgot-password` odešle e-mailový odkaz a `/reset-password` nastaví nové heslo z recovery session.
 - Vercel production deploy po homepage demo/kontrast opravě je hotový: `https://rezervacni-system-xi.vercel.app`, aktuální deploy `dpl_Cx2nPdYYMLiwTNsaY5yQLUN9x7b7`; externí public smoke 2026-06-01 13:21 CEST prošel 8/8 a produkční axe color-contrast audit homepage vrátil `violationCount: 0`.
 - Public health endpoint nevrací názvy chybějících secret env; vrací jen počet v `checks.env.missing`.
