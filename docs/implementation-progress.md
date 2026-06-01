@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Aktualizováno: 2026-06-01 14:17 CEST
+Aktualizováno: 2026-06-01 14:23 CEST
 
 Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historické analýzy a staré design audity jsou přesunuté do `docs/archive/`.
 
@@ -123,6 +123,7 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 
 - Homepage demo cleanup 2026-06-01: odstraněný vnitřní scrollbar a opakované spodní karty z hero ukázky. `Přehled provozu`, `Kalendář`, `Rezervační stránka` i `Zákaznický účet` jsou nově kompaktní obrazovky, které se vejdou do panelu bez scrollování a bez useknutého spodku.
 - Ověření 2026-06-01 14:17 CEST: `npm run check` prošlo s 561 Vitest testy, migrations check, type-check, lint a produkční build. Lokální Playwright kontrola potvrdila `overflowY: hidden`, shodné `clientHeight` a `scrollHeight` pro overview i rezervační stránku, žádné staré karty `Platby / Klienti / Termíny`, stabilní ruční výběr po 6,2 s a console errors 0. Screenshoty: `output/playwright/temaro-demo-overview-no-scroll.png`, `output/playwright/temaro-demo-no-scroll.png`.
+- Vercel production deploy `dpl_FUTuzQmvQVtP312kbWqCausjbXk9` je na aliasu `https://rezervacni-system-xi.vercel.app`; externí public smoke 2026-06-01 14:22 CEST prošel 8/8 a produkční kontrola demo panelu potvrdila `overflowY: hidden`, shodné `clientHeight`/`scrollHeight`, žádné staré karty a console errors 0.
 - Předchozí homepage demo polish po zpětné vazbě 2026-06-01: hero demo je v layoutu výraznější, panel zůstává stabilně vysoký a ruční klik na plochu zastaví autoplay. Přidaný nativní klikací průvodce `Spustit ukázku` funguje bez externího Arcade embeddu a ukazuje stejné obrazovky, které klient uvidí po přihlášení.
 - Navigace homepage má zákaznický proklik `Najít podnik` na veřejný katalog `/podniky`, aby byla lépe oddělená cesta pro podniky a pro koncové zákazníky.
 - Opravené Lighthouse kontrastní nálezy na homepage: texty v kartách, oborových štítcích a bezpečnostní sekci už nepoužívají nízkokontrastní `text-muted-foreground` na tónovaných plochách; regresní test hlídá návrat problematických kombinací.

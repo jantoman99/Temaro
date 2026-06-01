@@ -1,6 +1,6 @@
 # Handoff
 
-Aktualizováno: 2026-06-01 14:17 CEST
+Aktualizováno: 2026-06-01 14:23 CEST
 
 ## Jak navázat
 
@@ -137,6 +137,7 @@ Aktualizováno: 2026-06-01 14:17 CEST
 
 - Homepage demo cleanup 2026-06-01: odstraněný vnitřní scrollbar a opakované spodní karty z hero ukázky. `Přehled provozu`, `Kalendář`, `Rezervační stránka` i `Zákaznický účet` jsou nově kompaktní obrazovky, které se vejdou do panelu bez scrollování a bez useknutého spodku.
 - Ověření 2026-06-01 14:17 CEST: `npm run check` prošlo s 561 Vitest testy, migrations check, type-check, lint a produkční build. Lokální Playwright kontrola potvrdila `overflowY: hidden`, shodné `clientHeight` a `scrollHeight` pro overview i rezervační stránku, žádné staré karty `Platby / Klienti / Termíny`, stabilní ruční výběr po 6,2 s a console errors 0.
+- Vercel production deploy `dpl_FUTuzQmvQVtP312kbWqCausjbXk9` je na aliasu `https://rezervacni-system-xi.vercel.app`; externí public smoke 2026-06-01 14:22 CEST prošel 8/8 a produkční kontrola demo panelu potvrdila `overflowY: hidden`, shodné `clientHeight`/`scrollHeight`, žádné staré karty a console errors 0.
 - Předchozí homepage demo polish po zpětné vazbě 2026-06-01: ukázka je v hero gridu výraznější, ruční přepnutí zastaví autoplay a tlačítko `Spustit ukázku` spouští nativní 4krokový průvodce bez externího embeddu.
 - Homepage kontrastní oprava po Lighthouse reportu: muted texty na tónovaných kartách/sekcích a štítcích jsou nahrazené kontrastnějšími foreground barvami.
 - Ověření 2026-06-01 13:16 CEST: `npm run check` prošlo s 561 Vitest testy, migrations check, type-check, lint a produkční build. Lokální Playwright kontrola potvrdila stabilní ruční výběr po 6,2 s, tehdejší funkční krok 2 průvodce a console errors 0. Axe color-contrast audit homepage vrátil `violationCount: 0`.

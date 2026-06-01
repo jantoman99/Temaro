@@ -1,6 +1,6 @@
 # Runtime checklist
 
-Aktualizováno: 2026-06-01 14:17 CEST
+Aktualizováno: 2026-06-01 14:23 CEST
 
 Tento checklist je pro první reálné ověření mimo demo režim.
 
@@ -24,6 +24,7 @@ Aktuální známý stav:
 
 - `npm run check` prošlo 2026-06-01 14:17 CEST po demo cleanupu: 561 Vitest testů, migrations check, type-check, lint a produkční build.
 - Lokální Playwright kontrola 2026-06-01 14:12 CEST prošla pro homepage demo: `.signal-rail` má `overflowY: hidden`, overview i rezervační stránka mají shodné `clientHeight` a `scrollHeight`, staré karty `Platby / Klienti / Termíny` se nerenderují, ručně vybraná `Rezervační stránka` zůstala aktivní i po 6,2 s a console errors jsou 0.
+- Vercel deploy alias: `https://rezervacni-system-xi.vercel.app`, aktuální production deploy `dpl_FUTuzQmvQVtP312kbWqCausjbXk9`. Externí smoke 2026-06-01 14:22 CEST prošel: `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` má 8/8 testů zelených. Produkční kontrola demo panelu potvrdila `overflowY: hidden`, shodné `clientHeight`/`scrollHeight`, žádné staré karty a console errors 0.
 - `npm run check` prošlo 2026-06-01 13:16 CEST po homepage demo/kontrast polishi: 561 Vitest testů, migrations check, type-check, lint a produkční build.
 - Lokální Playwright kontrola 2026-06-01 13:06 CEST prošla pro homepage demo: ručně vybraná `Rezervační stránka` zůstala aktivní i po 6,2 s, `.signal-rail` má `overflow-y: auto`, průvodce `Spustit ukázku` přešel na krok 2, console errors 0. Screenshot je v `output/playwright/temaro-clickable-demo-points.png`.
 - Lokální axe color-contrast audit homepage 2026-06-01 13:12 CEST prošel: `violationCount: 0`, console errors 0. Screenshot po kontrastní opravě je v `output/playwright/temaro-contrast-fix.png`.
