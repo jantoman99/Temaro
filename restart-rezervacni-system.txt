@@ -21,11 +21,11 @@ Důležité chování:
 - Ruční testy jsou odložené do `docs/manual-test-plan.md`.
 - Dokumentaci aktualizuj při smysluplné změně.
 
-Aktuální stav 2026-06-01 15:35 CEST:
+Aktuální stav 2026-06-01 15:40 CEST:
 - Produkt se jmenuje `Temaro`.
 - Poslední ověření: `npm run check` prošlo 2026-06-01 15:16 CEST s 564 Vitest testy, migrations check, type-check, lint i produkčním buildem.
 - Lokální Playwright public smoke prošel 2026-06-01 15:12 CEST 10/10. Lokální design check pro `/`, `/podniky`, `/ukazka` prošel na desktopu i mobilu: console errors 0, horizontální overflow 0, žádná coordinate pole v katalogu a žádný useknutý demo panel.
-- Produkce je nasazená na `https://rezervacni-system-xi.vercel.app`, aktuální deploy `dpl_BYMou3xSBnH9G2XEE8ydhAWzFpNw`; externí public smoke prošel 2026-06-01 15:35 CEST 10/10 a produkční design check pro `/`, `/podniky`, `/ukazka` prošel bez overflow/coordinate/demo clipping nálezů.
+- Produkce je nasazená na `https://rezervacni-system-xi.vercel.app`, aktuální deploy `dpl_3fZHXGPsangDKVwmMB15oUSb1ZMB`; externí public smoke prošel 2026-06-01 15:40 CEST 10/10 a produkční design check pro `/`, `/podniky`, `/ukazka` prošel bez overflow/coordinate/demo clipping nálezů.
 - Lokální Playwright kontrola homepage demo prošla 2026-06-01 13:06 CEST: ručně vybraná `Rezervační stránka` zůstala aktivní i po 6,2 s, `.signal-rail` má `overflow-y: auto`, průvodce `Spustit ukázku` přešel na krok 2 a console errors jsou 0.
 - Lokální axe color-contrast audit homepage prošel 2026-06-01 13:12 CEST: `violationCount: 0`, console errors 0.
 - Poslední lokální Playwright audit veřejného webu prošel 2026-06-01 12:26 CEST: 14/14 kontrolovaných veřejných tras vrací HTTP 200, console errors 0.
