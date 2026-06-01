@@ -65,6 +65,7 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - Veřejná booking stránka `/[slug]` byla znovu přestavěná na profilový dvousloupec: vlevo cover/profil podniku, popis, fotky, výhody, mapa a postup rezervace; vpravo sticky rezervační karta. Tím se ruší předchozí úzké centrované karty a layout je blíž Reservio/Salona profilu.
 - Lokální vizuální kontrola `/toman-barber` 2026-06-01 23:36 CEST uložila screenshot `output/playwright/toman-barber-profile-layout-v3.png`; horizontální overflow je 0 a formulář je vedle profilu.
 - `npm run check` prošlo 2026-06-01 23:41 CEST po profilovém dvousloupci: 584 Vitest testů, migrations check, type-check, lint a produkční build. Lokální public smoke 2026-06-01 23:47 CEST prošel 10/10.
+- Vercel production deploy `dpl_48jjXzLXjbfrAbwtTuPazJQDte2p` je na aliasu `https://rezervacni-system-xi.vercel.app`; `/toman-barber` vrací HTTP 200, `/api/health` je `ok` a produkční public smoke 2026-06-01 23:53 CEST prošel 10/10.
 
 ## Hotové funkčně
 
