@@ -21,7 +21,7 @@ export function getBookingShareKit({
   const googleBusinessProfileUrl = buildTrackedBookingUrl(bookingUrl, "google", "business_profile");
   const instagramBio = `${DEFAULT_INSTAGRAM_BIO} ${bookingUrl}`;
   const instagramStory = `Objednejte se k ${businessName} online. Vyberete službu, termín a potvrzení přijde e-mailem. ${bookingUrl}`;
-  const qrImageUrl = `https://chart.googleapis.com/chart?cht=qr&chs=320x320&chl=${encodeURIComponent(bookingUrl)}`;
+  const qrImageUrl = `https://quickchart.io/qr?size=320&text=${encodeURIComponent(bookingUrl)}`;
 
   return {
     googleBusinessProfileUrl,

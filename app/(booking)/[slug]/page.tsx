@@ -320,7 +320,7 @@ export default async function BookingPage({ params, searchParams }: BookingPageP
   const supabase = createAdminClient();
   const { data: tenant, error: tenantError } = await supabase
     .from("tenants")
-    .select("id, name, slug, timezone, locale, industry, public_description, logo_url, cover_image_url, brand_color, public_address, public_city, public_region, public_postal_code, public_country_code, public_map_url, public_latitude, public_longitude, review_rating, review_count, review_source_label, public_gallery_image_urls, public_amenities, social_instagram_url, social_facebook_url, social_tiktok_url, social_website_url")
+    .select("id, name, slug, timezone, locale, industry, public_description, logo_url, cover_image_url, brand_color, public_address, public_city, public_region, public_postal_code, public_country_code, public_map_url, public_gallery_image_urls, public_amenities, social_instagram_url, social_facebook_url, social_tiktok_url, social_website_url")
     .eq("slug", slug)
     .is("deleted_at", null)
     .maybeSingle();
@@ -401,14 +401,11 @@ export default async function BookingPage({ params, searchParams }: BookingPageP
           galleryImageUrls={tenant.public_gallery_image_urls}
           logoUrl={tenant.logo_url}
           locale={locale}
-          mapEmbedUrl={getTenantMapEmbedUrl(tenant)}
+          mapEmbedUrl={null}
           mapHref={getTenantMapHref(tenant)}
           name={tenant.name}
           amenities={tenant.public_amenities}
           publicAddress={formatTenantAddress(tenant)}
-          reviewCount={tenant.review_count}
-          reviewRating={tenant.review_rating}
-          reviewSourceLabel={tenant.review_source_label}
           servicesCount={safeServices.length}
           socialLinks={[
             { href: tenant.social_instagram_url ?? "", label: "Instagram", type: "instagram" as const },

@@ -15,6 +15,6 @@ describe("booking share kit", () => {
     expect(kit.googleBusinessProfileUrl).toBe(
       "https://app.temaro.cz/demo-barber?source=google&source_detail=business_profile&utm_source=google&utm_medium=profile&utm_campaign=booking_cta",
     );
-    expect(kit.qrImageUrl).toBe("https://chart.googleapis.com/chart?cht=qr&chs=320x320&chl=https%3A%2F%2Fapp.temaro.cz%2Fdemo-barber");
+    expect(kit.qrImageUrl).toBe("https://quickchart.io/qr?size=320&text=https%3A%2F%2Fapp.temaro.cz%2Fdemo-barber");
   });
 });
