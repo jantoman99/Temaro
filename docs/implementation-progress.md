@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Aktualizováno: 2026-06-01 19:53 CEST
+Aktualizováno: 2026-06-01 19:55 CEST
 
 Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historické analýzy a staré design audity jsou přesunuté do `docs/archive/`.
 
@@ -46,6 +46,7 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - Dashboard navigace je odlehčená: hlavní viditelný základ je `Start`, `Kalendář`, `Klienti`, `Služby`, `Tým`, `Rezervační stránka`; ostatní moduly jsou oddělené pod skupinou `Pokročilé`.
 - Přidaný interní produktový průvodce: po prvním vstupu se ukáže krátký 5krokový tour a lze ho znovu spustit tlačítkem `Spustit průvodce`.
 - `npm run check` prošlo 2026-06-01 19:53 CEST po onboarding wizardu a produktovém tour: 581 Vitest testů, migrations check, type-check, lint a produkční build. Přihlášený Playwright smoke `E2E_AUTHENTICATED_SMOKE=true npx playwright test tests/e2e/admin-authenticated.spec.ts` prošel 2026-06-01 19:49 CEST.
+- Vercel production deploy `dpl_3HfjkUP3KaCFfD9hpyTH1JiXbJYf` je na aliasu `https://rezervacni-system-xi.vercel.app`; `/api/health` je `ok` a externí public smoke 2026-06-01 19:55 CEST prošel 10/10.
 - Lighthouse kontrastní nálezy na homepage jsou opravené: muted texty na tónovaných sekcích a štítcích byly zesílené na kontrastnější foreground barvy.
 - Oborové landingy mají v hero části obrazový pás z generovaných assetů `public/marketing/*-ai.webp`, aby stránky nepůsobily jen jako textové karty.
 
