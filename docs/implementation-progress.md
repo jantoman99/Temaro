@@ -61,6 +61,7 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - Veřejný booking profil `/[slug]` byl po vizuální kontrole znovu přestavěný: profil podniku je nahoře jako široká zákaznická stránka s úvodní fotkou, rychlými informacemi a teprve pod ní je vlastní rezervační formulář. Chybějící galerie se na veřejné stránce už nezobrazuje jako prázdná upload plocha, ale jako zákaznický informační panel.
 - Lokální vizuální kontrola `/toman-barber` 2026-06-01 23:07 CEST uložila screenshot `output/playwright/toman-barber-redesign-v2.png`; stránka renderuje HTTP 200, bez fallback chyby a bez horizontálního overflow.
 - `npm run check` prošlo 2026-06-01 23:13 CEST po redesignu veřejné booking stránky: 584 Vitest testů, migrations check, type-check, lint a produkční build.
+- Vercel production deploy `dpl_Gh31xQfp5xpQKtFDP9SjejNbYRUz` je na aliasu `https://rezervacni-system-xi.vercel.app`; `/toman-barber` vrací HTTP 200, `/api/health` je `ok` a produkční public smoke 2026-06-01 23:17 CEST prošel 10/10.
 
 ## Hotové funkčně
 

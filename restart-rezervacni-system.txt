@@ -25,6 +25,7 @@ Aktuální stav 2026-06-01 23:07 CEST:
 - Produkt se jmenuje `Temaro`.
 - Veřejná booking stránka `/[slug]` byla vizuálně přestavěná po kontrole `/toman-barber`: profil podniku je nahoře jako široká zákaznická stránka, rezervační formulář je pod ním centrovaný a chybějící galerie se na veřejné stránce nahrazuje informačním panelem, ne prázdným upload placeholderem.
 - Lokální ověření aktuální změny: `npm run check` prošlo 2026-06-01 23:13 CEST s 584 Vitest testy, migrations check, type-check, lint i buildem. `npx playwright test tests/e2e/public-smoke.spec.ts` prošel 10/10; screenshot je `output/playwright/toman-barber-redesign-v2.png`.
+- Produkce je nasazená na `https://rezervacni-system-xi.vercel.app`, aktuální deploy `dpl_Gh31xQfp5xpQKtFDP9SjejNbYRUz`; `/toman-barber` vrací HTTP 200, `/api/health` je `ok` a produkční public smoke prošel 2026-06-01 23:17 CEST 10/10.
 - Hotfix: `/toman-barber` už znovu renderuje booking formulář a ne fallback `Rezervace se teď nepodařilo načíst`. Příčina byla výběr starších review/coordinate sloupců, které nejsou v produkční DB aplikované.
 - QR kód ve share kitu přešel z `chart.googleapis.com`, který vracel 404, na `quickchart.io`.
 - Poslední ověření: `npm run check` prošlo 2026-06-01 21:13 CEST s 584 Vitest testy, migrations check, type-check, lint i buildem. Produkční public smoke prošel 2026-06-01 21:15 CEST 10/10.
