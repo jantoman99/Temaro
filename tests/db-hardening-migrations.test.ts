@@ -114,6 +114,17 @@ describe("DB hardening migrations", () => {
     expect(migration).toContain("review_url ~* '^https?://'");
   });
 
+  it("pridava verejny profil tenantu pro galerii vybaveni a socialni site", () => {
+    const migration = readMigration("20260601202500_add_tenant_public_profile_details.sql");
+
+    expect(migration).toContain("add column if not exists public_gallery_image_urls text[]");
+    expect(migration).toContain("add column if not exists public_amenities text[]");
+    expect(migration).toContain("add column if not exists social_instagram_url text");
+    expect(migration).toContain("tenants_public_gallery_image_urls_limit_check");
+    expect(migration).toContain("tenants_social_instagram_url_format_check");
+    expect(migration).toContain("social_instagram_url is null or social_instagram_url ~* '^https?://'");
+  });
+
   it("pridava vlastni texty notifikaci s delkovymi limity", () => {
     const migration = readMigration("20260503173000_add_tenant_notification_messages.sql");
 

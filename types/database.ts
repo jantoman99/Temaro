@@ -53,6 +53,12 @@ export type Database = {
           review_rating: number | null;
           review_count: number;
           review_source_label: string | null;
+          public_gallery_image_urls: string[];
+          public_amenities: string[];
+          social_instagram_url: string | null;
+          social_facebook_url: string | null;
+          social_tiktok_url: string | null;
+          social_website_url: string | null;
           reminder_message: string | null;
           is_publicly_listed: boolean;
           created_at: string;
@@ -91,6 +97,12 @@ export type Database = {
           review_rating?: number | null;
           review_count?: number;
           review_source_label?: string | null;
+          public_gallery_image_urls?: string[];
+          public_amenities?: string[];
+          social_instagram_url?: string | null;
+          social_facebook_url?: string | null;
+          social_tiktok_url?: string | null;
+          social_website_url?: string | null;
           reminder_message?: string | null;
           is_publicly_listed?: boolean;
           created_at?: string;
@@ -129,6 +141,12 @@ export type Database = {
           review_rating?: number | null;
           review_count?: number;
           review_source_label?: string | null;
+          public_gallery_image_urls?: string[];
+          public_amenities?: string[];
+          social_instagram_url?: string | null;
+          social_facebook_url?: string | null;
+          social_tiktok_url?: string | null;
+          social_website_url?: string | null;
           reminder_message?: string | null;
           is_publicly_listed?: boolean;
           created_at?: string;

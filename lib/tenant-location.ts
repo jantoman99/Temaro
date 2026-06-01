@@ -39,6 +39,25 @@ export function getTenantMapHref(tenant: TenantLocation) {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
 }
 
+export function getTenantMapEmbedUrl(tenant: TenantLocation) {
+  if (hasTenantCoordinates(tenant)) {
+    const latitudeDelta = 0.004;
+    const longitudeDelta = 0.006;
+    const bbox = [
+      tenant.public_longitude - longitudeDelta,
+      tenant.public_latitude - latitudeDelta,
+      tenant.public_longitude + longitudeDelta,
+      tenant.public_latitude + latitudeDelta,
+    ].join(",");
+
+    return `https://www.openstreetmap.org/export/embed.html?bbox=${encodeURIComponent(bbox)}&layer=mapnik&marker=${encodeURIComponent(
+      `${tenant.public_latitude},${tenant.public_longitude}`,
+    )}`;
+  }
+
+  return null;
+}
+
 export function getDistanceKm(from: { latitude: number; longitude: number }, to: { latitude: number; longitude: number }) {
   const earthRadiusKm = 6371;
   const fromLatitude = (from.latitude * Math.PI) / 180;

@@ -22,6 +22,7 @@ test.describe("authenticated admin smoke", () => {
 
     try {
       await registerE2EOwner(page, setup);
+      await page.getByRole("button", { name: "Zavřít průvodce" }).click().catch(() => undefined);
 
       for (const route of ["/calendar", "/clients", "/services", "/staff", "/start", "/booking-page", "/settings"] as const) {
         await page.goto(route);

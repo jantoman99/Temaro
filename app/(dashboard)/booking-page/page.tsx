@@ -49,7 +49,7 @@ export default async function BookingPageAdmin() {
   ] = await Promise.all([
     auth.supabase
       .from("tenants")
-      .select("name, slug, timezone, locale, public_description, logo_url, cover_image_url, brand_color, confirmation_message, reminder_message, cancellation_message")
+      .select("name, slug, timezone, locale, public_description, logo_url, cover_image_url, brand_color, confirmation_message, reminder_message, cancellation_message, public_gallery_image_urls, public_amenities, social_instagram_url, social_facebook_url, social_tiktok_url, social_website_url")
       .eq("id", auth.tenantId)
       .is("deleted_at", null)
       .single(),

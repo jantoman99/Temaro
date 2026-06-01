@@ -9,7 +9,19 @@ import type { Database } from "@/types/database";
 
 type Tenant = Pick<
   Database["public"]["Tables"]["tenants"]["Row"],
-  "brand_color" | "cancellation_message" | "confirmation_message" | "cover_image_url" | "logo_url" | "public_description" | "reminder_message"
+  | "brand_color"
+  | "cancellation_message"
+  | "confirmation_message"
+  | "cover_image_url"
+  | "logo_url"
+  | "public_amenities"
+  | "public_description"
+  | "public_gallery_image_urls"
+  | "reminder_message"
+  | "social_facebook_url"
+  | "social_instagram_url"
+  | "social_tiktok_url"
+  | "social_website_url"
 >;
 
 const initialState = {
@@ -108,10 +120,25 @@ export function BookingBrandingForm({ tenant }: { tenant: Tenant }) {
   const [coverImageUrl, setCoverImageUrl] = useState(tenant.cover_image_url ?? "");
   const [brandColor, setBrandColor] = useState(tenant.brand_color ?? "#635BFF");
   const [publicDescription, setPublicDescription] = useState(tenant.public_description ?? "");
+  const [galleryUrls, setGalleryUrls] = useState((tenant.public_gallery_image_urls ?? []).join("\n"));
+  const [amenities, setAmenities] = useState((tenant.public_amenities ?? []).join("\n"));
   const [selectedLogo, setSelectedLogo] = useState<SelectedImage | null>(null);
   const [selectedCover, setSelectedCover] = useState<SelectedImage | null>(null);
+  const [selectedGallery, setSelectedGallery] = useState<SelectedImage[]>([]);
   const previewLogoUrl = selectedLogo?.url ?? logoUrl;
   const previewCoverUrl = selectedCover?.url ?? coverImageUrl;
+  const previewGalleryUrls = [
+    ...selectedGallery.map((image) => image.url),
+    ...galleryUrls
+      .split(/\r?\n/)
+      .map((url) => url.trim())
+      .filter(Boolean),
+  ].slice(0, 6);
+  const previewAmenities = amenities
+    .split(/\r?\n/)
+    .map((item) => item.trim())
+    .filter(Boolean)
+    .slice(0, 10);
   const customerDescription = publicDescription.trim() || "Popište klientům, kde vás najdou, jak rezervace probíhá a co mají vědět před návštěvou.";
 
   useEffect(() => {
@@ -129,6 +156,16 @@ export function BookingBrandingForm({ tenant }: { tenant: Tenant }) {
       }
     };
   }, [selectedCover]);
+
+  useEffect(() => {
+    return () => {
+      selectedGallery.forEach((image) => {
+        if (image.url.startsWith("blob:")) {
+          URL.revokeObjectURL(image.url);
+        }
+      });
+    };
+  }, [selectedGallery]);
 
   return (
     <form action={formAction} className="rounded-2xl border border-border bg-card p-5 shadow-sm">
@@ -233,6 +270,99 @@ export function BookingBrandingForm({ tenant }: { tenant: Tenant }) {
               </div>
             </details>
           </div>
+          <div className="rounded-2xl border border-border bg-secondary p-4">
+            <div className="flex flex-col gap-1">
+              <p className="text-sm font-bold text-foreground">Fotky práce a prostoru</p>
+              <p className="text-sm font-medium leading-6 text-muted-foreground">
+                Nahrajte až 6 fotek. Veřejná stránka z nich udělá galerii podobně jako profil salonu.
+              </p>
+            </div>
+            <div className="mt-4 grid gap-3 sm:grid-cols-[180px_minmax(0,1fr)]">
+              <label
+                className="grid min-h-32 cursor-pointer place-items-center rounded-2xl border border-dashed border-border bg-card px-4 text-center text-sm font-bold text-foreground transition hover:border-primary/60 hover:bg-primary/5"
+                htmlFor="galleryImageFiles"
+              >
+                Přidat fotky
+              </label>
+              <input
+                id="galleryImageFiles"
+                name="galleryImageFiles"
+                type="file"
+                accept="image/png,image/jpeg,image/webp,image/svg+xml"
+                multiple
+                className="sr-only"
+                onChange={(event) => {
+                  const files = Array.from(event.target.files ?? []).slice(0, 6);
+
+                  setSelectedGallery((previous) => {
+                    previous.forEach((image) => {
+                      if (image.url.startsWith("blob:")) {
+                        URL.revokeObjectURL(image.url);
+                      }
+                    });
+
+                    return files.map((file) => ({
+                      name: file.name,
+                      url: URL.createObjectURL(file),
+                    }));
+                  });
+                }}
+              />
+              <div className="grid grid-cols-3 gap-2">
+                {previewGalleryUrls.length > 0 ? (
+                  previewGalleryUrls.map((url, index) => (
+                    <div key={`${url}-${index}`} className="relative min-h-24 overflow-hidden rounded-xl border border-border bg-card">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img alt="" className="absolute inset-0 h-full w-full object-cover" src={url} />
+                    </div>
+                  ))
+                ) : (
+                  <div className="col-span-3 rounded-xl border border-border bg-card p-4 text-sm font-semibold text-muted-foreground">
+                    Fotky se zobrazí tady hned po výběru.
+                  </div>
+                )}
+              </div>
+            </div>
+            <details className="mt-4 rounded-xl border border-border bg-card p-4">
+              <summary className="cursor-pointer text-sm font-bold text-foreground">Upravit odkazy fotek ručně</summary>
+              <textarea
+                name="galleryImageUrls"
+                rows={4}
+                value={galleryUrls}
+                className={`${textareaClassName} mt-3 w-full`}
+                placeholder="Každý odkaz na samostatný řádek"
+                onChange={(event) => setGalleryUrls(event.target.value)}
+              />
+            </details>
+          </div>
+          <div className="grid gap-4 lg:grid-cols-2">
+            <div className="rounded-2xl border border-border bg-secondary p-4">
+              <label className="text-sm font-bold text-foreground" htmlFor="amenities">
+                Co u vás klient dostane navíc
+              </label>
+              <p className="mt-1 text-sm font-medium leading-6 text-muted-foreground">
+                Jedna položka na řádek, např. káva zdarma, Wi-Fi, pet-friendly nebo platba kartou.
+              </p>
+              <textarea
+                id="amenities"
+                name="amenities"
+                rows={5}
+                value={amenities}
+                className={`${textareaClassName} mt-3 w-full`}
+                placeholder={"Káva zdarma\nWi-Fi\nPlatba kartou"}
+                onChange={(event) => setAmenities(event.target.value)}
+              />
+            </div>
+            <div className="rounded-2xl border border-border bg-secondary p-4">
+              <p className="text-sm font-bold text-foreground">Sociální sítě a web</p>
+              <div className="mt-3 grid gap-3">
+                <input name="socialInstagramUrl" type="url" maxLength={500} defaultValue={tenant.social_instagram_url ?? ""} className={inputClassName} placeholder="Instagram URL" />
+                <input name="socialFacebookUrl" type="url" maxLength={500} defaultValue={tenant.social_facebook_url ?? ""} className={inputClassName} placeholder="Facebook URL" />
+                <input name="socialTiktokUrl" type="url" maxLength={500} defaultValue={tenant.social_tiktok_url ?? ""} className={inputClassName} placeholder="TikTok URL" />
+                <input name="socialWebsiteUrl" type="url" maxLength={500} defaultValue={tenant.social_website_url ?? ""} className={inputClassName} placeholder="Web URL" />
+              </div>
+            </div>
+          </div>
         </div>
         <aside className="rounded-2xl border border-border bg-background p-3 shadow-sm">
           <div className="overflow-hidden rounded-xl border border-border bg-card">
@@ -272,6 +402,25 @@ export function BookingBrandingForm({ tenant }: { tenant: Tenant }) {
                   </div>
                 ))}
               </div>
+              {previewGalleryUrls.length > 0 ? (
+                <div className="mt-4 grid grid-cols-3 gap-2">
+                  {previewGalleryUrls.slice(0, 3).map((url, index) => (
+                    <div key={`${url}-${index}`} className="relative min-h-16 overflow-hidden rounded-lg border border-border bg-muted">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img alt="" className="absolute inset-0 h-full w-full object-cover" src={url} />
+                    </div>
+                  ))}
+                </div>
+              ) : null}
+              {previewAmenities.length > 0 ? (
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {previewAmenities.slice(0, 4).map((item) => (
+                    <span key={item} className="rounded-full border border-border bg-muted px-3 py-1 text-xs font-bold text-foreground">
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              ) : null}
             </div>
           </div>
           <p className="mt-3 px-1 text-xs font-semibold leading-5 text-muted-foreground">

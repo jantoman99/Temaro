@@ -23,6 +23,40 @@ const optionalUrlSchema = z
   .transform((value) => value || null)
   .pipe(z.string().url("Zadejte platnou URL adresu.").nullable());
 
+const optionalUrlListSchema = (label: string, maxItems: number) =>
+  z
+    .string()
+    .trim()
+    .optional()
+    .transform((value) =>
+      (value ?? "")
+        .split(/\r?\n/)
+        .map((item) => item.trim())
+        .filter(Boolean),
+    )
+    .pipe(
+      z
+        .array(z.string().url(`${label}: zadejte platnou URL adresu.`).max(500, `${label}: URL může mít maximálně 500 znaků.`))
+        .max(maxItems, `${label}: maximálně ${maxItems} položek.`),
+    );
+
+const optionalLineListSchema = (label: string, maxItems: number, maxLength: number) =>
+  z
+    .string()
+    .trim()
+    .optional()
+    .transform((value) =>
+      (value ?? "")
+        .split(/\r?\n/)
+        .map((item) => item.trim())
+        .filter(Boolean),
+    )
+    .pipe(
+      z
+        .array(z.string().max(maxLength, `${label}: jedna položka může mít maximálně ${maxLength} znaků.`))
+        .max(maxItems, `${label}: maximálně ${maxItems} položek.`),
+    );
+
 const optionalCoordinateSchema = (label: string, min: number, max: number) =>
   z
     .string()
@@ -132,6 +166,12 @@ export const tenantBookingBrandingSchema = z.object({
     .transform((value) => value || null),
   logoUrl: optionalUrlSchema,
   coverImageUrl: optionalUrlSchema,
+  galleryImageUrls: optionalUrlListSchema("Fotogalerie", 6),
+  amenities: optionalLineListSchema("Co nabízíte navíc", 10, 50),
+  socialInstagramUrl: optionalUrlSchema,
+  socialFacebookUrl: optionalUrlSchema,
+  socialTiktokUrl: optionalUrlSchema,
+  socialWebsiteUrl: optionalUrlSchema,
   brandColor: z
     .string()
     .trim()

@@ -30,7 +30,8 @@ describe("security headers", () => {
     expect(csp).toContain("default-src 'self'");
     expect(csp).toContain("frame-ancestors 'none'");
     expect(csp).toContain("https://*.supabase.co");
-    expect(csp).toContain("https://chart.googleapis.com");
+    expect(csp).toContain("img-src 'self' data: blob: https:");
+    expect(csp).toContain("frame-src 'self' https://www.openstreetmap.org");
     expect(csp).toContain("https://*.upstash.io");
   });
 

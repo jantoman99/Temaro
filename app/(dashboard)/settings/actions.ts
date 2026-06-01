@@ -61,7 +61,7 @@ async function uploadTenantAsset({
   tenantId,
 }: {
   file: File | null;
-  kind: "cover" | "logo";
+  kind: "cover" | "gallery-1" | "gallery-2" | "gallery-3" | "gallery-4" | "gallery-5" | "gallery-6" | "logo";
   tenantId: string;
 }) {
   if (!file) {
@@ -196,6 +196,12 @@ export async function updateTenantBookingBrandingAction(
     publicDescription: getStringValue(formData, "publicDescription"),
     logoUrl: getStringValue(formData, "logoUrl"),
     coverImageUrl: getStringValue(formData, "coverImageUrl"),
+    galleryImageUrls: getStringValue(formData, "galleryImageUrls"),
+    amenities: getStringValue(formData, "amenities"),
+    socialInstagramUrl: getStringValue(formData, "socialInstagramUrl"),
+    socialFacebookUrl: getStringValue(formData, "socialFacebookUrl"),
+    socialTiktokUrl: getStringValue(formData, "socialTiktokUrl"),
+    socialWebsiteUrl: getStringValue(formData, "socialWebsiteUrl"),
     brandColor: getStringValue(formData, "brandColor") || "#635BFF",
     confirmationMessage: getStringValue(formData, "confirmationMessage"),
     reminderMessage: getStringValue(formData, "reminderMessage"),
@@ -210,6 +216,19 @@ export async function updateTenantBookingBrandingAction(
     uploadTenantAsset({ file: getOptionalFile(formData, "logoFile"), kind: "logo", tenantId: auth.tenantId }),
     uploadTenantAsset({ file: getOptionalFile(formData, "coverImageFile"), kind: "cover", tenantId: auth.tenantId }),
   ]);
+  const galleryFiles = formData
+    .getAll("galleryImageFiles")
+    .filter((value): value is File => value instanceof File && value.size > 0)
+    .slice(0, 6);
+  const uploadedGallery = await Promise.all(
+    galleryFiles.map((file, index) =>
+      uploadTenantAsset({
+        file,
+        kind: `gallery-${index + 1}` as "gallery-1" | "gallery-2" | "gallery-3" | "gallery-4" | "gallery-5" | "gallery-6",
+        tenantId: auth.tenantId,
+      }),
+    ),
+  );
 
   if (uploadedLogo?.error) {
     return { error: uploadedLogo.error };
@@ -219,12 +238,29 @@ export async function updateTenantBookingBrandingAction(
     return { error: uploadedCover.error };
   }
 
+  const galleryUploadError = uploadedGallery.find((upload) => upload?.error)?.error;
+
+  if (galleryUploadError) {
+    return { error: galleryUploadError };
+  }
+
+  const galleryImageUrls = [
+    ...parsed.data.galleryImageUrls,
+    ...uploadedGallery.flatMap((upload) => (upload?.publicUrl ? [upload.publicUrl] : [])),
+  ].slice(0, 6);
+
   const { data: updatedTenant, error } = await auth.supabase
     .from("tenants")
     .update({
       public_description: parsed.data.publicDescription,
       logo_url: uploadedLogo?.publicUrl ?? parsed.data.logoUrl,
       cover_image_url: uploadedCover?.publicUrl ?? parsed.data.coverImageUrl,
+      public_gallery_image_urls: galleryImageUrls,
+      public_amenities: parsed.data.amenities,
+      social_instagram_url: parsed.data.socialInstagramUrl,
+      social_facebook_url: parsed.data.socialFacebookUrl,
+      social_tiktok_url: parsed.data.socialTiktokUrl,
+      social_website_url: parsed.data.socialWebsiteUrl,
       brand_color: parsed.data.brandColor,
       confirmation_message: parsed.data.confirmationMessage,
       reminder_message: parsed.data.reminderMessage,

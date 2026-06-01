@@ -6963,6 +6963,12 @@ describe("server actions hardening", () => {
       publicDescription: "Moderní studio v centru.",
       logoUrl: "",
       coverImageUrl: "",
+      galleryImageUrls: "https://cdn.example.com/existing.webp",
+      amenities: "Káva zdarma\nWi-Fi",
+      socialInstagramUrl: "https://instagram.com/demo",
+      socialFacebookUrl: "",
+      socialTiktokUrl: "",
+      socialWebsiteUrl: "https://example.com",
       brandColor: "#0F766E",
       confirmationMessage: "",
       reminderMessage: "",
@@ -6981,7 +6987,11 @@ describe("server actions hardening", () => {
     expect(tenantsUpdate).toHaveBeenCalledWith(expect.objectContaining({
       brand_color: "#0F766E",
       cover_image_url: `https://cdn.example.com/${TENANT_ID}/cover.webp`,
+      public_amenities: ["Káva zdarma", "Wi-Fi"],
       public_description: "Moderní studio v centru.",
+      public_gallery_image_urls: ["https://cdn.example.com/existing.webp"],
+      social_instagram_url: "https://instagram.com/demo",
+      social_website_url: "https://example.com",
     }));
     expect(mocks.revalidatePath).toHaveBeenCalledWith("/booking-page");
   });
@@ -7001,6 +7011,12 @@ describe("server actions hardening", () => {
       publicDescription: "",
       logoUrl: "",
       coverImageUrl: "",
+      galleryImageUrls: "",
+      amenities: "",
+      socialInstagramUrl: "",
+      socialFacebookUrl: "",
+      socialTiktokUrl: "",
+      socialWebsiteUrl: "",
       brandColor: "#635BFF",
       confirmationMessage: "",
       reminderMessage: "",
