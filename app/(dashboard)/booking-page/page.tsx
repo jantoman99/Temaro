@@ -20,7 +20,13 @@ export default async function BookingPageAdmin() {
           eyebrow="Zákaznický pohled"
           title="Rezervační stránka"
         />
-        <BookingPagePreview servicesCount={demoServices.length} staffCount={demoStaff.length} tenant={demoTenant} />
+        <BookingPagePreview
+          serviceAssignmentsCount={demoStaff.reduce((sum, staff) => sum + staff.staff_services.length, 0)}
+          servicesCount={demoServices.length}
+          staffCount={demoStaff.length}
+          tenant={demoTenant}
+          workingHoursCount={demoStaff.reduce((sum, staff) => sum + staff.staff_hours.length, 0)}
+        />
         <BookingShareKit businessName={demoTenant.name} slug={demoTenant.slug} />
         <BookingEmbedCode brandColor={demoTenant.brand_color} slug={demoTenant.slug} />
         <BookingBrandingForm tenant={demoTenant} />
@@ -38,6 +44,8 @@ export default async function BookingPageAdmin() {
     { data: tenant, error: tenantError },
     { count: servicesCount },
     { count: staffCount },
+    { count: workingHoursCount },
+    { count: serviceAssignmentsCount },
   ] = await Promise.all([
     auth.supabase
       .from("tenants")
@@ -57,6 +65,14 @@ export default async function BookingPageAdmin() {
       .eq("tenant_id", auth.tenantId)
       .eq("is_active", true)
       .is("deleted_at", null),
+    auth.supabase
+      .from("staff_hours")
+      .select("staff_id", { count: "exact", head: true })
+      .eq("tenant_id", auth.tenantId),
+    auth.supabase
+      .from("staff_services")
+      .select("staff_id", { count: "exact", head: true })
+      .eq("tenant_id", auth.tenantId),
   ]);
 
   if (tenantError || !tenant) {
@@ -70,7 +86,13 @@ export default async function BookingPageAdmin() {
         eyebrow="Zákaznický pohled"
         title="Rezervační stránka"
       />
-      <BookingPagePreview servicesCount={servicesCount ?? 0} staffCount={staffCount ?? 0} tenant={tenant} />
+      <BookingPagePreview
+        serviceAssignmentsCount={serviceAssignmentsCount ?? 0}
+        servicesCount={servicesCount ?? 0}
+        staffCount={staffCount ?? 0}
+        tenant={tenant}
+        workingHoursCount={workingHoursCount ?? 0}
+      />
       <BookingShareKit businessName={tenant.name} slug={tenant.slug} />
       <BookingEmbedCode brandColor={tenant.brand_color} slug={tenant.slug} />
       <BookingBrandingForm tenant={tenant} />

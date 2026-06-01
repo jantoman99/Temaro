@@ -157,3 +157,7 @@ export function getServiceTemplatesForIndustry(industry: TenantIndustry): Servic
 export function getServiceTemplate(templateId: string, industry: TenantIndustry) {
   return getServiceTemplatesForIndustry(industry).find((template) => template.id === templateId) ?? null;
 }
+
+export function getStarterServiceTemplates(industry: TenantIndustry) {
+  return getServiceTemplatesForIndustry(industry).slice(0, 3);
+}

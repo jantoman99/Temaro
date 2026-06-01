@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Aktualizováno: 2026-06-01 16:19 CEST
+Aktualizováno: 2026-06-01 16:43 CEST
 
 Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historické analýzy a staré design audity jsou přesunuté do `docs/archive/`.
 
@@ -29,7 +29,10 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - Vercel production deploy `dpl_6ZgkD4UjbWZtxU6mhg5KFEmz3gpD` je na aliasu `https://rezervacni-system-xi.vercel.app`; externí public smoke 2026-06-01 16:19 CEST prošel 10/10.
 - Onboarding po registraci nově vede na `/start`: stránka má panel připravenosti, jasnou další akci, veřejný rezervační odkaz a checklist `podnik -> služba -> tým/pracovní doba -> rezervační stránka -> první klienti`.
 - E-mailová i Google registrace nového podniku po vytvoření účtu směřuje do `/start`, ne rovnou na běžný provozní dashboard.
-- `npm run check` prošlo 2026-06-01 16:11 CEST po onboarding úpravě: 567 Vitest testů, migrations check, type-check, lint a produkční build.
+- Služby mají rychlé založení tří doporučených položek podle oboru; existující názvy se přeskočí a cesta se vrací do `/services` i `/start`.
+- Přidání člena týmu má výchozí volbu přiřadit všechny aktuální služby, aby nová rezervační stránka měla hned službu, člověka i pracovní dobu.
+- `/booking-page` má kontrolu připravenosti veřejné rezervační stránky: služba, tým, pracovní doba a propojení služby s týmem.
+- `npm run check` prošlo 2026-06-01 16:40 CEST po rychlém service/staff/booking-page onboardingu: 572 Vitest testů, migrations check, type-check, lint a produkční build.
 - Lighthouse kontrastní nálezy na homepage jsou opravené: muted texty na tónovaných sekcích a štítcích byly zesílené na kontrastnější foreground barvy.
 - Oborové landingy mají v hero části obrazový pás z generovaných assetů `public/marketing/*-ai.webp`, aby stránky nepůsobily jen jako textové karty.
 

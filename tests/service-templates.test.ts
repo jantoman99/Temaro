@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { getServiceTemplate, getServiceTemplatesForIndustry } from "@/lib/service-templates";
+import { getServiceTemplate, getServiceTemplatesForIndustry, getStarterServiceTemplates } from "@/lib/service-templates";
 
 describe("service templates", () => {
   it("vraci hair sablony jako vychozi nejblizsi segment", () => {
@@ -29,5 +29,14 @@ describe("service templates", () => {
   it("najde sablonu jen v aktualnim oboru", () => {
     expect(getServiceTemplate("fitness-personal-training", "private_fitness")?.name).toBe("Osobní trénink");
     expect(getServiceTemplate("fitness-personal-training", "hair")).toBeNull();
+  });
+
+  it("vybere tri startovni sluzby pro rychle spusteni", () => {
+    expect(getStarterServiceTemplates("hair").map((template) => template.id)).toEqual([
+      "hair-cut",
+      "hair-beard",
+      "hair-cut-beard",
+    ]);
+    expect(getStarterServiceTemplates("beauty")).toHaveLength(3);
   });
 });

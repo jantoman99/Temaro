@@ -72,6 +72,10 @@ function getStringValue(formData: FormData, key: string) {
   return typeof value === "string" ? value : "";
 }
 
+function getBooleanValue(formData: FormData, key: string) {
+  return getStringValue(formData, key) === "on";
+}
+
 function ignoreRevalidateError(action: () => void) {
   try {
     action();
@@ -354,8 +358,36 @@ export async function createStaffAction(
     return { error: "Pracovní dobu se nepodařilo uložit." };
   }
 
+  if (getBooleanValue(formData, "assignAllServices")) {
+    const { data: services, error: servicesError } = await auth.supabase
+      .from("services")
+      .select("id")
+      .eq("tenant_id", auth.tenantId)
+      .eq("is_active", true)
+      .is("deleted_at", null);
+
+    if (servicesError) {
+      return { error: "Zaměstnanec vznikl, ale služby se nepodařilo načíst pro přiřazení." };
+    }
+
+    const staffServices = (services ?? []).map((service) => ({
+      tenant_id: auth.tenantId,
+      staff_id: staff.id,
+      service_id: service.id,
+    }));
+
+    if (staffServices.length > 0) {
+      const { error: staffServicesError } = await auth.supabase.from("staff_services").insert(staffServices);
+
+      if (staffServicesError) {
+        return { error: "Zaměstnanec vznikl, ale služby se nepodařilo přiřadit." };
+      }
+    }
+  }
+
   ignoreRevalidateError(() => {
     revalidatePath("/staff");
+    revalidatePath("/start");
   });
 
   redirect("/staff");

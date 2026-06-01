@@ -37,7 +37,7 @@ export function StaffForm({ embedded = false }: { embedded?: boolean }) {
         </p>
         <h2 className="mt-1 text-lg font-semibold tracking-tight text-foreground">Přidat zaměstnance</h2>
         <p className="mt-1 text-sm leading-6 text-muted-foreground">
-          Vytvořte poskytovatele, kterému později přiřadíte služby a účet.
+          Zadejte člověka, jeho běžnou pracovní dobu a služby, které může přijímat.
         </p>
       </div>
       <div className="grid gap-4">
@@ -129,6 +129,20 @@ export function StaffForm({ embedded = false }: { embedded?: boolean }) {
             ))}
           </div>
         </fieldset>
+        <label className="flex items-start gap-3 rounded-lg border border-border bg-primary/10 p-3 text-sm font-medium text-foreground">
+          <input
+            type="checkbox"
+            name="assignAllServices"
+            defaultChecked
+            className="mt-1 h-4 w-4 accent-primary"
+          />
+          <span>
+            <span className="block font-semibold">Přiřadit všechny aktuální služby</span>
+            <span className="mt-1 block text-muted-foreground">
+              Pro první spuštění je rychlejší, když nový člen týmu může přijímat celou nabídku.
+            </span>
+          </span>
+        </label>
       </div>
       {state.error ? (
         <p className="mt-4 rounded-lg border border-destructive/30 bg-destructive/10 px-3 py-2 text-sm font-medium text-destructive">

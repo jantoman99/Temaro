@@ -7,6 +7,8 @@ import { requireOwner } from "@/lib/auth/require-owner";
 import { hasSupabaseEnv } from "@/lib/env";
 import { isServiceTimeStepAligned, SERVICE_TIME_STEP_MINUTES } from "@/lib/service-form-limits";
 import { findMatchingService } from "@/lib/services/find-matching-service";
+import { getServiceTemplate } from "@/lib/service-templates";
+import { isTenantIndustry, type TenantIndustry } from "@/lib/tenant-industry";
 import type { Database } from "@/types/database";
 import { createServiceSchema, serviceIdSchema, updateServiceSchema } from "@/lib/validations/services";
 
@@ -39,6 +41,14 @@ function getStringValue(formData: FormData, key: string) {
   const value = formData.get(key);
 
   return typeof value === "string" ? value : "";
+}
+
+function getTemplateIds(formData: FormData) {
+  return formData
+    .getAll("templateIds")
+    .flatMap((value) => (typeof value === "string" ? value.split(",") : []))
+    .map((value) => value.trim())
+    .filter(Boolean);
 }
 
 function ignoreRevalidateError(action: () => void) {
@@ -111,6 +121,100 @@ export async function createServiceAction(
   });
 
   return { success: "Služba byla vytvořena." };
+}
+
+export async function createStarterServicesAction(
+  _previousState: ServiceActionState,
+  formData: FormData,
+): Promise<ServiceActionState> {
+  const auth = await requireOwner();
+
+  if ("error" in auth) {
+    return { error: auth.error === "Unauthorized" ? "Přihlaste se znovu." : "Nemáte oprávnění." };
+  }
+
+  const templateIds = Array.from(new Set(getTemplateIds(formData))).slice(0, 5);
+
+  if (templateIds.length === 0) {
+    return { error: "Vyberte alespoň jednu službu." };
+  }
+
+  if (!hasSupabaseEnv()) {
+    return { success: "Demo režim: vybrané služby by se tady přidaly do nabídky." };
+  }
+
+  const { data: tenant, error: tenantError } = await auth.supabase
+    .from("tenants")
+    .select("industry")
+    .eq("id", auth.tenantId)
+    .is("deleted_at", null)
+    .single();
+
+  if (tenantError || !tenant) {
+    return { error: "Podnik se nepodařilo ověřit." };
+  }
+
+  const industry: TenantIndustry = isTenantIndustry(tenant.industry) ? tenant.industry : "hair";
+  const templates = templateIds
+    .map((templateId) => getServiceTemplate(templateId, industry))
+    .filter((template): template is NonNullable<typeof template> => Boolean(template));
+
+  if (templates.length === 0) {
+    return { error: "Vybrané služby neodpovídají oboru podniku." };
+  }
+
+  const { data: existingServices, error: existingServicesError } = await auth.supabase
+    .from("services")
+    .select("name")
+    .eq("tenant_id", auth.tenantId)
+    .eq("is_active", true)
+    .is("deleted_at", null)
+    .in("name", templates.map((template) => template.name));
+
+  if (existingServicesError) {
+    return { error: "Existující služby se nepodařilo ověřit." };
+  }
+
+  const existingNames = new Set((existingServices ?? []).map((service) => service.name.toLowerCase()));
+  const servicesToInsert = templates
+    .filter((template) => !existingNames.has(template.name.toLowerCase()))
+    .map((template, index) => ({
+      tenant_id: auth.tenantId,
+      name: template.name,
+      description: template.description,
+      duration_minutes: template.durationMinutes,
+      price: Math.round(Number(template.price.replace(",", ".")) * 100),
+      currency: "CZK" as const,
+      buffer_minutes: template.bufferMinutes,
+      deposit_type: "none" as const,
+      deposit_value: 0,
+      position: index,
+    }));
+
+  if (servicesToInsert.length === 0) {
+    return { success: "Vybrané služby už v nabídce máte." };
+  }
+
+  const { error } = await auth.supabase.from("services").insert(servicesToInsert);
+
+  if (error) {
+    return { error: "Služby se nepodařilo přidat." };
+  }
+
+  ignoreRevalidateError(() => {
+    revalidatePath("/services");
+    revalidatePath("/start");
+  });
+
+  const skippedCount = templates.length - servicesToInsert.length;
+  const serviceLabel = servicesToInsert.length === 1 ? "službu" : servicesToInsert.length < 5 ? "služby" : "služeb";
+  const skippedLabel = skippedCount === 1 ? "Jedna už existovala." : `${skippedCount} už existovaly.`;
+
+  return {
+    success: skippedCount > 0
+      ? `Přidali jsme ${servicesToInsert.length} ${serviceLabel}. ${skippedLabel}`
+      : `Přidali jsme ${servicesToInsert.length} ${serviceLabel}.`,
+  };
 }
 
 export async function hideServiceAction(

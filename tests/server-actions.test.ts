@@ -110,6 +110,7 @@ import {
   updateClientAction,
 } from "@/app/(dashboard)/clients/actions";
 import {
+  createStarterServicesAction,
   createServiceAction,
   hideServiceAction,
   updateServiceAction,
@@ -3034,6 +3035,59 @@ describe("server actions hardening", () => {
 
     expect(result).toEqual({ error: "Název musí mít alespoň 2 znaky." });
     expect(supabase.from).not.toHaveBeenCalled();
+  });
+
+  it("rychle zalozi startovni sluzby podle oboru podniku", async () => {
+    const tenantChain = {
+      eq: vi.fn(() => tenantChain),
+      is: vi.fn(() => tenantChain),
+      single: vi.fn(async () => ({ data: { industry: "hair" }, error: null })),
+      select: vi.fn(() => tenantChain),
+    };
+    const existingServicesChain = {
+      eq: vi.fn(() => existingServicesChain),
+      in: vi.fn(async () => ({ data: [{ name: "Střih" }], error: null })),
+      is: vi.fn(() => existingServicesChain),
+      select: vi.fn(() => existingServicesChain),
+    };
+    const serviceInsert = vi.fn(async () => ({ error: null }));
+    const supabase = {
+      from: vi.fn((table: string) => {
+        if (table === "tenants") {
+          return { select: vi.fn(() => tenantChain) };
+        }
+
+        if (table === "services") {
+          return {
+            insert: serviceInsert,
+            select: vi.fn(() => existingServicesChain),
+          };
+        }
+
+        throw new Error(`Unexpected table ${table}`);
+      }),
+    };
+
+    mocks.requireOwner.mockResolvedValue({
+      supabase,
+      tenantId: TENANT_ID,
+      user: { id: "66666666-6666-4666-8666-666666666666" },
+    });
+
+    const result = await createStarterServicesAction(
+      {},
+      createFormData({
+        templateIds: "hair-cut,hair-beard,hair-cut-beard",
+      }),
+    );
+
+    expect(result).toEqual({ success: "Přidali jsme 2 služby. Jedna už existovala." });
+    expect(serviceInsert).toHaveBeenCalledWith([
+      expect.objectContaining({ name: "Úprava vousů", tenant_id: TENANT_ID }),
+      expect.objectContaining({ name: "Střih + vousy", tenant_id: TENANT_ID }),
+    ]);
+    expect(mocks.revalidatePath).toHaveBeenCalledWith("/services");
+    expect(mocks.revalidatePath).toHaveBeenCalledWith("/start");
   });
 
   it("skryti sluzby vyzaduje prihlaseni i v demo rezimu pred validaci", async () => {
@@ -6063,6 +6117,96 @@ describe("server actions hardening", () => {
     expect(staffCleanupChain.eq).toHaveBeenCalledWith("is_active", true);
     expect(staffCleanupChain.is).toHaveBeenCalledWith("deleted_at", null);
     expect(mocks.revalidatePath).not.toHaveBeenCalled();
+  });
+
+  it("pri zalozeni zamestnance muze rovnou priradit vsechny aktivni sluzby", async () => {
+    const staffLookupChain = {
+      eq: vi.fn(() => staffLookupChain),
+      is: vi.fn(() => staffLookupChain),
+      order: vi.fn(async () => ({ data: [], error: null })),
+      select: vi.fn(() => staffLookupChain),
+    };
+    const staffInsertChain = {
+      select: vi.fn(() => ({
+        single: vi.fn(async () => ({ data: { id: STAFF_ID }, error: null })),
+      })),
+    };
+    const staffHoursInsert = vi.fn(async () => ({ error: null }));
+    const servicesChain = {
+      eq: vi.fn(() => servicesChain),
+      is: vi.fn(async () => ({
+        data: [
+          { id: "55555555-5555-4555-8555-555555555555" },
+          { id: "77777777-7777-4777-8777-777777777777" },
+        ],
+        error: null,
+      })),
+      select: vi.fn(() => servicesChain),
+    };
+    const staffServicesInsert = vi.fn(async () => ({ error: null }));
+    const supabase = {
+      from: vi.fn((table: string) => {
+        if (table === "staff") {
+          return {
+            insert: vi.fn(() => staffInsertChain),
+            select: vi.fn(() => staffLookupChain),
+          };
+        }
+
+        if (table === "staff_hours") {
+          return {
+            insert: staffHoursInsert,
+          };
+        }
+
+        if (table === "services") {
+          return {
+            select: vi.fn(() => servicesChain),
+          };
+        }
+
+        if (table === "staff_services") {
+          return {
+            insert: staffServicesInsert,
+          };
+        }
+
+        throw new Error(`Unexpected table ${table}`);
+      }),
+    };
+
+    mocks.requireOwner.mockResolvedValue({
+      supabase,
+      tenantId: TENANT_ID,
+      user: { id: "66666666-6666-4666-8666-666666666666" },
+    });
+
+    await expect(createStaffAction(
+      {},
+      createFormData({
+        assignAllServices: "on",
+        name: "Eva Novak",
+        bio: "Bio",
+        color: "#111827",
+        workingDays: "1",
+        startTime: "09:00",
+        endTime: "17:00",
+      }),
+    )).rejects.toThrow("NEXT_REDIRECT");
+
+    expect(staffHoursInsert).toHaveBeenCalledOnce();
+    expect(staffServicesInsert).toHaveBeenCalledWith([
+      {
+        tenant_id: TENANT_ID,
+        staff_id: STAFF_ID,
+        service_id: "55555555-5555-4555-8555-555555555555",
+      },
+      {
+        tenant_id: TENANT_ID,
+        staff_id: STAFF_ID,
+        service_id: "77777777-7777-4777-8777-777777777777",
+      },
+    ]);
   });
 
   it("pri chybe ulozeni pracovni doby nemaze starou pracovni dobu", async () => {

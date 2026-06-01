@@ -1,6 +1,6 @@
 # Runtime checklist
 
-Aktualizováno: 2026-06-01 16:19 CEST
+Aktualizováno: 2026-06-01 16:43 CEST
 
 Tento checklist je pro první reálné ověření mimo demo režim.
 
@@ -22,7 +22,10 @@ curl -I http://localhost:3000
 
 Aktuální známý stav:
 
-- `npm run check` prošlo 2026-06-01 16:11 CEST po onboarding úpravě: 567 Vitest testů, migrations check, type-check, lint a produkční build.
+- `npm run check` prošlo 2026-06-01 16:40 CEST po rychlém service/staff/booking-page onboardingu: 572 Vitest testů, migrations check, type-check, lint a produkční build.
+- `/services` runtime ověřit jako rychlé založení nabídky: panel `Přidat tři služby najednou` přidá vybrané oborové šablony a přeskočí už existující názvy.
+- `/staff` runtime ověřit jako rychlé nastavení člověka: výchozí pracovní doba Po-Pá 09:00-17:00 a volba `Přiřadit všechny aktuální služby`.
+- `/booking-page` runtime ověřit podle panelu `Připravenost stránky`: služba, tým, pracovní doba a propojení služby s týmem.
 - Vercel production deploy `dpl_6ZgkD4UjbWZtxU6mhg5KFEmz3gpD` je na aliasu `https://rezervacni-system-xi.vercel.app`. Externí public smoke 2026-06-01 16:19 CEST prošel: `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` má 10/10 testů zelených.
 - `/start` teď ověřovat jako první obrazovku po registraci podniku: panel připravenosti, CTA na další chybějící krok, veřejný rezervační odkaz, checklist a zákaznické texty bez interních názvů.
 - Registrovaný podnik má po e-mailové i Google registraci skončit na `/start`; běžné přihlášení může dál směřovat na bezpečnou cílovou stránku nebo `/dashboard`.

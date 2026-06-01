@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { CSSProperties } from "react";
 
 import { getBaseAppUrl } from "@/lib/app-url";
+import { getBookingPageReadiness } from "@/lib/onboarding/booking-page-readiness";
 import type { Database } from "@/types/database";
 
 type Tenant = Pick<
@@ -14,16 +15,26 @@ function getInitials(name: string) {
 }
 
 export function BookingPagePreview({
+  serviceAssignmentsCount = 0,
   servicesCount,
   staffCount,
   tenant,
+  workingHoursCount = 0,
 }: {
+  serviceAssignmentsCount?: number;
   servicesCount: number;
   staffCount: number;
   tenant: Tenant;
+  workingHoursCount?: number;
 }) {
   const bookingUrl = `${getBaseAppUrl()}/${tenant.slug}`;
   const brandColor = tenant.brand_color ?? "#635BFF";
+  const readiness = getBookingPageReadiness({
+    serviceAssignmentsCount,
+    servicesCount,
+    staffCount,
+    workingHoursCount,
+  });
   const publicDescription =
     tenant.public_description ??
     "Vyberte službu, poskytovatele a termín. Rezervace se uloží přímo do kalendáře podniku.";
@@ -33,7 +44,7 @@ export function BookingPagePreview({
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border px-5 py-4">
         <div>
           <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Náhled zákazníka</p>
-          <h2 className="mt-1 text-xl font-semibold tracking-tight">Veřejná booking stránka</h2>
+          <h2 className="mt-1 text-xl font-semibold tracking-tight">Veřejná rezervační stránka</h2>
         </div>
         <Link
           href={`/${tenant.slug}`}
@@ -42,6 +53,36 @@ export function BookingPagePreview({
         >
           Otevřít stránku
         </Link>
+      </div>
+      <div className="border-b border-border bg-background px-5 py-4">
+        <div className={`rounded-2xl border p-4 ${readiness.canReceiveBookings ? "border-success/30 bg-success/10" : "border-amber-500/30 bg-amber-500/10"}`}>
+          <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.16em] text-muted-foreground">Připravenost stránky</p>
+              <h3 className="mt-1 text-xl font-semibold tracking-tight text-foreground">{readiness.headline}</h3>
+              <p className="mt-2 text-sm font-medium leading-6 text-muted-foreground">{readiness.text}</p>
+            </div>
+            <Link
+              href={readiness.nextHref}
+              className="inline-flex h-10 shrink-0 items-center justify-center rounded-md border border-border bg-card px-4 text-sm font-semibold text-foreground shadow-sm transition hover:bg-muted"
+            >
+              {readiness.canReceiveBookings ? "Upravit tým" : "Doplnit krok"}
+            </Link>
+          </div>
+          <div className="mt-4 grid gap-2 md:grid-cols-4">
+            {readiness.checks.map((check) => (
+              <Link
+                key={check.label}
+                href={check.href}
+                className={`rounded-xl border px-3 py-2 text-sm font-semibold shadow-sm ${
+                  check.done ? "border-success/30 bg-card text-success" : "border-amber-500/30 bg-card text-amber-800"
+                }`}
+              >
+                {check.done ? "Hotovo" : "Chybí"} · {check.label}
+              </Link>
+            ))}
+          </div>
+        </div>
       </div>
       <div className="grid gap-0 lg:grid-cols-[0.82fr_1.18fr]">
         <div
@@ -89,7 +130,7 @@ export function BookingPagePreview({
         </div>
         <div className="bg-background p-5">
           <div className="rounded-xl border border-border bg-card p-4 shadow-sm">
-            <p className="text-xs font-bold uppercase tracking-[0.16em] text-muted-foreground">Ukázka flow</p>
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-muted-foreground">Jak rezervace proběhne</p>
             <div className="mt-4 grid gap-3">
               {["Vybrat službu", "Vybrat termín", "Doplnit kontakt"].map((label, index) => (
                 <div key={label} className="flex items-center justify-between rounded-lg border border-border bg-muted/30 px-3 py-3">

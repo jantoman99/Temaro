@@ -21,10 +21,11 @@ Důležité chování:
 - Ruční testy jsou odložené do `docs/manual-test-plan.md`.
 - Dokumentaci aktualizuj při smysluplné změně.
 
-Aktuální stav 2026-06-01 16:19 CEST:
+Aktuální stav 2026-06-01 16:43 CEST:
 - Produkt se jmenuje `Temaro`.
-- Poslední ověření: `npm run check` prošlo 2026-06-01 16:11 CEST s 567 Vitest testy, migrations check, type-check, lint i produkčním buildem.
+- Poslední ověření: `npm run check` prošlo 2026-06-01 16:40 CEST s 572 Vitest testy, migrations check, type-check, lint i produkčním buildem.
 - Onboarding po registraci nového podniku teď vede na `/start`: panel připravenosti, další nejlepší krok, veřejný rezervační odkaz a checklist pro spuštění první online rezervace. E-mailová i Google registrace směřuje do `/start`, ne rovnou na dashboard.
+- `/services` umí přidat tři doporučené služby podle oboru, `/staff` při založení člověka výchozí volbou přiřadí všechny aktuální služby a `/booking-page` ukazuje připravenost podle služby, týmu, pracovní doby a propojení služby s týmem.
 - Lokální Playwright public smoke prošel 2026-06-01 15:12 CEST 10/10. Lokální design check pro `/`, `/podniky`, `/ukazka` prošel na desktopu i mobilu: console errors 0, horizontální overflow 0, žádná coordinate pole v katalogu a žádný useknutý demo panel.
 - Produkce je nasazená na `https://rezervacni-system-xi.vercel.app`, aktuální deploy `dpl_6ZgkD4UjbWZtxU6mhg5KFEmz3gpD`; externí public smoke prošel 2026-06-01 16:19 CEST 10/10.
 - Lokální Playwright kontrola homepage demo prošla 2026-06-01 13:06 CEST: ručně vybraná `Rezervační stránka` zůstala aktivní i po 6,2 s, `.signal-rail` má `overflow-y: auto`, průvodce `Spustit ukázku` přešel na krok 2 a console errors jsou 0.
