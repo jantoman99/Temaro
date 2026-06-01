@@ -1,6 +1,6 @@
 # Handoff
 
-Aktualizováno: 2026-06-01 12:31 CEST
+Aktualizováno: 2026-06-01 13:16 CEST
 
 ## Jak navázat
 
@@ -31,7 +31,7 @@ Aktualizováno: 2026-06-01 12:31 CEST
 - Čekací listina má tabulku `waitlist_entries`, service-role RPC `create_waitlist_entry`, veřejné CTA při obsazených termínech a owner přehled v kalendáři; migrace `20260508114500_create_waitlist_entries.sql` je aplikovaná lokálně i remote.
 - Review request používá tenant `review_url`; po owner dokončení rezervace odešle klientovi e-mail a uloží notification typ `review_request`. Migrace `20260508121000_add_review_request_notification_type.sql` je aplikovaná lokálně i remote.
 - Online záloha přes Stripe používá self-service manage odkaz, route `/api/payments/stripe/checkout`, webhook `/api/payments/stripe/webhook`, pending/paid záznamy v `booking_payments` a audit event `payment_recorded`.
-- Poslední ověření: `npm run check` prošlo 2026-06-01 12:31 CEST s 560 Vitest testy, migrations check, type-check, lint i produkčním buildem; lokální Playwright audit veřejných tras prošel 2026-06-01 12:26 CEST bez console errorů a se 14/14 HTTP 200.
+- Poslední ověření: `npm run check` prošlo 2026-06-01 13:16 CEST s 561 Vitest testy, migrations check, type-check, lint i produkčním buildem; lokální Playwright audit demo interakce a axe color-contrast audit homepage prošly bez nálezů.
 - Vercel production deploy po marketing copy/vizuál revizi je hotový: `https://rezervacni-system-xi.vercel.app`, aktuální deploy `dpl_EApydFAYrxGbyXdMKHU3iNAo1Za8`; externí public smoke 2026-06-01 12:42 CEST prošel 8/8.
 - Vercel production deploy je hotový: `https://rezervacni-system-xi.vercel.app`, aktuální deploy `dpl_GTBd3UAtuQhYg6Jhzz1epxNhmhvX`.
 - Public health endpoint nevrací názvy chybějících secret env; vrací jen počet v `checks.env.missing`.
@@ -45,6 +45,9 @@ Aktualizováno: 2026-06-01 12:31 CEST
 - Obrázky v sekci `Reálné provozy` jsou vlastní přegenerované WebP assety v `public/marketing/*-ai.webp`: barber je tmavý řemeslný interiér, beauty je světlé studio a fitness je denní tréninkový prostor.
 - Marketing web má od 2026-06-01 customer copy pass: technické názvy v zákaznickém UI jsou nahrazené výrazy `rezervační odkaz`, `bezpečný odkaz`, `připomínka`, `podnik/provoz`.
 - Hero demo na homepage se už nesnaží být abstraktní produktová ilustrace; kopíruje reálné přihlášené obrazovky (`Přehled provozu`, `Kalendář`, `Rezervační stránka`, `Zákaznický účet`) a Playwright audit potvrdil stejnou výšku `717px` při všech přepnutích.
+- Hero demo má nativní klikací průvodce inspirovaný Salona/Arcade ukázkami: `Spustit ukázku`, 4 kroky, scroll uvnitř panelu a autoplay se vypne po ručním kliknutí, aby už nepřeskakoval zpět.
+- Homepage navigace nově obsahuje `Najít podnik` na `/podniky`, tedy zákaznickou cestu vedle podnikatelských CTA.
+- Lighthouse kontrastní nálezy na homepage jsou opravené a kryté regresním testem v `tests/landing-polish.test.ts`.
 - Layout homepage je sjednocený na stejnou osu jako navazující sekce: menu, hero grid a `#provoz` mají v desktop auditu `x=93`, `width=1180`; horizontální overflow není.
 - Oborové landingy používají v hero preview obrazový pás z `public/marketing/*-ai.webp`.
 - Pre-demo hardening 2026-05-31: Next.js a `eslint-config-next` jsou na `16.2.6`, `npm audit --audit-level=moderate` vrací 0 vulnerabilities, non-embed routy mají `X-Frame-Options: DENY`, `/account/login` je veřejně dostupný a `/demo-barber` má demo fallback i při nedostupné Supabase DB.
@@ -132,6 +135,9 @@ Aktualizováno: 2026-06-01 12:31 CEST
 
 ## Poslední změna
 
+- Homepage demo polish po zpětné vazbě 2026-06-01: ukázka je v hero gridu výraznější, má interní scroll, ruční přepnutí zastaví autoplay a tlačítko `Spustit ukázku` spouští nativní 4krokový průvodce bez externího embeddu.
+- Homepage kontrastní oprava po Lighthouse reportu: muted texty na tónovaných kartách/sekcích a štítcích jsou nahrazené kontrastnějšími foreground barvami.
+- Ověření 2026-06-01 13:16 CEST: `npm run check` prošlo s 561 Vitest testy, migrations check, type-check, lint a produkční build. Lokální Playwright kontrola potvrdila stabilní ruční výběr po 6,2 s, scrollovatelnou `.signal-rail`, funkční krok 2 průvodce a console errors 0. Axe color-contrast audit homepage vrátil `violationCount: 0`.
 - Navazující landing/design úkol je hotový: homepage používá `public/marketing/*-ai.webp`, footer copy je změněné na `Temaro SaaS booking platform`, hero produktový náhled je přestavěný na reálné plochy `Dashboard / Kalendář / Booking / Účet klienta` a navazující sekce `Provozní realita` začíná bez prázdného gapu.
 - Přidaný `tests/landing-polish.test.ts` a upravený public smoke embed test, aby testoval booking button script jako externí script na čisté HTML stránce, ne jako script vložený do hydratované Next aplikace.
 - Ověření 2026-06-01 11:18 CEST: `npm run check` prošlo s 559 Vitest testy, migrations check, type-check, lint a produkční build. Lokální public smoke `PLAYWRIGHT_BASE_URL=http://127.0.0.1:3000 npx playwright test tests/e2e/public-smoke.spec.ts` prošel 8/8. Screenshoty jsou v `output/playwright/landing-desktop.png`, `landing-mobile.png`, `landing-full.png`; měření 1366/390 px potvrdilo `gap=0` a žádný horizontální overflow.

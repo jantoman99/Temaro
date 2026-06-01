@@ -1,6 +1,6 @@
 # Runtime checklist
 
-Aktualizováno: 2026-06-01 12:31 CEST
+Aktualizováno: 2026-06-01 13:16 CEST
 
 Tento checklist je pro první reálné ověření mimo demo režim.
 
@@ -22,6 +22,10 @@ curl -I http://localhost:3000
 
 Aktuální známý stav:
 
+- `npm run check` prošlo 2026-06-01 13:16 CEST po homepage demo/kontrast polishi: 561 Vitest testů, migrations check, type-check, lint a produkční build.
+- Lokální Playwright kontrola 2026-06-01 13:06 CEST prošla pro homepage demo: ručně vybraná `Rezervační stránka` zůstala aktivní i po 6,2 s, `.signal-rail` má `overflow-y: auto`, průvodce `Spustit ukázku` přešel na krok 2, console errors 0. Screenshot je v `output/playwright/temaro-clickable-demo-points.png`.
+- Lokální axe color-contrast audit homepage 2026-06-01 13:12 CEST prošel: `violationCount: 0`, console errors 0. Screenshot po kontrastní opravě je v `output/playwright/temaro-contrast-fix.png`.
+- Homepage demo má nativní 4krokový průvodce bez externího Arcade embeddu a po ruční interakci vypíná autoplay.
 - `npm run check` prošlo 2026-06-01 12:31 CEST po site-wide marketing copy/vizuál revizi: 560 Vitest testů, migrations check, type-check, lint a produkční build.
 - Lokální Playwright audit 2026-06-01 12:26 CEST prošel pro 14 veřejných tras (`/`, `/demo-barber`, `/podniky`, 5 oborových landingů, no-show/SMS/provizní stránka, `/account/login`, `/login`, `/register`): všechny HTTP 200, console errors 0.
 - Homepage layout audit 1366 px: menu, hero grid a `#provoz` mají stejnou osu `x=93`, šířku `1180`; `scrollWidth=1366`; hero demo je `638px` široké a při všech scénách stabilní `717px` vysoké.

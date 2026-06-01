@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Aktualizováno: 2026-06-01 12:31 CEST
+Aktualizováno: 2026-06-01 13:16 CEST
 
 Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historické analýzy a staré design audity jsou přesunuté do `docs/archive/`.
 
@@ -21,6 +21,9 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - Veřejný marketing web prošel copy/vizuál revizí 2026-06-01: homepage, katalog, oborové landingy, no-show/SMS/provizní stránky, login/register texty a živá ukázka používají zákaznický jazyk místo interních názvů typu `tenant`, `MVP`, `self-service`, `booking flow`.
 - Homepage hero, top nav a navazující sekce jsou sjednocené na ose `1180px`; lokální Playwright audit potvrdil `x=93`, `width=1180` pro menu, hero grid i `#provoz`.
 - Živá ukázka na homepage nově kopíruje reálné přihlášené obrazovky: `Přehled provozu`, `Kalendář`, `Rezervační stránka`, `Zákaznický účet`; výška ukázky je stabilní při všech přepnutích.
+- Živá ukázka má od 2026-06-01 Salona/Arcade inspirovaný nativní průvodce: tlačítko `Spustit ukázku`, 4 klikatelné kroky, interní scroll a autoplay se vypne po ruční interakci, aby už nepřeskakoval zpět.
+- Homepage top navigace nově propojuje podnikatelskou i zákaznickou část přes odkaz `Najít podnik` na `/podniky`.
+- Lighthouse kontrastní nálezy na homepage jsou opravené: muted texty na tónovaných sekcích a štítcích byly zesílené na kontrastnější foreground barvy.
 - Oborové landingy mají v hero části obrazový pás z generovaných assetů `public/marketing/*-ai.webp`, aby stránky nepůsobily jen jako textové karty.
 
 ## Hotové funkčně
@@ -117,6 +120,10 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 
 ## Poslední změna
 
+- Homepage demo polish po zpětné vazbě 2026-06-01: hero demo je v layoutu výraznější, panel zůstává stabilně vysoký, obsah v ukázce je scrollovatelný a ruční klik na plochu zastaví autoplay. Přidaný nativní klikací průvodce `Spustit ukázku` funguje bez externího Arcade embeddu a ukazuje stejné obrazovky, které klient uvidí po přihlášení.
+- Navigace homepage má zákaznický proklik `Najít podnik` na veřejný katalog `/podniky`, aby byla lépe oddělená cesta pro podniky a pro koncové zákazníky.
+- Opravené Lighthouse kontrastní nálezy na homepage: texty v kartách, oborových štítcích a bezpečnostní sekci už nepoužívají nízkokontrastní `text-muted-foreground` na tónovaných plochách; regresní test hlídá návrat problematických kombinací.
+- Ověření 2026-06-01 13:16 CEST: `npm run check` prošlo s 561 Vitest testy, migrations check, type-check, lint a produkční build. Lokální Playwright kontrola potvrdila, že ručně vybraná `Rezervační stránka` zůstane aktivní i po 6,2 s, `.signal-rail` má `overflow-y: auto`, průvodce přejde na krok 2 a console errors jsou 0. Axe color-contrast audit homepage vrátil `violationCount: 0`. Screenshoty: `output/playwright/temaro-clickable-demo-points.png`, `output/playwright/temaro-contrast-fix.png`.
 - Navazující landing/design úkol dokončený: sekce `Reálné provozy` používá naše vygenerované WebP assety `public/marketing/*-ai.webp`, footer už nepoužívá slabé copy `postaveno v Brně`, hero produktový náhled ukazuje reálné plochy `Dashboard`, `Kalendář`, `Booking` a `Účet klienta` a spacing mezi herem a další sekcí je bez prázdné mezery.
 - Přidaný regresní test `tests/landing-polish.test.ts` hlídá WebP reference, odstranění slabého footer copy a pojmenování reálných produktových ploch. Public smoke test embedu byl upravený tak, aby simuloval cizí web přes absolutní URL skriptu místo vkládání `<script>` do hydratované Next stránky.
 - Lokální ověření 2026-06-01 11:18 CEST: `npm run check` prošlo s 559 Vitest testy, migrations check, type-check, lint a produkční build. `PLAYWRIGHT_BASE_URL=http://127.0.0.1:3000 npx playwright test tests/e2e/public-smoke.spec.ts` prošlo 8/8. Playwright screenshoty `output/playwright/landing-desktop.png`, `landing-mobile.png` a `landing-full.png` potvrdily desktop/mobil layout; měření na 1366 a 390 px ukázalo nulový gap mezi herem a `#provoz` a žádný horizontální overflow.

@@ -36,6 +36,12 @@ describe("landing polish guard", () => {
     expect(demo).toContain("Riziko");
     expect(demo).toContain("Otevřít kalendář");
     expect(demo).toContain("Spravovat rezervace");
+    expect(demo).toContain("selectSurface");
+    expect(demo).toContain("setHasInteracted(true)");
+    expect(demo).toContain("overflow-y-auto");
+    expect(demo).toContain("Spustit ukázku");
+    expect(demo).toContain("Další krok");
+    expect(demo).toContain("Zavřít ukázku");
 
     expect(demo).not.toContain("Dashboard");
     expect(demo).not.toContain("Temaro MVP");
@@ -64,5 +70,12 @@ describe("landing polish guard", () => {
     for (const term of forbiddenTerms) {
       expect(page).not.toContain(term);
     }
+  });
+
+  test("homepage avoids low-contrast muted text on tinted surfaces", () => {
+    const page = readProjectFile("app/page.tsx");
+
+    expect(page).not.toContain("text-sm font-medium leading-6 text-muted-foreground");
+    expect(page).not.toContain("border border-border bg-secondary px-3 py-1 text-xs font-bold text-muted-foreground");
   });
 });

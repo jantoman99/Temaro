@@ -88,6 +88,33 @@ const quickLinks: readonly {
   { icon: CalendarDays, label: "Termíny", text: "volná okna" },
 ];
 
+const tourSteps: readonly {
+  surfaceId: SurfaceId;
+  title: string;
+  points: readonly string[];
+}[] = [
+  {
+    surfaceId: "overview",
+    title: "Začněte přehledem dne",
+    points: ["Rezervace", "Tržba", "Volná okna"],
+  },
+  {
+    surfaceId: "calendar",
+    title: "Otevřete kalendář týmu",
+    points: ["Lidé", "Filtry", "Nový termín"],
+  },
+  {
+    surfaceId: "bookingPage",
+    title: "Pošlete klientům rezervační stránku",
+    points: ["Služby", "Tým", "Sdílení"],
+  },
+  {
+    surfaceId: "clientAccount",
+    title: "Klient si hlídá svoje termíny",
+    points: ["Termíny", "Historie", "Změny"],
+  },
+];
+
 function SurfacePanel({ activeSurfaceId }: { activeSurfaceId: SurfaceId }) {
   if (activeSurfaceId === "calendar") {
     return (
@@ -229,9 +256,46 @@ function SurfacePanel({ activeSurfaceId }: { activeSurfaceId: SurfaceId }) {
 
 export function InteractiveProductDemo() {
   const [activeSurfaceId, setActiveSurfaceId] = useState<SurfaceId>("overview");
+  const [hasInteracted, setHasInteracted] = useState(false);
+  const [tourStepIndex, setTourStepIndex] = useState<number | null>(null);
   const activeSurface = productSurfaces.find((surface) => surface.id === activeSurfaceId) ?? productSurfaces[0];
+  const activeTourStep = tourStepIndex === null ? null : tourSteps[tourStepIndex];
+
+  function selectSurface(surfaceId: SurfaceId) {
+    setHasInteracted(true);
+    setTourStepIndex(null);
+    setActiveSurfaceId(surfaceId);
+  }
+
+  function startTour() {
+    setHasInteracted(true);
+    setTourStepIndex(0);
+    setActiveSurfaceId(tourSteps[0].surfaceId);
+  }
+
+  function showNextTourStep() {
+    setHasInteracted(true);
+
+    const nextIndex = tourStepIndex === null ? 0 : tourStepIndex + 1;
+    if (nextIndex >= tourSteps.length) {
+      setTourStepIndex(null);
+      return;
+    }
+
+    setTourStepIndex(nextIndex);
+    setActiveSurfaceId(tourSteps[nextIndex].surfaceId);
+  }
+
+  function closeTour() {
+    setHasInteracted(true);
+    setTourStepIndex(null);
+  }
 
   useEffect(() => {
+    if (hasInteracted) {
+      return;
+    }
+
     const intervalId = window.setInterval(() => {
       setActiveSurfaceId((current) => {
         const currentIndex = productSurfaces.findIndex((surface) => surface.id === current);
@@ -240,7 +304,7 @@ export function InteractiveProductDemo() {
     }, 5200);
 
     return () => window.clearInterval(intervalId);
-  }, []);
+  }, [hasInteracted]);
 
   return (
     <section id="produkt" className="relative min-w-0">
@@ -255,7 +319,13 @@ export function InteractiveProductDemo() {
             <div className="rounded-full border border-white/10 bg-white/8 px-3 py-1 text-xs font-semibold text-white/72">
               Reálný pohled po přihlášení
             </div>
-            <div className="nums-tabular text-xs font-semibold text-white/55">Studio Magnolia</div>
+            <button
+              type="button"
+              onClick={startTour}
+              className="rounded-full border border-primary/35 bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground shadow-sm transition hover:bg-primary/90"
+            >
+              Spustit ukázku
+            </button>
           </div>
 
           <div className="grid min-h-[40rem] min-w-0 lg:h-[40rem] lg:grid-cols-[12rem_minmax(0,1fr)]">
@@ -279,7 +349,7 @@ export function InteractiveProductDemo() {
                     <button
                       key={surface.id}
                       type="button"
-                      onClick={() => setActiveSurfaceId(surface.id)}
+                      onClick={() => selectSurface(surface.id)}
                       className={`relative flex h-10 w-full items-center gap-3 rounded-xl px-3 py-2 text-left transition ${
                         isActive ? "bg-white/10 text-white" : "hover:bg-white/5 hover:text-white"
                       }`}
@@ -301,7 +371,7 @@ export function InteractiveProductDemo() {
                   <button
                     key={surface.id}
                     type="button"
-                    onClick={() => setActiveSurfaceId(surface.id)}
+                    onClick={() => selectSurface(surface.id)}
                     className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-bold transition ${
                       activeSurface.id === surface.id
                         ? "bg-primary text-primary-foreground"
@@ -321,8 +391,42 @@ export function InteractiveProductDemo() {
               </div>
 
               <div className="grid gap-4">
-                <div className="signal-rail h-[31.5rem] overflow-hidden rounded-2xl border border-border bg-card p-5 shadow-sm">
+                <div className="signal-rail h-[31.5rem] overflow-y-auto rounded-2xl border border-border bg-card p-5 shadow-sm">
                   <SurfacePanel activeSurfaceId={activeSurface.id} />
+                  {activeTourStep && tourStepIndex !== null ? (
+                    <div className="sticky bottom-0 mt-4 rounded-2xl border border-primary/20 bg-card/95 p-4 shadow-lg shadow-primary/10 backdrop-blur">
+                      <div className="flex items-start justify-between gap-4">
+                        <div>
+                          <p className="text-xs font-bold uppercase tracking-[0.14em] text-primary">
+                            Krok {tourStepIndex + 1} / {tourSteps.length}
+                          </p>
+                          <h3 className="mt-1 text-base font-semibold tracking-tight">{activeTourStep.title}</h3>
+                          <ul className="mt-2 grid gap-1.5 text-sm font-medium leading-5 text-muted-foreground">
+                            {activeTourStep.points.map((point) => (
+                              <li key={point} className="flex items-center gap-2">
+                                <span className="size-1.5 rounded-full bg-primary/70" />
+                                {point}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={closeTour}
+                          className="shrink-0 rounded-full border border-border bg-secondary px-3 py-1 text-xs font-bold text-muted-foreground hover:text-foreground"
+                        >
+                          Zavřít ukázku
+                        </button>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={showNextTourStep}
+                        className="mt-3 inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 text-xs font-semibold text-primary-foreground shadow-sm hover:bg-primary/90"
+                      >
+                        {tourStepIndex + 1 >= tourSteps.length ? "Dokončit ukázku" : "Další krok"}
+                      </button>
+                    </div>
+                  ) : null}
                 </div>
 
                 <div className="grid gap-2 sm:grid-cols-3">

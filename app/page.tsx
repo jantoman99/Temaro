@@ -48,6 +48,7 @@ const navLinks = [
   ["#pro-koho", "Obory"],
   ["#cenik", "Ceník"],
   [CTA.secondary.href, "Ukázka"],
+  ["/podniky", "Najít podnik"],
 ] as const;
 
 const features = [
@@ -238,7 +239,7 @@ export default async function Home() {
               <TemaroLogo />
             </Link>
 
-            <nav className="order-3 grid w-full grid-cols-4 gap-1 border-t border-border/70 pt-2 lg:order-none lg:flex lg:w-auto lg:border-t-0 lg:pt-0">
+            <nav className="order-3 grid w-full grid-cols-5 gap-1 border-t border-border/70 pt-2 lg:order-none lg:flex lg:w-auto lg:border-t-0 lg:pt-0">
               {navLinks.map(([href, label]) => (
                 <Link
                   key={href}
@@ -268,7 +269,7 @@ export default async function Home() {
             </div>
           </header>
 
-          <div className="grid flex-1 items-center gap-10 py-8 lg:grid-cols-[0.88fr_1.12fr] lg:items-center lg:py-10">
+          <div className="grid flex-1 items-center gap-10 py-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-center lg:py-10">
             <section className="mx-auto max-w-2xl lg:mx-0">
               <div className="motion-reveal inline-flex items-center gap-2 rounded-full border border-primary/15 bg-card/75 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-primary shadow-sm backdrop-blur">
                 <span className="signal-pulse size-2 rounded-full bg-primary" />
@@ -330,7 +331,7 @@ export default async function Home() {
             <h2 className="mt-3 text-balance text-4xl font-semibold leading-[1.05] tracking-tight text-foreground sm:text-5xl">
               Neprodáváme formulář. Prodáváme klid v provozu.
             </h2>
-            <p className="mt-5 max-w-md text-sm font-medium leading-6 text-muted-foreground">
+            <p className="mt-5 max-w-md text-sm font-medium leading-6 text-secondary-foreground">
               Rezervace není izolovaný formulář. Je to tok mezi klientem, kalendářem, týmem a historií podniku.
             </p>
           </header>
@@ -345,7 +346,7 @@ export default async function Home() {
                   <feature.icon className="h-5 w-5" strokeWidth={1.9} />
                 </div>
                 <h3 className="text-lg font-semibold tracking-tight text-foreground">{feature.title}</h3>
-                <p className="mt-2 text-sm font-medium leading-6 text-muted-foreground">{feature.description}</p>
+                <p className="mt-2 text-sm font-medium leading-6 text-secondary-foreground">{feature.description}</p>
               </article>
             ))}
           </div>
@@ -361,7 +362,7 @@ export default async function Home() {
               Vypadá jako systém pro služby, ne jako obecná šablona.
             </h2>
           </div>
-          <p className="max-w-sm text-sm font-medium leading-6 text-muted-foreground">
+          <p className="max-w-sm text-sm font-medium leading-6 text-secondary-foreground">
             Temaro míří na provozy, kde se střídají klienti, zaměstnanci, termíny a opakované návštěvy.
           </p>
         </div>
@@ -380,7 +381,7 @@ export default async function Home() {
               </div>
               <div className="p-5">
                 <h3 className="text-xl font-semibold tracking-tight">{segment.title}</h3>
-                <p className="mt-2 text-sm font-medium leading-6 text-muted-foreground">{segment.text}</p>
+                <p className="mt-2 text-sm font-medium leading-6 text-secondary-foreground">{segment.text}</p>
               </div>
             </article>
           ))}
@@ -396,7 +397,7 @@ export default async function Home() {
               Jeden systém pro služby, kde rozhoduje <span className="font-serif-accent text-primary">čas</span>.
             </h2>
           </div>
-          <p className="max-w-sm text-sm font-medium leading-6 text-muted-foreground">
+          <p className="max-w-sm text-sm font-medium leading-6 text-secondary-foreground">
             Jeden základ pro různé provozy: kalendář, lidé, služby, klienti a jasný rezervační odkaz.
           </p>
         </div>
@@ -414,10 +415,10 @@ export default async function Home() {
                 <span className="nums-tabular text-xs font-bold text-muted-foreground">{`0${index + 1}`}</span>
               </div>
               <h3 className="text-xl font-semibold tracking-tight">{segment.title}</h3>
-              <p className="mt-2 text-sm font-medium leading-6 text-muted-foreground">{segment.text}</p>
+              <p className="mt-2 text-sm font-medium leading-6 text-secondary-foreground">{segment.text}</p>
               <div className="mt-5 flex flex-wrap gap-2">
                 {segment.points.map((point) => (
-                  <span key={point} className="rounded-full border border-border bg-secondary px-3 py-1 text-xs font-bold text-muted-foreground">
+                  <span key={point} className="rounded-full border border-border bg-secondary px-3 py-1 text-xs font-bold text-secondary-foreground">
                     {point}
                   </span>
                 ))}
@@ -485,7 +486,7 @@ export default async function Home() {
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                   <div>
                     <h3 className="text-xl font-semibold tracking-tight">{plan.name}</h3>
-                    <p className="mt-2 max-w-md text-sm font-medium leading-6 text-muted-foreground">
+                    <p className="mt-2 max-w-md text-sm font-medium leading-6 text-secondary-foreground">
                       {plan.description}
                     </p>
                   </div>
@@ -522,7 +523,7 @@ export default async function Home() {
             <h2 className="mt-3 text-balance text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
               Rezervace jsou jednoduché. Data musí být <span className="font-serif-accent text-primary">pevná</span>.
             </h2>
-            <p className="mt-5 max-w-md text-sm font-medium leading-6 text-muted-foreground">
+            <p className="mt-5 max-w-md text-sm font-medium leading-6 text-secondary-foreground">
               Rezervační systém pracuje s klienty, termíny a historií podniku. Proto je důležité, aby se data nepletla
               mezi podniky a veřejná rezervace nešla obejít ručně poslaným formulářem.
             </p>
@@ -536,7 +537,7 @@ export default async function Home() {
                 </span>
                 <div>
                   <h3 className="text-lg font-semibold tracking-tight">{title}</h3>
-                  <p className="mt-1 text-sm font-medium leading-6 text-muted-foreground">{text}</p>
+                  <p className="mt-1 text-sm font-medium leading-6 text-secondary-foreground">{text}</p>
                 </div>
               </article>
             ))}
@@ -548,7 +549,7 @@ export default async function Home() {
         <div className="mx-auto grid w-full max-w-[1180px] gap-8 px-4 py-12 sm:px-6 lg:grid-cols-[1.2fr_0.8fr_1fr_0.8fr] lg:px-8">
           <div>
             <TemaroLogo />
-            <p className="mt-3 max-w-sm text-sm font-medium leading-6 text-muted-foreground">
+            <p className="mt-3 max-w-sm text-sm font-medium leading-6 text-secondary-foreground">
               Rezervační systém pro salony, ordinace, trenéry a další služby. Vyrobeno v Česku, připraveno pro EU provoz.
             </p>
           </div>
