@@ -1,6 +1,6 @@
 # Handoff
 
-Aktualizováno: 2026-06-01 21:15 CEST
+Aktualizováno: 2026-06-01 23:07 CEST
 
 ## Jak navázat
 
@@ -45,6 +45,8 @@ Aktualizováno: 2026-06-01 21:15 CEST
 - Supabase poznámka: `supabase db push` je stále blokovaný staršími remote-only migracemi v historii. Nová migrace `20260601202500_add_tenant_public_profile_details.sql` byla proto aplikovaná přes `supabase db query --linked --file ...` a označená jako applied přes `supabase migration repair --status applied 20260601202500`.
 - Hotfix 2026-06-01 21:15 CEST: `/toman-barber` už znovu renderuje booking formulář. Příčina byla výběr starších sloupců `review_rating` a `public_latitude/public_longitude`, které nejsou v produkční DB aplikované. QR kód přešel z `chart.googleapis.com` na funkční `quickchart.io`.
 - Poslední ověření hotfixu: `npm run check` prošlo 2026-06-01 21:13 CEST s 584 Vitest testy a produkční public smoke prošel 2026-06-01 21:15 CEST 10/10.
+- Aktuální UX změna 2026-06-01 23:07 CEST: veřejná booking stránka `/[slug]` už nemá úzký levý profil vedle dlouhého formuláře. Profil podniku je nahoře přes plnou osu stránky, rezervační formulář je pod ním centrovaný a chybějící galerie se veřejně nahrazuje informačním panelem místo prázdného upload placeholderu.
+- Lokální ověření: `npm run check` prošlo 2026-06-01 23:13 CEST s 584 Vitest testy, migrations check, type-check, lint i buildem. `npx playwright test tests/e2e/public-smoke.spec.ts` prošel 10/10 a screenshot po úpravě je v `output/playwright/toman-barber-redesign-v2.png`.
 - Vercel production deploy po homepage demo/kontrast opravě je hotový: `https://rezervacni-system-xi.vercel.app`, aktuální deploy `dpl_Cx2nPdYYMLiwTNsaY5yQLUN9x7b7`; externí public smoke 2026-06-01 13:21 CEST prošel 8/8 a produkční axe color-contrast audit homepage vrátil `violationCount: 0`.
 - Public health endpoint nevrací názvy chybějících secret env; vrací jen počet v `checks.env.missing`.
 - GitHub login connection ve Vercelu je propojený; před propojením byly nové deploymenty private repa `BLOCKED`, aktuální production deploy je `dpl_4Zogqwr6XLj2utWu7cbc9sCh5ePe`.

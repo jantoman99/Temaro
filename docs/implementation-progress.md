@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Aktualizováno: 2026-06-01 21:15 CEST
+Aktualizováno: 2026-06-01 23:07 CEST
 
 Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historické analýzy a staré design audity jsou přesunuté do `docs/archive/`.
 
@@ -58,6 +58,9 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - Vercel production deploy `dpl_AXGhH3Wg6NXanoMmsB5ZD4DqhBwF` je na aliasu `https://rezervacni-system-xi.vercel.app`; `/api/health` je `ok`, externí public smoke 2026-06-01 20:56 CEST prošel 10/10 a `/toman-barber` vrací HTTP 200.
 - Hotfix 2026-06-01 21:15 CEST: `/toman-barber` už nespadá na fallback `Rezervace se teď nepodařilo načíst`; veřejný booking dočasně nevybírá starší review/coordinate sloupce, které nejsou v produkční DB aplikované. QR kód přešel z nefunkčního `chart.googleapis.com` na `quickchart.io`.
 - `npm run check` prošlo 2026-06-01 21:13 CEST po hotfixu: 584 Vitest testů, migrations check, type-check, lint a produkční build. Produkční public smoke 2026-06-01 21:15 CEST prošel 10/10.
+- Veřejný booking profil `/[slug]` byl po vizuální kontrole znovu přestavěný: profil podniku je nahoře jako široká zákaznická stránka s úvodní fotkou, rychlými informacemi a teprve pod ní je vlastní rezervační formulář. Chybějící galerie se na veřejné stránce už nezobrazuje jako prázdná upload plocha, ale jako zákaznický informační panel.
+- Lokální vizuální kontrola `/toman-barber` 2026-06-01 23:07 CEST uložila screenshot `output/playwright/toman-barber-redesign-v2.png`; stránka renderuje HTTP 200, bez fallback chyby a bez horizontálního overflow.
+- `npm run check` prošlo 2026-06-01 23:13 CEST po redesignu veřejné booking stránky: 584 Vitest testů, migrations check, type-check, lint a produkční build.
 
 ## Hotové funkčně
 

@@ -469,6 +469,7 @@ Aktuální známý stav:
 - Po vygenerování iCal feedu ověřit, že URL neobsahuje tenant ID, feed obsahuje aktivní rezervace, `last_used_at` se po načtení aktualizuje a po odvolání feed vrací 404.
 - V `/booking-page` ověřit booking button embed snippet, vložit ho do jednoduché HTML stránky a potvrdit, že vykreslí tlačítko vedoucí na veřejný booking slug.
 - V `/booking-page` ověřit sdílecí kit: Instagram bio text, story/post text a QR kód; CSP nesmí blokovat `chart.googleapis.com`.
+- Na veřejné booking stránce `/{slug}` ověřit desktop i mobil: úvodní profil podniku je nad formulářem, text není useknutý přes fotku, chybějící galerie neukazuje veřejný upload placeholder a rezervační formulář je čitelně centrovaný pod profilem.
 - Na landing page ověřit sekci `Dva typy účtů` a další produktovou vrstvu: vyhledání podniků, mapa podniku a plný Google Calendar sync jsou budoucí vrstva, ne hotová funkce.
 - V `/settings` vyplnit veřejnou adresu/město/mapový odkaz, zapnout zalistování, ověřit `/podniky` a veřejnou booking stránku; katalog má ukazovat jen veřejná tenant pole.
 - Leaked password protection zatím nezapínat na Free plánu; zapnout až před spuštěním při přechodu na Supabase Pro/prod provoz. Podle Supabase docs je dostupná na Pro plánu a výš.
