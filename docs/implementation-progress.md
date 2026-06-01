@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Aktualizováno: 2026-06-01 19:16 CEST
+Aktualizováno: 2026-06-01 19:24 CEST
 
 Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historické analýzy a staré design audity jsou přesunuté do `docs/archive/`.
 
@@ -41,6 +41,7 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - Přihlášení má doplněné reset hesla: `/forgot-password` posílá bezpečný Supabase reset odkaz bez prozrazení existence účtu, `/reset-password` nastaví nové heslo z recovery session a následně uživatele odhlásí pro nové přihlášení.
 - `npm run check` prošlo 2026-06-01 19:13 CEST po doplnění Vercel Auth env a resetu hesla: 577 Vitest testů, migrations check, type-check, lint a produkční build.
 - Vercel production deploy `dpl_8FLnYjPqjeBbbFZXymJvS3hG5yp2` je na aliasu `https://rezervacni-system-xi.vercel.app`; `/api/health` je `ok`, Supabase je `configured=true` a externí public smoke 2026-06-01 19:16 CEST prošel 10/10.
+- Supabase Auth URL Configuration je opravená: `site_url=https://rezervacni-system-xi.vercel.app`, redirect allowlist obsahuje produkční alias, localhost pro vývoj a Vercel preview pattern. Reset hesla už nemá fallbackovat na localhost.
 - Lighthouse kontrastní nálezy na homepage jsou opravené: muted texty na tónovaných sekcích a štítcích byly zesílené na kontrastnější foreground barvy.
 - Oborové landingy mají v hero části obrazový pás z generovaných assetů `public/marketing/*-ai.webp`, aby stránky nepůsobily jen jako textové karty.
 
