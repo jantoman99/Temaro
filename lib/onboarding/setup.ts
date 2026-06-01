@@ -15,6 +15,12 @@ export type LaunchPlan = {
     label: string;
   };
   readiness: number;
+  sharePanel: {
+    headline: string;
+    primaryHref: string;
+    primaryLabel: string;
+    text: string;
+  };
   steps: LaunchStep[];
 };
 
@@ -85,11 +91,19 @@ export function buildLaunchPlan({
           label: firstMissingStep.title,
         }
       : {
-          description: "Rezervační stránka má základ hotový. Teď ji dostaňte ke klientům.",
-          href: bookingUrlPath,
-          label: "Otevřít rezervační stránku",
+          description: "Rezervační stránka má základ hotový. Zkontrolujte ji a potom pošlete odkaz prvním klientům.",
+          href: "/booking-page",
+          label: "Zkontrolovat a sdílet stránku",
         },
     readiness: getLaunchReadiness(steps),
+    sharePanel: {
+      headline: isReadyToShare ? "Pošlete odkaz prvním klientům" : "Sdílení se otevře po dokončení základu",
+      primaryHref: bookingUrlPath,
+      primaryLabel: isReadyToShare ? "Otevřít stránku klienta" : "Nejprve dokončit základ",
+      text: isReadyToShare
+        ? "Použijte odkaz do Instagram bia, Google profilu, SMS nebo QR kódu v provozovně."
+        : "Jakmile bude hotová služba a tým s pracovní dobou, dostanete tady odkazy a texty ke sdílení.",
+    },
     steps,
   };
 }

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, ExternalLink } from "lucide-react";
 
+import { getBookingShareKit } from "@/lib/booking/share-kit";
 import type { LaunchPlan } from "@/lib/onboarding/setup";
 
 export type SetupStep = {
@@ -52,14 +53,17 @@ export function SetupStepsPanel({ steps }: { steps: SetupStep[] }) {
 
 export function LaunchReadinessPanel({
   bookingUrl,
+  businessName,
   plan,
 }: {
   bookingUrl: string;
+  businessName: string;
   plan: LaunchPlan;
 }) {
   const readinessLabel = plan.isReadyToShare
     ? "Rezervační stránka je připravená ke kontrole a sdílení."
     : "Doplňte základ, aby klient viděl službu, čas i člověka, u kterého se objednává.";
+  const shareKit = getBookingShareKit({ bookingUrl, businessName });
 
   return (
     <section className="overflow-hidden rounded-3xl border border-border bg-card shadow-sm">
@@ -99,6 +103,42 @@ export function LaunchReadinessPanel({
             <p className="mt-2 text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
               Web podniku · Instagram bio · QR kód · SMS klientům
             </p>
+          </div>
+
+          <div className={`mt-4 rounded-2xl border p-4 ${plan.isReadyToShare ? "border-success/30 bg-success/10" : "border-border bg-secondary/60"}`}>
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-start">
+              <div className="min-w-0 flex-1">
+                <p className="text-sm font-semibold text-foreground">{plan.sharePanel.headline}</p>
+                <p className="mt-2 text-sm font-medium leading-6 text-muted-foreground">{plan.sharePanel.text}</p>
+                <div className="mt-3 grid gap-2">
+                  <p className="rounded-lg border border-border bg-background px-3 py-2 text-sm font-medium text-foreground">
+                    {shareKit.instagramBio}
+                  </p>
+                  <p className="rounded-lg border border-border bg-background px-3 py-2 text-sm font-medium leading-6 text-foreground">
+                    {shareKit.instagramStory}
+                  </p>
+                </div>
+                <Link
+                  href={plan.sharePanel.primaryHref}
+                  className={`mt-3 inline-flex h-10 items-center justify-center rounded-md px-4 text-sm font-semibold shadow-sm transition ${
+                    plan.isReadyToShare
+                      ? "bg-primary text-primary-foreground hover:bg-primary/90"
+                      : "pointer-events-none border border-border bg-background text-muted-foreground"
+                  }`}
+                >
+                  {plan.sharePanel.primaryLabel}
+                </Link>
+              </div>
+              <div className="rounded-xl border border-border bg-background p-3 text-center shadow-sm">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  alt={`QR kód pro ${businessName}`}
+                  className={`mx-auto size-28 rounded-lg border border-border bg-white p-2 ${plan.isReadyToShare ? "" : "opacity-35 grayscale"}`}
+                  src={shareKit.qrImageUrl}
+                />
+                <p className="mt-2 text-xs font-semibold text-muted-foreground">QR pro provozovnu</p>
+              </div>
+            </div>
           </div>
         </div>
 

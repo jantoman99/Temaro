@@ -1,6 +1,6 @@
 # Runtime checklist
 
-Aktualizováno: 2026-06-01 16:46 CEST
+Aktualizováno: 2026-06-01 18:47 CEST
 
 Tento checklist je pro první reálné ověření mimo demo režim.
 
@@ -23,6 +23,8 @@ curl -I http://localhost:3000
 Aktuální známý stav:
 
 - `npm run check` prošlo 2026-06-01 16:40 CEST po rychlém service/staff/booking-page onboardingu: 572 Vitest testů, migrations check, type-check, lint a produkční build.
+- `npm run check` prošlo 2026-06-01 18:47 CEST po doplnění sdílení do `/start`: 572 Vitest testů, migrations check, type-check, lint a produkční build.
+- `/start` runtime ověřit po hotovém základu: panel `Pošlete odkaz prvním klientům`, text pro Instagram bio, text pro story/příspěvek, QR kód a CTA `Otevřít stránku klienta`.
 - `/services` runtime ověřit jako rychlé založení nabídky: panel `Přidat tři služby najednou` přidá vybrané oborové šablony a přeskočí už existující názvy.
 - `/staff` runtime ověřit jako rychlé nastavení člověka: výchozí pracovní doba Po-Pá 09:00-17:00 a volba `Přiřadit všechny aktuální služby`.
 - `/booking-page` runtime ověřit podle panelu `Připravenost stránky`: služba, tým, pracovní doba a propojení služby s týmem.

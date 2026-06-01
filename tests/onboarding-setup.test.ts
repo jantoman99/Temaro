@@ -35,10 +35,15 @@ describe("onboarding setup", () => {
     });
 
     expect(plan.nextAction).toMatchObject({
-      href: "/studio-magnolia",
-      label: "Otevřít rezervační stránku",
+      href: "/booking-page",
+      label: "Zkontrolovat a sdílet stránku",
     });
     expect(plan.isReadyToShare).toBe(true);
+    expect(plan.sharePanel).toMatchObject({
+      headline: "Pošlete odkaz prvním klientům",
+      primaryHref: "/studio-magnolia",
+      primaryLabel: "Otevřít stránku klienta",
+    });
   });
 
   it("spocita procenta bez deleni nulou", () => {

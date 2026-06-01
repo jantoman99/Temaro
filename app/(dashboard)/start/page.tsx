@@ -30,7 +30,11 @@ export default async function StartPage() {
           eyebrow="Spuštění"
           title="Nastavení první rezervace"
         />
-        <LaunchReadinessPanel bookingUrl={`${getBaseAppUrl()}${launchPlan.bookingUrlPath}`} plan={launchPlan} />
+        <LaunchReadinessPanel
+          bookingUrl={`${getBaseAppUrl()}${launchPlan.bookingUrlPath}`}
+          businessName={demoTenant.name}
+          plan={launchPlan}
+        />
         <IndustryStartPanel
           currentIndustry={demoIndustry}
           isDemo
@@ -92,7 +96,11 @@ export default async function StartPage() {
         eyebrow="Spuštění"
         title="Nastavení první rezervace"
       />
-      <LaunchReadinessPanel bookingUrl={`${getBaseAppUrl()}${launchPlan.bookingUrlPath}`} plan={launchPlan} />
+      <LaunchReadinessPanel
+        bookingUrl={`${getBaseAppUrl()}${launchPlan.bookingUrlPath}`}
+        businessName={tenant?.name ?? "Podnik"}
+        plan={launchPlan}
+      />
       <IndustryStartPanel
         currentIndustry={industry}
         templates={getServiceTemplatesForIndustry(industry)}
