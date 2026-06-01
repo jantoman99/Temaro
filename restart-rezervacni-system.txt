@@ -21,8 +21,11 @@ Důležité chování:
 - Ruční testy jsou odložené do `docs/manual-test-plan.md`.
 - Dokumentaci aktualizuj při smysluplné změně.
 
-Aktuální stav 2026-06-01 20:57 CEST:
+Aktuální stav 2026-06-01 21:15 CEST:
 - Produkt se jmenuje `Temaro`.
+- Hotfix: `/toman-barber` už znovu renderuje booking formulář a ne fallback `Rezervace se teď nepodařilo načíst`. Příčina byla výběr starších review/coordinate sloupců, které nejsou v produkční DB aplikované.
+- QR kód ve share kitu přešel z `chart.googleapis.com`, který vracel 404, na `quickchart.io`.
+- Poslední ověření: `npm run check` prošlo 2026-06-01 21:13 CEST s 584 Vitest testy, migrations check, type-check, lint i buildem. Produkční public smoke prošel 2026-06-01 21:15 CEST 10/10.
 - Poslední ověření: `npm run check` prošlo 2026-06-01 20:52 CEST s 584 Vitest testy, migrations check, type-check, lint i produkčním buildem. Lokální public smoke prošel 10/10 a přihlášený Playwright smoke prošel 2026-06-01 20:49 CEST.
 - Produkce je nasazená na `https://rezervacni-system-xi.vercel.app`, aktuální deploy `dpl_AXGhH3Wg6NXanoMmsB5ZD4DqhBwF`; `/api/health` vrací `ok`, externí public smoke prošel 2026-06-01 20:56 CEST 10/10 a `/toman-barber` vrací HTTP 200.
 - Veřejný booking profil `/[slug]` je blíž Reservio/Salona profilu: galerie, hodnocení, adresa, mapový iframe přes souřadnice, sociální odkazy a výhody provozovny.
