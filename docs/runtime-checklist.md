@@ -1,6 +1,6 @@
 # Runtime checklist
 
-Aktualizováno: 2026-06-01 15:16 CEST
+Aktualizováno: 2026-06-01 15:35 CEST
 
 Tento checklist je pro první reálné ověření mimo demo režim.
 
@@ -25,7 +25,7 @@ Aktuální známý stav:
 - `npm run check` prošlo 2026-06-01 15:16 CEST po business/customer splitu, `/ukazka` a katalog UI úpravě: 564 Vitest testů, migrations check, type-check, lint a produkční build.
 - Lokální Playwright public smoke 2026-06-01 15:12 CEST prošel: `PLAYWRIGHT_BASE_URL=http://127.0.0.1:3000 npx playwright test tests/e2e/public-smoke.spec.ts` má 10/10 testů zelených. Segment SEO test používá `domcontentloaded`, aby nepadal na pomalém `load` čekání statických stránek.
 - Lokální design check 2026-06-01 15:04 CEST prošel pro `/`, `/podniky`, `/ukazka` na 1366px i 390px: console errors 0, horizontální overflow 0, `/podniky` nemá `lat/lng/radius` pole a demo panel nemá useknutý obsah.
-- Vercel production deploy `dpl_CfGpfEhX919UcmNwFdL35acD6JKr` je na aliasu `https://rezervacni-system-xi.vercel.app`. Externí public smoke 2026-06-01 15:24 CEST prošel: `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` má 10/10 testů zelených. Produkční design check pro `/`, `/podniky`, `/ukazka` potvrdil console errors 0, horizontální overflow 0, coordinate fields 0 a demo rail overflow false.
+- Vercel production deploy `dpl_BYMou3xSBnH9G2XEE8ydhAWzFpNw` je na aliasu `https://rezervacni-system-xi.vercel.app`. Externí public smoke 2026-06-01 15:35 CEST prošel: `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` má 10/10 testů zelených. Produkční design check pro `/`, `/podniky`, `/ukazka` potvrdil console errors 0, horizontální overflow 0, coordinate fields 0 a demo rail overflow false.
 - `/podniky` teď runtime ověřovat jako zákaznické hledání přes `Co hledáte?`, `Kde` a `Obor`; ruční zadávání souřadnic v katalog UI už není součást zákaznické cesty.
 - `/ukazka` runtime ověřovat jako samostatnou interaktivní ukázku vedle homepage: tlačítko `Spustit ukázku`, přepínání částí systému a CTA `Začít zdarma`.
 - `npm run check` prošlo 2026-06-01 14:17 CEST po demo cleanupu: 561 Vitest testů, migrations check, type-check, lint a produkční build.
