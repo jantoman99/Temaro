@@ -1,6 +1,6 @@
 # Handoff
 
-Aktualizováno: 2026-06-01 20:17 CEST
+Aktualizováno: 2026-06-01 20:21 CEST
 
 ## Jak navázat
 
@@ -38,6 +38,7 @@ Aktualizováno: 2026-06-01 20:17 CEST
 - Poslední ověření: `npm run check` prošlo 2026-06-01 19:53 CEST s 581 Vitest testy, migrations check, type-check, lint i buildem; přihlášený Playwright smoke prošel 2026-06-01 19:49 CEST; produkční deploy `dpl_3HfjkUP3KaCFfD9hpyTH1JiXbJYf` prošel externím public smoke 2026-06-01 19:55 CEST 10/10.
 - Aktuální UX změna: `/booking-page` má vizuální editor zákaznické stránky. Owner klikne na velkou úvodní fotku nebo logo, nahraje obrázek a okamžitě vidí lokální náhled; ruční URL zůstává jen jako rozbalitelný fallback.
 - Poslední ověření: `npm run check` prošlo 2026-06-01 20:17 CEST s 583 Vitest testy, migrations check, type-check, lint i buildem; přihlášený Playwright smoke prošel 2026-06-01 20:12 CEST.
+- Produkční deploy `dpl_7QWM11Y5JZ2UwxoCrZvQs3uxSMod` je na aliasu `https://rezervacni-system-xi.vercel.app`; `/api/health` je `ok` a externí public smoke prošel 2026-06-01 20:21 CEST 10/10.
 - Vercel production deploy po homepage demo/kontrast opravě je hotový: `https://rezervacni-system-xi.vercel.app`, aktuální deploy `dpl_Cx2nPdYYMLiwTNsaY5yQLUN9x7b7`; externí public smoke 2026-06-01 13:21 CEST prošel 8/8 a produkční axe color-contrast audit homepage vrátil `violationCount: 0`.
 - Public health endpoint nevrací názvy chybějících secret env; vrací jen počet v `checks.env.missing`.
 - GitHub login connection ve Vercelu je propojený; před propojením byly nové deploymenty private repa `BLOCKED`, aktuální production deploy je `dpl_4Zogqwr6XLj2utWu7cbc9sCh5ePe`.

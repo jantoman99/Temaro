@@ -1,6 +1,6 @@
 # Runtime checklist
 
-Aktualizováno: 2026-06-01 20:17 CEST
+Aktualizováno: 2026-06-01 20:21 CEST
 
 Tento checklist je pro první reálné ověření mimo demo režim.
 
@@ -34,6 +34,7 @@ Aktuální známý stav:
 - Vercel production deploy `dpl_3HfjkUP3KaCFfD9hpyTH1JiXbJYf` je na aliasu `https://rezervacni-system-xi.vercel.app`. `/api/health` 2026-06-01 19:55 CEST vrací `status=ok`, `env.ok=true`, `supabase.configured=true`. Externí public smoke prošel: `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` má 10/10 testů zelených.
 - `npm run check` prošlo 2026-06-01 20:17 CEST po vizuálním editoru `/booking-page`: 583 Vitest testů, migrations check, type-check, lint a produkční build.
 - Přihlášený Playwright smoke prošel 2026-06-01 20:12 CEST: `E2E_AUTHENTICATED_SMOKE=true npx playwright test tests/e2e/admin-authenticated.spec.ts`; kontroluje i upload plochu `Úvodní fotka stránky` a okamžitý `Náhled pro klienta`.
+- Vercel production deploy `dpl_7QWM11Y5JZ2UwxoCrZvQs3uxSMod` je na aliasu `https://rezervacni-system-xi.vercel.app`. `/api/health` 2026-06-01 20:20 CEST vrací `status=ok`, `env.ok=true`, `supabase.configured=true`. Externí public smoke prošel: `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` má 10/10 testů zelených.
 - Vercel production deploy `dpl_8vaQ4KT4C4NH5tjGaBxQty8pHt51` je na aliasu `https://rezervacni-system-xi.vercel.app`. Externí public smoke 2026-06-01 18:50 CEST prošel: `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` má 10/10 testů zelených.
 - `/start` runtime ověřit po hotovém základu: panel `Pošlete odkaz prvním klientům`, text pro Instagram bio, text pro story/příspěvek, QR kód a CTA `Otevřít stránku klienta`.
 - `/services` runtime ověřit jako rychlé založení nabídky: panel `Přidat tři služby najednou` přidá vybrané oborové šablony a přeskočí už existující názvy.
