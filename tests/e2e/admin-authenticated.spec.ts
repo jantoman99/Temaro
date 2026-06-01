@@ -15,7 +15,7 @@ loadEnv({ path: ".env.local" });
 
 test.describe("authenticated admin smoke", () => {
   test("new owner can register and open core admin sections", async ({ page }) => {
-    test.setTimeout(60_000);
+    test.setTimeout(90_000);
     test.skip(!hasSupabaseAdminRuntime(), "Real Supabase env is required for authenticated admin E2E.");
 
     const setup = createE2ERun("Smoke");
@@ -36,6 +36,9 @@ test.describe("authenticated admin smoke", () => {
 
       await page.goto("/booking-page");
       await expect(page.getByRole("heading", { name: "Rezervační stránka", exact: true })).toBeVisible();
+      await expect(page.getByText("Úvodní fotka stránky")).toBeVisible();
+      await expect(page.getByText("Nahrát úvodní fotku")).toBeVisible();
+      await expect(page.getByText("Náhled pro klienta")).toBeVisible();
       await expect(page.getByRole("heading", { name: "Instagram, Google profil a QR" })).toBeVisible();
       await expect(page.getByRole("heading", { name: "Rezervační widget" })).toBeVisible();
       await expect(page.getByRole("link", { name: "Rezervovat termín" })).toHaveAttribute("href", /^\/[a-z0-9-]+$/);

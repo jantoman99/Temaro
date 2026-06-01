@@ -115,7 +115,7 @@ import {
   hideServiceAction,
   updateServiceAction,
 } from "@/app/(dashboard)/services/actions";
-import { updateTenantSettingsAction } from "@/app/(dashboard)/settings/actions";
+import { updateTenantBookingBrandingAction, updateTenantSettingsAction } from "@/app/(dashboard)/settings/actions";
 import { updateOnboardingIndustryAction } from "@/app/(dashboard)/start/actions";
 import {
   assignStaffServiceAction,
@@ -6920,6 +6920,98 @@ describe("server actions hardening", () => {
     expect(tenantsUpdateChain.eq).toHaveBeenCalledWith("id", TENANT_ID);
     expect(tenantsUpdateChain.is).toHaveBeenCalledWith("deleted_at", null);
     expect(mocks.revalidatePath).toHaveBeenCalledWith("/settings");
+  });
+
+  it("ulozi booking branding s nahranou uvodni fotkou do tenant assets bucketu", async () => {
+    const tenantsUpdateChain = createUpdateChain({ data: { id: TENANT_ID }, error: null });
+    const tenantsUpdate = vi.fn(() => tenantsUpdateChain);
+    const storageUpload = vi.fn(async () => ({ error: null }));
+    const getPublicUrl = vi.fn(() => ({
+      data: { publicUrl: `https://cdn.example.com/${TENANT_ID}/cover.webp` },
+    }));
+    const supabase = {
+      from: vi.fn((table: string) => {
+        if (table === "tenants") {
+          return {
+            update: tenantsUpdate,
+          };
+        }
+
+        throw new Error(`Unexpected table ${table}`);
+      }),
+    };
+
+    mocks.createAdminClient.mockReturnValue({
+      storage: {
+        from: vi.fn((bucket: string) => {
+          expect(bucket).toBe("tenant-assets");
+
+          return {
+            getPublicUrl,
+            upload: storageUpload,
+          };
+        }),
+      },
+    });
+    mocks.requireOwner.mockResolvedValue({
+      supabase,
+      tenantId: TENANT_ID,
+      user: { id: "66666666-6666-4666-8666-666666666666" },
+    });
+
+    const formData = createFormData({
+      publicDescription: "Moderní studio v centru.",
+      logoUrl: "",
+      coverImageUrl: "",
+      brandColor: "#0F766E",
+      confirmationMessage: "",
+      reminderMessage: "",
+      cancellationMessage: "",
+    });
+    formData.set("coverImageFile", new File(["webp"], "studio.webp", { type: "image/webp" }));
+
+    const result = await updateTenantBookingBrandingAction({}, formData);
+
+    expect(result).toEqual({ success: "Booking stránka byla uložena." });
+    expect(storageUpload).toHaveBeenCalledWith(
+      `${TENANT_ID}/cover.webp`,
+      expect.any(File),
+      expect.objectContaining({ contentType: "image/webp", upsert: true }),
+    );
+    expect(tenantsUpdate).toHaveBeenCalledWith(expect.objectContaining({
+      brand_color: "#0F766E",
+      cover_image_url: `https://cdn.example.com/${TENANT_ID}/cover.webp`,
+      public_description: "Moderní studio v centru.",
+    }));
+    expect(mocks.revalidatePath).toHaveBeenCalledWith("/booking-page");
+  });
+
+  it("odmitne booking branding soubor, ktery neni obrazek", async () => {
+    const supabase = {
+      from: vi.fn(),
+    };
+
+    mocks.requireOwner.mockResolvedValue({
+      supabase,
+      tenantId: TENANT_ID,
+      user: { id: "66666666-6666-4666-8666-666666666666" },
+    });
+
+    const formData = createFormData({
+      publicDescription: "",
+      logoUrl: "",
+      coverImageUrl: "",
+      brandColor: "#635BFF",
+      confirmationMessage: "",
+      reminderMessage: "",
+      cancellationMessage: "",
+    });
+    formData.set("coverImageFile", new File(["pdf"], "navod.pdf", { type: "application/pdf" }));
+
+    const result = await updateTenantBookingBrandingAction({}, formData);
+
+    expect(result).toEqual({ error: "Podporované jsou jen obrázky JPG, PNG, WebP nebo SVG." });
+    expect(supabase.from).not.toHaveBeenCalled();
   });
 
   it("ulozi onboarding obor podniku podle tenant ID z auth kontextu", async () => {

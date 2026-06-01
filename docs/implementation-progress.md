@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Aktualizováno: 2026-06-01 19:55 CEST
+Aktualizováno: 2026-06-01 20:17 CEST
 
 Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historické analýzy a staré design audity jsou přesunuté do `docs/archive/`.
 
@@ -49,6 +49,8 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - Vercel production deploy `dpl_3HfjkUP3KaCFfD9hpyTH1JiXbJYf` je na aliasu `https://rezervacni-system-xi.vercel.app`; `/api/health` je `ok` a externí public smoke 2026-06-01 19:55 CEST prošel 10/10.
 - Lighthouse kontrastní nálezy na homepage jsou opravené: muted texty na tónovaných sekcích a štítcích byly zesílené na kontrastnější foreground barvy.
 - Oborové landingy mají v hero části obrazový pás z generovaných assetů `public/marketing/*-ai.webp`, aby stránky nepůsobily jen jako textové karty.
+- `/booking-page` má vizuálnější editor zákaznické stránky: úvodní fotka a logo jsou klikací upload plochy s okamžitým náhledem před uložením, URL pole jsou odsunutá do rozbalené nouzové volby a náhled reaguje i na popis a barvu podniku.
+- `npm run check` prošlo 2026-06-01 20:17 CEST po vizuálním editoru booking stránky: 583 Vitest testů, migrations check, type-check, lint a produkční build. Přihlášený Playwright smoke `E2E_AUTHENTICATED_SMOKE=true npx playwright test tests/e2e/admin-authenticated.spec.ts` prošel 2026-06-01 20:12 CEST.
 
 ## Hotové funkčně
 

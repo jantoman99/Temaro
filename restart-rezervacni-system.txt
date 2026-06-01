@@ -21,8 +21,10 @@ Důležité chování:
 - Ruční testy jsou odložené do `docs/manual-test-plan.md`.
 - Dokumentaci aktualizuj při smysluplné změně.
 
-Aktuální stav 2026-06-01 19:55 CEST:
+Aktuální stav 2026-06-01 20:17 CEST:
 - Produkt se jmenuje `Temaro`.
+- Poslední ověření: `npm run check` prošlo 2026-06-01 20:17 CEST s 583 Vitest testy, migrations check, type-check, lint i produkčním buildem. Přihlášený Playwright smoke prošel 2026-06-01 20:12 CEST.
+- `/booking-page` má vizuální editor zákaznické stránky: owner klikne na velkou úvodní fotku nebo logo, nahraje obrázek a hned vidí lokální náhled před uložením; ruční URL zůstává jen jako rozbalitelný fallback.
 - Poslední ověření: `npm run check` prošlo 2026-06-01 19:53 CEST s 581 Vitest testy, migrations check, type-check, lint i produkčním buildem. Přihlášený Playwright smoke prošel 2026-06-01 19:49 CEST.
 - Produkce je nasazená na `https://rezervacni-system-xi.vercel.app`, aktuální deploy `dpl_3HfjkUP3KaCFfD9hpyTH1JiXbJYf`; `/api/health` vrací `ok` a externí public smoke prošel 2026-06-01 19:55 CEST 10/10.
 - `/start` je wizardový onboarding po registraci: první krok výběr oboru podnikání, potom doporučené služby podle oboru, tým/pracovní doba, rezervační stránka a sdílení odkazu.

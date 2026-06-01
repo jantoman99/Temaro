@@ -106,7 +106,7 @@ Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 - Otevrit `Booking stránka` a zkontrolovat nahled zákaznického pohledu, verejny odkaz, popis, barvu, logo a cover fotku.
 - V `Booking stránka` zmenit barvu nebo veřejný popis, ulozit a otevrit verejny booking odkaz; zmena se ma propsat do veřejné stránky.
 - V `Booking stránka` vyplnit vlastní text potvrzení, připomínky a zrušení; uložit a při runtime testu ověřit, že se text objeví v příslušném e-mailu bez odstranění termínu, služby a manage odkazu.
-- V `Booking stránka` nahrat logo a úvodní fotku pres file input; po uložení se mají zobrazit v náhledu i ve veřejném bookingu.
+- V `Booking stránka` kliknout na plochu `Úvodní fotka stránky` a `Logo`, nahrát obrázky, ověřit okamžitý náhled ještě před uložením a po uložení zkontrolovat náhled i veřejný booking.
 - V `Booking stránka` zkopírovat booking button embed kód, vložit ho do jednoduché HTML stránky a ověřit, že se zobrazí tlačítko `Rezervovat termín` vedoucí na veřejný booking odkaz podniku.
 - V `Booking stránka` zkopírovat iframe widget embed kód, vložit ho do jednoduché externí HTML stránky a ověřit, že se zobrazí celý booking flow bez rozbití stylů hostující stránky.
 - U iframe widgetu ověřit, že snippet neobsahuje tenant ID ani query string s interními hodnotami, iframe míří na `/embed/booking/[slug]?source=widget`, má `loading="lazy"`, sandbox/referrer policy a rezervace se uloží se zdrojem `widget`.

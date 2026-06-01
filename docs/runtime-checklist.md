@@ -1,6 +1,6 @@
 # Runtime checklist
 
-Aktualizováno: 2026-06-01 19:55 CEST
+Aktualizováno: 2026-06-01 20:17 CEST
 
 Tento checklist je pro první reálné ověření mimo demo režim.
 
@@ -32,11 +32,13 @@ Aktuální známý stav:
 - Přihlášený Playwright smoke prošel 2026-06-01 19:49 CEST: `E2E_AUTHENTICATED_SMOKE=true npx playwright test tests/e2e/admin-authenticated.spec.ts`.
 - Runtime ověřit po registraci: nový owner skončí na `/start`, první krok je `Nejdřív vyberte typ podnikání`, navigace má skupiny `Základ` a `Pokročilé`, a tlačítko `Spustit průvodce` otevře 5krokový tour.
 - Vercel production deploy `dpl_3HfjkUP3KaCFfD9hpyTH1JiXbJYf` je na aliasu `https://rezervacni-system-xi.vercel.app`. `/api/health` 2026-06-01 19:55 CEST vrací `status=ok`, `env.ok=true`, `supabase.configured=true`. Externí public smoke prošel: `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` má 10/10 testů zelených.
+- `npm run check` prošlo 2026-06-01 20:17 CEST po vizuálním editoru `/booking-page`: 583 Vitest testů, migrations check, type-check, lint a produkční build.
+- Přihlášený Playwright smoke prošel 2026-06-01 20:12 CEST: `E2E_AUTHENTICATED_SMOKE=true npx playwright test tests/e2e/admin-authenticated.spec.ts`; kontroluje i upload plochu `Úvodní fotka stránky` a okamžitý `Náhled pro klienta`.
 - Vercel production deploy `dpl_8vaQ4KT4C4NH5tjGaBxQty8pHt51` je na aliasu `https://rezervacni-system-xi.vercel.app`. Externí public smoke 2026-06-01 18:50 CEST prošel: `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` má 10/10 testů zelených.
 - `/start` runtime ověřit po hotovém základu: panel `Pošlete odkaz prvním klientům`, text pro Instagram bio, text pro story/příspěvek, QR kód a CTA `Otevřít stránku klienta`.
 - `/services` runtime ověřit jako rychlé založení nabídky: panel `Přidat tři služby najednou` přidá vybrané oborové šablony a přeskočí už existující názvy.
 - `/staff` runtime ověřit jako rychlé nastavení člověka: výchozí pracovní doba Po-Pá 09:00-17:00 a volba `Přiřadit všechny aktuální služby`.
-- `/booking-page` runtime ověřit podle panelu `Připravenost stránky`: služba, tým, pracovní doba a propojení služby s týmem.
+- `/booking-page` runtime ověřit podle panelu `Připravenost stránky`: služba, tým, pracovní doba a propojení služby s týmem. V editoru brandingu ověřit klikací upload úvodní fotky/loga, okamžitý lokální náhled a uložení do veřejné stránky.
 - Vercel production deploy `dpl_Fz5xgNTdXkTxLz6gthNHN7z39DBw` je na aliasu `https://rezervacni-system-xi.vercel.app`. Externí public smoke 2026-06-01 16:46 CEST prošel: `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` má 10/10 testů zelených.
 - Vercel production deploy `dpl_6ZgkD4UjbWZtxU6mhg5KFEmz3gpD` je na aliasu `https://rezervacni-system-xi.vercel.app`. Externí public smoke 2026-06-01 16:19 CEST prošel: `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` má 10/10 testů zelených.
 - `/start` teď ověřovat jako první obrazovku po registraci podniku: panel připravenosti, CTA na další chybějící krok, veřejný rezervační odkaz, checklist a zákaznické texty bez interních názvů.
