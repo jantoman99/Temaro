@@ -1,6 +1,6 @@
 # Handoff
 
-Aktualizováno: 2026-06-01 13:16 CEST
+Aktualizováno: 2026-06-01 13:22 CEST
 
 ## Jak navázat
 
@@ -32,8 +32,7 @@ Aktualizováno: 2026-06-01 13:16 CEST
 - Review request používá tenant `review_url`; po owner dokončení rezervace odešle klientovi e-mail a uloží notification typ `review_request`. Migrace `20260508121000_add_review_request_notification_type.sql` je aplikovaná lokálně i remote.
 - Online záloha přes Stripe používá self-service manage odkaz, route `/api/payments/stripe/checkout`, webhook `/api/payments/stripe/webhook`, pending/paid záznamy v `booking_payments` a audit event `payment_recorded`.
 - Poslední ověření: `npm run check` prošlo 2026-06-01 13:16 CEST s 561 Vitest testy, migrations check, type-check, lint i produkčním buildem; lokální Playwright audit demo interakce a axe color-contrast audit homepage prošly bez nálezů.
-- Vercel production deploy po marketing copy/vizuál revizi je hotový: `https://rezervacni-system-xi.vercel.app`, aktuální deploy `dpl_EApydFAYrxGbyXdMKHU3iNAo1Za8`; externí public smoke 2026-06-01 12:42 CEST prošel 8/8.
-- Vercel production deploy je hotový: `https://rezervacni-system-xi.vercel.app`, aktuální deploy `dpl_GTBd3UAtuQhYg6Jhzz1epxNhmhvX`.
+- Vercel production deploy po homepage demo/kontrast opravě je hotový: `https://rezervacni-system-xi.vercel.app`, aktuální deploy `dpl_Cx2nPdYYMLiwTNsaY5yQLUN9x7b7`; externí public smoke 2026-06-01 13:21 CEST prošel 8/8 a produkční axe color-contrast audit homepage vrátil `violationCount: 0`.
 - Public health endpoint nevrací názvy chybějících secret env; vrací jen počet v `checks.env.missing`.
 - GitHub login connection ve Vercelu je propojený; před propojením byly nové deploymenty private repa `BLOCKED`, aktuální production deploy je `dpl_4Zogqwr6XLj2utWu7cbc9sCh5ePe`.
 - Externí Vercel smoke prošel 2026-05-31 22:52 CEST: `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` má 8/8 testů zelených.
@@ -138,6 +137,7 @@ Aktualizováno: 2026-06-01 13:16 CEST
 - Homepage demo polish po zpětné vazbě 2026-06-01: ukázka je v hero gridu výraznější, má interní scroll, ruční přepnutí zastaví autoplay a tlačítko `Spustit ukázku` spouští nativní 4krokový průvodce bez externího embeddu.
 - Homepage kontrastní oprava po Lighthouse reportu: muted texty na tónovaných kartách/sekcích a štítcích jsou nahrazené kontrastnějšími foreground barvami.
 - Ověření 2026-06-01 13:16 CEST: `npm run check` prošlo s 561 Vitest testy, migrations check, type-check, lint a produkční build. Lokální Playwright kontrola potvrdila stabilní ruční výběr po 6,2 s, scrollovatelnou `.signal-rail`, funkční krok 2 průvodce a console errors 0. Axe color-contrast audit homepage vrátil `violationCount: 0`.
+- Vercel production deploy `dpl_Cx2nPdYYMLiwTNsaY5yQLUN9x7b7` je na aliasu `https://rezervacni-system-xi.vercel.app`; externí public smoke 2026-06-01 13:21 CEST prošel 8/8 a produkční axe color-contrast audit homepage vrátil `violationCount: 0`.
 - Navazující landing/design úkol je hotový: homepage používá `public/marketing/*-ai.webp`, footer copy je změněné na `Temaro SaaS booking platform`, hero produktový náhled je přestavěný na reálné plochy `Dashboard / Kalendář / Booking / Účet klienta` a navazující sekce `Provozní realita` začíná bez prázdného gapu.
 - Přidaný `tests/landing-polish.test.ts` a upravený public smoke embed test, aby testoval booking button script jako externí script na čisté HTML stránce, ne jako script vložený do hydratované Next aplikace.
 - Ověření 2026-06-01 11:18 CEST: `npm run check` prošlo s 559 Vitest testy, migrations check, type-check, lint a produkční build. Lokální public smoke `PLAYWRIGHT_BASE_URL=http://127.0.0.1:3000 npx playwright test tests/e2e/public-smoke.spec.ts` prošel 8/8. Screenshoty jsou v `output/playwright/landing-desktop.png`, `landing-mobile.png`, `landing-full.png`; měření 1366/390 px potvrdilo `gap=0` a žádný horizontální overflow.

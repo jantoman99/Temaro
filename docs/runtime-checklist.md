@@ -1,6 +1,6 @@
 # Runtime checklist
 
-Aktualizováno: 2026-06-01 13:16 CEST
+Aktualizováno: 2026-06-01 13:22 CEST
 
 Tento checklist je pro první reálné ověření mimo demo režim.
 
@@ -26,11 +26,12 @@ Aktuální známý stav:
 - Lokální Playwright kontrola 2026-06-01 13:06 CEST prošla pro homepage demo: ručně vybraná `Rezervační stránka` zůstala aktivní i po 6,2 s, `.signal-rail` má `overflow-y: auto`, průvodce `Spustit ukázku` přešel na krok 2, console errors 0. Screenshot je v `output/playwright/temaro-clickable-demo-points.png`.
 - Lokální axe color-contrast audit homepage 2026-06-01 13:12 CEST prošel: `violationCount: 0`, console errors 0. Screenshot po kontrastní opravě je v `output/playwright/temaro-contrast-fix.png`.
 - Homepage demo má nativní 4krokový průvodce bez externího Arcade embeddu a po ruční interakci vypíná autoplay.
+- Vercel deploy alias: `https://rezervacni-system-xi.vercel.app`, aktuální production deploy `dpl_Cx2nPdYYMLiwTNsaY5yQLUN9x7b7`. Externí smoke 2026-06-01 13:21 CEST prošel: `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` má 8/8 testů zelených. Produkční axe color-contrast audit homepage vrátil `violationCount: 0`.
 - `npm run check` prošlo 2026-06-01 12:31 CEST po site-wide marketing copy/vizuál revizi: 560 Vitest testů, migrations check, type-check, lint a produkční build.
 - Lokální Playwright audit 2026-06-01 12:26 CEST prošel pro 14 veřejných tras (`/`, `/demo-barber`, `/podniky`, 5 oborových landingů, no-show/SMS/provizní stránka, `/account/login`, `/login`, `/register`): všechny HTTP 200, console errors 0.
 - Homepage layout audit 1366 px: menu, hero grid a `#provoz` mají stejnou osu `x=93`, šířku `1180`; `scrollWidth=1366`; hero demo je `638px` široké a při všech scénách stabilní `717px` vysoké.
 - Aktuální screenshoty po revizi jsou v `output/playwright/landing-redesign-desktop-final.png` a `output/playwright/landing-redesign-mobile-final.png`.
-- Vercel deploy alias: `https://rezervacni-system-xi.vercel.app`, aktuální production deploy `dpl_EApydFAYrxGbyXdMKHU3iNAo1Za8`. Externí smoke 2026-06-01 12:42 CEST prošel: `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` má 8/8 testů zelených.
+- Předchozí Vercel deploy po site-wide marketing copy/vizuál revizi byl `dpl_EApydFAYrxGbyXdMKHU3iNAo1Za8`; externí smoke 2026-06-01 12:42 CEST prošel 8/8.
 - `npm run check` prošlo 2026-06-01 11:18 CEST po dokončení navazujícího landing/design úkolu: 559 Vitest testů, migrations check, type-check, lint a produkční build.
 - Lokální Playwright kontrola 2026-06-01 11:18 CEST prošla: `PLAYWRIGHT_BASE_URL=http://127.0.0.1:3000 npx playwright test tests/e2e/public-smoke.spec.ts` má 8/8 testů zelených; screenshoty homepage jsou v `output/playwright/landing-desktop.png`, `landing-mobile.png` a `landing-full.png`; měření 1366/390 px potvrdilo nulový gap mezi herem a `#provoz` a žádný horizontální overflow.
 - Homepage po posledním polishi používá WebP segmentové assety `public/marketing/*-ai.webp`, hero demo ukazuje reálné produktové plochy `Dashboard / Kalendář / Booking / Účet klienta` a footer už nepoužívá copy `postaveno v Brně`.
