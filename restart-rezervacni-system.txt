@@ -21,9 +21,10 @@ Důležité chování:
 - Ruční testy jsou odložené do `docs/manual-test-plan.md`.
 - Dokumentaci aktualizuj při smysluplné změně.
 
-Aktuální stav 2026-06-01 14:23 CEST:
+Aktuální stav 2026-06-01 15:16 CEST:
 - Produkt se jmenuje `Temaro`.
-- Poslední ověření: `npm run check` prošlo 2026-06-01 14:17 CEST s 561 Vitest testy, migrations check, type-check, lint i produkčním buildem.
+- Poslední ověření: `npm run check` prošlo 2026-06-01 15:16 CEST s 564 Vitest testy, migrations check, type-check, lint i produkčním buildem.
+- Lokální Playwright public smoke prošel 2026-06-01 15:12 CEST 10/10. Lokální design check pro `/`, `/podniky`, `/ukazka` prošel na desktopu i mobilu: console errors 0, horizontální overflow 0, žádná coordinate pole v katalogu a žádný useknutý demo panel.
 - Lokální Playwright kontrola homepage demo prošla 2026-06-01 13:06 CEST: ručně vybraná `Rezervační stránka` zůstala aktivní i po 6,2 s, `.signal-rail` má `overflow-y: auto`, průvodce `Spustit ukázku` přešel na krok 2 a console errors jsou 0.
 - Lokální axe color-contrast audit homepage prošel 2026-06-01 13:12 CEST: `violationCount: 0`, console errors 0.
 - Poslední lokální Playwright audit veřejného webu prošel 2026-06-01 12:26 CEST: 14/14 kontrolovaných veřejných tras vrací HTTP 200, console errors 0.
@@ -31,7 +32,9 @@ Aktuální stav 2026-06-01 14:23 CEST:
 - Homepage po aktuální UX/copy revizi: menu, hero a `#provoz` jsou na stejné ose `x=93`, `width=1180`; živá ukázka je stabilní `717px` vysoká ve všech scénách a odpovídá reálným přihlášeným obrazovkám `Přehled provozu`, `Kalendář`, `Rezervační stránka`, `Zákaznický účet`.
 - Homepage demo má nativní Salona/Arcade inspirovaný průvodce bez externího embeddu: `Spustit ukázku`, 4 kroky a vypnutí autoplaye po ručním kliknutí.
 - Homepage demo už nepoužívá vnitřní scrollbar ani spodní opakované karty `Platby / Klienti / Termíny`; lokální Playwright 2026-06-01 14:12 CEST potvrdil `overflowY: hidden`, shodné `clientHeight`/`scrollHeight` a žádný useknutý obsah v hlavních plochách.
-- Homepage navigace obsahuje zákaznický proklik `Najít podnik` na `/podniky`.
+- Homepage navigace odděluje `Pro podniky`, `Pro zákazníky` a `/ukazka`; sekundární hero CTA vede na interaktivní ukázku.
+- `/podniky` je zákaznická discovery stránka s hledáním podle služby a místa (`Město, adresa nebo čtvrť`), bez ručního zadávání zeměpisné šířky/délky nebo radiusu.
+- `/ukazka` je samostatná interaktivní ukázka produktu s reálnými přihlášenými obrazovkami.
 - Lighthouse kontrastní nálezy na homepage jsou opravené: muted texty na tónovaných plochách a štítcích byly nahrazené kontrastnějšími foreground barvami a hlídá je `tests/landing-polish.test.ts`.
 - Veřejné texty prošly zákaznickým copy passem: z viditelného marketing UI mizí interní názvy typu `tenant`, `MVP`, `self-service`, `booking flow`; používá se `rezervační odkaz`, `bezpečný odkaz`, `připomínka`, `podnik/provoz`.
 - Oborové landingy používají v hero preview obrazový pás z generovaných WebP assetů `public/marketing/*-ai.webp`.
@@ -79,7 +82,7 @@ Aktuální stav 2026-06-01 14:23 CEST:
 - Přidaná migrace `20260508164500_create_memberships.sql`; před runtime testem ji aplikovat do připojené Supabase databáze a srovnat migration history.
 - Kampaně a Last Minute jsou hotové v `/campaigns`: drafty e-mail/SMS kampaní podle segmentu klientů a Last Minute nabídky volných slotů. Reálné odesílání blastů se napojí až po konkrétním providerovi.
 - Přidaná migrace `20260508170000_create_marketing_campaigns.sql`; před runtime testem ji aplikovat do připojené Supabase databáze a srovnat migration history.
-- Katalog/discovery má vzdálenostní vrstvu: `tenants.public_latitude/public_longitude`, nastavení souřadnic a `/podniky?lat=&lng=&radius=` s výpočtem vzdálenosti serverově.
+- Katalog/discovery má technickou lokalizační vrstvu v datech, ale veřejná stránka `/podniky` už hledá zákaznicky podle místa/adresy/čtvrti a oboru bez lat/lng/radius polí.
 - Přidaná migrace `20260508171000_add_tenant_public_coordinates.sql`; před runtime testem ji aplikovat do připojené Supabase databáze a srovnat migration history.
 - Reputace v katalogu má první vrstvu: `tenants.review_rating`, `review_count`, `review_source_label`, nastavení souhrnu a reputační štítek v `/podniky`.
 - Přidaná migrace `20260508172500_add_tenant_review_summary.sql`; před runtime testem ji aplikovat do připojené Supabase databáze a srovnat migration history.

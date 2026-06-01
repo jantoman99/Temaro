@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Aktualizováno: 2026-06-01 14:23 CEST
+Aktualizováno: 2026-06-01 15:16 CEST
 
 Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historické analýzy a staré design audity jsou přesunuté do `docs/archive/`.
 
@@ -23,7 +23,9 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - Živá ukázka na homepage nově kopíruje reálné přihlášené obrazovky: `Přehled provozu`, `Kalendář`, `Rezervační stránka`, `Zákaznický účet`; výška ukázky je stabilní při všech přepnutích.
 - Živá ukázka má Salona/Arcade inspirovaný nativní průvodce: tlačítko `Spustit ukázku`, 4 klikatelné kroky a autoplay se vypne po ruční interakci, aby už nepřeskakoval zpět.
 - Živá ukázka byla po další vizuální kontrole zjednodušená: vnitřní scrollbar je pryč, spodní opakované karty `Platby / Klienti / Termíny` jsou odstraněné a každá plocha je samostatný kompaktní screen bez useknutého obsahu.
-- Homepage top navigace nově propojuje podnikatelskou i zákaznickou část přes odkaz `Najít podnik` na `/podniky`.
+- Homepage top navigace jasně odděluje `Pro podniky`, `Pro zákazníky` a interaktivní ukázku `/ukazka`.
+- Nová stránka `/ukazka` ukazuje klikací průchod Temarem jako realistický pohled po přihlášení: přehled provozu, kalendář týmu, rezervační stránku a zákaznický účet.
+- `/podniky` je nově zákaznická vstupní stránka s hledáním podle služby a místa (`Město, adresa nebo čtvrť`); veřejné UI už neukazuje syrové souřadnice ani radius.
 - Lighthouse kontrastní nálezy na homepage jsou opravené: muted texty na tónovaných sekcích a štítcích byly zesílené na kontrastnější foreground barvy.
 - Oborové landingy mají v hero části obrazový pás z generovaných assetů `public/marketing/*-ai.webp`, aby stránky nepůsobily jen jako textové karty.
 
@@ -33,8 +35,7 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - Přihlášení přes Google a podnikatelská registrace přes Google OAuth; nový tenant vznikne až po ověření Google účtu a přes service role se doplní owner metadata.
 - Zákaznický účet `/account`: Google přihlášení pro klienta bez tenant role, přehled rezervací podle ověřeného e-mailu z Auth, oddělené nadcházející rezervace a historie návštěv, detail konkrétní rezervace na `/account/bookings/[bookingId]`, přihlášené zrušení/přesun vlastní rezervace podle storno pravidel a základní profil `/account/profile`.
 - Produktově schválené jsou dva typy účtů: podnikatelský účet pro správu provozu a zákaznický účet pro přehled rezervací; landing page to nově komunikuje explicitně.
-- Veřejný katalog podniků má první technický základ: tenant má strukturovaný obor, veřejnou adresu/město/lokalitu/mapový odkaz a volbu `is_publicly_listed`; stránka `/podniky` umí vypsat veřejně zalistované podniky a filtrovat podle hledání/města/oboru.
-- Veřejný katalog `/podniky` má vzdálenostní hledání: tenant může mít veřejné souřadnice, katalog přijímá bezpečně validované `lat`, `lng` a `radius` parametry, počítá vzdálenost serverově a řadí výsledky podle vzdálenosti.
+- Veřejný katalog podniků má první technický základ: tenant má strukturovaný obor, veřejnou adresu/město/lokalitu/mapový odkaz a volbu `is_publicly_listed`; stránka `/podniky` umí vypsat veřejně zalistované podniky a filtrovat podle hledání, místa a oboru bez zobrazování technických souřadnic klientovi.
 - Katalog/reputace má první veřejný souhrn recenzí: owner v nastavení eviduje rating, počet recenzí a zdroj, katalog tyto údaje zobrazuje jako reputační signál.
 - Mobilní/PWA vrstva má první technický základ: `manifest.webmanifest`, produkční service worker registraci a app-shell cache, která záměrně necachuje API, platby ani auth callbacky.
 - Admin sekce `Resources` má první provozní vrstvu: evidence místností/židlí/vybavení/vozidel, kapacita a vazba zdroje na službu.
@@ -714,8 +715,8 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - `npx playwright test --list` prošlo 2026-05-03 02:14 CEST; eviduje 10 Playwright testů ve 4 souborech.
 - `npm run perf:smoke` prošlo 2026-05-03 02:13 CEST proti produkčnímu serveru; warm průchod bez retry přes `PERF_RETRIES=0 npm run perf:smoke` prošel také.
 - Poslední warm `PERF_RETRIES=0 npm run perf:smoke` 2026-05-03 02:13 CEST: veřejné stránky cca 5-302 ms, chráněné admin redirecty cca 1-6 ms.
-- `npm run check` prošlo 2026-05-02 19:20 CEST.
-- Prošlo 331 testů, migrations check, type-check, lint i produkční build.
+- `npm run check` prošlo 2026-06-01 15:16 CEST po business/customer splitu, `/ukazka` a katalog UI úpravě.
+- Prošlo 564 testů, migrations check, type-check, lint i produkční build.
 - Dev server byl po změně restartovaný čistě přes `rm -rf .next && npm run dev`.
 - `npm run check` prošlo 2026-05-02 19:13 CEST.
 - Prošlo 331 testů.
@@ -738,7 +739,7 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - Google OAuth je připravené v kódu, ale runtime aktivace je vědomě odložená až po zakoupení produkční domény, aby se nastavily finální URL bez provizorních hodnot.
 - Živá online platební brána není implementovaná; zálohy a interní evidence plateb hotové jsou.
 - Google/Outlook plný sync není implementovaný; iCal read-only export je hotový jako levné integrační minimum a plný Google Calendar sync je schválená další integrační vrstva.
-- Veřejný katalog/discovery podniků má první základ přes `/podniky`; obory/kategorie, geokoordináty, vzdálenostní hledání a reputační souhrn jsou implementované, mapový embed zatím chybí.
+- Veřejný katalog/discovery podniků má první základ přes `/podniky`; obor, místo/adresa a reputační souhrn jsou implementované, mapový embed zatím chybí. Technická geolokační vrstva v databázi existuje, ale veřejné hledání teď používá zákaznický vstup `Kde`.
 - Veřejný katalog `/podniky` je první technický základ, zatím bez pokročilých kategorií a mapového embedu.
 - Plný iframe widget je hotový; runtime ještě potřebuje ručně ověřit vložení snippetu z konkrétního tenant účtu do externí HTML stránky.
 - Marketplace a AI funkce nejsou v MVP; pobočky jsou hotové jako první evidence bez napojení na kapacitní booking engine.
@@ -769,5 +770,5 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 7. Ručně otestovat upload loga/cover fotky a propsání do veřejného bookingu.
 8. Ručně ověřit nové statické stránky `/rezervacni-system-pro-barbery` a `/jak-snizit-no-show` v desktop/mobile a světlém/tmavém režimu.
 9. Navázat další niche stránky podle `docs/17-czech-market-niches-seo-geo-aeo.md`: kadeřnictví/beauty a masáže/wellness.
-10. Rozšířit katalog o obory/kategorie a případně geokoordináty; současný `/podniky` základ už řeší město/adresu/mapový odkaz.
+10. Rozšířit katalog o obory/kategorie a lepší adresní hledání; současný `/podniky` základ už řeší místo/adresu/mapový odkaz bez ručního zadávání souřadnic.
 11. Navrhnout plný Google Calendar sync nad existujícím iCal exportem; řešit až po doméně/Google OAuth runtime aktivaci.

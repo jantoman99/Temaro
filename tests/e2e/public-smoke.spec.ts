@@ -27,6 +27,9 @@ test.describe("public smoke", () => {
 
     await expect(page.getByRole("heading", { name: /Méně telefonátů\. Klidnější/i })).toBeVisible();
     await expect(page.getByRole("link", { name: /Začít zdarma/i }).first()).toBeVisible();
+    await expect(page.getByRole("link", { name: "Pro podniky", exact: true }).first()).toBeVisible();
+    await expect(page.getByRole("link", { name: "Pro zákazníky", exact: true }).first()).toBeVisible();
+    await expect(page.getByRole("link", { name: "Ukázka", exact: true }).first()).toHaveAttribute("href", "/ukazka");
     await expect(page.getByRole("link", { name: "Pro barbery", exact: true })).toBeVisible();
     await expect(page.getByRole("link", { name: "Pro kadeřnictví", exact: true })).toBeVisible();
     await expect(page.getByRole("link", { name: "Pro beauty salon", exact: true })).toBeVisible();
@@ -36,36 +39,57 @@ test.describe("public smoke", () => {
     await expect(page.getByRole("link", { name: "Bez marketplace provizí", exact: true })).toBeVisible();
   });
 
+  test("customer directory uses address search without coordinate fields", async ({ page }) => {
+    await page.goto("/podniky");
+
+    await expect(page.getByRole("heading", { name: /Najděte podnik a rezervujte/i })).toBeVisible();
+    await expect(page.getByText("Pro zákazníky").first()).toBeVisible();
+    await expect(page.getByLabel("Kde")).toBeVisible();
+    await expect(page.getByPlaceholder("Město, adresa nebo čtvrť")).toBeVisible();
+    await expect(page.locator('input[name="lat"]')).toHaveCount(0);
+    await expect(page.locator('input[name="lng"]')).toHaveCount(0);
+    await expect(page.locator('input[name="radius"]')).toHaveCount(0);
+  });
+
+  test("interactive product demo page renders", async ({ page }) => {
+    await page.goto("/ukazka");
+
+    await expect(page.getByText("Interaktivní ukázka Temara").first()).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Projděte si Temaro/i })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Spustit ukázku" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Začít zdarma" }).first()).toBeVisible();
+  });
+
   test("segment SEO pages render and cross-link", async ({ page }) => {
-    await page.goto("/rezervacni-system-pro-barbery");
+    await page.goto("/rezervacni-system-pro-barbery", { waitUntil: "domcontentloaded" });
     await expect(page.getByText("Rezervační systém pro barbery").first()).toBeVisible();
     await expect(page.getByRole("link", { name: "No-show návod", exact: true })).toBeVisible();
 
-    await page.goto("/rezervacni-system-pro-kadernictvi");
+    await page.goto("/rezervacni-system-pro-kadernictvi", { waitUntil: "domcontentloaded" });
     await expect(page.getByText("Rezervační systém pro kadeřnictví").first()).toBeVisible();
     await expect(page.getByRole("link", { name: "Pro beauty salon", exact: true })).toBeVisible();
 
-    await page.goto("/rezervacni-system-pro-kosmeticky-salon");
+    await page.goto("/rezervacni-system-pro-kosmeticky-salon", { waitUntil: "domcontentloaded" });
     await expect(page.getByText("Rezervační systém pro kosmetický salon").first()).toBeVisible();
     await expect(page.getByRole("link", { name: "Pro masáže", exact: true })).toBeVisible();
 
-    await page.goto("/rezervacni-system-pro-masaze");
+    await page.goto("/rezervacni-system-pro-masaze", { waitUntil: "domcontentloaded" });
     await expect(page.getByText("Rezervační systém pro masáže").first()).toBeVisible();
     await expect(page.getByRole("link", { name: "Pro wellness", exact: true })).toBeVisible();
 
-    await page.goto("/rezervacni-system-pro-wellness");
+    await page.goto("/rezervacni-system-pro-wellness", { waitUntil: "domcontentloaded" });
     await expect(page.getByText("Rezervační systém pro wellness").first()).toBeVisible();
     await expect(page.getByRole("link", { name: "Pro masáže", exact: true })).toBeVisible();
 
-    await page.goto("/jak-snizit-no-show");
+    await page.goto("/jak-snizit-no-show", { waitUntil: "domcontentloaded" });
     await expect(page.getByRole("heading", { name: /Jak snížit no-show/i })).toBeVisible();
     await expect(page.getByRole("link", { name: "Pro barbery", exact: true }).first()).toBeVisible();
 
-    await page.goto("/sms-pripominky-rezervaci");
+    await page.goto("/sms-pripominky-rezervaci", { waitUntil: "domcontentloaded" });
     await expect(page.getByRole("heading", { name: /Kdy SMS opravdu/i })).toBeVisible();
     await expect(page.getByRole("link", { name: "No-show návod", exact: true }).first()).toBeVisible();
 
-    await page.goto("/rezervacni-system-bez-marketplace-provizi");
+    await page.goto("/rezervacni-system-bez-marketplace-provizi", { waitUntil: "domcontentloaded" });
     await expect(page.getByRole("heading", { name: /Vlastní klienti\./i })).toBeVisible();
     await expect(page.getByRole("link", { name: "SMS připomínky", exact: true }).first()).toBeVisible();
   });

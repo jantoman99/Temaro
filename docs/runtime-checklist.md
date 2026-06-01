@@ -1,6 +1,6 @@
 # Runtime checklist
 
-Aktualizováno: 2026-06-01 14:23 CEST
+Aktualizováno: 2026-06-01 15:16 CEST
 
 Tento checklist je pro první reálné ověření mimo demo režim.
 
@@ -22,6 +22,11 @@ curl -I http://localhost:3000
 
 Aktuální známý stav:
 
+- `npm run check` prošlo 2026-06-01 15:16 CEST po business/customer splitu, `/ukazka` a katalog UI úpravě: 564 Vitest testů, migrations check, type-check, lint a produkční build.
+- Lokální Playwright public smoke 2026-06-01 15:12 CEST prošel: `PLAYWRIGHT_BASE_URL=http://127.0.0.1:3000 npx playwright test tests/e2e/public-smoke.spec.ts` má 10/10 testů zelených. Segment SEO test používá `domcontentloaded`, aby nepadal na pomalém `load` čekání statických stránek.
+- Lokální design check 2026-06-01 15:04 CEST prošel pro `/`, `/podniky`, `/ukazka` na 1366px i 390px: console errors 0, horizontální overflow 0, `/podniky` nemá `lat/lng/radius` pole a demo panel nemá useknutý obsah.
+- `/podniky` teď runtime ověřovat jako zákaznické hledání přes `Co hledáte?`, `Kde` a `Obor`; ruční zadávání souřadnic v katalog UI už není součást zákaznické cesty.
+- `/ukazka` runtime ověřovat jako samostatnou interaktivní ukázku vedle homepage: tlačítko `Spustit ukázku`, přepínání částí systému a CTA `Začít zdarma`.
 - `npm run check` prošlo 2026-06-01 14:17 CEST po demo cleanupu: 561 Vitest testů, migrations check, type-check, lint a produkční build.
 - Lokální Playwright kontrola 2026-06-01 14:12 CEST prošla pro homepage demo: `.signal-rail` má `overflowY: hidden`, overview i rezervační stránka mají shodné `clientHeight` a `scrollHeight`, staré karty `Platby / Klienti / Termíny` se nerenderují, ručně vybraná `Rezervační stránka` zůstala aktivní i po 6,2 s a console errors jsou 0.
 - Vercel deploy alias: `https://rezervacni-system-xi.vercel.app`, aktuální production deploy `dpl_FUTuzQmvQVtP312kbWqCausjbXk9`. Externí smoke 2026-06-01 14:22 CEST prošel: `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` má 8/8 testů zelených. Produkční kontrola demo panelu potvrdila `overflowY: hidden`, shodné `clientHeight`/`scrollHeight`, žádné staré karty a console errors 0.
@@ -89,7 +94,7 @@ Aktuální známý stav:
 - Runtime ověřit `Nastavení` a `/podniky`: uložit rating, počet recenzí a zdroj, ověřit reputační štítek v katalogu a validační chybu při ratingu bez počtu recenzí.
 - `npm run check` prošlo 2026-05-08 17:24 CEST po katalogu/discovery souřadnicích: 509 Vitest testů, migrations check, type-check, lint a produkční build.
 - Přidaná migrace `20260508171000_add_tenant_public_coordinates.sql` přidává `tenants.public_latitude` a `tenants.public_longitude`; před runtime testem ji aplikovat do Supabase a opravit migration history.
-- Runtime ověřit `Nastavení` a `/podniky`: uložit souřadnice podniku, otevřít `/podniky?lat=49.1951&lng=16.6068&radius=10`, ověřit vzdálenost v km, radius filtr a bezpečné odmítnutí nekompletních souřadnic v nastavení.
+- Runtime ověřit `Nastavení` a `/podniky`: uložit veřejnou adresu/město/mapový odkaz, zapnout zalistování a ověřit, že katalog hledá podle služby, místa/adresy/čtvrti a oboru bez zobrazování ručních souřadnic zákazníkovi.
 - `npm run check` prošlo 2026-05-08 17:08 CEST po kampaních/Last Minute: 506 Vitest testů, migrations check, type-check, lint a produkční build.
 - Přidaná migrace `20260508170000_create_marketing_campaigns.sql` vytváří `marketing_campaigns` a `last_minute_offers`; před runtime testem ji aplikovat do Supabase a opravit migration history.
 - Runtime ověřit `/campaigns`: uložit e-mail draft pro segment, uložit SMS draft, vytvořit Last Minute nabídku s časem/službou/zaměstnancem/slevou a ověřit odmítnutí konce před začátkem.

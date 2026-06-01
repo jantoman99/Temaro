@@ -40,15 +40,15 @@ export const metadata: Metadata = {
 
 const CTA = {
   primary: { href: "/register", label: "Začít zdarma" },
-  secondary: { href: "/demo-barber", label: "Projít rezervaci" },
+  secondary: { href: "/ukazka", label: "Spustit ukázku" },
 } as const;
 
 const navLinks = [
-  ["#produkt", "Produkt"],
+  ["/", "Pro podniky"],
+  ["/podniky", "Pro zákazníky"],
   ["#pro-koho", "Obory"],
   ["#cenik", "Ceník"],
-  [CTA.secondary.href, "Ukázka"],
-  ["/podniky", "Najít podnik"],
+  ["/ukazka", "Ukázka"],
 ] as const;
 
 const features = [
@@ -558,7 +558,8 @@ export default async function Home() {
             <ul className="mt-4 space-y-2 text-sm font-semibold">
               <li><Link href="#produkt" className="text-foreground hover:underline">Funkce</Link></li>
               <li><Link href="#pro-koho" className="text-foreground hover:underline">Pro koho</Link></li>
-              <li><Link href="/podniky" className="text-foreground hover:underline">Katalog podniků</Link></li>
+              <li><Link href="/podniky" className="text-foreground hover:underline">Pro zákazníky</Link></li>
+              <li><Link href="/ukazka" className="text-foreground hover:underline">Interaktivní ukázka</Link></li>
               <li><Link href="#cenik" className="text-foreground hover:underline">Ceník</Link></li>
               <li><Link href="#bezpecnost" className="text-foreground hover:underline">Bezpečnost</Link></li>
               <li><Link href="/demo-barber" className="text-foreground hover:underline">Ukázka rezervace</Link></li>

@@ -80,4 +80,33 @@ describe("landing polish guard", () => {
     expect(page).not.toContain("text-sm font-medium leading-6 text-muted-foreground");
     expect(page).not.toContain("border border-border bg-secondary px-3 py-1 text-xs font-bold text-muted-foreground");
   });
+
+  test("public navigation separates business and customer paths", () => {
+    const page = readProjectFile("app/page.tsx");
+
+    expect(page).toContain("Pro podniky");
+    expect(page).toContain("Pro zákazníky");
+    expect(page).toContain("/ukazka");
+  });
+
+  test("customer directory uses address search without raw coordinates", () => {
+    const directory = readProjectFile("app/podniky/page.tsx");
+
+    expect(directory).toContain("Kde");
+    expect(directory).toContain("Město, adresa nebo čtvrť");
+    expect(directory).toContain("Pro zákazníky");
+    expect(directory).not.toContain("zeměpisná šířka");
+    expect(directory).not.toContain("zeměpisná délka");
+    expect(directory).not.toContain('name="lat"');
+    expect(directory).not.toContain('name="lng"');
+    expect(directory).not.toContain('name="radius"');
+  });
+
+  test("interactive demo page is present", () => {
+    const demoPage = readProjectFile("app/ukazka/page.tsx");
+
+    expect(demoPage).toContain("Interaktivní ukázka Temara");
+    expect(demoPage).toContain("InteractiveProductDemo");
+    expect(demoPage).toContain("Začít zdarma");
+  });
 });

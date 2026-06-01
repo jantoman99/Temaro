@@ -382,7 +382,7 @@ export function InteractiveProductDemo() {
               </div>
 
               <div>
-                <div className="signal-rail relative h-[31.5rem] overflow-hidden rounded-2xl border border-border bg-card p-5 shadow-sm">
+                <div className="signal-rail relative min-h-[31.5rem] overflow-hidden rounded-2xl border border-border bg-card p-5 shadow-sm lg:h-[31.5rem]">
                   <SurfacePanel activeSurfaceId={activeSurface.id} />
                   {activeTourStep && tourStepIndex !== null ? (
                     <div className="absolute bottom-4 left-4 right-4 rounded-2xl border border-primary/20 bg-card/95 p-4 shadow-lg shadow-primary/10 backdrop-blur">

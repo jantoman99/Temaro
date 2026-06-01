@@ -1,4 +1,4 @@
-import { ArrowRight, MapPin, Search } from "lucide-react";
+import { ArrowRight, CalendarCheck2, MapPin, Search, UserRoundCheck } from "lucide-react";
 import Link from "next/link";
 
 import { TemaroLogo } from "@/components/brand/temaro-logo";
@@ -11,16 +11,14 @@ import {
   TENANT_INDUSTRIES,
   type TenantIndustry,
 } from "@/lib/tenant-industry";
-import { formatTenantAddress, getDistanceKm, getTenantMapHref, hasTenantCoordinates } from "@/lib/tenant-location";
+import { formatTenantAddress, getTenantMapHref } from "@/lib/tenant-location";
 
 type DirectoryPageProps = {
   searchParams: Promise<{
     city?: string;
     industry?: string;
-    lat?: string;
-    lng?: string;
+    location?: string;
     q?: string;
-    radius?: string;
   }>;
 };
 
@@ -36,8 +34,6 @@ type DirectoryTenant = Pick<
   | "public_city"
   | "public_country_code"
   | "public_description"
-  | "public_latitude"
-  | "public_longitude"
   | "public_map_url"
   | "public_postal_code"
   | "public_region"
@@ -46,6 +42,24 @@ type DirectoryTenant = Pick<
   | "review_source_label"
   | "slug"
 >;
+
+const customerSteps = [
+  {
+    title: "Najděte podnik",
+    text: "Zadejte službu, město, adresu nebo čtvrť a vyberte podnik, který vám sedí.",
+    icon: Search,
+  },
+  {
+    title: "Vyberte termín",
+    text: "Na stránce podniku si zvolíte službu, člověka a volné okno v kalendáři.",
+    icon: CalendarCheck2,
+  },
+  {
+    title: "Mějte přehled",
+    text: "Přes zákaznický účet najdete své aktuální i minulé rezervace.",
+    icon: UserRoundCheck,
+  },
+] as const;
 
 function normalizeSearch(value: string | undefined) {
   return (value ?? "").trim().slice(0, 80).toLocaleLowerCase("cs-CZ");
@@ -57,24 +71,17 @@ function normalizeIndustry(value: string | undefined): TenantIndustry | "" {
   return isTenantIndustry(normalized) ? normalized : "";
 }
 
-function normalizeCoordinate(value: string | undefined, min: number, max: number) {
-  const parsed = Number((value ?? "").replace(",", "."));
-
-  return Number.isFinite(parsed) && parsed >= min && parsed <= max ? parsed : null;
-}
-
-function normalizeRadius(value: string | undefined) {
-  const parsed = Number(value ?? "");
-
-  return Number.isFinite(parsed) && parsed > 0 && parsed <= 200 ? parsed : null;
-}
-
-function tenantMatchesSearch(tenant: DirectoryTenant, query: string, city: string, industry: TenantIndustry | "") {
+function tenantMatchesSearch(tenant: DirectoryTenant, query: string, location: string, industry: TenantIndustry | "") {
   const industryLabel = getTenantIndustryLabel(tenant.industry);
-  const haystack = [
+  const queryHaystack = [
     tenant.name,
     tenant.public_description,
     industryLabel,
+  ]
+    .filter(Boolean)
+    .join(" ")
+    .toLocaleLowerCase("cs-CZ");
+  const locationHaystack = [
     tenant.public_city,
     tenant.public_region,
     tenant.public_address,
@@ -84,47 +91,27 @@ function tenantMatchesSearch(tenant: DirectoryTenant, query: string, city: strin
     .join(" ")
     .toLocaleLowerCase("cs-CZ");
 
-  const cityValue = (tenant.public_city ?? "").toLocaleLowerCase("cs-CZ");
-  const matchesQuery = !query || haystack.includes(query);
-  const matchesCity = !city || cityValue.includes(city);
+  const matchesQuery = !query || `${queryHaystack} ${locationHaystack}`.includes(query);
+  const matchesLocation = !location || locationHaystack.includes(location);
   const matchesIndustry = !industry || tenant.industry === industry;
 
-  return matchesQuery && matchesCity && matchesIndustry;
-}
-
-function tenantDistance(
-  tenant: DirectoryTenant,
-  origin: { latitude: number; longitude: number } | null,
-) {
-  if (!origin || !hasTenantCoordinates(tenant)) {
-    return null;
-  }
-
-  return getDistanceKm(origin, {
-    latitude: tenant.public_latitude,
-    longitude: tenant.public_longitude,
-  });
+  return matchesQuery && matchesLocation && matchesIndustry;
 }
 
 async function getDirectoryTenants(
   query: string,
-  city: string,
+  location: string,
   industry: TenantIndustry | "",
-  origin: { latitude: number; longitude: number } | null,
-  radiusKm: number | null,
-): Promise<Array<DirectoryTenant & { distanceKm: number | null }>> {
+): Promise<DirectoryTenant[]> {
   if (!hasSupabaseAdminEnv()) {
-    return [demoTenant]
-      .filter((tenant) => tenantMatchesSearch(tenant, query, city, industry))
-      .map((tenant) => ({ ...tenant, distanceKm: tenantDistance(tenant, origin) }))
-      .filter((tenant) => radiusKm === null || tenant.distanceKm === null || tenant.distanceKm <= radiusKm);
+    return [demoTenant].filter((tenant) => tenantMatchesSearch(tenant, query, location, industry));
   }
 
   const supabase = createAdminClient();
   let queryBuilder = supabase
     .from("tenants")
     .select(
-      "name, slug, industry, public_description, logo_url, cover_image_url, brand_color, public_address, public_city, public_region, public_postal_code, public_country_code, public_map_url, public_latitude, public_longitude, review_rating, review_count, review_source_label, is_publicly_listed",
+      "name, slug, industry, public_description, logo_url, cover_image_url, brand_color, public_address, public_city, public_region, public_postal_code, public_country_code, public_map_url, review_rating, review_count, review_source_label, is_publicly_listed",
     )
     .eq("is_publicly_listed", true)
     .is("deleted_at", null);
@@ -143,28 +130,16 @@ async function getDirectoryTenants(
   }
 
   return (data ?? [])
-    .filter((tenant) => tenantMatchesSearch(tenant, query, city, industry))
-    .map((tenant) => ({ ...tenant, distanceKm: tenantDistance(tenant, origin) }))
-    .filter((tenant) => radiusKm === null || tenant.distanceKm === null || tenant.distanceKm <= radiusKm)
-    .sort((a, b) => {
-      if (a.distanceKm === null && b.distanceKm === null) return a.name.localeCompare(b.name, "cs-CZ");
-      if (a.distanceKm === null) return 1;
-      if (b.distanceKm === null) return -1;
-
-      return a.distanceKm - b.distanceKm;
-    });
+    .filter((tenant) => tenantMatchesSearch(tenant, query, location, industry))
+    .sort((a, b) => a.name.localeCompare(b.name, "cs-CZ"));
 }
 
 export default async function DirectoryPage({ searchParams }: DirectoryPageProps) {
   const params = await searchParams;
   const query = normalizeSearch(params.q);
-  const city = normalizeSearch(params.city);
+  const location = normalizeSearch(params.location ?? params.city);
   const industry = normalizeIndustry(params.industry);
-  const latitude = normalizeCoordinate(params.lat, -90, 90);
-  const longitude = normalizeCoordinate(params.lng, -180, 180);
-  const radiusKm = normalizeRadius(params.radius);
-  const origin = latitude !== null && longitude !== null ? { latitude, longitude } : null;
-  const tenants = await getDirectoryTenants(query, city, industry, origin, radiusKm);
+  const tenants = await getDirectoryTenants(query, location, industry);
 
   return (
     <main className="signal-hero signal-grid min-h-screen bg-background px-4 py-8 text-foreground sm:px-6 lg:px-8">
@@ -174,6 +149,9 @@ export default async function DirectoryPage({ searchParams }: DirectoryPageProps
             <TemaroLogo />
           </Link>
           <div className="flex items-center gap-2">
+            <Link href="/" className="hidden rounded-md border border-border bg-background px-4 py-2 text-sm font-semibold shadow-sm hover:bg-muted sm:inline-flex">
+              Pro podniky
+            </Link>
             <Link href="/account/login" className="rounded-md border border-border bg-background px-4 py-2 text-sm font-semibold shadow-sm hover:bg-muted">
               Zákaznický účet
             </Link>
@@ -185,41 +163,41 @@ export default async function DirectoryPage({ searchParams }: DirectoryPageProps
 
         <section className="grid gap-8 py-14 lg:grid-cols-[0.82fr_1.18fr] lg:items-end">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Veřejný katalog</p>
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Pro zákazníky</p>
             <h1 className="mt-4 max-w-3xl text-balance text-5xl font-semibold leading-[1.02] tracking-[-0.04em] sm:text-6xl">
-              Najděte podnik podle města a rezervujte online.
+              Najděte podnik a rezervujte si termín online.
             </h1>
             <p className="mt-5 max-w-2xl text-base font-medium leading-7 text-muted-foreground">
-              Místo, kde klient najde provoz podle města, oboru a dostupnosti. Podnik zůstává pod vlastní značkou a bez
-              provize z rezervací, které si přivedl sám.
+              Vyhledejte salon, barber, masáž nebo jinou službu podle města, adresy nebo čtvrti. Rezervaci dokončíte
+              přímo na stránce podniku.
             </p>
           </div>
           <form className="rounded-2xl border border-border bg-card p-4 shadow-sm" action="/podniky">
-            <div className="grid gap-3 lg:grid-cols-[1fr_1fr_1fr_auto]">
-              <label className="flex flex-col gap-2 text-sm font-semibold">
-                Hledat
-                <span className="relative">
+            <div className="grid gap-3 md:grid-cols-2">
+              <label className="flex min-w-0 flex-col gap-2 text-sm font-semibold">
+                Co hledáte?
+                <span className="relative block min-w-0">
                   <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
                   <input
                     name="q"
                     defaultValue={params.q ?? ""}
                     maxLength={80}
-                    className="h-11 w-full rounded-md border border-input bg-background pl-9 pr-3 text-sm font-medium outline-none focus:border-primary focus:ring-4 focus:ring-primary/15"
-                    placeholder="barber, masáže, název..."
+                    className="h-11 w-full min-w-0 rounded-md border border-input bg-background pl-9 pr-3 text-sm font-medium outline-none focus:border-primary focus:ring-4 focus:ring-primary/15"
+                    placeholder="barber, masáž, název podniku..."
                   />
                 </span>
               </label>
-              <label className="flex flex-col gap-2 text-sm font-semibold">
-                Město
+              <label className="flex min-w-0 flex-col gap-2 text-sm font-semibold">
+                Kde
                 <input
-                  name="city"
-                  defaultValue={params.city ?? ""}
+                  name="location"
+                  defaultValue={params.location ?? params.city ?? ""}
                   maxLength={80}
                   className="h-11 rounded-md border border-input bg-background px-3 text-sm font-medium outline-none focus:border-primary focus:ring-4 focus:ring-primary/15"
-                  placeholder="Brno"
+                  placeholder="Město, adresa nebo čtvrť"
                 />
               </label>
-              <label className="flex flex-col gap-2 text-sm font-semibold">
+              <label className="flex min-w-0 flex-col gap-2 text-sm font-semibold">
                 Obor
                 <select
                   name="industry"
@@ -238,39 +216,19 @@ export default async function DirectoryPage({ searchParams }: DirectoryPageProps
                 Vyhledat
               </button>
             </div>
-            <div className="mt-3 grid gap-3 md:grid-cols-[1fr_1fr_1fr]">
-              <label className="flex flex-col gap-2 text-sm font-semibold">
-                Moje zeměpisná šířka
-                <input
-                  name="lat"
-                  defaultValue={params.lat ?? ""}
-                  inputMode="decimal"
-                  className="h-11 rounded-md border border-input bg-background px-3 text-sm font-medium outline-none focus:border-primary focus:ring-4 focus:ring-primary/15"
-                  placeholder="49.1951"
-                />
-              </label>
-              <label className="flex flex-col gap-2 text-sm font-semibold">
-                Moje zeměpisná délka
-                <input
-                  name="lng"
-                  defaultValue={params.lng ?? ""}
-                  inputMode="decimal"
-                  className="h-11 rounded-md border border-input bg-background px-3 text-sm font-medium outline-none focus:border-primary focus:ring-4 focus:ring-primary/15"
-                  placeholder="16.6068"
-                />
-              </label>
-              <label className="flex flex-col gap-2 text-sm font-semibold">
-                Okruh v kilometrech
-                <input
-                  name="radius"
-                  defaultValue={params.radius ?? ""}
-                  inputMode="numeric"
-                  className="h-11 rounded-md border border-input bg-background px-3 text-sm font-medium outline-none focus:border-primary focus:ring-4 focus:ring-primary/15"
-                  placeholder="10"
-                />
-              </label>
-            </div>
           </form>
+        </section>
+
+        <section className="grid gap-3 pb-10 md:grid-cols-3">
+          {customerSteps.map((step) => (
+            <article key={step.title} className="rounded-2xl border border-border bg-card p-5 shadow-sm">
+              <span className="grid size-10 place-items-center rounded-xl bg-primary/10 text-primary">
+                <step.icon className="size-5" strokeWidth={1.9} />
+              </span>
+              <h2 className="mt-4 text-lg font-semibold tracking-tight">{step.title}</h2>
+              <p className="mt-2 text-sm font-medium leading-6 text-secondary-foreground">{step.text}</p>
+            </article>
+          ))}
         </section>
 
         <section className="grid gap-4 pb-16 md:grid-cols-2">
@@ -307,11 +265,6 @@ export default async function DirectoryPage({ searchParams }: DirectoryPageProps
                               {tenant.public_city}
                             </span>
                           ) : null}
-                          {tenant.distanceKm !== null ? (
-                            <span className="rounded-full border border-border bg-background px-2.5 py-1 text-xs font-bold text-muted-foreground">
-                              {tenant.distanceKm.toFixed(1)} km
-                            </span>
-                          ) : null}
                           {tenant.review_rating !== null && tenant.review_count > 0 ? (
                             <span className="rounded-full border border-warning/30 bg-warning/10 px-2.5 py-1 text-xs font-bold text-warning">
                               {tenant.review_rating.toFixed(1)} · {tenant.review_count} recenzí
@@ -344,7 +297,7 @@ export default async function DirectoryPage({ searchParams }: DirectoryPageProps
             <div className="rounded-2xl border border-border bg-card p-6 shadow-sm md:col-span-2">
               <p className="text-lg font-semibold">Zatím tu není podnik pro zadané hledání.</p>
               <p className="mt-2 text-sm font-medium leading-6 text-muted-foreground">
-                Zkuste jiné město nebo otevřete ukázkovou rezervaci. Katalog se bude plnit zapojenými provozy.
+                Zkuste jiné místo, obor nebo otevřete ukázkovou rezervaci. Katalog se bude plnit zapojenými provozy.
               </p>
               <Link href="/demo-barber" className="mt-4 inline-flex h-10 items-center justify-center rounded-md bg-primary px-4 text-sm font-semibold text-primary-foreground">
                 Otevřít ukázku

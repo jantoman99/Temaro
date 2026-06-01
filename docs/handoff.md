@@ -1,6 +1,6 @@
 # Handoff
 
-Aktualizováno: 2026-06-01 14:23 CEST
+Aktualizováno: 2026-06-01 15:16 CEST
 
 ## Jak navázat
 
@@ -18,7 +18,7 @@ Aktualizováno: 2026-06-01 14:23 CEST
 - MVP základ je implementovaný: auth, tenant izolace, služby, zálohový základ, staff, klienti, kalendář, veřejný booking, self-service manage, emaily a reminder cron.
 - Nákupy a placené provozní kroky jsou odložené až před spuštěním: produkční doména, Supabase Pro/leaked password protection a Google OAuth runtime aktivace.
 - Nové produktové rozhodnutí: Temaro má komunikovat dva typy účtů, podnikatelský a zákaznický. Veřejný katalog podniků podle lokality/oboru, mapa podniku a plný Google Calendar sync jsou schválené další vrstvy po stabilním core.
-- Veřejný katalog má první implementovanou vrstvu: `/podniky`, strukturovaný obor tenantu, veřejná lokalizační pole, mapový odkaz a owner volbu `Zobrazit podnik ve veřejném katalogu`.
+- Veřejný katalog má první implementovanou vrstvu: `/podniky`, strukturovaný obor tenantu, veřejná lokalizační pole, mapový odkaz a owner volbu `Zobrazit podnik ve veřejném katalogu`; veřejné vyhledávání je zákaznické přes službu a místo/adresu, ne přes syrové souřadnice.
 - Aktivní design směr je Temaro Signal OS v `docs/15-design-system-v3.md`.
 - Aktivní tržní analýza a gapy jsou v `docs/14-market-analysis-booking-systems.md`.
 - Aktivní hloubková konkurenční analýza Salony a dalších rezervačních systémů je v `docs/20-competitive-analysis-booking-systems-2026.md`.
@@ -31,7 +31,7 @@ Aktualizováno: 2026-06-01 14:23 CEST
 - Čekací listina má tabulku `waitlist_entries`, service-role RPC `create_waitlist_entry`, veřejné CTA při obsazených termínech a owner přehled v kalendáři; migrace `20260508114500_create_waitlist_entries.sql` je aplikovaná lokálně i remote.
 - Review request používá tenant `review_url`; po owner dokončení rezervace odešle klientovi e-mail a uloží notification typ `review_request`. Migrace `20260508121000_add_review_request_notification_type.sql` je aplikovaná lokálně i remote.
 - Online záloha přes Stripe používá self-service manage odkaz, route `/api/payments/stripe/checkout`, webhook `/api/payments/stripe/webhook`, pending/paid záznamy v `booking_payments` a audit event `payment_recorded`.
-- Poslední ověření: `npm run check` prošlo 2026-06-01 13:16 CEST s 561 Vitest testy, migrations check, type-check, lint i produkčním buildem; lokální Playwright audit demo interakce a axe color-contrast audit homepage prošly bez nálezů.
+- Poslední ověření: `npm run check` prošlo 2026-06-01 15:16 CEST s 564 Vitest testy, migrations check, type-check, lint i produkčním buildem. Lokální Playwright public smoke prošel 2026-06-01 15:12 CEST 10/10 a design check pro `/`, `/podniky`, `/ukazka` potvrdil žádný horizontální overflow, žádná coordinate pole a žádný useknutý demo panel.
 - Vercel production deploy po homepage demo/kontrast opravě je hotový: `https://rezervacni-system-xi.vercel.app`, aktuální deploy `dpl_Cx2nPdYYMLiwTNsaY5yQLUN9x7b7`; externí public smoke 2026-06-01 13:21 CEST prošel 8/8 a produkční axe color-contrast audit homepage vrátil `violationCount: 0`.
 - Public health endpoint nevrací názvy chybějících secret env; vrací jen počet v `checks.env.missing`.
 - GitHub login connection ve Vercelu je propojený; před propojením byly nové deploymenty private repa `BLOCKED`, aktuální production deploy je `dpl_4Zogqwr6XLj2utWu7cbc9sCh5ePe`.
@@ -46,7 +46,9 @@ Aktualizováno: 2026-06-01 14:23 CEST
 - Hero demo na homepage se už nesnaží být abstraktní produktová ilustrace; kopíruje reálné přihlášené obrazovky (`Přehled provozu`, `Kalendář`, `Rezervační stránka`, `Zákaznický účet`) a Playwright audit potvrdil stejnou výšku `717px` při všech přepnutích.
 - Hero demo má nativní klikací průvodce inspirovaný Salona/Arcade ukázkami: `Spustit ukázku`, 4 kroky a autoplay se vypne po ručním kliknutí, aby už nepřeskakoval zpět.
 - Hero demo už nepoužívá vnitřní scrollbar ani spodní opakované karty `Platby / Klienti / Termíny`; každá plocha je kompaktní screen bez useknutého obsahu.
-- Homepage navigace nově obsahuje `Najít podnik` na `/podniky`, tedy zákaznickou cestu vedle podnikatelských CTA.
+- Homepage navigace nově odděluje `Pro podniky`, `Pro zákazníky` a `/ukazka`; hero sekundární CTA vede na interaktivní ukázku.
+- Nová stránka `/ukazka` je samostatný klikací produktový walkthrough inspirovaný Salona/Arcade, ale bez externího embeddu.
+- `/podniky` je zákaznická landing/discovery stránka: hledá službu, místo/adresu/čtvrť a obor; UI už neobsahuje lat/lng/radius pole.
 - Lighthouse kontrastní nálezy na homepage jsou opravené a kryté regresním testem v `tests/landing-polish.test.ts`.
 - Layout homepage je sjednocený na stejnou osu jako navazující sekce: menu, hero grid a `#provoz` mají v desktop auditu `x=93`, `width=1180`; horizontální overflow není.
 - Oborové landingy používají v hero preview obrazový pás z `public/marketing/*-ai.webp`.
@@ -135,6 +137,8 @@ Aktualizováno: 2026-06-01 14:23 CEST
 
 ## Poslední změna
 
+- Business/customer split 2026-06-01: homepage navigace rozlišuje `Pro podniky` a `Pro zákazníky`, `/podniky` používá zákaznické adresní hledání bez souřadnic, přibyla `/ukazka` jako samostatná interaktivní ukázka a produktové demo na mobilu už nerozsekává spodní obsah.
+- Ověření 2026-06-01 15:16 CEST: `npm run check` prošlo s 564 Vitest testy, migrations check, type-check, lint a produkční build. `PLAYWRIGHT_BASE_URL=http://127.0.0.1:3000 npx playwright test tests/e2e/public-smoke.spec.ts` prošlo 10/10. Lokální design check pro `/`, `/podniky`, `/ukazka` na desktopu i mobilu potvrdil console errors 0, žádný horizontální overflow, žádná coordinate pole a žádný useknutý demo panel.
 - Homepage demo cleanup 2026-06-01: odstraněný vnitřní scrollbar a opakované spodní karty z hero ukázky. `Přehled provozu`, `Kalendář`, `Rezervační stránka` i `Zákaznický účet` jsou nově kompaktní obrazovky, které se vejdou do panelu bez scrollování a bez useknutého spodku.
 - Ověření 2026-06-01 14:17 CEST: `npm run check` prošlo s 561 Vitest testy, migrations check, type-check, lint a produkční build. Lokální Playwright kontrola potvrdila `overflowY: hidden`, shodné `clientHeight` a `scrollHeight` pro overview i rezervační stránku, žádné staré karty `Platby / Klienti / Termíny`, stabilní ruční výběr po 6,2 s a console errors 0.
 - Vercel production deploy `dpl_FUTuzQmvQVtP312kbWqCausjbXk9` je na aliasu `https://rezervacni-system-xi.vercel.app`; externí public smoke 2026-06-01 14:22 CEST prošel 8/8 a produkční kontrola demo panelu potvrdila `overflowY: hidden`, shodné `clientHeight`/`scrollHeight`, žádné staré karty a console errors 0.
