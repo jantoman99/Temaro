@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Aktualizováno: 2026-06-01 23:07 CEST
+Aktualizováno: 2026-06-01 23:47 CEST
 
 Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historické analýzy a staré design audity jsou přesunuté do `docs/archive/`.
 
@@ -62,6 +62,9 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - Lokální vizuální kontrola `/toman-barber` 2026-06-01 23:07 CEST uložila screenshot `output/playwright/toman-barber-redesign-v2.png`; stránka renderuje HTTP 200, bez fallback chyby a bez horizontálního overflow.
 - `npm run check` prošlo 2026-06-01 23:13 CEST po redesignu veřejné booking stránky: 584 Vitest testů, migrations check, type-check, lint a produkční build.
 - Vercel production deploy `dpl_Gh31xQfp5xpQKtFDP9SjejNbYRUz` je na aliasu `https://rezervacni-system-xi.vercel.app`; `/toman-barber` vrací HTTP 200, `/api/health` je `ok` a produkční public smoke 2026-06-01 23:17 CEST prošel 10/10.
+- Veřejná booking stránka `/[slug]` byla znovu přestavěná na profilový dvousloupec: vlevo cover/profil podniku, popis, fotky, výhody, mapa a postup rezervace; vpravo sticky rezervační karta. Tím se ruší předchozí úzké centrované karty a layout je blíž Reservio/Salona profilu.
+- Lokální vizuální kontrola `/toman-barber` 2026-06-01 23:36 CEST uložila screenshot `output/playwright/toman-barber-profile-layout-v3.png`; horizontální overflow je 0 a formulář je vedle profilu.
+- `npm run check` prošlo 2026-06-01 23:41 CEST po profilovém dvousloupci: 584 Vitest testů, migrations check, type-check, lint a produkční build. Lokální public smoke 2026-06-01 23:47 CEST prošel 10/10.
 
 ## Hotové funkčně
 

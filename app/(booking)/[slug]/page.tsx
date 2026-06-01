@@ -63,9 +63,9 @@ function BookingProfile({
   const hasRating = typeof reviewRating === "number" && reviewCount > 0;
 
   return (
-    <section className="overflow-hidden rounded-[2rem] border border-border bg-card shadow-[var(--shadow-command)]">
-      <div className="grid gap-3 bg-secondary p-3 lg:grid-cols-[minmax(0,1.45fr)_minmax(320px,0.55fr)]">
-        <div className="relative min-h-[420px] overflow-hidden rounded-[1.55rem] bg-sidebar lg:min-h-[520px]">
+    <div className="space-y-6">
+      <section className="overflow-hidden rounded-[1.75rem] border border-border bg-card shadow-[var(--shadow-command)]">
+        <div className="relative h-[260px] bg-sidebar sm:h-[340px]">
           {profileImages[0] ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img alt={`${name} úvodní fotka`} className="absolute inset-0 h-full w-full object-cover" src={profileImages[0]} />
@@ -74,68 +74,34 @@ function BookingProfile({
             className="absolute inset-0"
             style={{
               background: profileImages[0]
-                ? "linear-gradient(180deg, rgba(7,12,20,.28), rgba(7,12,20,.88))"
+                ? "linear-gradient(180deg, rgba(7,12,20,.08), rgba(7,12,20,.18))"
                 : `radial-gradient(circle at 18% 15%, ${brandColor ?? "#635BFF"} 0, transparent 32%), linear-gradient(135deg, rgba(7,12,20,.96), rgba(18,24,38,.9))`,
             }}
           />
-          <div className="relative flex h-full min-h-[420px] flex-col justify-between p-6 text-white sm:p-8 lg:min-h-[520px]">
-            <div className="flex items-start justify-between gap-3">
+        </div>
+        <div className="relative px-5 pb-6 pt-0 sm:px-7">
+          <div className="-mt-10 flex flex-col gap-4 sm:-mt-12 sm:flex-row sm:items-end sm:justify-between">
+            <div className="flex items-end gap-4">
               {logoUrl ? (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img alt={`${name} logo`} className="size-16 rounded-2xl border border-white/20 bg-white object-cover p-1 shadow-md" src={logoUrl} />
+                <img alt={`${name} logo`} className="size-24 rounded-3xl border-4 border-card bg-card object-cover p-1 shadow-lg" src={logoUrl} />
               ) : (
-                <div className="grid size-16 place-items-center rounded-2xl text-base font-black text-white shadow-md" style={{ backgroundColor: brandColor ?? "#635BFF" }}>
+                <div className="grid size-24 place-items-center rounded-3xl border-4 border-card text-2xl font-black text-white shadow-lg" style={{ backgroundColor: brandColor ?? "#635BFF" }}>
                   {name.slice(0, 2).toUpperCase()}
                 </div>
               )}
-              {hasRating ? (
-                <div className="flex items-center gap-1 rounded-full border border-white/20 bg-white/14 px-3 py-1 text-sm font-bold text-white shadow-sm">
-                  <Star className="size-4 fill-current" />
-                  {reviewRating.toFixed(1)}
-                </div>
-              ) : null}
-            </div>
-            <div>
-              <p className="mb-3 text-xs font-bold uppercase tracking-[0.16em] text-white/70">{eyebrow}</p>
-              <h1 className="max-w-3xl text-balance text-5xl font-semibold leading-[0.98] tracking-tight text-white sm:text-7xl">
-                Rezervovat se k <span className="font-serif-accent text-white">{name}</span>
-              </h1>
-              <p className="mt-5 max-w-2xl text-base font-semibold leading-7 text-white/82 sm:text-lg">{description}</p>
-            </div>
-          </div>
-        </div>
-        {galleryImages.length > 0 ? (
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
-            {galleryImages.map((imageUrl, index) => (
-              <div key={`${imageUrl}-${index}`} className="relative min-h-40 overflow-hidden rounded-[1.25rem] bg-muted lg:min-h-0">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img alt={`${name} fotka ${index + 2}`} className="absolute inset-0 h-full w-full object-cover" src={imageUrl} />
+              <div className="pb-1">
+                <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">{eyebrow}</p>
+                <h1 className="mt-1 text-3xl font-semibold tracking-tight text-foreground sm:text-5xl">
+                  {name}
+                </h1>
               </div>
-            ))}
-          </div>
-        ) : (
-          <div className="flex min-h-48 flex-col justify-between rounded-[1.25rem] border border-border bg-card p-5 lg:min-h-full">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Rychlá rezervace</p>
-              <p className="mt-3 text-2xl font-semibold tracking-tight text-foreground">Vyberete službu, termín a potvrzení dorazí e-mailem.</p>
             </div>
-            <div className="mt-6 grid gap-2">
-              <span className="rounded-2xl border border-border bg-secondary px-4 py-3 text-sm font-bold text-foreground">
-                {servicesCount ?? 0} služeb k objednání
-              </span>
-              <span className="rounded-2xl border border-border bg-secondary px-4 py-3 text-sm font-bold text-foreground">
-                {staffCount ?? 0} členů týmu
-              </span>
-              <span className="rounded-2xl border border-border bg-secondary px-4 py-3 text-sm font-bold text-foreground">
-                Bez telefonování
-              </span>
-            </div>
+            <a href="#rezervace" className="inline-flex h-11 items-center justify-center rounded-full bg-primary px-5 text-sm font-bold text-primary-foreground shadow-[var(--shadow-primary-glow)] transition hover:translate-y-[-1px]">
+              Rezervovat termín
+            </a>
           </div>
-        )}
-      </div>
-      <div className="grid gap-4 p-5 lg:grid-cols-[minmax(0,1fr)_360px]">
-        <div>
-          <div className="flex flex-wrap gap-2">
+          <div className="mt-5 flex flex-wrap gap-2">
             {hasRating ? (
               <span className="inline-flex items-center gap-1 rounded-full border border-border bg-secondary px-3 py-1 text-sm font-bold text-foreground">
                 <Star className="size-4 fill-current text-amber-500" />
@@ -159,79 +125,103 @@ function BookingProfile({
               </span>
             ) : null}
           </div>
-          {socialLinks.length > 0 ? (
-            <div className="mt-4 flex flex-wrap gap-2">
-              {socialLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-2 text-sm font-bold text-foreground transition hover:border-primary/45 hover:text-primary"
-                >
-                  {link.type === "website" ? <Globe className="size-4" /> : null}
-                  {link.type === "instagram" ? <span className="text-xs font-black">IG</span> : null}
-                  {link.type === "facebook" ? <span className="text-xs font-black">f</span> : null}
-                  {link.type === "tiktok" ? <span className="text-xs font-black">TT</span> : null}
-                  {link.label}
-                </a>
-              ))}
-            </div>
-          ) : null}
         </div>
-        <div className="rounded-[1.25rem] border border-border bg-secondary p-4">
-          <p className="text-sm font-bold text-foreground">Rezervace online</p>
-          <div className="mt-3 space-y-2 text-sm font-medium text-muted-foreground">
-            <p>1. Vyberete službu a termín.</p>
-            <p>2. Doplníte kontakt.</p>
-            <p>3. Potvrzení přijde e-mailem.</p>
+      </section>
+
+      <section className="rounded-[1.5rem] border border-border bg-card p-6 shadow-sm">
+        <h2 className="text-2xl font-semibold tracking-tight text-foreground">O podniku</h2>
+        <p className="mt-3 max-w-2xl text-base font-medium leading-7 text-muted-foreground">{description}</p>
+        {socialLinks.length > 0 ? (
+          <div className="mt-5 flex flex-wrap gap-2">
+            {socialLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-2 text-sm font-bold text-foreground transition hover:border-primary/45 hover:text-primary"
+              >
+                {link.type === "website" ? <Globe className="size-4" /> : null}
+                {link.type === "instagram" ? <span className="text-xs font-black">IG</span> : null}
+                {link.type === "facebook" ? <span className="text-xs font-black">f</span> : null}
+                {link.type === "tiktok" ? <span className="text-xs font-black">TT</span> : null}
+                {link.label}
+              </a>
+            ))}
           </div>
-        </div>
-      </div>
-      {amenities.length > 0 || publicAddress || mapHref ? (
-        <div className="grid gap-4 border-t border-border p-5 lg:grid-cols-2">
-          {amenities.length > 0 ? (
-            <div className="rounded-[1.25rem] border border-border bg-secondary p-4">
-              <div className="flex items-center gap-2 text-sm font-bold text-foreground">
-                <Sparkles className="size-4 text-primary" />
-                Co u nás dostanete
+        ) : null}
+      </section>
+
+      {galleryImages.length > 0 ? (
+        <section className="rounded-[1.5rem] border border-border bg-card p-4 shadow-sm sm:p-5">
+          <div className="mb-4 flex items-center justify-between gap-4">
+            <h2 className="text-2xl font-semibold tracking-tight text-foreground">Fotky</h2>
+            <span className="text-sm font-semibold text-muted-foreground">{galleryImages.length} fotky</span>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {galleryImages.map((imageUrl, index) => (
+              <div key={`${imageUrl}-${index}`} className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-muted">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img alt={`${name} fotka ${index + 2}`} className="absolute inset-0 h-full w-full object-cover" src={imageUrl} />
               </div>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {amenities.map((amenity) => (
-                  <span key={amenity} className="rounded-full border border-border bg-card px-3 py-1 text-sm font-bold text-foreground">
-                    {amenity}
-                  </span>
-                ))}
-              </div>
-            </div>
-          ) : null}
-          {publicAddress || mapHref ? (
-            <div className="overflow-hidden rounded-[1.25rem] border border-border bg-secondary">
-              {mapEmbedUrl ? (
-                <iframe
-                  className="h-52 w-full border-0"
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  src={mapEmbedUrl}
-                  title={`Mapa ${name}`}
-                />
-              ) : null}
-              <div className="p-4">
-                <p className="text-sm font-bold text-foreground">Kde nás najdete</p>
-                {publicAddress ? <p className="mt-2 text-sm font-semibold leading-6 text-muted-foreground">{publicAddress}</p> : null}
-                {mapHref ? (
-                  <a href={mapHref} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-primary underline-offset-4 hover:underline">
-                    <Navigation className="size-4" />
-                    Navigovat
-                    <ExternalLink className="size-3" />
-                  </a>
-                ) : null}
-              </div>
-            </div>
-          ) : null}
-        </div>
+            ))}
+          </div>
+        </section>
       ) : null}
-    </section>
+
+      {amenities.length > 0 ? (
+        <section className="rounded-[1.5rem] border border-border bg-card p-6 shadow-sm">
+          <div className="flex items-center gap-2 text-2xl font-semibold tracking-tight text-foreground">
+            <Sparkles className="size-5 text-primary" />
+            Co tu najdete
+          </div>
+          <div className="mt-4 flex flex-wrap gap-2">
+            {amenities.map((amenity) => (
+              <span key={amenity} className="rounded-full border border-border bg-secondary px-3 py-1 text-sm font-bold text-foreground">
+                {amenity}
+              </span>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {publicAddress || mapHref ? (
+        <section className="overflow-hidden rounded-[1.5rem] border border-border bg-card shadow-sm">
+          {mapEmbedUrl ? (
+            <iframe
+              className="h-64 w-full border-0"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              src={mapEmbedUrl}
+              title={`Mapa ${name}`}
+            />
+          ) : null}
+          <div className="p-6">
+            <h2 className="text-2xl font-semibold tracking-tight text-foreground">Kde nás najdete</h2>
+            {publicAddress ? <p className="mt-2 text-sm font-semibold leading-6 text-muted-foreground">{publicAddress}</p> : null}
+            {mapHref ? (
+              <a href={mapHref} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-primary underline-offset-4 hover:underline">
+                <Navigation className="size-4" />
+                Navigovat
+                <ExternalLink className="size-3" />
+              </a>
+            ) : null}
+          </div>
+        </section>
+      ) : null}
+
+      <section className="rounded-[1.5rem] border border-border bg-card p-6 shadow-sm">
+        <h2 className="text-2xl font-semibold tracking-tight text-foreground">Jak rezervace probíhá</h2>
+        <div className="mt-4 grid gap-3 sm:grid-cols-3">
+          {["Vyberete službu", "Zvolíte termín", "Potvrzení přijde e-mailem"].map((step, index) => (
+            <div key={step} className="rounded-2xl border border-border bg-secondary p-4">
+              <div className="grid size-8 place-items-center rounded-full bg-primary text-sm font-black text-primary-foreground">{index + 1}</div>
+              <p className="mt-3 text-sm font-bold text-foreground">{step}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+    </div>
   );
 }
 
@@ -275,36 +265,38 @@ function DemoBookingPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div className="mx-auto grid w-full max-w-6xl gap-8">
-        <div className="lg:col-span-2">
+      <div className="mx-auto w-full max-w-6xl">
+        <div className="mb-6">
           <DemoBanner />
         </div>
-        <BookingProfile
-          description="Tohle je ukázková veřejná rezervační stránka. Rezervace se zatím reálně neukládá."
-          eyebrow="Demo booking"
-          galleryImageUrls={demoTenant.public_gallery_image_urls}
-          name={demoTenant.name}
-          amenities={demoTenant.public_amenities}
-          mapEmbedUrl={getTenantMapEmbedUrl(demoTenant)}
-          mapHref={getTenantMapHref(demoTenant)}
-          publicAddress={formatTenantAddress(demoTenant)}
-          reviewCount={demoTenant.review_count}
-          reviewRating={demoTenant.review_rating}
-          reviewSourceLabel={demoTenant.review_source_label}
-          socialLinks={[
-            { href: demoTenant.social_instagram_url ?? "", label: "Instagram", type: "instagram" as const },
-            { href: demoTenant.social_facebook_url ?? "", label: "Facebook", type: "facebook" as const },
-            { href: demoTenant.social_tiktok_url ?? "", label: "TikTok", type: "tiktok" as const },
-          ].filter((link) => link.href)}
-        />
-        <div className="mx-auto w-full max-w-3xl">
-          <PublicBookingForm
-            availabilitySlots={availabilitySlots}
-            services={demoServices}
-            slug={slug}
-            sourceTracking={sourceTracking}
-            staff={demoStaff}
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_430px] lg:items-start">
+          <BookingProfile
+            description="Tohle je ukázková veřejná rezervační stránka. Rezervace se zatím reálně neukládá."
+            eyebrow="Online rezervace"
+            galleryImageUrls={demoTenant.public_gallery_image_urls}
+            name={demoTenant.name}
+            amenities={demoTenant.public_amenities}
+            mapEmbedUrl={getTenantMapEmbedUrl(demoTenant)}
+            mapHref={getTenantMapHref(demoTenant)}
+            publicAddress={formatTenantAddress(demoTenant)}
+            reviewCount={demoTenant.review_count}
+            reviewRating={demoTenant.review_rating}
+            reviewSourceLabel={demoTenant.review_source_label}
+            socialLinks={[
+              { href: demoTenant.social_instagram_url ?? "", label: "Instagram", type: "instagram" as const },
+              { href: demoTenant.social_facebook_url ?? "", label: "Facebook", type: "facebook" as const },
+              { href: demoTenant.social_tiktok_url ?? "", label: "TikTok", type: "tiktok" as const },
+            ].filter((link) => link.href)}
           />
+          <aside id="rezervace" className="lg:sticky lg:top-6">
+            <PublicBookingForm
+              availabilitySlots={availabilitySlots}
+              services={demoServices}
+              slug={slug}
+              sourceTracking={sourceTracking}
+              staff={demoStaff}
+            />
+          </aside>
         </div>
       </div>
     </main>
@@ -398,40 +390,42 @@ export default async function BookingPage({ params, searchParams }: BookingPageP
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div className="mx-auto grid w-full max-w-6xl gap-8">
-        <BookingProfile
-          brandColor={tenant.brand_color}
-          coverImageUrl={tenant.cover_image_url}
-          description={
-            tenant.public_description ??
-            "Vyberte službu, poskytovatele a termín. Rezervace se uloží přímo do kalendáře podniku."
-          }
-          eyebrow="Online rezervace"
-          galleryImageUrls={tenant.public_gallery_image_urls}
-          logoUrl={tenant.logo_url}
-          mapEmbedUrl={null}
-          mapHref={getTenantMapHref(tenant)}
-          name={tenant.name}
-          amenities={tenant.public_amenities}
-          publicAddress={formatTenantAddress(tenant)}
-          servicesCount={safeServices.length}
-          socialLinks={[
-            { href: tenant.social_instagram_url ?? "", label: "Instagram", type: "instagram" as const },
-            { href: tenant.social_facebook_url ?? "", label: "Facebook", type: "facebook" as const },
-            { href: tenant.social_tiktok_url ?? "", label: "TikTok", type: "tiktok" as const },
-            { href: tenant.social_website_url ?? "", label: "Web", type: "website" as const },
-          ].filter((link) => link.href)}
-          staffCount={safeStaff.length}
-        />
-        <div className="mx-auto w-full max-w-3xl">
-          <PublicBookingForm
-            availabilitySlots={availabilitySlots}
-            loadError={dataLoadFailed}
-            services={safeServices}
-            slug={tenant.slug}
-            sourceTracking={sourceTracking}
-            staff={safeStaff}
+      <div className="mx-auto w-full max-w-6xl">
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_430px] lg:items-start">
+          <BookingProfile
+            brandColor={tenant.brand_color}
+            coverImageUrl={tenant.cover_image_url}
+            description={
+              tenant.public_description ??
+              "Vyberte službu, poskytovatele a termín. Rezervace se uloží přímo do kalendáře podniku."
+            }
+            eyebrow="Online rezervace"
+            galleryImageUrls={tenant.public_gallery_image_urls}
+            logoUrl={tenant.logo_url}
+            mapEmbedUrl={null}
+            mapHref={getTenantMapHref(tenant)}
+            name={tenant.name}
+            amenities={tenant.public_amenities}
+            publicAddress={formatTenantAddress(tenant)}
+            servicesCount={safeServices.length}
+            socialLinks={[
+              { href: tenant.social_instagram_url ?? "", label: "Instagram", type: "instagram" as const },
+              { href: tenant.social_facebook_url ?? "", label: "Facebook", type: "facebook" as const },
+              { href: tenant.social_tiktok_url ?? "", label: "TikTok", type: "tiktok" as const },
+              { href: tenant.social_website_url ?? "", label: "Web", type: "website" as const },
+            ].filter((link) => link.href)}
+            staffCount={safeStaff.length}
           />
+          <aside id="rezervace" className="lg:sticky lg:top-6">
+            <PublicBookingForm
+              availabilitySlots={availabilitySlots}
+              loadError={dataLoadFailed}
+              services={safeServices}
+              slug={tenant.slug}
+              sourceTracking={sourceTracking}
+              staff={safeStaff}
+            />
+          </aside>
         </div>
       </div>
     </main>

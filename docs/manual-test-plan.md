@@ -108,7 +108,7 @@ Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 - V `Booking stránka` vyplnit vlastní text potvrzení, připomínky a zrušení; uložit a při runtime testu ověřit, že se text objeví v příslušném e-mailu bez odstranění termínu, služby a manage odkazu.
 - V `Booking stránka` kliknout na plochu `Úvodní fotka stránky` a `Logo`, nahrát obrázky, ověřit okamžitý náhled ještě před uložením a po uložení zkontrolovat náhled i veřejný booking.
 - V `Booking stránka` doplnit fotogalerii, výhody provozovny a odkazy Instagram/Facebook/TikTok/web; po uložení otevřít veřejný booking a ověřit profilovou galerii, sociální odkazy, hodnocení, adresu a mapu.
-- Na veřejném booking odkazu ověřit desktop layout: profil podniku je nahoře přes šířku stránky, rezervační formulář je pod ním centrovaný, text přes úvodní fotku není useknutý a při chybějící galerii se neukazuje prázdný upload placeholder.
+- Na veřejném booking odkazu ověřit desktop layout: vlevo je profil podniku s coverem a obsahovými bloky, vpravo sticky rezervační karta, text není useknutý přes fotku a při chybějící galerii se neukazuje prázdný upload placeholder.
 - V `Booking stránka` zkopírovat booking button embed kód, vložit ho do jednoduché HTML stránky a ověřit, že se zobrazí tlačítko `Rezervovat termín` vedoucí na veřejný booking odkaz podniku.
 - V `Booking stránka` zkopírovat iframe widget embed kód, vložit ho do jednoduché externí HTML stránky a ověřit, že se zobrazí celý booking flow bez rozbití stylů hostující stránky.
 - U iframe widgetu ověřit, že snippet neobsahuje tenant ID ani query string s interními hodnotami, iframe míří na `/embed/booking/[slug]?source=widget`, má `loading="lazy"`, sandbox/referrer policy a rezervace se uloží se zdrojem `widget`.

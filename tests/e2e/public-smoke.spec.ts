@@ -97,8 +97,8 @@ test.describe("public smoke", () => {
   test("demo booking page renders selectable booking flow", async ({ page }) => {
     await page.goto("/demo-barber");
 
-    await expect(page.getByRole("heading", { name: /Rezervovat se k/i })).toBeVisible();
-    await expect(page.getByText("Co u nás dostanete")).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Temaro Demo Studio/i })).toBeVisible();
+    await expect(page.getByText("Co tu najdete")).toBeVisible();
     await expect(page.getByRole("link", { name: /Instagram/i })).toBeVisible();
     await expect(page.getByRole("link", { name: /Navigovat/i })).toBeVisible();
     await expect(page.getByRole("heading", { name: /Vyberte službu, termín a kontakt/i })).toBeVisible();
