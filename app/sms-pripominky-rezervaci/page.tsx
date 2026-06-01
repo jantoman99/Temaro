@@ -46,14 +46,14 @@ const decisionRules = [
 ] as const;
 
 const whenRows = [
-  ["Krátký střih nebo kontrola", "Spíš ne", "Často stačí potvrzení a e-mail reminder."],
+  ["Krátký střih nebo kontrola", "Spíš ne", "Často stačí potvrzení a e-mailová připomínka."],
   ["Barvení, wellness balíček, 90+ minut", "Ano", "Prázdné okno je dražší než cena jedné SMS."],
   ["Nový klient bez historie", "Často ano", "Pomáhá zvýšit jistotu, že klient termín opravdu zachytí."],
   ["Opakovaný no-show klient", "Ano", "SMS je vhodný mezikrok před zavedením zálohy nebo přísnějšího potvrzení."],
 ] as const;
 
 const rolloutSteps = [
-  ["Začněte e-mailem", "Nejdřív mějte jisté potvrzení rezervace, jasná storno pravidla a self-service změnu termínu."],
+  ["Začněte e-mailem", "Nejdřív mějte jisté potvrzení rezervace, jasná storno pravidla a jednoduchou změnu termínu bez telefonátu."],
   ["Označte rizikové služby", "Vyberte služby, kde neobsazené okno stojí nejvíc času nebo tržby."],
   ["SMS nespouštějte plošně", "Pošlete je jen tam, kde mají ekonomický smysl: delší termíny, nový klient, vyšší riziko."],
   ["Sledujte no-show a náklad", "Průběžně porovnávejte, jestli SMS opravdu snižují výpadky a mají lepší návratnost než nic nedělat."],
@@ -78,12 +78,12 @@ const faqs = [
   {
     question: "Má smysl posílat SMS každému klientovi?",
     answer:
-      "Obvykle ne. Lepší je cílit SMS na rizikovější termíny a klienty, zatímco zbytek nechat na potvrzení a e-mail reminderu.",
+      "Obvykle ne. Lepší je cílit SMS na rizikovější termíny a klienty, zatímco zbytek nechat na potvrzení a e-mailové připomínce.",
   },
   {
     question: "Jsou SMS připomínky už v Temaru hotové?",
     answer:
-      "Technický základ je připravený: Temaro umí plánovat SMS reminder a poslat ho přes webhook. Pro produkční provoz je ještě potřeba vybrat SMS providera, nastavit cenu a zapnout env konfiguraci.",
+      "Základ produktu je připravený: Temaro umí naplánovat SMS připomínku a odeslat ji přes napojenou SMS službu. Před ostrým provozem je ještě potřeba vybrat dodavatele SMS a nastavit cenu.",
   },
 ] as const;
 
@@ -152,7 +152,7 @@ export default function SmsRemindersPage() {
                 href="/jak-snizit-no-show"
                 className="hidden h-10 items-center justify-center rounded-md border border-border bg-card px-4 text-sm font-semibold text-muted-foreground shadow-sm transition hover:text-foreground sm:inline-flex"
               >
-                No-show guide
+                No-show návod
               </Link>
               <Link
                 href="/register"
@@ -176,7 +176,7 @@ export default function SmsRemindersPage() {
                 <span className="font-serif-accent text-primary">dávají smysl.</span>
               </h1>
               <p className="mt-6 max-w-xl text-lg font-medium leading-8 text-muted-foreground">
-                SMS reminder není povinná výbava pro každý termín. Má největší smysl tam, kde je prázdné okno dražší
+                SMS připomínka není povinná výbava pro každý termín. Má největší smysl tam, kde je prázdné okno dražší
                 než cena jedné zprávy a e-mail už nestačí jako jistota.
               </p>
             </section>
@@ -184,7 +184,7 @@ export default function SmsRemindersPage() {
             <aside className="rounded-xl border border-border bg-card/88 p-5 shadow-[var(--shadow-command)] backdrop-blur">
               <div className="grid gap-3 sm:grid-cols-3">
                 {[
-                  ["24 h", "typický reminder"],
+                  ["24 h", "typická připomínka"],
                   ["SMS", "jen pro rizikové sloty"],
                   ["0", "skrytých poplatků"],
                 ].map(([value, label]) => (
@@ -252,8 +252,8 @@ export default function SmsRemindersPage() {
               <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Jak zavádět SMS rozumně</p>
               <h2 className="mt-3 text-3xl font-semibold tracking-tight">Nejdřív flow, potom dražší notifikace.</h2>
               <p className="mt-4 text-sm font-medium leading-6 text-muted-foreground">
-                Temaro už dnes řeší potvrzení rezervace, e-mailové připomínky, klientský kontext a self-service změny.
-                SMS reminder je silný P0 kandidát pro pilot, ale dává smysl až nad jasně nastaveným základem.
+                Temaro už dnes řeší potvrzení rezervace, e-mailové připomínky, klientský kontext a změny termínu bez telefonátu.
+                SMS připomínka je silný kandidát pro pilot, ale dává smysl až nad jasně nastaveným základem.
               </p>
             </div>
             <div className="grid gap-3">
@@ -316,8 +316,8 @@ export default function SmsRemindersPage() {
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 text-sm font-medium text-muted-foreground">
           <TemaroLogo />
           <div className="flex flex-wrap gap-3">
-            <Link href="/">Homepage</Link>
-            <Link href="/jak-snizit-no-show">No-show guide</Link>
+            <Link href="/">Úvod</Link>
+            <Link href="/jak-snizit-no-show">No-show návod</Link>
             <Link href="/rezervacni-system-pro-barbery">Pro barbery</Link>
           </div>
         </div>

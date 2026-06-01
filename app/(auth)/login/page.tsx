@@ -14,7 +14,7 @@ const noticeCopy = {
     "Účet nemá přiřazený podnik. Přihlaste se účtem vlastníka nebo požádejte o novou pozvánku.",
   missing_role:
     "Účet nemá přiřazenou roli v podniku. Přihlaste se účtem vlastníka nebo požádejte o novou pozvánku.",
-  missing_staff: "Staff účet není propojený se zaměstnancem. Požádejte vlastníka o novou pozvánku.",
+  missing_staff: "Zaměstnanecký účet není propojený se zaměstnancem. Požádejte vlastníka o novou pozvánku.",
   auth_callback: "Přihlašovací odkaz se nepodařilo ověřit. Zkuste se přihlásit znovu.",
   oauth_unavailable: "Přihlášení přes Google teď není dostupné. Zkuste e-mail a heslo.",
   oauth_registration_failed: "Registraci přes Google se nepodařilo dokončit. Zkuste to znovu nebo použijte e-mail a heslo.",

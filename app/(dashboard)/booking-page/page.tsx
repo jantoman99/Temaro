@@ -16,9 +16,9 @@ export default async function BookingPageAdmin() {
       <section className="flex flex-col gap-6">
         <DemoBanner />
         <PageHeader
-          description="Tady provozovatel vidí, co posílá klientům. Branding je oddělený od technického nastavení."
+          description="Tady provozovatel vidí, co posílá klientům. Vzhled rezervační stránky je oddělený od nastavení provozu."
           eyebrow="Zákaznický pohled"
-          title="Booking stránka"
+          title="Rezervační stránka"
         />
         <BookingPagePreview servicesCount={demoServices.length} staffCount={demoStaff.length} tenant={demoTenant} />
         <BookingShareKit businessName={demoTenant.name} slug={demoTenant.slug} />
@@ -66,9 +66,9 @@ export default async function BookingPageAdmin() {
   return (
     <section className="flex flex-col gap-6">
       <PageHeader
-        description="Tady provozovatel vidí, co posílá klientům. Branding je oddělený od technického nastavení."
+        description="Tady provozovatel vidí, co posílá klientům. Vzhled rezervační stránky je oddělený od nastavení provozu."
         eyebrow="Zákaznický pohled"
-        title="Booking stránka"
+        title="Rezervační stránka"
       />
       <BookingPagePreview servicesCount={servicesCount ?? 0} staffCount={staffCount ?? 0} tenant={tenant} />
       <BookingShareKit businessName={tenant.name} slug={tenant.slug} />

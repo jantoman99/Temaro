@@ -1,5 +1,6 @@
 import type { LucideIcon } from "lucide-react";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 import { TemaroLogo } from "@/components/brand/temaro-logo";
@@ -17,6 +18,8 @@ type IndustryLandingPageProps = {
   previewTitle: string;
   previewStatus: string;
   previewEntries: readonly (readonly [string, string, string, string])[];
+  visualAlt: string;
+  visualSrc: string;
   benefits: readonly {
     icon: LucideIcon;
     title: string;
@@ -58,6 +61,8 @@ export function IndustryLandingPage({
   previewTitle,
   previewStatus,
   previewEntries,
+  visualAlt,
+  visualSrc,
   benefits,
   workflowsLabel,
   workflowsTitle,
@@ -134,8 +139,20 @@ export function IndustryLandingPage({
               </div>
             </section>
 
-            <aside className="rounded-xl border border-border bg-card/88 p-5 shadow-[var(--shadow-command)] backdrop-blur">
-              <div className="rounded-xl border border-border bg-background/80 p-4">
+            <aside className="overflow-hidden rounded-xl border border-border bg-card/88 shadow-[var(--shadow-command)] backdrop-blur">
+              <div className="relative aspect-[16/9] overflow-hidden">
+                <Image
+                  src={visualSrc}
+                  alt={visualAlt}
+                  fill
+                  sizes="(min-width: 1024px) 520px, 100vw"
+                  className="object-cover"
+                  priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+              </div>
+              <div className="p-5">
+              <div className="rounded-xl border border-border bg-background/88 p-4 backdrop-blur">
                 <div className="flex items-center justify-between gap-4">
                   <div>
                     <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">{previewLabel}</p>
@@ -162,6 +179,7 @@ export function IndustryLandingPage({
                     </div>
                   ))}
                 </div>
+              </div>
               </div>
             </aside>
           </div>

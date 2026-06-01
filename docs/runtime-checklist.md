@@ -1,6 +1,6 @@
 # Runtime checklist
 
-Aktualizováno: 2026-06-01 11:18 CEST
+Aktualizováno: 2026-06-01 12:31 CEST
 
 Tento checklist je pro první reálné ověření mimo demo režim.
 
@@ -22,6 +22,10 @@ curl -I http://localhost:3000
 
 Aktuální známý stav:
 
+- `npm run check` prošlo 2026-06-01 12:31 CEST po site-wide marketing copy/vizuál revizi: 560 Vitest testů, migrations check, type-check, lint a produkční build.
+- Lokální Playwright audit 2026-06-01 12:26 CEST prošel pro 14 veřejných tras (`/`, `/demo-barber`, `/podniky`, 5 oborových landingů, no-show/SMS/provizní stránka, `/account/login`, `/login`, `/register`): všechny HTTP 200, console errors 0.
+- Homepage layout audit 1366 px: menu, hero grid a `#provoz` mají stejnou osu `x=93`, šířku `1180`; `scrollWidth=1366`; hero demo je `638px` široké a při všech scénách stabilní `717px` vysoké.
+- Aktuální screenshoty po revizi jsou v `output/playwright/landing-redesign-desktop-final.png` a `output/playwright/landing-redesign-mobile-final.png`.
 - `npm run check` prošlo 2026-06-01 11:18 CEST po dokončení navazujícího landing/design úkolu: 559 Vitest testů, migrations check, type-check, lint a produkční build.
 - Lokální Playwright kontrola 2026-06-01 11:18 CEST prošla: `PLAYWRIGHT_BASE_URL=http://127.0.0.1:3000 npx playwright test tests/e2e/public-smoke.spec.ts` má 8/8 testů zelených; screenshoty homepage jsou v `output/playwright/landing-desktop.png`, `landing-mobile.png` a `landing-full.png`; měření 1366/390 px potvrdilo nulový gap mezi herem a `#provoz` a žádný horizontální overflow.
 - Homepage po posledním polishi používá WebP segmentové assety `public/marketing/*-ai.webp`, hero demo ukazuje reálné produktové plochy `Dashboard / Kalendář / Booking / Účet klienta` a footer už nepoužívá copy `postaveno v Brně`.

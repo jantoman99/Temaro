@@ -24,7 +24,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 export const metadata: Metadata = {
   title: "Rezervační systém pro služby | Temaro",
   description:
-    "Temaro je český rezervační systém pro salony, barbery, ordinace, trenéry a lokální služby. Online booking, týmový kalendář, klientská historie a méně telefonátů.",
+    "Temaro je český rezervační systém pro salony, barbery, ordinace, trenéry a lokální služby. Online rezervace, týmový kalendář, klientská historie a méně telefonátů.",
   alternates: {
     canonical: "/",
   },
@@ -40,14 +40,14 @@ export const metadata: Metadata = {
 
 const CTA = {
   primary: { href: "/register", label: "Začít zdarma" },
-  secondary: { href: "/demo-barber", label: "Projít booking" },
+  secondary: { href: "/demo-barber", label: "Projít rezervaci" },
 } as const;
 
 const navLinks = [
   ["#produkt", "Produkt"],
   ["#pro-koho", "Obory"],
   ["#cenik", "Ceník"],
-  [CTA.secondary.href, "Demo"],
+  [CTA.secondary.href, "Ukázka"],
 ] as const;
 
 const features = [
@@ -86,7 +86,7 @@ const visualSegments = [
   },
   {
     title: "Trenéři a konzultace",
-    text: "Jeden booking odkaz pro termíny, které klient zvládne vybrat sám.",
+    text: "Jeden rezervační odkaz pro termíny, které klient zvládne vybrat sám.",
     image: "/marketing/training-studio-ai.webp",
     alt: "Trénink s činkou ve fitness studiu",
   },
@@ -96,21 +96,21 @@ const audienceSegments = [
   {
     title: "Salony a barber shopy",
     text: "Klient si vybere službu, člověka i čas. Tým má přehled bez papírového diáře.",
-    points: ["oblíbený zaměstnanec", "historie návštěv", "rychlé přeobjednání"],
+    points: ["oblíbený člověk", "historie návštěv", "rychlé přeobjednání"],
     tone: "border-l-tag-blue",
     iconTone: "bg-tag-blue/10 text-tag-blue",
   },
   {
     title: "Trenéři a konzultanti",
     text: "Pošlete jeden odkaz a klient si najde čas, který sedí oběma stranám.",
-    points: ["veřejný booking link", "volná okna", "potvrzení e-mailem"],
+    points: ["veřejný rezervační odkaz", "volná okna", "potvrzení e-mailem"],
     tone: "border-l-tag-green",
     iconTone: "bg-tag-green/10 text-tag-green",
   },
   {
     title: "Ordinace a péče",
     text: "Přehledné potvrzování, změny termínů a historie bez zbytečného provozního hluku.",
-    points: ["čekající rezervace", "audit změn", "bezpečné self-service odkazy"],
+    points: ["čekající rezervace", "přehled změn", "bezpečné odkazy pro klienty"],
     tone: "border-l-tag-amber",
     iconTone: "bg-tag-amber/10 text-tag-amber",
   },
@@ -127,29 +127,29 @@ const pricingPlans = [
   {
     name: "Pilot",
     price: "0 Kč",
-    note: "po dobu ověření MVP",
-    description: "Pro první podniky, které chtějí ověřit booking flow a kalendář v reálném provozu.",
-    features: ["online booking", "kalendář", "klienti", "služby a tým"],
+    note: "pro první zapojené provozy",
+    description: "Pro první podniky, které chtějí ověřit online rezervace a kalendář v reálném provozu.",
+    features: ["online rezervace", "kalendář", "klienti", "služby a tým"],
   },
   {
     name: "Solo",
     price: "připravujeme",
     note: "pro jednoho provozovatele",
     description: "Jednoduchý tarif pro freelancery, trenéry a malé provozy bez složité správy týmu.",
-    features: ["1 provoz", "booking stránka", "e-mail potvrzení", "self-service změny"],
+    features: ["1 provoz", "rezervační stránka", "e-mail potvrzení", "změny termínu klientem"],
   },
   {
     name: "Tým",
     price: "připravujeme",
     note: "pro více lidí v kalendáři",
     description: "Pro salony, ordinace a služby, kde rezervace řeší více zaměstnanců.",
-    features: ["více zaměstnanců", "role owner/staff", "pracovní doba", "provozní přehledy"],
+    features: ["více zaměstnanců", "role vlastníka a týmu", "pracovní doba", "provozní přehledy"],
   },
 ] as const;
 
 const trustItems = [
-  ["Multi-tenant základ", "Data podniků jsou oddělená tenant kontextem a serverovou validací."],
-  ["Bezpečné rezervace", "Veřejný booking neposílá tenant_id z klienta a termíny se ověřují serverově."],
+  ["Data každého podniku zvlášť", "Klienti, termíny a historie jednoho provozu se nemíchají s jiným podnikem."],
+  ["Bezpečné rezervace", "Volné termíny se ověřují při odeslání, aby klient nemohl obsadit čas, který už neplatí."],
   ["Evropský provoz", "Projekt cílí na český a EU trh, s důrazem na jednoduchost a kontrolu dat."],
 ] as const;
 
@@ -163,7 +163,7 @@ const guideLinks = [
   {
     title: "Rezervační systém pro barbery",
     href: "/rezervacni-system-pro-barbery",
-    text: "Online booking, barevný kalendář, klientská historie a méně telefonátů pro barber shopy.",
+    text: "Online rezervace, barevný kalendář, klientská historie a méně telefonátů pro barber shopy.",
   },
   {
     title: "Rezervační systém pro kadeřnictví",
@@ -173,27 +173,27 @@ const guideLinks = [
   {
     title: "Rezervační systém pro kosmetický salon",
     href: "/rezervacni-system-pro-kosmeticky-salon",
-    text: "Beauty booking, klientský kontext a menší no-show pro kosmetiku, lash i brow služby.",
+    text: "Online rezervace, klientský kontext a menší no-show pro kosmetiku, lash i brow služby.",
   },
   {
     title: "Rezervační systém pro masáže a wellness",
     href: "/rezervacni-system-pro-masaze",
-    text: "Delší termíny, klidnější kapacita dne a připravenost na reminder a zálohy pro masáže i wellness.",
+    text: "Delší termíny, klidnější kapacita dne a připravenost na připomínky a zálohy pro masáže i wellness.",
   },
   {
     title: "Jak snížit no-show",
     href: "/jak-snizit-no-show",
-    text: "Praktický postup pro potvrzení termínu, připomínky, self-service změny a no-show signály.",
+    text: "Praktický postup pro potvrzení termínu, připomínky, změny bez telefonátu a no-show signály.",
   },
   {
     title: "SMS připomínky rezervací",
     href: "/sms-pripominky-rezervaci",
-    text: "Kdy se SMS reminder opravdu vyplatí, pro které služby dává smysl a proč ho nespouštět plošně všem.",
+    text: "Kdy se SMS připomínka opravdu vyplatí, pro které služby dává smysl a proč ji nespouštět plošně všem.",
   },
   {
     title: "Rezervační systém bez marketplace provizí",
     href: "/rezervacni-system-bez-marketplace-provizi",
-    text: "Proč některé provozy chtějí vlastní booking link, vlastní klientský vztah a bez provize z rezervací, které získaly samy.",
+    text: "Proč některé provozy chtějí vlastní rezervační odkaz, vlastní klientský vztah a bez provize z rezervací, které získaly samy.",
   },
 ] as const;
 
@@ -232,8 +232,8 @@ export default async function Home() {
   return (
     <main className="min-h-screen overflow-hidden bg-background text-foreground">
       <section className="signal-hero signal-grid relative">
-        <div className="mx-auto flex min-h-[92vh] w-full max-w-[1440px] flex-col px-4 py-4 sm:px-6 lg:min-h-[88vh] lg:px-8">
-          <header className="sticky top-3 z-30 mx-auto flex min-h-16 w-full max-w-6xl flex-wrap items-center justify-between gap-3 rounded-2xl border border-border/80 bg-card/88 px-3 py-3 shadow-lg shadow-primary/5 backdrop-blur-md sm:px-4 lg:backdrop-blur-xl">
+        <div className="mx-auto flex min-h-[92vh] w-full max-w-[1180px] flex-col px-4 py-4 sm:px-6 lg:min-h-[88vh] lg:px-0">
+          <header className="sticky top-3 z-30 mx-auto flex min-h-16 w-full flex-wrap items-center justify-between gap-3 rounded-2xl border border-border/80 bg-card/88 px-3 py-3 shadow-lg shadow-primary/5 backdrop-blur-md sm:px-4 lg:backdrop-blur-xl">
             <Link href="/" className="flex items-center gap-3">
               <TemaroLogo />
             </Link>
@@ -268,14 +268,14 @@ export default async function Home() {
             </div>
           </header>
 
-          <div className="grid flex-1 items-center gap-10 py-8 lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:py-10">
+          <div className="grid flex-1 items-center gap-10 py-8 lg:grid-cols-[0.88fr_1.12fr] lg:items-center lg:py-10">
             <section className="mx-auto max-w-2xl lg:mx-0">
               <div className="motion-reveal inline-flex items-center gap-2 rounded-full border border-primary/15 bg-card/75 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-primary shadow-sm backdrop-blur">
                 <span className="signal-pulse size-2 rounded-full bg-primary" />
                 Rezervační systém pro služby
               </div>
 
-              <h1 className="motion-reveal mt-7 max-w-4xl text-balance text-5xl font-semibold leading-[0.98] tracking-[-0.045em] text-foreground sm:text-6xl lg:text-7xl">
+              <h1 className="motion-reveal mt-7 max-w-4xl text-balance text-5xl font-semibold leading-[0.98] tracking-[-0.045em] text-foreground sm:text-6xl lg:text-[4.6rem]">
                 Méně telefonátů.
                 <br />
                 <span className="font-serif-accent text-primary">Klidnější</span>{" "}
@@ -358,7 +358,7 @@ export default async function Home() {
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Reálné provozy</p>
             <h2 className="mt-3 max-w-2xl text-balance text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
-              Vypadá jako systém pro služby, ne jako obecná SaaS šablona.
+              Vypadá jako systém pro služby, ne jako obecná šablona.
             </h2>
           </div>
           <p className="max-w-sm text-sm font-medium leading-6 text-muted-foreground">
@@ -397,7 +397,7 @@ export default async function Home() {
             </h2>
           </div>
           <p className="max-w-sm text-sm font-medium leading-6 text-muted-foreground">
-            Jeden základ pro různé provozy: kalendář, lidé, služby, klienti a jasný booking odkaz.
+            Jeden základ pro různé provozy: kalendář, lidé, služby, klienti a jasný rezervační odkaz.
           </p>
         </div>
 
@@ -435,8 +435,8 @@ export default async function Home() {
               Začínáme tam, kde české provozovny nejvíc bolí čas a výpadky.
             </h2>
             <p className="mt-4 max-w-md text-sm font-medium leading-6 text-white/68">
-              První SEO/GEO vrstva není obecný blog. Je to produktový obsah pro konkrétní segmenty a časté provozní
-              otázky, které mají přivádět relevantní piloty.
+              Praktické stránky řeší konkrétní situace: prázdná okna v kalendáři, zmeškané návštěvy, připomínky a
+              vlastní vztah s klientem bez cizí provize.
             </p>
           </header>
 
@@ -466,10 +466,10 @@ export default async function Home() {
             </div>
             <p className="text-xs font-bold uppercase tracking-[0.16em] text-white/58">Ceník</p>
             <h2 className="mt-3 text-balance text-4xl font-semibold leading-[1.05] tracking-tight text-white sm:text-5xl">
-              Transparentní cena bez marketplace překvapení.
+              Transparentní cena bez provizních překvapení.
             </h2>
             <p className="mt-5 max-w-md text-base font-medium leading-7 text-white/68">
-              Nechceme stavět systém, který vydělává na tom, že vám přivede vlastního klienta. Pilot ověří workflow,
+              Nechceme stavět systém, který vydělává na tom, že vám přivede vlastního klienta. Pilot ověří provozní cestu,
               finální tarify zůstanou jednoduché a čitelné.
             </p>
           </div>
@@ -524,7 +524,7 @@ export default async function Home() {
             </h2>
             <p className="mt-5 max-w-md text-sm font-medium leading-6 text-muted-foreground">
               Rezervační systém pracuje s klienty, termíny a historií podniku. Proto je důležité, aby se data nepletla
-              mezi podniky a veřejný booking nešel obejít ručně poslaným formulářem.
+              mezi podniky a veřejná rezervace nešla obejít ručně poslaným formulářem.
             </p>
           </header>
 
@@ -560,7 +560,7 @@ export default async function Home() {
               <li><Link href="/podniky" className="text-foreground hover:underline">Katalog podniků</Link></li>
               <li><Link href="#cenik" className="text-foreground hover:underline">Ceník</Link></li>
               <li><Link href="#bezpecnost" className="text-foreground hover:underline">Bezpečnost</Link></li>
-              <li><Link href="/demo-barber" className="text-foreground hover:underline">Demo</Link></li>
+              <li><Link href="/demo-barber" className="text-foreground hover:underline">Ukázka rezervace</Link></li>
             </ul>
           </div>
           <div>
@@ -570,7 +570,7 @@ export default async function Home() {
               <li><Link href="/rezervacni-system-pro-kadernictvi" className="text-foreground hover:underline">Pro kadeřnictví</Link></li>
               <li><Link href="/rezervacni-system-pro-kosmeticky-salon" className="text-foreground hover:underline">Pro beauty salon</Link></li>
               <li><Link href="/rezervacni-system-pro-masaze" className="text-foreground hover:underline">Pro masáže</Link></li>
-              <li><Link href="/jak-snizit-no-show" className="text-foreground hover:underline">No-show guide</Link></li>
+              <li><Link href="/jak-snizit-no-show" className="text-foreground hover:underline">No-show návod</Link></li>
               <li><Link href="/sms-pripominky-rezervaci" className="text-foreground hover:underline">SMS připomínky</Link></li>
               <li><Link href="/rezervacni-system-bez-marketplace-provizi" className="text-foreground hover:underline">Bez marketplace provizí</Link></li>
             </ul>
@@ -588,7 +588,7 @@ export default async function Home() {
         <div className="border-t border-border">
           <div className="mx-auto flex w-full max-w-[1180px] flex-col gap-2 px-4 py-4 text-xs font-semibold text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
             <p>© 2026 Temaro</p>
-            <p className="font-mono">Temaro SaaS booking platform</p>
+            <p>Online rezervace pro služby</p>
           </div>
         </div>
       </footer>

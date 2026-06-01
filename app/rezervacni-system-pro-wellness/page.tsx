@@ -26,10 +26,10 @@ const faqs = [
   {
     question: "Co když klient potřebuje změnit termín na poslední chvíli?",
     answer:
-      "Klient může využít bezpečný self-service odkaz pro přesun nebo zrušení. Provoz tak nemusí řešit každou změnu ručně přes telefon.",
+      "Klient může využít bezpečný odkaz pro přesun nebo zrušení. Provoz tak nemusí řešit každou změnu ručně přes telefon.",
   },
   {
-    question: "Dává smysl Temaro i bez marketplace?",
+    question: "Dává smysl Temaro i bez cizího katalogu?",
     answer:
       "Ano. Temaro míří na vlastní klienty a vlastní značku. Rezervační stránku máte pod kontrolou bez provize za klienta, kterého jste získali sami.",
   },
@@ -49,7 +49,7 @@ const jsonLd = {
         "@type": "Offer",
         price: "0",
         priceCurrency: "CZK",
-        description: "Pilotní ověření MVP.",
+        description: "Pilotní ověření v prvních zapojených provozech.",
       },
     },
     {
@@ -100,6 +100,8 @@ export default function WellnessBookingSystemPage() {
         ["15:30", "Anna", "Spa rituál 150 min", "VIP klient"],
         ["19:00", "Pár Novákovi", "Večerní wellness", "Potvrzeno"],
       ]}
+      visualAlt="Klidný wellness provoz s delšími bloky služeb"
+      visualSrc="/marketing/training-studio-ai.webp"
       benefits={[
         {
           icon: CalendarRange,
@@ -109,7 +111,7 @@ export default function WellnessBookingSystemPage() {
         {
           icon: HeartHandshake,
           title: "Vlastní vztah s klientem",
-          text: "Rezervační stránka je pod vaší značkou a klientský kontext zůstává u vás, ne v marketplace profilu.",
+          text: "Rezervační stránka je pod vaší značkou a klientský kontext zůstává u vás, ne v profilu cizího katalogu.",
         },
         {
           icon: ShieldPlus,
@@ -123,23 +125,23 @@ export default function WellnessBookingSystemPage() {
       workflows={[
         ["Privátní wellness", "Klient si vybere delší blok bez ručního ladění termínu po telefonu."],
         ["Párový nebo prémiový rituál", "Provoz jasně vidí, které sloty jsou nejcennější a kde je no-show nejdražší."],
-        ["Změna času", "Self-service odkaz umožní přesun dřív, než vznikne nevyužitý večerní blok."],
+        ["Změna času", "Bezpečný odkaz umožní přesun dřív, než vznikne nevyužitý večerní blok."],
       ]}
       comparisonTitle="Proč wellness provozům nestačí obyčejné objednávání"
       comparisonRows={[
         ["Telefon a chat", "Je osobní, ale špatně se v něm hlídají delší bloky, storna a dostupnost."],
         ["Obyčejný kalendář", "Neřeší samostatnou rezervaci klienta, klientskou historii ani další provozní signály."],
-        ["Temaro", "Dává dohromady booking, délky služeb, klienty a připravenost na reminder nebo zálohy."],
+        ["Temaro", "Dává dohromady online rezervace, délky služeb, klienty a připravenost na připomínku nebo zálohy."],
       ]}
       faqs={faqs}
-      ctaTitle="Chcete pilotně ověřit booking pro wellness?"
-      ctaText="Vytvořte si provoz, nastavte služby a otestujte, jak vypadá klidnější rezervace bez marketplace závislosti a ručního přepisování."
+      ctaTitle="Chcete pilotně ověřit online rezervace pro wellness?"
+      ctaText="Vytvořte si provoz, nastavte služby a otestujte, jak vypadá klidnější rezervace bez závislosti na cizím katalogu a ručního přepisování."
       primaryCtaLabel="Založit wellness provoz"
       primaryCtaHref="/register"
-      secondaryCtaLabel="Projít booking pro masáže"
+      secondaryCtaLabel="Projít variantu pro masáže"
       secondaryCtaHref="/rezervacni-system-pro-masaze"
       footerLinks={[
-        { href: "/", label: "Homepage" },
+        { href: "/", label: "Úvod" },
         { href: "/rezervacni-system-pro-masaze", label: "Pro masáže" },
         { href: "/rezervacni-system-pro-kosmeticky-salon", label: "Pro beauty salon" },
         { href: "/register", label: "Registrace" },

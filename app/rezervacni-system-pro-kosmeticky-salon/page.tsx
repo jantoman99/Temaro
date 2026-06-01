@@ -16,12 +16,12 @@ const faqs = [
   {
     question: "Pro jaké beauty provozy je Temaro vhodné?",
     answer:
-      "Hodí se pro kosmetiku, lash, brow, skincare i menší beauty salony, které chtějí online objednání, kalendář a klientskou historii bez marketplace závislosti.",
+      "Hodí se pro kosmetiku, lash, brow, skincare i menší beauty salony, které chtějí online objednání, kalendář a klientskou historii bez závislosti na cizím katalogu.",
   },
   {
     question: "Pomůže Temaro s no-show u delších služeb?",
     answer:
-      "Ano. Už dnes pomáhá přes potvrzení rezervace, klientskou historii a self-service změny. Pro vyšší no-show riziko jsou další logické kroky SMS reminder a zálohy.",
+      "Ano. Už dnes pomáhá přes potvrzení rezervace, klientskou historii a změny termínu bez telefonátu. Pro vyšší no-show riziko jsou další logické kroky SMS připomínky a zálohy.",
   },
   {
     question: "Vidím u klientky předchozí návštěvy a poznámky?",
@@ -31,7 +31,7 @@ const faqs = [
   {
     question: "Musí mít klientka účet?",
     answer:
-      "Nemusí. Rezervaci vytvoří bez zákaznického účtu a změnu termínu řeší přes bezpečný self-service odkaz.",
+      "Nemusí. Rezervaci vytvoří bez zákaznického účtu a změnu termínu řeší přes bezpečný odkaz v potvrzení.",
   },
 ] as const;
 
@@ -49,7 +49,7 @@ const jsonLd = {
         "@type": "Offer",
         price: "0",
         priceCurrency: "CZK",
-        description: "Pilotní ověření MVP.",
+        description: "Pilotní ověření v prvních zapojených salonech.",
       },
     },
     {
@@ -90,7 +90,7 @@ export default function BeautySalonBookingSystemPage() {
       eyebrowIcon={Sparkles}
       title="Méně výpadků."
       highlight="Víc klidné péče o klientku."
-      description="Temaro pomáhá beauty salonům držet objednání, historii návštěv a změny termínů v jednom přehledném toku, bez marketplace provize a bez dalšího domlouvání po zprávách."
+      description="Temaro pomáhá beauty salonům držet objednání, historii návštěv a změny termínů v jednom přehledném toku, bez provize z vlastních klientů a bez dalšího domlouvání po zprávách."
       previewLabel="Beauty provoz"
       previewTitle="Kosmetický den"
       previewStatus="Připraveno"
@@ -100,6 +100,8 @@ export default function BeautySalonBookingSystemPage() {
         ["14:30", "Eva", "Brow shape", "Čeká"],
         ["17:00", "Jana", "Skin care konzultace", "Potvrzeno"],
       ]}
+      visualAlt="Beauty salon s klientkou v klidném interiéru"
+      visualSrc="/marketing/salon-interior-ai.webp"
       benefits={[
         {
           icon: PhoneOff,
@@ -118,7 +120,7 @@ export default function BeautySalonBookingSystemPage() {
         },
       ]}
       workflowsLabel="Scénáře v beauty salonu"
-      workflowsTitle="Beauty booking má chránit čas i vztah s klientkou."
+      workflowsTitle="Online objednání má chránit čas i vztah s klientkou."
       workflowsText="Temaro staví na jednoduchém objednání, přehledné kapacitě a kontextu, který je u opakovaných návštěv důležitý."
       workflows={[
         ["Nová klientka", "Vybere typ ošetření, dostupný čas a dostane jasné potvrzení bez dalšího domlouvání."],
@@ -128,18 +130,18 @@ export default function BeautySalonBookingSystemPage() {
       comparisonTitle="Co beauty salon získá oproti ručnímu objednávání"
       comparisonRows={[
         ["Instagram + zprávy", "Působí osobně, ale špatně se v tom hledají změny, storna i kapacita týmu."],
-        ["Obyčejný kalendář", "Umí čas, ale ne online booking, klientské informace ani provozní signály kolem no-show."],
-        ["Temaro", "Spojí online objednání, klienty, tým i připravenost na reminder a zálohy v jednom systému."],
+        ["Obyčejný kalendář", "Umí čas, ale ne online rezervace, klientské informace ani provozní signály kolem no-show."],
+        ["Temaro", "Spojí online objednání, klienty, tým i připravenost na připomínky a zálohy v jednom systému."],
       ]}
       faqs={faqs}
-      ctaTitle="Chcete otestovat booking pro kosmetický salon?"
+      ctaTitle="Chcete otestovat online objednání pro kosmetický salon?"
       ctaText="Založte beauty provoz v pilotu a vyzkoušejte si, jak funguje objednání, kalendář a klientská historie bez ručního chaosu."
       primaryCtaLabel="Založit beauty salon"
       primaryCtaHref="/register"
       secondaryCtaLabel="Jak snížit no-show"
       secondaryCtaHref="/jak-snizit-no-show"
       footerLinks={[
-        { href: "/", label: "Homepage" },
+        { href: "/", label: "Úvod" },
         { href: "/rezervacni-system-pro-kadernictvi", label: "Pro kadeřnictví" },
         { href: "/rezervacni-system-pro-masaze", label: "Pro masáže" },
         { href: "/register", label: "Registrace" },

@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Aktualizováno: 2026-06-01 11:18 CEST
+Aktualizováno: 2026-06-01 12:31 CEST
 
 Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historické analýzy a staré design audity jsou přesunuté do `docs/archive/`.
 
@@ -18,6 +18,10 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - Aktivní diferenciace, gapy a implementační backlog pro silný produkt jsou v `docs/19-product-differentiation-and-gap-plan.md`.
 - Aktivní hloubková konkurenční analýza Salony a rezervačních systémů pro scope rozhodnutí je v `docs/20-competitive-analysis-booking-systems-2026.md`.
 - Starší konkurenční analýzy, business model, design audity a paletové náhledy jsou v `docs/archive/`.
+- Veřejný marketing web prošel copy/vizuál revizí 2026-06-01: homepage, katalog, oborové landingy, no-show/SMS/provizní stránky, login/register texty a živá ukázka používají zákaznický jazyk místo interních názvů typu `tenant`, `MVP`, `self-service`, `booking flow`.
+- Homepage hero, top nav a navazující sekce jsou sjednocené na ose `1180px`; lokální Playwright audit potvrdil `x=93`, `width=1180` pro menu, hero grid i `#provoz`.
+- Živá ukázka na homepage nově kopíruje reálné přihlášené obrazovky: `Přehled provozu`, `Kalendář`, `Rezervační stránka`, `Zákaznický účet`; výška ukázky je stabilní při všech přepnutích.
+- Oborové landingy mají v hero části obrazový pás z generovaných assetů `public/marketing/*-ai.webp`, aby stránky nepůsobily jen jako textové karty.
 
 ## Hotové funkčně
 
@@ -57,8 +61,8 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - Admin sekce `Import` má migrační vrstvu: CSV import klientů, služeb a rezervací, dry-run validaci, limit 200 řádků / 200 kB, duplicitní kontroly, párování rezervací na klienta/službu/zaměstnance a tenant-only zápis z auth kontextu.
 - Admin sekce `Nastavení` umí ownerovi vygenerovat read-only iCal feed kalendáře, zobrazit jednorázovou URL a feed později odvolat.
 - Veřejný read-only endpoint `/calendar-feed/[token]` vrací `.ics` feed aktivních rezervací bez tenant ID v URL; v databázi se ukládá jen hash tokenu.
-- Admin sekce `Booking stránka` s náhledem zákaznického pohledu, veřejným odkazem, popisem, barvou, URL loga a URL úvodní fotky.
-- Admin sekce `Booking stránka` ukazuje vložitelný plný iframe booking widget i jednoduchý booking button skript pro web podniku.
+- Admin sekce `Rezervační stránka` s náhledem zákaznického pohledu, veřejným odkazem, popisem, barvou, URL loga a URL úvodní fotky.
+- Admin sekce `Rezervační stránka` ukazuje vložitelný plný iframe widget i jednoduchý button skript pro web podniku.
 - Veřejná embed route `/embed/booking/[slug]` renderuje izolovaný booking flow pro widget, používá tracking zdroj `widget`, nemá indexaci a je jediná framovatelná booking route.
 - Admin sekce `Nastavení` má vlastní booking doménu: owner uloží doménu, dostane TXT verification token, může spustit DNS ověření a po ověření se kořen vlastní domény mapuje na booking flow daného tenantu.
 - Admin sekce `Booking stránka` obsahuje sdílecí kit: hotový Instagram bio text, story/post text a QR kód pro veřejnou booking stránku.

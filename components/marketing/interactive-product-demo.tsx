@@ -1,19 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
-  BarChart3,
   CalendarDays,
-  ClipboardCheck,
+  Clock3,
+  CreditCard,
+  LayoutPanelTop,
   Search,
+  Settings2,
+  ShieldCheck,
   UsersRound,
+  type LucideIcon,
 } from "lucide-react";
 
 const productSurfaces = [
   {
-    id: "dashboard",
-    label: "Dashboard",
-    icon: BarChart3,
+    id: "overview",
+    label: "Přehled provozu",
+    icon: LayoutPanelTop,
   },
   {
     id: "calendar",
@@ -21,15 +25,24 @@ const productSurfaces = [
     icon: CalendarDays,
   },
   {
-    id: "booking",
-    label: "Booking",
-    icon: ClipboardCheck,
+    id: "bookingPage",
+    label: "Rezervační stránka",
+    icon: Settings2,
   },
   {
-    id: "account",
-    label: "Účet klienta",
+    id: "clientAccount",
+    label: "Zákaznický účet",
     icon: UsersRound,
   },
+] as const;
+
+type SurfaceId = (typeof productSurfaces)[number]["id"];
+
+const kpiItems = [
+  ["Dnešní rezervace", "12", "stabilní den", "border-info/25 bg-info/10 text-info"],
+  ["Tržba dnes", "8 400 Kč", "z dokončených rezervací", "border-success/25 bg-success/10 text-success"],
+  ["Volná okna", "3", "kapacita dostupná", "border-warning/25 bg-warning/10 text-amber-800 dark:text-warning"],
+  ["Riziko", "1", "vyžaduje pozornost", "border-destructive/25 bg-destructive/10 text-destructive"],
 ] as const;
 
 const agenda = [
@@ -53,51 +66,181 @@ const calendarDays = [
   { day: "Pá", bookings: 5, height: 70 },
 ] as const;
 
-const bookingSteps = [
-  ["01", "Služba", "Pánský střih", "30 min"],
-  ["02", "Termín", "Zítra 10:30", "Adam Novák"],
-  ["03", "Kontakt", "Petr Marek", "potvrzení e-mailem"],
+const bookingPageItems = [
+  ["Služby", "8 aktivních služeb"],
+  ["Tým", "3 lidé v kalendáři"],
+  ["Sdílení", "Odkaz, QR kód a tlačítko na web"],
 ] as const;
-
-const dashboardMetrics = [
-  ["12", "rezervací dnes"],
-  ["68 %", "obsazenost"],
-  ["1", "rizikový termín"],
-] as const;
-
-const surfaceMeta = {
-  dashboard: {
-    title: "Dnešní provoz",
-    subtitle: "Rezervace, obsazenost a rizika jsou vidět hned po přihlášení.",
-    route: "/dashboard",
-  },
-  calendar: {
-    title: "Kalendář podle týmu",
-    subtitle: "Týdenní kapacita, volná okna a potvrzené návštěvy v jedné ploše.",
-    route: "/calendar",
-  },
-  booking: {
-    title: "Veřejný booking",
-    subtitle: "Klient projde službu, termín a kontakt bez telefonátu.",
-    route: "/demo-barber",
-  },
-  account: {
-    title: "Účet klienta",
-    subtitle: "Zákazník vidí nadcházející rezervace, historii a bezpečné změny.",
-    route: "/account",
-  },
-} as const;
 
 const accountBookings = [
-  ["Zítra 10:30", "Pánský střih", "Studio Magnolia"],
-  ["12. 6. 15:00", "Úprava vousů", "Studio Magnolia"],
-  ["Historie", "Barva + styling", "dokončeno"],
+  ["Zítra 10:30", "Pánský střih", "Přesun možný"],
+  ["12. 6. 15:00", "Úprava vousů", "Potvrzeno"],
+  ["Historie", "Barva + styling", "Dokončeno"],
 ] as const;
 
+const quickLinks: readonly {
+  icon: LucideIcon;
+  label: string;
+  text: string;
+}[] = [
+  { icon: CreditCard, label: "Platby", text: "zálohy a doplatky" },
+  { icon: UsersRound, label: "Klienti", text: "historie návštěv" },
+  { icon: CalendarDays, label: "Termíny", text: "volná okna" },
+];
+
+function SurfacePanel({ activeSurfaceId }: { activeSurfaceId: SurfaceId }) {
+  if (activeSurfaceId === "calendar") {
+    return (
+      <div className="grid gap-4">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Kalendář</p>
+            <h2 className="mt-1 text-2xl font-semibold tracking-tight">Týden podle týmu</h2>
+          </div>
+          <button className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-3 text-xs font-semibold text-primary-foreground">
+            Nová rezervace
+          </button>
+        </div>
+        <div className="grid grid-cols-5 gap-2">
+          {calendarDays.map((day) => (
+            <div key={day.day} className="rounded-xl border border-border bg-secondary/75 p-2">
+              <p className="text-center text-xs font-bold text-muted-foreground">{day.day}</p>
+              <div className="mt-3 flex h-32 items-end rounded-lg bg-card p-1">
+                <div className="w-full rounded-md bg-info/70" style={{ height: `${day.height}%` }} />
+              </div>
+              <p className="nums-tabular mt-2 text-center text-sm font-semibold">{day.bookings}</p>
+            </div>
+          ))}
+        </div>
+        <div className="rounded-xl border border-border bg-secondary/70 p-3">
+          <p className="text-sm font-semibold">Filtry</p>
+          <p className="mt-1 text-xs font-semibold text-muted-foreground">Klient nebo služba, stav rezervace, člověk v týmu.</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (activeSurfaceId === "bookingPage") {
+    return (
+      <div className="grid gap-4">
+        <div>
+          <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Rezervační stránka</p>
+          <h2 className="mt-1 text-2xl font-semibold tracking-tight">To, co posíláte klientům</h2>
+          <p className="mt-2 text-sm font-semibold leading-5 text-muted-foreground">
+            Náhled, sdílení a vzhled jsou na jednom místě stejně jako v přihlášeném účtu.
+          </p>
+        </div>
+        <div className="rounded-2xl border border-border bg-secondary/75 p-4">
+          <div className="flex items-center justify-between gap-3">
+            <div>
+              <p className="text-sm font-semibold">Studio Magnolia</p>
+              <p className="text-xs font-semibold text-muted-foreground">8 služeb, 3 lidé v týmu</p>
+            </div>
+            <span className="rounded-full border border-success/25 bg-success/10 px-3 py-1 text-xs font-bold text-success">
+              Veřejná
+            </span>
+          </div>
+          <button className="mt-4 inline-flex h-9 items-center justify-center rounded-md bg-primary px-3 text-xs font-semibold text-primary-foreground">
+            Spravovat rezervace
+          </button>
+          <div className="mt-4 grid gap-2">
+            {bookingPageItems.map(([title, value]) => (
+              <div key={title} className="rounded-xl border border-border bg-card p-3">
+                <p className="text-sm font-semibold">{title}</p>
+                <p className="mt-1 text-xs font-semibold text-muted-foreground">{value}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (activeSurfaceId === "clientAccount") {
+    return (
+      <div className="grid gap-4">
+        <div>
+          <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Zákaznický účet</p>
+          <h2 className="mt-1 text-2xl font-semibold tracking-tight">Moje rezervace</h2>
+          <p className="mt-2 text-sm font-semibold leading-5 text-muted-foreground">
+            Klient vidí nadcházející termíny, historii a bezpečné změny bez telefonátu.
+          </p>
+        </div>
+        <div className="space-y-2">
+          {accountBookings.map(([date, service, state]) => (
+            <div key={`${date}-${service}`} className="flex items-center gap-3 rounded-xl border border-border bg-secondary/75 p-3">
+              <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-success/10 text-sm font-bold text-success">
+                <Clock3 className="size-4" />
+              </span>
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-sm font-semibold">{service}</p>
+                <p className="truncate text-xs font-semibold text-muted-foreground">{date}</p>
+              </div>
+              <span className="rounded-full border border-border bg-card px-2.5 py-1 text-xs font-bold text-muted-foreground">
+                {state}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="grid gap-4">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Dnes</p>
+          <h2 className="mt-1 text-2xl font-semibold tracking-tight">Přehled provozu</h2>
+        </div>
+        <button className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-3 text-xs font-semibold text-primary-foreground">
+          Otevřít kalendář
+        </button>
+      </div>
+      <div className="grid gap-2 sm:grid-cols-2">
+        {kpiItems.map(([label, value, trend, className]) => (
+          <article key={label} className={`rounded-xl border p-3 shadow-sm ${className}`}>
+            <p className="text-[10px] font-bold uppercase tracking-[0.14em] opacity-75">{label}</p>
+            <p className="nums-tabular mt-2 text-2xl font-semibold tracking-tight text-foreground">{value}</p>
+            <p className="mt-1 text-[10px] font-bold uppercase tracking-wider opacity-75">{trend}</p>
+          </article>
+        ))}
+      </div>
+      <div className="space-y-2">
+        {agenda.slice(1).map((item) => (
+          <div
+            key={`${item.time}-${item.client}`}
+            className={`grid grid-cols-[3.5rem_1fr_auto] items-center gap-3 rounded-xl border border-border border-l-4 p-3 shadow-sm ${toneClassNames[item.tone]}`}
+          >
+            <p className="nums-tabular text-sm font-bold text-foreground">{item.time}</p>
+            <div className="min-w-0">
+              <p className="truncate text-sm font-semibold text-foreground">{item.service}</p>
+              <p className="truncate text-xs font-semibold text-muted-foreground">{item.client}</p>
+            </div>
+            <span className="rounded-full bg-card px-2.5 py-1 text-xs font-bold text-foreground shadow-sm">
+              {item.state}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function InteractiveProductDemo() {
-  const [activeSurfaceId, setActiveSurfaceId] = useState<(typeof productSurfaces)[number]["id"]>("dashboard");
+  const [activeSurfaceId, setActiveSurfaceId] = useState<SurfaceId>("overview");
   const activeSurface = productSurfaces.find((surface) => surface.id === activeSurfaceId) ?? productSurfaces[0];
-  const activeMeta = surfaceMeta[activeSurface.id];
+
+  useEffect(() => {
+    const intervalId = window.setInterval(() => {
+      setActiveSurfaceId((current) => {
+        const currentIndex = productSurfaces.findIndex((surface) => surface.id === current);
+        return productSurfaces[(currentIndex + 1) % productSurfaces.length].id;
+      });
+    }, 5200);
+
+    return () => window.clearInterval(intervalId);
+  }, []);
 
   return (
     <section id="produkt" className="relative min-w-0">
@@ -110,35 +253,16 @@ export function InteractiveProductDemo() {
               <span className="size-2.5 rounded-full bg-success/80" />
             </div>
             <div className="rounded-full border border-white/10 bg-white/8 px-3 py-1 text-xs font-semibold text-white/72">
-              Temaro MVP
+              Reálný pohled po přihlášení
             </div>
-            <div className="nums-tabular text-xs font-semibold text-white/55">Live demo</div>
+            <div className="nums-tabular text-xs font-semibold text-white/55">Studio Magnolia</div>
           </div>
 
-          <div className="border-b border-white/10 px-4 py-3 lg:hidden">
-            <div className="flex gap-2 overflow-x-auto">
-              {productSurfaces.map((surface) => (
-                <button
-                  key={surface.id}
-                  type="button"
-                  onClick={() => setActiveSurfaceId(surface.id)}
-                  className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-bold transition ${
-                    activeSurface.id === surface.id
-                      ? "bg-primary text-primary-foreground"
-                      : "bg-white/8 text-white/62 hover:bg-white/12 hover:text-white"
-                  }`}
-                >
-                  {surface.label}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="grid min-h-[31rem] min-w-0 lg:grid-cols-[13rem_minmax(0,1fr)]">
+          <div className="grid min-h-[40rem] min-w-0 lg:h-[40rem] lg:grid-cols-[12rem_minmax(0,1fr)]">
             <aside className="hidden border-r border-white/10 p-4 lg:block">
               <div className="flex items-center gap-3">
                 <span className="grid size-10 place-items-center rounded-xl bg-primary text-sm font-semibold text-primary-foreground">
-                  SM
+                  <ShieldCheck className="size-5" />
                 </span>
                 <div>
                   <p className="text-sm font-semibold text-white">Studio Magnolia</p>
@@ -172,150 +296,43 @@ export function InteractiveProductDemo() {
             </aside>
 
             <div className="min-w-0 bg-secondary p-4 text-foreground sm:p-5">
+              <div className="mb-4 flex gap-2 overflow-x-auto lg:hidden">
+                {productSurfaces.map((surface) => (
+                  <button
+                    key={surface.id}
+                    type="button"
+                    onClick={() => setActiveSurfaceId(surface.id)}
+                    className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-bold transition ${
+                      activeSurface.id === surface.id
+                        ? "bg-primary text-primary-foreground"
+                        : "bg-card text-muted-foreground hover:bg-muted hover:text-foreground"
+                    }`}
+                  >
+                    {surface.label}
+                  </button>
+                ))}
+              </div>
+
               <div className="mb-4 flex items-center gap-2 rounded-xl border border-border bg-card px-3 py-2 shadow-sm">
                 <Search className="size-4 shrink-0 text-muted-foreground" />
                 <span className="truncate text-xs font-semibold text-muted-foreground">
-                  Hledat klienta, službu, rezervaci...
+                  Hledat klienta nebo službu
                 </span>
               </div>
 
-              <div className="mb-4 flex gap-2 overflow-x-auto">
-                <span className="shrink-0 rounded-full bg-primary px-3 py-1.5 text-xs font-bold text-primary-foreground">
-                  {activeMeta.route}
-                </span>
-                <span className="shrink-0 rounded-full bg-card px-3 py-1.5 text-xs font-bold text-muted-foreground">
-                  tenant izolace
-                </span>
-                <span className="shrink-0 rounded-full bg-card px-3 py-1.5 text-xs font-bold text-muted-foreground">
-                  self-service
-                </span>
-              </div>
+              <div className="grid gap-4">
+                <div className="signal-rail h-[31.5rem] overflow-hidden rounded-2xl border border-border bg-card p-5 shadow-sm">
+                  <SurfacePanel activeSurfaceId={activeSurface.id} />
+                </div>
 
-              <div className="grid min-w-0 gap-4">
-                <div className="min-w-0 space-y-4">
-                  <div className="signal-rail min-h-[18rem] rounded-2xl border border-border bg-card p-5 shadow-sm">
-                    <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                      <div className="min-w-0">
-                        <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">
-                          {activeSurface.label}
-                        </p>
-                        <h2 className="mt-1 min-h-[4.25rem] max-w-[18rem] text-2xl font-semibold leading-[1.05] tracking-tight xl:text-3xl">
-                          {activeMeta.title}
-                        </h2>
-                        <p className="mt-2 min-h-10 max-w-[18rem] text-sm font-semibold leading-5 text-muted-foreground">
-                          {activeMeta.subtitle}
-                        </p>
-                      </div>
-                      <div className="shrink-0 rounded-full border border-success/25 bg-success/10 px-3 py-1.5 text-sm font-bold text-success">
-                        Online
-                      </div>
+                <div className="grid gap-2 sm:grid-cols-3">
+                  {quickLinks.map(({ icon: Icon, label, text }) => (
+                    <div key={label} className="rounded-xl border border-border bg-card p-3">
+                      <Icon className="size-4 text-primary" />
+                      <p className="mt-2 text-sm font-semibold">{label}</p>
+                      <p className="mt-1 text-xs font-semibold text-muted-foreground">{text}</p>
                     </div>
-
-                    {activeSurface.id === "dashboard" ? (
-                      <>
-                        <div className="mt-5 grid gap-2 sm:grid-cols-3">
-                          {dashboardMetrics.map(([value, label]) => (
-                            <div key={label} className="min-w-0 rounded-xl border border-border bg-secondary/75 p-3">
-                              <p className="nums-tabular truncate text-2xl font-semibold tracking-tight">{value}</p>
-                              <p className="mt-1 truncate text-[11px] font-bold leading-4 text-muted-foreground">
-                                {label}
-                              </p>
-                            </div>
-                          ))}
-                        </div>
-
-                        <div className="mt-5 rounded-2xl border border-border bg-secondary/70 p-4">
-                          <div className="mb-3 flex items-center justify-between gap-3">
-                            <p className="text-sm font-semibold">Kapacita dne</p>
-                            <p className="nums-tabular text-xs font-bold text-muted-foreground">68 % obsazeno</p>
-                          </div>
-                          <div className="flex h-24 items-end gap-2">
-                            {[42, 58, 74, 66, 82, 61, 88].map((height, index) => (
-                              <div key={`${height}-${index}`} className="flex h-full flex-1 flex-col items-center justify-end gap-2">
-                                <span
-                                  className={`block w-full rounded-t-md transition-all duration-500 ${
-                                    index === 4 ? "bg-primary" : "bg-primary/22"
-                                  }`}
-                                  style={{ height: `${height}px` }}
-                                />
-                                <span className="nums-tabular text-[10px] font-bold text-muted-foreground">
-                                  {index + 8}
-                                </span>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      </>
-                    ) : null}
-
-                    {activeSurface.id === "calendar" ? (
-                      <div className="mt-5 grid grid-cols-5 gap-2">
-                        {calendarDays.map((day) => (
-                          <div key={day.day} className="rounded-xl border border-border bg-secondary/75 p-2">
-                            <p className="text-center text-xs font-bold text-muted-foreground">{day.day}</p>
-                            <div className="mt-3 flex h-32 items-end rounded-lg bg-card p-1">
-                              <div className="w-full rounded-md bg-info/70" style={{ height: `${day.height}%` }} />
-                            </div>
-                            <p className="nums-tabular mt-2 text-center text-sm font-semibold">{day.bookings}</p>
-                          </div>
-                        ))}
-                      </div>
-                    ) : null}
-
-                    {activeSurface.id === "booking" ? (
-                      <div className="mt-5 space-y-2">
-                        {bookingSteps.map(([step, title, value, detail]) => (
-                          <div key={step} className="grid grid-cols-[2.5rem_1fr] gap-3 rounded-xl border border-border bg-secondary/75 p-3">
-                            <span className="nums-tabular text-sm font-bold text-primary">{step}</span>
-                            <div className="min-w-0">
-                              <p className="text-sm font-semibold">{title}</p>
-                              <p className="truncate text-sm font-semibold text-foreground">{value}</p>
-                              <p className="truncate text-xs font-semibold text-muted-foreground">{detail}</p>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    ) : null}
-
-                    {activeSurface.id === "account" ? (
-                      <div className="mt-5 space-y-2">
-                        {accountBookings.map(([date, service, state]) => (
-                          <div key={`${date}-${service}`} className="flex items-center gap-3 rounded-xl border border-border bg-secondary/75 p-3">
-                            <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-success/10 text-sm font-bold text-success">
-                              {date.slice(0, 1)}
-                            </span>
-                            <div className="min-w-0 flex-1">
-                              <p className="truncate text-sm font-semibold">{service}</p>
-                              <p className="truncate text-xs font-semibold text-muted-foreground">{date}</p>
-                            </div>
-                            <span className="rounded-full border border-border bg-card px-2.5 py-1 text-xs font-bold text-muted-foreground">
-                              {state}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-                    ) : null}
-
-                    {activeSurface.id === "dashboard" ? (
-                      <div className="mt-5 space-y-2">
-                        {agenda.slice(2).map((item) => (
-                          <div
-                            key={`${item.time}-${item.client}`}
-                            className={`grid grid-cols-[3.75rem_1fr_auto] items-center gap-3 rounded-xl border border-border border-l-4 p-3 shadow-sm ${toneClassNames[item.tone]}`}
-                          >
-                            <p className="nums-tabular text-sm font-bold text-foreground">{item.time}</p>
-                            <div className="min-w-0">
-                              <p className="truncate text-sm font-semibold text-foreground">{item.service}</p>
-                              <p className="truncate text-xs font-semibold text-muted-foreground">{item.client}</p>
-                            </div>
-                            <span className="rounded-full bg-card px-2.5 py-1 text-xs font-bold text-foreground shadow-sm">
-                              {item.state}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-                    ) : null}
-                  </div>
+                  ))}
                 </div>
               </div>
             </div>

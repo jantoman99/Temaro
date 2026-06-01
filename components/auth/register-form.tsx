@@ -37,7 +37,7 @@ export function RegisterForm({ notice }: { notice?: string | null }) {
             className={inputClassName}
           />
           <p className="text-sm leading-5 text-muted-foreground">
-            Tento název se použije v dashboardu a později na veřejné booking stránce.
+            Tento název se použije v přehledu provozu a později na veřejné rezervační stránce.
           </p>
         </div>
         <div className="flex flex-col gap-2.5 sm:col-span-2">
@@ -92,8 +92,8 @@ export function RegisterForm({ notice }: { notice?: string | null }) {
         </div>
       </div>
       <p className="rounded-lg border border-primary/20 bg-primary/10 px-3 py-2.5 text-sm font-medium leading-6 text-primary">
-        Po registraci vznikne nový tenant a váš účet dostane owner roli. Další data se
-        budou ukládat odděleně pro váš podnik.
+        Po registraci vznikne nový podnik a váš účet dostane práva vlastníka. Další data se
+        budou ukládat odděleně pro váš provoz.
       </p>
       {state.error ? (
         <p className="rounded-lg border border-red-200 bg-red-50 px-3 py-2.5 text-sm font-medium leading-6 text-red-700">
@@ -111,7 +111,7 @@ export function RegisterForm({ notice }: { notice?: string | null }) {
         Vytvořit podnik přes Google
       </Button>
       <p className="text-center text-xs font-medium leading-5 text-muted-foreground">
-        U Google registrace stačí vyplnit název podniku a jméno vlastníka. Tenant vznikne až po úspěšném ověření Google účtu.
+        U Google registrace stačí vyplnit název podniku a jméno vlastníka. Podnik vznikne až po úspěšném ověření Google účtu.
       </p>
       <p className="rounded-lg bg-muted px-4 py-3 text-center text-sm font-medium text-muted-foreground">
         Už máte účet?{" "}

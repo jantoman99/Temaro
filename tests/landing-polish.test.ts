@@ -26,12 +26,43 @@ describe("landing polish guard", () => {
     expect(page).not.toContain("postaveno v brně");
   });
 
-  test("product demo names the real Temaro surfaces shown in the hero", () => {
+  test("product demo uses customer-facing labels and mirrors signed-in screens", () => {
     const demo = readProjectFile("components/marketing/interactive-product-demo.tsx");
 
-    expect(demo).toContain("Dashboard");
-    expect(demo).toContain("Kalendář");
-    expect(demo).toContain("Booking");
-    expect(demo).toContain("Účet klienta");
+    expect(demo).toContain("Přehled provozu");
+    expect(demo).toContain("Dnešní rezervace");
+    expect(demo).toContain("Tržba dnes");
+    expect(demo).toContain("Volná okna");
+    expect(demo).toContain("Riziko");
+    expect(demo).toContain("Otevřít kalendář");
+    expect(demo).toContain("Spravovat rezervace");
+
+    expect(demo).not.toContain("Dashboard");
+    expect(demo).not.toContain("Temaro MVP");
+    expect(demo).not.toContain("Live demo");
+    expect(demo).not.toContain("tenant izolace");
+    expect(demo).not.toContain("self-service");
+    expect(demo).not.toContain("/dashboard");
+    expect(demo).not.toContain("/calendar");
+  });
+
+  test("homepage copy avoids internal product and marketing terms", () => {
+    const page = readProjectFile("app/page.tsx");
+    const forbiddenTerms = [
+      "MVP",
+      "booking flow",
+      "SEO/GEO",
+      "tenant izolace",
+      "tenant_id",
+      "self-service",
+      "Multi-tenant",
+      "booking link",
+      "SaaS šablona",
+      "role owner/staff",
+    ];
+
+    for (const term of forbiddenTerms) {
+      expect(page).not.toContain(term);
+    }
   });
 });

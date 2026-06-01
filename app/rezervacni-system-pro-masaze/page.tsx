@@ -14,14 +14,14 @@ export const metadata: Metadata = {
 
 const faqs = [
   {
-    question: "Proč je booking systém pro masáže důležitější než běžný kalendář?",
+    question: "Proč je rezervační systém pro masáže důležitější než běžný kalendář?",
     answer:
       "Masáže často blokují delší časová okna. Potřebujete proto nejen vidět slot, ale i typ služby, klienta, historii a možnost snadné změny termínu bez dalších telefonátů.",
   },
   {
     question: "Pomůže Temaro s delšími a dražšími termíny?",
     answer:
-      "Ano. Už dnes řeší potvrzení rezervace, self-service změny a klientský kontext. Pro dlouhé termíny je další logický krok SMS reminder a záloha.",
+      "Ano. Už dnes řeší potvrzení rezervace, změny termínu bez telefonátu a klientský kontext. Pro dlouhé termíny je další logický krok SMS připomínka a záloha.",
   },
   {
     question: "Mohu rozlišit různé typy masáží podle délky?",
@@ -31,7 +31,7 @@ const faqs = [
   {
     question: "Funguje Temaro i pro jednoho maséra?",
     answer:
-      "Ano. Solo provoz získá booking odkaz, kalendář, služby, klienty a méně ruční organizace. Týmové funkce se dají zapojit až při růstu.",
+      "Ano. Solo provoz získá rezervační odkaz, kalendář, služby, klienty a méně ruční organizace. Týmové funkce se dají zapojit až při růstu.",
   },
 ] as const;
 
@@ -49,7 +49,7 @@ const jsonLd = {
         "@type": "Offer",
         price: "0",
         priceCurrency: "CZK",
-        description: "Pilotní ověření MVP.",
+        description: "Pilotní ověření v prvních zapojených provozech.",
       },
     },
     {
@@ -100,6 +100,8 @@ export default function MassageBookingSystemPage() {
         ["14:00", "Marie", "Wellness rituál 120 min", "Vyšší riziko"],
         ["17:00", "David", "Regenerace zad 45 min", "Potvrzeno"],
       ]}
+      visualAlt="Klidné studio připravené na delší službu"
+      visualSrc="/marketing/training-studio-ai.webp"
       benefits={[
         {
           icon: PhoneOff,
@@ -114,7 +116,7 @@ export default function MassageBookingSystemPage() {
         {
           icon: ShieldPlus,
           title: "Lepší ochrana před no-show",
-          text: "Potvrzení rezervace, klientská historie a self-service změny dávají delším termínům větší jistotu.",
+          text: "Potvrzení rezervace, klientská historie a změny bez telefonátu dávají delším termínům větší jistotu.",
         },
       ]}
       workflowsLabel="Scénáře v masážním provozu"
@@ -123,25 +125,25 @@ export default function MassageBookingSystemPage() {
       workflows={[
         ["Nový klient", "Vybere typ masáže, délku a volný termín bez ručního hledání vhodného slotu."],
         ["Delší wellness blok", "Kalendář drží kapacitu dne a zviditelní, kde je no-show nebo pozdní změna nejdražší."],
-        ["Přesun termínu", "Klient dostane self-service odkaz a provoz nemusí každý přesun řešit ručně po telefonu."],
+        ["Přesun termínu", "Klient dostane bezpečný odkaz a provoz nemusí každý přesun řešit ručně po telefonu."],
       ]}
       comparisonTitle="Kdy už masáže potřebují víc než ruční diář"
       comparisonRows={[
         ["Papírový diář", "Rychle selže u delších bloků, změn a potřeby dohledat klientský kontext."],
         ["Běžný kalendář", "Ukáže volný čas, ale neřeší online rezervaci, délku služeb, klienty ani no-show signály."],
-        ["Temaro", "Spojí booking, délky služeb, klientskou historii a připravenost na reminder a zálohy v jednom toku."],
+        ["Temaro", "Spojí online rezervace, délky služeb, klientskou historii a připravenost na připomínky a zálohy v jednom toku."],
       ]}
       faqs={faqs}
-      ctaTitle="Chcete si vyzkoušet booking pro masáže nebo wellness?"
+      ctaTitle="Chcete si vyzkoušet online rezervace pro masáže nebo wellness?"
       ctaText="Založte pilotní provoz a nastavte si služby tak, aby každý delší termín měl jasná pravidla a menší riziko prázdného okna."
       primaryCtaLabel="Založit masáže"
       primaryCtaHref="/register"
       secondaryCtaLabel="Projít wellness variantu"
       secondaryCtaHref="/rezervacni-system-pro-wellness"
       footerLinks={[
-        { href: "/", label: "Homepage" },
+        { href: "/", label: "Úvod" },
         { href: "/rezervacni-system-pro-wellness", label: "Pro wellness" },
-        { href: "/jak-snizit-no-show", label: "No-show guide" },
+        { href: "/jak-snizit-no-show", label: "No-show návod" },
         { href: "/register", label: "Registrace" },
       ]}
       jsonLd={jsonLd}

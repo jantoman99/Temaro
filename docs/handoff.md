@@ -1,6 +1,6 @@
 # Handoff
 
-Aktualizováno: 2026-06-01 11:18 CEST
+Aktualizováno: 2026-06-01 12:31 CEST
 
 ## Jak navázat
 
@@ -31,7 +31,7 @@ Aktualizováno: 2026-06-01 11:18 CEST
 - Čekací listina má tabulku `waitlist_entries`, service-role RPC `create_waitlist_entry`, veřejné CTA při obsazených termínech a owner přehled v kalendáři; migrace `20260508114500_create_waitlist_entries.sql` je aplikovaná lokálně i remote.
 - Review request používá tenant `review_url`; po owner dokončení rezervace odešle klientovi e-mail a uloží notification typ `review_request`. Migrace `20260508121000_add_review_request_notification_type.sql` je aplikovaná lokálně i remote.
 - Online záloha přes Stripe používá self-service manage odkaz, route `/api/payments/stripe/checkout`, webhook `/api/payments/stripe/webhook`, pending/paid záznamy v `booking_payments` a audit event `payment_recorded`.
-- Poslední ověření: `npm run check` prošlo 2026-06-01 00:23 CEST s 556 Vitest testy, migrations check, type-check, lint i produkčním buildem; externí public smoke proti Vercelu prošel 2026-06-01 00:27 CEST 8/8.
+- Poslední ověření: `npm run check` prošlo 2026-06-01 12:31 CEST s 560 Vitest testy, migrations check, type-check, lint i produkčním buildem; lokální Playwright audit veřejných tras prošel 2026-06-01 12:26 CEST bez console errorů a se 14/14 HTTP 200.
 - Vercel production deploy je hotový: `https://rezervacni-system-xi.vercel.app`, aktuální deploy `dpl_GTBd3UAtuQhYg6Jhzz1epxNhmhvX`.
 - Public health endpoint nevrací názvy chybějících secret env; vrací jen počet v `checks.env.missing`.
 - GitHub login connection ve Vercelu je propojený; před propojením byly nové deploymenty private repa `BLOCKED`, aktuální production deploy je `dpl_4Zogqwr6XLj2utWu7cbc9sCh5ePe`.
@@ -42,6 +42,10 @@ Aktualizováno: 2026-06-01 11:18 CEST
 - Landing page je po review zkrácená: ponechává hero/demo, value props, odlišné segmentové obrázky, obory, zkrácené návody, ceník, bezpečnost a footer. Redundantní signal-map, flow, bento, účty a future-layer bloky jsou odstraněné.
 - Proof metriky v heru jsou zákaznické (`3 kroky`, `0 Kč`, `0 %`) místo interní testovací metriky; top nav má jen `Produkt`, `Obory`, `Ceník`, `Demo`.
 - Obrázky v sekci `Reálné provozy` jsou vlastní přegenerované WebP assety v `public/marketing/*-ai.webp`: barber je tmavý řemeslný interiér, beauty je světlé studio a fitness je denní tréninkový prostor.
+- Marketing web má od 2026-06-01 customer copy pass: technické názvy v zákaznickém UI jsou nahrazené výrazy `rezervační odkaz`, `bezpečný odkaz`, `připomínka`, `podnik/provoz`.
+- Hero demo na homepage se už nesnaží být abstraktní produktová ilustrace; kopíruje reálné přihlášené obrazovky (`Přehled provozu`, `Kalendář`, `Rezervační stránka`, `Zákaznický účet`) a Playwright audit potvrdil stejnou výšku `717px` při všech přepnutích.
+- Layout homepage je sjednocený na stejnou osu jako navazující sekce: menu, hero grid a `#provoz` mají v desktop auditu `x=93`, `width=1180`; horizontální overflow není.
+- Oborové landingy používají v hero preview obrazový pás z `public/marketing/*-ai.webp`.
 - Pre-demo hardening 2026-05-31: Next.js a `eslint-config-next` jsou na `16.2.6`, `npm audit --audit-level=moderate` vrací 0 vulnerabilities, non-embed routy mají `X-Frame-Options: DENY`, `/account/login` je veřejně dostupný a `/demo-barber` má demo fallback i při nedostupné Supabase DB.
 - Playwright 2026-05-31: `npx playwright test` prošlo 9 testů; 4 authenticated runtime testy se bez `E2E_AUTHENTICATED_SMOKE=true` korektně přeskočí.
 - Historické analýzy a design audity jsou v `docs/archive/`.
@@ -611,6 +615,7 @@ Aktualizováno: 2026-06-01 11:18 CEST
 - Ručně ověřit CSP header a `/api/health` přes běžící dev server; později zopakovat v preview/prod.
 - Doplnit další krátké E2E mutace pro služby/klienty jen pokud se při pilotu objeví regresní riziko.
 - Ručně proklikat nové sekce `/start` a `/booking-page`; ověřit, že běžné stránky už nepůsobí jako formuláře před seznamem.
+- Ručně posoudit nový marketing copy pass na produkci po deployi: homepage, `/podniky`, oborové landingy, `/jak-snizit-no-show`, `/sms-pripominky-rezervaci`, `/rezervacni-system-bez-marketplace-provizi`, `/login`, `/register`.
 - Ručně ověřit v `Klienti`, `Služby` a `Tým`, že stránka má jen jednu pracovní tabulku, přidání je v toolbaru, hledání filtruje už při psaní, volba sloupců drží po refreshi, stránkování funguje, hlavičky řadí a `Filtry` aplikují podmínky.
 - Ručně ověřit dark mode na landing, dashboardu, kalendáři, entitách a veřejném bookingu.
 - Pokud se v Chrome objeví hydration warning s atributy `bis_*`, nejdřív ověřit anonymní okno bez rozšíření; poslední log ukazoval zásah browser extension.

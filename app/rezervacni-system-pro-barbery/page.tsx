@@ -33,35 +33,35 @@ const benefits = [
 const workflows = [
   ["Nový klient", "Vybere střih nebo beard trim, zvolí barbera a pošle rezervaci bez volání."],
   ["Stálý klient", "V klientské historii zůstává poznámka k preferencím, no-show i další kontext."],
-  ["Změna termínu", "Klient může přes self-service odkaz požádat o změnu nebo zrušení bez dalšího telefonátu."],
+  ["Změna termínu", "Klient může požádat o změnu nebo zrušení bez dalšího telefonátu."],
 ] as const;
 
 const comparisonRows = [
   ["Telefon + papírový diář", "Stačí na nízký objem, ale špatně škáluje u více barberů a rušení termínů."],
-  ["Google Calendar", "Dobrý osobní kalendář, ale nemá booking flow, klienty, služby a no-show historii v jednom."],
-  ["Temaro", "Booking stránka, služby, tým, klienti, kalendář a provozní signály v jednom systému."],
+  ["Google Calendar", "Dobrý osobní kalendář, ale nemá online rezervaci, klienty, služby a no-show historii v jednom."],
+  ["Temaro", "Rezervační stránka, služby, tým, klienti, kalendář a provozní signály v jednom systému."],
 ] as const;
 
 const faqs = [
   {
     question: "Jak Temaro pomůže barber shopu snížit no-show?",
     answer:
-      "Temaro ukládá historii klienta, no-show signály a posílá e-mailové potvrzení. Další priorita produktu je SMS reminder a zálohy pro služby s vyšším rizikem nedostavení.",
+      "Temaro ukládá historii klienta, no-show signály a posílá e-mailové potvrzení. Další priorita produktu je SMS připomínka a zálohy pro služby s vyšším rizikem nedostavení.",
   },
   {
     question: "Může si klient vybrat konkrétního barbera?",
     answer:
-      "Ano. Veřejný booking může nabídnout výběr konkrétního zaměstnance nebo nejbližší dostupný termín podle nastavení služeb a pracovní doby.",
+      "Ano. Veřejná rezervace může nabídnout výběr konkrétního zaměstnance nebo nejbližší dostupný termín podle nastavení služeb a pracovní doby.",
   },
   {
     question: "Hodí se Temaro i pro jednoho barbera?",
     answer:
-      "Ano. Solo provoz získá booking odkaz, kalendář, služby, klientskou historii a méně ručního domlouvání. Týmové funkce se dají využít až později.",
+      "Ano. Solo provoz získá rezervační odkaz, kalendář, služby, klientskou historii a méně ručního domlouvání. Týmové funkce se dají využít až později.",
   },
   {
     question: "Musí mít klient účet?",
     answer:
-      "Ne. Klient může vytvořit rezervaci bez zákaznického účtu a změny řeší přes bezpečný self-service odkaz.",
+      "Ne. Klient může vytvořit rezervaci bez zákaznického účtu a změny řeší přes bezpečný odkaz v potvrzení.",
   },
 ] as const;
 
@@ -79,7 +79,7 @@ const jsonLd = {
         "@type": "Offer",
         price: "0",
         priceCurrency: "CZK",
-        description: "Pilotní ověření MVP.",
+        description: "Pilotní ověření v prvních zapojených provozech.",
       },
     },
     {
@@ -130,23 +130,25 @@ export default function BarberBookingSystemPage() {
         ["13:15", "Jakub", "Komplet", "Riziko no-show"],
         ["15:00", "Tomáš", "Úprava vousů", "Potvrzeno"],
       ]}
+      visualAlt="Barber při úpravě vousů v moderním studiu"
+      visualSrc="/marketing/barber-studio-ai.webp"
       benefits={benefits}
       workflowsLabel="Scénáře v barber shopu"
-      workflowsTitle="Booking má řešit reálný den, ne jen formulář."
+      workflowsTitle="Rezervace má řešit reálný den, ne jen formulář."
       workflowsText="Temaro propojuje online objednání s tím, co barber opravdu potřebuje vidět před návštěvou klienta."
       workflows={workflows}
       comparisonTitle="Kdy stačí diář a kdy už dává smysl Temaro"
       comparisonRows={comparisonRows}
       faqs={faqs}
-      ctaTitle="Chcete vidět, jak by vypadal booking pro váš barber shop?"
+      ctaTitle="Chcete vidět, jak by vypadala rezervace pro váš barber shop?"
       ctaText="Založte pilotní provoz, nastavte služby a pošlete klientům jeden odkaz místo další zprávy."
       primaryCtaLabel="Založit barber shop"
       primaryCtaHref="/register"
       secondaryCtaLabel="Jak snížit no-show"
       secondaryCtaHref="/jak-snizit-no-show"
       footerLinks={[
-        { href: "/", label: "Homepage" },
-        { href: "/jak-snizit-no-show", label: "No-show guide" },
+        { href: "/", label: "Úvod" },
+        { href: "/jak-snizit-no-show", label: "No-show návod" },
         { href: "/register", label: "Registrace" },
       ]}
       jsonLd={jsonLd}

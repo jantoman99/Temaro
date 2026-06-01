@@ -190,8 +190,8 @@ export default async function DirectoryPage({ searchParams }: DirectoryPageProps
               Najděte podnik podle města a rezervujte online.
             </h1>
             <p className="mt-5 max-w-2xl text-base font-medium leading-7 text-muted-foreground">
-              První vrstva lokálního discovery pro Temaro. Podnik zůstává pod vlastní značkou a bez marketplace provizí,
-              klient ale může najít provozovnu podle lokality.
+              Místo, kde klient najde provoz podle města, oboru a dostupnosti. Podnik zůstává pod vlastní značkou a bez
+              provize z rezervací, které si přivedl sám.
             </p>
           </div>
           <form className="rounded-2xl border border-border bg-card p-4 shadow-sm" action="/podniky">
@@ -240,7 +240,7 @@ export default async function DirectoryPage({ searchParams }: DirectoryPageProps
             </div>
             <div className="mt-3 grid gap-3 md:grid-cols-[1fr_1fr_1fr]">
               <label className="flex flex-col gap-2 text-sm font-semibold">
-                Moje šířka
+                Moje zeměpisná šířka
                 <input
                   name="lat"
                   defaultValue={params.lat ?? ""}
@@ -250,7 +250,7 @@ export default async function DirectoryPage({ searchParams }: DirectoryPageProps
                 />
               </label>
               <label className="flex flex-col gap-2 text-sm font-semibold">
-                Moje délka
+                Moje zeměpisná délka
                 <input
                   name="lng"
                   defaultValue={params.lng ?? ""}
@@ -260,7 +260,7 @@ export default async function DirectoryPage({ searchParams }: DirectoryPageProps
                 />
               </label>
               <label className="flex flex-col gap-2 text-sm font-semibold">
-                Radius km
+                Okruh v kilometrech
                 <input
                   name="radius"
                   defaultValue={params.radius ?? ""}
@@ -344,10 +344,10 @@ export default async function DirectoryPage({ searchParams }: DirectoryPageProps
             <div className="rounded-2xl border border-border bg-card p-6 shadow-sm md:col-span-2">
               <p className="text-lg font-semibold">Zatím tu není podnik pro zadané hledání.</p>
               <p className="mt-2 text-sm font-medium leading-6 text-muted-foreground">
-                Zkuste jiné město nebo otevřete demo booking. Katalog je připravený jako další vrstva produktu.
+                Zkuste jiné město nebo otevřete ukázkovou rezervaci. Katalog se bude plnit zapojenými provozy.
               </p>
               <Link href="/demo-barber" className="mt-4 inline-flex h-10 items-center justify-center rounded-md bg-primary px-4 text-sm font-semibold text-primary-foreground">
-                Otevřít demo
+                Otevřít ukázku
               </Link>
             </div>
           )}

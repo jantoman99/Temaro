@@ -32,7 +32,7 @@ const steps = [
   {
     icon: BellRing,
     title: "Připomeňte termín včas",
-    text: "E-mail je minimum. U provozů s vyšším no-show rizikem dává smysl SMS reminder 24 hodin předem.",
+    text: "E-mail je minimum. U provozů s vyšším no-show rizikem dává smysl SMS připomínka 24 hodin předem.",
   },
   {
     icon: CalendarClock,
@@ -47,7 +47,7 @@ const steps = [
 ] as const;
 
 const policyRules = [
-  ["Krátké služby", "Stačí potvrzení, reminder a jednoduchý přesun."],
+  ["Krátké služby", "Stačí potvrzení, připomínka a jednoduchý přesun."],
   ["Dlouhé služby", "Přidejte jasné storno pravidlo a později zálohu."],
   ["Opakované no-show", "Označte klienta, sledujte historii a vyžadujte potvrzení nebo zálohu."],
   ["Noví klienti", "Chtějte telefon/e-mail a pošlete jasné instrukce k termínu."],
@@ -88,7 +88,7 @@ const jsonLd = {
       "@type": "Article",
       headline: "Jak snížit no-show v salonu",
       description:
-        "Praktický návod pro služby s rezervacemi: potvrzení, reminders, self-service změny, zálohy a klientská historie.",
+        "Praktický návod pro služby s rezervacemi: potvrzení, připomínky, změny termínu bez telefonátu, zálohy a klientská historie.",
       author: {
         "@type": "Organization",
         name: "Temaro",
@@ -179,7 +179,7 @@ export default function ReduceNoShowPage() {
               <div className="grid gap-3 sm:grid-cols-3">
                 {[
                   ["1", "potvrzení ihned"],
-                  ["24 h", "reminder předem"],
+                  ["24 h", "připomínka předem"],
                   ["0", "zbytečných volání"],
                 ].map(([value, label]) => (
                   <div key={label} className="rounded-xl border border-border bg-background/80 p-4">
@@ -191,7 +191,7 @@ export default function ReduceNoShowPage() {
               <div className="mt-5 rounded-xl border border-border bg-background/80 p-4">
                 <p className="text-sm font-semibold">Praktické pravidlo</p>
                 <p className="mt-2 text-sm font-medium leading-6 text-muted-foreground">
-                  Čím delší nebo dražší služba, tím silnější potvrzení potřebuje: reminder, jasné storno podmínky a
+                  Čím delší nebo dražší služba, tím silnější potvrzení potřebuje: připomínku, jasné storno podmínky a
                   později zálohu.
                 </p>
               </div>
@@ -244,10 +244,10 @@ export default function ReduceNoShowPage() {
           <div className="grid gap-6 lg:grid-cols-[1fr_0.9fr] lg:items-center">
             <div>
               <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Jak to řeší Temaro</p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-tight">No-show ochrana začíná v běžném booking flow.</h2>
+              <h2 className="mt-3 text-3xl font-semibold tracking-tight">No-show ochrana začíná už při rezervaci.</h2>
               <p className="mt-4 text-sm font-medium leading-6 text-muted-foreground">
-                Temaro už dnes řeší online booking, e-mailové potvrzení, klientskou historii, no-show counter, flag a
-                self-service změny. SMS reminder a zálohy jsou nejbližší produktové kandidáty pro placený pilot.
+                Temaro už dnes řeší online rezervace, e-mailové potvrzení, klientskou historii, počítadlo no-show a
+                změny termínu bez telefonátu. SMS připomínky a zálohy jsou další kandidáti pro placený pilot.
               </p>
             </div>
             <div className="grid gap-3">
@@ -285,7 +285,7 @@ export default function ReduceNoShowPage() {
               <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Další krok</p>
               <h2 className="mt-2 text-3xl font-semibold tracking-tight">Chcete no-show řešit přímo v rezervacích?</h2>
               <p className="mt-3 max-w-2xl text-sm font-medium leading-6 text-muted-foreground">
-                Začněte online bookingem, klientskou historií a připomínkami. Zálohy a SMS pak přidávejte podle rizika
+                Začněte online rezervacemi, klientskou historií a připomínkami. Zálohy a SMS pak přidávejte podle rizika
                 služeb, ne plošně všem.
               </p>
             </div>
@@ -312,7 +312,7 @@ export default function ReduceNoShowPage() {
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 text-sm font-medium text-muted-foreground">
           <TemaroLogo />
           <div className="flex flex-wrap gap-3">
-            <Link href="/">Homepage</Link>
+            <Link href="/">Úvod</Link>
             <Link href="/rezervacni-system-pro-barbery">Pro barbery</Link>
             <Link href="/register">Registrace</Link>
           </div>
