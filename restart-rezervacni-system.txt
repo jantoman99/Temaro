@@ -21,8 +21,11 @@ Důležité chování:
 - Ruční testy jsou odložené do `docs/manual-test-plan.md`.
 - Dokumentaci aktualizuj při smysluplné změně.
 
-Aktuální stav 2026-06-01 23:47 CEST:
+Aktuální stav 2026-06-06 12:32 CEST:
 - Produkt se jmenuje `Temaro`.
+- UX sjednocení veřejných vstupů: `/demo-barber` má Temaro topbar s odkazy `Zpět na web`, `Interaktivní ukázka`, `Registrovat podnik` a theme toggle. Reálné tenant booking stránky `/{slug}` zůstávají tenant-branded bez plné Temaro navigace.
+- `/podniky` má theme toggle. `/login`, `/register`, `/forgot-password`, `/reset-password` a `/account/login` mají horní návrat `Zpět na web` a theme toggle bez plné marketing navigace.
+- Poslední lokální ověření: `npm run check` prošlo 2026-06-06 12:32 CEST s 586 Vitest testy, migrations check, type-check, lint i buildem. `npx playwright test tests/e2e/public-smoke.spec.ts` prošel 2026-06-06 12:35 CEST 10/10.
 - Veřejná booking stránka `/[slug]` je nově přestavěná na profilový dvousloupec: vlevo profil podniku s coverem, popisem, galerií/výhodami/mapou, vpravo sticky rezervační karta. Lokální screenshot je `output/playwright/toman-barber-profile-layout-v3.png`.
 - Poslední lokální ověření: `npm run check` prošlo 2026-06-01 23:41 CEST s 584 Vitest testy, migrations check, type-check, lint i buildem. `npx playwright test tests/e2e/public-smoke.spec.ts` prošel 2026-06-01 23:47 CEST 10/10.
 - Produkce je nasazená na `https://rezervacni-system-xi.vercel.app`, aktuální deploy `dpl_48jjXzLXjbfrAbwtTuPazJQDte2p`; `/toman-barber` vrací HTTP 200, `/api/health` je `ok` a produkční public smoke prošel 2026-06-01 23:53 CEST 10/10.

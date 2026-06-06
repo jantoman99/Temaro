@@ -32,6 +32,8 @@ Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 - Zkontrolovat sekci `Reálné provozy`: obrázky se musí načíst, mít konzistentní poměr stran a být vizuálně odlišné pro barber, beauty a fitness/training segment.
 - Ověřit, že podnikatelská registrace `/register` a zákaznický účet `/account/login` zůstávají dostupné přes CTA/footer, i když samostatná homepage sekce `Dva typy účtů` byla odstraněná kvůli zkrácení stránky.
 - Otevřít `/podniky`, ověřit demo/veřejný výpis, hledání podle textu, města a oboru, booking CTA a odkaz `Otevřít mapu`.
+- Na `/podniky` ověřit theme toggle ve veřejné hlavičce a návrat na podnikatelskou homepage přes `Pro podniky`.
+- Otevřít `/demo-barber` a ověřit, že není slepá ulička: nahoře musí být `Zpět na web`, `Interaktivní ukázka`, `Registrovat podnik` a theme toggle. Vlastní demo rezervační flow musí zůstat použitelné.
 - Na landing page zkontrolovat signal-grid pozadi na desktopu, neutral/command produktovy mockup, fialovo-modry brand signal a konkretni provozni copy.
 - Na landing page zkontrolovat product mockup: musi mit produktovy chrome, command hint a kapacitni graf, ne jen statickou kartu.
 - V hero product mockupu proklikat scénáře `Dnes`, `Booking` a `Klient`; metriky a checkout panel se mají měnit bez reloadu stránky.
@@ -46,7 +48,8 @@ Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 - Na landing page zkontrolovat, ze produktovy mockup vypada jako provozni konzole se signaly dne, ne jako genericky bily wireframe.
 - Zkontrolovat, ze prohlizec pouziva Temaro favicon a ze SVG loga v `public/brand` maji transparentni pozadi.
 - Otevrit `http://localhost:3000/design-preview` a zkontrolovat, ze presmeruje na aktualni homepage; zastarale preview uz nema byt samostatny zdroj pravdy.
-- Otevrit `/login` a `/register` a zkontrolovat centrovane auth karty s Temaro logem, bez marketing hero bloku a demo dat.
+- Otevrit `/login` a `/register` a zkontrolovat centrovane auth karty s Temaro logem, bez marketing hero bloku a demo dat. Nahoře musí být `Zpět na web` a theme toggle.
+- Otevřít `/forgot-password`, `/reset-password` a `/account/login`; ověřit stejný návrat `Zpět na web` a theme toggle bez plné marketing navigace.
 - Google OAuth runtime test je odložený až po zakoupení produkční domény; do té doby Google provider v Supabase nezapínat.
 - Po zakoupení domény na `/register` vyplnit název podniku a jméno vlastníka, kliknout `Vytvořit podnik přes Google` a ověřit, že po callbacku vznikne nový tenant a dashboard se otevře jako owner.
 - Po zakoupení domény otevřít `/account/login`, přihlásit se Google účtem bez tenant metadata a ověřit, že `/account` zobrazí jen rezervace podle ověřeného e-mailu.

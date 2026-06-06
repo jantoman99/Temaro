@@ -2,6 +2,7 @@ import { ArrowRight, CalendarCheck2, MapPin, Search, UserRoundCheck } from "luci
 import Link from "next/link";
 
 import { TemaroLogo } from "@/components/brand/temaro-logo";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { demoTenant } from "@/lib/demo/data";
 import { hasSupabaseAdminEnv } from "@/lib/env";
 import { createAdminClient } from "@/lib/supabase/admin";
@@ -149,6 +150,7 @@ export default async function DirectoryPage({ searchParams }: DirectoryPageProps
             <TemaroLogo />
           </Link>
           <div className="flex items-center gap-2">
+            <ThemeToggle compact />
             <Link href="/" className="hidden rounded-md border border-border bg-background px-4 py-2 text-sm font-semibold shadow-sm hover:bg-muted sm:inline-flex">
               Pro podniky
             </Link>

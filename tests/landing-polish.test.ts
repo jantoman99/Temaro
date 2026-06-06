@@ -95,6 +95,7 @@ describe("landing polish guard", () => {
     expect(directory).toContain("Kde");
     expect(directory).toContain("Město, adresa nebo čtvrť");
     expect(directory).toContain("Pro zákazníky");
+    expect(directory).toContain("ThemeToggle");
     expect(directory).not.toContain("zeměpisná šířka");
     expect(directory).not.toContain("zeměpisná délka");
     expect(directory).not.toContain('name="lat"');
@@ -108,5 +109,25 @@ describe("landing polish guard", () => {
     expect(demoPage).toContain("Interaktivní ukázka Temara");
     expect(demoPage).toContain("InteractiveProductDemo");
     expect(demoPage).toContain("Začít zdarma");
+  });
+
+  test("demo booking page keeps visitors connected to Temaro", () => {
+    const bookingPage = readProjectFile("app/(booking)/[slug]/page.tsx");
+
+    expect(bookingPage).toContain("Zpět na web");
+    expect(bookingPage).toContain("ThemeToggle");
+    expect(bookingPage).toContain("/ukazka");
+    expect(bookingPage).toContain("/register");
+  });
+
+  test("auth entry points expose a way back and theme controls", () => {
+    const loginPage = readProjectFile("app/(auth)/login/page.tsx");
+    const registerPage = readProjectFile("app/(auth)/register/page.tsx");
+    const customerLoginPage = readProjectFile("app/account/login/page.tsx");
+
+    for (const page of [loginPage, registerPage, customerLoginPage]) {
+      expect(page).toContain("ThemeToggle");
+      expect(page).toContain("Zpět na web");
+    }
   });
 });

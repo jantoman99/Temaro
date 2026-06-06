@@ -1,5 +1,8 @@
+import Link from "next/link";
+
 import { TemaroLogo } from "@/components/brand/temaro-logo";
 import { LoginForm } from "@/components/auth/login-form";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { getSafeRedirectPath } from "@/lib/auth/redirects";
 
 type LoginPageProps = {
@@ -26,7 +29,14 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
   const notice = params.error && params.error in noticeCopy ? noticeCopy[params.error as keyof typeof noticeCopy] : null;
 
   return (
-    <main className="grid min-h-screen place-items-center bg-background px-4 py-8 text-foreground sm:px-6">
+    <main className="min-h-screen bg-background px-4 py-6 text-foreground sm:px-6">
+      <header className="mx-auto flex w-full max-w-[440px] items-center justify-between">
+        <Link href="/" className="text-sm font-semibold text-muted-foreground transition hover:text-foreground">
+          Zpět na web
+        </Link>
+        <ThemeToggle compact />
+      </header>
+      <div className="grid min-h-[calc(100vh-5rem)] place-items-center">
       <section className="w-full max-w-[400px]">
         <TemaroLogo className="justify-center" />
         <div className="mt-8 rounded-xl border border-border bg-card p-6 shadow-sm sm:p-8">
@@ -40,6 +50,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
           </div>
         </div>
       </section>
+      </div>
     </main>
   );
 }

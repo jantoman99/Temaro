@@ -1,8 +1,11 @@
 import { notFound } from "next/navigation";
 import { ExternalLink, Globe, MapPin, Navigation, Sparkles, Star } from "lucide-react";
+import Link from "next/link";
 
 import { PublicBookingForm } from "@/components/booking/public-booking-form";
+import { TemaroLogo } from "@/components/brand/temaro-logo";
 import { DemoBanner } from "@/components/demo/demo-banner";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { getAvailabilitySlots } from "@/lib/booking/availability";
 import { demoBookings, demoServices, demoStaff, demoTenant } from "@/lib/demo/data";
 import { hasSupabaseAdminEnv } from "@/lib/env";
@@ -266,6 +269,27 @@ function DemoBookingPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div className="mx-auto w-full max-w-6xl">
+        <header className="mb-4 flex min-h-16 flex-wrap items-center justify-between gap-3 rounded-2xl border border-border/80 bg-card/88 px-3 py-3 shadow-lg shadow-primary/5 backdrop-blur-md sm:px-4">
+          <Link href="/" className="flex items-center gap-3" aria-label="Zpět na web Temaro">
+            <TemaroLogo />
+          </Link>
+          <nav className="order-3 grid w-full grid-cols-3 gap-1 border-t border-border/70 pt-2 lg:order-none lg:flex lg:w-auto lg:border-t-0 lg:pt-0">
+            {[
+              ["/", "Zpět na web"],
+              ["/ukazka", "Interaktivní ukázka"],
+              ["/register", "Registrovat podnik"],
+            ].map(([href, label]) => (
+              <Link
+                key={href}
+                href={href}
+                className="rounded-md px-2 py-2 text-center text-sm font-semibold text-muted-foreground transition hover:bg-muted hover:text-foreground lg:px-3"
+              >
+                {label}
+              </Link>
+            ))}
+          </nav>
+          <ThemeToggle compact />
+        </header>
         <div className="mb-6">
           <DemoBanner />
         </div>

@@ -1,6 +1,6 @@
 # Runtime checklist
 
-Aktualizováno: 2026-06-01 21:15 CEST
+Aktualizováno: 2026-06-06 12:32 CEST
 
 Tento checklist je pro první reálné ověření mimo demo režim.
 
@@ -22,6 +22,10 @@ curl -I http://localhost:3000
 
 Aktuální známý stav:
 
+- `npm run check` prošlo 2026-06-06 12:32 CEST po UX sjednocení veřejné navigace: 586 Vitest testů, migrations check, type-check, lint a produkční build.
+- Lokální public Playwright smoke prošel 2026-06-06 12:35 CEST: `npx playwright test tests/e2e/public-smoke.spec.ts` má 10/10 testů zelených.
+- Runtime ověřit na `/demo-barber`: topbar obsahuje `Zpět na web`, `Interaktivní ukázka`, `Registrovat podnik` a theme toggle. Reálné tenant booking stránky `/{slug}` mají zůstat tenant-branded bez plné Temaro navigace.
+- Runtime ověřit na `/podniky`, `/login`, `/register`, `/forgot-password`, `/reset-password` a `/account/login`: návštěvník se umí vrátit na web a přepnout světlý/tmavý režim tam, kde je stránka součást veřejného vstupu.
 - `npm run check` prošlo 2026-06-01 16:40 CEST po rychlém service/staff/booking-page onboardingu: 572 Vitest testů, migrations check, type-check, lint a produkční build.
 - `npm run check` prošlo 2026-06-01 18:47 CEST po doplnění sdílení do `/start`: 572 Vitest testů, migrations check, type-check, lint a produkční build.
 - `npm run check` prošlo 2026-06-01 19:13 CEST po doplnění Vercel Auth env a resetu hesla: 577 Vitest testů, migrations check, type-check, lint a produkční build.

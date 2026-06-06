@@ -1,6 +1,6 @@
 # Handoff
 
-Aktualizováno: 2026-06-01 23:47 CEST
+Aktualizováno: 2026-06-06 12:32 CEST
 
 ## Jak navázat
 
@@ -26,6 +26,9 @@ Aktualizováno: 2026-06-01 23:47 CEST
 - Aktivní pořadí expanze do dalších typů podniků je v `docs/18-vertical-expansion-priorities.md`.
 - Aktivní diferenciace, gapy a implementační backlog pro silný produkt jsou v `docs/19-product-differentiation-and-gap-plan.md`.
 - Aktivní business/pricing rámec je v `docs/business-model.md`.
+- Aktuální UX změna 2026-06-06: `/demo-barber` už má Temaro topbar s návratem `Zpět na web`, odkazem na `/ukazka`, CTA na registraci a přepínačem světlý/tmavý režim. Reálné tenant booking stránky `/{slug}` zůstávají bez plné Temaro navigace, aby působily jako stránka podniku.
+- `/podniky` má theme toggle a auth/customer vstupy (`/login`, `/register`, `/forgot-password`, `/reset-password`, `/account/login`) mají horní návrat `Zpět na web` a theme toggle.
+- Poslední ověření: `npm run check` prošlo 2026-06-06 12:32 CEST s 586 Vitest testy, migrations check, type-check, lint i buildem. `npx playwright test tests/e2e/public-smoke.spec.ts` prošel 2026-06-06 12:35 CEST 10/10.
 - Rozhodnutí scope 2026-05-08: všechny významné konkurenční funkce jsou součást pre-launch MVP, ne fáze 2. Pořadí implementace je anti-no-show/platby, zákazník/integrace, business suite, growth/discovery, mobilní/provozní vrstva.
 - Vlny 1 po rozšíření scope: hotové jsou zdroje rezervací/UTM, čekací listina, review request po návštěvě, online záloha přes Stripe Checkout a storno pravidla navázaná na zálohu/čas do termínu.
 - Čekací listina má tabulku `waitlist_entries`, service-role RPC `create_waitlist_entry`, veřejné CTA při obsazených termínech a owner přehled v kalendáři; migrace `20260508114500_create_waitlist_entries.sql` je aplikovaná lokálně i remote.

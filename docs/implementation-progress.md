@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Aktualizováno: 2026-06-01 23:47 CEST
+Aktualizováno: 2026-06-06 12:32 CEST
 
 Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historické analýzy a staré design audity jsou přesunuté do `docs/archive/`.
 
@@ -26,6 +26,9 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - Homepage top navigace jasně odděluje `Pro podniky`, `Pro zákazníky` a interaktivní ukázku `/ukazka`.
 - Nová stránka `/ukazka` ukazuje klikací průchod Temarem jako realistický pohled po přihlášení: přehled provozu, kalendář týmu, rezervační stránku a zákaznický účet.
 - `/podniky` je nově zákaznická vstupní stránka s hledáním podle služby a místa (`Město, adresa nebo čtvrť`); veřejné UI už neukazuje syrové souřadnice ani radius.
+- UX sjednocení veřejné navigace 2026-06-06: demo booking `/demo-barber` už není slepá ulička, má Temaro topbar s odkazy `Zpět na web`, `Interaktivní ukázka`, `Registrovat podnik` a přepínačem světlý/tmavý režim. Reálné tenant booking stránky `/{slug}` zůstávají tenant-branded bez plné Temaro navigace.
+- `/podniky`, podnikatelský login/register, reset hesla a zákaznický login mají dostupný návrat `Zpět na web` nebo theme toggle podle typu stránky, aby se veřejný web nerozpadal na izolované sekce.
+- `npm run check` prošlo 2026-06-06 12:32 CEST po UX navigačním sjednocení: 586 Vitest testů, migrations check, type-check, lint a produkční build. `npx playwright test tests/e2e/public-smoke.spec.ts` prošel 2026-06-06 12:35 CEST 10/10.
 - Vercel production deploy `dpl_6ZgkD4UjbWZtxU6mhg5KFEmz3gpD` je na aliasu `https://rezervacni-system-xi.vercel.app`; externí public smoke 2026-06-01 16:19 CEST prošel 10/10.
 - Onboarding po registraci nově vede na `/start`: stránka má panel připravenosti, jasnou další akci, veřejný rezervační odkaz a checklist `podnik -> služba -> tým/pracovní doba -> rezervační stránka -> první klienti`.
 - E-mailová i Google registrace nového podniku po vytvoření účtu směřuje do `/start`, ne rovnou na běžný provozní dashboard.

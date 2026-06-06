@@ -44,6 +44,7 @@ test.describe("public smoke", () => {
 
     await expect(page.getByRole("heading", { name: /Najděte podnik a rezervujte/i })).toBeVisible();
     await expect(page.getByText("Pro zákazníky").first()).toBeVisible();
+    await expect(page.getByRole("button", { name: "Přepnout vzhled: Světlý" })).toBeVisible();
     await expect(page.getByLabel("Kde")).toBeVisible();
     await expect(page.getByPlaceholder("Město, adresa nebo čtvrť")).toBeVisible();
     await expect(page.locator('input[name="lat"]')).toHaveCount(0);
@@ -97,6 +98,9 @@ test.describe("public smoke", () => {
   test("demo booking page renders selectable booking flow", async ({ page }) => {
     await page.goto("/demo-barber");
 
+    await expect(page.getByRole("link", { name: "Zpět na web", exact: true })).toHaveAttribute("href", "/");
+    await expect(page.getByRole("link", { name: "Interaktivní ukázka" })).toHaveAttribute("href", "/ukazka");
+    await expect(page.getByRole("button", { name: "Přepnout vzhled: Světlý" })).toBeVisible();
     await expect(page.getByRole("heading", { name: /Temaro Demo Studio/i })).toBeVisible();
     await expect(page.getByText("Co tu najdete")).toBeVisible();
     await expect(page.getByRole("link", { name: /Instagram/i })).toBeVisible();
@@ -136,6 +140,8 @@ test.describe("public smoke", () => {
   test("customer account login exposes Google entry point", async ({ page }) => {
     await page.goto("/account/login");
 
+    await expect(page.getByRole("link", { name: "Zpět na web" })).toHaveAttribute("href", "/");
+    await expect(page.getByRole("button", { name: "Přepnout vzhled: Světlý" })).toBeVisible();
     await expect(page.getByRole("heading", { name: "Vaše rezervace napříč podniky" })).toBeVisible();
     await expect(page.getByText("podle ověřeného e-mailu")).toBeVisible();
     await expect(page.getByRole("button", { name: "Pokračovat přes Google" })).toBeVisible();
