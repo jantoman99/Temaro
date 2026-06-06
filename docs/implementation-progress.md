@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Aktualizováno: 2026-06-06 15:53 CEST
+Aktualizováno: 2026-06-06 15:56 CEST
 
 Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historické analýzy a staré design audity jsou přesunuté do `docs/archive/`.
 
@@ -37,7 +37,7 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - Produkční ověření 2026-06-06 13:59 CEST po clean SaaS homepage iteraci: alias `https://rezervacni-system-xi.vercel.app` vrací `/api/health` se `status=ok` a produkční public smoke prošel 10/10.
 - Homepage motion vrstva 2026-06-06: přidané progressive enhancement animace podle zadání `temaro-animace-zadani-pro-codex.md`. Sekce a karty používají scroll reveal se staggerem, produktový mock používá count-up metrik, rotaci rezervací a telefonní potvrzení. `prefers-reduced-motion` vypíná rotace i reveal pohyb a SSR obsah zůstává čitelný bez JS.
 - Lokální ověření 2026-06-06 15:41 CEST po motion vrstvě: `npm run check` prošlo s 590 Vitest testy, migrations check, type-check, lint a produkční build. Lokální public smoke prošel 10/10. Browser smoke potvrdil console errors 0, rotaci rezervací, změnu času v telefonu, zobrazení `Rezervace potvrzena`, reduced-motion statický stav a horizontální overflow 0. Screenshoty jsou `output/playwright/temaro-motion-desktop-v2.png` a `output/playwright/temaro-motion-mobile-reduced-v2.png`.
-- Produkční ověření 2026-06-06 15:52 CEST po motion vrstvě: Vercel deploy `dpl_CT2NmmE7bpkjELQrb3BiC8NUPgV5` je READY na aliasu `https://rezervacni-system-xi.vercel.app`, `/api/health` vrací `status=ok` a produkční public smoke prošel 10/10.
+- Produkční ověření 2026-06-06 15:55 CEST po motion vrstvě: alias `https://rezervacni-system-xi.vercel.app` vrací `/api/health` se `status=ok` a produkční public smoke prošel 10/10.
 - Vercel production deploy `dpl_6ZgkD4UjbWZtxU6mhg5KFEmz3gpD` je na aliasu `https://rezervacni-system-xi.vercel.app`; externí public smoke 2026-06-01 16:19 CEST prošel 10/10.
 - Onboarding po registraci nově vede na `/start`: stránka má panel připravenosti, jasnou další akci, veřejný rezervační odkaz a checklist `podnik -> služba -> tým/pracovní doba -> rezervační stránka -> první klienti`.
 - E-mailová i Google registrace nového podniku po vytvoření účtu směřuje do `/start`, ne rovnou na běžný provozní dashboard.
