@@ -1,6 +1,6 @@
 # Runtime checklist
 
-Aktualizováno: 2026-06-06 13:09 CEST
+Aktualizováno: 2026-06-06 13:13 CEST
 
 Tento checklist je pro první reálné ověření mimo demo režim.
 
@@ -26,6 +26,7 @@ Aktuální známý stav:
 - Lokální public Playwright smoke prošel 2026-06-06 12:35 CEST: `npx playwright test tests/e2e/public-smoke.spec.ts` má 10/10 testů zelených.
 - `npm run check` prošlo 2026-06-06 13:08 CEST po frontend/design polishi homepage: 588 Vitest testů, migrations check, type-check, lint a produkční build.
 - Lokální public Playwright smoke prošel 2026-06-06 13:08 CEST: `npx playwright test tests/e2e/public-smoke.spec.ts` má 10/10 testů zelených.
+- Vercel production deploy `dpl_7mG6NMXQbbMephTPB5YhsoqwumAo` je na aliasu `https://rezervacni-system-xi.vercel.app`. `/api/health` 2026-06-06 13:12 CEST vrací `status=ok`, `env.ok=true`, `supabase.configured=true`. Externí public smoke prošel: `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` má 10/10 testů zelených.
 - Runtime ověřit na `/`: hero obsahuje `Early access`, claim `Méně telefonátů. Klidnější provoz.`, garance `bez provize navždy`, `export klientů kdykoliv`, `bez karty na start`; sekce benefitů používá bento/product proof rytmus a AI fotky v provozních scénářích zůstávají načtené.
 - Runtime ověřit v `Ceník`: `Pilot` je zvýrazněný jako `Doporučený pilot`, stav `Pilot běží teď`; `Solo` a `Tým` ukazují `Brzy po pilotu`, bez vymyšlených finálních cen.
 - Runtime ověřit v `Bezpečnost a důvěra`: viditelné jsou `GDPR`, `Data v EU`, `Šifrovaný přenos` a `export klientů kdykoliv`.
