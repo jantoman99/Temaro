@@ -236,7 +236,7 @@ export default async function Home() {
   return (
     <main className="clean-saas-page min-h-screen overflow-hidden bg-[#f7f7f9] text-foreground dark:bg-background">
       <section className="relative signal-hero">
-        <div className="mx-auto flex min-h-[78vh] w-full max-w-[1180px] flex-col px-4 py-4 sm:px-6 lg:min-h-[76vh] lg:px-0">
+        <div className="mx-auto flex w-full max-w-[1180px] flex-col px-4 py-4 sm:px-6 lg:px-0">
           <header className="sticky top-3 z-30 mx-auto flex min-h-16 w-full flex-wrap items-center justify-between gap-3 rounded-2xl border border-border/80 bg-card/92 px-3 py-3 shadow-sm backdrop-blur-md sm:px-4">
             <Link href="/" className="flex items-center gap-3">
               <TemaroLogo />
@@ -272,23 +272,23 @@ export default async function Home() {
             </div>
           </header>
 
-          <div className="flex flex-1 items-center py-12 lg:py-16">
-            <section className="mx-auto w-full max-w-3xl text-left lg:mx-0">
+          <div className="py-16 lg:py-24">
+            <section className="mx-auto w-full max-w-3xl text-center">
               <div className="inline-flex items-center gap-2 rounded-full border border-primary/15 bg-card px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-primary shadow-sm">
                 <span className="signal-pulse size-2 rounded-full bg-primary" />
                 Pro české salony, barbery a služby
               </div>
 
-              <h1 className="mt-7 max-w-4xl text-balance text-5xl font-semibold leading-[0.96] tracking-[-0.055em] text-foreground sm:text-6xl lg:text-[5.25rem]">
+              <h1 className="mt-7 mx-auto max-w-4xl text-balance text-5xl font-semibold leading-[0.96] tracking-[-0.055em] text-foreground sm:text-6xl lg:text-[5.25rem]">
                 Méně telefonátů.
                 <br />
                 Více rezervací.
               </h1>
-              <p className="mt-6 max-w-xl text-lg font-medium leading-[1.55] text-secondary-foreground sm:text-xl">
+              <p className="mt-6 mx-auto max-w-xl text-lg font-medium leading-[1.55] text-secondary-foreground sm:text-xl">
                 Temaro dá vašemu podniku vlastní rezervační stránku, týmový kalendář a přehled klientů. Klient se objedná sám, vy se věnujete práci.
               </p>
 
-              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+              <div className="mt-9 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
                 <Link
                   href={CTA.primary.href}
                   className="group/cta inline-flex h-12 min-w-44 items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-primary px-6 text-base font-semibold text-primary-foreground shadow-[var(--shadow-primary-glow)] transition hover:-translate-y-0.5 hover:bg-primary/92"
@@ -304,7 +304,7 @@ export default async function Home() {
                 </Link>
               </div>
 
-              <div className="mt-6 flex flex-wrap gap-2">
+              <div className="mt-6 flex flex-wrap justify-center gap-2">
                 {heroTrustItems.map((item) => (
                   <span key={item} className="rounded-full border border-border bg-card px-3 py-1.5 text-xs font-bold text-foreground shadow-sm">
                     {item}
@@ -312,7 +312,7 @@ export default async function Home() {
                 ))}
               </div>
 
-              <div id="dukaz" className="mt-8 grid max-w-2xl grid-cols-3 gap-2 sm:gap-3">
+              <div id="dukaz" className="mt-8 mx-auto grid max-w-2xl grid-cols-3 gap-2 sm:gap-3">
                 {proofMetrics.map(([Icon, value, label, tone]) => (
                   <div key={label} className="rounded-xl border border-border bg-card p-3 shadow-sm sm:min-h-32 sm:p-4">
                     <div className={`mb-3 grid size-8 place-items-center rounded-lg sm:size-9 ${tone}`}>

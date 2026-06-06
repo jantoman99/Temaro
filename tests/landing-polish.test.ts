@@ -110,6 +110,25 @@ describe("landing polish guard", () => {
     expect(showcase).toContain("xl:right-0");
   });
 
+  test("homepage hero is centered and only as tall as its content", () => {
+    const page = readProjectFile("app/page.tsx");
+
+    expect(page).toContain(
+      'className="mx-auto flex w-full max-w-[1180px] flex-col px-4 py-4 sm:px-6 lg:px-0"',
+    );
+    expect(page).toContain('<div className="py-16 lg:py-24">');
+    expect(page).toContain('<section className="mx-auto w-full max-w-3xl text-center">');
+    expect(page).toContain('className="mt-7 mx-auto max-w-4xl text-balance');
+    expect(page).toContain('className="mt-6 mx-auto max-w-xl text-lg');
+    expect(page).toContain('className="mt-9 flex flex-col items-center gap-3 sm:flex-row sm:justify-center"');
+    expect(page).toContain('className="mt-6 flex flex-wrap justify-center gap-2"');
+    expect(page).toContain('className="mt-8 mx-auto grid max-w-2xl grid-cols-3 gap-2 sm:gap-3"');
+    expect(page).not.toContain("min-h-[78vh]");
+    expect(page).not.toContain("lg:min-h-[76vh]");
+    expect(page).not.toContain("flex flex-1 items-center py-12 lg:py-16");
+    expect(page).not.toContain("text-left lg:mx-0");
+  });
+
   test("homepage has one editorial statement and keeps the serif accent rare", () => {
     const page = readProjectFile("app/page.tsx");
     const serifAccentCount = (page.match(/font-serif-accent/g) ?? []).length;
