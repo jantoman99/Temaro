@@ -1,6 +1,6 @@
 # Runtime checklist
 
-Aktualizováno: 2026-06-06 15:56 CEST
+Aktualizováno: 2026-06-06 17:23 CEST
 
 Tento checklist je pro první reálné ověření mimo demo režim.
 
@@ -34,6 +34,8 @@ Aktuální známý stav:
 - `npm run check` prošlo 2026-06-06 15:41 CEST po homepage motion vrstvě: 590 Vitest testů, migrations check, type-check, lint a produkční build. Lokální public smoke prošel 10/10.
 - Runtime ověřit homepage motion: sekce a karty najíždí při scrollu se staggerem, metriky v mocku dopočítávají, seznam rezervací se mění, telefon zvýrazňuje časy a zobrazuje `Rezervace potvrzena`. Při `prefers-reduced-motion: reduce` musí být seznam i telefon statické. Lokální browser smoke to potvrdil se screenshoty `output/playwright/temaro-motion-desktop-v2.png` a `output/playwright/temaro-motion-mobile-reduced-v2.png`.
 - Produkční alias `https://rezervacni-system-xi.vercel.app` po homepage motion vrstvě vrací `/api/health` se `status=ok`; produkční public smoke prošel 2026-06-06 15:55 CEST 10/10.
+- `npm run check` prošlo 2026-06-06 17:23 CEST po homepage vizuálním rytmu: 592 Vitest testů, migrations check, type-check, lint a produkční build. Lokální public smoke prošel 10/10.
+- Runtime ověřit homepage `/`: hero má `signal-hero` gradient, produktový mock je v tmavé full-bleed sekci hned pod hero, boky na širokém viewportu nesou tmavé pozadí, telefon nevylézá mimo viewport a editorialní statement `Neprodáváme formulář. Prodáváme klidný provoz.` se zobrazí po scrollu. Browser smoke potvrdil light/mobile/dark čitelnost, console errors 0 a overflow 0.
 - Runtime ověřit na `/demo-barber`: topbar obsahuje `Zpět na web`, `Interaktivní ukázka`, `Registrovat podnik` a theme toggle. Reálné tenant booking stránky `/{slug}` mají zůstat tenant-branded bez plné Temaro navigace.
 - Runtime ověřit na `/podniky`, `/login`, `/register`, `/forgot-password`, `/reset-password` a `/account/login`: návštěvník se umí vrátit na web a přepnout světlý/tmavý režim tam, kde je stránka součást veřejného vstupu.
 - `npm run check` prošlo 2026-06-01 16:40 CEST po rychlém service/staff/booking-page onboardingu: 572 Vitest testů, migrations check, type-check, lint a produkční build.

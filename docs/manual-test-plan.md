@@ -26,11 +26,13 @@ Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 - Proklikat top bar kotvy a overit, ze vedou na odpovidajici sekce, ne na prazdne nebo neexistujici stranky.
 - Na mobilni sirce zkontrolovat, ze top navigace nezmizi, nepreteka mimo viewport a ctyri hlavni polozky jsou citelne bez horizontalniho scrollu.
 - Na landing page zkontrolovat hero: eyebrow pro české salony/barbery/služby, claim `Méně telefonátů. Více rezervací.`, subhead o vlastní rezervační stránce, týmovém kalendáři a přehledu klientů a primary CTA `Začít zdarma`.
+- Na landing page zkontrolovat, že hero má jemný `signal-hero` fialovo-modrý gradient, ne plochou šeď; text musí zůstat čitelný ve světlém i tmavém režimu.
 - Pod hero CTA zkontrolovat proof metriky `3 kroky`, `0 Kč` a `0 %`; nemaji byt duplicitne zopakovane jako samostatna spodni proof sekce.
 - Na mobilní šířce ověřit, že proof labely pod hero CTA jsou čitelné a neslévají se bez mezer.
-- V hero mockupu ověřit, že produktová ukázka má PC dashboard i telefonní booking preview, texty nejsou ořezané v light ani dark mode a ukázka nepůsobí jako nepravdivý live dashboard.
-- V hero mockupu ověřit jemné oživení: čísla v produktové ukázce se dopočítají až jako progressive enhancement, seznam rezervací po chvíli protočí další položku a telefon postupně zvýrazňuje časy.
-- V telefonu v hero mockupu ověřit krátké potvrzení `Rezervace potvrzena`; nesmí překrýt CTA ani rozbít výšku telefonu.
+- Pod hero ověřit tmavou full-bleed produktovou sekci `Reálný pohled`: produktová ukázka má PC dashboard i telefonní booking preview, texty nejsou ořezané v light ani dark mode a telefon nevylézá mimo viewport.
+- V produktové sekci ověřit jemné oživení: čísla v produktové ukázce se dopočítají až jako progressive enhancement, seznam rezervací po chvíli protočí další položku a telefon postupně zvýrazňuje časy.
+- V telefonu v produktové sekci ověřit krátké potvrzení `Rezervace potvrzena`; nesmí překrýt CTA ani rozbít výšku telefonu.
+- Ověřit editorialní statement `Neprodáváme formulář. Prodáváme klidný provoz.` jako samostatný vizuální zlom mezi funkcemi a dalšími světlými sekcemi.
 - Zapnout systémové omezení pohybu nebo v DevTools emulovat `prefers-reduced-motion: reduce`; homepage má zůstat čitelná, ale reveal, rotace rezervací a telefonní potvrzení mají být statické/vypnuté.
 - Zkontrolovat sekci `Reálné provozy`: obrázky se musí načíst, mít konzistentní poměr stran a být vizuálně odlišné pro barber, beauty a fitness/training segment.
 - Ověřit, že podnikatelská registrace `/register` a zákaznický účet `/account/login` zůstávají dostupné přes CTA/footer, i když samostatná homepage sekce `Dva typy účtů` byla odstraněná kvůli zkrácení stránky.

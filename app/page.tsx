@@ -235,8 +235,8 @@ export default async function Home() {
 
   return (
     <main className="clean-saas-page min-h-screen overflow-hidden bg-[#f7f7f9] text-foreground dark:bg-background">
-      <section className="relative">
-        <div className="mx-auto flex min-h-[92vh] w-full max-w-[1180px] flex-col px-4 py-4 sm:px-6 lg:min-h-[88vh] lg:px-0">
+      <section className="relative signal-hero">
+        <div className="mx-auto flex min-h-[78vh] w-full max-w-[1180px] flex-col px-4 py-4 sm:px-6 lg:min-h-[76vh] lg:px-0">
           <header className="sticky top-3 z-30 mx-auto flex min-h-16 w-full flex-wrap items-center justify-between gap-3 rounded-2xl border border-border/80 bg-card/92 px-3 py-3 shadow-sm backdrop-blur-md sm:px-4">
             <Link href="/" className="flex items-center gap-3">
               <TemaroLogo />
@@ -272,8 +272,8 @@ export default async function Home() {
             </div>
           </header>
 
-          <div className="grid flex-1 items-center gap-12 py-10 lg:grid-cols-[0.78fr_1.22fr] lg:py-12">
-            <section className="mx-auto max-w-2xl lg:mx-0">
+          <div className="flex flex-1 items-center py-12 lg:py-16">
+            <section className="mx-auto w-full max-w-3xl text-left lg:mx-0">
               <div className="inline-flex items-center gap-2 rounded-full border border-primary/15 bg-card px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-primary shadow-sm">
                 <span className="signal-pulse size-2 rounded-full bg-primary" />
                 Pro české salony, barbery a služby
@@ -312,7 +312,7 @@ export default async function Home() {
                 ))}
               </div>
 
-              <div id="dukaz" className="mt-8 grid grid-cols-3 gap-2 sm:gap-3">
+              <div id="dukaz" className="mt-8 grid max-w-2xl grid-cols-3 gap-2 sm:gap-3">
                 {proofMetrics.map(([Icon, value, label, tone]) => (
                   <div key={label} className="rounded-xl border border-border bg-card p-3 shadow-sm sm:min-h-32 sm:p-4">
                     <div className={`mb-3 grid size-8 place-items-center rounded-lg sm:size-9 ${tone}`}>
@@ -328,9 +328,24 @@ export default async function Home() {
                 ))}
               </div>
             </section>
-
-            <LiveProductShowcase />
           </div>
+        </div>
+      </section>
+
+      <section id="produkt" className="command-surface border-y border-white/10 py-20">
+        <div className="mx-auto w-full max-w-[1320px] px-4 sm:px-6 lg:px-8">
+          <Reveal>
+            <div className="mb-10 max-w-2xl">
+              <p className="text-xs font-bold uppercase tracking-[0.16em] text-white/60">Reálný pohled</p>
+              <h2 className="mt-3 text-balance text-4xl font-semibold leading-[1.05] tracking-tight text-white sm:text-5xl">
+                Takhle vypadá běžný den ve vašem provozu.
+              </h2>
+              <p className="mt-4 max-w-xl text-base font-medium leading-7 text-white/70">
+                Kalendář, rezervace, telefonní potvrzení i denní signály jsou na jednom místě, ne rozházené ve zprávách.
+              </p>
+            </div>
+          </Reveal>
+          <LiveProductShowcase />
         </div>
       </section>
 
@@ -364,6 +379,17 @@ export default async function Home() {
             ))}
           </div>
         </div>
+      </section>
+
+      <section className="mx-auto w-full max-w-[1180px] px-4 py-24 text-center sm:px-6 lg:px-8">
+        <Reveal>
+          <p className="mx-auto max-w-4xl text-balance text-4xl font-semibold leading-[1.05] tracking-tight text-foreground sm:text-6xl">
+            Neprodáváme formulář. Prodáváme <span className="font-serif-accent text-primary">klidný provoz</span>.
+          </p>
+          <p className="mx-auto mt-6 max-w-xl text-base font-medium leading-7 text-secondary-foreground">
+            Vlastní rezervační odkaz, váš kalendář, vaši klienti. Žádná provize z toho, co jste si přivedli sami.
+          </p>
+        </Reveal>
       </section>
 
       <section className="bg-card py-20">
@@ -412,7 +438,7 @@ export default async function Home() {
             <div>
               <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Pro koho</p>
               <h2 className="mt-3 max-w-2xl text-balance text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
-                Jeden systém pro služby, kde rozhoduje <span className="font-serif-accent text-primary">čas</span>.
+                Jeden systém pro služby, kde rozhoduje čas.
               </h2>
             </div>
             <p className="max-w-sm text-sm font-medium leading-6 text-secondary-foreground">
@@ -547,7 +573,7 @@ export default async function Home() {
             <header>
               <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Bezpečnost a důvěra</p>
               <h2 className="mt-3 text-balance text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
-                Rezervace jsou jednoduché. Data musí být <span className="font-serif-accent text-primary">pevná</span>.
+                Rezervace jsou jednoduché. Data musí být bezpečně oddělená.
               </h2>
               <p className="mt-5 max-w-md text-sm font-medium leading-6 text-secondary-foreground">
                 Rezervační systém pracuje s klienty, termíny a historií podniku. Proto je důležité, aby se data nepletla

@@ -51,7 +51,7 @@ export function LiveProductShowcase() {
   const visibleBookings = [0, 1, 2].map((index) => BOOKING_POOL[(offset + index) % BOOKING_POOL.length]);
 
   return (
-    <section id="produkt" className="clean-saas-showcase relative">
+    <section className="clean-saas-showcase relative">
       <div className="rounded-[2rem] border border-border bg-card p-3 shadow-[0_28px_80px_oklch(0.20_0.02_255_/_0.12)]">
         <div className="overflow-hidden rounded-[1.5rem] border border-border bg-secondary/55">
           <div className="flex items-center justify-between border-b border-border bg-card px-4 py-3">
@@ -155,7 +155,7 @@ export function LiveProductShowcase() {
         </div>
       </div>
 
-      <div className="phone-booking-preview mx-auto mt-5 w-[18rem] rounded-[2rem] border border-border bg-card p-2 shadow-[0_24px_60px_oklch(0.20_0.02_255_/_0.16)] lg:absolute lg:-bottom-8 lg:-right-7 lg:mt-0">
+      <div className="phone-booking-preview mx-auto mt-5 w-[18rem] rounded-[2rem] border border-border bg-card p-2 shadow-[0_24px_60px_oklch(0.20_0.02_255_/_0.16)] lg:absolute lg:-bottom-8 lg:right-6 lg:mt-0 xl:right-0">
         <div className="relative overflow-hidden rounded-[1.55rem] border border-border bg-background">
           <div className="relative h-28">
             <Image

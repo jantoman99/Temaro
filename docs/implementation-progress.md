@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Aktualizováno: 2026-06-06 15:56 CEST
+Aktualizováno: 2026-06-06 17:23 CEST
 
 Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historické analýzy a staré design audity jsou přesunuté do `docs/archive/`.
 
@@ -38,6 +38,8 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - Homepage motion vrstva 2026-06-06: přidané progressive enhancement animace podle zadání `temaro-animace-zadani-pro-codex.md`. Sekce a karty používají scroll reveal se staggerem, produktový mock používá count-up metrik, rotaci rezervací a telefonní potvrzení. `prefers-reduced-motion` vypíná rotace i reveal pohyb a SSR obsah zůstává čitelný bez JS.
 - Lokální ověření 2026-06-06 15:41 CEST po motion vrstvě: `npm run check` prošlo s 590 Vitest testy, migrations check, type-check, lint a produkční build. Lokální public smoke prošel 10/10. Browser smoke potvrdil console errors 0, rotaci rezervací, změnu času v telefonu, zobrazení `Rezervace potvrzena`, reduced-motion statický stav a horizontální overflow 0. Screenshoty jsou `output/playwright/temaro-motion-desktop-v2.png` a `output/playwright/temaro-motion-mobile-reduced-v2.png`.
 - Produkční ověření 2026-06-06 15:55 CEST po motion vrstvě: alias `https://rezervacni-system-xi.vercel.app` vrací `/api/health` se `status=ok` a produkční public smoke prošel 10/10.
+- Homepage vizuální rytmus 2026-06-06 podle zadání `temaro-vizualni-tvar-zadani-pro-codex_druhe.md`: hero používá `signal-hero`, produktový mock je přesunutý do samostatné tmavé `command-surface` full-bleed sekce s kontejnerem `1320px` a stránka má editorialní statement `Neprodáváme formulář. Prodáváme klidný provoz.` Serif akcent je zredukovaný na tento jeden moment.
+- Lokální ověření 2026-06-06 17:23 CEST po vizuálním rytmu: `npm run check` prošlo s 592 Vitest testy, migrations check, type-check, lint a produkční build. Lokální public smoke prošel 10/10. Browser smoke potvrdil console errors 0, hero gradient, tmavou produktovou sekci, bílý text na tmavé sekci, zobrazení statementu, scroll reveal spodních sekcí, dark režim a horizontální overflow 0. Screenshoty jsou `output/playwright/temaro-visual-rhythm-desktop.png`, `output/playwright/temaro-visual-rhythm-mobile.png`, `output/playwright/temaro-visual-rhythm-dark.png` a `output/playwright/temaro-visual-rhythm-scrolled.png`.
 - Vercel production deploy `dpl_6ZgkD4UjbWZtxU6mhg5KFEmz3gpD` je na aliasu `https://rezervacni-system-xi.vercel.app`; externí public smoke 2026-06-01 16:19 CEST prošel 10/10.
 - Onboarding po registraci nově vede na `/start`: stránka má panel připravenosti, jasnou další akci, veřejný rezervační odkaz a checklist `podnik -> služba -> tým/pracovní doba -> rezervační stránka -> první klienti`.
 - E-mailová i Google registrace nového podniku po vytvoření účtu směřuje do `/start`, ne rovnou na běžný provozní dashboard.
@@ -172,6 +174,7 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 
 ## Poslední změna
 
+- Homepage vizuální rytmus 2026-06-06: hero dostal `signal-hero`, produktový mock je samostatná tmavá full-bleed sekce a stránka má jeden editorialní statement přes šířku. Ověření: `npm run check` 592 testů, lokální public smoke 10/10, browser smoke bez console errors a bez overflow.
 - Homepage motion 2026-06-06: přidané hooky `usePrefersReducedMotion`, `useInView`, komponenty `Reveal`, `CountUp` a `LiveProductShowcase`. Homepage dostala scroll-reveal, count-up metriky, rotující rezervace a telefonní potvrzení, vše jako progressive enhancement s reduced-motion fallbackem. Ověření: `npm run check` 590 testů, lokální public smoke 10/10, browser smoke bez console errors a bez overflow, produkční public smoke 10/10.
 - Homepage clean SaaS směr 2026-06-06: veřejný web se po revertu rozbité bento iterace posouvá ke světlejšímu českému SaaS layoutu s PC + telefon ukázkou, trust štítky `Bez karty na start`, `Žádná provize z vašich klientů` a novým claimem `Méně telefonátů. Více rezervací.` Ověření: `npm run check` 587 testů, lokální public smoke 10/10, screenshoty `temaro-clean-saas-desktop-v3.png` a `temaro-clean-saas-mobile-v3.png`.
 - Revert 2026-06-06: vrací se rozbitá frontend/design iterace homepage z commitu `e9ad262`. Důvod: vizuálně nevyhovující bento sekce s příliš stísněným textem a narušenou čitelností. AI fotky se dál neřeší a zůstávají. Ověření: `npm run check` 586 testů, lokální i produkční public smoke 10/10, produkční deploy `dpl_9aS4nQijxBp7uimg9vHZ6mhNmfba`.

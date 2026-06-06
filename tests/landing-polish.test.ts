@@ -91,8 +91,33 @@ describe("landing polish guard", () => {
     expect(showcase).toContain("Ukázka v počítači i telefonu");
     expect(page).toContain("Bez karty na start");
     expect(page).toContain("Žádná provize z vašich klientů");
-    expect(page).not.toContain("signal-hero");
+    expect(page).toContain("relative signal-hero");
     expect(page).not.toContain("command-surface interactive-demo-shell py-20");
+  });
+
+  test("homepage uses contrast rhythm with product as a full-bleed hero", () => {
+    const page = readProjectFile("app/page.tsx");
+    const showcase = readProjectFile("components/marketing/live-product-showcase.tsx");
+
+    expect(page).toContain('<section className="relative signal-hero">');
+    expect(page).toContain('<section id="produkt" className="command-surface border-y border-white/10 py-20">');
+    expect(page).toContain('max-w-[1320px]');
+    expect(page).toContain("Reálný pohled");
+    expect(page).toContain("Takhle vypadá běžný den ve vašem provozu.");
+    expect(page).toContain("<LiveProductShowcase />");
+    expect(page).not.toContain("lg:grid-cols-[0.78fr_1.22fr]");
+    expect(showcase).not.toContain('id="produkt"');
+    expect(showcase).toContain("xl:right-0");
+  });
+
+  test("homepage has one editorial statement and keeps the serif accent rare", () => {
+    const page = readProjectFile("app/page.tsx");
+    const serifAccentCount = (page.match(/font-serif-accent/g) ?? []).length;
+
+    expect(page).toContain("Neprodáváme formulář. Prodáváme");
+    expect(page).toContain("klidný provoz");
+    expect(page).toContain("Vlastní rezervační odkaz, váš kalendář, vaši klienti.");
+    expect(serifAccentCount).toBe(1);
   });
 
   test("homepage uses progressive motion components without inline product showcase", () => {
