@@ -21,7 +21,7 @@ Důležité chování:
 - Ruční testy jsou odložené do `docs/manual-test-plan.md`.
 - Dokumentaci aktualizuj při smysluplné změně.
 
-Aktuální stav 2026-06-06 15:41 CEST:
+Aktuální stav 2026-06-06 15:53 CEST:
 - Produkt se jmenuje `Temaro`.
 - UX sjednocení veřejných vstupů: `/demo-barber` má Temaro topbar s odkazy `Zpět na web`, `Interaktivní ukázka`, `Registrovat podnik` a theme toggle. Reálné tenant booking stránky `/{slug}` zůstávají tenant-branded bez plné Temaro navigace.
 - `/podniky` má theme toggle. `/login`, `/register`, `/forgot-password`, `/reset-password` a `/account/login` mají horní návrat `Zpět na web` a theme toggle bez plné marketing navigace.
@@ -29,7 +29,7 @@ Aktuální stav 2026-06-06 15:41 CEST:
 - Nová homepage iterace 2026-06-06 jde pryč od Linear/Signal hero směru ke světlejšímu českému SaaS webu: claim `Méně telefonátů. Více rezervací.`, trust štítky, desktopový dashboard mockup a telefonní preview rezervační stránky. Interaktivní průchod zůstává na `/ukazka`.
 - Ověření nové homepage iterace: `npm run check` prošlo 2026-06-06 13:50 CEST s 587 Vitest testy, migrations check, type-check, lint i buildem. Lokální public smoke prošel 10/10. Produkční public smoke prošel 2026-06-06 13:59 CEST proti `https://rezervacni-system-xi.vercel.app` 10/10 a `/api/health` vrací `status=ok`. Screenshoty jsou `output/playwright/temaro-clean-saas-desktop-v3.png` a `output/playwright/temaro-clean-saas-mobile-v3.png`.
 - Homepage motion vrstva 2026-06-06: přidané scroll-reveal animace sekcí/karet, count-up metrik v produktovém mocku, rotující rezervace a telefonní potvrzení `Rezervace potvrzena`. Vše respektuje `prefers-reduced-motion` a SSR obsah zůstává čitelný bez JS.
-- Ověření motion vrstvy: `npm run check` prošlo 2026-06-06 15:41 CEST s 590 Vitest testy, migrations check, type-check, lint i buildem. Lokální public smoke prošel 10/10. Browser smoke potvrdil console errors 0, rotaci rezervací, změnu času v telefonu, potvrzení, reduced-motion statický stav a overflow 0. Screenshoty jsou `output/playwright/temaro-motion-desktop-v2.png` a `output/playwright/temaro-motion-mobile-reduced-v2.png`.
+- Ověření motion vrstvy: `npm run check` prošlo 2026-06-06 15:41 CEST s 590 Vitest testy, migrations check, type-check, lint i buildem. Lokální public smoke prošel 10/10. Browser smoke potvrdil console errors 0, rotaci rezervací, změnu času v telefonu, potvrzení, reduced-motion statický stav a overflow 0. Produkční deploy `dpl_CT2NmmE7bpkjELQrb3BiC8NUPgV5` je READY na aliasu `https://rezervacni-system-xi.vercel.app`; produkční public smoke prošel 2026-06-06 15:52 CEST 10/10 a `/api/health` vrací `status=ok`. Screenshoty jsou `output/playwright/temaro-motion-desktop-v2.png` a `output/playwright/temaro-motion-mobile-reduced-v2.png`.
 - Ověření po revertu před novou iterací: `npm run check` prošlo 2026-06-06 13:25 CEST s 586 Vitest testy, migrations check, type-check, lint i buildem. Lokální i produkční public smoke prošly 10/10. Produkce je na Vercel deployi `dpl_9aS4nQijxBp7uimg9vHZ6mhNmfba`, alias `https://rezervacni-system-xi.vercel.app`.
 - Poslední lokální ověření: `npm run check` prošlo 2026-06-06 12:32 CEST s 586 Vitest testy, migrations check, type-check, lint i buildem. `npx playwright test tests/e2e/public-smoke.spec.ts` prošel 2026-06-06 12:35 CEST 10/10.
 - Veřejná booking stránka `/[slug]` je nově přestavěná na profilový dvousloupec: vlevo profil podniku s coverem, popisem, galerií/výhodami/mapou, vpravo sticky rezervační karta. Lokální screenshot je `output/playwright/toman-barber-profile-layout-v3.png`.

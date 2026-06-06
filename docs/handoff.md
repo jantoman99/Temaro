@@ -1,6 +1,6 @@
 # Handoff
 
-Aktualizováno: 2026-06-06 15:41 CEST
+Aktualizováno: 2026-06-06 15:53 CEST
 
 ## Jak navázat
 
@@ -36,6 +36,7 @@ Aktualizováno: 2026-06-06 15:41 CEST
 - Produkční ověření 2026-06-06 13:59 CEST: `https://rezervacni-system-xi.vercel.app/api/health` vrací `status=ok` a `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` prošel 10/10.
 - Aktuální motion změna 2026-06-06: homepage má scroll-reveal sekcí a karet, count-up v produktovém mocku, rotující seznam rezervací a telefonní smyčku s potvrzením rezervace. Implementace je client-only progressive enhancement; SSR obsah je finální text a reduced-motion vrací statický stav.
 - Poslední lokální ověření: `npm run check` prošlo 2026-06-06 15:41 CEST s 590 Vitest testy, migrations check, type-check, lint i buildem. Lokální public smoke prošel 10/10. Browser smoke potvrdil rotace, potvrzení, reduced-motion statiku, console errors 0 a overflow 0. Screenshoty: `output/playwright/temaro-motion-desktop-v2.png`, `output/playwright/temaro-motion-mobile-reduced-v2.png`.
+- Produkční ověření 2026-06-06 15:52 CEST: Vercel deploy `dpl_CT2NmmE7bpkjELQrb3BiC8NUPgV5` je na aliasu `https://rezervacni-system-xi.vercel.app`, `/api/health` vrací `status=ok` a `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` prošel 10/10.
 - Rozhodnutí scope 2026-05-08: všechny významné konkurenční funkce jsou součást pre-launch MVP, ne fáze 2. Pořadí implementace je anti-no-show/platby, zákazník/integrace, business suite, growth/discovery, mobilní/provozní vrstva.
 - Vlny 1 po rozšíření scope: hotové jsou zdroje rezervací/UTM, čekací listina, review request po návštěvě, online záloha přes Stripe Checkout a storno pravidla navázaná na zálohu/čas do termínu.
 - Čekací listina má tabulku `waitlist_entries`, service-role RPC `create_waitlist_entry`, veřejné CTA při obsazených termínech a owner přehled v kalendáři; migrace `20260508114500_create_waitlist_entries.sql` je aplikovaná lokálně i remote.
@@ -166,7 +167,7 @@ Aktualizováno: 2026-06-06 15:41 CEST
 
 ## Poslední změna
 
-- Homepage motion 2026-06-06: přidané motion hooky a komponenty pro reveal/count-up a živý produktový mock. Animace respektují `prefers-reduced-motion` a nemění SSR obsah. Ověření: `npm run check` 590 testů, lokální public smoke 10/10 a browser smoke bez chyb.
+- Homepage motion 2026-06-06: přidané motion hooky a komponenty pro reveal/count-up a živý produktový mock. Animace respektují `prefers-reduced-motion` a nemění SSR obsah. Ověření: `npm run check` 590 testů, lokální public smoke 10/10, browser smoke bez chyb a produkční public smoke 10/10.
 - Homepage clean SaaS redesign 2026-06-06: po souhlasu se směrem pryč od Linear/Signal landing estetiky vznikl světlejší marketing hero s produktovým PC mockupem, telefonním booking preview, trust štítky a claimem `Méně telefonátů. Více rezervací.` AI fotky zůstávají. Ověření: `npm run check` 587 testů, lokální public smoke 10/10, screenshoty `temaro-clean-saas-desktop-v3.png` a `temaro-clean-saas-mobile-v3.png`.
 - Revert homepage design iterace 2026-06-06: vrací se problematický commit `e9ad262`, protože sekce `Provozní realita` byla vizuálně rozbitá a texty nečitelné. AI fotky se nemění. Produkce po revertu: `dpl_9aS4nQijxBp7uimg9vHZ6mhNmfba`.
 - Onboarding první rezervace 2026-06-01: registrace nového podniku směřuje do `/start`, stránka ukazuje připravenost, další nejlepší krok, veřejný rezervační odkaz a checklist pro spuštění první online rezervace. Texty v registraci a startu jsou zákaznické, ne interní.
