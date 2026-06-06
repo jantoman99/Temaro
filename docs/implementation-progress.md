@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Aktualizováno: 2026-06-06 12:32 CEST
+Aktualizováno: 2026-06-06 13:09 CEST
 
 Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historické analýzy a staré design audity jsou přesunuté do `docs/archive/`.
 
@@ -28,7 +28,8 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - `/podniky` je nově zákaznická vstupní stránka s hledáním podle služby a místa (`Město, adresa nebo čtvrť`); veřejné UI už neukazuje syrové souřadnice ani radius.
 - UX sjednocení veřejné navigace 2026-06-06: demo booking `/demo-barber` už není slepá ulička, má Temaro topbar s odkazy `Zpět na web`, `Interaktivní ukázka`, `Registrovat podnik` a přepínačem světlý/tmavý režim. Reálné tenant booking stránky `/{slug}` zůstávají tenant-branded bez plné Temaro navigace.
 - `/podniky`, podnikatelský login/register, reset hesla a zákaznický login mají dostupný návrat `Zpět na web` nebo theme toggle podle typu stránky, aby se veřejný web nerozpadal na izolované sekce.
-- `npm run check` prošlo 2026-06-06 12:32 CEST po UX navigačním sjednocení: 586 Vitest testů, migrations check, type-check, lint a produkční build. `npx playwright test tests/e2e/public-smoke.spec.ts` prošel 2026-06-06 12:35 CEST 10/10.
+- Frontend/design iterace 2026-06-06 podle `C:\Users\hanys\Downloads\temaro-analyza.md`: homepage má výraznější hero typografii, Early access/prelaunch garance, bento rytmus v produktových benefitech, přesnější pricing `Pilot běží teď` / `Brzy po pilotu`, konkrétnější trust vrstvu `GDPR`, `Data v EU`, `Šifrovaný přenos` a guarantee copy `bez provize navždy`, `export klientů kdykoliv`, `bez karty na start`. AI marketing fotky `public/marketing/*-ai.webp` zůstávají záměrně ponechané.
+- `npm run check` prošlo 2026-06-06 13:08 CEST po frontend/design iteraci: 588 Vitest testů, migrations check, type-check, lint a produkční build. `npx playwright test tests/e2e/public-smoke.spec.ts` prošel 2026-06-06 13:08 CEST 10/10.
 - Vercel production deploy `dpl_6ZgkD4UjbWZtxU6mhg5KFEmz3gpD` je na aliasu `https://rezervacni-system-xi.vercel.app`; externí public smoke 2026-06-01 16:19 CEST prošel 10/10.
 - Onboarding po registraci nově vede na `/start`: stránka má panel připravenosti, jasnou další akci, veřejný rezervační odkaz a checklist `podnik -> služba -> tým/pracovní doba -> rezervační stránka -> první klienti`.
 - E-mailová i Google registrace nového podniku po vytvoření účtu směřuje do `/start`, ne rovnou na běžný provozní dashboard.
@@ -163,6 +164,9 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 
 ## Poslední změna
 
+- Frontend/design polish 2026-06-06: homepage byla převedená do silnějšího prelaunch rámce bez výměny AI fotek. Přibyla `landing-section`/`landing-card` rytmika, bento produktové bloky, product proof sloty, výraznější hero, garance u CTA, konkrétnější security/trust karta a desaturované status barvy v interaktivním demo mockupu.
+- Regresní test `tests/landing-polish.test.ts` nově hlídá Early access/pricing/trust copy a bento/product slot strukturu.
+- Ověření 2026-06-06 13:08 CEST: `npm run check` prošlo s 588 Vitest testy, migrations check, type-check, lint a produkční build. `npx playwright test tests/e2e/public-smoke.spec.ts` prošel 10/10.
 - Homepage demo cleanup 2026-06-01: odstraněný vnitřní scrollbar a opakované spodní karty z hero ukázky. `Přehled provozu`, `Kalendář`, `Rezervační stránka` i `Zákaznický účet` jsou nově kompaktní obrazovky, které se vejdou do panelu bez scrollování a bez useknutého spodku.
 - Ověření 2026-06-01 14:17 CEST: `npm run check` prošlo s 561 Vitest testy, migrations check, type-check, lint a produkční build. Lokální Playwright kontrola potvrdila `overflowY: hidden`, shodné `clientHeight` a `scrollHeight` pro overview i rezervační stránku, žádné staré karty `Platby / Klienti / Termíny`, stabilní ruční výběr po 6,2 s a console errors 0. Screenshoty: `output/playwright/temaro-demo-overview-no-scroll.png`, `output/playwright/temaro-demo-no-scroll.png`.
 - Vercel production deploy `dpl_FUTuzQmvQVtP312kbWqCausjbXk9` je na aliasu `https://rezervacni-system-xi.vercel.app`; externí public smoke 2026-06-01 14:22 CEST prošel 8/8 a produkční kontrola demo panelu potvrdila `overflowY: hidden`, shodné `clientHeight`/`scrollHeight`, žádné staré karty a console errors 0.

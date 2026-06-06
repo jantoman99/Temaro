@@ -4,8 +4,13 @@ import {
   BadgeEuro,
   Building2,
   CheckCircle2,
+  Database,
+  Download,
+  LockKeyhole,
+  MessageCircle,
   PhoneOff,
   ShieldCheck,
+  Sparkles,
   UsersRound,
 } from "lucide-react";
 import type { Metadata } from "next";
@@ -51,24 +56,50 @@ const navLinks = [
   ["/ukazka", "Ukázka"],
 ] as const;
 
-const features = [
+const heroGuarantees = ["bez provize navždy", "export klientů kdykoliv", "bez karty na start"] as const;
+
+const benefitBentoItems = [
   {
     icon: PhoneOff,
     title: "Méně telefonátů",
-    description: "Rezervace vznikne bez zpráv tam a zpět. Vy řešíte práci, ne hledání volného okna.",
-    tone: "border-info/25 bg-info/10 text-info hover:border-info/45",
+    description: "Klient si vybere službu, člověka a čas bez zpráv tam a zpět.",
+    fact: "rezervační odkaz funguje 24/7",
+    tone: "border-info/25 bg-info/10 text-info",
+    size: "lg:col-span-1",
   },
   {
     icon: AlertTriangle,
     title: "No-show pod kontrolou",
-    description: "Rizikový klient nebo čekající termín se neztratí v poznámkách. Systém ho vytáhne dopředu.",
-    tone: "border-warning/25 bg-warning/10 text-warning hover:border-warning/45",
+    description: "Čekající termíny a rizikové návštěvy jsou vidět dřív než ve chvíli, kdy už je pozdě.",
+    fact: "stav rezervace je součást dne",
+    tone: "border-warning/25 bg-warning/10 text-warning",
+    size: "lg:col-span-1",
   },
   {
     icon: UsersRound,
     title: "Paměť podniku",
     description: "Historie návštěv, preference a poznámky zůstávají u klienta, ne v hlavě jednoho člověka.",
-    tone: "border-success/25 bg-success/10 text-success hover:border-success/45",
+    fact: "klientský kontext pro opakované návštěvy",
+    tone: "border-success/25 bg-success/10 text-success",
+    size: "lg:col-span-2",
+  },
+] as const;
+
+const productProofSlots = [
+  {
+    title: "Kalendář týmu",
+    text: "Volná okna, stav rezervace a rychlé založení termínu bez přepínání mezi nástroji.",
+    icon: ShieldCheck,
+  },
+  {
+    title: "Rezervační stránka",
+    text: "Služby, lidé, QR kód a odkaz, který můžete dát na web, Instagram nebo do zprávy.",
+    icon: MessageCircle,
+  },
+  {
+    title: "Klientský pohled",
+    text: "Termín, potvrzení e-mailem a změna bez dalšího telefonátu.",
+    icon: Sparkles,
   },
 ] as const;
 
@@ -128,30 +159,40 @@ const pricingPlans = [
   {
     name: "Pilot",
     price: "0 Kč",
-    note: "pro první zapojené provozy",
+    availability: "Pilot běží teď",
+    badge: "Doporučený pilot",
+    note: "bez karty na start",
     description: "Pro první podniky, které chtějí ověřit online rezervace a kalendář v reálném provozu.",
     features: ["online rezervace", "kalendář", "klienti", "služby a tým"],
+    highlighted: true,
   },
   {
     name: "Solo",
-    price: "připravujeme",
+    price: "Brzy po pilotu",
+    availability: "připravujeme",
+    badge: "pro jednotlivce",
     note: "pro jednoho provozovatele",
     description: "Jednoduchý tarif pro freelancery, trenéry a malé provozy bez složité správy týmu.",
     features: ["1 provoz", "rezervační stránka", "e-mail potvrzení", "změny termínu klientem"],
+    highlighted: false,
   },
   {
     name: "Tým",
-    price: "připravujeme",
+    price: "Brzy po pilotu",
+    availability: "připravujeme",
+    badge: "pro provozovny",
     note: "pro více lidí v kalendáři",
     description: "Pro salony, ordinace a služby, kde rezervace řeší více zaměstnanců.",
     features: ["více zaměstnanců", "role vlastníka a týmu", "pracovní doba", "provozní přehledy"],
+    highlighted: false,
   },
 ] as const;
 
 const trustItems = [
-  ["Data každého podniku zvlášť", "Klienti, termíny a historie jednoho provozu se nemíchají s jiným podnikem."],
-  ["Bezpečné rezervace", "Volné termíny se ověřují při odeslání, aby klient nemohl obsadit čas, který už neplatí."],
-  ["Evropský provoz", "Projekt cílí na český a EU trh, s důrazem na jednoduchost a kontrolu dat."],
+  [ShieldCheck, "GDPR", "Návrh počítá s právy klienta, přístupem k datům a jasnou správou souhlasů."],
+  [Database, "Data v EU", "Projekt cílí na český a evropský provoz, bez míchání dat mezi podniky."],
+  [LockKeyhole, "Šifrovaný přenos", "Přihlášení i veřejné rezervace běží přes zabezpečené spojení."],
+  [Download, "export klientů kdykoliv", "Vlastní vztah s klientem zůstává u podniku, ne u cizího katalogu."],
 ] as const;
 
 const proofMetrics = [
@@ -269,22 +310,33 @@ export default async function Home() {
             </div>
           </header>
 
-          <div className="grid flex-1 items-center gap-10 py-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-center lg:py-10">
+          <div className="grid flex-1 items-center gap-10 py-8 lg:grid-cols-[0.78fr_1.22fr] lg:items-center lg:py-10">
             <section className="mx-auto max-w-2xl lg:mx-0">
               <div className="motion-reveal inline-flex items-center gap-2 rounded-full border border-primary/15 bg-card/75 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-primary shadow-sm backdrop-blur">
                 <span className="signal-pulse size-2 rounded-full bg-primary" />
-                Rezervační systém pro služby
+                Early access · rezervační systém pro služby
               </div>
 
-              <h1 className="motion-reveal mt-7 max-w-4xl text-balance text-5xl font-semibold leading-[0.98] tracking-[-0.045em] text-foreground sm:text-6xl lg:text-[4.6rem]">
+              <h1 className="motion-reveal mt-7 max-w-5xl text-balance text-6xl font-semibold leading-[0.9] tracking-[-0.065em] text-foreground sm:text-7xl lg:text-[6rem] xl:text-[6.7rem]">
                 Méně telefonátů.
                 <br />
                 <span className="font-serif-accent text-primary">Klidnější</span>{" "}
                 provoz.
               </h1>
-              <p className="motion-reveal mt-6 max-w-xl text-lg font-medium leading-[1.55] text-muted-foreground sm:text-xl">
+              <p className="motion-reveal mt-6 max-w-xl text-lg font-medium leading-[1.55] text-secondary-foreground sm:text-xl">
                 Online rezervace, týmový kalendář a klientský kontext pro provozy, kde každý volný termín stojí peníze.
               </p>
+
+              <div className="motion-reveal mt-6 flex flex-wrap gap-2">
+                {heroGuarantees.map((guarantee) => (
+                  <span
+                    key={guarantee}
+                    className="rounded-full border border-border/80 bg-card/78 px-3 py-1.5 text-xs font-bold text-foreground shadow-sm backdrop-blur"
+                  >
+                    {guarantee}
+                  </span>
+                ))}
+              </div>
 
               <div className="motion-reveal mt-9 flex flex-col gap-3 sm:flex-row">
                 <Link
@@ -311,7 +363,7 @@ export default async function Home() {
                     <p className="nums-tabular text-2xl font-semibold tracking-tight text-primary sm:text-3xl">
                       {value}
                     </p>
-                    <p className="mt-1 max-w-[15rem] text-xs font-medium leading-4 text-muted-foreground sm:mt-2 sm:text-sm sm:leading-5">
+                    <p className="mt-1 max-w-[15rem] text-xs font-medium leading-4 text-secondary-foreground sm:mt-2 sm:text-sm sm:leading-5">
                       {label}
                     </p>
                   </div>
@@ -324,40 +376,64 @@ export default async function Home() {
         </div>
       </section>
 
-      <section id="provoz" className="relative mx-auto w-full max-w-[1180px] px-4 py-16 sm:px-6 lg:px-8">
+      <section id="provoz" className="landing-section relative mx-auto w-full max-w-[1180px] px-4 sm:px-6 lg:px-8">
         <div className="grid gap-8 lg:grid-cols-[0.82fr_1.18fr]">
-          <header>
+          <header className="lg:sticky lg:top-28 lg:self-start">
             <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Provozní realita</p>
             <h2 className="mt-3 text-balance text-4xl font-semibold leading-[1.05] tracking-tight text-foreground sm:text-5xl">
-              Neprodáváme formulář. Prodáváme klid v provozu.
+              Neprodáváme formulář. Držíme pohromadě den v provozu.
             </h2>
-            <p className="mt-5 max-w-md text-sm font-medium leading-6 text-secondary-foreground">
+            <p className="mt-5 max-w-md text-base font-medium leading-7 text-secondary-foreground">
               Rezervace není izolovaný formulář. Je to tok mezi klientem, kalendářem, týmem a historií podniku.
             </p>
           </header>
 
-          <div className="grid gap-4 sm:grid-cols-3">
-            {features.map((feature) => (
+          <div className="grid auto-rows-fr gap-4 sm:grid-cols-2">
+            <article className="landing-card relative aspect-[16/10] min-h-[19rem] overflow-hidden p-5 sm:p-6 lg:col-span-2">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_18%,oklch(0.55_0.19_282_/_0.16),transparent_18rem)]" />
+              <div className="relative flex h-full flex-col justify-between gap-8">
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Produkt v praxi</p>
+                  <h3 className="mt-3 max-w-xl text-3xl font-semibold leading-[1.02] tracking-tight sm:text-4xl">
+                    Jedna provozní obrazovka místo roztříštěných zpráv, tabulek a papírového diáře.
+                  </h3>
+                </div>
+                <div className="grid gap-3 sm:grid-cols-3">
+                  {productProofSlots.map((slot) => (
+                    <div key={slot.title} className="rounded-2xl border border-border/80 bg-card/82 p-4 shadow-sm backdrop-blur">
+                      <slot.icon className="size-5 text-primary" strokeWidth={1.9} />
+                      <h4 className="mt-3 text-base font-semibold tracking-tight">{slot.title}</h4>
+                      <p className="mt-2 text-sm font-medium leading-6 text-secondary-foreground">{slot.text}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </article>
+
+            {benefitBentoItems.map((feature) => (
               <article
                 key={feature.title}
-                className={`relative overflow-hidden rounded-2xl border bg-card p-5 shadow-sm transition hover:-translate-y-1 ${feature.tone}`}
+                className={`landing-card relative overflow-hidden p-5 transition hover:-translate-y-1 hover:shadow-md ${feature.size}`}
               >
-                <div className={`mb-5 flex size-11 items-center justify-center rounded-xl ${feature.tone}`} aria-hidden>
+                <div className={`mb-5 flex size-11 items-center justify-center rounded-xl border ${feature.tone}`} aria-hidden>
                   <feature.icon className="h-5 w-5" strokeWidth={1.9} />
                 </div>
                 <h3 className="text-lg font-semibold tracking-tight text-foreground">{feature.title}</h3>
                 <p className="mt-2 text-sm font-medium leading-6 text-secondary-foreground">{feature.description}</p>
+                <p className="mt-6 rounded-full border border-border bg-secondary/70 px-3 py-1.5 text-xs font-bold text-secondary-foreground">
+                  {feature.fact}
+                </p>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="bg-secondary/70 py-20">
+      <section className="landing-section bg-secondary/70">
         <div className="mx-auto w-full max-w-[1180px] px-4 sm:px-6 lg:px-8">
         <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Reálné provozy</p>
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Provozní scénáře</p>
             <h2 className="mt-3 max-w-2xl text-balance text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
               Vypadá jako systém pro služby, ne jako obecná šablona.
             </h2>
@@ -368,7 +444,7 @@ export default async function Home() {
         </div>
         <div className="grid gap-4 md:grid-cols-3">
           {visualSegments.map((segment) => (
-            <article key={segment.title} className="group overflow-hidden rounded-xl border border-border bg-card shadow-sm">
+            <article key={segment.title} className="landing-card group overflow-hidden">
               <div className="relative aspect-[4/3] overflow-hidden">
                 <Image
                   src={segment.image}
@@ -389,7 +465,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <section id="pro-koho" className="mx-auto w-full max-w-[1180px] px-4 py-20 sm:px-6 lg:px-8">
+      <section id="pro-koho" className="landing-section mx-auto w-full max-w-[1180px] px-4 sm:px-6 lg:px-8">
         <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Pro koho</p>
@@ -402,13 +478,15 @@ export default async function Home() {
           </p>
         </div>
 
-        <div className="grid gap-3 md:grid-cols-2">
+        <div className="grid auto-rows-fr gap-3 md:grid-cols-2 lg:grid-cols-4">
           {audienceSegments.map((segment, index) => (
             <article
               key={segment.title}
-              className={`rounded-2xl border border-l-4 border-border bg-card p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-md ${segment.tone}`}
+              className={`landing-card border-l-4 p-5 transition hover:-translate-y-1 hover:shadow-md ${
+                index === 0 ? "lg:col-span-2 lg:row-span-2" : ""
+              } ${segment.tone}`}
             >
-              <div className="mb-5 flex items-center justify-between">
+              <div className="mb-5 flex items-start justify-between gap-4">
                 <span className={`grid size-10 place-items-center rounded-xl ${segment.iconTone}`}>
                   <Building2 className="size-5" strokeWidth={1.9} />
                 </span>
@@ -428,7 +506,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="command-surface interactive-demo-shell py-20">
+      <section className="command-surface interactive-demo-shell landing-section">
         <div className="mx-auto grid w-full max-w-[1180px] gap-6 px-4 sm:px-6 lg:grid-cols-[0.82fr_1.18fr] lg:px-8">
           <header>
             <p className="text-xs font-bold uppercase tracking-[0.16em] text-white/58">Praktické návody</p>
@@ -459,8 +537,8 @@ export default async function Home() {
         </div>
       </section>
 
-      <section id="cenik" className="mx-auto w-full max-w-[1180px] px-4 py-20 sm:px-6 lg:px-8">
-        <div className="grid overflow-hidden rounded-xl border border-border bg-card shadow-sm lg:grid-cols-[0.9fr_1.1fr]">
+      <section id="cenik" className="landing-section mx-auto w-full max-w-[1180px] px-4 sm:px-6 lg:px-8">
+        <div className="landing-card grid overflow-hidden lg:grid-cols-[0.9fr_1.1fr]">
           <div className="command-surface p-6 sm:p-8">
             <div className="mb-8 grid size-12 place-items-center rounded-2xl bg-primary text-primary-foreground">
               <BadgeEuro className="size-6" strokeWidth={1.8} />
@@ -473,19 +551,35 @@ export default async function Home() {
               Nechceme stavět systém, který vydělává na tom, že vám přivede vlastního klienta. Pilot ověří provozní cestu,
               finální tarify zůstanou jednoduché a čitelné.
             </p>
+            <div className="mt-8 grid gap-2 text-sm font-semibold text-white/78">
+              {heroGuarantees.map((guarantee) => (
+                <div key={guarantee} className="flex items-start gap-2">
+                  <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-primary" strokeWidth={1.9} />
+                  {guarantee}
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className="grid gap-3 bg-secondary p-4 sm:p-6">
-            {pricingPlans.map((plan, index) => (
+            {pricingPlans.map((plan) => (
               <article
                 key={plan.name}
                 className={`rounded-2xl border p-5 shadow-sm ${
-                  index === 0 ? "border-primary/30 bg-card shadow-primary/10" : "border-border bg-card"
+                  plan.highlighted ? "border-primary/35 bg-card shadow-primary/10 ring-1 ring-primary/12" : "border-border bg-card"
                 }`}
               >
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                   <div>
-                    <h3 className="text-xl font-semibold tracking-tight">{plan.name}</h3>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <h3 className="text-xl font-semibold tracking-tight">{plan.name}</h3>
+                      <span className="rounded-full border border-primary/20 bg-primary/10 px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.12em] text-primary">
+                        {plan.badge}
+                      </span>
+                    </div>
+                    <p className="mt-3 text-xs font-bold uppercase tracking-[0.14em] text-secondary-foreground">
+                      {plan.availability}
+                    </p>
                     <p className="mt-2 max-w-md text-sm font-medium leading-6 text-secondary-foreground">
                       {plan.description}
                     </p>
@@ -497,8 +591,8 @@ export default async function Home() {
                 </div>
                 <div className="mt-5 grid gap-2 sm:grid-cols-2">
                   {plan.features.map((feature) => (
-                    <div key={feature} className="flex items-center gap-2 text-sm font-semibold text-foreground">
-                      <CheckCircle2 className="size-4 text-success" strokeWidth={1.9} />
+                    <div key={feature} className="flex items-start gap-2 text-sm font-semibold text-foreground">
+                      <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-success" strokeWidth={1.9} />
                       {feature}
                     </div>
                   ))}
@@ -516,7 +610,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <section id="bezpecnost" className="bg-secondary/70 py-20">
+      <section id="bezpecnost" className="landing-section bg-secondary/70">
         <div className="mx-auto grid w-full max-w-[1180px] gap-8 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
           <header>
             <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Bezpečnost a důvěra</p>
@@ -529,11 +623,11 @@ export default async function Home() {
             </p>
           </header>
 
-          <div className="grid gap-3">
-            {trustItems.map(([title, text]) => (
-              <article key={title} className="flex gap-4 rounded-2xl border border-border bg-card p-5 shadow-sm">
+          <div className="grid gap-3 sm:grid-cols-2">
+            {trustItems.map(([Icon, title, text]) => (
+              <article key={title} className="landing-card flex items-start gap-4 p-5">
                 <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary">
-                  <ShieldCheck className="size-5" strokeWidth={1.9} />
+                  <Icon className="size-5" strokeWidth={1.9} />
                 </span>
                 <div>
                   <h3 className="text-lg font-semibold tracking-tight">{title}</h3>

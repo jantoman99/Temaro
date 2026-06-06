@@ -1,6 +1,6 @@
 # Handoff
 
-Aktualizováno: 2026-06-06 12:32 CEST
+Aktualizováno: 2026-06-06 13:09 CEST
 
 ## Jak navázat
 
@@ -28,7 +28,8 @@ Aktualizováno: 2026-06-06 12:32 CEST
 - Aktivní business/pricing rámec je v `docs/business-model.md`.
 - Aktuální UX změna 2026-06-06: `/demo-barber` už má Temaro topbar s návratem `Zpět na web`, odkazem na `/ukazka`, CTA na registraci a přepínačem světlý/tmavý režim. Reálné tenant booking stránky `/{slug}` zůstávají bez plné Temaro navigace, aby působily jako stránka podniku.
 - `/podniky` má theme toggle a auth/customer vstupy (`/login`, `/register`, `/forgot-password`, `/reset-password`, `/account/login`) mají horní návrat `Zpět na web` a theme toggle.
-- Poslední ověření: `npm run check` prošlo 2026-06-06 12:32 CEST s 586 Vitest testy, migrations check, type-check, lint i buildem. `npx playwright test tests/e2e/public-smoke.spec.ts` prošel 2026-06-06 12:35 CEST 10/10.
+- Aktuální frontend/design změna 2026-06-06: homepage je posílená podle `temaro-analyza.md` pro prelaunch veřejný web. Má větší hero typografii, `Early access`, garance `bez provize navždy`, `export klientů kdykoliv`, `bez karty na start`, bento produktové bloky, konkrétnější trust vrstvu a pricing rámec `Pilot běží teď` / `Brzy po pilotu`. AI fotky v `public/marketing/*-ai.webp` zůstávají záměrně ponechané.
+- Poslední ověření: `npm run check` prošlo 2026-06-06 13:08 CEST s 588 Vitest testy, migrations check, type-check, lint i buildem. `npx playwright test tests/e2e/public-smoke.spec.ts` prošel 2026-06-06 13:08 CEST 10/10.
 - Rozhodnutí scope 2026-05-08: všechny významné konkurenční funkce jsou součást pre-launch MVP, ne fáze 2. Pořadí implementace je anti-no-show/platby, zákazník/integrace, business suite, growth/discovery, mobilní/provozní vrstva.
 - Vlny 1 po rozšíření scope: hotové jsou zdroje rezervací/UTM, čekací listina, review request po návštěvě, online záloha přes Stripe Checkout a storno pravidla navázaná na zálohu/čas do termínu.
 - Čekací listina má tabulku `waitlist_entries`, service-role RPC `create_waitlist_entry`, veřejné CTA při obsazených termínech a owner přehled v kalendáři; migrace `20260508114500_create_waitlist_entries.sql` je aplikovaná lokálně i remote.
@@ -159,6 +160,8 @@ Aktualizováno: 2026-06-06 12:32 CEST
 
 ## Poslední změna
 
+- Frontend/design polish homepage 2026-06-06: zpracovaná první část analýzy pro veřejný web, bez zásahu do AI fotek a bez změn přihlášené části. Přibyly `landing-section`/`landing-card`, `benefitBentoItems`, `productProofSlots`, silnější prelaunch pricing/trust copy a jemnější status barvy v `InteractiveProductDemo`.
+- Ověření 2026-06-06 13:08 CEST: `npm run check` prošlo s 588 Vitest testy, migrations check, type-check, lint a produkční build. `npx playwright test tests/e2e/public-smoke.spec.ts` prošel 10/10.
 - Onboarding první rezervace 2026-06-01: registrace nového podniku směřuje do `/start`, stránka ukazuje připravenost, další nejlepší krok, veřejný rezervační odkaz a checklist pro spuštění první online rezervace. Texty v registraci a startu jsou zákaznické, ne interní.
 - Rychlý service/staff onboarding 2026-06-01: `/services` umí přidat tři doporučené služby podle oboru, `/staff` při založení člověka výchozí volbou přiřadí všechny aktuální služby a `/booking-page` ukazuje připravenost rezervační stránky podle služby, týmu, pracovní doby a propojení služby s týmem.
 - Sdílecí závěr onboardingu 2026-06-01: `/start` po hotovém základu ukazuje text pro Instagram bio, text pro story/příspěvek, QR kód a CTA na stránku klienta.

@@ -21,10 +21,12 @@ Důležité chování:
 - Ruční testy jsou odložené do `docs/manual-test-plan.md`.
 - Dokumentaci aktualizuj při smysluplné změně.
 
-Aktuální stav 2026-06-06 12:32 CEST:
+Aktuální stav 2026-06-06 13:09 CEST:
 - Produkt se jmenuje `Temaro`.
 - UX sjednocení veřejných vstupů: `/demo-barber` má Temaro topbar s odkazy `Zpět na web`, `Interaktivní ukázka`, `Registrovat podnik` a theme toggle. Reálné tenant booking stránky `/{slug}` zůstávají tenant-branded bez plné Temaro navigace.
 - `/podniky` má theme toggle. `/login`, `/register`, `/forgot-password`, `/reset-password` a `/account/login` mají horní návrat `Zpět na web` a theme toggle bez plné marketing navigace.
+- Frontend/design iterace veřejného webu podle `C:\Users\hanys\Downloads\temaro-analyza.md` je rozpracovaná první vlnou na homepage: výraznější hero, `Early access`, garance `bez provize navždy`, `export klientů kdykoliv`, `bez karty na start`, bento produktové bloky, prelaunch pricing `Pilot běží teď` / `Brzy po pilotu` a trust signály `GDPR`, `Data v EU`, `Šifrovaný přenos`. AI fotky v `public/marketing/*-ai.webp` zůstávají záměrně ponechané.
+- Poslední lokální ověření: `npm run check` prošlo 2026-06-06 13:08 CEST s 588 Vitest testy, migrations check, type-check, lint i buildem. `npx playwright test tests/e2e/public-smoke.spec.ts` prošel 2026-06-06 13:08 CEST 10/10.
 - Poslední lokální ověření: `npm run check` prošlo 2026-06-06 12:32 CEST s 586 Vitest testy, migrations check, type-check, lint i buildem. `npx playwright test tests/e2e/public-smoke.spec.ts` prošel 2026-06-06 12:35 CEST 10/10.
 - Veřejná booking stránka `/[slug]` je nově přestavěná na profilový dvousloupec: vlevo profil podniku s coverem, popisem, galerií/výhodami/mapou, vpravo sticky rezervační karta. Lokální screenshot je `output/playwright/toman-barber-profile-layout-v3.png`.
 - Poslední lokální ověření: `npm run check` prošlo 2026-06-01 23:41 CEST s 584 Vitest testy, migrations check, type-check, lint i buildem. `npx playwright test tests/e2e/public-smoke.spec.ts` prošel 2026-06-01 23:47 CEST 10/10.
