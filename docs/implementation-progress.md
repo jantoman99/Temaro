@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Aktualizováno: 2026-06-06 13:28 CEST
+Aktualizováno: 2026-06-06 13:50 CEST
 
 Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historické analýzy a staré design audity jsou přesunuté do `docs/archive/`.
 
@@ -10,7 +10,7 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - Typ produktu: multi-tenant SaaS rezervační systém pro lokální služby.
 - MVP jádro je implementované.
 - Nákupy a placené provozní kroky jsou odložené: Supabase Pro/leaked password protection a Google OAuth runtime aktivace se řeší až před spuštěním na produkční doméně.
-- Aktivní vizuální směr je `docs/15-design-system-v3.md` jako Temaro Signal OS.
+- Aktivní vizuální směr je `docs/15-design-system-v3.md`; veřejný marketing web se od 2026-06-06 posouvá od Linear/Signal hero estetiky ke světlejšímu českému SaaS směru s konkrétní ukázkou PC + telefon, zatímco přihlášená aplikace dál drží provozní Signal OS.
 - Aktivní tržní/product analýza je `docs/14-market-analysis-booking-systems.md`.
 - Aktivní business/pricing rámec je `docs/business-model.md`.
 - Aktivní niche/SEO/GEO/AEO strategie pro český trh je `docs/17-czech-market-niches-seo-geo-aeo.md`.
@@ -32,6 +32,8 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - Problematická homepage design iterace `e9ad262` z 2026-06-06 byla po vizuální kontrole vrácena: bento/product proof blok rozbil typografii a čitelnost. Další redesign veřejného webu se má dělat znovu po menších částech s vizuální kontrolou před deployem.
 - `npm run check` prošlo 2026-06-06 13:25 CEST po revertu rozbité homepage iterace: 586 Vitest testů, migrations check, type-check, lint a produkční build. Lokální i produkční `npx playwright test tests/e2e/public-smoke.spec.ts` prošly 10/10.
 - Vercel production deploy `dpl_9aS4nQijxBp7uimg9vHZ6mhNmfba` je na aliasu `https://rezervacni-system-xi.vercel.app`; `/api/health` je `ok`. Screenshot revertované sekce je `output/playwright/homepage-provoz-after-revert.png`.
+- Nová homepage design iterace 2026-06-06 je záměrně menší a vychází ze směru podobného Reservly: světlejší SaaS layout, konkrétní hero claim `Méně telefonátů. Více rezervací.`, statická produktová ukázka dashboardu a telefonní preview rezervační stránky. AI fotky zůstávají.
+- Lokální ověření 2026-06-06 13:50 CEST: `npm run check` prošlo s 587 Vitest testy, migrations check, type-check, lint a produkční build. Lokální `npx playwright test tests/e2e/public-smoke.spec.ts` prošel 10/10. Screenshoty jsou `output/playwright/temaro-clean-saas-desktop-v3.png` a `output/playwright/temaro-clean-saas-mobile-v3.png`.
 - Vercel production deploy `dpl_6ZgkD4UjbWZtxU6mhg5KFEmz3gpD` je na aliasu `https://rezervacni-system-xi.vercel.app`; externí public smoke 2026-06-01 16:19 CEST prošel 10/10.
 - Onboarding po registraci nově vede na `/start`: stránka má panel připravenosti, jasnou další akci, veřejný rezervační odkaz a checklist `podnik -> služba -> tým/pracovní doba -> rezervační stránka -> první klienti`.
 - E-mailová i Google registrace nového podniku po vytvoření účtu směřuje do `/start`, ne rovnou na běžný provozní dashboard.
@@ -135,9 +137,9 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 
 - Temaro logo komponenta je v `components/brand/temaro-logo.tsx`.
 - Transparentní SVG brand assety jsou v `public/brand`.
-- Root landing page používá aktuální claim `Méně telefonátů. Klidnější provoz.`
+- Root landing page používá aktuální claim `Méně telefonátů. Více rezervací.`
 - Landing má zkrácenou top navigaci `Produkt`, `Obory`, `Ceník`, `Demo`.
-- Hero má pseudo-interaktivní produktový mockup `InteractiveProductDemo`.
+- Hero má statickou clean SaaS ukázku produktu: desktopový dashboard a telefonní booking preview; interaktivní průchod zůstává na `/ukazka`.
 - Veřejný booking má checkoutovější strukturu a průběžný kontext výběru.
 - Dashboard shell, kalendář, klienti, služby a staff jsou sjednocené do Signal OS stylu.
 - Klienti, služby a tým používají kompaktní CRM/ERP tabulky místo roztažených karet.
@@ -166,6 +168,7 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 
 ## Poslední změna
 
+- Homepage clean SaaS směr 2026-06-06: veřejný web se po revertu rozbité bento iterace posouvá ke světlejšímu českému SaaS layoutu s PC + telefon ukázkou, trust štítky `Bez karty na start`, `Žádná provize z vašich klientů` a novým claimem `Méně telefonátů. Více rezervací.` Ověření: `npm run check` 587 testů, lokální public smoke 10/10, screenshoty `temaro-clean-saas-desktop-v3.png` a `temaro-clean-saas-mobile-v3.png`.
 - Revert 2026-06-06: vrací se rozbitá frontend/design iterace homepage z commitu `e9ad262`. Důvod: vizuálně nevyhovující bento sekce s příliš stísněným textem a narušenou čitelností. AI fotky se dál neřeší a zůstávají. Ověření: `npm run check` 586 testů, lokální i produkční public smoke 10/10, produkční deploy `dpl_9aS4nQijxBp7uimg9vHZ6mhNmfba`.
 - Homepage demo cleanup 2026-06-01: odstraněný vnitřní scrollbar a opakované spodní karty z hero ukázky. `Přehled provozu`, `Kalendář`, `Rezervační stránka` i `Zákaznický účet` jsou nově kompaktní obrazovky, které se vejdou do panelu bez scrollování a bez useknutého spodku.
 - Ověření 2026-06-01 14:17 CEST: `npm run check` prošlo s 561 Vitest testy, migrations check, type-check, lint a produkční build. Lokální Playwright kontrola potvrdila `overflowY: hidden`, shodné `clientHeight` a `scrollHeight` pro overview i rezervační stránku, žádné staré karty `Platby / Klienti / Termíny`, stabilní ruční výběr po 6,2 s a console errors 0. Screenshoty: `output/playwright/temaro-demo-overview-no-scroll.png`, `output/playwright/temaro-demo-no-scroll.png`.

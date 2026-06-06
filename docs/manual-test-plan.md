@@ -19,26 +19,25 @@ Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 - Na veřejném deployi bez env otevřít `/api/health` a ověřit, že `checks.env.missing` je číslo, ne seznam názvů interních proměnných.
 - Přes `curl -I http://localhost:3000` nebo DevTools Network ověřit, že response obsahuje `Content-Security-Policy`.
 - Přes `curl -I http://localhost:3000` nebo DevTools Network ověřit, že běžné routy obsahují `X-Frame-Options: DENY`; `/embed/booking/<slug>` ho mít nemá, protože booking widget musí jít vložit do iframe.
-- Zkontrolovat root landing page `/`: aktualni smer je `docs/15-design-system-v3.md` jako Temaro Signal OS, ne archivni design směry.
+- Zkontrolovat root landing page `/`: aktuální veřejný směr je čistší český SaaS web inspirovaný Reservly-like strukturou, ne tmavý Linear/Signal hero. Přihlášená aplikace dál může držet Signal OS.
 - Zkontrolovat top bar landing page: musi obsahovat `Produkt`, `Obory`, `Ceník`, `Demo`, `Přihlášení` a primary CTA `Začít zdarma`.
 - Přepnout theme toggle mezi světlým a tmavým režimem; landing se nesmí vizuálně rozpadnout ani ztratit kontrast textu.
 - Ověřit, že theme toggle nabízí jen `Světlý` a `Tmavý`; volba `System` nemá být v UI.
 - Proklikat top bar kotvy a overit, ze vedou na odpovidajici sekce, ne na prazdne nebo neexistujici stranky.
 - Na mobilni sirce zkontrolovat, ze top navigace nezmizi, nepreteka mimo viewport a ctyri hlavni polozky jsou citelne bez horizontalniho scrollu.
-- Na landing page zkontrolovat hero: eyebrow `Rezervační systém pro služby`, claim `Méně telefonátů. Klidnější provoz.`, subhead pro salony/ordinace/trenéry/autoservisy a primary CTA `Začít zdarma`.
+- Na landing page zkontrolovat hero: eyebrow pro české salony/barbery/služby, claim `Méně telefonátů. Více rezervací.`, subhead o vlastní rezervační stránce, týmovém kalendáři a přehledu klientů a primary CTA `Začít zdarma`.
 - Pod hero CTA zkontrolovat proof metriky `3 kroky`, `0 Kč` a `0 %`; nemaji byt duplicitne zopakovane jako samostatna spodni proof sekce.
 - Na mobilní šířce ověřit, že proof labely pod hero CTA jsou čitelné a neslévají se bez mezer.
-- V hero mockupu ověřit, že texty metrik nejsou ořezané v light ani dark mode a že ukázka nepůsobí jako reálný live dashboard s nepravdivými daty.
+- V hero mockupu ověřit, že produktová ukázka má PC dashboard i telefonní booking preview, texty nejsou ořezané v light ani dark mode a ukázka nepůsobí jako nepravdivý live dashboard.
 - Zkontrolovat sekci `Reálné provozy`: obrázky se musí načíst, mít konzistentní poměr stran a být vizuálně odlišné pro barber, beauty a fitness/training segment.
 - Ověřit, že podnikatelská registrace `/register` a zákaznický účet `/account/login` zůstávají dostupné přes CTA/footer, i když samostatná homepage sekce `Dva typy účtů` byla odstraněná kvůli zkrácení stránky.
 - Otevřít `/podniky`, ověřit demo/veřejný výpis, hledání podle textu, města a oboru, booking CTA a odkaz `Otevřít mapu`.
 - Na `/podniky` ověřit theme toggle ve veřejné hlavičce a návrat na podnikatelskou homepage přes `Pro podniky`.
 - Otevřít `/demo-barber` a ověřit, že není slepá ulička: nahoře musí být `Zpět na web`, `Interaktivní ukázka`, `Registrovat podnik` a theme toggle. Vlastní demo rezervační flow musí zůstat použitelné.
-- Na landing page zkontrolovat signal-grid pozadi na desktopu, neutral/command produktovy mockup, fialovo-modry brand signal a konkretni provozni copy.
-- Na landing page zkontrolovat product mockup: musi mit produktovy chrome, command hint a kapacitni graf, ne jen statickou kartu.
-- V hero product mockupu proklikat scénáře `Dnes`, `Booking` a `Klient`; metriky a checkout panel se mají měnit bez reloadu stránky.
-- Při přepínání `Dnes`, `Booking` a `Klient` ověřit, že se nemění šířka produktového okna a žádný panel neleze přes jiný obsah.
-- V hero product mockupu proklikat sidebar `Přehled`, `Kalendář`, `Klienti` a `Signály`; aktivní stav i obsah se mají přepnout bez reloadu stránky.
+- Na landing page zkontrolovat světlé pozadí, konkrétní provozní copy a produktový náhled bez tmavého Linear/Signal hero dojmu.
+- Na landing page zkontrolovat produktovou ukázku: desktopový dashboard musí působit jako reálný SaaS produkt a telefonní overlay jako veřejná rezervační stránka.
+- Ověřit, že interaktivní průchod systémem zůstává dostupný přes CTA `Spustit ukázku` nebo stránku `/ukazka`; hero na homepage už nemusí být interaktivní.
+- Při změně viewportu ověřit, že se PC mockup a telefonní preview nepřekrývají, nemění šířku stránky a nevzniká horizontální scroll.
 - Na běžném desktop viewportu kolem 1366 px ověřit, že mockup používá kompaktní layout bez pravého booking panelu přes hlavní kartu; na širokém viewportu může zobrazit plný dvousloupec.
 - Na landing page zkontrolovat nove sekce `Pro koho`, `Ceník` a `Bezpečnost`: maji pusobit jako realny SaaS web, ne jako placeholder text pod hero sekci.
 - Zkontrolovat zkrácenou sekci `Praktické návody`: hlavní stránka má ukazovat jen čtyři segmentové odkazy, zatímco ostatní SEO/answer odkazy zůstávají dostupné ve footeru.

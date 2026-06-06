@@ -21,13 +21,14 @@ Důležité chování:
 - Ruční testy jsou odložené do `docs/manual-test-plan.md`.
 - Dokumentaci aktualizuj při smysluplné změně.
 
-Aktuální stav 2026-06-06 13:28 CEST:
+Aktuální stav 2026-06-06 13:50 CEST:
 - Produkt se jmenuje `Temaro`.
 - UX sjednocení veřejných vstupů: `/demo-barber` má Temaro topbar s odkazy `Zpět na web`, `Interaktivní ukázka`, `Registrovat podnik` a theme toggle. Reálné tenant booking stránky `/{slug}` zůstávají tenant-branded bez plné Temaro navigace.
 - `/podniky` má theme toggle. `/login`, `/register`, `/forgot-password`, `/reset-password` a `/account/login` mají horní návrat `Zpět na web` a theme toggle bez plné marketing navigace.
 - Problematická frontend/design iterace homepage z commitu `e9ad262` je vracená, protože rozbila čitelnost a layout sekce `Provozní realita`. AI fotky se neřeší a zůstávají.
-- Ověření po revertu: `npm run check` prošlo 2026-06-06 13:25 CEST s 586 Vitest testy, migrations check, type-check, lint i buildem. Lokální i produkční public smoke prošly 10/10. Produkce je na Vercel deployi `dpl_9aS4nQijxBp7uimg9vHZ6mhNmfba`, alias `https://rezervacni-system-xi.vercel.app`.
-- Screenshot kontroly sekce `#provoz` je `output/playwright/homepage-provoz-after-revert.png`.
+- Nová homepage iterace 2026-06-06 jde pryč od Linear/Signal hero směru ke světlejšímu českému SaaS webu: claim `Méně telefonátů. Více rezervací.`, trust štítky, desktopový dashboard mockup a telefonní preview rezervační stránky. Interaktivní průchod zůstává na `/ukazka`.
+- Ověření nové homepage iterace: `npm run check` prošlo 2026-06-06 13:50 CEST s 587 Vitest testy, migrations check, type-check, lint i buildem. Lokální public smoke prošel 10/10. Screenshoty jsou `output/playwright/temaro-clean-saas-desktop-v3.png` a `output/playwright/temaro-clean-saas-mobile-v3.png`.
+- Ověření po revertu před novou iterací: `npm run check` prošlo 2026-06-06 13:25 CEST s 586 Vitest testy, migrations check, type-check, lint i buildem. Lokální i produkční public smoke prošly 10/10. Produkce je na Vercel deployi `dpl_9aS4nQijxBp7uimg9vHZ6mhNmfba`, alias `https://rezervacni-system-xi.vercel.app`.
 - Poslední lokální ověření: `npm run check` prošlo 2026-06-06 12:32 CEST s 586 Vitest testy, migrations check, type-check, lint i buildem. `npx playwright test tests/e2e/public-smoke.spec.ts` prošel 2026-06-06 12:35 CEST 10/10.
 - Veřejná booking stránka `/[slug]` je nově přestavěná na profilový dvousloupec: vlevo profil podniku s coverem, popisem, galerií/výhodami/mapou, vpravo sticky rezervační karta. Lokální screenshot je `output/playwright/toman-barber-profile-layout-v3.png`.
 - Poslední lokální ověření: `npm run check` prošlo 2026-06-01 23:41 CEST s 584 Vitest testy, migrations check, type-check, lint i buildem. `npx playwright test tests/e2e/public-smoke.spec.ts` prošel 2026-06-01 23:47 CEST 10/10.
@@ -188,7 +189,7 @@ Aktuální stav 2026-06-06 13:28 CEST:
 - Nákupy a placené provozní kroky jsou odložené až před spuštěním: produkční doména, Supabase Pro/leaked password protection a Google OAuth runtime aktivace.
 - Nové produktové rozhodnutí: Temaro má dva typy účtů, podnikatelský a zákaznický; veřejný katalog podniků podle lokality/oboru, mapa podniku a plný Google Calendar sync jsou schválené další vrstvy po stabilním core.
 - MVP základ je implementovaný: auth, tenant izolace, služby, zálohový základ, staff, klienti, kalendář, veřejný booking, self-service manage, emaily a reminder cron.
-- Aktivní design směr je `docs/15-design-system-v3.md` jako Temaro Signal OS.
+- Aktivní design směr je `docs/15-design-system-v3.md`; veřejný marketing web jde čistším českým SaaS směrem, přihlášená aplikace dál používá provozní Signal OS.
 - Aktivní tržní/product analýza je `docs/14-market-analysis-booking-systems.md`.
 - Aktivní hloubková konkurenční analýza Salony a rezervačních systémů je `docs/20-competitive-analysis-booking-systems-2026.md`.
 - Aktivní business/pricing rámec je `docs/business-model.md`.

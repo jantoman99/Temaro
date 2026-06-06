@@ -1,6 +1,6 @@
 # Handoff
 
-Aktualizováno: 2026-06-06 13:28 CEST
+Aktualizováno: 2026-06-06 13:50 CEST
 
 ## Jak navázat
 
@@ -19,7 +19,7 @@ Aktualizováno: 2026-06-06 13:28 CEST
 - Nákupy a placené provozní kroky jsou odložené až před spuštěním: produkční doména, Supabase Pro/leaked password protection a Google OAuth runtime aktivace.
 - Nové produktové rozhodnutí: Temaro má komunikovat dva typy účtů, podnikatelský a zákaznický. Veřejný katalog podniků podle lokality/oboru, mapa podniku a plný Google Calendar sync jsou schválené další vrstvy po stabilním core.
 - Veřejný katalog má první implementovanou vrstvu: `/podniky`, strukturovaný obor tenantu, veřejná lokalizační pole, mapový odkaz a owner volbu `Zobrazit podnik ve veřejném katalogu`; veřejné vyhledávání je zákaznické přes službu a místo/adresu, ne přes syrové souřadnice.
-- Aktivní design směr je Temaro Signal OS v `docs/15-design-system-v3.md`.
+- Aktivní design směr je `docs/15-design-system-v3.md`; veřejný marketing web se právě posouvá ke světlejšímu českému SaaS směru s konkrétní ukázkou PC + telefon, zatímco přihlášená aplikace dál drží provozní Signal OS.
 - Aktivní tržní analýza a gapy jsou v `docs/14-market-analysis-booking-systems.md`.
 - Aktivní hloubková konkurenční analýza Salony a dalších rezervačních systémů je v `docs/20-competitive-analysis-booking-systems-2026.md`.
 - Aktivní niche/SEO/GEO/AEO strategie pro český trh je v `docs/17-czech-market-niches-seo-geo-aeo.md`.
@@ -31,6 +31,8 @@ Aktualizováno: 2026-06-06 13:28 CEST
 - Poslední ověření: `npm run check` prošlo 2026-06-06 12:32 CEST s 586 Vitest testy, migrations check, type-check, lint i buildem. `npx playwright test tests/e2e/public-smoke.spec.ts` prošel 2026-06-06 12:35 CEST 10/10.
 - Poznámka k designu 2026-06-06: commit `e9ad262` s homepage bento/prelaunch polischem byl po vizuální kontrole vyhodnocený jako rozbitý a je vracený. Další frontend/design práce má začít čistěji, po menších blocích a s browser screenshot kontrolou před push/deploy.
 - Poslední ověření po revertu: `npm run check` prošlo 2026-06-06 13:25 CEST s 586 Vitest testy, migrations check, type-check, lint i buildem. Lokální i produkční public smoke prošly 10/10. Produkce je na Vercel deployi `dpl_9aS4nQijxBp7uimg9vHZ6mhNmfba`, alias `https://rezervacni-system-xi.vercel.app`; screenshot kontroly je `output/playwright/homepage-provoz-after-revert.png`.
+- Aktuální frontend/design změna 2026-06-06: homepage je převedená na čistší Reservly-like český SaaS směr. Hero používá claim `Méně telefonátů. Více rezervací.`, světlé pozadí, trust štítky, dashboard mockup a telefonní preview rezervační stránky. Interaktivní homepage demo je z hero odstraněné, samostatná `/ukazka` zůstává.
+- Poslední lokální ověření: `npm run check` prošlo 2026-06-06 13:50 CEST s 587 Vitest testy, migrations check, type-check, lint i buildem. Lokální `npx playwright test tests/e2e/public-smoke.spec.ts` prošel 10/10. Screenshoty: `output/playwright/temaro-clean-saas-desktop-v3.png`, `output/playwright/temaro-clean-saas-mobile-v3.png`.
 - Rozhodnutí scope 2026-05-08: všechny významné konkurenční funkce jsou součást pre-launch MVP, ne fáze 2. Pořadí implementace je anti-no-show/platby, zákazník/integrace, business suite, growth/discovery, mobilní/provozní vrstva.
 - Vlny 1 po rozšíření scope: hotové jsou zdroje rezervací/UTM, čekací listina, review request po návštěvě, online záloha přes Stripe Checkout a storno pravidla navázaná na zálohu/čas do termínu.
 - Čekací listina má tabulku `waitlist_entries`, service-role RPC `create_waitlist_entry`, veřejné CTA při obsazených termínech a owner přehled v kalendáři; migrace `20260508114500_create_waitlist_entries.sql` je aplikovaná lokálně i remote.
@@ -161,6 +163,7 @@ Aktualizováno: 2026-06-06 13:28 CEST
 
 ## Poslední změna
 
+- Homepage clean SaaS redesign 2026-06-06: po souhlasu se směrem pryč od Linear/Signal landing estetiky vznikl světlejší marketing hero s produktovým PC mockupem, telefonním booking preview, trust štítky a claimem `Méně telefonátů. Více rezervací.` AI fotky zůstávají. Ověření: `npm run check` 587 testů, lokální public smoke 10/10, screenshoty `temaro-clean-saas-desktop-v3.png` a `temaro-clean-saas-mobile-v3.png`.
 - Revert homepage design iterace 2026-06-06: vrací se problematický commit `e9ad262`, protože sekce `Provozní realita` byla vizuálně rozbitá a texty nečitelné. AI fotky se nemění. Produkce po revertu: `dpl_9aS4nQijxBp7uimg9vHZ6mhNmfba`.
 - Onboarding první rezervace 2026-06-01: registrace nového podniku směřuje do `/start`, stránka ukazuje připravenost, další nejlepší krok, veřejný rezervační odkaz a checklist pro spuštění první online rezervace. Texty v registraci a startu jsou zákaznické, ne interní.
 - Rychlý service/staff onboarding 2026-06-01: `/services` umí přidat tři doporučené služby podle oboru, `/staff` při založení člověka výchozí volbou přiřadí všechny aktuální služby a `/booking-page` ukazuje připravenost rezervační stránky podle služby, týmu, pracovní doby a propojení služby s týmem.

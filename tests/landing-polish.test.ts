@@ -81,6 +81,19 @@ describe("landing polish guard", () => {
     expect(page).not.toContain("border border-border bg-secondary px-3 py-1 text-xs font-bold text-muted-foreground");
   });
 
+  test("homepage follows the clean Czech SaaS direction", () => {
+    const page = readProjectFile("app/page.tsx");
+
+    expect(page).toContain("clean-saas-page");
+    expect(page).toContain("clean-saas-showcase");
+    expect(page).toContain("phone-booking-preview");
+    expect(page).toContain("Ukázka v počítači i telefonu");
+    expect(page).toContain("Bez karty na start");
+    expect(page).toContain("Žádná provize z vašich klientů");
+    expect(page).not.toContain("signal-hero");
+    expect(page).not.toContain("command-surface interactive-demo-shell py-20");
+  });
+
   test("public navigation separates business and customer paths", () => {
     const page = readProjectFile("app/page.tsx");
 

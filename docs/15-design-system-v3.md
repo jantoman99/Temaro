@@ -1,8 +1,14 @@
-# 15 – Design system v3: Temaro Signal OS
+# 15 – Design system v3: Temaro visual system
 
-Datum: 2026-05-01  
-Stav: aktuální zdroj pravdy pro vizuální směr  
+Datum: 2026-06-06
+Stav: aktuální zdroj pravdy pro vizuální směr
 Navazuje na historické audity v `docs/archive/`
+
+## 0. Stav po rozhodnutí 2026-06-06
+
+Veřejný marketing web se posouvá pryč od tmavé Linear/Signal hero estetiky. Cílem je čistší český SaaS směr: světlé plochy, konkrétní copy, jasný produktový screenshot/mockup, telefonní rezervační preview a méně abstraktního „command“ jazyka.
+
+Signal OS zůstává užitečný pro přihlášenou provozní aplikaci: dashboard, kalendář, entity, stavové signály a hustší pracovní plochy. Pro landing je ale hlavní důvěra, čitelnost a rychlé pochopení produktu.
 
 ## 1. Rešeršní závěr 2026
 
@@ -102,8 +108,7 @@ Praktický závěr pro Temaro:
 Aplikované změny:
 
 - Top bar je dostupný i na mobilu jako horizontálně posuvná navigace.
-- Hero product mockup dostal produktový chrome, command hint a kapacitní graf, aby působil víc jako reálný SaaS produkt než statický wireframe.
-- Hero product mockup je nově pseudo-interaktivní komponenta se scénáři `Dnes`, `Booking` a `Klient`, aby landing ukazoval produkt v akci místo jednoho statického screenshotu.
+- Hero product mockup po změně 2026-06-06 používá statickou PC + telefon ukázku, aby landing rychle vysvětlil produkt bez rizika rozbité interaktivní hero plochy. Interaktivní průchod zůstává odděleně na `/ukazka`.
 - Sekce `Pro koho` obsahuje konkrétní use-case signály pro salony, trenéry, ordinace a lokální služby.
 - Sekce `Ceník` má tři pricing karty: Pilot, Solo a Tým. Finální ceny nejsou vymyšlené, dokud nejsou schválené.
 - Proof metriky jsou přesunuté nad hero mockup, aby nahrazovaly falešné reference ověřitelnými projektovými fakty.
@@ -114,7 +119,7 @@ Aplikované změny:
 - Public booking header ukazuje průběžný výběr služby a termínu, aby klient neztratil kontext během checkoutu.
 - Kalendářové týdenní/denní/list komponenty mají výraznější Signal OS hlavičky, sjednocené radiusy, jemnější produktové povrchy a hover stavy.
 - Admin stránky `clients`, `services` a `staff` mají sjednocený Signal OS framing pro filtry, statistiky a search bloky bez duplicitního rámování existujících formulářových karet.
-- Claude validace z archivovaného `docs/archive/14-validated-improvements.md` je aplikovaná: hero eyebrow říká kategorii `Rezervační systém pro služby`, H1 používá `Klidnější provoz`, primary CTA je sjednocené na `Začít zdarma` a ověřitelné proof metriky jsou přesunuté hned pod hero CTA.
+- Claude validace z archivovaného `docs/archive/14-validated-improvements.md` je aplikovaná a navazující homepage iterace 2026-06-06 používá claim `Méně telefonátů. Více rezervací.`, primary CTA `Začít zdarma` a ověřitelné proof metriky hned pod hero CTA.
 - Duplicitní spodní blok `Důkaz připravenosti` byl odstraněný, protože stejné metriky jsou nyní above-the-fold.
 - Landing má redukovaný serif accent na tři významová místa, odstraněné `font-black` regrese a glow/command shadow hodnoty jsou přesunuté do tokenů v `app/globals.css`.
 - Mobilní landing má lehčí kritickou vrstvu: bez hero grid patternu, bez dekorativního dot patternu v demo shellu a bez `motion-reveal` animací na šířkách do 640 px.
@@ -420,15 +425,15 @@ Princip:
 
 Nová struktura:
 
-1. Sticky command bar
+1. Sticky public nav
    - logo,
    - krátká navigace,
    - CTA.
 
 2. Hero
-   - claim: „Méně telefonátů. Klidnější provoz.“
-   - podclaim: konkrétně booking, klienti, připomínky, no-show.
-   - velký produktový mockup s provozními signály.
+   - claim: „Méně telefonátů. Více rezervací.“
+   - podclaim: vlastní rezervační stránka, týmový kalendář a přehled klientů.
+   - velký produktový mockup s dashboardem a telefonním booking preview.
 
 3. Proof strip
    - 24h reminder,

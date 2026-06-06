@@ -1,6 +1,6 @@
 # Runtime checklist
 
-Aktualizováno: 2026-06-06 13:28 CEST
+Aktualizováno: 2026-06-06 13:50 CEST
 
 Tento checklist je pro první reálné ověření mimo demo režim.
 
@@ -28,6 +28,8 @@ Aktuální známý stav:
 - `npm run check` prošlo 2026-06-06 13:25 CEST po revertu homepage design iterace: 586 Vitest testů, migrations check, type-check, lint a produkční build. Produkční public smoke prošel 2026-06-06 13:28 CEST 10/10 a `/api/health` je `ok`.
 - Vercel production deploy po revertu je `dpl_9aS4nQijxBp7uimg9vHZ6mhNmfba` na aliasu `https://rezervacni-system-xi.vercel.app`.
 - Screenshot ověření sekce `#provoz` po revertu je `output/playwright/homepage-provoz-after-revert.png`; sekce má šířku 1180 px a stránka nemá horizontální overflow.
+- `npm run check` prošlo 2026-06-06 13:50 CEST po clean SaaS homepage iteraci: 587 Vitest testů, migrations check, type-check, lint a produkční build. Lokální public smoke prošel 10/10.
+- Runtime ověřit homepage `/`: hero claim `Méně telefonátů. Více rezervací.`, světlý SaaS layout, trust štítky, produktový PC mockup a telefonní booking preview. Screenshoty lokální kontroly jsou `output/playwright/temaro-clean-saas-desktop-v3.png` a `output/playwright/temaro-clean-saas-mobile-v3.png`.
 - Runtime ověřit na `/demo-barber`: topbar obsahuje `Zpět na web`, `Interaktivní ukázka`, `Registrovat podnik` a theme toggle. Reálné tenant booking stránky `/{slug}` mají zůstat tenant-branded bez plné Temaro navigace.
 - Runtime ověřit na `/podniky`, `/login`, `/register`, `/forgot-password`, `/reset-password` a `/account/login`: návštěvník se umí vrátit na web a přepnout světlý/tmavý režim tam, kde je stránka součást veřejného vstupu.
 - `npm run check` prošlo 2026-06-01 16:40 CEST po rychlém service/staff/booking-page onboardingu: 572 Vitest testů, migrations check, type-check, lint a produkční build.

@@ -25,7 +25,7 @@ test.describe("public smoke", () => {
   test("landing page exposes primary marketing paths", async ({ page }) => {
     await page.goto("/");
 
-    await expect(page.getByRole("heading", { name: /Méně telefonátů\. Klidnější/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Méně telefonátů\. Více rezervací/i })).toBeVisible();
     await expect(page.getByRole("link", { name: /Začít zdarma/i }).first()).toBeVisible();
     await expect(page.getByRole("link", { name: "Pro podniky", exact: true }).first()).toBeVisible();
     await expect(page.getByRole("link", { name: "Pro zákazníky", exact: true }).first()).toBeVisible();
