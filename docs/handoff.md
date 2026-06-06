@@ -1,6 +1,6 @@
 # Handoff
 
-Aktualizováno: 2026-06-06 13:13 CEST
+Aktualizováno: 2026-06-06 13:20 CEST
 
 ## Jak navázat
 
@@ -28,9 +28,8 @@ Aktualizováno: 2026-06-06 13:13 CEST
 - Aktivní business/pricing rámec je v `docs/business-model.md`.
 - Aktuální UX změna 2026-06-06: `/demo-barber` už má Temaro topbar s návratem `Zpět na web`, odkazem na `/ukazka`, CTA na registraci a přepínačem světlý/tmavý režim. Reálné tenant booking stránky `/{slug}` zůstávají bez plné Temaro navigace, aby působily jako stránka podniku.
 - `/podniky` má theme toggle a auth/customer vstupy (`/login`, `/register`, `/forgot-password`, `/reset-password`, `/account/login`) mají horní návrat `Zpět na web` a theme toggle.
-- Aktuální frontend/design změna 2026-06-06: homepage je posílená podle `temaro-analyza.md` pro prelaunch veřejný web. Má větší hero typografii, `Early access`, garance `bez provize navždy`, `export klientů kdykoliv`, `bez karty na start`, bento produktové bloky, konkrétnější trust vrstvu a pricing rámec `Pilot běží teď` / `Brzy po pilotu`. AI fotky v `public/marketing/*-ai.webp` zůstávají záměrně ponechané.
-- Poslední ověření: `npm run check` prošlo 2026-06-06 13:08 CEST s 588 Vitest testy, migrations check, type-check, lint i buildem. `npx playwright test tests/e2e/public-smoke.spec.ts` prošel 2026-06-06 13:08 CEST 10/10.
-- Produkce po této změně: Vercel deploy `dpl_9MKntNjEAUmWtxUsBCPtjcK4mHaD`, alias `https://rezervacni-system-xi.vercel.app`; `/api/health` je `ok` a externí public smoke 2026-06-06 13:12 CEST prošel 10/10.
+- Poslední ověření: `npm run check` prošlo 2026-06-06 12:32 CEST s 586 Vitest testy, migrations check, type-check, lint i buildem. `npx playwright test tests/e2e/public-smoke.spec.ts` prošel 2026-06-06 12:35 CEST 10/10.
+- Poznámka k designu 2026-06-06: commit `e9ad262` s homepage bento/prelaunch polischem byl po vizuální kontrole vyhodnocený jako rozbitý a je vracený. Další frontend/design práce má začít čistěji, po menších blocích a s browser screenshot kontrolou před push/deploy.
 - Rozhodnutí scope 2026-05-08: všechny významné konkurenční funkce jsou součást pre-launch MVP, ne fáze 2. Pořadí implementace je anti-no-show/platby, zákazník/integrace, business suite, growth/discovery, mobilní/provozní vrstva.
 - Vlny 1 po rozšíření scope: hotové jsou zdroje rezervací/UTM, čekací listina, review request po návštěvě, online záloha přes Stripe Checkout a storno pravidla navázaná na zálohu/čas do termínu.
 - Čekací listina má tabulku `waitlist_entries`, service-role RPC `create_waitlist_entry`, veřejné CTA při obsazených termínech a owner přehled v kalendáři; migrace `20260508114500_create_waitlist_entries.sql` je aplikovaná lokálně i remote.
@@ -161,8 +160,7 @@ Aktualizováno: 2026-06-06 13:13 CEST
 
 ## Poslední změna
 
-- Frontend/design polish homepage 2026-06-06: zpracovaná první část analýzy pro veřejný web, bez zásahu do AI fotek a bez změn přihlášené části. Přibyly `landing-section`/`landing-card`, `benefitBentoItems`, `productProofSlots`, silnější prelaunch pricing/trust copy a jemnější status barvy v `InteractiveProductDemo`.
-- Ověření 2026-06-06 13:08-13:15 CEST: `npm run check` prošlo s 588 Vitest testy, migrations check, type-check, lint a produkční build. Lokální i produkční public smoke prošly 10/10. Produkční deploy `dpl_9MKntNjEAUmWtxUsBCPtjcK4mHaD` je na aliasu `https://rezervacni-system-xi.vercel.app`.
+- Revert homepage design iterace 2026-06-06: vrací se problematický commit `e9ad262`, protože sekce `Provozní realita` byla vizuálně rozbitá a texty nečitelné. AI fotky se nemění.
 - Onboarding první rezervace 2026-06-01: registrace nového podniku směřuje do `/start`, stránka ukazuje připravenost, další nejlepší krok, veřejný rezervační odkaz a checklist pro spuštění první online rezervace. Texty v registraci a startu jsou zákaznické, ne interní.
 - Rychlý service/staff onboarding 2026-06-01: `/services` umí přidat tři doporučené služby podle oboru, `/staff` při založení člověka výchozí volbou přiřadí všechny aktuální služby a `/booking-page` ukazuje připravenost rezervační stránky podle služby, týmu, pracovní doby a propojení služby s týmem.
 - Sdílecí závěr onboardingu 2026-06-01: `/start` po hotovém základu ukazuje text pro Instagram bio, text pro story/příspěvek, QR kód a CTA na stránku klienta.

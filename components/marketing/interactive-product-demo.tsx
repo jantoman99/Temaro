@@ -37,10 +37,10 @@ const productSurfaces = [
 type SurfaceId = (typeof productSurfaces)[number]["id"];
 
 const kpiItems = [
-  ["Dnešní rezervace", "12", "stabilní den", "border-info/20 bg-info/5 text-info"],
-  ["Tržba dnes", "8 400 Kč", "z dokončených rezervací", "border-success/20 bg-success/5 text-success"],
-  ["Volná okna", "3", "kapacita dostupná", "border-warning/20 bg-warning/5 text-warning"],
-  ["Riziko", "1", "vyžaduje pozornost", "border-destructive/20 bg-destructive/5 text-destructive"],
+  ["Dnešní rezervace", "12", "stabilní den", "border-info/25 bg-info/10 text-info"],
+  ["Tržba dnes", "8 400 Kč", "z dokončených rezervací", "border-success/25 bg-success/10 text-success"],
+  ["Volná okna", "3", "kapacita dostupná", "border-warning/25 bg-warning/10 text-amber-800 dark:text-warning"],
+  ["Riziko", "1", "vyžaduje pozornost", "border-destructive/25 bg-destructive/10 text-destructive"],
 ] as const;
 
 const agenda = [
@@ -51,9 +51,9 @@ const agenda = [
 ] as const;
 
 const toneClassNames = {
-  confirm: "border-l-success bg-success/5 text-success",
-  wait: "border-l-warning bg-warning/5 text-warning",
-  risk: "border-l-destructive bg-destructive/5 text-destructive",
+  confirm: "border-l-success bg-success/10 text-success",
+  wait: "border-l-warning bg-warning/10 text-warning",
+  risk: "border-l-destructive bg-destructive/10 text-destructive",
 } as const;
 
 const calendarDays = [
@@ -394,8 +394,8 @@ export function InteractiveProductDemo() {
                           <h3 className="mt-1 text-base font-semibold tracking-tight">{activeTourStep.title}</h3>
                           <ul className="mt-2 grid gap-1.5 text-sm font-medium leading-5 text-muted-foreground">
                             {activeTourStep.points.map((point) => (
-                              <li key={point} className="flex items-start gap-2">
-                                <span className="mt-2 size-1.5 rounded-full bg-primary/70" />
+                              <li key={point} className="flex items-center gap-2">
+                                <span className="size-1.5 rounded-full bg-primary/70" />
                                 {point}
                               </li>
                             ))}

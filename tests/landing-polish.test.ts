@@ -81,33 +81,6 @@ describe("landing polish guard", () => {
     expect(page).not.toContain("border border-border bg-secondary px-3 py-1 text-xs font-bold text-muted-foreground");
   });
 
-  test("homepage implements prelaunch trust and pricing frame", () => {
-    const page = readProjectFile("app/page.tsx");
-
-    expect(page).toContain("Early access");
-    expect(page).toContain("bez karty na start");
-    expect(page).toContain("bez provize navždy");
-    expect(page).toContain("export klientů kdykoliv");
-    expect(page).toContain("Pilot běží teď");
-    expect(page).toContain("Brzy po pilotu");
-    expect(page).toContain("Doporučený pilot");
-    expect(page).toContain("GDPR");
-    expect(page).toContain("Data v EU");
-    expect(page).toContain("Šifrovaný přenos");
-  });
-
-  test("homepage uses bento rhythm and product slots", () => {
-    const page = readProjectFile("app/page.tsx");
-
-    expect(page).toContain("benefitBentoItems");
-    expect(page).toContain("productProofSlots");
-    expect(page).toContain("lg:col-span-2");
-    expect(page).toContain("auto-rows-fr");
-    expect(page).toContain("aspect-[16/10]");
-    expect(page).toContain("landing-section");
-    expect(page).toContain("landing-card");
-  });
-
   test("public navigation separates business and customer paths", () => {
     const page = readProjectFile("app/page.tsx");
 

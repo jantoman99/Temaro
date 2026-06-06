@@ -208,17 +208,6 @@
     letter-spacing: -0.012em;
   }
 
-  .landing-section {
-    padding-block: clamp(4.5rem, 7vw, 7rem);
-  }
-
-  .landing-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 1.5rem;
-    box-shadow: var(--shadow-sm);
-  }
-
   .signal-grid {
     background-image:
       linear-gradient(oklch(0.55 0.19 282 / 0.045) 1px, transparent 1px),

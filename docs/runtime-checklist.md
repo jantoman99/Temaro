@@ -1,6 +1,6 @@
 # Runtime checklist
 
-Aktualizováno: 2026-06-06 13:13 CEST
+Aktualizováno: 2026-06-06 13:20 CEST
 
 Tento checklist je pro první reálné ověření mimo demo režim.
 
@@ -24,12 +24,7 @@ Aktuální známý stav:
 
 - `npm run check` prošlo 2026-06-06 12:32 CEST po UX sjednocení veřejné navigace: 586 Vitest testů, migrations check, type-check, lint a produkční build.
 - Lokální public Playwright smoke prošel 2026-06-06 12:35 CEST: `npx playwright test tests/e2e/public-smoke.spec.ts` má 10/10 testů zelených.
-- `npm run check` prošlo 2026-06-06 13:08 CEST po frontend/design polishi homepage: 588 Vitest testů, migrations check, type-check, lint a produkční build.
-- Lokální public Playwright smoke prošel 2026-06-06 13:08 CEST: `npx playwright test tests/e2e/public-smoke.spec.ts` má 10/10 testů zelených.
-- Vercel production deploy `dpl_9MKntNjEAUmWtxUsBCPtjcK4mHaD` je na aliasu `https://rezervacni-system-xi.vercel.app`. `/api/health` 2026-06-06 13:15 CEST vrací `status=ok`, `env.ok=true`, `supabase.configured=true`. Externí public smoke prošel: `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` má 10/10 testů zelených.
-- Runtime ověřit na `/`: hero obsahuje `Early access`, claim `Méně telefonátů. Klidnější provoz.`, garance `bez provize navždy`, `export klientů kdykoliv`, `bez karty na start`; sekce benefitů používá bento/product proof rytmus a AI fotky v provozních scénářích zůstávají načtené.
-- Runtime ověřit v `Ceník`: `Pilot` je zvýrazněný jako `Doporučený pilot`, stav `Pilot běží teď`; `Solo` a `Tým` ukazují `Brzy po pilotu`, bez vymyšlených finálních cen.
-- Runtime ověřit v `Bezpečnost a důvěra`: viditelné jsou `GDPR`, `Data v EU`, `Šifrovaný přenos` a `export klientů kdykoliv`.
+- Runtime poznámka 2026-06-06: homepage design iterace z commitu `e9ad262` byla vizuálně nevyhovující a je vracená. Při dalším redesignu veřejného webu povinně ověřit desktop screenshot před deployem, hlavně sekci `Provozní realita`.
 - Runtime ověřit na `/demo-barber`: topbar obsahuje `Zpět na web`, `Interaktivní ukázka`, `Registrovat podnik` a theme toggle. Reálné tenant booking stránky `/{slug}` mají zůstat tenant-branded bez plné Temaro navigace.
 - Runtime ověřit na `/podniky`, `/login`, `/register`, `/forgot-password`, `/reset-password` a `/account/login`: návštěvník se umí vrátit na web a přepnout světlý/tmavý režim tam, kde je stránka součást veřejného vstupu.
 - `npm run check` prošlo 2026-06-01 16:40 CEST po rychlém service/staff/booking-page onboardingu: 572 Vitest testů, migrations check, type-check, lint a produkční build.
