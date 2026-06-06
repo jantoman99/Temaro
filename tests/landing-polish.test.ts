@@ -91,42 +91,48 @@ describe("landing polish guard", () => {
     expect(showcase).toContain("Ukázka v počítači i telefonu");
     expect(page).toContain("Bez karty na start");
     expect(page).toContain("Žádná provize z vašich klientů");
-    expect(page).toContain("relative signal-hero");
+    expect(page).toContain('id="produkt" className="relative signal-hero"');
     expect(page).not.toContain("command-surface interactive-demo-shell py-20");
   });
 
-  test("homepage uses contrast rhythm with product as a full-bleed hero", () => {
+  test("homepage uses a two-column hero with product as the visual half", () => {
     const page = readProjectFile("app/page.tsx");
     const showcase = readProjectFile("components/marketing/live-product-showcase.tsx");
 
-    expect(page).toContain('<section className="relative signal-hero">');
-    expect(page).toContain('<section id="produkt" className="command-surface border-y border-white/10 py-20">');
-    expect(page).toContain('max-w-[1320px]');
-    expect(page).toContain("Reálný pohled");
-    expect(page).toContain("Takhle vypadá běžný den ve vašem provozu.");
+    expect(page).toContain('<section id="produkt" className="relative signal-hero">');
+    expect(page).toContain(
+      '<div className="grid flex-1 items-center gap-10 py-10 lg:grid-cols-[0.82fr_1.18fr] lg:gap-12 lg:py-12">',
+    );
+    expect(page).toContain('<section className="mx-auto w-full max-w-2xl text-left lg:mx-0">');
     expect(page).toContain("<LiveProductShowcase />");
-    expect(page).not.toContain("lg:grid-cols-[0.78fr_1.22fr]");
+    expect(page).not.toContain('<section id="produkt" className="command-surface border-y border-white/10 py-20">');
+    expect(page).not.toContain('max-w-[1320px]');
+    expect(page).not.toContain("Reálný pohled");
+    expect(page).not.toContain("Takhle vypadá běžný den ve vašem provozu.");
     expect(showcase).not.toContain('id="produkt"');
     expect(showcase).toContain("xl:right-0");
   });
 
-  test("homepage hero is centered and only as tall as its content", () => {
+  test("homepage hero keeps left-aligned copy and fills the viewport with product preview", () => {
     const page = readProjectFile("app/page.tsx");
 
     expect(page).toContain(
-      'className="mx-auto flex w-full max-w-[1180px] flex-col px-4 py-4 sm:px-6 lg:px-0"',
+      'className="mx-auto flex min-h-[88vh] w-full max-w-[1180px] flex-col px-4 py-4 sm:px-6 lg:px-0"',
     );
-    expect(page).toContain('<div className="py-16 lg:py-24">');
-    expect(page).toContain('<section className="mx-auto w-full max-w-3xl text-center">');
-    expect(page).toContain('className="mt-7 mx-auto max-w-4xl text-balance');
-    expect(page).toContain('className="mt-6 mx-auto max-w-xl text-lg');
-    expect(page).toContain('className="mt-9 flex flex-col items-center gap-3 sm:flex-row sm:justify-center"');
-    expect(page).toContain('className="mt-6 flex flex-wrap justify-center gap-2"');
-    expect(page).toContain('className="mt-8 mx-auto grid max-w-2xl grid-cols-3 gap-2 sm:gap-3"');
+    expect(page).toContain('<section className="mx-auto w-full max-w-2xl text-left lg:mx-0">');
+    expect(page).toContain('className="mt-7 max-w-2xl text-balance');
+    expect(page).toContain('className="mt-6 max-w-xl text-lg');
+    expect(page).toContain('className="mt-9 flex flex-col gap-3 sm:flex-row"');
+    expect(page).toContain('className="mt-6 flex flex-wrap gap-2"');
+    expect(page).toContain('className="mt-8 grid max-w-xl grid-cols-3 gap-2 sm:gap-3"');
+    expect(page).not.toContain("py-16 lg:py-24");
+    expect(page).not.toContain("max-w-3xl text-center");
+    expect(page).not.toContain("mt-7 mx-auto");
+    expect(page).not.toContain("mt-6 mx-auto");
+    expect(page).not.toContain("sm:justify-center");
+    expect(page).not.toContain("mt-6 flex flex-wrap justify-center gap-2");
     expect(page).not.toContain("min-h-[78vh]");
     expect(page).not.toContain("lg:min-h-[76vh]");
-    expect(page).not.toContain("flex flex-1 items-center py-12 lg:py-16");
-    expect(page).not.toContain("text-left lg:mx-0");
   });
 
   test("homepage has one editorial statement and keeps the serif accent rare", () => {

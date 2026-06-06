@@ -122,7 +122,7 @@ Aplikované změny:
 - Claude validace z archivovaného `docs/archive/14-validated-improvements.md` je aplikovaná a navazující homepage iterace 2026-06-06 používá claim `Méně telefonátů. Více rezervací.`, primary CTA `Začít zdarma` a ověřitelné proof metriky hned pod hero CTA.
 - Duplicitní spodní blok `Důkaz připravenosti` byl odstraněný, protože stejné metriky jsou nyní above-the-fold.
 - Landing má redukovaný serif accent na tři významová místa, odstraněné `font-black` regrese a glow/command shadow hodnoty jsou přesunuté do tokenů v `app/globals.css`.
-- Navazující vizuální rytmus 2026-06-06 znovu používá existující tokeny `signal-hero` a `command-surface`: hero je světlý gradient, produktový mock je samostatná tmavá full-bleed sekce a jeden editorialní statement přes šířku rozbíjí monotónní šedý tok. Serif accent je v této iteraci redukovaný na jeden hrdinský moment.
+- Navazující vizuální rytmus 2026-06-06 znovu používá existující token `signal-hero`: hero je světlý dvousloupcový grid s textem vlevo a produktovým PC + telefon mockem vpravo. Samostatná tmavá `command-surface` produktová sekce byla odstraněná jako duplicita; později se může vrátit pro jiné demo video. Serif accent je v této iteraci redukovaný na jeden hrdinský moment.
 - Mobilní landing má lehčí kritickou vrstvu: bez hero grid patternu, bez dekorativního dot patternu v demo shellu a bez `motion-reveal` animací na šířkách do 640 px.
 - Performance audit je zapsaný v `docs/15-performance-audit.md`: desktop Lighthouse 100/100, mobile 93/100; zbytkový mobile LCP 3.1 s je známý bod pro pozdější ruční mobilní ověření.
 

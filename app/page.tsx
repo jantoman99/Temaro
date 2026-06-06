@@ -235,8 +235,8 @@ export default async function Home() {
 
   return (
     <main className="clean-saas-page min-h-screen overflow-hidden bg-[#f7f7f9] text-foreground dark:bg-background">
-      <section className="relative signal-hero">
-        <div className="mx-auto flex w-full max-w-[1180px] flex-col px-4 py-4 sm:px-6 lg:px-0">
+      <section id="produkt" className="relative signal-hero">
+        <div className="mx-auto flex min-h-[88vh] w-full max-w-[1180px] flex-col px-4 py-4 sm:px-6 lg:px-0">
           <header className="sticky top-3 z-30 mx-auto flex min-h-16 w-full flex-wrap items-center justify-between gap-3 rounded-2xl border border-border/80 bg-card/92 px-3 py-3 shadow-sm backdrop-blur-md sm:px-4">
             <Link href="/" className="flex items-center gap-3">
               <TemaroLogo />
@@ -272,23 +272,23 @@ export default async function Home() {
             </div>
           </header>
 
-          <div className="py-16 lg:py-24">
-            <section className="mx-auto w-full max-w-3xl text-center">
+          <div className="grid flex-1 items-center gap-10 py-10 lg:grid-cols-[0.82fr_1.18fr] lg:gap-12 lg:py-12">
+            <section className="mx-auto w-full max-w-2xl text-left lg:mx-0">
               <div className="inline-flex items-center gap-2 rounded-full border border-primary/15 bg-card px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-primary shadow-sm">
                 <span className="signal-pulse size-2 rounded-full bg-primary" />
                 Pro české salony, barbery a služby
               </div>
 
-              <h1 className="mt-7 mx-auto max-w-4xl text-balance text-5xl font-semibold leading-[0.96] tracking-[-0.055em] text-foreground sm:text-6xl lg:text-[5.25rem]">
+              <h1 className="mt-7 max-w-2xl text-balance text-5xl font-semibold leading-[0.96] tracking-[-0.055em] text-foreground sm:text-6xl lg:text-[5.25rem]">
                 Méně telefonátů.
                 <br />
                 Více rezervací.
               </h1>
-              <p className="mt-6 mx-auto max-w-xl text-lg font-medium leading-[1.55] text-secondary-foreground sm:text-xl">
+              <p className="mt-6 max-w-xl text-lg font-medium leading-[1.55] text-secondary-foreground sm:text-xl">
                 Temaro dá vašemu podniku vlastní rezervační stránku, týmový kalendář a přehled klientů. Klient se objedná sám, vy se věnujete práci.
               </p>
 
-              <div className="mt-9 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
                 <Link
                   href={CTA.primary.href}
                   className="group/cta inline-flex h-12 min-w-44 items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-primary px-6 text-base font-semibold text-primary-foreground shadow-[var(--shadow-primary-glow)] transition hover:-translate-y-0.5 hover:bg-primary/92"
@@ -304,7 +304,7 @@ export default async function Home() {
                 </Link>
               </div>
 
-              <div className="mt-6 flex flex-wrap justify-center gap-2">
+              <div className="mt-6 flex flex-wrap gap-2">
                 {heroTrustItems.map((item) => (
                   <span key={item} className="rounded-full border border-border bg-card px-3 py-1.5 text-xs font-bold text-foreground shadow-sm">
                     {item}
@@ -312,7 +312,7 @@ export default async function Home() {
                 ))}
               </div>
 
-              <div id="dukaz" className="mt-8 mx-auto grid max-w-2xl grid-cols-3 gap-2 sm:gap-3">
+              <div id="dukaz" className="mt-8 grid max-w-xl grid-cols-3 gap-2 sm:gap-3">
                 {proofMetrics.map(([Icon, value, label, tone]) => (
                   <div key={label} className="rounded-xl border border-border bg-card p-3 shadow-sm sm:min-h-32 sm:p-4">
                     <div className={`mb-3 grid size-8 place-items-center rounded-lg sm:size-9 ${tone}`}>
@@ -328,24 +328,9 @@ export default async function Home() {
                 ))}
               </div>
             </section>
-          </div>
-        </div>
-      </section>
 
-      <section id="produkt" className="command-surface border-y border-white/10 py-20">
-        <div className="mx-auto w-full max-w-[1320px] px-4 sm:px-6 lg:px-8">
-          <Reveal>
-            <div className="mb-10 max-w-2xl">
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-white/60">Reálný pohled</p>
-              <h2 className="mt-3 text-balance text-4xl font-semibold leading-[1.05] tracking-tight text-white sm:text-5xl">
-                Takhle vypadá běžný den ve vašem provozu.
-              </h2>
-              <p className="mt-4 max-w-xl text-base font-medium leading-7 text-white/70">
-                Kalendář, rezervace, telefonní potvrzení i denní signály jsou na jednom místě, ne rozházené ve zprávách.
-              </p>
-            </div>
-          </Reveal>
-          <LiveProductShowcase />
+            <LiveProductShowcase />
+          </div>
         </div>
       </section>
 

@@ -29,9 +29,10 @@ Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 - Na landing page zkontrolovat, že hero má jemný `signal-hero` fialovo-modrý gradient, ne plochou šeď; text musí zůstat čitelný ve světlém i tmavém režimu.
 - Pod hero CTA zkontrolovat proof metriky `3 kroky`, `0 Kč` a `0 %`; nemaji byt duplicitne zopakovane jako samostatna spodni proof sekce.
 - Na mobilní šířce ověřit, že proof labely pod hero CTA jsou čitelné a neslévají se bez mezer.
-- Pod hero ověřit tmavou full-bleed produktovou sekci `Reálný pohled`: produktová ukázka má PC dashboard i telefonní booking preview, texty nejsou ořezané v light ani dark mode a telefon nevylézá mimo viewport.
-- V produktové sekci ověřit jemné oživení: čísla v produktové ukázce se dopočítají až jako progressive enhancement, seznam rezervací po chvíli protočí další položku a telefon postupně zvýrazňuje časy.
-- V telefonu v produktové sekci ověřit krátké potvrzení `Rezervace potvrzena`; nesmí překrýt CTA ani rozbít výšku telefonu.
+- V hero ověřit dvousloupcový layout: vlevo text, CTA, trust pilulky a proof metriky, vpravo produktová ukázka s PC dashboardem a telefonním booking preview. Pravá strana nesmí být prázdná a mock nesmí vytvářet horizontální overflow.
+- Ověřit, že pod herem už není duplicitní tmavá produktová sekce s tím stejným dashboardem; tmavá `command-surface` sekce se může vrátit později až pro jiné hero/demo video.
+- V produktové ukázce v heru ověřit jemné oživení: čísla se dopočítají až jako progressive enhancement, seznam rezervací po chvíli protočí další položku a telefon postupně zvýrazňuje časy.
+- V telefonu v hero produktové ukázce ověřit krátké potvrzení `Rezervace potvrzena`; nesmí překrýt CTA ani rozbít výšku telefonu.
 - Ověřit editorialní statement `Neprodáváme formulář. Prodáváme klidný provoz.` jako samostatný vizuální zlom mezi funkcemi a dalšími světlými sekcemi.
 - Zapnout systémové omezení pohybu nebo v DevTools emulovat `prefers-reduced-motion: reduce`; homepage má zůstat čitelná, ale reveal, rotace rezervací a telefonní potvrzení mají být statické/vypnuté.
 - Zkontrolovat sekci `Reálné provozy`: obrázky se musí načíst, mít konzistentní poměr stran a být vizuálně odlišné pro barber, beauty a fitness/training segment.

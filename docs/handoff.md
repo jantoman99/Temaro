@@ -1,6 +1,6 @@
 # Handoff
 
-Aktualizováno: 2026-06-06 18:10 CEST
+Aktualizováno: 2026-06-06 18:26 CEST
 
 ## Jak navázat
 
@@ -40,7 +40,7 @@ Aktualizováno: 2026-06-06 18:10 CEST
 - Aktuální vizuální rytmus 2026-06-06: homepage má `signal-hero` gradient, produktový mock přesunutý pod hero do tmavé `command-surface` full-bleed sekce, širší produktový kontejner `1320px` a jeden editorialní statement `Neprodáváme formulář. Prodáváme klidný provoz.` Serif akcent je jen v tomto statementu.
 - Poslední lokální ověření: `npm run check` prošlo 2026-06-06 17:23 CEST s 592 Vitest testy, migrations check, type-check, lint i buildem. Lokální public smoke prošel 10/10. Browser smoke potvrdil hero gradient, tmavou produktovou sekci, dark režim, statement, scroll reveal spodních sekcí, console errors 0 a overflow 0. Screenshoty: `output/playwright/temaro-visual-rhythm-desktop.png`, `output/playwright/temaro-visual-rhythm-mobile.png`, `output/playwright/temaro-visual-rhythm-dark.png`, `output/playwright/temaro-visual-rhythm-scrolled.png`.
 - Produkční ověření 2026-06-06 17:30 CEST: alias `https://rezervacni-system-xi.vercel.app` vrací `/api/health` se `status=ok` a `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` prošel 10/10.
-- Aktuální hero hotfix 2026-06-06: hero sekce už nemá nucenou viewport výšku, obsah je centrovaný a CTA, trust pilulky i proof karty jsou zarovnané doprostřed. Lokální ověření 2026-06-06 18:07 CEST: `npm run check` prošlo s 593 Vitest testy, lokální public smoke 10/10 a browser smoke potvrdil `min-height: 0`, center delta 0, console errors 0 a overflow 0. Produkční ověření 2026-06-06 18:10 CEST: alias `https://rezervacni-system-xi.vercel.app` vrací `/api/health` se `status=ok` a produkční public smoke prošel 10/10. Screenshoty: `output/playwright/temaro-hero-centered-desktop.png`, `output/playwright/temaro-hero-centered-mobile.png`.
+- Aktuální hero změna 2026-06-06: homepage hero je vrácený na dvousloupcový layout. Vlevo je text/CTA/trust/proof, vpravo `LiveProductShowcase`, kotva `#produkt` je na heru a duplicitní tmavá produktová sekce je odstraněná. Lokální ověření 2026-06-06 18:26 CEST: `npm run check` prošlo s 593 Vitest testy, lokální public smoke 10/10 a browser smoke potvrdil dvousloupec, produkt v heru, žádnou tmavou duplicitní produktovou sekci, console errors 0 a overflow 0. Screenshoty: `output/playwright/temaro-hero-two-column-desktop.png`, `output/playwright/temaro-hero-two-column-mobile.png`.
 - Rozhodnutí scope 2026-05-08: všechny významné konkurenční funkce jsou součást pre-launch MVP, ne fáze 2. Pořadí implementace je anti-no-show/platby, zákazník/integrace, business suite, growth/discovery, mobilní/provozní vrstva.
 - Vlny 1 po rozšíření scope: hotové jsou zdroje rezervací/UTM, čekací listina, review request po návštěvě, online záloha přes Stripe Checkout a storno pravidla navázaná na zálohu/čas do termínu.
 - Čekací listina má tabulku `waitlist_entries`, service-role RPC `create_waitlist_entry`, veřejné CTA při obsazených termínech a owner přehled v kalendáři; migrace `20260508114500_create_waitlist_entries.sql` je aplikovaná lokálně i remote.
@@ -171,7 +171,7 @@ Aktualizováno: 2026-06-06 18:10 CEST
 
 ## Poslední změna
 
-- Hero alignment hotfix 2026-06-06: hero bez nucené viewport výšky, vycentrovaný text/CTA/pilulky/proof karty. Ověření: `npm run check` 593 testů, lokální public smoke 10/10, browser smoke bez chyb/overflow a produkční public smoke 10/10.
+- Hero product restore 2026-06-06: homepage hero je znovu dvousloupcový s produktem vpravo, levým textem a bez duplicitní tmavé produktové sekce. Ověření: `npm run check` 593 testů, lokální public smoke 10/10 a browser smoke bez chyb/overflow.
 - Homepage vizuální rytmus 2026-06-06: hero gradient, tmavá produktová full-bleed sekce a jeden editorialní statement pro rozbití šedého toku. Ověření: `npm run check` 592 testů, lokální public smoke 10/10, browser smoke bez chyb/overflow a produkční public smoke 10/10.
 - Homepage motion 2026-06-06: přidané motion hooky a komponenty pro reveal/count-up a živý produktový mock. Animace respektují `prefers-reduced-motion` a nemění SSR obsah. Ověření: `npm run check` 590 testů, lokální public smoke 10/10, browser smoke bez chyb a produkční public smoke 10/10.
 - Homepage clean SaaS redesign 2026-06-06: po souhlasu se směrem pryč od Linear/Signal landing estetiky vznikl světlejší marketing hero s produktovým PC mockupem, telefonním booking preview, trust štítky a claimem `Méně telefonátů. Více rezervací.` AI fotky zůstávají. Ověření: `npm run check` 587 testů, lokální public smoke 10/10, screenshoty `temaro-clean-saas-desktop-v3.png` a `temaro-clean-saas-mobile-v3.png`.
