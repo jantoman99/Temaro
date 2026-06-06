@@ -29,6 +29,9 @@ Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 - Pod hero CTA zkontrolovat proof metriky `3 kroky`, `0 Kč` a `0 %`; nemaji byt duplicitne zopakovane jako samostatna spodni proof sekce.
 - Na mobilní šířce ověřit, že proof labely pod hero CTA jsou čitelné a neslévají se bez mezer.
 - V hero mockupu ověřit, že produktová ukázka má PC dashboard i telefonní booking preview, texty nejsou ořezané v light ani dark mode a ukázka nepůsobí jako nepravdivý live dashboard.
+- V hero mockupu ověřit jemné oživení: čísla v produktové ukázce se dopočítají až jako progressive enhancement, seznam rezervací po chvíli protočí další položku a telefon postupně zvýrazňuje časy.
+- V telefonu v hero mockupu ověřit krátké potvrzení `Rezervace potvrzena`; nesmí překrýt CTA ani rozbít výšku telefonu.
+- Zapnout systémové omezení pohybu nebo v DevTools emulovat `prefers-reduced-motion: reduce`; homepage má zůstat čitelná, ale reveal, rotace rezervací a telefonní potvrzení mají být statické/vypnuté.
 - Zkontrolovat sekci `Reálné provozy`: obrázky se musí načíst, mít konzistentní poměr stran a být vizuálně odlišné pro barber, beauty a fitness/training segment.
 - Ověřit, že podnikatelská registrace `/register` a zákaznický účet `/account/login` zůstávají dostupné přes CTA/footer, i když samostatná homepage sekce `Dva typy účtů` byla odstraněná kvůli zkrácení stránky.
 - Otevřít `/podniky`, ověřit demo/veřejný výpis, hledání podle textu, města a oboru, booking CTA a odkaz `Otevřít mapu`.
