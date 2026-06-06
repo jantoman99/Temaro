@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Aktualizováno: 2026-06-06 13:20 CEST
+Aktualizováno: 2026-06-06 13:28 CEST
 
 Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historické analýzy a staré design audity jsou přesunuté do `docs/archive/`.
 
@@ -30,6 +30,8 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - `/podniky`, podnikatelský login/register, reset hesla a zákaznický login mají dostupný návrat `Zpět na web` nebo theme toggle podle typu stránky, aby se veřejný web nerozpadal na izolované sekce.
 - `npm run check` prošlo 2026-06-06 12:32 CEST po UX navigačním sjednocení: 586 Vitest testů, migrations check, type-check, lint a produkční build. `npx playwright test tests/e2e/public-smoke.spec.ts` prošel 2026-06-06 12:35 CEST 10/10.
 - Problematická homepage design iterace `e9ad262` z 2026-06-06 byla po vizuální kontrole vrácena: bento/product proof blok rozbil typografii a čitelnost. Další redesign veřejného webu se má dělat znovu po menších částech s vizuální kontrolou před deployem.
+- `npm run check` prošlo 2026-06-06 13:25 CEST po revertu rozbité homepage iterace: 586 Vitest testů, migrations check, type-check, lint a produkční build. Lokální i produkční `npx playwright test tests/e2e/public-smoke.spec.ts` prošly 10/10.
+- Vercel production deploy `dpl_9aS4nQijxBp7uimg9vHZ6mhNmfba` je na aliasu `https://rezervacni-system-xi.vercel.app`; `/api/health` je `ok`. Screenshot revertované sekce je `output/playwright/homepage-provoz-after-revert.png`.
 - Vercel production deploy `dpl_6ZgkD4UjbWZtxU6mhg5KFEmz3gpD` je na aliasu `https://rezervacni-system-xi.vercel.app`; externí public smoke 2026-06-01 16:19 CEST prošel 10/10.
 - Onboarding po registraci nově vede na `/start`: stránka má panel připravenosti, jasnou další akci, veřejný rezervační odkaz a checklist `podnik -> služba -> tým/pracovní doba -> rezervační stránka -> první klienti`.
 - E-mailová i Google registrace nového podniku po vytvoření účtu směřuje do `/start`, ne rovnou na běžný provozní dashboard.
@@ -164,7 +166,7 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 
 ## Poslední změna
 
-- Revert 2026-06-06: vrací se rozbitá frontend/design iterace homepage z commitu `e9ad262`. Důvod: vizuálně nevyhovující bento sekce s příliš stísněným textem a narušenou čitelností. AI fotky se dál neřeší a zůstávají.
+- Revert 2026-06-06: vrací se rozbitá frontend/design iterace homepage z commitu `e9ad262`. Důvod: vizuálně nevyhovující bento sekce s příliš stísněným textem a narušenou čitelností. AI fotky se dál neřeší a zůstávají. Ověření: `npm run check` 586 testů, lokální i produkční public smoke 10/10, produkční deploy `dpl_9aS4nQijxBp7uimg9vHZ6mhNmfba`.
 - Homepage demo cleanup 2026-06-01: odstraněný vnitřní scrollbar a opakované spodní karty z hero ukázky. `Přehled provozu`, `Kalendář`, `Rezervační stránka` i `Zákaznický účet` jsou nově kompaktní obrazovky, které se vejdou do panelu bez scrollování a bez useknutého spodku.
 - Ověření 2026-06-01 14:17 CEST: `npm run check` prošlo s 561 Vitest testy, migrations check, type-check, lint a produkční build. Lokální Playwright kontrola potvrdila `overflowY: hidden`, shodné `clientHeight` a `scrollHeight` pro overview i rezervační stránku, žádné staré karty `Platby / Klienti / Termíny`, stabilní ruční výběr po 6,2 s a console errors 0. Screenshoty: `output/playwright/temaro-demo-overview-no-scroll.png`, `output/playwright/temaro-demo-no-scroll.png`.
 - Vercel production deploy `dpl_FUTuzQmvQVtP312kbWqCausjbXk9` je na aliasu `https://rezervacni-system-xi.vercel.app`; externí public smoke 2026-06-01 14:22 CEST prošel 8/8 a produkční kontrola demo panelu potvrdila `overflowY: hidden`, shodné `clientHeight`/`scrollHeight`, žádné staré karty a console errors 0.
