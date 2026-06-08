@@ -1,6 +1,6 @@
 # Runtime checklist
 
-Aktualizováno: 2026-06-08 22:07 CEST
+Aktualizováno: 2026-06-08 22:10 CEST
 
 Tento checklist je pro první reálné ověření mimo demo režim.
 
@@ -46,6 +46,7 @@ Aktuální známý stav:
 - Vercel Git auto-deploy 2026-06-08: push na GitHub zatím nespustil production deploy automaticky. Pokusy `npx vercel git connect git@github.com:jantoman99/Temaro.git` a `npx vercel git connect https://github.com/jantoman99/Temaro.git` selhaly na oprávnění k GitHub repo. Nativní oprava je ve Vercel dashboardu/GitHub app permissions: dát Vercel GitHub App přístup k `jantoman99/Temaro` a znovu spustit `npx vercel git connect ...`.
 - Fallback pro produkční deploy 2026-06-08: repo má `.github/workflows/vercel-production.yml`, který po pushi na `main` nasadí přes Vercel CLI, pokud v GitHub Actions existuje secret `VERCEL_TOKEN`. Dokud secret nebo Vercel GitHub App oprávnění není nastavené, po pushi ručně spustit `npx vercel --prod --yes` a ověřit produkční public smoke.
 - `npm run check` prošlo 2026-06-08 22:07 CEST po `/ukazka` demo scénáři a GitHub Actions Vercel fallbacku: 595 Vitest testů, migrations check, type-check, lint a produkční build. Lokální public smoke prošel 10/10. Runtime ověřit, že `/ukazka` obsahuje sekci `Krátký průchod místo dlouhé prezentace.` a CTA `Vidět klientskou rezervaci`.
+- Vercel production deploy 2026-06-08 22:10 CEST: ruční deploy `dpl_EPTuBFY52h9cfSouStAqdu3os8xA` je aliasovaný na `https://rezervacni-system-xi.vercel.app`. Produkční `/api/health` je `ok`, `/ukazka` obsahuje nový demo scénář a produkční public smoke prošel 10/10.
 - Runtime ověřit na `/podniky`, `/login`, `/register`, `/forgot-password`, `/reset-password` a `/account/login`: návštěvník se umí vrátit na web a přepnout světlý/tmavý režim tam, kde je stránka součást veřejného vstupu.
 - `npm run check` prošlo 2026-06-01 16:40 CEST po rychlém service/staff/booking-page onboardingu: 572 Vitest testů, migrations check, type-check, lint a produkční build.
 - `npm run check` prošlo 2026-06-01 18:47 CEST po doplnění sdílení do `/start`: 572 Vitest testů, migrations check, type-check, lint a produkční build.
