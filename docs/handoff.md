@@ -1,6 +1,6 @@
 # Handoff
 
-Aktualizováno: 2026-06-08 19:11 CEST
+Aktualizováno: 2026-06-08 19:31 CEST
 
 ## Jak navázat
 
@@ -47,6 +47,7 @@ Aktualizováno: 2026-06-08 19:11 CEST
 - Aktuální roadmapa 2026-06-08: `docs/roadmap.md` je zjednodušená do `Now / Next / Later / Nedělat Teď`. Nejbližší focus je produkční runtime smoke, veřejný dojem, Upstash rate limit, SMS provider a pilotní scénář.
 - Customer account redirect fix 2026-06-08: anonymní `/account*` routy jdou na `/account/login`, admin routy dál na `/login`. Poslední lokální ověření: `npx playwright test tests/e2e/admin-demo-smoke.spec.ts` prošel 2/2 a `npm run check` prošlo s 593 Vitest testy, migrations check, type-check, lint i buildem.
 - Frontend/auth konkurenční analýza 2026-06-08: přidaný dokument `docs/21-frontend-competition-auth-analysis.md`, roadmapa teď prioritizuje dropdown navigaci, konkrétnější homepage, booking kanály a demo/video CTA. Poslední lokální ověření: `npm run check` prošlo 2026-06-08 19:11 CEST s 593 Vitest testy, migrations check, type-check, lint i buildem.
+- Homepage IA iterace 2026-06-08: top navigace je přestavěná na dropdown skupiny `Produkt`, `Řešení`, `Návody` a přibyla sekce `Jak to funguje` + `Booking kanály`. Reveal obsah už nezůstává `opacity:0` mimo viewport. Ověření: browser screenshot kontrola desktop/mobile bez overflow a console errors, `npm run test -- tests/landing-polish.test.ts` prošlo 18/18, `npx playwright test tests/e2e/public-smoke.spec.ts` prošel 10/10 a `npm run check` prošlo 2026-06-08 19:31 CEST s 594 Vitest testy, migrations check, type-check, lint i buildem.
 - Rozhodnutí scope 2026-05-08: všechny významné konkurenční funkce jsou součást pre-launch MVP, ne fáze 2. Pořadí implementace je anti-no-show/platby, zákazník/integrace, business suite, growth/discovery, mobilní/provozní vrstva.
 - Vlny 1 po rozšíření scope: hotové jsou zdroje rezervací/UTM, čekací listina, review request po návštěvě, online záloha přes Stripe Checkout a storno pravidla navázaná na zálohu/čas do termínu.
 - Čekací listina má tabulku `waitlist_entries`, service-role RPC `create_waitlist_entry`, veřejné CTA při obsazených termínech a owner přehled v kalendáři; migrace `20260508114500_create_waitlist_entries.sql` je aplikovaná lokálně i remote.

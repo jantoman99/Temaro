@@ -3,9 +3,19 @@ import {
   ArrowRight,
   BadgeEuro,
   Building2,
+  CalendarDays,
   CheckCircle2,
+  ChevronDown,
+  ClipboardList,
+  CreditCard,
+  Link2,
+  MailCheck,
+  MonitorPlay,
+  MousePointerClick,
   PhoneOff,
+  QrCode,
   ShieldCheck,
+  Smartphone,
   UsersRound,
 } from "lucide-react";
 import type { Metadata } from "next";
@@ -44,10 +54,36 @@ const CTA = {
   secondary: { href: "/ukazka", label: "Spustit ukázku" },
 } as const;
 
-const navLinks = [
-  ["/", "Pro podniky"],
+const navGroups = [
+  {
+    label: "Produkt",
+    items: [
+      ["#jak-to-funguje", "Jak to funguje", "Od služeb a týmu po první online rezervaci."],
+      ["#booking-kanaly", "Booking kanály", "Web, Instagram, Google profil, QR a widget."],
+      ["#provoz", "Proč Temaro", "Méně telefonátů, méně chaosu v kalendáři."],
+    ],
+  },
+  {
+    label: "Řešení",
+    items: [
+      ["/rezervacni-system-pro-barbery", "Barber shopy", "Termíny podle služby, člověka a volného okna."],
+      ["/rezervacni-system-pro-kadernictvi", "Kadeřnictví", "Týmový kalendář a historie návštěv."],
+      ["/rezervacni-system-pro-kosmeticky-salon", "Beauty salony", "Přehled klientů, poznámky a připomínky."],
+      ["/rezervacni-system-pro-masaze", "Masáže a wellness", "Delší termíny, klidnější kapacita dne."],
+    ],
+  },
+  {
+    label: "Návody",
+    items: [
+      ["/jak-snizit-no-show", "Jak snížit no-show", "Připomínky, bezpečné změny a práce s rizikem."],
+      ["/sms-pripominky-rezervaci", "SMS připomínky", "Kdy SMS dává smysl a kdy je zbytečně drahá."],
+      ["/rezervacni-system-bez-marketplace-provizi", "Bez marketplace provizí", "Váš klientský vztah bez provize z vlastních klientů."],
+    ],
+  },
+] as const;
+
+const navDirectLinks = [
   ["/podniky", "Pro zákazníky"],
-  ["#pro-koho", "Obory"],
   ["#cenik", "Ceník"],
   ["/ukazka", "Ukázka"],
 ] as const;
@@ -163,6 +199,62 @@ const proofMetrics = [
   [ShieldCheck, "0 %", "provize", "bg-warning/10 text-warning"],
 ] as const;
 
+const workflowSteps = [
+  {
+    icon: ClipboardList,
+    title: "Nastavíte služby a tým",
+    text: "Vyberete obor, přidáte služby, pracovní dobu a lidi, kteří se dají rezervovat.",
+  },
+  {
+    icon: Link2,
+    title: "Sdílíte rezervační odkaz",
+    text: "Odkaz dáte na web, Instagram, Google profil, do zprávy nebo na QR kód v provozovně.",
+  },
+  {
+    icon: CalendarDays,
+    title: "Klient si vybere termín",
+    text: "Klient vidí volné časy, vybere službu, doplní kontakt a dostane potvrzení.",
+  },
+  {
+    icon: MailCheck,
+    title: "Provoz má přehled",
+    text: "Rezervace se objeví v kalendáři, klient zůstane v historii a připomínky omezí výpadky.",
+  },
+] as const;
+
+const bookingChannels = [
+  {
+    icon: MonitorPlay,
+    title: "Vlastní web",
+    text: "Rezervační tlačítko nebo widget vložený přímo na web podniku.",
+  },
+  {
+    icon: Smartphone,
+    title: "Instagram bio",
+    text: "Krátký odkaz pro story, profil a zprávy klientům.",
+  },
+  {
+    icon: MousePointerClick,
+    title: "Google profil",
+    text: "Měřitelný odkaz pro klienty, kteří podnik našli ve vyhledávání.",
+  },
+  {
+    icon: QrCode,
+    title: "QR v provozovně",
+    text: "Klient si uloží odkaz nebo se rovnou objedná na další návštěvu.",
+  },
+  {
+    icon: CreditCard,
+    title: "Zálohy a platby",
+    text: "Připravené flow pro zálohy, doplatky a přehled plateb.",
+  },
+  {
+    icon: MailCheck,
+    title: "E-mail a SMS",
+    text: "Potvrzení, připomínky a později cílené Last Minute nabídky.",
+  },
+] as const;
+
 const guideLinks = [
   {
     title: "Rezervační systém pro barbery",
@@ -242,8 +334,30 @@ export default async function Home() {
               <TemaroLogo />
             </Link>
 
-            <nav className="order-3 grid w-full grid-cols-5 gap-1 border-t border-border/70 pt-2 lg:order-none lg:flex lg:w-auto lg:border-t-0 lg:pt-0">
-              {navLinks.map(([href, label]) => (
+            <nav className="order-3 grid w-full gap-1 border-t border-border/70 pt-2 sm:grid-cols-2 lg:order-none lg:flex lg:w-auto lg:items-center lg:border-t-0 lg:pt-0">
+              {navGroups.map((group) => (
+                <details key={group.label} className="group relative">
+                  <summary className="flex cursor-pointer list-none items-center justify-center gap-1.5 rounded-md px-2 py-2 text-sm font-semibold text-muted-foreground transition hover:bg-muted hover:text-foreground lg:px-3 [&::-webkit-details-marker]:hidden">
+                    {group.label}
+                    <ChevronDown className="size-4 transition group-open:rotate-180" strokeWidth={1.8} />
+                  </summary>
+                  <div className="mt-1 rounded-xl border border-border bg-card p-2 shadow-lg lg:absolute lg:left-1/2 lg:top-full lg:z-40 lg:mt-3 lg:w-[25rem] lg:-translate-x-1/2">
+                    {group.items.map(([href, label, description]) => (
+                      <Link
+                        key={href}
+                        href={href}
+                        className="block rounded-lg px-3 py-2.5 text-left transition hover:bg-muted"
+                      >
+                        <span className="text-sm font-semibold text-foreground">{label}</span>
+                        <span className="mt-1 block text-xs font-medium leading-5 text-secondary-foreground">
+                          {description}
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
+                </details>
+              ))}
+              {navDirectLinks.map(([href, label]) => (
                 <Link
                   key={href}
                   href={href}
@@ -359,6 +473,82 @@ export default async function Home() {
                   </div>
                   <h3 className="text-lg font-semibold tracking-tight text-foreground">{feature.title}</h3>
                   <p className="mt-2 text-sm font-medium leading-6 text-secondary-foreground">{feature.description}</p>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="jak-to-funguje" className="mx-auto w-full max-w-[1180px] px-4 py-20 sm:px-6 lg:px-8">
+        <Reveal>
+          <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Jak to funguje</p>
+              <h2 className="mt-3 max-w-2xl text-balance text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
+                Od prázdného kalendáře k první online rezervaci.
+              </h2>
+            </div>
+            <p className="max-w-sm text-sm font-medium leading-6 text-secondary-foreground">
+              Nejdřív musí být jasné, jak se podnik dostane od nastavení služeb k první rezervaci bez telefonátu.
+            </p>
+          </div>
+        </Reveal>
+
+        <div className="grid gap-3 md:grid-cols-4">
+          {workflowSteps.map((step, index) => (
+            <Reveal key={step.title} delay={index * 70} className="h-full">
+              <article className="relative h-full overflow-hidden rounded-2xl border border-border bg-card p-5 shadow-sm">
+                <span className="nums-tabular absolute right-4 top-4 text-xs font-bold text-muted-foreground">
+                  {`0${index + 1}`}
+                </span>
+                <div className="mb-5 grid size-11 place-items-center rounded-xl bg-primary/10 text-primary">
+                  <step.icon className="size-5" strokeWidth={1.9} />
+                </div>
+                <h3 className="text-lg font-semibold tracking-tight">{step.title}</h3>
+                <p className="mt-2 text-sm font-medium leading-6 text-secondary-foreground">{step.text}</p>
+              </article>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      <section id="booking-kanaly" className="bg-card py-20">
+        <div className="mx-auto grid w-full max-w-[1180px] gap-8 px-4 sm:px-6 lg:grid-cols-[0.82fr_1.18fr] lg:px-8">
+          <Reveal>
+            <header className="lg:sticky lg:top-28">
+              <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Booking kanály</p>
+              <h2 className="mt-3 text-balance text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
+                Rezervace nemá žít jen na jedné stránce.
+              </h2>
+              <p className="mt-5 max-w-md text-sm font-medium leading-6 text-secondary-foreground">
+                Salony a lokální služby získávají klienty z webu, Instagramu, Google profilu, QR kódů i přímých zpráv.
+                Temaro má tyto vstupy spojit do jednoho kalendáře a jednoho přehledu zdrojů.
+              </p>
+              <Link
+                href="/ukazka"
+                className="mt-6 inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-border bg-background px-5 text-sm font-semibold text-foreground shadow-sm transition hover:-translate-y-0.5 hover:bg-secondary"
+              >
+                Projít ukázku
+                <ArrowRight className="size-4" />
+              </Link>
+            </header>
+          </Reveal>
+
+          <div className="grid gap-3 sm:grid-cols-2">
+            {bookingChannels.map((channel, index) => (
+              <Reveal key={channel.title} delay={index * 55} className="h-full">
+                <article className="group h-full rounded-2xl border border-border bg-background p-5 shadow-sm transition hover:-translate-y-1 hover:border-primary/35 hover:bg-card">
+                  <div className="mb-5 flex items-center justify-between">
+                    <span className="grid size-10 place-items-center rounded-xl bg-secondary text-primary transition group-hover:bg-primary group-hover:text-primary-foreground">
+                      <channel.icon className="size-5" strokeWidth={1.9} />
+                    </span>
+                    <span className="rounded-full border border-border bg-card px-2.5 py-1 text-xs font-bold text-muted-foreground">
+                      kanál
+                    </span>
+                  </div>
+                  <h3 className="text-lg font-semibold tracking-tight">{channel.title}</h3>
+                  <p className="mt-2 text-sm font-medium leading-6 text-secondary-foreground">{channel.text}</p>
                 </article>
               </Reveal>
             ))}

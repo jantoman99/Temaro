@@ -27,9 +27,13 @@ test.describe("public smoke", () => {
 
     await expect(page.getByRole("heading", { name: /Méně telefonátů\. Více rezervací/i })).toBeVisible();
     await expect(page.getByRole("link", { name: /Začít zdarma/i }).first()).toBeVisible();
-    await expect(page.getByRole("link", { name: "Pro podniky", exact: true }).first()).toBeVisible();
+    await expect(page.getByText("Produkt").first()).toBeVisible();
+    await expect(page.getByText("Řešení").first()).toBeVisible();
+    await expect(page.getByText("Návody").first()).toBeVisible();
     await expect(page.getByRole("link", { name: "Pro zákazníky", exact: true }).first()).toBeVisible();
     await expect(page.getByRole("link", { name: "Ukázka", exact: true }).first()).toHaveAttribute("href", "/ukazka");
+    await expect(page.getByRole("heading", { name: /Od prázdného kalendáře/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Rezervace nemá žít/i })).toBeVisible();
     await expect(page.getByRole("link", { name: "Pro barbery", exact: true })).toBeVisible();
     await expect(page.getByRole("link", { name: "Pro kadeřnictví", exact: true })).toBeVisible();
     await expect(page.getByRole("link", { name: "Pro beauty salon", exact: true })).toBeVisible();

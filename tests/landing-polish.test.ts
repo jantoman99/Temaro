@@ -167,7 +167,8 @@ describe("landing polish guard", () => {
     expect(inView).toContain("IntersectionObserver");
     expect(inView).toContain("setInView(true)");
     expect(reveal).toContain("usePrefersReducedMotion");
-    expect(reveal).toContain("opacity: active ? 1 : 0");
+    expect(reveal).toContain("opacity: 1");
+    expect(reveal).not.toContain("opacity: active ? 1 : 0");
     expect(countUp).toContain("toLocaleString(\"cs-CZ\"");
     expect(countUp).toContain("node.textContent");
     expect(countUp).toContain("{fmt(to, decimals)}");
@@ -197,12 +198,34 @@ describe("landing polish guard", () => {
     expect(globals).toContain("@keyframes confirm-toast-in");
   });
 
-  test("public navigation separates business and customer paths", () => {
+  test("public navigation uses product, solution and resource dropdowns", () => {
     const page = readProjectFile("app/page.tsx");
 
-    expect(page).toContain("Pro podniky");
+    expect(page).toContain("navGroups");
+    expect(page).toContain("Produkt");
+    expect(page).toContain("Řešení");
+    expect(page).toContain("Návody");
+    expect(page).toContain("Jak to funguje");
+    expect(page).toContain("Booking kanály");
+    expect(page).toContain("Barber shopy");
     expect(page).toContain("Pro zákazníky");
+    expect(page).toContain("navDirectLinks");
     expect(page).toContain("/ukazka");
+  });
+
+  test("homepage explains setup flow and booking channels", () => {
+    const page = readProjectFile("app/page.tsx");
+
+    expect(page).toContain("workflowSteps");
+    expect(page).toContain("Nastavíte služby a tým");
+    expect(page).toContain("Sdílíte rezervační odkaz");
+    expect(page).toContain("Klient si vybere termín");
+    expect(page).toContain("Provoz má přehled");
+    expect(page).toContain("bookingChannels");
+    expect(page).toContain("Vlastní web");
+    expect(page).toContain("Instagram bio");
+    expect(page).toContain("Google profil");
+    expect(page).toContain("QR v provozovně");
   });
 
   test("customer directory uses address search without raw coordinates", () => {

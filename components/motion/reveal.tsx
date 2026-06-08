@@ -17,9 +17,9 @@ export function Reveal({ children, delay = 0, className }: RevealProps) {
   const active = reduce || inView;
 
   const style: CSSProperties = {
-    opacity: active ? 1 : 0,
+    opacity: 1,
     transform: active ? "none" : "translateY(14px)",
-    transitionProperty: reduce ? "none" : "opacity, transform",
+    transitionProperty: reduce ? "none" : "transform",
     transitionDuration: reduce ? "0ms" : "620ms",
     transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",
     transitionDelay: active && !reduce ? `${delay}ms` : "0ms",
