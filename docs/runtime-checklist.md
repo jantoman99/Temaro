@@ -1,6 +1,6 @@
 # Runtime checklist
 
-Aktualizováno: 2026-06-08 22:54 CEST
+Aktualizováno: 2026-06-09 00:02 CEST
 
 Tento checklist je pro první reálné ověření mimo demo režim.
 
@@ -22,6 +22,9 @@ curl -I http://localhost:3000
 
 Aktuální známý stav:
 
+- Predeploy vizuální záloha 2026-06-09: screenshoty a patch aktuální homepage jsou uložené v `/mnt/c/Users/hanys/Desktop/temaro-visual-backups/2026-06-08-business-discovery-predeploy`; backup branch `backup/visual-predeploy-20260608-business-discovery` je pushnutá na GitHub.
+- Runtime po redesignu ověřit na `/`: hero text `Získejte rezervace. Bez volání.`, full-width fialovo-žlutý business discovery layout, CTA `Začít zdarma`, desktop dropdown navigaci, mobilní hamburger menu a nulový horizontální overflow na desktopu i mobilu.
+- `npm run check` prošlo 2026-06-09 00:08 CEST po business discovery redesignu: 597 Vitest testů, migrations check, type-check, lint a produkční build. Lokální `npx playwright test tests/e2e/public-smoke.spec.ts` prošel 11/11.
 - `npm run check` prošlo 2026-06-06 12:32 CEST po UX sjednocení veřejné navigace: 586 Vitest testů, migrations check, type-check, lint a produkční build.
 - Lokální public Playwright smoke prošel 2026-06-06 12:35 CEST: `npx playwright test tests/e2e/public-smoke.spec.ts` má 10/10 testů zelených.
 - Runtime poznámka 2026-06-06: homepage design iterace z commitu `e9ad262` byla vizuálně nevyhovující a je vracená. Při dalším redesignu veřejného webu povinně ověřit desktop screenshot před deployem, hlavně sekci `Provozní realita`.

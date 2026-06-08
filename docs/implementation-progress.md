@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Aktualizováno: 2026-06-08 22:54 CEST
+Aktualizováno: 2026-06-09 00:02 CEST
 
 Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historické analýzy a staré design audity jsou přesunuté do `docs/archive/`.
 
@@ -9,6 +9,10 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - Produkt se jmenuje `Temaro`.
 - Typ produktu: multi-tenant SaaS rezervační systém pro lokální služby.
 - MVP jádro je implementované.
+- Homepage redesign 2026-06-09: veřejná landing page je převedená na full-width business discovery směr inspirovaný schváleným návrhem B, ale positioning zůstává pro podniky. Hero používá claim `Získejte rezervace. Bez volání.`, výrazný fialovo-žlutý gradient, obor/řešení search panel, business booking kanály a překryté ukázkové karty provozu.
+- Sdílený `MarketingHeader` má desktop dropdown navigaci a mobilní hamburger menu; na mobilu je v horní liště jen logo, CTA `Začít zdarma` a menu, aby nevznikal horizontální overflow.
+- Před nasazením vznikla záloha vizuálu: Desktop screenshoty a patch jsou v `/mnt/c/Users/hanys/Desktop/temaro-visual-backups/2026-06-08-business-discovery-predeploy`; GitHub backup branch je `backup/visual-predeploy-20260608-business-discovery` na commitu `fdc3717`.
+- Lokální ověření 2026-06-09 00:08 CEST po business discovery redesignu: `npm run check` prošlo s 597 Vitest testy, migrations check, type-check, lint a produkční build. `npx playwright test tests/e2e/public-smoke.spec.ts` prošel 11/11. Browser screenshot kontrola potvrdila desktop i mobil bez horizontálního overflow.
 - Nákupy a placené provozní kroky jsou odložené: Supabase Pro/leaked password protection a Google OAuth runtime aktivace se řeší až před spuštěním na produkční doméně.
 - Aktivní vizuální směr je `docs/15-design-system-v3.md`; veřejný marketing web se od 2026-06-06 posouvá od Linear/Signal hero estetiky ke světlejšímu českému SaaS směru s konkrétní ukázkou PC + telefon, zatímco přihlášená aplikace dál drží provozní Signal OS.
 - Aktivní tržní/product analýza je `docs/14-market-analysis-booking-systems.md`.

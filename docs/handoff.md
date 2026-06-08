@@ -1,6 +1,6 @@
 # Handoff
 
-Aktualizováno: 2026-06-08 22:54 CEST
+Aktualizováno: 2026-06-09 00:02 CEST
 
 ## Jak navázat
 
@@ -16,6 +16,10 @@ Aktualizováno: 2026-06-08 22:54 CEST
 
 - Produktový název je `Temaro`.
 - MVP základ je implementovaný: auth, tenant izolace, služby, zálohový základ, staff, klienti, kalendář, veřejný booking, self-service manage, emaily a reminder cron.
+- Aktuální frontend/design změna 2026-06-09: homepage používá nový full-width business discovery hero pro podniky (`BusinessDiscoveryHero`) s claimem `Získejte rezervace. Bez volání.`, fialovo-žlutým vizuálem, search panelem a překrytou ukázkou booking kanálů/provozního dashboardu. Původní inline `LiveProductShowcase` už není v hero.
+- Sdílený marketing header má desktop dropdowny a mobilní hamburger menu. Mobilní header schovává theme toggle a drží jen logo, CTA a menu kvůli stabilní šířce.
+- Predeploy záloha vizuálu: `/mnt/c/Users/hanys/Desktop/temaro-visual-backups/2026-06-08-business-discovery-predeploy`; backup branch na GitHubu: `backup/visual-predeploy-20260608-business-discovery` (`fdc3717`).
+- Poslední lokální ověření 2026-06-09 00:08 CEST: `npm run check` prošlo s 597 Vitest testy, migrations check, type-check, lint i produkčním buildem. Lokální public smoke prošel 11/11 a screenshot měření potvrdilo nulový horizontální overflow na desktopu i mobilu.
 - Nákupy a placené provozní kroky jsou odložené až před spuštěním: produkční doména, Supabase Pro/leaked password protection a Google OAuth runtime aktivace.
 - Nové produktové rozhodnutí: Temaro má komunikovat dva typy účtů, podnikatelský a zákaznický. Veřejný katalog podniků podle lokality/oboru, mapa podniku a plný Google Calendar sync jsou schválené další vrstvy po stabilním core.
 - Veřejný katalog má první implementovanou vrstvu: `/podniky`, strukturovaný obor tenantu, veřejná lokalizační pole, mapový odkaz a owner volbu `Zobrazit podnik ve veřejném katalogu`; veřejné vyhledávání je zákaznické přes službu a místo/adresu, ne přes syrové souřadnice.
