@@ -202,7 +202,7 @@ describe("landing polish guard", () => {
     const page = readProjectFile("app/page.tsx");
     const navigation = readProjectFile("components/marketing/landing-navigation.tsx");
 
-    expect(page).toContain("<LandingNavigation />");
+    expect(page).toContain("<MarketingHeader />");
     expect(navigation).toContain('"use client"');
     expect(navigation).toContain("openGroup");
     expect(navigation).toContain("setOpenGroup(isOpen ? null : group.label)");
@@ -216,6 +216,39 @@ describe("landing polish guard", () => {
     expect(navigation).toContain("Pro zákazníky");
     expect(page).toContain("/ukazka");
     expect(navigation).not.toContain("<details");
+  });
+
+  test("business marketing pages keep the same landing navigation", () => {
+    const sharedHeader = readProjectFile("components/marketing/marketing-header.tsx");
+    const businessPages = [
+      "app/page.tsx",
+      "components/marketing/industry-landing-page.tsx",
+      "app/jak-snizit-no-show/page.tsx",
+      "app/sms-pripominky-rezervaci/page.tsx",
+      "app/rezervacni-system-bez-marketplace-provizi/page.tsx",
+      "app/ukazka/page.tsx",
+    ];
+
+    expect(sharedHeader).toContain("<LandingNavigation />");
+    expect(sharedHeader).toContain("fixed left-4 right-4 top-3");
+    expect(sharedHeader).toContain("min-h-16");
+    expect(sharedHeader).toContain("max-w-[1180px]");
+    expect(sharedHeader).toContain("Přihlášení");
+    expect(sharedHeader).toContain("Začít zdarma");
+
+    for (const filePath of businessPages) {
+      const source = readProjectFile(filePath);
+
+      expect(source).toContain("MarketingHeader");
+      expect(source).not.toContain("<LandingNavigation />");
+      expect(source).not.toContain('aria-label="Hlavní navigace"');
+    }
+
+    const customerDirectory = readProjectFile("app/podniky/page.tsx");
+
+    expect(customerDirectory).not.toContain("MarketingHeader");
+    expect(customerDirectory).toContain("Pro podniky");
+    expect(customerDirectory).toContain("Pro zákazníky");
   });
 
   test("homepage explains setup flow and booking channels", () => {

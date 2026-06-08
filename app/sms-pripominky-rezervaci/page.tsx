@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 
 import { TemaroLogo } from "@/components/brand/temaro-logo";
-import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { MarketingHeader } from "@/components/marketing/marketing-header";
 
 export const metadata: Metadata = {
   title: "SMS připomínky rezervací: kdy dávají smysl | Temaro",
@@ -141,28 +141,8 @@ export default function SmsRemindersPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <section className="signal-hero signal-grid px-4 py-4 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-6xl">
-          <header className="flex min-h-16 flex-wrap items-center justify-between gap-3 rounded-2xl border border-border/80 bg-card/88 px-3 py-3 shadow-lg shadow-primary/5 backdrop-blur-md sm:px-4">
-            <Link href="/" aria-label="Temaro homepage">
-              <TemaroLogo />
-            </Link>
-            <nav className="flex items-center gap-2">
-              <ThemeToggle compact />
-              <Link
-                href="/jak-snizit-no-show"
-                className="hidden h-10 items-center justify-center rounded-md border border-border bg-card px-4 text-sm font-semibold text-muted-foreground shadow-sm transition hover:text-foreground sm:inline-flex"
-              >
-                No-show návod
-              </Link>
-              <Link
-                href="/register"
-                className="inline-flex h-10 items-center justify-center gap-2 rounded-md bg-primary px-4 text-sm font-semibold text-primary-foreground shadow-sm transition hover:bg-primary/92"
-              >
-                Začít zdarma
-                <ArrowRight className="size-4" />
-              </Link>
-            </nav>
-          </header>
+        <div className="mx-auto max-w-[1180px]">
+          <MarketingHeader />
 
           <div className="grid items-center gap-10 py-16 lg:grid-cols-[0.92fr_1.08fr] lg:py-24">
             <section>

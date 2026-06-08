@@ -79,6 +79,9 @@ test.describe("public smoke", () => {
 
     await page.goto("/rezervacni-system-pro-kadernictvi", { waitUntil: "domcontentloaded" });
     await expect(page.getByText("Rezervační systém pro kadeřnictví").first()).toBeVisible();
+    await expect(page.getByRole("button", { name: "Řešení" })).toBeVisible();
+    await page.getByRole("button", { name: "Řešení" }).click();
+    await expect(page.getByRole("link", { name: /Barber shopy/ })).toBeVisible();
     await expect(page.getByRole("link", { name: "Pro beauty salon", exact: true })).toBeVisible();
 
     await page.goto("/rezervacni-system-pro-kosmeticky-salon", { waitUntil: "domcontentloaded" });
@@ -104,6 +107,26 @@ test.describe("public smoke", () => {
     await page.goto("/rezervacni-system-bez-marketplace-provizi", { waitUntil: "domcontentloaded" });
     await expect(page.getByRole("heading", { name: /Vlastní klienti\./i })).toBeVisible();
     await expect(page.getByRole("link", { name: "SMS připomínky", exact: true }).first()).toBeVisible();
+  });
+
+  test("business marketing navigation stays fixed and stable while scrolling", async ({ page }) => {
+    await page.goto("/rezervacni-system-pro-kadernictvi", { waitUntil: "domcontentloaded" });
+
+    const header = page.locator("header").first();
+    const before = await header.boundingBox();
+
+    expect(before).not.toBeNull();
+    await page.mouse.wheel(0, 1400);
+    await expect(page.getByRole("button", { name: "Řešení" })).toBeVisible();
+
+    const after = await header.boundingBox();
+
+    expect(after).not.toBeNull();
+    expect(Math.round(after!.y)).toBe(Math.round(before!.y));
+    expect(Math.abs(after!.height - before!.height)).toBeLessThan(1);
+
+    await page.getByRole("button", { name: "Řešení" }).click();
+    await expect(page.getByRole("link", { name: /Kadeřnictví/ })).toBeVisible();
   });
 
   test("demo booking page renders selectable booking flow", async ({ page }) => {

@@ -2,9 +2,8 @@ import { ArrowRight, CalendarDays, CheckCircle2, Clock3, MousePointer2, UsersRou
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { TemaroLogo } from "@/components/brand/temaro-logo";
 import { InteractiveProductDemo } from "@/components/marketing/interactive-product-demo";
-import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { MarketingHeader } from "@/components/marketing/marketing-header";
 
 export const metadata: Metadata = {
   title: "Interaktivní ukázka Temara | Rezervační systém",
@@ -50,38 +49,7 @@ export default function DemoPage() {
     <main className="min-h-screen overflow-hidden bg-background text-foreground">
       <section className="signal-hero signal-grid relative">
         <div className="mx-auto flex w-full max-w-[1180px] flex-col px-4 py-4 sm:px-6 lg:px-0">
-          <header className="sticky top-3 z-30 flex min-h-16 flex-wrap items-center justify-between gap-3 rounded-2xl border border-border/80 bg-card/88 px-3 py-3 shadow-lg shadow-primary/5 backdrop-blur-md sm:px-4 lg:backdrop-blur-xl">
-            <Link href="/" className="flex items-center gap-3">
-              <TemaroLogo />
-            </Link>
-
-            <nav className="order-3 grid w-full grid-cols-3 gap-1 border-t border-border/70 pt-2 lg:order-none lg:flex lg:w-auto lg:border-t-0 lg:pt-0">
-              {[
-                ["/", "Pro podniky"],
-                ["/podniky", "Pro zákazníky"],
-                ["/demo-barber", "Rezervace klienta"],
-              ].map(([href, label]) => (
-                <Link
-                  key={href}
-                  href={href}
-                  className="rounded-md px-2 py-2 text-center text-sm font-semibold text-muted-foreground transition hover:bg-muted hover:text-foreground lg:px-3"
-                >
-                  {label}
-                </Link>
-              ))}
-            </nav>
-
-            <div className="flex items-center gap-2">
-              <ThemeToggle compact />
-              <Link
-                href="/register"
-                className="inline-flex h-10 items-center justify-center gap-2 whitespace-nowrap rounded-md bg-primary px-4 text-sm font-semibold text-primary-foreground shadow-sm transition hover:bg-primary/92"
-              >
-                Začít zdarma
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </div>
-          </header>
+          <MarketingHeader />
 
           <div className="grid gap-10 py-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-center lg:py-14">
             <section className="mx-auto max-w-2xl lg:mx-0">
