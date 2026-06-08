@@ -14,6 +14,8 @@ jobs:
     name: Deploy to Vercel production
     runs-on: ubuntu-latest
     env:
+      VERCEL_ORG_ID: team_mTjH4uHwLawj5n8HdJ7hHuIJ
+      VERCEL_PROJECT_ID: prj_SsVeTuolEbEJHPQOWCMZwhkUh5YM
       VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
     steps:
@@ -42,6 +44,13 @@ jobs:
       - name: Install dependencies
         if: steps.token.outputs.present == 'true'
         run: npm ci
+
+      - name: Link Vercel project
+        if: steps.token.outputs.present == 'true'
+        shell: bash
+        run: |
+          mkdir -p .vercel
+          printf '{"projectId":"%s","orgId":"%s"}\n' "$VERCEL_PROJECT_ID" "$VERCEL_ORG_ID" > .vercel/project.json
 
       - name: Pull Vercel environment
         if: steps.token.outputs.present == 'true'
