@@ -1,6 +1,6 @@
 # Architektura
 
-Aktualizováno: 2026-05-08
+Aktualizováno: 2026-06-08
 
 ## Stack
 
@@ -17,7 +17,7 @@ Aktualizováno: 2026-05-08
 | Validace | Zod |
 | Testy | Vitest, Testing Library |
 
-Konkrétní SMS provider, plný Google/Outlook sync, marketplace, AI a skupinové kapacity nejsou v MVP implementované. Stripe zálohy, provider-agnostic SMS webhook základ, iCal read-only export, plný iframe widget, booking button embed a pobočky jsou implementované jako první vrstvy. Booking share kit generuje Instagram texty a QR přes `chart.googleapis.com`. Google OAuth je připravené pro podnikové i zákaznické účty přes Supabase Auth.
+Konkrétní SMS provider, plný Google/Outlook sync, marketplace, AI a skupinové kapacity nejsou v MVP implementované. Stripe zálohy, provider-agnostic SMS webhook základ, iCal read-only export, plný iframe widget, booking button embed a pobočky jsou implementované jako první vrstvy. Booking share kit generuje Instagram texty a QR přes `quickchart.io`. Google OAuth je připravené pro podnikové i zákaznické účty přes Supabase Auth.
 
 ## Multi-tenancy
 

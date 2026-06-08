@@ -1,6 +1,6 @@
 # Runtime checklist
 
-Aktualizováno: 2026-06-06 18:26 CEST
+Aktualizováno: 2026-06-08 18:40 CEST
 
 Tento checklist je pro první reálné ověření mimo demo režim.
 
@@ -40,6 +40,7 @@ Aktuální známý stav:
 - `npm run check` prošlo 2026-06-06 18:26 CEST po hero product restore: 593 Vitest testů, migrations check, type-check, lint a produkční build. Lokální public smoke prošel 10/10. Runtime ověřit, že homepage hero je dvousloupcový, text/CTA/trust/proof jsou vlevo, produktový PC + telefon mock je vpravo, kotva `#produkt` míří na hero a samostatná tmavá produktová sekce už není duplicitně pod herem.
 - Poznámka k lokálnímu ověření: public smoke nespouštět paralelně s `npm run check`, protože souběžný Next build může dočasně přepsat `.next` manifesty pro Playwright web server. Po dokončení buildu samostatný public smoke prošel 10/10.
 - Runtime ověřit na `/demo-barber`: topbar obsahuje `Zpět na web`, `Interaktivní ukázka`, `Registrovat podnik` a theme toggle. Reálné tenant booking stránky `/{slug}` mají zůstat tenant-branded bez plné Temaro navigace.
+- `npm run check` prošlo 2026-06-08 18:40 CEST po public demo hotfixu: 593 Vitest testů, migrations check, type-check, lint a produkční build. Lokální public smoke prošel 10/10 a regresně hlídá, že `/demo-barber` na mobilu nemá horizontální overflow ani 404 assety.
 - Runtime ověřit na `/podniky`, `/login`, `/register`, `/forgot-password`, `/reset-password` a `/account/login`: návštěvník se umí vrátit na web a přepnout světlý/tmavý režim tam, kde je stránka součást veřejného vstupu.
 - `npm run check` prošlo 2026-06-01 16:40 CEST po rychlém service/staff/booking-page onboardingu: 572 Vitest testů, migrations check, type-check, lint a produkční build.
 - `npm run check` prošlo 2026-06-01 18:47 CEST po doplnění sdílení do `/start`: 572 Vitest testů, migrations check, type-check, lint a produkční build.
@@ -487,7 +488,7 @@ Aktuální známý stav:
 - V nové databázi aplikovat migraci `20260503123000_create_calendar_feed_tokens.sql`; v aktuální připojené databázi je aplikovaná a přihlášený Playwright smoke už ověřuje vytvoření a načtení iCal feedu.
 - Po vygenerování iCal feedu ověřit, že URL neobsahuje tenant ID, feed obsahuje aktivní rezervace, `last_used_at` se po načtení aktualizuje a po odvolání feed vrací 404.
 - V `/booking-page` ověřit booking button embed snippet, vložit ho do jednoduché HTML stránky a potvrdit, že vykreslí tlačítko vedoucí na veřejný booking slug.
-- V `/booking-page` ověřit sdílecí kit: Instagram bio text, story/post text a QR kód; CSP nesmí blokovat `chart.googleapis.com`.
+- V `/booking-page` ověřit sdílecí kit: Instagram bio text, story/post text a QR kód; CSP nesmí blokovat `quickchart.io`.
 - Na veřejné booking stránce `/{slug}` ověřit desktop i mobil: desktop má profil podniku vlevo a sticky rezervační kartu vpravo, mobil je jednosloupcový, text není useknutý přes fotku a chybějící galerie neukazuje veřejný upload placeholder.
 - Na landing page ověřit sekci `Dva typy účtů` a další produktovou vrstvu: vyhledání podniků, mapa podniku a plný Google Calendar sync jsou budoucí vrstva, ne hotová funkce.
 - V `/settings` vyplnit veřejnou adresu/město/mapový odkaz, zapnout zalistování, ověřit `/podniky` a veřejnou booking stránku; katalog má ukazovat jen veřejná tenant pole.

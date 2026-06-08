@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Aktualizováno: 2026-06-06 18:26 CEST
+Aktualizováno: 2026-06-08 18:40 CEST
 
 Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historické analýzy a staré design audity jsou přesunuté do `docs/archive/`.
 
@@ -42,6 +42,8 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - Lokální ověření 2026-06-06 17:23 CEST po vizuálním rytmu: `npm run check` prošlo s 592 Vitest testy, migrations check, type-check, lint a produkční build. Lokální public smoke prošel 10/10. Browser smoke potvrdil console errors 0, hero gradient, tmavou produktovou sekci, bílý text na tmavé sekci, zobrazení statementu, scroll reveal spodních sekcí, dark režim a horizontální overflow 0. Screenshoty jsou `output/playwright/temaro-visual-rhythm-desktop.png`, `output/playwright/temaro-visual-rhythm-mobile.png`, `output/playwright/temaro-visual-rhythm-dark.png` a `output/playwright/temaro-visual-rhythm-scrolled.png`.
 - Produkční ověření 2026-06-06 17:30 CEST po vizuálním rytmu: alias `https://rezervacni-system-xi.vercel.app` vrací `/api/health` se `status=ok` a produkční public smoke prošel 10/10.
 - Hero product restore 2026-06-06: předchozí centrovaný jednosloupcový hero byl vrácený na dvousloupcový layout. Text/CTA/trust/proof jsou vlevo, `LiveProductShowcase` je zpět vpravo přímo v heru, hero nese `id="produkt"` a duplicitní tmavá produktová sekce byla odstraněná. Lokální ověření 2026-06-06 18:26 CEST: `npm run check` prošlo s 593 Vitest testy, migrations check, type-check, lint a produkční build. Lokální public smoke prošel 10/10. Browser smoke potvrdil dvousloupec na desktopu, produkt v heru, žádnou tmavou duplicitní produktovou sekci, console errors 0 a horizontální overflow 0. Screenshoty jsou `output/playwright/temaro-hero-two-column-desktop.png` a `output/playwright/temaro-hero-two-column-mobile.png`.
+- Public demo hotfix 2026-06-08: `/demo-barber` používá existující WebP assety `public/marketing/*-ai.webp` a mobilní booking profil/formulář má `min-w-0` na grid položkách, aby nevznikal horizontální overflow. Public smoke nově regresně hlídá chybějící assety i mobilní overflow.
+- Lokální ověření 2026-06-08 18:40 CEST: `npx playwright test tests/e2e/public-smoke.spec.ts` prošel 10/10. `npm run check` prošlo s 593 Vitest testy, migrations check, type-check, lint a produkční build.
 - Vercel production deploy `dpl_6ZgkD4UjbWZtxU6mhg5KFEmz3gpD` je na aliasu `https://rezervacni-system-xi.vercel.app`; externí public smoke 2026-06-01 16:19 CEST prošel 10/10.
 - Onboarding po registraci nově vede na `/start`: stránka má panel připravenosti, jasnou další akci, veřejný rezervační odkaz a checklist `podnik -> služba -> tým/pracovní doba -> rezervační stránka -> první klienti`.
 - E-mailová i Google registrace nového podniku po vytvoření účtu směřuje do `/start`, ne rovnou na běžný provozní dashboard.
@@ -383,7 +385,7 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - Přihlášený Playwright admin smoke nově pokrývá `/start` a `/booking-page`; ověřuje onboarding checklist, booking share kit, embed sekci a náhled rezervačního tlačítka.
 - E2E helper pro registraci ownera používá přesný lokátor `Vytvořit podnik`, aby nekolidoval s Google OAuth tlačítkem `Vytvořit podnik přes Google`.
 - Playwright public smoke nově ověřuje `/account/login` Google vstup pro zákazníky a reálné vykreslení `public/embed/booking-button.js` v browseru.
-- Přidaný booking share kit: `lib/booking/share-kit.ts`, `components/settings/booking-share-kit.tsx`, test `tests/booking-share-kit.test.ts` a CSP povolení `https://chart.googleapis.com` pro QR obrázky.
+- Přidaný booking share kit: `lib/booking/share-kit.ts`, `components/settings/booking-share-kit.tsx`, test `tests/booking-share-kit.test.ts` a QR obrázky přes `quickchart.io`.
 - Přidaný zákaznický účet `/account` a `/account/login`: zákazník se přihlásí přes Google, callback povolí uživatele bez tenant metadata jen pro `/account` a přehled rezervací se páruje podle ověřeného e-mailu.
 - `/account` používá server-side service role jen k read-only načtení klientských rezervací podle auth e-mailu; interní poznámky a tenant admin data nezobrazuje.
 - Přidaný Google OAuth login a podnikatelská Google registrace: akce `signInWithGoogleAction`, `registerWithGoogleAction`, pending HTTP-only cookie, callback vytvoření tenanta přes `createBusinessForOAuthUser` a refresh session po doplnění `app_metadata`.

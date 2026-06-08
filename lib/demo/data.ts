@@ -186,9 +186,9 @@ export const demoTenant: Tenant = {
   review_count: 128,
   review_source_label: "Google",
   public_gallery_image_urls: [
-    "/marketing/barber-ai.webp",
-    "/marketing/beauty-ai.webp",
-    "/marketing/fitness-ai.webp",
+    "/marketing/barber-studio-ai.webp",
+    "/marketing/salon-interior-ai.webp",
+    "/marketing/training-studio-ai.webp",
   ],
   public_amenities: ["Káva zdarma", "Wi-Fi", "Platba kartou", "Bez čekání"],
   social_instagram_url: "https://www.instagram.com/",

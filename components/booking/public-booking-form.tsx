@@ -205,7 +205,7 @@ export function PublicBookingForm({
   }
 
   return (
-    <form action={formAction} className="w-full rounded-xl border border-border bg-card/96 p-5 shadow-[var(--shadow-command)] backdrop-blur sm:p-6">
+    <form action={formAction} className="min-w-0 w-full rounded-xl border border-border bg-card/96 p-5 shadow-[var(--shadow-command)] backdrop-blur sm:p-6">
       <input type="hidden" name="slug" value={slug} />
       <input type="hidden" name="serviceId" value={selectedServiceId} />
       <input type="hidden" name="staffId" value={selectedSlot?.staffId ?? (selectedStaffId === "any" ? "" : selectedStaffId)} />

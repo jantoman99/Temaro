@@ -96,6 +96,15 @@ test.describe("public smoke", () => {
   });
 
   test("demo booking page renders selectable booking flow", async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+
+    const missingAssets: string[] = [];
+    page.on("response", (response) => {
+      if (response.status() === 404) {
+        missingAssets.push(response.url());
+      }
+    });
+
     await page.goto("/demo-barber");
 
     await expect(page.getByRole("link", { name: "Zpět na web", exact: true })).toHaveAttribute("href", "/");
@@ -108,6 +117,10 @@ test.describe("public smoke", () => {
     await expect(page.getByRole("heading", { name: /Vyberte službu, termín a kontakt/i })).toBeVisible();
     await expect(page.getByRole("heading", { name: "Vyberte službu", exact: true })).toBeVisible();
     await expect(page.getByText(/Vybraný termín/i)).toBeVisible();
+
+    const hasHorizontalOverflow = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1);
+    expect(hasHorizontalOverflow).toBe(false);
+    expect(missingAssets).toEqual([]);
   });
 
   test("demo booking flow can be submitted without writing to the database", async ({ page }) => {

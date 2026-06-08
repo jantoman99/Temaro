@@ -40,6 +40,7 @@ Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 - Otevřít `/podniky`, ověřit demo/veřejný výpis, hledání podle textu, města a oboru, booking CTA a odkaz `Otevřít mapu`.
 - Na `/podniky` ověřit theme toggle ve veřejné hlavičce a návrat na podnikatelskou homepage přes `Pro podniky`.
 - Otevřít `/demo-barber` a ověřit, že není slepá ulička: nahoře musí být `Zpět na web`, `Interaktivní ukázka`, `Registrovat podnik` a theme toggle. Vlastní demo rezervační flow musí zůstat použitelné.
+- Na mobilní šířce `/demo-barber` ověřit, že se galerie, mapa a rezervační formulář vejdou bez horizontálního scrollu a DevTools Network neukazuje 404 pro `/marketing/*-ai.webp`.
 - Na landing page zkontrolovat světlé pozadí, konkrétní provozní copy a produktový náhled bez tmavého Linear/Signal hero dojmu.
 - Na landing page zkontrolovat produktovou ukázku: desktopový dashboard musí působit jako reálný SaaS produkt a telefonní overlay jako veřejná rezervační stránka.
 - Ověřit, že interaktivní průchod systémem zůstává dostupný přes CTA `Spustit ukázku` nebo stránku `/ukazka`; hero na homepage už nemusí být interaktivní.

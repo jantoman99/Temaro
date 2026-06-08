@@ -66,7 +66,7 @@ function BookingProfile({
   const hasRating = typeof reviewRating === "number" && reviewCount > 0;
 
   return (
-    <div className="space-y-6">
+    <div className="min-w-0 space-y-6">
       <section className="overflow-hidden rounded-[1.75rem] border border-border bg-card shadow-[var(--shadow-command)]">
         <div className="relative h-[260px] bg-sidebar sm:h-[340px]">
           {profileImages[0] ? (
@@ -312,7 +312,7 @@ function DemoBookingPage({
               { href: demoTenant.social_tiktok_url ?? "", label: "TikTok", type: "tiktok" as const },
             ].filter((link) => link.href)}
           />
-          <aside id="rezervace" className="lg:sticky lg:top-6">
+          <aside id="rezervace" className="min-w-0 lg:sticky lg:top-6">
             <PublicBookingForm
               availabilitySlots={availabilitySlots}
               services={demoServices}
@@ -440,7 +440,7 @@ export default async function BookingPage({ params, searchParams }: BookingPageP
             ].filter((link) => link.href)}
             staffCount={safeStaff.length}
           />
-          <aside id="rezervace" className="lg:sticky lg:top-6">
+          <aside id="rezervace" className="min-w-0 lg:sticky lg:top-6">
             <PublicBookingForm
               availabilitySlots={availabilitySlots}
               loadError={dataLoadFailed}

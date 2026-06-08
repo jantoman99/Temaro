@@ -1,6 +1,6 @@
 # Handoff
 
-Aktualizováno: 2026-06-06 18:26 CEST
+Aktualizováno: 2026-06-08 18:40 CEST
 
 ## Jak navázat
 
@@ -41,6 +41,8 @@ Aktualizováno: 2026-06-06 18:26 CEST
 - Poslední lokální ověření: `npm run check` prošlo 2026-06-06 17:23 CEST s 592 Vitest testy, migrations check, type-check, lint i buildem. Lokální public smoke prošel 10/10. Browser smoke potvrdil hero gradient, tmavou produktovou sekci, dark režim, statement, scroll reveal spodních sekcí, console errors 0 a overflow 0. Screenshoty: `output/playwright/temaro-visual-rhythm-desktop.png`, `output/playwright/temaro-visual-rhythm-mobile.png`, `output/playwright/temaro-visual-rhythm-dark.png`, `output/playwright/temaro-visual-rhythm-scrolled.png`.
 - Produkční ověření 2026-06-06 17:30 CEST: alias `https://rezervacni-system-xi.vercel.app` vrací `/api/health` se `status=ok` a `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` prošel 10/10.
 - Aktuální hero změna 2026-06-06: homepage hero je vrácený na dvousloupcový layout. Vlevo je text/CTA/trust/proof, vpravo `LiveProductShowcase`, kotva `#produkt` je na heru a duplicitní tmavá produktová sekce je odstraněná. Lokální ověření 2026-06-06 18:26 CEST: `npm run check` prošlo s 593 Vitest testy, lokální public smoke 10/10 a browser smoke potvrdil dvousloupec, produkt v heru, žádnou tmavou duplicitní produktovou sekci, console errors 0 a overflow 0. Screenshoty: `output/playwright/temaro-hero-two-column-desktop.png`, `output/playwright/temaro-hero-two-column-mobile.png`.
+- Aktuální public demo hotfix 2026-06-08: `/demo-barber` má opravené demo obrázky na existující `public/marketing/*-ai.webp` assety a booking grid má `min-w-0`, aby na mobilu nevznikal horizontální overflow. Public smoke nově kontroluje 404 assety i mobilní overflow.
+- Poslední lokální ověření: `npx playwright test tests/e2e/public-smoke.spec.ts` prošel 2026-06-08 10/10. `npm run check` prošlo 2026-06-08 18:40 CEST s 593 Vitest testy, migrations check, type-check, lint i buildem.
 - Rozhodnutí scope 2026-05-08: všechny významné konkurenční funkce jsou součást pre-launch MVP, ne fáze 2. Pořadí implementace je anti-no-show/platby, zákazník/integrace, business suite, growth/discovery, mobilní/provozní vrstva.
 - Vlny 1 po rozšíření scope: hotové jsou zdroje rezervací/UTM, čekací listina, review request po návštěvě, online záloha přes Stripe Checkout a storno pravidla navázaná na zálohu/čas do termínu.
 - Čekací listina má tabulku `waitlist_entries`, service-role RPC `create_waitlist_entry`, veřejné CTA při obsazených termínech a owner přehled v kalendáři; migrace `20260508114500_create_waitlist_entries.sql` je aplikovaná lokálně i remote.
@@ -318,7 +320,7 @@ Aktualizováno: 2026-06-06 18:26 CEST
 - Přihlášený Playwright admin smoke nově pokrývá `/start` a `/booking-page`; ověřuje onboarding checklist, booking share kit, embed sekci a náhled rezervačního tlačítka.
 - E2E helper pro registraci ownera používá přesný lokátor `Vytvořit podnik`, aby nekolidoval s Google OAuth tlačítkem `Vytvořit podnik přes Google`.
 - Playwright public smoke nově ověřuje `/account/login` Google vstup pro zákazníky a reálné vykreslení booking button embedu v browseru.
-- Přidaný booking share kit: `lib/booking/share-kit.ts`, `components/settings/booking-share-kit.tsx`, test `tests/booking-share-kit.test.ts` a CSP povolení `https://chart.googleapis.com` pro QR obrázky.
+- Přidaný booking share kit: `lib/booking/share-kit.ts`, `components/settings/booking-share-kit.tsx`, test `tests/booking-share-kit.test.ts` a QR obrázky přes `quickchart.io`.
 - Přidaný zákaznický účet `/account` a `/account/login`: zákazník se přihlásí přes Google, callback povolí uživatele bez tenant metadata jen pro `/account` a přehled rezervací se páruje podle ověřeného e-mailu.
 - `/account` používá server-side service role jen k read-only načtení klientských rezervací podle auth e-mailu; interní poznámky a tenant admin data nezobrazuje.
 - Přidaný Google OAuth login a podnikatelská Google registrace: akce `signInWithGoogleAction`, `registerWithGoogleAction`, pending HTTP-only cookie, callback vytvoření tenanta přes `createBusinessForOAuthUser` a refresh session po doplnění owner `app_metadata`.
