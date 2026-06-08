@@ -264,6 +264,9 @@ describe("landing polish guard", () => {
 
     expect(demoPage).toContain("Interaktivní ukázka Temara");
     expect(demoPage).toContain("InteractiveProductDemo");
+    expect(demoPage).toContain("demoFlow");
+    expect(demoPage).toContain("Krátký průchod místo dlouhé prezentace.");
+    expect(demoPage).toContain("Vidět klientskou rezervaci");
     expect(demoPage).toContain("Začít zdarma");
   });
 

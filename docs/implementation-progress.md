@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Aktualizováno: 2026-06-08 20:33 CEST
+Aktualizováno: 2026-06-08 22:07 CEST
 
 Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historické analýzy a staré design audity jsou přesunuté do `docs/archive/`.
 
@@ -53,6 +53,8 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - Homepage nav/demo polish 2026-06-08: dropdown navigace je řízená client komponentou `LandingNavigation`, takže otevření další skupiny zavře předchozí dropdown. Homepage má nový blok `Produktová ukázka` s CTA na `/ukazka` a třemi konkrétními momenty, které klient uvidí. Ověření: browser kontrola desktop/mobile bez overflow a console errors, public smoke 10/10 a `npm run check` prošlo 2026-06-08 20:30 CEST s 595 Vitest testy, migrations check, type-check, lint i produkční build.
 - Produkční deploy 2026-06-08 20:25 CEST: ruční Vercel production deploy `dpl_2DPpmecDBhU5yLsorHBXzZhaxEkE` je aliasovaný na `https://rezervacni-system-xi.vercel.app`. Produkční `/api/health` je `ok` a produkční public smoke prošel 10/10.
 - Produkční deploy 2026-06-08 20:33 CEST: ruční Vercel production deploy `dpl_9cGV6a2MCAuGxVyTKfvzjNViWCoP` je aliasovaný na `https://rezervacni-system-xi.vercel.app`. Produkční `/api/health` je `ok`, HTML obsahuje poslední copy změnu a produkční public smoke prošel 10/10.
+- Deploy automation 2026-06-08: Vercel CLI je přihlášené k projektu `hanyst7-5998s-projects/rezervacni-system`, ale `npx vercel git connect ...` dál selhává na GitHub repo oprávnění. Přidaný GitHub Actions fallback `.github/workflows/vercel-production.yml` nasadí produkci po pushi na `main`, jakmile bude v GitHub Actions nastavený secret `VERCEL_TOKEN`; do té doby zůstává nutný ruční `npx vercel --prod --yes`.
+- `/ukazka` demo scénář 2026-06-08: stránka má novou sekci `Krátký průchod místo dlouhé prezentace.` s časovou osou průchodu a závěrečné CTA na registraci i klientskou rezervaci. Ověření: `npm run test -- tests/landing-polish.test.ts` prošlo 19/19, `npx playwright test tests/e2e/public-smoke.spec.ts` prošel 10/10 a `npm run check` prošlo 2026-06-08 22:07 CEST s 595 Vitest testy, migrations check, type-check, lint i produkční build.
 - Vercel production deploy `dpl_6ZgkD4UjbWZtxU6mhg5KFEmz3gpD` je na aliasu `https://rezervacni-system-xi.vercel.app`; externí public smoke 2026-06-01 16:19 CEST prošel 10/10.
 - Onboarding po registraci nově vede na `/start`: stránka má panel připravenosti, jasnou další akci, veřejný rezervační odkaz a checklist `podnik -> služba -> tým/pracovní doba -> rezervační stránka -> první klienti`.
 - E-mailová i Google registrace nového podniku po vytvoření účtu směřuje do `/start`, ne rovnou na běžný provozní dashboard.
