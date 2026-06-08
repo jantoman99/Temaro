@@ -1,5 +1,5 @@
 # AGENTS.md – Temaro
-Piš česky, stručně, bez průběžných reportů mimo blocker/ruční vstup/výsledek.
+Piš česky, stručně a věcně.
 
 ## Projekt a stack
 - Temaro: multi-tenant SaaS booking platforma pro služby; fáze MVP/pre-launch.
@@ -27,11 +27,10 @@ Piš česky, stručně, bez průběžných reportů mimo blocker/ruční vstup/v
 
 ## Dokumentace a komunikace
 - Po feature/security/UX/runtime změně aktualizuj: `docs/implementation-progress.md`, `docs/handoff.md`, `docs/runtime-checklist.md`, případně `docs/manual-test-plan.md`.
-- Restart prompt drž mimo repo a v syncu s `/mnt/c/Users/hanys/Desktop/restart-rezervacni-system.txt`.
+- Restart prompt drž mimo repo.
 - Po úspěšném `npm run check` zapiš počet testů a poslední ověření.
 - Dokumentace nesmí odporovat kódu.
-- Pracuj autonomně.
-- Piš do chatu jen při blockeru, ručním vstupu/ověření nebo finálním výsledku.
+- Pracuj autonomně a udržuj komunikaci stručnou.
 - Finální odpověď vždy zakonči krátkým review: co se udělalo v posledním promptu, co bylo ověřeno/commitnuto/pushnuto a co nás čeká dál.
 
 ## BEZPEČNOSTNÍ PRAVIDLA – ABSOLUTNÍ, BEZ VÝJIMEK
