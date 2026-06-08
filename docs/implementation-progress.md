@@ -816,6 +816,7 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - `npx playwright test tests/e2e/public-smoke.spec.ts -g "business marketing navigation stays fixed"` prošlo 2026-06-08 23:02 CEST; test kontroluje homepage i `/rezervacni-system-pro-kadernictvi`, že první text začíná pod navigací a header při scrollu nemění pozici/výšku.
 - `npx playwright test tests/e2e/public-smoke.spec.ts` prošlo 2026-06-08 23:03 CEST: 11/11 veřejných Playwright smoke testů.
 - `npm run check` prošlo 2026-06-08 23:05 CEST: 596 Vitest testů, migrations check, type-check, lint i produkční build.
+- Produkční deploy `dpl_G7FskTFNfkVQtFAQ68qpDocfD3o8` byl 2026-06-08 23:09 CEST aliased na `https://rezervacni-system-xi.vercel.app`; `/api/health` vrátil `status: "ok"` a produkční `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` prošel 11/11.
 - SMS reminder má aplikační/webhook základ, ale reálné odesílání čeká na výběr a konfiguraci SMS poskytovatele.
 - Google OAuth je připravené v kódu, ale runtime aktivace je vědomě odložená až po zakoupení produkční domény, aby se nastavily finální URL bez provizorních hodnot.
 - Živá online platební brána není implementovaná; zálohy a interní evidence plateb hotové jsou.
