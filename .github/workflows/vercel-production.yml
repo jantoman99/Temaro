@@ -14,19 +14,23 @@ jobs:
     name: Deploy to Vercel production
     runs-on: ubuntu-latest
     env:
+      NEXT_PUBLIC_APP_URL: https://rezervacni-system-xi.vercel.app
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: sb_publishable__uR26T1MisHeSlPrnz6AZQ_kkptmUOb
+      NEXT_PUBLIC_SUPABASE_URL: https://dkbnuvrrmegnbnwungvi.supabase.co
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
       VERCEL_ORG_ID: team_mTjH4uHwLawj5n8HdJ7hHuIJ
       VERCEL_PROJECT_ID: prj_SsVeTuolEbEJHPQOWCMZwhkUh5YM
       VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
     steps:
-      - name: Check Vercel token
+      - name: Check required secrets
         id: token
         shell: bash
         run: |
-          if [ -n "$VERCEL_TOKEN" ]; then
+          if [ -n "$VERCEL_TOKEN" ] && [ -n "$SUPABASE_SERVICE_ROLE_KEY" ]; then
             echo "present=true" >> "$GITHUB_OUTPUT"
           else
-            echo "::notice::VERCEL_TOKEN secret is not set; skipping Vercel deploy."
+            echo "::notice::VERCEL_TOKEN or SUPABASE_SERVICE_ROLE_KEY secret is not set; skipping Vercel deploy."
             echo "present=false" >> "$GITHUB_OUTPUT"
           fi
 
@@ -56,10 +60,26 @@ jobs:
         if: steps.token.outputs.present == 'true'
         run: npx vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
 
+      - name: Write production build environment
+        if: steps.token.outputs.present == 'true'
+        shell: bash
+        run: |
+          cat > .vercel/.env.production.local <<EOF
+          NEXT_PUBLIC_APP_URL="$NEXT_PUBLIC_APP_URL"
+          NEXT_PUBLIC_SUPABASE_ANON_KEY="$NEXT_PUBLIC_SUPABASE_ANON_KEY"
+          NEXT_PUBLIC_SUPABASE_URL="$NEXT_PUBLIC_SUPABASE_URL"
+          SUPABASE_SERVICE_ROLE_KEY="$SUPABASE_SERVICE_ROLE_KEY"
+          EOF
+
       - name: Build production bundle
         if: steps.token.outputs.present == 'true'
         run: npx vercel build --prod --token="$VERCEL_TOKEN"
 
       - name: Deploy production bundle
         if: steps.token.outputs.present == 'true'
-        run: npx vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN"
+        run: |
+          npx vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN" \
+            --env NEXT_PUBLIC_APP_URL="$NEXT_PUBLIC_APP_URL" \
+            --env NEXT_PUBLIC_SUPABASE_ANON_KEY="$NEXT_PUBLIC_SUPABASE_ANON_KEY" \
+            --env NEXT_PUBLIC_SUPABASE_URL="$NEXT_PUBLIC_SUPABASE_URL" \
+            --env SUPABASE_SERVICE_ROLE_KEY="$SUPABASE_SERVICE_ROLE_KEY"
