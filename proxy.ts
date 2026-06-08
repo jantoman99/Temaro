@@ -30,6 +30,10 @@ const PROTECTED_ROUTES = [
 
 const PUBLIC_ROUTES = ["/account/login"];
 
+function isCustomerAccountRoute(pathname: string) {
+  return pathname === "/account" || pathname.startsWith("/account/");
+}
+
 function hasSupabaseSessionCookie(request: NextRequest) {
   return request.cookies.getAll().some((cookie) => {
     const isSupabaseAuthCookie =
@@ -67,7 +71,7 @@ export async function proxy(request: NextRequest) {
 
   if (!hasSupabaseSessionCookie(request)) {
     const redirectUrl = request.nextUrl.clone();
-    redirectUrl.pathname = "/login";
+    redirectUrl.pathname = isCustomerAccountRoute(request.nextUrl.pathname) ? "/account/login" : "/login";
     redirectUrl.search = "";
     redirectUrl.searchParams.set("redirectedFrom", `${request.nextUrl.pathname}${request.nextUrl.search}`);
     return NextResponse.redirect(redirectUrl);

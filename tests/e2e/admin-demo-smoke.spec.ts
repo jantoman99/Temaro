@@ -19,4 +19,12 @@ test.describe("admin auth smoke", () => {
       await expect(page.getByRole("heading", { name: "Vítejte zpět" })).toBeVisible();
     }
   });
+
+  test("customer account routes redirect anonymous users to customer login", async ({ page }) => {
+    for (const route of ["/account", "/account/profile"] as const) {
+      await page.goto(route);
+      await expect(page).toHaveURL(new RegExp(`/account/login\\?redirectedFrom=${encodeURIComponent(route)}`));
+      await expect(page.getByRole("heading", { name: "Vaše rezervace napříč podniky" })).toBeVisible();
+    }
+  });
 });

@@ -145,7 +145,7 @@ describe("proxy auth guard", () => {
     const response = await proxy(createRequest("/account"));
 
     expect(response.status).toBe(307);
-    expect(response.headers.get("location")).toBe("http://localhost:3000/login?redirectedFrom=%2Faccount");
+    expect(response.headers.get("location")).toBe("http://localhost:3000/account/login?redirectedFrom=%2Faccount");
   });
 
   it("pusti prihlaseni zakaznickeho uctu bez session cookie", async () => {
@@ -159,7 +159,7 @@ describe("proxy auth guard", () => {
 
     expect(response.status).toBe(307);
     expect(response.headers.get("location")).toBe(
-      "http://localhost:3000/login?redirectedFrom=%2Faccount%2Fbookings%2F11111111-1111-4111-8111-111111111111",
+      "http://localhost:3000/account/login?redirectedFrom=%2Faccount%2Fbookings%2F11111111-1111-4111-8111-111111111111",
     );
   });
 

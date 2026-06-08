@@ -1,6 +1,6 @@
 # Runtime checklist
 
-Aktualizováno: 2026-06-08 18:40 CEST
+Aktualizováno: 2026-06-08 19:05 CEST
 
 Tento checklist je pro první reálné ověření mimo demo režim.
 
@@ -41,6 +41,7 @@ Aktuální známý stav:
 - Poznámka k lokálnímu ověření: public smoke nespouštět paralelně s `npm run check`, protože souběžný Next build může dočasně přepsat `.next` manifesty pro Playwright web server. Po dokončení buildu samostatný public smoke prošel 10/10.
 - Runtime ověřit na `/demo-barber`: topbar obsahuje `Zpět na web`, `Interaktivní ukázka`, `Registrovat podnik` a theme toggle. Reálné tenant booking stránky `/{slug}` mají zůstat tenant-branded bez plné Temaro navigace.
 - `npm run check` prošlo 2026-06-08 18:40 CEST po public demo hotfixu: 593 Vitest testů, migrations check, type-check, lint a produkční build. Lokální public smoke prošel 10/10 a regresně hlídá, že `/demo-barber` na mobilu nemá horizontální overflow ani 404 assety.
+- `npm run check` prošlo 2026-06-08 19:05 CEST po roadmap cleanupu a customer account redirect fixu: 593 Vitest testů, migrations check, type-check, lint a produkční build. `npx playwright test tests/e2e/admin-demo-smoke.spec.ts` prošel 2/2 a hlídá anonymní `/account*` redirect na `/account/login`.
 - Runtime ověřit na `/podniky`, `/login`, `/register`, `/forgot-password`, `/reset-password` a `/account/login`: návštěvník se umí vrátit na web a přepnout světlý/tmavý režim tam, kde je stránka součást veřejného vstupu.
 - `npm run check` prošlo 2026-06-01 16:40 CEST po rychlém service/staff/booking-page onboardingu: 572 Vitest testů, migrations check, type-check, lint a produkční build.
 - `npm run check` prošlo 2026-06-01 18:47 CEST po doplnění sdílení do `/start`: 572 Vitest testů, migrations check, type-check, lint a produkční build.

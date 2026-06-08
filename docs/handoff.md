@@ -1,6 +1,6 @@
 # Handoff
 
-Aktualizováno: 2026-06-08 18:40 CEST
+Aktualizováno: 2026-06-08 19:05 CEST
 
 ## Jak navázat
 
@@ -43,6 +43,8 @@ Aktualizováno: 2026-06-08 18:40 CEST
 - Aktuální hero změna 2026-06-06: homepage hero je vrácený na dvousloupcový layout. Vlevo je text/CTA/trust/proof, vpravo `LiveProductShowcase`, kotva `#produkt` je na heru a duplicitní tmavá produktová sekce je odstraněná. Lokální ověření 2026-06-06 18:26 CEST: `npm run check` prošlo s 593 Vitest testy, lokální public smoke 10/10 a browser smoke potvrdil dvousloupec, produkt v heru, žádnou tmavou duplicitní produktovou sekci, console errors 0 a overflow 0. Screenshoty: `output/playwright/temaro-hero-two-column-desktop.png`, `output/playwright/temaro-hero-two-column-mobile.png`.
 - Aktuální public demo hotfix 2026-06-08: `/demo-barber` má opravené demo obrázky na existující `public/marketing/*-ai.webp` assety a booking grid má `min-w-0`, aby na mobilu nevznikal horizontální overflow. Public smoke nově kontroluje 404 assety i mobilní overflow.
 - Poslední lokální ověření: `npx playwright test tests/e2e/public-smoke.spec.ts` prošel 2026-06-08 10/10. `npm run check` prošlo 2026-06-08 18:40 CEST s 593 Vitest testy, migrations check, type-check, lint i buildem.
+- Aktuální roadmapa 2026-06-08: `docs/roadmap.md` je zjednodušená do `Now / Next / Later / Nedělat Teď`. Nejbližší focus je produkční runtime smoke, veřejný dojem, Upstash rate limit, SMS provider a pilotní scénář.
+- Customer account redirect fix 2026-06-08: anonymní `/account*` routy jdou na `/account/login`, admin routy dál na `/login`. Poslední lokální ověření: `npx playwright test tests/e2e/admin-demo-smoke.spec.ts` prošel 2/2 a `npm run check` prošlo s 593 Vitest testy, migrations check, type-check, lint i buildem.
 - Rozhodnutí scope 2026-05-08: všechny významné konkurenční funkce jsou součást pre-launch MVP, ne fáze 2. Pořadí implementace je anti-no-show/platby, zákazník/integrace, business suite, growth/discovery, mobilní/provozní vrstva.
 - Vlny 1 po rozšíření scope: hotové jsou zdroje rezervací/UTM, čekací listina, review request po návštěvě, online záloha přes Stripe Checkout a storno pravidla navázaná na zálohu/čas do termínu.
 - Čekací listina má tabulku `waitlist_entries`, service-role RPC `create_waitlist_entry`, veřejné CTA při obsazených termínech a owner přehled v kalendáři; migrace `20260508114500_create_waitlist_entries.sql` je aplikovaná lokálně i remote.

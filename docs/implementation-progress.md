@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Aktualizováno: 2026-06-08 18:40 CEST
+Aktualizováno: 2026-06-08 19:05 CEST
 
 Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historické analýzy a staré design audity jsou přesunuté do `docs/archive/`.
 
@@ -44,6 +44,8 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - Hero product restore 2026-06-06: předchozí centrovaný jednosloupcový hero byl vrácený na dvousloupcový layout. Text/CTA/trust/proof jsou vlevo, `LiveProductShowcase` je zpět vpravo přímo v heru, hero nese `id="produkt"` a duplicitní tmavá produktová sekce byla odstraněná. Lokální ověření 2026-06-06 18:26 CEST: `npm run check` prošlo s 593 Vitest testy, migrations check, type-check, lint a produkční build. Lokální public smoke prošel 10/10. Browser smoke potvrdil dvousloupec na desktopu, produkt v heru, žádnou tmavou duplicitní produktovou sekci, console errors 0 a horizontální overflow 0. Screenshoty jsou `output/playwright/temaro-hero-two-column-desktop.png` a `output/playwright/temaro-hero-two-column-mobile.png`.
 - Public demo hotfix 2026-06-08: `/demo-barber` používá existující WebP assety `public/marketing/*-ai.webp` a mobilní booking profil/formulář má `min-w-0` na grid položkách, aby nevznikal horizontální overflow. Public smoke nově regresně hlídá chybějící assety i mobilní overflow.
 - Lokální ověření 2026-06-08 18:40 CEST: `npx playwright test tests/e2e/public-smoke.spec.ts` prošel 10/10. `npm run check` prošlo s 593 Vitest testy, migrations check, type-check, lint a produkční build.
+- Roadmap cleanup 2026-06-08: `docs/roadmap.md` je přepsaná do operativního `Now / Next / Later / Nedělat Teď`, aby nepletla historické hotovo položky s aktuálním backlogem.
+- Customer account redirect fix 2026-06-08: anonymní `/account*` routy už proxy přesměruje na zákaznický `/account/login`, ne na podnikatelský `/login`. Lokální ověření: `npx playwright test tests/e2e/admin-demo-smoke.spec.ts` prošel 2/2 a `npm run check` prošlo s 593 Vitest testy, migrations check, type-check, lint a produkční build.
 - Vercel production deploy `dpl_6ZgkD4UjbWZtxU6mhg5KFEmz3gpD` je na aliasu `https://rezervacni-system-xi.vercel.app`; externí public smoke 2026-06-01 16:19 CEST prošel 10/10.
 - Onboarding po registraci nově vede na `/start`: stránka má panel připravenosti, jasnou další akci, veřejný rezervační odkaz a checklist `podnik -> služba -> tým/pracovní doba -> rezervační stránka -> první klienti`.
 - E-mailová i Google registrace nového podniku po vytvoření účtu směřuje do `/start`, ne rovnou na běžný provozní dashboard.
