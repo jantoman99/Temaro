@@ -32,6 +32,7 @@ Piš česky, stručně, bez průběžných reportů mimo blocker/ruční vstup/v
 - Dokumentace nesmí odporovat kódu.
 - Pracuj autonomně.
 - Piš do chatu jen při blockeru, ručním vstupu/ověření nebo finálním výsledku.
+- Finální odpověď vždy zakonči krátkým review: co se udělalo v posledním promptu, co bylo ověřeno/commitnuto/pushnuto a co nás čeká dál.
 
 ## BEZPEČNOSTNÍ PRAVIDLA – ABSOLUTNÍ, BEZ VÝJIMEK
 ### #1 – tenant_id VŽDY z JWT tokenu
