@@ -508,7 +508,7 @@ export default async function Home() {
                   Produktová ukázka
                 </p>
                 <h2 className="mt-3 text-balance text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
-                  Místo dlouhého slajdu ukažte, jak rezervace projde systémem.
+                  Místo dlouhého vysvětlování ukažte, jak rezervace projde systémem.
                 </h2>
                 <p className="mt-5 max-w-md text-base font-medium leading-7 text-background/70 dark:text-secondary-foreground">
                   Krátká ukázka pomůže rychle pochopit, že Temaro není jen formulář. Je to cesta od klienta přes kalendář až po provozní přehled.

@@ -39,7 +39,7 @@ test.describe("public smoke", () => {
     await expect(page.getByRole("link", { name: /Barber shopy/ })).toBeVisible();
     await expect(page.getByRole("heading", { name: /Od prázdného kalendáře/i })).toBeVisible();
     await expect(page.getByRole("heading", { name: /Rezervace nemá žít/i })).toBeVisible();
-    await expect(page.getByRole("heading", { name: /Místo dlouhého slajdu/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Místo dlouhého vysvětlování/i })).toBeVisible();
     await expect(page.getByRole("link", { name: "Spustit produktovou ukázku" })).toHaveAttribute("href", "/ukazka");
     await expect(page.getByRole("link", { name: "Pro barbery", exact: true })).toBeVisible();
     await expect(page.getByRole("link", { name: "Pro kadeřnictví", exact: true })).toBeVisible();
