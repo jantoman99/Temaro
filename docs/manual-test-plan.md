@@ -13,7 +13,7 @@ Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 - Pokud chceš plný kalendář a klientská data, spustit `npm run seed:demo`.
 - Po seedu zkontrolovat, že dashboard, služby, tým, klienti a kalendář nejsou prázdné.
 - V kalendáři má být vidět mix stavů pending, confirmed, completed, cancelled a no-show.
-- Spustit aplikaci pres `npm run dev` nebo `start-localhost.bat`.
+- Spustit aplikaci pres `npm run dev` nebo `scripts/start-localhost.bat`.
 - Otevrit `http://localhost:3000`.
 - Otevřít `http://localhost:3000/api/health` a ověřit, že vrací JSON se `status`, `checks.env`, `checks.supabase`, `checks.rate_limit` a `version`; nesmí obsahovat konkrétní hodnoty tajných env proměnných.
 - Na veřejném deployi bez env otevřít `/api/health` a ověřit, že `checks.env.missing` je číslo, ne seznam názvů interních proměnných.

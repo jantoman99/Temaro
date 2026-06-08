@@ -2,7 +2,7 @@
 
 ## Nejjednodussi varianta na Windows
 
-1. Dvojklik na soubor `start-localhost.bat`.
+1. Dvojklik na soubor `scripts/start-localhost.bat`.
 2. Pockej, az se v okne objevi, ze server bezi.
 3. Otevri v prohlizeci:
 

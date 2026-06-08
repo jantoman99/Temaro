@@ -27,7 +27,7 @@ Piš česky, stručně, bez průběžných reportů mimo blocker/ruční vstup/v
 
 ## Dokumentace a komunikace
 - Po feature/security/UX/runtime změně aktualizuj: `docs/implementation-progress.md`, `docs/handoff.md`, `docs/runtime-checklist.md`, případně `docs/manual-test-plan.md`.
-- Restart prompt drž v syncu: `restart-rezervacni-system.txt` + `/mnt/c/Users/hanys/Desktop/restart-rezervacni-system.txt`.
+- Restart prompt drž mimo repo a v syncu s `/mnt/c/Users/hanys/Desktop/restart-rezervacni-system.txt`.
 - Po úspěšném `npm run check` zapiš počet testů a poslední ověření.
 - Dokumentace nesmí odporovat kódu.
 - Pracuj autonomně.
