@@ -143,7 +143,7 @@ export default function NoMarketplaceCommissionPage() {
         <div className="mx-auto max-w-[1180px]">
           <MarketingHeader />
 
-          <div className="grid items-center gap-10 py-16 lg:grid-cols-[0.92fr_1.08fr] lg:py-24">
+          <div className="grid items-center gap-10 pb-16 pt-28 lg:grid-cols-[0.92fr_1.08fr] lg:pb-24 lg:pt-32">
             <section>
               <p className="inline-flex items-center gap-2 rounded-full border border-primary/15 bg-card/75 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-primary shadow-sm backdrop-blur">
                 <BadgePercent className="size-4" />

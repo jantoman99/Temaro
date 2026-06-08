@@ -302,7 +302,7 @@ export default async function Home() {
         <div className="mx-auto flex min-h-[88vh] w-full max-w-[1180px] flex-col px-4 py-4 sm:px-6 lg:px-0">
           <MarketingHeader />
 
-          <div className="grid flex-1 items-center gap-10 py-10 lg:grid-cols-[0.82fr_1.18fr] lg:gap-12 lg:py-12">
+          <div className="grid flex-1 items-center gap-10 pb-10 pt-28 lg:grid-cols-[0.82fr_1.18fr] lg:gap-12 lg:pb-12 lg:pt-32">
             <section className="mx-auto w-full max-w-2xl text-left lg:mx-0">
               <div className="inline-flex items-center gap-2 rounded-full border border-primary/15 bg-card px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-primary shadow-sm">
                 <span className="signal-pulse size-2 rounded-full bg-primary" />

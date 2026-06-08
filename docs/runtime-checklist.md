@@ -501,6 +501,7 @@ Aktuální známý stav:
 - V `/booking-page` ověřit sdílecí kit: Instagram bio text, story/post text a QR kód; CSP nesmí blokovat `quickchart.io`.
 - Na veřejné booking stránce `/{slug}` ověřit desktop i mobil: desktop má profil podniku vlevo a sticky rezervační kartu vpravo, mobil je jednosloupcový, text není useknutý přes fotku a chybějící galerie neukazuje veřejný upload placeholder.
 - Na landing page ověřit sekci `Dva typy účtů` a další produktovou vrstvu: vyhledání podniků, mapa podniku a plný Google Calendar sync jsou budoucí vrstva, ne hotová funkce.
+- Na landing page ověřit fixed business navigaci: homepage i oborové landingy musí mít první badge/text viditelně pod navigací, navigace při scrollu zůstává nahoře a dropdowny `Produkt`/`Řešení` se vzájemně zavírají. Automaticky pokryto 2026-06-08 23:02 CEST testem `npx playwright test tests/e2e/public-smoke.spec.ts -g "business marketing navigation stays fixed"`.
 - V `/settings` vyplnit veřejnou adresu/město/mapový odkaz, zapnout zalistování, ověřit `/podniky` a veřejnou booking stránku; katalog má ukazovat jen veřejná tenant pole.
 - Leaked password protection zatím nezapínat na Free plánu; zapnout až před spuštěním při přechodu na Supabase Pro/prod provoz. Podle Supabase docs je dostupná na Pro plánu a výš.
 - Před pilotem znovu ověřit `npm audit --audit-level=moderate`; při budoucím upgradu Next/Resend zkusit odstranit overrides pro `postcss` a `svix`.

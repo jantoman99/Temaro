@@ -110,12 +110,27 @@ test.describe("public smoke", () => {
   });
 
   test("business marketing navigation stays fixed and stable while scrolling", async ({ page }) => {
+    await page.goto("/", { waitUntil: "domcontentloaded" });
+
+    const homeHeader = page.locator("header").first();
+    const homeEyebrow = page.getByText("Pro české salony, barbery a služby").first();
+    const homeHeaderBox = await homeHeader.boundingBox();
+    const homeEyebrowBox = await homeEyebrow.boundingBox();
+
+    expect(homeHeaderBox).not.toBeNull();
+    expect(homeEyebrowBox).not.toBeNull();
+    expect(homeEyebrowBox!.y).toBeGreaterThan(homeHeaderBox!.y + homeHeaderBox!.height + 12);
+
     await page.goto("/rezervacni-system-pro-kadernictvi", { waitUntil: "domcontentloaded" });
 
     const header = page.locator("header").first();
+    const eyebrow = page.getByText("Rezervační systém pro kadeřnictví").first();
     const before = await header.boundingBox();
+    const eyebrowBox = await eyebrow.boundingBox();
 
     expect(before).not.toBeNull();
+    expect(eyebrowBox).not.toBeNull();
+    expect(eyebrowBox!.y).toBeGreaterThan(before!.y + before!.height + 12);
     await page.mouse.wheel(0, 1400);
     await expect(page.getByRole("button", { name: "Řešení" })).toBeVisible();
 

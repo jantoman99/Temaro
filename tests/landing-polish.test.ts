@@ -101,7 +101,7 @@ describe("landing polish guard", () => {
 
     expect(page).toContain('<section id="produkt" className="relative signal-hero">');
     expect(page).toContain(
-      '<div className="grid flex-1 items-center gap-10 py-10 lg:grid-cols-[0.82fr_1.18fr] lg:gap-12 lg:py-12">',
+      '<div className="grid flex-1 items-center gap-10 pb-10 pt-28 lg:grid-cols-[0.82fr_1.18fr] lg:gap-12 lg:pb-12 lg:pt-32">',
     );
     expect(page).toContain('<section className="mx-auto w-full max-w-2xl text-left lg:mx-0">');
     expect(page).toContain("<LiveProductShowcase />");
@@ -240,6 +240,7 @@ describe("landing polish guard", () => {
       const source = readProjectFile(filePath);
 
       expect(source).toContain("MarketingHeader");
+      expect(source).toContain("pt-28");
       expect(source).not.toContain("<LandingNavigation />");
       expect(source).not.toContain('aria-label="Hlavní navigace"');
     }

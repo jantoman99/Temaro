@@ -682,6 +682,8 @@ Aktualizováno: 2026-06-08 22:54 CEST
 
 ## Co nedělat
 
+- Landing business navigace je sjednocená přes `MarketingHeader` a zůstává fixed napříč homepage, `/ukazka`, oborovými landingy a guide stránkami. Hotfix 2026-06-08 23:06 CEST přidal horní hero odsazení pod fixed header; neměnit zpět na per-page navigace ani na kotvy bez ověření Playwright smoke.
+- Poslední ověření landing navigace: `npx playwright test tests/e2e/public-smoke.spec.ts -g "business marketing navigation stays fixed"` prošlo 2026-06-08 23:02 CEST, `npx playwright test tests/e2e/public-smoke.spec.ts` prošlo 11/11 2026-06-08 23:03 CEST a `npm run check` prošlo 2026-06-08 23:05 CEST se 596 Vitest testy.
 - Nevracet staré archivované design směry jako aktivní zdroj pravdy.
 - Nečíst `docs/archive/` jako aktuální instrukce, jen jako historii rozhodnutí.
 - Neimplementovat konkrétní SMS provider integraci, plný Google Calendar sync, blacklist, AI funkce ani marketplace bez samostatného návrhu/env/provider/runtime rozhodnutí. Product směr pro Google sync a lokální discovery je schválený, ale runtime implementace zůstává další vrstva; Stripe zálohy, SMS webhook základ, iCal read-only export, iframe widget a pobočky už jsou implementované výjimky.

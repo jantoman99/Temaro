@@ -51,7 +51,7 @@ export default function DemoPage() {
         <div className="mx-auto flex w-full max-w-[1180px] flex-col px-4 py-4 sm:px-6 lg:px-0">
           <MarketingHeader />
 
-          <div className="grid gap-10 py-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-center lg:py-14">
+          <div className="grid gap-10 pb-10 pt-28 lg:grid-cols-[0.72fr_1.28fr] lg:items-center lg:pb-14 lg:pt-32">
             <section className="mx-auto max-w-2xl lg:mx-0">
               <div className="motion-reveal inline-flex items-center gap-2 rounded-full border border-primary/15 bg-card/75 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-primary shadow-sm backdrop-blur">
                 <span className="signal-pulse size-2 rounded-full bg-primary" />
