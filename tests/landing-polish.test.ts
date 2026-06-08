@@ -200,17 +200,22 @@ describe("landing polish guard", () => {
 
   test("public navigation uses product, solution and resource dropdowns", () => {
     const page = readProjectFile("app/page.tsx");
+    const navigation = readProjectFile("components/marketing/landing-navigation.tsx");
 
-    expect(page).toContain("navGroups");
-    expect(page).toContain("Produkt");
-    expect(page).toContain("Řešení");
-    expect(page).toContain("Návody");
-    expect(page).toContain("Jak to funguje");
-    expect(page).toContain("Booking kanály");
-    expect(page).toContain("Barber shopy");
-    expect(page).toContain("Pro zákazníky");
-    expect(page).toContain("navDirectLinks");
+    expect(page).toContain("<LandingNavigation />");
+    expect(navigation).toContain('"use client"');
+    expect(navigation).toContain("openGroup");
+    expect(navigation).toContain("setOpenGroup(isOpen ? null : group.label)");
+    expect(navigation).toContain("setOpenGroup(null)");
+    expect(navigation).toContain("Produkt");
+    expect(navigation).toContain("Řešení");
+    expect(navigation).toContain("Návody");
+    expect(navigation).toContain("Jak to funguje");
+    expect(navigation).toContain("Booking kanály");
+    expect(navigation).toContain("Barber shopy");
+    expect(navigation).toContain("Pro zákazníky");
     expect(page).toContain("/ukazka");
+    expect(navigation).not.toContain("<details");
   });
 
   test("homepage explains setup flow and booking channels", () => {
@@ -226,6 +231,18 @@ describe("landing polish guard", () => {
     expect(page).toContain("Instagram bio");
     expect(page).toContain("Google profil");
     expect(page).toContain("QR v provozovně");
+  });
+
+  test("homepage adds a product demo CTA with concrete demo moments", () => {
+    const page = readProjectFile("app/page.tsx");
+
+    expect(page).toContain("demoMoments");
+    expect(page).toContain("Produktová ukázka");
+    expect(page).toContain("Spustit produktovou ukázku");
+    expect(page).toContain("Přehled provozu");
+    expect(page).toContain("Týmový kalendář");
+    expect(page).toContain("Rezervační stránka");
+    expect(page).toContain('id="produktove-demo"');
   });
 
   test("customer directory uses address search without raw coordinates", () => {

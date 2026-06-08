@@ -5,7 +5,6 @@ import {
   Building2,
   CalendarDays,
   CheckCircle2,
-  ChevronDown,
   ClipboardList,
   CreditCard,
   Link2,
@@ -25,6 +24,7 @@ import { headers } from "next/headers";
 
 import PublicSlugBookingPage from "@/app/(booking)/[slug]/page";
 import { TemaroLogo } from "@/components/brand/temaro-logo";
+import { LandingNavigation } from "@/components/marketing/landing-navigation";
 import { LiveProductShowcase } from "@/components/marketing/live-product-showcase";
 import { Reveal } from "@/components/motion/reveal";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
@@ -53,40 +53,6 @@ const CTA = {
   primary: { href: "/register", label: "Začít zdarma" },
   secondary: { href: "/ukazka", label: "Spustit ukázku" },
 } as const;
-
-const navGroups = [
-  {
-    label: "Produkt",
-    items: [
-      ["#jak-to-funguje", "Jak to funguje", "Od služeb a týmu po první online rezervaci."],
-      ["#booking-kanaly", "Booking kanály", "Web, Instagram, Google profil, QR a widget."],
-      ["#provoz", "Proč Temaro", "Méně telefonátů, méně chaosu v kalendáři."],
-    ],
-  },
-  {
-    label: "Řešení",
-    items: [
-      ["/rezervacni-system-pro-barbery", "Barber shopy", "Termíny podle služby, člověka a volného okna."],
-      ["/rezervacni-system-pro-kadernictvi", "Kadeřnictví", "Týmový kalendář a historie návštěv."],
-      ["/rezervacni-system-pro-kosmeticky-salon", "Beauty salony", "Přehled klientů, poznámky a připomínky."],
-      ["/rezervacni-system-pro-masaze", "Masáže a wellness", "Delší termíny, klidnější kapacita dne."],
-    ],
-  },
-  {
-    label: "Návody",
-    items: [
-      ["/jak-snizit-no-show", "Jak snížit no-show", "Připomínky, bezpečné změny a práce s rizikem."],
-      ["/sms-pripominky-rezervaci", "SMS připomínky", "Kdy SMS dává smysl a kdy je zbytečně drahá."],
-      ["/rezervacni-system-bez-marketplace-provizi", "Bez marketplace provizí", "Váš klientský vztah bez provize z vlastních klientů."],
-    ],
-  },
-] as const;
-
-const navDirectLinks = [
-  ["/podniky", "Pro zákazníky"],
-  ["#cenik", "Ceník"],
-  ["/ukazka", "Ukázka"],
-] as const;
 
 const heroTrustItems = ["Bez karty na start", "Žádná provize z vašich klientů", "Vlastní rezervační odkaz"] as const;
 
@@ -255,6 +221,12 @@ const bookingChannels = [
   },
 ] as const;
 
+const demoMoments = [
+  ["01", "Přehled provozu", "Co se děje dnes, kolik rezervací čeká a kde hrozí výpadek."],
+  ["02", "Týmový kalendář", "Jak vypadá den, týden, volná okna a rezervace podle lidí."],
+  ["03", "Rezervační stránka", "Jak klient vybere službu, termín a odešle rezervaci bez telefonátu."],
+] as const;
+
 const guideLinks = [
   {
     title: "Rezervační systém pro barbery",
@@ -334,39 +306,7 @@ export default async function Home() {
               <TemaroLogo />
             </Link>
 
-            <nav className="order-3 grid w-full gap-1 border-t border-border/70 pt-2 sm:grid-cols-2 lg:order-none lg:flex lg:w-auto lg:items-center lg:border-t-0 lg:pt-0">
-              {navGroups.map((group) => (
-                <details key={group.label} className="group relative">
-                  <summary className="flex cursor-pointer list-none items-center justify-center gap-1.5 rounded-md px-2 py-2 text-sm font-semibold text-muted-foreground transition hover:bg-muted hover:text-foreground lg:px-3 [&::-webkit-details-marker]:hidden">
-                    {group.label}
-                    <ChevronDown className="size-4 transition group-open:rotate-180" strokeWidth={1.8} />
-                  </summary>
-                  <div className="mt-1 rounded-xl border border-border bg-card p-2 shadow-lg lg:absolute lg:left-1/2 lg:top-full lg:z-40 lg:mt-3 lg:w-[25rem] lg:-translate-x-1/2">
-                    {group.items.map(([href, label, description]) => (
-                      <Link
-                        key={href}
-                        href={href}
-                        className="block rounded-lg px-3 py-2.5 text-left transition hover:bg-muted"
-                      >
-                        <span className="text-sm font-semibold text-foreground">{label}</span>
-                        <span className="mt-1 block text-xs font-medium leading-5 text-secondary-foreground">
-                          {description}
-                        </span>
-                      </Link>
-                    ))}
-                  </div>
-                </details>
-              ))}
-              {navDirectLinks.map(([href, label]) => (
-                <Link
-                  key={href}
-                  href={href}
-                  className="rounded-md px-2 py-2 text-center text-sm font-semibold text-muted-foreground transition hover:bg-muted hover:text-foreground lg:px-3"
-                >
-                  {label}
-                </Link>
-              ))}
-            </nav>
+            <LandingNavigation />
 
             <div className="flex items-center gap-2">
               <ThemeToggle compact />
@@ -554,6 +494,54 @@ export default async function Home() {
             ))}
           </div>
         </div>
+      </section>
+
+      <section id="produktove-demo" className="mx-auto w-full max-w-[1180px] px-4 py-20 sm:px-6 lg:px-8">
+        <Reveal>
+          <div className="overflow-hidden rounded-[1.75rem] border border-border bg-foreground text-background shadow-sm dark:bg-card dark:text-foreground">
+            <div className="grid gap-0 lg:grid-cols-[0.92fr_1.08fr]">
+              <div className="p-6 sm:p-8">
+                <div className="mb-8 grid size-12 place-items-center rounded-2xl bg-primary text-primary-foreground">
+                  <MonitorPlay className="size-6" strokeWidth={1.8} />
+                </div>
+                <p className="text-xs font-bold uppercase tracking-[0.16em] text-background/60 dark:text-secondary-foreground">
+                  Produktová ukázka
+                </p>
+                <h2 className="mt-3 text-balance text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
+                  Místo dlouhého slajdu ukažte, jak rezervace projde systémem.
+                </h2>
+                <p className="mt-5 max-w-md text-base font-medium leading-7 text-background/70 dark:text-secondary-foreground">
+                  Krátká ukázka pomůže rychle pochopit, že Temaro není jen formulář. Je to cesta od klienta přes kalendář až po provozní přehled.
+                </p>
+                <Link
+                  href="/ukazka"
+                  className="mt-7 inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-primary px-6 text-sm font-semibold text-primary-foreground shadow-sm transition hover:-translate-y-0.5 hover:bg-primary/92"
+                >
+                  Spustit produktovou ukázku
+                  <ArrowRight className="size-4" />
+                </Link>
+              </div>
+
+              <div className="bg-background/8 p-4 sm:p-6 dark:bg-background/40">
+                <div className="grid h-full gap-3">
+                  {demoMoments.map(([step, title, text], index) => (
+                    <Reveal key={title} delay={index * 80} className="h-full">
+                      <article className="grid h-full gap-4 rounded-2xl border border-white/10 bg-background/95 p-5 text-foreground shadow-sm dark:border-border dark:bg-card sm:grid-cols-[4rem_1fr]">
+                        <div className="nums-tabular grid size-12 place-items-center rounded-xl bg-primary/10 text-sm font-bold text-primary">
+                          {step}
+                        </div>
+                        <div>
+                          <h3 className="text-lg font-semibold tracking-tight">{title}</h3>
+                          <p className="mt-2 text-sm font-medium leading-6 text-secondary-foreground">{text}</p>
+                        </div>
+                      </article>
+                    </Reveal>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </Reveal>
       </section>
 
       <section className="mx-auto w-full max-w-[1180px] px-4 py-24 text-center sm:px-6 lg:px-8">

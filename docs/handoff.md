@@ -1,6 +1,6 @@
 # Handoff
 
-Aktualizováno: 2026-06-08 20:09 CEST
+Aktualizováno: 2026-06-08 20:22 CEST
 
 ## Jak navázat
 
@@ -49,6 +49,7 @@ Aktualizováno: 2026-06-08 20:09 CEST
 - Frontend/auth konkurenční analýza 2026-06-08: přidaný dokument `docs/21-frontend-competition-auth-analysis.md`, roadmapa teď prioritizuje dropdown navigaci, konkrétnější homepage, booking kanály a demo/video CTA. Poslední lokální ověření: `npm run check` prošlo 2026-06-08 19:11 CEST s 593 Vitest testy, migrations check, type-check, lint i buildem.
 - Homepage IA iterace 2026-06-08: top navigace je přestavěná na dropdown skupiny `Produkt`, `Řešení`, `Návody` a přibyla sekce `Jak to funguje` + `Booking kanály`. Reveal obsah už nezůstává `opacity:0` mimo viewport. Ověření: browser screenshot kontrola desktop/mobile bez overflow a console errors, `npm run test -- tests/landing-polish.test.ts` prošlo 18/18, `npx playwright test tests/e2e/public-smoke.spec.ts` prošel 10/10 a `npm run check` prošlo 2026-06-08 19:31 CEST s 594 Vitest testy, migrations check, type-check, lint i buildem.
 - Produkční deploy 2026-06-08 20:09 CEST: GitHub push sám nespustil nový Vercel deploy, poslední Vercel deployment byl starý 2 dny. Ručně spuštěno `npx vercel --prod --yes`, deploy `dpl_Givmr8jBAJctLq8UT9hkTXGpM9Xp`, production URL `https://rezervacni-system-6bha63k4i-hanyst7-5998s-projects.vercel.app`, alias `https://rezervacni-system-xi.vercel.app`. Produkční ověření: HTML obsahuje nové dropdowny a sekce, `/api/health` vrací `status=ok`, `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` prošel 10/10.
+- Homepage nav/demo polish 2026-06-08: dropdown navigace je řízená client komponentou `LandingNavigation`, takže otevření `Řešení` zavře `Produkt` a opačně. Přibyl blok `Produktová ukázka` s konkrétními momenty `Přehled provozu`, `Týmový kalendář`, `Rezervační stránka`. Ověření: browser kontrola desktop/mobile bez overflow a console errors, public smoke 10/10 a `npm run check` prošlo 2026-06-08 20:22 CEST s 595 Vitest testy, migrations check, type-check, lint i buildem.
 - Rozhodnutí scope 2026-05-08: všechny významné konkurenční funkce jsou součást pre-launch MVP, ne fáze 2. Pořadí implementace je anti-no-show/platby, zákazník/integrace, business suite, growth/discovery, mobilní/provozní vrstva.
 - Vlny 1 po rozšíření scope: hotové jsou zdroje rezervací/UTM, čekací listina, review request po návštěvě, online záloha přes Stripe Checkout a storno pravidla navázaná na zálohu/čas do termínu.
 - Čekací listina má tabulku `waitlist_entries`, service-role RPC `create_waitlist_entry`, veřejné CTA při obsazených termínech a owner přehled v kalendáři; migrace `20260508114500_create_waitlist_entries.sql` je aplikovaná lokálně i remote.
