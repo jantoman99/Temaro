@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Aktualizováno: 2026-06-08 22:51 CEST
+Aktualizováno: 2026-06-08 22:54 CEST
 
 Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historické analýzy a staré design audity jsou přesunuté do `docs/archive/`.
 
@@ -59,6 +59,7 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - GitHub Actions deploy test 2026-06-08: `VERCEL_TOKEN` secret funguje a workflow po doplnění project linku projde přes Vercel pull/build/deploy. Deployment bez Supabase runtime secretu ale vracel `/api/health` jako `degraded`, proto workflow nově odmítá deploy bez GitHub Actions secretu `SUPABASE_SERVICE_ROLE_KEY`. Kódově je opravené `metadataBase`, aby build nespadl na prázdném `NEXT_PUBLIC_APP_URL`.
 - Produkční obnova 2026-06-08 22:33 CEST: ručně spuštěný Vercel deploy `dpl_DQoz6Mv7qyEMrKB3hVgUSDzBC7zA` je aliasovaný na `https://rezervacni-system-xi.vercel.app`; `/api/health` je zpět `ok`, Supabase `configured=true`.
 - Landing navigation sjednocení 2026-06-08: podnikatelské marketing stránky používají sdílený `MarketingHeader` s `LandingNavigation`, takže dropdowny `Produkt / Řešení / Návody` zůstávají dostupné na homepage, oborových stránkách, návodech i `/ukazka`. Header je `fixed`, má pevný max width `1180px` a při scrollu nemění pozici ani výšku; zákaznické `/podniky` zůstává jako odlišný customer vstup. Ověření: landing guard 20/20, public smoke 11/11, `npm run check` 596 Vitest testů + migrace/type/lint/build.
+- Produkční deploy 2026-06-08 22:54 CEST: ruční Vercel production deploy `dpl_4ZfqNAhimZSsEocZhMW3iDXZd8Xn` je aliasovaný na `https://rezervacni-system-xi.vercel.app`; `/api/health` je `ok` a produkční public smoke prošel 11/11 včetně fixní landing navigace.
 - Vercel production deploy `dpl_6ZgkD4UjbWZtxU6mhg5KFEmz3gpD` je na aliasu `https://rezervacni-system-xi.vercel.app`; externí public smoke 2026-06-01 16:19 CEST prošel 10/10.
 - Onboarding po registraci nově vede na `/start`: stránka má panel připravenosti, jasnou další akci, veřejný rezervační odkaz a checklist `podnik -> služba -> tým/pracovní doba -> rezervační stránka -> první klienti`.
 - E-mailová i Google registrace nového podniku po vytvoření účtu směřuje do `/start`, ne rovnou na běžný provozní dashboard.
