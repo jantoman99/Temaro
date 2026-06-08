@@ -17,6 +17,7 @@ Tahle složka je aktivní zdroj pravdy pro projekt. Starší rozbory, historick�
 - `business-model.md` - pricing a GTM rámec.
 - `14-market-analysis-booking-systems.md` - trh, konkurence, must-have gapy.
 - `20-competitive-analysis-booking-systems-2026.md` - hlubší konkurenční analýza.
+- `21-frontend-competition-auth-analysis.md` - frontend, navigace, auth metody a webové gapy proti konkurenci.
 - `17-czech-market-niches-seo-geo-aeo.md` - česká SEO/GEO/AEO strategie.
 - `18-vertical-expansion-priorities.md` - pořadí expanze do typů podniků.
 - `19-product-differentiation-and-gap-plan.md` - diferenciace a backlog gapů.

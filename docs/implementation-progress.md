@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Aktualizováno: 2026-06-08 19:05 CEST
+Aktualizováno: 2026-06-08 19:11 CEST
 
 Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historické analýzy a staré design audity jsou přesunuté do `docs/archive/`.
 
@@ -17,6 +17,7 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - Aktivní pořadí expanze do dalších typů podniků je v `docs/18-vertical-expansion-priorities.md`.
 - Aktivní diferenciace, gapy a implementační backlog pro silný produkt jsou v `docs/19-product-differentiation-and-gap-plan.md`.
 - Aktivní hloubková konkurenční analýza Salony a rezervačních systémů pro scope rozhodnutí je v `docs/20-competitive-analysis-booking-systems-2026.md`.
+- Aktivní frontend/auth konkurenční analýza je v `docs/21-frontend-competition-auth-analysis.md`; navrhuje dropdown navigaci, bohatší homepage, booking kanály, demo/video CTA a auth pořadí Google -> Apple zákazníci -> Microsoft až s Outlook syncem -> Facebook login odložit.
 - Starší konkurenční analýzy, business model, design audity a paletové náhledy jsou v `docs/archive/`.
 - Veřejný marketing web prošel copy/vizuál revizí 2026-06-01: homepage, katalog, oborové landingy, no-show/SMS/provizní stránky, login/register texty a živá ukázka používají zákaznický jazyk místo interních názvů typu `tenant`, `MVP`, `self-service`, `booking flow`.
 - Homepage hero, top nav a navazující sekce jsou sjednocené na ose `1180px`; lokální Playwright audit potvrdil `x=93`, `width=1180` pro menu, hero grid i `#provoz`.
@@ -46,6 +47,7 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - Lokální ověření 2026-06-08 18:40 CEST: `npx playwright test tests/e2e/public-smoke.spec.ts` prošel 10/10. `npm run check` prošlo s 593 Vitest testy, migrations check, type-check, lint a produkční build.
 - Roadmap cleanup 2026-06-08: `docs/roadmap.md` je přepsaná do operativního `Now / Next / Later / Nedělat Teď`, aby nepletla historické hotovo položky s aktuálním backlogem.
 - Customer account redirect fix 2026-06-08: anonymní `/account*` routy už proxy přesměruje na zákaznický `/account/login`, ne na podnikatelský `/login`. Lokální ověření: `npx playwright test tests/e2e/admin-demo-smoke.spec.ts` prošel 2/2 a `npm run check` prošlo s 593 Vitest testy, migrations check, type-check, lint a produkční build.
+- Frontend/auth konkurenční analýza 2026-06-08: přidaný `docs/21-frontend-competition-auth-analysis.md` s rozborem Reservio, Fresha, Booksy, SimplyBook.me, Setmore, Calendly a Acuity. Roadmapa nově dává do `Now` dropdown navigaci, konkrétnější homepage, `Jak to funguje`, booking kanály a demo/video CTA. Lokální ověření: `npm run check` prošlo 2026-06-08 19:11 CEST s 593 Vitest testy, migrations check, type-check, lint a produkční build.
 - Vercel production deploy `dpl_6ZgkD4UjbWZtxU6mhg5KFEmz3gpD` je na aliasu `https://rezervacni-system-xi.vercel.app`; externí public smoke 2026-06-01 16:19 CEST prošel 10/10.
 - Onboarding po registraci nově vede na `/start`: stránka má panel připravenosti, jasnou další akci, veřejný rezervační odkaz a checklist `podnik -> služba -> tým/pracovní doba -> rezervační stránka -> první klienti`.
 - E-mailová i Google registrace nového podniku po vytvoření účtu směřuje do `/start`, ne rovnou na běžný provozní dashboard.

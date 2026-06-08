@@ -1,6 +1,6 @@
 # Handoff
 
-Aktualizováno: 2026-06-08 19:05 CEST
+Aktualizováno: 2026-06-08 19:11 CEST
 
 ## Jak navázat
 
@@ -8,7 +8,7 @@ Aktualizováno: 2026-06-08 19:05 CEST
 2. Přečíst `AGENTS.md`.
 3. Přečíst `docs/implementation-progress.md`.
 4. Přečíst `docs/runtime-checklist.md`.
-5. Při product/roadmap práci číst `docs/14-market-analysis-booking-systems.md`, `docs/20-competitive-analysis-booking-systems-2026.md`, `docs/business-model.md` a `docs/roadmap.md`.
+5. Při product/roadmap práci číst `docs/14-market-analysis-booking-systems.md`, `docs/20-competitive-analysis-booking-systems-2026.md`, `docs/21-frontend-competition-auth-analysis.md`, `docs/business-model.md` a `docs/roadmap.md`.
 6. Při UI/design práci číst `docs/15-design-system-v3.md`.
 7. Spustit `npm run check`, pokud se navazuje po delší pauze.
 
@@ -22,6 +22,7 @@ Aktualizováno: 2026-06-08 19:05 CEST
 - Aktivní design směr je `docs/15-design-system-v3.md`; veřejný marketing web se právě posouvá ke světlejšímu českému SaaS směru s konkrétní ukázkou PC + telefon, zatímco přihlášená aplikace dál drží provozní Signal OS.
 - Aktivní tržní analýza a gapy jsou v `docs/14-market-analysis-booking-systems.md`.
 - Aktivní hloubková konkurenční analýza Salony a dalších rezervačních systémů je v `docs/20-competitive-analysis-booking-systems-2026.md`.
+- Aktivní frontend/auth konkurenční analýza je v `docs/21-frontend-competition-auth-analysis.md`. Závěr: Temaro potřebuje méně anchor-only homepage, víc dropdown navigace, konkrétní produktové/video ukázky, booking kanály a oborové vstupy. Auth priorita je Google runtime, potom Apple pro zákazníky; Facebook login zatím ne.
 - Aktivní niche/SEO/GEO/AEO strategie pro český trh je v `docs/17-czech-market-niches-seo-geo-aeo.md`.
 - Aktivní pořadí expanze do dalších typů podniků je v `docs/18-vertical-expansion-priorities.md`.
 - Aktivní diferenciace, gapy a implementační backlog pro silný produkt jsou v `docs/19-product-differentiation-and-gap-plan.md`.
@@ -45,6 +46,7 @@ Aktualizováno: 2026-06-08 19:05 CEST
 - Poslední lokální ověření: `npx playwright test tests/e2e/public-smoke.spec.ts` prošel 2026-06-08 10/10. `npm run check` prošlo 2026-06-08 18:40 CEST s 593 Vitest testy, migrations check, type-check, lint i buildem.
 - Aktuální roadmapa 2026-06-08: `docs/roadmap.md` je zjednodušená do `Now / Next / Later / Nedělat Teď`. Nejbližší focus je produkční runtime smoke, veřejný dojem, Upstash rate limit, SMS provider a pilotní scénář.
 - Customer account redirect fix 2026-06-08: anonymní `/account*` routy jdou na `/account/login`, admin routy dál na `/login`. Poslední lokální ověření: `npx playwright test tests/e2e/admin-demo-smoke.spec.ts` prošel 2/2 a `npm run check` prošlo s 593 Vitest testy, migrations check, type-check, lint i buildem.
+- Frontend/auth konkurenční analýza 2026-06-08: přidaný dokument `docs/21-frontend-competition-auth-analysis.md`, roadmapa teď prioritizuje dropdown navigaci, konkrétnější homepage, booking kanály a demo/video CTA. Poslední lokální ověření: `npm run check` prošlo 2026-06-08 19:11 CEST s 593 Vitest testy, migrations check, type-check, lint i buildem.
 - Rozhodnutí scope 2026-05-08: všechny významné konkurenční funkce jsou součást pre-launch MVP, ne fáze 2. Pořadí implementace je anti-no-show/platby, zákazník/integrace, business suite, growth/discovery, mobilní/provozní vrstva.
 - Vlny 1 po rozšíření scope: hotové jsou zdroje rezervací/UTM, čekací listina, review request po návštěvě, online záloha přes Stripe Checkout a storno pravidla navázaná na zálohu/čas do termínu.
 - Čekací listina má tabulku `waitlist_entries`, service-role RPC `create_waitlist_entry`, veřejné CTA při obsazených termínech a owner přehled v kalendáři; migrace `20260508114500_create_waitlist_entries.sql` je aplikovaná lokálně i remote.
