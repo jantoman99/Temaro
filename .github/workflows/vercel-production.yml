@@ -30,8 +30,8 @@ jobs:
           if [ -n "$VERCEL_TOKEN" ] && [ -n "$SUPABASE_SERVICE_ROLE_KEY" ]; then
             echo "present=true" >> "$GITHUB_OUTPUT"
           else
-            echo "::notice::VERCEL_TOKEN or SUPABASE_SERVICE_ROLE_KEY secret is not set; skipping Vercel deploy."
-            echo "present=false" >> "$GITHUB_OUTPUT"
+            echo "::error::VERCEL_TOKEN or SUPABASE_SERVICE_ROLE_KEY secret is not set; refusing to deploy degraded production."
+            exit 1
           fi
 
       - name: Checkout

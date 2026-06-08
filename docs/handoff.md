@@ -1,6 +1,6 @@
 # Handoff
 
-Aktualizováno: 2026-06-08 22:10 CEST
+Aktualizováno: 2026-06-08 22:33 CEST
 
 ## Jak navázat
 
@@ -55,6 +55,8 @@ Aktualizováno: 2026-06-08 22:10 CEST
 - Deploy automation 2026-06-08: nativní Vercel Git auto-deploy ještě není potvrzený, protože `npx vercel git connect ...` selhává na oprávnění Vercel GitHub App k `jantoman99/Temaro`. Přidaný GitHub Actions fallback `.github/workflows/vercel-production.yml` umí nasadit production po pushi na `main`, ale vyžaduje ruční GitHub Actions secret `VERCEL_TOKEN`. Bez něj dál po pushi spouštět `npx vercel --prod --yes`.
 - `/ukazka` demo scénář 2026-06-08: přibyla časová osa průchodu a závěrečné CTA na registraci i `/demo-barber`. Poslední ověření: `npm run test -- tests/landing-polish.test.ts` prošlo 19/19, `npx playwright test tests/e2e/public-smoke.spec.ts` prošel 10/10 a `npm run check` prošlo 2026-06-08 22:07 CEST s 595 Vitest testy, migrations check, type-check, lint i buildem.
 - Produkční deploy 2026-06-08 22:10 CEST: ručně spuštěno `npx vercel --prod --yes`, deploy `dpl_EPTuBFY52h9cfSouStAqdu3os8xA`, production URL `https://rezervacni-system-4l5mdvdr9-hanyst7-5998s-projects.vercel.app`, alias `https://rezervacni-system-xi.vercel.app`. Produkční ověření: `/api/health` je `ok`, `/ukazka` obsahuje nový demo scénář a `PLAYWRIGHT_BASE_URL=https://rezervacni-system-xi.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` prošel 10/10.
+- GitHub Actions deploy test 2026-06-08: `VERCEL_TOKEN` funguje, ale plný production deploy potřebuje ještě GitHub Actions secret `SUPABASE_SERVICE_ROLE_KEY`; bez něj workflow nově spadne záměrně, aby nenasadilo `degraded` produkci. Po doplnění secretu znovu pushnout na `main` a ověřit `/api/health`.
+- Produkční obnova 2026-06-08 22:33 CEST: po degraded Actions deployi ručně spuštěno `npx vercel --prod --yes`, deploy `dpl_DQoz6Mv7qyEMrKB3hVgUSDzBC7zA`, alias `https://rezervacni-system-xi.vercel.app`. Produkční `/api/health` je zpět `ok`, Supabase `configured=true`.
 - Rozhodnutí scope 2026-05-08: všechny významné konkurenční funkce jsou součást pre-launch MVP, ne fáze 2. Pořadí implementace je anti-no-show/platby, zákazník/integrace, business suite, growth/discovery, mobilní/provozní vrstva.
 - Vlny 1 po rozšíření scope: hotové jsou zdroje rezervací/UTM, čekací listina, review request po návštěvě, online záloha přes Stripe Checkout a storno pravidla navázaná na zálohu/čas do termínu.
 - Čekací listina má tabulku `waitlist_entries`, service-role RPC `create_waitlist_entry`, veřejné CTA při obsazených termínech a owner přehled v kalendáři; migrace `20260508114500_create_waitlist_entries.sql` je aplikovaná lokálně i remote.

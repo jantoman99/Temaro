@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Aktualizováno: 2026-06-08 22:10 CEST
+Aktualizováno: 2026-06-08 22:33 CEST
 
 Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historické analýzy a staré design audity jsou přesunuté do `docs/archive/`.
 
@@ -56,6 +56,8 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - Deploy automation 2026-06-08: Vercel CLI je přihlášené k projektu `hanyst7-5998s-projects/rezervacni-system`, ale `npx vercel git connect ...` dál selhává na GitHub repo oprávnění. Přidaný GitHub Actions fallback `.github/workflows/vercel-production.yml` nasadí produkci po pushi na `main`, jakmile bude v GitHub Actions nastavený secret `VERCEL_TOKEN`; do té doby zůstává nutný ruční `npx vercel --prod --yes`.
 - `/ukazka` demo scénář 2026-06-08: stránka má novou sekci `Krátký průchod místo dlouhé prezentace.` s časovou osou průchodu a závěrečné CTA na registraci i klientskou rezervaci. Ověření: `npm run test -- tests/landing-polish.test.ts` prošlo 19/19, `npx playwright test tests/e2e/public-smoke.spec.ts` prošel 10/10 a `npm run check` prošlo 2026-06-08 22:07 CEST s 595 Vitest testy, migrations check, type-check, lint i produkční build.
 - Produkční deploy 2026-06-08 22:10 CEST: ruční Vercel production deploy `dpl_EPTuBFY52h9cfSouStAqdu3os8xA` je aliasovaný na `https://rezervacni-system-xi.vercel.app`. Produkční `/api/health` je `ok`, `/ukazka` obsahuje nový demo scénář a produkční public smoke prošel 10/10.
+- GitHub Actions deploy test 2026-06-08: `VERCEL_TOKEN` secret funguje a workflow po doplnění project linku projde přes Vercel pull/build/deploy. Deployment bez Supabase runtime secretu ale vracel `/api/health` jako `degraded`, proto workflow nově odmítá deploy bez GitHub Actions secretu `SUPABASE_SERVICE_ROLE_KEY`. Kódově je opravené `metadataBase`, aby build nespadl na prázdném `NEXT_PUBLIC_APP_URL`.
+- Produkční obnova 2026-06-08 22:33 CEST: ručně spuštěný Vercel deploy `dpl_DQoz6Mv7qyEMrKB3hVgUSDzBC7zA` je aliasovaný na `https://rezervacni-system-xi.vercel.app`; `/api/health` je zpět `ok`, Supabase `configured=true`.
 - Vercel production deploy `dpl_6ZgkD4UjbWZtxU6mhg5KFEmz3gpD` je na aliasu `https://rezervacni-system-xi.vercel.app`; externí public smoke 2026-06-01 16:19 CEST prošel 10/10.
 - Onboarding po registraci nově vede na `/start`: stránka má panel připravenosti, jasnou další akci, veřejný rezervační odkaz a checklist `podnik -> služba -> tým/pracovní doba -> rezervační stránka -> první klienti`.
 - E-mailová i Google registrace nového podniku po vytvoření účtu směřuje do `/start`, ne rovnou na běžný provozní dashboard.

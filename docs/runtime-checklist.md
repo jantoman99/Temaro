@@ -1,6 +1,6 @@
 # Runtime checklist
 
-Aktualizováno: 2026-06-08 22:10 CEST
+Aktualizováno: 2026-06-08 22:33 CEST
 
 Tento checklist je pro první reálné ověření mimo demo režim.
 
@@ -47,6 +47,8 @@ Aktuální známý stav:
 - Fallback pro produkční deploy 2026-06-08: repo má `.github/workflows/vercel-production.yml`, který po pushi na `main` nasadí přes Vercel CLI, pokud v GitHub Actions existuje secret `VERCEL_TOKEN`. Dokud secret nebo Vercel GitHub App oprávnění není nastavené, po pushi ručně spustit `npx vercel --prod --yes` a ověřit produkční public smoke.
 - `npm run check` prošlo 2026-06-08 22:07 CEST po `/ukazka` demo scénáři a GitHub Actions Vercel fallbacku: 595 Vitest testů, migrations check, type-check, lint a produkční build. Lokální public smoke prošel 10/10. Runtime ověřit, že `/ukazka` obsahuje sekci `Krátký průchod místo dlouhé prezentace.` a CTA `Vidět klientskou rezervaci`.
 - Vercel production deploy 2026-06-08 22:10 CEST: ruční deploy `dpl_EPTuBFY52h9cfSouStAqdu3os8xA` je aliasovaný na `https://rezervacni-system-xi.vercel.app`. Produkční `/api/health` je `ok`, `/ukazka` obsahuje nový demo scénář a produkční public smoke prošel 10/10.
+- GitHub Actions deploy test 2026-06-08: `VERCEL_TOKEN` funguje, workflow umí doběhnout přes Vercel build/deploy, ale deployment bez Supabase runtime env skončil `degraded`. Workflow teď odmítne deploy, pokud v GitHub Actions chybí `SUPABASE_SERVICE_ROLE_KEY`. Po doplnění tohoto secretu znovu pushnout na `main` a ověřit `/api/health`.
+- Vercel production deploy 2026-06-08 22:33 CEST: po degraded Actions deployi ručně obnovená produkce přes `npx vercel --prod --yes`, deploy `dpl_DQoz6Mv7qyEMrKB3hVgUSDzBC7zA`. Produkční `/api/health` je zpět `ok`, Supabase je `configured=true`.
 - Runtime ověřit na `/podniky`, `/login`, `/register`, `/forgot-password`, `/reset-password` a `/account/login`: návštěvník se umí vrátit na web a přepnout světlý/tmavý režim tam, kde je stránka součást veřejného vstupu.
 - `npm run check` prošlo 2026-06-01 16:40 CEST po rychlém service/staff/booking-page onboardingu: 572 Vitest testů, migrations check, type-check, lint a produkční build.
 - `npm run check` prošlo 2026-06-01 18:47 CEST po doplnění sdílení do `/start`: 572 Vitest testů, migrations check, type-check, lint a produkční build.
