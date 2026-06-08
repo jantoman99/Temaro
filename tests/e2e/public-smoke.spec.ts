@@ -25,7 +25,7 @@ test.describe("public smoke", () => {
   test("landing page exposes primary marketing paths", async ({ page }) => {
     await page.goto("/");
 
-    await expect(page.getByRole("heading", { name: /Méně telefonátů\. Více rezervací/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Získejte rezervace.*Bez volání/i })).toBeVisible();
     await expect(page.getByRole("link", { name: /Začít zdarma/i }).first()).toBeVisible();
     await expect(page.getByText("Produkt").first()).toBeVisible();
     await expect(page.getByText("Řešení").first()).toBeVisible();
@@ -113,7 +113,7 @@ test.describe("public smoke", () => {
     await page.goto("/", { waitUntil: "domcontentloaded" });
 
     const homeHeader = page.locator("header").first();
-    const homeEyebrow = page.getByText("Pro české salony, barbery a služby").first();
+    const homeEyebrow = page.getByText("Pro salony, barbery a lokální služby").first();
     const homeHeaderBox = await homeHeader.boundingBox();
     const homeEyebrowBox = await homeEyebrow.boundingBox();
 

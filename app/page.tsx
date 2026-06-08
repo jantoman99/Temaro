@@ -11,11 +11,9 @@ import {
   MailCheck,
   MonitorPlay,
   MousePointerClick,
-  PhoneOff,
   QrCode,
   ShieldCheck,
   Smartphone,
-  UsersRound,
 } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
@@ -23,8 +21,8 @@ import Link from "next/link";
 import { headers } from "next/headers";
 
 import PublicSlugBookingPage from "@/app/(booking)/[slug]/page";
+import { BusinessDiscoveryHero } from "@/components/marketing/business-discovery-hero";
 import { TemaroLogo } from "@/components/brand/temaro-logo";
-import { LiveProductShowcase } from "@/components/marketing/live-product-showcase";
 import { MarketingHeader } from "@/components/marketing/marketing-header";
 import { Reveal } from "@/components/motion/reveal";
 import { isLikelyPlatformHost, normalizeRequestHost } from "@/lib/custom-domain";
@@ -53,11 +51,9 @@ const CTA = {
   secondary: { href: "/ukazka", label: "Spustit ukázku" },
 } as const;
 
-const heroTrustItems = ["Bez karty na start", "Žádná provize z vašich klientů", "Vlastní rezervační odkaz"] as const;
-
 const features = [
   {
-    icon: PhoneOff,
+    icon: MousePointerClick,
     title: "Méně telefonátů",
     description: "Rezervace vznikne bez zpráv tam a zpět. Vy řešíte práci, ne hledání volného okna.",
     tone: "border-info/25 bg-info/10 text-info hover:border-info/45",
@@ -69,7 +65,7 @@ const features = [
     tone: "border-warning/25 bg-warning/10 text-warning hover:border-warning/45",
   },
   {
-    icon: UsersRound,
+    icon: MailCheck,
     title: "Paměť podniku",
     description: "Historie návštěv, preference a poznámky zůstávají u klienta, ne v hlavě jednoho člověka.",
     tone: "border-success/25 bg-success/10 text-success hover:border-success/45",
@@ -156,12 +152,6 @@ const trustItems = [
   ["Data každého podniku zvlášť", "Klienti, termíny a historie jednoho provozu se nemíchají s jiným podnikem."],
   ["Bezpečné rezervace", "Volné termíny se ověřují při odeslání, aby klient nemohl obsadit čas, který už neplatí."],
   ["Evropský provoz", "Projekt cílí na český a EU trh, s důrazem na jednoduchost a kontrolu dat."],
-] as const;
-
-const proofMetrics = [
-  [CheckCircle2, "3 kroky", "rezervace", "bg-info/10 text-info"],
-  [BadgeEuro, "0 Kč", "pilot", "bg-success/10 text-success"],
-  [ShieldCheck, "0 %", "provize", "bg-warning/10 text-warning"],
 ] as const;
 
 const workflowSteps = [
@@ -297,72 +287,9 @@ export default async function Home() {
   }
 
   return (
-    <main className="clean-saas-page min-h-screen overflow-hidden bg-[#f7f7f9] text-foreground dark:bg-background">
-      <section id="produkt" className="relative signal-hero">
-        <div className="mx-auto flex min-h-[88vh] w-full max-w-[1180px] flex-col px-4 py-4 sm:px-6 lg:px-0">
-          <MarketingHeader />
-
-          <div className="grid flex-1 items-center gap-10 pb-10 pt-28 lg:grid-cols-[0.82fr_1.18fr] lg:gap-12 lg:pb-12 lg:pt-32">
-            <section className="mx-auto w-full max-w-2xl text-left lg:mx-0">
-              <div className="inline-flex items-center gap-2 rounded-full border border-primary/15 bg-card px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-primary shadow-sm">
-                <span className="signal-pulse size-2 rounded-full bg-primary" />
-                Pro české salony, barbery a služby
-              </div>
-
-              <h1 className="mt-7 max-w-2xl text-balance text-5xl font-semibold leading-[0.96] tracking-[-0.055em] text-foreground sm:text-6xl lg:text-[5.25rem]">
-                Méně telefonátů.
-                <br />
-                Více rezervací.
-              </h1>
-              <p className="mt-6 max-w-xl text-lg font-medium leading-[1.55] text-secondary-foreground sm:text-xl">
-                Temaro dá vašemu podniku vlastní rezervační stránku, týmový kalendář a přehled klientů. Klient se objedná sám, vy se věnujete práci.
-              </p>
-
-              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-                <Link
-                  href={CTA.primary.href}
-                  className="group/cta inline-flex h-12 min-w-44 items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-primary px-6 text-base font-semibold text-primary-foreground shadow-[var(--shadow-primary-glow)] transition hover:-translate-y-0.5 hover:bg-primary/92"
-                >
-                  {CTA.primary.label}
-                  <ArrowRight className="h-5 w-5 transition group-hover/cta:translate-x-0.5" />
-                </Link>
-                <Link
-                  href={CTA.secondary.href}
-                  className="inline-flex h-12 min-w-40 items-center justify-center whitespace-nowrap rounded-lg border border-border bg-card/85 px-6 text-base font-semibold text-foreground shadow-sm transition hover:-translate-y-0.5 hover:bg-card"
-                >
-                  {CTA.secondary.label}
-                </Link>
-              </div>
-
-              <div className="mt-6 flex flex-wrap gap-2">
-                {heroTrustItems.map((item) => (
-                  <span key={item} className="rounded-full border border-border bg-card px-3 py-1.5 text-xs font-bold text-foreground shadow-sm">
-                    {item}
-                  </span>
-                ))}
-              </div>
-
-              <div id="dukaz" className="mt-8 grid max-w-xl grid-cols-3 gap-2 sm:gap-3">
-                {proofMetrics.map(([Icon, value, label, tone]) => (
-                  <div key={label} className="rounded-xl border border-border bg-card p-3 shadow-sm sm:min-h-32 sm:p-4">
-                    <div className={`mb-3 grid size-8 place-items-center rounded-lg sm:size-9 ${tone}`}>
-                      <Icon className="size-4" strokeWidth={1.9} />
-                    </div>
-                    <p className="nums-tabular text-2xl font-semibold tracking-tight text-primary sm:text-3xl">
-                      {value}
-                    </p>
-                    <p className="mt-1 max-w-[15rem] text-xs font-medium leading-4 text-secondary-foreground sm:mt-2 sm:text-sm sm:leading-5">
-                      {label}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            <LiveProductShowcase />
-          </div>
-        </div>
-      </section>
+    <main className="business-discovery-page min-h-screen overflow-hidden bg-[#f5e8ff] text-foreground dark:bg-background">
+      <MarketingHeader />
+      <BusinessDiscoveryHero />
 
       <section id="provoz" className="relative mx-auto w-full max-w-[1180px] px-4 py-20 sm:px-6 lg:px-8">
         <div className="grid gap-8 lg:grid-cols-[0.82fr_1.18fr]">

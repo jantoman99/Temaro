@@ -4,7 +4,7 @@ import { ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useId, useRef, useState } from "react";
 
-const navGroups = [
+export const navGroups = [
   {
     label: "Produkt",
     items: [
@@ -32,7 +32,7 @@ const navGroups = [
   },
 ] as const;
 
-const navDirectLinks = [
+export const navDirectLinks = [
   ["/podniky", "Pro zákazníky"],
   ["#cenik", "Ceník"],
   ["/ukazka", "Ukázka"],
@@ -68,7 +68,7 @@ export function LandingNavigation() {
   return (
     <nav
       ref={navRef}
-      className="order-3 grid w-full gap-1 border-t border-border/70 pt-2 sm:grid-cols-2 lg:order-none lg:flex lg:w-auto lg:items-center lg:border-t-0 lg:pt-0"
+      className="hidden lg:flex w-auto items-center gap-1"
       aria-label="Hlavní navigace"
     >
       {navGroups.map((group) => {
@@ -81,7 +81,7 @@ export function LandingNavigation() {
               type="button"
               aria-expanded={isOpen}
               aria-controls={panelId}
-              className="flex w-full items-center justify-center gap-1.5 rounded-md px-2 py-2 text-sm font-semibold text-muted-foreground transition hover:bg-muted hover:text-foreground lg:w-auto lg:px-3"
+              className="flex items-center justify-center gap-1.5 rounded-md px-3 py-2 text-sm font-semibold text-muted-foreground transition hover:bg-muted hover:text-foreground"
               onClick={() => setOpenGroup(isOpen ? null : group.label)}
             >
               {group.label}

@@ -81,56 +81,61 @@ describe("landing polish guard", () => {
     expect(page).not.toContain("border border-border bg-secondary px-3 py-1 text-xs font-bold text-muted-foreground");
   });
 
-  test("homepage follows the clean Czech SaaS direction", () => {
+  test("homepage follows the full-width business discovery direction", () => {
     const page = readProjectFile("app/page.tsx");
-    const showcase = readProjectFile("components/marketing/live-product-showcase.tsx");
+    const hero = readProjectFile("components/marketing/business-discovery-hero.tsx");
 
-    expect(page).toContain("clean-saas-page");
-    expect(showcase).toContain("clean-saas-showcase");
-    expect(showcase).toContain("phone-booking-preview");
-    expect(showcase).toContain("Ukázka v počítači i telefonu");
-    expect(page).toContain("Bez karty na start");
-    expect(page).toContain("Žádná provize z vašich klientů");
-    expect(page).toContain('id="produkt" className="relative signal-hero"');
+    expect(page).toContain("business-discovery-page");
+    expect(page).toContain("<BusinessDiscoveryHero />");
+    expect(hero).toContain("business-discovery-hero");
+    expect(hero).toContain("Získejte rezervace");
+    expect(hero).toContain("Bez volání");
+    expect(hero).toContain("Vlastní booking odkaz");
+    expect(hero).toContain("Dnešní provoz");
+    expect(hero).toContain("Kadeřnictví / barber");
+    expect(hero).toContain("Méně telefonátů");
+    expect(hero).toContain("Bez karty na start");
+    expect(hero).toContain("Žádná provize z vašich klientů");
+    expect(hero).toContain('id="produkt"');
+    expect(hero).toContain("relative overflow-hidden rounded-b-[3rem]");
+    expect(hero).toContain("linear-gradient(135deg,#8b5cf6,#7c3aed_52%,#4c1d95)");
     expect(page).not.toContain("command-surface interactive-demo-shell py-20");
+    expect(page).not.toContain("clean-saas-page");
   });
 
-  test("homepage uses a two-column hero with product as the visual half", () => {
+  test("homepage uses an edge-to-edge hero with business booking visuals", () => {
     const page = readProjectFile("app/page.tsx");
-    const showcase = readProjectFile("components/marketing/live-product-showcase.tsx");
+    const hero = readProjectFile("components/marketing/business-discovery-hero.tsx");
 
-    expect(page).toContain('<section id="produkt" className="relative signal-hero">');
-    expect(page).toContain(
-      '<div className="grid flex-1 items-center gap-10 pb-10 pt-28 lg:grid-cols-[0.82fr_1.18fr] lg:gap-12 lg:pb-12 lg:pt-32">',
+    expect(page).toContain("<BusinessDiscoveryHero />");
+    expect(hero).toContain('<section');
+    expect(hero).toContain('id="produkt"');
+    expect(hero).toContain(
+      '<div className="mx-auto grid min-h-[760px] w-full max-w-[1280px] items-center gap-10 px-4 pb-16 pt-28 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8 lg:pb-20 lg:pt-32">',
     );
-    expect(page).toContain('<section className="mx-auto w-full max-w-2xl text-left lg:mx-0">');
-    expect(page).toContain("<LiveProductShowcase />");
+    expect(hero).toContain("business-hero-visual");
+    expect(hero).toContain("booking-source-card");
+    expect(hero).toContain("business-dashboard-card");
+    expect(hero).toContain("client-booking-card");
     expect(page).not.toContain('<section id="produkt" className="command-surface border-y border-white/10 py-20">');
-    expect(page).not.toContain('max-w-[1320px]');
     expect(page).not.toContain("Reálný pohled");
-    expect(page).not.toContain("Takhle vypadá běžný den ve vašem provozu.");
-    expect(showcase).not.toContain('id="produkt"');
-    expect(showcase).toContain("xl:right-0");
+    expect(page).not.toContain("<LiveProductShowcase />");
   });
 
-  test("homepage hero keeps left-aligned copy and fills the viewport with product preview", () => {
+  test("homepage hero is not constrained to the old centered SaaS shell", () => {
     const page = readProjectFile("app/page.tsx");
+    const hero = readProjectFile("components/marketing/business-discovery-hero.tsx");
 
-    expect(page).toContain(
-      'className="mx-auto flex min-h-[88vh] w-full max-w-[1180px] flex-col px-4 py-4 sm:px-6 lg:px-0"',
-    );
-    expect(page).toContain('<section className="mx-auto w-full max-w-2xl text-left lg:mx-0">');
-    expect(page).toContain('className="mt-7 max-w-2xl text-balance');
-    expect(page).toContain('className="mt-6 max-w-xl text-lg');
-    expect(page).toContain('className="mt-9 flex flex-col gap-3 sm:flex-row"');
-    expect(page).toContain('className="mt-6 flex flex-wrap gap-2"');
-    expect(page).toContain('className="mt-8 grid max-w-xl grid-cols-3 gap-2 sm:gap-3"');
+    expect(hero).toContain("max-w-[1280px]");
+    expect(hero).toContain("text-5xl font-black");
+    expect(hero).toContain("text-[#facc15]");
+    expect(hero).toContain("rounded-[1.6rem] bg-white p-2");
+    expect(hero).toContain("business-chip");
+    expect(hero).toContain("Žádná provize z vašich klientů");
+    expect(page).not.toContain("max-w-[1180px] flex-col px-4 py-4");
+    expect(page).not.toContain("grid flex-1 items-center gap-10 pb-10 pt-28");
     expect(page).not.toContain("py-16 lg:py-24");
     expect(page).not.toContain("max-w-3xl text-center");
-    expect(page).not.toContain("mt-7 mx-auto");
-    expect(page).not.toContain("mt-6 mx-auto");
-    expect(page).not.toContain("sm:justify-center");
-    expect(page).not.toContain("mt-6 flex flex-wrap justify-center gap-2");
     expect(page).not.toContain("min-h-[78vh]");
     expect(page).not.toContain("lg:min-h-[76vh]");
   });
@@ -149,10 +154,11 @@ describe("landing polish guard", () => {
     const page = readProjectFile("app/page.tsx");
 
     expect(page).toContain('import { Reveal } from "@/components/motion/reveal"');
-    expect(page).toContain('import { LiveProductShowcase } from "@/components/marketing/live-product-showcase"');
-    expect(page).toContain("<LiveProductShowcase />");
+    expect(page).toContain('import { BusinessDiscoveryHero } from "@/components/marketing/business-discovery-hero"');
+    expect(page).toContain("<BusinessDiscoveryHero />");
     expect(page).toContain("<Reveal");
     expect(page).toContain("delay={");
+    expect(page).not.toContain('import { LiveProductShowcase } from "@/components/marketing/live-product-showcase"');
     expect(page).not.toContain("function ProductShowcase()");
     expect(page).not.toContain("<ProductShowcase />");
   });
@@ -230,9 +236,12 @@ describe("landing polish guard", () => {
     ];
 
     expect(sharedHeader).toContain("<LandingNavigation />");
+    expect(sharedHeader).toContain("<MobileMarketingMenu />");
     expect(sharedHeader).toContain("fixed left-4 right-4 top-3");
     expect(sharedHeader).toContain("min-h-16");
-    expect(sharedHeader).toContain("max-w-[1180px]");
+    expect(sharedHeader).toContain("max-w-[1280px]");
+    expect(sharedHeader).toContain('className="hidden sm:block"');
+    expect(sharedHeader).toContain("px-3 text-sm");
     expect(sharedHeader).toContain("Přihlášení");
     expect(sharedHeader).toContain("Začít zdarma");
 
@@ -240,7 +249,6 @@ describe("landing polish guard", () => {
       const source = readProjectFile(filePath);
 
       expect(source).toContain("MarketingHeader");
-      expect(source).toContain("pt-28");
       expect(source).not.toContain("<LandingNavigation />");
       expect(source).not.toContain('aria-label="Hlavní navigace"');
     }
@@ -250,6 +258,24 @@ describe("landing polish guard", () => {
     expect(customerDirectory).not.toContain("MarketingHeader");
     expect(customerDirectory).toContain("Pro podniky");
     expect(customerDirectory).toContain("Pro zákazníky");
+  });
+
+  test("mobile marketing navigation uses a compact hamburger menu", () => {
+    const sharedHeader = readProjectFile("components/marketing/marketing-header.tsx");
+    const desktopNavigation = readProjectFile("components/marketing/landing-navigation.tsx");
+    const mobileMenu = readProjectFile("components/marketing/mobile-marketing-menu.tsx");
+
+    expect(sharedHeader).toContain("<MobileMarketingMenu />");
+    expect(desktopNavigation).toContain("hidden lg:flex");
+    expect(mobileMenu).toContain("lg:hidden");
+    expect(mobileMenu).toContain('"use client"');
+    expect(mobileMenu).toContain("Menu");
+    expect(mobileMenu).toContain("Otevřít menu");
+    expect(mobileMenu).toContain("navGroups");
+    expect(desktopNavigation).toContain("Produkt");
+    expect(desktopNavigation).toContain("Řešení");
+    expect(desktopNavigation).toContain("Návody");
+    expect(mobileMenu).not.toContain("<details");
   });
 
   test("homepage explains setup flow and booking channels", () => {
