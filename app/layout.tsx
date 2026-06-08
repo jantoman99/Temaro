@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist_Mono, Instrument_Serif, Plus_Jakarta_Sans } from "next/font/google";
 import { ServiceWorkerRegistration } from "@/components/pwa/service-worker-registration";
+import { getBaseAppUrl } from "@/lib/app-url";
 import "./globals.css";
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -31,7 +32,7 @@ export const metadata: Metadata = {
   description:
     "Temaro je český rezervační systém pro salony, barbery, ordinace, trenéry a lokální služby. Online booking, týmový kalendář, klientská historie a méně telefonátů.",
   applicationName: "Temaro",
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? "https://rezervacni-system-xi.vercel.app"),
+  metadataBase: new URL(getBaseAppUrl()),
   openGraph: {
     title: "Rezervační systém pro služby | Temaro",
     description:
