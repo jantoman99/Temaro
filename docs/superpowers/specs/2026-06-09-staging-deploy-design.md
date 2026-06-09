@@ -19,6 +19,7 @@ The first implementation will add a new GitHub Actions workflow next to the exis
 - require `VERCEL_TOKEN`,
 - use the existing Vercel project link,
 - build and deploy without `--prod`,
+- alias the preview deployment to `https://rezervacni-system-dev.vercel.app`,
 - pass explicit staging runtime env values from GitHub Actions secrets,
 - refuse to deploy if required staging secrets are missing.
 
@@ -33,10 +34,13 @@ This reduces the risk of shipping a broken homepage, degraded environment, or ri
 Required GitHub Actions secrets for staging:
 
 - `VERCEL_TOKEN`
-- `STAGING_NEXT_PUBLIC_APP_URL`
 - `STAGING_NEXT_PUBLIC_SUPABASE_URL`
 - `STAGING_NEXT_PUBLIC_SUPABASE_ANON_KEY`
 - `STAGING_SUPABASE_SERVICE_ROLE_KEY`
+
+Fixed staging app URL:
+
+- `https://rezervacni-system-dev.vercel.app`
 
 Optional later staging secrets:
 
@@ -60,9 +64,8 @@ The initial workflow will pass only the required core runtime secrets. Payment, 
 
 - Good: safer promotion path from `dev` to `main`.
 - Good: production workflow remains unchanged.
-- Good: staging can later point at a separate Supabase project.
-- Tradeoff: staging needs several GitHub Actions secrets before it can deploy.
-- Tradeoff: until staging Supabase exists, mutations may still hit whichever Supabase project the staging secrets point to.
+- Good: staging points at a separate Supabase project.
+- Tradeoff: staging depends on GitHub Actions secrets and Vercel aliasing.
 
 ## Testing
 
@@ -70,7 +73,7 @@ Implementation should be verified by:
 
 - workflow YAML syntax review,
 - `npm run check`,
-- pushing or manually running the `dev` workflow after secrets exist,
+- pushing or manually running the `dev` workflow,
 - opening the staging URL and checking `/api/health`,
 - running public smoke against the staging URL:
 

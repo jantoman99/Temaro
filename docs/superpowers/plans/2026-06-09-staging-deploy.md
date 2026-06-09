@@ -46,7 +46,7 @@ describe("Vercel staging workflow", () => {
   it("vyzaduje staging secret hodnoty misto produkcnich runtime hodnot", async () => {
     const workflow = await readWorkflow();
 
-    expect(workflow).toContain("STAGING_NEXT_PUBLIC_APP_URL");
+    expect(workflow).toContain("https://rezervacni-system-dev.vercel.app");
     expect(workflow).toContain("STAGING_NEXT_PUBLIC_SUPABASE_URL");
     expect(workflow).toContain("STAGING_NEXT_PUBLIC_SUPABASE_ANON_KEY");
     expect(workflow).toContain("STAGING_SUPABASE_SERVICE_ROLE_KEY");
@@ -94,7 +94,7 @@ jobs:
     name: Deploy to Vercel staging
     runs-on: ubuntu-latest
     env:
-      NEXT_PUBLIC_APP_URL: ${{ secrets.STAGING_NEXT_PUBLIC_APP_URL }}
+      NEXT_PUBLIC_APP_URL: https://rezervacni-system-dev.vercel.app
       NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.STAGING_NEXT_PUBLIC_SUPABASE_ANON_KEY }}
       NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.STAGING_NEXT_PUBLIC_SUPABASE_URL }}
       SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.STAGING_SUPABASE_SERVICE_ROLE_KEY }}
@@ -173,6 +173,12 @@ jobs:
           )"
           echo "url=$deployment_url" >> "$GITHUB_OUTPUT"
           echo "Staging deployment: $deployment_url"
+
+      - name: Alias staging deployment
+        if: steps.secrets.outputs.present == 'true'
+        shell: bash
+        run: |
+          npx vercel alias set "${{ steps.deploy.outputs.url }}" "${NEXT_PUBLIC_APP_URL#https://}" --token="$VERCEL_TOKEN"
 ```
 
 - [ ] **Step 2: Run staging workflow test**
@@ -197,7 +203,7 @@ Expected: PASS.
 Add a short current-state bullet near the top of each active doc:
 
 ```markdown
-- Staging deploy je připravený přes GitHub Actions workflow `.github/workflows/vercel-staging.yml`: push do branche `dev` vytvoří Vercel preview deploy bez zásahu do production aliasu. Před prvním spuštěním doplnit GitHub Actions secrets `STAGING_NEXT_PUBLIC_APP_URL`, `STAGING_NEXT_PUBLIC_SUPABASE_URL`, `STAGING_NEXT_PUBLIC_SUPABASE_ANON_KEY`, `STAGING_SUPABASE_SERVICE_ROLE_KEY` a existující `VERCEL_TOKEN`.
+- Staging deploy je připravený přes GitHub Actions workflow `.github/workflows/vercel-staging.yml`: push do branche `dev` vytvoří Vercel preview deploy bez zásahu do production aliasu. workflow nastaví alias `https://rezervacni-system-dev.vercel.app`; potřebné GitHub Actions secrets jsou `STAGING_NEXT_PUBLIC_SUPABASE_URL`, `STAGING_NEXT_PUBLIC_SUPABASE_ANON_KEY`, `STAGING_SUPABASE_SERVICE_ROLE_KEY` a `VERCEL_TOKEN`.
 ```
 
 - [ ] **Step 2: Run focused docs/workflow tests**

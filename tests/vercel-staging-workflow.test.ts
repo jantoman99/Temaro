@@ -24,10 +24,11 @@ describe("Vercel staging workflow", () => {
   it("vyzaduje staging secret hodnoty misto produkcnich runtime hodnot", async () => {
     const workflow = await readWorkflow();
 
-    expect(workflow).toContain("STAGING_NEXT_PUBLIC_APP_URL");
+    expect(workflow).toContain("https://rezervacni-system-dev.vercel.app");
     expect(workflow).toContain("STAGING_NEXT_PUBLIC_SUPABASE_URL");
     expect(workflow).toContain("STAGING_NEXT_PUBLIC_SUPABASE_ANON_KEY");
     expect(workflow).toContain("STAGING_SUPABASE_SERVICE_ROLE_KEY");
+    expect(workflow).toContain("npx vercel alias set");
     expect(workflow).toContain("refusing to deploy degraded staging");
     expect(workflow).not.toContain("https://rezervacni-system-xi.vercel.app");
     expect(workflow).not.toContain("sb_publishable__uR26T1MisHeSlPrnz6AZQ_kkptmUOb");

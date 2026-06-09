@@ -48,6 +48,7 @@ create table public.client_passes (
   created_by uuid references public.users(id) on delete set null,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
+  constraint client_passes_id_tenant_id_unique unique (id, tenant_id),
   constraint client_passes_package_tenant_fkey
     foreign key (package_id, tenant_id)
     references public.service_packages (id, tenant_id)

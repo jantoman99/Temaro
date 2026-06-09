@@ -240,6 +240,7 @@ describe("DB hardening migrations", () => {
     expect(migration).toContain("create table public.client_passes");
     expect(migration).toContain("create table public.client_pass_redemptions");
     expect(migration).toContain("constraint service_packages_units_check");
+    expect(migration).toContain("constraint client_passes_id_tenant_id_unique unique (id, tenant_id)");
     expect(migration).toContain("constraint client_passes_balance_check");
     expect(migration).toContain("alter table public.service_packages enable row level security");
     expect(migration).toContain("public.is_current_tenant_owner()");

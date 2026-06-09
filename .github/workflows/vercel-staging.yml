@@ -15,7 +15,7 @@ jobs:
     name: Deploy to Vercel staging
     runs-on: ubuntu-latest
     env:
-      NEXT_PUBLIC_APP_URL: ${{ secrets.STAGING_NEXT_PUBLIC_APP_URL }}
+      NEXT_PUBLIC_APP_URL: https://rezervacni-system-dev.vercel.app
       NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.STAGING_NEXT_PUBLIC_SUPABASE_ANON_KEY }}
       NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.STAGING_NEXT_PUBLIC_SUPABASE_URL }}
       SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.STAGING_SUPABASE_SERVICE_ROLE_KEY }}
@@ -94,3 +94,9 @@ jobs:
           )"
           echo "url=$deployment_url" >> "$GITHUB_OUTPUT"
           echo "Staging deployment: $deployment_url"
+
+      - name: Alias staging deployment
+        if: steps.secrets.outputs.present == 'true'
+        shell: bash
+        run: |
+          npx vercel alias set "${{ steps.deploy.outputs.url }}" "${NEXT_PUBLIC_APP_URL#https://}" --token="$VERCEL_TOKEN"
