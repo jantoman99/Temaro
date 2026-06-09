@@ -1,6 +1,6 @@
 # Runtime checklist
 
-Aktualizováno: 2026-06-09 00:02 CEST
+Aktualizováno: 2026-06-10 00:08 CEST
 
 Tento checklist je pro první reálné ověření mimo demo režim.
 
@@ -22,6 +22,8 @@ curl -I http://localhost:3000
 
 Aktuální známý stav:
 
+- Deploy pravidlo od 2026-06-10: nové změny nejdřív pushnout na `dev`, ověřit staging URL `https://rezervacni-system-dev.vercel.app` a až po explicitním schválení promovat na produkci. Produkční alias `https://rezervacni-system-xi.vercel.app` nepoužívat jako první testovací cíl. Přímý `npx vercel --prod --yes` je povolený jen pro schválený release nebo urgentní rollback.
+- Aktuální produkce po rollbacku: `https://rezervacni-system-xi.vercel.app` míří na Vercel deploy `dpl_3iNgj8xzsVMwypVkkicgP8c4ohqD` z backup branche `backup/pre-redesign-20260608-2341` (`ac6c4fd`). Runtime obsah má starý hero `Méně telefonátů. Více rezervací.` a nesmí obsahovat `Získejte rezervace. Bez volání.` ani `business-discovery-page`.
 - Staging deploy je připravený přes GitHub Actions workflow `.github/workflows/vercel-staging.yml`: push do branche `dev` vytvoří Vercel preview deploy bez zásahu do production aliasu a nastaví alias `https://rezervacni-system-dev.vercel.app`. Samostatný Supabase staging projekt `gzkurmputkhqdqgrlaje` je vytvořený, migrace jsou aplikované a GitHub Actions secrets `STAGING_NEXT_PUBLIC_SUPABASE_URL`, `STAGING_NEXT_PUBLIC_SUPABASE_ANON_KEY`, `STAGING_SUPABASE_SERVICE_ROLE_KEY` a `VERCEL_TOKEN` jsou nastavené.
 - Vercel SSO deployment protection je vypnutá, aby stabilní staging URL byla veřejně ověřitelná. Staging `/api/health` vrací `status=ok`, Supabase je configured/ok a `rate_limit.configured=false`, protože staging Upstash zatím není nastavený.
 - Predeploy vizuální záloha 2026-06-09: screenshoty a patch aktuální homepage jsou uložené v `/mnt/c/Users/hanys/Desktop/temaro-visual-backups/2026-06-08-business-discovery-predeploy`; backup branch `backup/visual-predeploy-20260608-business-discovery` je pushnutá na GitHub.

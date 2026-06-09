@@ -1,6 +1,6 @@
 # Handoff
 
-Aktualizováno: 2026-06-09 00:02 CEST
+Aktualizováno: 2026-06-10 00:08 CEST
 
 ## Jak navázat
 
@@ -16,6 +16,8 @@ Aktualizováno: 2026-06-09 00:02 CEST
 
 - Produktový název je `Temaro`.
 - MVP základ je implementovaný: auth, tenant izolace, služby, zálohový základ, staff, klienti, kalendář, veřejný booking, self-service manage, emaily a reminder cron.
+- Deploy pravidlo od 2026-06-10: všechny nové změny se nejdřív pushují na branch `dev`, ověřují na `https://rezervacni-system-dev.vercel.app` proti samostatné staging Supabase DB a teprve po explicitním schválení se promují na produkci. Produkci nikdy nepoužívat jako první testovací cíl; přímý `npx vercel --prod --yes` používat jen pro schválený release nebo urgentní rollback.
+- Aktuální produkce je záměrně vrácená na pre-redesign backup `backup/pre-redesign-20260608-2341` (`ac6c4fd`), deploy `dpl_3iNgj8xzsVMwypVkkicgP8c4ohqD`, alias `https://rezervacni-system-xi.vercel.app`. Homepage má starý claim `Méně telefonátů. Více rezervací.`; nový business discovery hero zůstává jen na `dev`.
 - Staging deploy je připravený přes GitHub Actions workflow `.github/workflows/vercel-staging.yml`: push do branche `dev` vytvoří Vercel preview deploy bez zásahu do production aliasu a nastaví alias `https://rezervacni-system-dev.vercel.app`. Samostatný Supabase staging projekt `gzkurmputkhqdqgrlaje` je vytvořený, migrace jsou aplikované a GitHub Actions secrets `STAGING_NEXT_PUBLIC_SUPABASE_URL`, `STAGING_NEXT_PUBLIC_SUPABASE_ANON_KEY`, `STAGING_SUPABASE_SERVICE_ROLE_KEY` a `VERCEL_TOKEN` jsou nastavené.
 - Vercel SSO deployment protection je vypnutá, aby stabilní staging URL byla veřejně ověřitelná. Staging `/api/health` vrací `status=ok`, Supabase je configured/ok a `rate_limit.configured=false`, protože staging Upstash zatím není nastavený.
 - Aktuální frontend/design změna 2026-06-09: homepage používá nový full-width business discovery hero pro podniky (`BusinessDiscoveryHero`) s claimem `Získejte rezervace. Bez volání.`, fialovo-žlutým vizuálem, search panelem a překrytou ukázkou booking kanálů/provozního dashboardu. Původní inline `LiveProductShowcase` už není v hero.

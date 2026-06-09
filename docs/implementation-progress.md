@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Aktualizováno: 2026-06-09 00:02 CEST
+Aktualizováno: 2026-06-10 00:08 CEST
 
 Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historické analýzy a staré design audity jsou přesunuté do `docs/archive/`.
 
@@ -9,6 +9,8 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - Produkt se jmenuje `Temaro`.
 - Typ produktu: multi-tenant SaaS rezervační systém pro lokální služby.
 - MVP jádro je implementované.
+- Deploy workflow rozhodnutí od 2026-06-10: nové změny se nejdřív pushují na branch `dev`, ověřují na `https://rezervacni-system-dev.vercel.app` se samostatnou staging Supabase DB a až po explicitním schválení se promují na produkci. Produkční alias `https://rezervacni-system-xi.vercel.app` zůstává stabilní demo a neslouží jako první testovací prostředí.
+- Produkce je po rollbacku vrácená na pre-redesign backup `backup/pre-redesign-20260608-2341` (`ac6c4fd`), Vercel deploy `dpl_3iNgj8xzsVMwypVkkicgP8c4ohqD`. Dev/staging drží novější změny včetně business discovery hero a bude místo pro další vývoj.
 - Staging deploy je připravený přes GitHub Actions workflow `.github/workflows/vercel-staging.yml`: push do branche `dev` vytvoří Vercel preview deploy bez zásahu do production aliasu a nastaví alias `https://rezervacni-system-dev.vercel.app`. Samostatný Supabase staging projekt `gzkurmputkhqdqgrlaje` je vytvořený, migrace jsou aplikované a GitHub Actions secrets `STAGING_NEXT_PUBLIC_SUPABASE_URL`, `STAGING_NEXT_PUBLIC_SUPABASE_ANON_KEY`, `STAGING_SUPABASE_SERVICE_ROLE_KEY` a `VERCEL_TOKEN` jsou nastavené.
 - Vercel SSO deployment protection je vypnutá, aby stabilní staging URL byla veřejně ověřitelná. Staging `/api/health` vrací `status=ok`, Supabase je configured/ok a `rate_limit.configured=false`, protože staging Upstash zatím není nastavený.
 - Homepage redesign 2026-06-09: veřejná landing page je převedená na full-width business discovery směr inspirovaný schváleným návrhem B, ale positioning zůstává pro podniky. Hero používá claim `Získejte rezervace. Bez volání.`, výrazný fialovo-žlutý gradient, obor/řešení search panel, business booking kanály a překryté ukázkové karty provozu.
