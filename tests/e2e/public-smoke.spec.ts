@@ -113,7 +113,7 @@ test.describe("public smoke", () => {
     await page.goto("/", { waitUntil: "domcontentloaded" });
 
     const homeHeader = page.locator("header").first();
-    const homeEyebrow = page.getByText("Rezervační systém, kde čas konečně drží tvar").first();
+    const homeEyebrow = page.getByText("Rezervační systém pro služby").first();
     const homeHeaderBox = await homeHeader.boundingBox();
     const homeEyebrowBox = await homeEyebrow.boundingBox();
 
