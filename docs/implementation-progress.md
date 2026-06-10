@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Aktualizováno: 2026-06-10 20:15 CEST
+Aktualizováno: 2026-06-10 20:54 CEST
 
 Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historické analýzy a staré design audity jsou přesunuté do `docs/archive/`.
 
@@ -15,8 +15,9 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - Vercel SSO deployment protection je vypnutá, aby stabilní staging URL byla veřejně ověřitelná. Staging `/api/health` vrací `status=ok`, Supabase je configured/ok a `rate_limit.configured=false`, protože staging Upstash zatím není nastavený.
 - Homepage redesign podle `docs/TEMARO_REDESIGN_2026.md` je lokálně aplikovaný 2026-06-10: veřejná landing page přešla na koncept `Čas jako materiál`, nové tokeny `porcelain/cobalt/apricot/mint`, fonty Bricolage Grotesque, Instrument Sans a IBM Plex Mono, interaktivní hero timeline widget s oborovými segmenty, trust bar, timeline flow, bento grid, produktový mock, scénáře, manifest, ceník, bezpečnost a závěrečné CTA. Samostatné sekce `Pro koho` a body blok návodů byly z homepage odstraněné; návody zůstávají ve footeru.
 - Update #2 podle `docs/TEMARO_UPDATE_2.md` je lokálně aplikovaný 2026-06-10: marketing homepage je light-only bez `ThemeToggle`, hero timeline počítá pozice rezervací z reálného času a délek, bento má 8 silných argumentů včetně no-show/paměti podniku/plateb/týmu, mobil má sticky CTA po heru, menu má backdrop/Escape/scroll limit, trust marquee respektuje reduced motion a pricing používá status chipy místo velkého `připravujeme`.
+- Time Engine foto/motion vrstva 2026-06-10 je lokálně aplikovaná: vygenerované AI WebP fotky `time-engine-salon.webp`, `time-engine-beauty.webp`, `time-engine-fitness.webp` jsou zapojené do nové sekce `#casovy-engine`, která převádí příchozí zprávy a provozní chaos do složeného dne se sloty, no-show signálem a SMS připomínkou. Screenshoty lokální kontroly: `output/playwright/time-engine-desktop-v4.png`, `output/playwright/time-engine-mobile.png`.
 - Marketing navigace 2026-06-10 je zredukovaná na `Produkt`, `Ceník`, `Ukázka`, `Návody`; mobilní menu je fullscreen-like panel a CTA na mobilu už nepřekrývá hero widget.
-- Lokální ověření 2026-06-10 20:30 CEST po `TEMARO_UPDATE_2`: `npm run check` prošlo s 603 Vitest testy, migrations check, type-check, lint a produkční build. Cílený guard `npm run test -- tests/landing-polish.test.ts` prošel 25/25.
+- Lokální ověření 2026-06-10 20:59 CEST po Time Engine vrstvě: `npm run check` prošlo s 604 Vitest testy, migrations check, type-check, lint a produkční build. Cílený guard `npm run test -- tests/landing-polish.test.ts` prošel 26/26.
 - Staging deploy 2026-06-10 19:47 CEST: commit `e504a32` byl pushnutý na `dev` a ručně nasazený jako Vercel preview `dpl_9CSiNphyw8MZ3pY7dEQ82GKbEZB8`, alias `https://rezervacni-system-dev.vercel.app`. Ověřeno: `/api/health` je `ok`, HTML obsahuje `temaro-time-page` a `PLAYWRIGHT_BASE_URL=https://rezervacni-system-dev.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` prošel 11/11 po aktualizaci smoke testu na nové IA.
 - Staging deploy 2026-06-10 20:24 CEST po `TEMARO_UPDATE_2`: commit `1087fd4` byl pushnutý na `dev` a ručně nasazený jako Vercel preview `dpl_GuVuZHhNKq43YZqN8LgRAG95yKP8`, alias `https://rezervacni-system-dev.vercel.app`. Ověřeno: `/api/health` je `ok`, HTML obsahuje `temaro-time-page`, `No-show pod kontrolou`, `Paměť podniku` a `MobileStickyCta`; `PLAYWRIGHT_BASE_URL=https://rezervacni-system-dev.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` prošel 11/11.
 - ESLint config 2026-06-10 nově ignoruje `.vercel/**`, protože manuální preview deploy generuje `.vercel/output`, který se nemá lintovat a předtím rozbíjel `npm run check`.

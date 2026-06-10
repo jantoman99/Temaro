@@ -292,6 +292,52 @@
     animation: time-card-in 520ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
   }
 
+  .photo-proof-card {
+    isolation: isolate;
+  }
+
+  .photo-proof-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+      linear-gradient(90deg, rgba(43, 63, 242, 0.18) 0 1px, transparent 1px),
+      linear-gradient(0deg, rgba(255, 255, 255, 0.14) 0 1px, transparent 1px);
+    background-size: 72px 100%, 100% 72px;
+    mix-blend-mode: screen;
+    opacity: 0.42;
+    pointer-events: none;
+  }
+
+  .photo-proof-card > * {
+    z-index: 2;
+  }
+
+  .time-engine-flow {
+    position: relative;
+  }
+
+  .time-engine-flow::after {
+    content: "";
+    position: absolute;
+    inset: 1rem;
+    border-radius: 1.6rem;
+    background: linear-gradient(90deg, transparent, rgba(43, 63, 242, 0.32), transparent);
+    opacity: 0.35;
+    pointer-events: none;
+    transform: translateX(-26%);
+    animation: engine-scan 4.8s ease-in-out infinite;
+  }
+
+  .engine-message {
+    animation: engine-message 3.6s ease-in-out infinite;
+  }
+
+  .engine-slot {
+    animation: engine-slot 3.8s ease-in-out infinite;
+  }
+
   .trust-marquee {
     animation: trust-marquee 22s linear infinite;
   }
@@ -438,7 +484,10 @@
   @media (prefers-reduced-motion: reduce) {
     .trust-marquee,
     .time-card-in,
-    .confirm-toast-in {
+    .confirm-toast-in,
+    .engine-message,
+    .engine-slot,
+    .time-engine-flow::after {
       animation: none;
     }
   }
@@ -544,6 +593,38 @@
     to {
       opacity: 1;
       transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes engine-message {
+    0%,
+    100% {
+      opacity: 0.64;
+      transform: translateX(0);
+    }
+    45% {
+      opacity: 1;
+      transform: translateX(10px);
+    }
+  }
+
+  @keyframes engine-slot {
+    0%,
+    100% {
+      transform: translateY(0) scale(1);
+    }
+    50% {
+      transform: translateY(-2px) scale(1.015);
+    }
+  }
+
+  @keyframes engine-scan {
+    0%,
+    100% {
+      transform: translateX(-26%);
+    }
+    50% {
+      transform: translateX(26%);
     }
   }
 

@@ -1,6 +1,6 @@
 # Runtime checklist
 
-Aktualizováno: 2026-06-10 20:15 CEST
+Aktualizováno: 2026-06-10 20:54 CEST
 
 Tento checklist je pro první reálné ověření mimo demo režim.
 
@@ -29,7 +29,8 @@ Aktuální známý stav:
 - Predeploy vizuální záloha 2026-06-09: screenshoty a patch aktuální homepage jsou uložené v `/mnt/c/Users/hanys/Desktop/temaro-visual-backups/2026-06-08-business-discovery-predeploy`; backup branch `backup/visual-predeploy-20260608-business-discovery` je pushnutá na GitHub.
 - Runtime po `TEMARO_REDESIGN_2026` ověřit na staging `/`: hero text `Rezervace bez volání. Čas bez chaosu.`, class `temaro-time-page`, cobalt/apricot/mint časový vizuál, interaktivní hero timeline widget, segmenty `Kadeřnictví / Barber / Kosmetika / Trenér`, desktop navigaci `Produkt / Ceník / Ukázka / Návody`, mobilní hamburger menu, sekce `trust-bar`, `jak-to-funguje`, `bento`, `produktove-demo`, `scenare`, `cenik`, `bezpecnost` a nulový horizontální overflow na desktopu i mobilu.
 - Runtime po `TEMARO_UPDATE_2` ověřit na staging `/`: marketing zůstává světlý i při uloženém dark režimu, v headeru není theme toggle, hero rezervace se po kliknutí `Rezervovat` nepřekrývá ani neclipuje, bento obsahuje `No-show pod kontrolou` a `Paměť podniku`, mobilní sticky CTA se objeví až po heru a zmizí u footeru, mobilní menu jde zavřít backdropem i Escape, trust marquee se zastaví na hoveru a při reduced motion neběží.
-- Lokální ověření 2026-06-10 20:30 CEST po `TEMARO_UPDATE_2`: `npm run check` prošlo s 603 Vitest testy, migrations check, type-check, lint a produkční build. Cílený `npm run test -- tests/landing-polish.test.ts` prošel 25/25.
+- Runtime po Time Engine vrstvě ověřit na staging `/`: sekce `#casovy-engine` je hned po trust baru, načítá AI fotky `time-engine-salon.webp`, `time-engine-beauty.webp`, `time-engine-fitness.webp`, texty přes fotky jsou čitelné na desktopu i mobilu, zprávy/sloty animují bez horizontálního overflow a při `prefers-reduced-motion: reduce` se animace vypnou.
+- Lokální ověření 2026-06-10 20:59 CEST po Time Engine vrstvě: `npm run check` prošlo s 604 Vitest testy, migrations check, type-check, lint a produkční build. Cílený `npm run test -- tests/landing-polish.test.ts` prošel 26/26. Staging smoke a dev deploy doplnit po nasazení této změny.
 - Staging ověření 2026-06-10 19:47 CEST: preview deploy `dpl_9CSiNphyw8MZ3pY7dEQ82GKbEZB8` je aliasovaný na `https://rezervacni-system-dev.vercel.app`; `/api/health` je `ok`, HTML obsahuje `temaro-time-page` a `PLAYWRIGHT_BASE_URL=https://rezervacni-system-dev.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` prošel 11/11.
 - Staging ověření 2026-06-10 20:24 CEST po `TEMARO_UPDATE_2`: preview deploy `dpl_GuVuZHhNKq43YZqN8LgRAG95yKP8` je aliasovaný na `https://rezervacni-system-dev.vercel.app`; `/api/health` je `ok`, HTML obsahuje `temaro-time-page`, `No-show pod kontrolou`, `Paměť podniku` a `MobileStickyCta`; `PLAYWRIGHT_BASE_URL=https://rezervacni-system-dev.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` prošel 11/11.
 - Poznámka k lint/runtime 2026-06-10: `.vercel/**` je v ESLint ignore, protože preview deploy output je generovaný artefakt a nemá vstupovat do `npm run check`.

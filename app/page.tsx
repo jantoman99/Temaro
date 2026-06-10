@@ -151,6 +151,44 @@ const demoMoments = [
   ["17:00", "Rezervační stránka", "Nová rezervace se zařadí do dne"],
 ] as const;
 
+const visualProofImages = [
+  {
+    src: "/marketing/time-engine-salon.webp",
+    alt: "Moderní barber a salon jako provozní prostředí pro online rezervace",
+    label: "Salon",
+    signal: "4 volná okna",
+    title: "Telefon zvoní. Slot už drží místo.",
+  },
+  {
+    src: "/marketing/time-engine-beauty.webp",
+    alt: "Světlé beauty studio s lehátkem a produktovou vrstvou rezervací",
+    label: "Beauty",
+    signal: "SMS připomínka",
+    title: "Připomínka odejde dřív, než vznikne díra.",
+  },
+  {
+    src: "/marketing/time-engine-fitness.webp",
+    alt: "Tréninkové studio s volnými sloty pro konzultace a lekce",
+    label: "Trénink",
+    signal: "slot se uvolní",
+    title: "Uvolněný termín se vrátí do nabídky.",
+  },
+] as const;
+
+const messageCloud = [
+  "Můžu dnes po práci?",
+  "Přesuneme to na pátek?",
+  "Nepřijdu, omlouvám se",
+  "Má Tereza něco v 15:30?",
+] as const;
+
+const engineSlots = [
+  { time: "09:30", title: "Barva kořínků", tone: "bg-[var(--cobalt)] text-white" },
+  { time: "11:00", title: "Volné okno", tone: "bg-[var(--apricot)] text-[var(--ink)]" },
+  { time: "14:00", title: "SMS připomínka", tone: "bg-[var(--mint)] text-[var(--mint-ink)]" },
+  { time: "16:30", title: "Riziko no-show", tone: "bg-[var(--signal-red)] text-white" },
+] as const;
+
 const scenarioCards = [
   {
     tag: "BARBER",
@@ -280,6 +318,94 @@ export default async function Home() {
                   </span>
                 ))}
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="casovy-engine" className="relative overflow-hidden py-20 sm:py-24">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_16%_20%,rgba(43,63,242,0.14),transparent_24rem),radial-gradient(circle_at_84%_28%,rgba(229,72,77,0.10),transparent_26rem)]" />
+        <div className="relative mx-auto grid w-full max-w-[1280px] gap-8 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
+          <Reveal>
+            <div className="sticky top-28">
+              <p className="section-eyebrow">Časový engine</p>
+              <h2 className="font-display mt-3 max-w-2xl text-balance text-5xl font-semibold leading-[0.96] sm:text-7xl">
+                Chaos se skládá do dne.
+              </h2>
+              <p className="mt-5 max-w-xl text-lg font-normal leading-8 text-[var(--ink-soft)]">
+                Fotka provozu ukáže realitu. Temaro přes ni položí signály dne: volné okno, riziko no-show, připomínku a potvrzenou rezervaci.
+              </p>
+              <div className="time-engine-flow mt-8 rounded-[2rem] border border-[var(--paper-line)] bg-[var(--ink)] p-4 text-white shadow-[0_30px_90px_rgba(23,26,33,0.24)]">
+                <div className="grid gap-3 sm:grid-cols-[0.9fr_1.1fr]">
+                  <div className="rounded-[1.4rem] bg-white/[0.06] p-4">
+                    <p className="font-time text-xs font-semibold uppercase tracking-[0.16em] text-white/62">příchozí chaos</p>
+                    <div className="mt-4 grid gap-2">
+                      {messageCloud.map((message, index) => (
+                        <span
+                          key={message}
+                          className="engine-message rounded-full border border-white/12 bg-white px-3 py-2 text-xs font-semibold text-[var(--ink)]"
+                          style={{ animationDelay: `${index * 180}ms` }}
+                        >
+                          {message}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="rounded-[1.4rem] bg-white p-4 text-[var(--ink)]">
+                    <div className="flex items-center justify-between gap-3">
+                      <p className="section-eyebrow">složený den</p>
+                      <span className="font-time rounded-full bg-[var(--cobalt-tint)] px-3 py-1 text-xs font-semibold text-[var(--cobalt)]">
+                        12 rezervací
+                      </span>
+                    </div>
+                    <div className="mt-4 grid gap-2">
+                      {engineSlots.map((slot, index) => (
+                        <div
+                          key={`${slot.time}-${slot.title}`}
+                          className={`engine-slot grid grid-cols-[4rem_1fr] items-center gap-3 rounded-2xl px-3 py-2 text-sm font-bold ${slot.tone}`}
+                          style={{ animationDelay: `${index * 160}ms` }}
+                        >
+                          <span className="font-time text-xs">{slot.time}</span>
+                          <span>{slot.title}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+
+          <div className="grid gap-4">
+            {visualProofImages.map((image, index) => (
+              <Reveal key={image.src} delay={index * 80}>
+                <article className="photo-proof-card group relative min-h-[300px] overflow-hidden rounded-[2rem] border border-[var(--paper-line)] bg-[var(--ink)] shadow-[0_26px_80px_rgba(23,26,33,0.18)] sm:min-h-[360px]">
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    fill
+                    sizes="(min-width: 1024px) 700px, 95vw"
+                    className="object-cover transition duration-700 group-hover:scale-[1.045]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-[rgba(23,26,33,0.78)] via-[rgba(23,26,33,0.26)] to-transparent" />
+                  <div className="absolute inset-x-4 bottom-4 grid gap-3 sm:inset-x-6 sm:bottom-6 sm:grid-cols-[1fr_auto] sm:items-end">
+                    <div>
+                      <span className="font-time inline-flex rounded-full bg-white/88 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ink)] backdrop-blur">
+                        {image.label}
+                      </span>
+                      <p className="font-display mt-3 max-w-md text-4xl font-semibold leading-[0.96] text-white sm:text-5xl">
+                        {image.title}
+                      </p>
+                    </div>
+                    <div className="rounded-[1.3rem] border border-white/18 bg-white/90 p-3 text-[var(--ink)] shadow-xl backdrop-blur">
+                      <p className="font-time text-xs font-semibold uppercase tracking-[0.12em] text-[var(--cobalt)]">{image.signal}</p>
+                      <div className="mt-3 h-2 w-44 overflow-hidden rounded-full bg-[var(--cobalt-tint)]">
+                        <div className="h-full w-2/3 rounded-full bg-[var(--cobalt)] transition duration-500 group-hover:w-full" />
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              </Reveal>
             ))}
           </div>
         </div>

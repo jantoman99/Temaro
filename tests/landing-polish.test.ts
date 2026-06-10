@@ -219,6 +219,31 @@ describe("landing polish guard", () => {
     expect(globals).toContain(".time-chip[data-active=\"true\"]");
   });
 
+  test("photo motion layer turns service imagery into product proof", () => {
+    const page = readProjectFile("app/page.tsx");
+    const globals = readProjectFile("app/globals.css");
+
+    expect(page).toContain("visualProofImages");
+    expect(page).toContain("/marketing/time-engine-salon.webp");
+    expect(page).toContain("/marketing/time-engine-beauty.webp");
+    expect(page).toContain("/marketing/time-engine-fitness.webp");
+    expect(page).toContain('id="casovy-engine"');
+    expect(page).toContain("Chaos se skládá do dne");
+    expect(page).toContain("messageCloud");
+    expect(page).toContain("engineSlots");
+    expect(page).toContain("photo-proof-card");
+    expect(page).toContain("time-engine-flow");
+    expect(page).toContain("signal-red");
+    expect(page).toContain("slot se uvolní");
+    expect(page).toContain("SMS připomínka");
+    expect(globals).toContain(".photo-proof-card");
+    expect(globals).toContain(".time-engine-flow");
+    expect(globals).toContain(".engine-message");
+    expect(globals).toContain(".engine-slot");
+    expect(globals).toContain("@keyframes engine-message");
+    expect(globals).toContain("@keyframes engine-slot");
+  });
+
   test("homepage avoids the previous cream serif editorial direction", () => {
     const page = readProjectFile("app/page.tsx");
     const hero = readProjectFile("components/marketing/business-discovery-hero.tsx");
