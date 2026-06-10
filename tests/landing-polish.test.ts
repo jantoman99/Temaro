@@ -97,10 +97,25 @@ describe("landing polish guard", () => {
     expect(hero).toContain("Bez karty na start");
     expect(hero).toContain("Žádná provize z vašich klientů");
     expect(hero).toContain('id="produkt"');
-    expect(hero).toContain("relative overflow-hidden rounded-b-[3rem]");
-    expect(hero).toContain("linear-gradient(135deg,#8b5cf6,#7c3aed_52%,#4c1d95)");
+    expect(hero).toContain("temaro-editorial-hero relative overflow-hidden");
+    expect(hero).toContain("bg-[#E8DCC7]");
     expect(page).not.toContain("command-surface interactive-demo-shell py-20");
     expect(page).not.toContain("clean-saas-page");
+  });
+
+  test("homepage uses a warmer 2026 editorial discovery palette instead of a purple-only hero", () => {
+    const page = readProjectFile("app/page.tsx");
+    const hero = readProjectFile("components/marketing/business-discovery-hero.tsx");
+
+    expect(page).toContain("temaro-editorial-page");
+    expect(hero).toContain("temaro-editorial-hero");
+    expect(hero).toContain("bg-[#E8DCC7]");
+    expect(hero).toContain("bg-[#606C38]");
+    expect(hero).toContain("bg-[#C66B3D]");
+    expect(hero).toContain("backdrop-blur");
+    expect(hero).toContain("Dnešní provoz");
+    expect(hero).not.toContain("linear-gradient(135deg,#8b5cf6,#7c3aed_52%,#4c1d95)");
+    expect(hero).not.toContain("text-[#facc15]");
   });
 
   test("homepage uses an edge-to-edge hero with business booking visuals", () => {
@@ -111,7 +126,7 @@ describe("landing polish guard", () => {
     expect(hero).toContain('<section');
     expect(hero).toContain('id="produkt"');
     expect(hero).toContain(
-      '<div className="mx-auto grid min-h-[760px] w-full max-w-[1280px] items-center gap-10 px-4 pb-16 pt-28 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8 lg:pb-20 lg:pt-32">',
+      '<div className="mx-auto grid min-h-[760px] w-full max-w-[1280px] items-center gap-10 px-4 pb-16 pt-28 sm:px-6 lg:grid-cols-[0.94fr_1.06fr] lg:px-8 lg:pb-20 lg:pt-32">',
     );
     expect(hero).toContain("business-hero-visual");
     expect(hero).toContain("booking-source-card");
@@ -128,8 +143,8 @@ describe("landing polish guard", () => {
 
     expect(hero).toContain("max-w-[1280px]");
     expect(hero).toContain("text-5xl font-black");
-    expect(hero).toContain("text-[#facc15]");
-    expect(hero).toContain("rounded-[1.6rem] bg-white p-2");
+    expect(hero).toContain("text-[#C66B3D]");
+    expect(hero).toContain("rounded-[1.6rem] bg-[#f7eddc]/82 p-2");
     expect(hero).toContain("business-chip");
     expect(hero).toContain("Žádná provize z vašich klientů");
     expect(page).not.toContain("max-w-[1180px] flex-col px-4 py-4");

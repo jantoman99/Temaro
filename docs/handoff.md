@@ -1,6 +1,6 @@
 # Handoff
 
-Aktualizováno: 2026-06-10 00:08 CEST
+Aktualizováno: 2026-06-10 18:41 CEST
 
 ## Jak navázat
 
@@ -20,7 +20,9 @@ Aktualizováno: 2026-06-10 00:08 CEST
 - Aktuální produkce je záměrně vrácená na pre-redesign backup `backup/pre-redesign-20260608-2341` (`ac6c4fd`), deploy `dpl_3iNgj8xzsVMwypVkkicgP8c4ohqD`, alias `https://rezervacni-system-xi.vercel.app`. Homepage má starý claim `Méně telefonátů. Více rezervací.`; nový business discovery hero zůstává jen na `dev`.
 - Staging deploy je připravený přes GitHub Actions workflow `.github/workflows/vercel-staging.yml`: push do branche `dev` vytvoří Vercel preview deploy bez zásahu do production aliasu a nastaví alias `https://rezervacni-system-dev.vercel.app`. Samostatný Supabase staging projekt `gzkurmputkhqdqgrlaje` je vytvořený, migrace jsou aplikované a GitHub Actions secrets `STAGING_NEXT_PUBLIC_SUPABASE_URL`, `STAGING_NEXT_PUBLIC_SUPABASE_ANON_KEY`, `STAGING_SUPABASE_SERVICE_ROLE_KEY` a `VERCEL_TOKEN` jsou nastavené.
 - Vercel SSO deployment protection je vypnutá, aby stabilní staging URL byla veřejně ověřitelná. Staging `/api/health` vrací `status=ok`, Supabase je configured/ok a `rate_limit.configured=false`, protože staging Upstash zatím není nastavený.
-- Aktuální frontend/design změna 2026-06-09: homepage používá nový full-width business discovery hero pro podniky (`BusinessDiscoveryHero`) s claimem `Získejte rezervace. Bez volání.`, fialovo-žlutým vizuálem, search panelem a překrytou ukázkou booking kanálů/provozního dashboardu. Původní inline `LiveProductShowcase` už není v hero.
+- Frontend/design změna 2026-06-09: homepage dostala nový full-width business discovery hero pro podniky (`BusinessDiscoveryHero`) s claimem `Získejte rezervace. Bez volání.` a překrytou ukázkou booking kanálů/provozního dashboardu. Původní inline `LiveProductShowcase` už není v hero.
+- Aktuální frontend/design změna 2026-06-10: business discovery hero je vizuálně přesměrovaný z fialového neon gradientu na teplejší organic/editorial SaaS styl pro beauty/booking segment: sand pozadí, moss provozní konzole, terracotta CTA, jemný grain a přebarvený marketing header. První navazující sekce `Proč Temaro`, `Jak to funguje` a `Booking kanály` jsou sladěné se stejným směrem. Před deployem na produkci ověřit staging screenshoty a nevracet starý fialovo-žlutý hero bez explicitního schválení.
+- Poslední lokální ověření 2026-06-10 18:45 CEST po homepage editorial polishi: `npm run check` prošlo s 600 Vitest testy, migrations check, type-check, lint a produkční build. Browser smoke pro `/` potvrdil desktop i mobil `overflowX=0` a console errors 0.
 - Sdílený marketing header má desktop dropdowny a mobilní hamburger menu. Mobilní header schovává theme toggle a drží jen logo, CTA a menu kvůli stabilní šířce.
 - Predeploy záloha vizuálu: `/mnt/c/Users/hanys/Desktop/temaro-visual-backups/2026-06-08-business-discovery-predeploy`; backup branch na GitHubu: `backup/visual-predeploy-20260608-business-discovery` (`fdc3717`).
 - Poslední lokální ověření 2026-06-09 23:38 CEST po staging DB/workflow: `npm run check` prošlo s 599 Vitest testy, migrations check, type-check, lint i produkčním buildem. Staging `npm run runtime:schema-smoke` prošel proti samostatné Supabase DB.

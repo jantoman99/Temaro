@@ -25,11 +25,11 @@ Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 - Ověřit, že theme toggle nabízí jen `Světlý` a `Tmavý`; volba `System` nemá být v UI.
 - Proklikat top bar kotvy a overit, ze vedou na odpovidajici sekce, ne na prazdne nebo neexistujici stranky.
 - Na mobilni sirce zkontrolovat, ze top navigace nezmizi, nepreteka mimo viewport a ctyri hlavni polozky jsou citelne bez horizontalniho scrollu.
-- Na landing page zkontrolovat hero: eyebrow pro české salony/barbery/služby, claim `Méně telefonátů. Více rezervací.`, subhead o vlastní rezervační stránce, týmovém kalendáři a přehledu klientů a primary CTA `Začít zdarma`.
-- Na landing page zkontrolovat, že hero má jemný `signal-hero` fialovo-modrý gradient, ne plochou šeď; text musí zůstat čitelný ve světlém i tmavém režimu.
-- Pod hero CTA zkontrolovat proof metriky `3 kroky`, `0 Kč` a `0 %`; nemaji byt duplicitne zopakovane jako samostatna spodni proof sekce.
-- Na mobilní šířce ověřit, že proof labely pod hero CTA jsou čitelné a neslévají se bez mezer.
-- V hero ověřit dvousloupcový layout: vlevo text, CTA, trust pilulky a proof metriky, vpravo produktová ukázka s PC dashboardem a telefonním booking preview. Pravá strana nesmí být prázdná a mock nesmí vytvářet horizontální overflow.
+- Na landing page zkontrolovat hero: eyebrow pro české salony/barbery/služby, claim `Získejte rezervace. Bez volání.`, subhead o vlastní rezervační stránce, týmovém kalendáři a booking kanálech a primary CTA `Začít zdarma`.
+- Na landing page zkontrolovat, že hero používá teplejší organic/editorial směr: sand podklad, jemný grain, moss provozní konzoli a terracotta CTA. Nemá působit jako starý fialový neon gradient.
+- Pod hero CTA zkontrolovat trust pilulky `Vlastní booking odkaz`, `Bez karty na start`, `Žádná provize z vašich klientů` a `Vlastní rezervační odkaz`; nemají se slévat ani přetékat.
+- Na mobilní šířce ověřit, že trust pilulky a CTA jsou čitelné, hero nevytváří horizontální scroll a marketing header má jen logo, CTA a hamburger.
+- V hero ověřit dvousloupcový layout: vlevo text, CTA, trust pilulky a obor/řešení panel, vpravo ukázkové booking/provozní karty. Pravá strana nesmí být prázdná a mock nesmí vytvářet horizontální overflow.
 - Ověřit, že pod herem už není duplicitní tmavá produktová sekce s tím stejným dashboardem; tmavá `command-surface` sekce se může vrátit později až pro jiné hero/demo video.
 - V produktové ukázce v heru ověřit jemné oživení: čísla se dopočítají až jako progressive enhancement, seznam rezervací po chvíli protočí další položku a telefon postupně zvýrazňuje časy.
 - V telefonu v hero produktové ukázce ověřit krátké potvrzení `Rezervace potvrzena`; nesmí překrýt CTA ani rozbít výšku telefonu.

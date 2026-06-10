@@ -1,6 +1,6 @@
 # Runtime checklist
 
-Aktualizováno: 2026-06-10 00:08 CEST
+Aktualizováno: 2026-06-10 18:41 CEST
 
 Tento checklist je pro první reálné ověření mimo demo režim.
 
@@ -27,7 +27,9 @@ Aktuální známý stav:
 - Staging deploy je připravený přes GitHub Actions workflow `.github/workflows/vercel-staging.yml`: push do branche `dev` vytvoří Vercel preview deploy bez zásahu do production aliasu a nastaví alias `https://rezervacni-system-dev.vercel.app`. Samostatný Supabase staging projekt `gzkurmputkhqdqgrlaje` je vytvořený, migrace jsou aplikované a GitHub Actions secrets `STAGING_NEXT_PUBLIC_SUPABASE_URL`, `STAGING_NEXT_PUBLIC_SUPABASE_ANON_KEY`, `STAGING_SUPABASE_SERVICE_ROLE_KEY` a `VERCEL_TOKEN` jsou nastavené.
 - Vercel SSO deployment protection je vypnutá, aby stabilní staging URL byla veřejně ověřitelná. Staging `/api/health` vrací `status=ok`, Supabase je configured/ok a `rate_limit.configured=false`, protože staging Upstash zatím není nastavený.
 - Predeploy vizuální záloha 2026-06-09: screenshoty a patch aktuální homepage jsou uložené v `/mnt/c/Users/hanys/Desktop/temaro-visual-backups/2026-06-08-business-discovery-predeploy`; backup branch `backup/visual-predeploy-20260608-business-discovery` je pushnutá na GitHub.
-- Runtime po redesignu ověřit na `/`: hero text `Získejte rezervace. Bez volání.`, full-width fialovo-žlutý business discovery layout, CTA `Začít zdarma`, desktop dropdown navigaci, mobilní hamburger menu a nulový horizontální overflow na desktopu i mobilu.
+- Runtime po redesignu ověřit na `/`: hero text `Získejte rezervace. Bez volání.`, full-width business discovery layout, CTA `Začít zdarma`, desktop dropdown navigaci, mobilní hamburger menu a nulový horizontální overflow na desktopu i mobilu.
+- Runtime po editorial polishi 2026-06-10 ověřit na staging `/`: hero text `Získejte rezervace. Bez volání.`, sand/moss/terracotta organic editorial vizuál místo fialovo-neonového gradientu, přebarvený marketing header, desktop dropdown navigaci, mobilní hamburger menu, navazující sekce `Proč Temaro`, `Jak to funguje` a tmavý moss blok `Booking kanály`. Screenshot baseline/after jsou v `output/playwright/homepage-*-editorial-*.png`.
+- `npm run check` prošlo 2026-06-10 18:45 CEST po homepage editorial polishi: 600 Vitest testů, migrations check, type-check, lint a produkční build. Lokální browser smoke pro `/` potvrdil desktop/mobil `overflowX=0` a console errors 0.
 - `npm run check` prošlo 2026-06-09 23:38 CEST po staging DB/workflow: 599 Vitest testů, migrations check, type-check, lint a produkční build. Staging `npm run runtime:schema-smoke` prošel proti samostatné Supabase DB.
 - Staging smoke 2026-06-09 23:45 CEST: GitHub Actions staging workflow pro `dev` doběhl úspěšně a `PLAYWRIGHT_BASE_URL=https://rezervacni-system-dev.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` prošel 11/11.
 - Produkční ověření 2026-06-09 00:15 CEST: ruční Vercel production deploy je aliasovaný na `https://rezervacni-system-xi.vercel.app`. Produkční `/api/health` vrací `status=ok`, smoke proti produkci prošel 11/11 a homepage má nový business discovery hero bez horizontálního overflow.

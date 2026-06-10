@@ -15,8 +15,9 @@ function applyTheme(mode: ThemeMode) {
   document.documentElement.classList.toggle("dark", mode === "dark");
 }
 
-export function ThemeToggle({ compact = false }: { compact?: boolean }) {
+export function ThemeToggle({ compact = false, tone = "default" }: { compact?: boolean; tone?: "default" | "editorial" }) {
   const [mode, setMode] = useState<ThemeMode>("light");
+  const isEditorial = tone === "editorial";
 
   useEffect(() => {
     const timeoutId = window.setTimeout(() => {
@@ -38,7 +39,11 @@ export function ThemeToggle({ compact = false }: { compact?: boolean }) {
   }
 
   return (
-    <div className={`inline-flex items-center rounded-md border border-border bg-card p-1 shadow-sm ${compact ? "" : "gap-1"}`}>
+    <div
+      className={`inline-flex items-center rounded-md border p-1 shadow-sm ${compact ? "" : "gap-1"} ${
+        isEditorial ? "border-[#606C38]/18 bg-[#f7eddc]/78" : "border-border bg-card"
+      }`}
+    >
       {modes.map((item) => {
         const Icon = item.icon;
         const isActive = mode === item.value;
@@ -50,7 +55,13 @@ export function ThemeToggle({ compact = false }: { compact?: boolean }) {
             onClick={() => selectMode(item.value)}
             aria-label={`Přepnout vzhled: ${item.label}`}
             className={`inline-flex h-8 items-center justify-center gap-1.5 rounded px-2 text-xs font-semibold transition ${
-              isActive ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-muted hover:text-foreground"
+              isEditorial
+                ? isActive
+                  ? "bg-[#606C38] text-[#E8DCC7]"
+                  : "text-[#5c4a39] hover:bg-[#E8DCC7] hover:text-[#24170f]"
+                : isActive
+                  ? "bg-primary text-primary-foreground"
+                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
             }`}
           >
             <Icon className="size-3.5" />

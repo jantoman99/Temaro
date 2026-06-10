@@ -287,7 +287,7 @@ export default async function Home() {
   }
 
   return (
-    <main className="business-discovery-page min-h-screen overflow-hidden bg-[#f5e8ff] text-foreground dark:bg-background">
+    <main className="business-discovery-page temaro-editorial-page min-h-screen overflow-hidden bg-[#E8DCC7] text-foreground dark:bg-background">
       <MarketingHeader />
       <BusinessDiscoveryHero />
 
@@ -295,11 +295,11 @@ export default async function Home() {
         <div className="grid gap-8 lg:grid-cols-[0.82fr_1.18fr]">
           <Reveal>
             <header>
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Proč Temaro</p>
+              <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#606C38]">Proč Temaro</p>
               <h2 className="mt-3 text-balance text-4xl font-semibold leading-[1.05] tracking-tight text-foreground sm:text-5xl">
                 Postaveno pro provozy, ne pro marketplace.
               </h2>
-              <p className="mt-5 max-w-md text-base font-medium leading-7 text-secondary-foreground">
+              <p className="mt-5 max-w-md text-base font-medium leading-7 text-[#5c4a39]">
                 Temaro má pomoct s vlastním klientským vztahem: odkaz na váš podnik, kalendář vašeho týmu a žádná provize z rezervací, které jste získali sami.
               </p>
             </header>
@@ -309,13 +309,13 @@ export default async function Home() {
             {features.map((feature, index) => (
               <Reveal key={feature.title} delay={index * 70} className="h-full">
                 <article
-                  className={`relative h-full overflow-hidden rounded-2xl border bg-card p-6 shadow-sm transition hover:-translate-y-1 ${feature.tone}`}
+                  className="relative h-full overflow-hidden rounded-[1.5rem] border border-[#606C38]/14 bg-[#f7eddc]/68 p-6 shadow-sm ring-1 ring-[#606C38]/8 backdrop-blur transition hover:-translate-y-1 hover:bg-[#f7eddc]/88"
                 >
-                  <div className={`mb-5 flex size-11 items-center justify-center rounded-xl ${feature.tone}`} aria-hidden>
+                  <div className="mb-5 flex size-11 items-center justify-center rounded-xl bg-[#606C38] text-[#E8DCC7]" aria-hidden>
                     <feature.icon className="h-5 w-5" strokeWidth={1.9} />
                   </div>
                   <h3 className="text-lg font-semibold tracking-tight text-foreground">{feature.title}</h3>
-                  <p className="mt-2 text-sm font-medium leading-6 text-secondary-foreground">{feature.description}</p>
+                  <p className="mt-2 text-sm font-medium leading-6 text-[#5c4a39]">{feature.description}</p>
                 </article>
               </Reveal>
             ))}
@@ -327,12 +327,12 @@ export default async function Home() {
         <Reveal>
           <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Jak to funguje</p>
+              <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#606C38]">Jak to funguje</p>
               <h2 className="mt-3 max-w-2xl text-balance text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
                 Od prázdného kalendáře k první online rezervaci.
               </h2>
             </div>
-            <p className="max-w-sm text-sm font-medium leading-6 text-secondary-foreground">
+            <p className="max-w-sm text-sm font-medium leading-6 text-[#5c4a39]">
               Nejdřív musí být jasné, jak se podnik dostane od nastavení služeb k první rezervaci bez telefonátu.
             </p>
           </div>
@@ -341,36 +341,36 @@ export default async function Home() {
         <div className="grid gap-3 md:grid-cols-4">
           {workflowSteps.map((step, index) => (
             <Reveal key={step.title} delay={index * 70} className="h-full">
-              <article className="relative h-full overflow-hidden rounded-2xl border border-border bg-card p-5 shadow-sm">
-                <span className="nums-tabular absolute right-4 top-4 text-xs font-bold text-muted-foreground">
+              <article className="relative h-full overflow-hidden rounded-[1.5rem] border border-[#606C38]/14 bg-[#f7eddc]/62 p-5 shadow-sm backdrop-blur">
+                <span className="nums-tabular absolute right-4 top-4 text-xs font-bold text-[#606C38]">
                   {`0${index + 1}`}
                 </span>
-                <div className="mb-5 grid size-11 place-items-center rounded-xl bg-primary/10 text-primary">
+                <div className="mb-5 grid size-11 place-items-center rounded-xl bg-[#C66B3D]/16 text-[#606C38]">
                   <step.icon className="size-5" strokeWidth={1.9} />
                 </div>
                 <h3 className="text-lg font-semibold tracking-tight">{step.title}</h3>
-                <p className="mt-2 text-sm font-medium leading-6 text-secondary-foreground">{step.text}</p>
+                <p className="mt-2 text-sm font-medium leading-6 text-[#5c4a39]">{step.text}</p>
               </article>
             </Reveal>
           ))}
         </div>
       </section>
 
-      <section id="booking-kanaly" className="bg-card py-20">
+      <section id="booking-kanaly" className="bg-[#606C38] py-20 text-[#E8DCC7]">
         <div className="mx-auto grid w-full max-w-[1180px] gap-8 px-4 sm:px-6 lg:grid-cols-[0.82fr_1.18fr] lg:px-8">
           <Reveal>
             <header className="lg:sticky lg:top-28">
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Booking kanály</p>
+              <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#D4B895]">Booking kanály</p>
               <h2 className="mt-3 text-balance text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
                 Rezervace nemá žít jen na jedné stránce.
               </h2>
-              <p className="mt-5 max-w-md text-sm font-medium leading-6 text-secondary-foreground">
+              <p className="mt-5 max-w-md text-sm font-medium leading-6 text-[#E8DCC7]/78">
                 Salony a lokální služby získávají klienty z webu, Instagramu, Google profilu, QR kódů i přímých zpráv.
                 Temaro má tyto vstupy spojit do jednoho kalendáře a jednoho přehledu zdrojů.
               </p>
               <Link
                 href="/ukazka"
-                className="mt-6 inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-border bg-background px-5 text-sm font-semibold text-foreground shadow-sm transition hover:-translate-y-0.5 hover:bg-secondary"
+                className="mt-6 inline-flex h-11 items-center justify-center gap-2 rounded-full bg-[#E8DCC7] px-5 text-sm font-semibold text-[#24170f] shadow-sm transition hover:-translate-y-0.5 hover:bg-[#D4B895]"
               >
                 Projít ukázku
                 <ArrowRight className="size-4" />
@@ -381,17 +381,17 @@ export default async function Home() {
           <div className="grid gap-3 sm:grid-cols-2">
             {bookingChannels.map((channel, index) => (
               <Reveal key={channel.title} delay={index * 55} className="h-full">
-                <article className="group h-full rounded-2xl border border-border bg-background p-5 shadow-sm transition hover:-translate-y-1 hover:border-primary/35 hover:bg-card">
+                <article className="group h-full rounded-[1.5rem] border border-[#E8DCC7]/12 bg-[#E8DCC7]/8 p-5 shadow-sm backdrop-blur transition hover:-translate-y-1 hover:bg-[#E8DCC7]/14">
                   <div className="mb-5 flex items-center justify-between">
-                    <span className="grid size-10 place-items-center rounded-xl bg-secondary text-primary transition group-hover:bg-primary group-hover:text-primary-foreground">
+                    <span className="grid size-10 place-items-center rounded-xl bg-[#E8DCC7] text-[#606C38] transition group-hover:bg-[#C66B3D] group-hover:text-[#24170f]">
                       <channel.icon className="size-5" strokeWidth={1.9} />
                     </span>
-                    <span className="rounded-full border border-border bg-card px-2.5 py-1 text-xs font-bold text-muted-foreground">
+                    <span className="rounded-full border border-[#E8DCC7]/12 bg-[#E8DCC7]/8 px-2.5 py-1 text-xs font-bold text-[#E8DCC7]/70">
                       kanál
                     </span>
                   </div>
                   <h3 className="text-lg font-semibold tracking-tight">{channel.title}</h3>
-                  <p className="mt-2 text-sm font-medium leading-6 text-secondary-foreground">{channel.text}</p>
+                  <p className="mt-2 text-sm font-medium leading-6 text-[#E8DCC7]/76">{channel.text}</p>
                 </article>
               </Reveal>
             ))}

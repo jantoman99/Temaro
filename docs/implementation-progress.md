@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Aktualizováno: 2026-06-10 00:08 CEST
+Aktualizováno: 2026-06-10 18:41 CEST
 
 Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historické analýzy a staré design audity jsou přesunuté do `docs/archive/`.
 
@@ -13,7 +13,9 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - Produkce je po rollbacku vrácená na pre-redesign backup `backup/pre-redesign-20260608-2341` (`ac6c4fd`), Vercel deploy `dpl_3iNgj8xzsVMwypVkkicgP8c4ohqD`. Dev/staging drží novější změny včetně business discovery hero a bude místo pro další vývoj.
 - Staging deploy je připravený přes GitHub Actions workflow `.github/workflows/vercel-staging.yml`: push do branche `dev` vytvoří Vercel preview deploy bez zásahu do production aliasu a nastaví alias `https://rezervacni-system-dev.vercel.app`. Samostatný Supabase staging projekt `gzkurmputkhqdqgrlaje` je vytvořený, migrace jsou aplikované a GitHub Actions secrets `STAGING_NEXT_PUBLIC_SUPABASE_URL`, `STAGING_NEXT_PUBLIC_SUPABASE_ANON_KEY`, `STAGING_SUPABASE_SERVICE_ROLE_KEY` a `VERCEL_TOKEN` jsou nastavené.
 - Vercel SSO deployment protection je vypnutá, aby stabilní staging URL byla veřejně ověřitelná. Staging `/api/health` vrací `status=ok`, Supabase je configured/ok a `rate_limit.configured=false`, protože staging Upstash zatím není nastavený.
-- Homepage redesign 2026-06-09: veřejná landing page je převedená na full-width business discovery směr inspirovaný schváleným návrhem B, ale positioning zůstává pro podniky. Hero používá claim `Získejte rezervace. Bez volání.`, výrazný fialovo-žlutý gradient, obor/řešení search panel, business booking kanály a překryté ukázkové karty provozu.
+- Homepage redesign 2026-06-09: veřejná landing page byla převedená na full-width business discovery směr inspirovaný schváleným návrhem B, ale positioning zůstává pro podniky. Původní fialovo-žlutý hero byl 2026-06-10 nahrazen teplejším organic/editorial směrem.
+- Homepage editorial polish 2026-06-10: hero a první navazující vrstva jsou převedené z fialovo-neonového směru na teplejší organic/editorial SaaS směr pro beauty/booking segment. Používá sand podklad, moss provozní konzoli, terracotta CTA, jemný grain, výraznější serif akcent pro `Bez volání.`, přebarvený marketing header a sjednocené bloky `Proč Temaro`, `Jak to funguje` a `Booking kanály`. Screenshoty: `output/playwright/homepage-before-editorial-desktop.png`, `output/playwright/homepage-before-editorial-mobile.png`, `output/playwright/homepage-after-editorial-desktop.png`, `output/playwright/homepage-after-editorial-mobile.png`.
+- Lokální ověření 2026-06-10 18:45 CEST po homepage editorial polishi: `npm run check` prošlo s 600 Vitest testy, migrations check, type-check, lint a produkční build. Browser smoke pro `/` potvrdil desktop i mobil `overflowX=0`, console errors 0 a aktuální hero text `Získejte rezervace. Bez volání.`.
 - Sdílený `MarketingHeader` má desktop dropdown navigaci a mobilní hamburger menu; na mobilu je v horní liště jen logo, CTA `Začít zdarma` a menu, aby nevznikal horizontální overflow.
 - Před nasazením vznikla záloha vizuálu: Desktop screenshoty a patch jsou v `/mnt/c/Users/hanys/Desktop/temaro-visual-backups/2026-06-08-business-discovery-predeploy`; GitHub backup branch je `backup/visual-predeploy-20260608-business-discovery` na commitu `fdc3717`.
 - Lokální ověření 2026-06-09 23:38 CEST po staging DB/workflow: `npm run check` prošlo s 599 Vitest testy, migrations check, type-check, lint a produkční build. Staging `npm run runtime:schema-smoke` prošel proti samostatné Supabase DB.
