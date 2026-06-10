@@ -25,21 +25,21 @@ test.describe("public smoke", () => {
   test("landing page exposes primary marketing paths", async ({ page }) => {
     await page.goto("/");
 
-    await expect(page.getByRole("heading", { name: /Získejte rezervace.*Bez volání/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Rezervace bez volání.*Čas bez chaosu/i })).toBeVisible();
     await expect(page.getByRole("link", { name: /Začít zdarma/i }).first()).toBeVisible();
     await expect(page.getByText("Produkt").first()).toBeVisible();
-    await expect(page.getByText("Řešení").first()).toBeVisible();
+    await expect(page.getByText("Ceník").first()).toBeVisible();
+    await expect(page.getByText("Ukázka").first()).toBeVisible();
     await expect(page.getByText("Návody").first()).toBeVisible();
-    await expect(page.getByRole("link", { name: "Pro zákazníky", exact: true }).first()).toBeVisible();
     await expect(page.getByRole("link", { name: "Ukázka", exact: true }).first()).toHaveAttribute("href", "/ukazka");
     await page.getByRole("button", { name: "Produkt" }).click();
     await expect(page.getByRole("link", { name: /Jak to funguje/ })).toBeVisible();
-    await page.getByRole("button", { name: "Řešení" }).click();
+    await page.getByRole("button", { name: "Návody" }).click();
     await expect(page.getByRole("link", { name: /Jak to funguje/ })).not.toBeVisible();
-    await expect(page.getByRole("link", { name: /Barber shopy/ })).toBeVisible();
-    await expect(page.getByRole("heading", { name: /Od prázdného kalendáře/i })).toBeVisible();
-    await expect(page.getByRole("heading", { name: /Rezervace nemá žít/i })).toBeVisible();
-    await expect(page.getByRole("heading", { name: /Místo dlouhého vysvětlování/i })).toBeVisible();
+    await expect(page.getByRole("link", { name: /Jak snížit no-show/ })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Z chaosu vznikne čitelná časová osa/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Rezervace tam, kde už klient rozhoduje/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Kalendář, který ukazuje napětí dne/i })).toBeVisible();
     await expect(page.getByRole("link", { name: "Spustit produktovou ukázku" })).toHaveAttribute("href", "/ukazka");
     await expect(page.getByRole("link", { name: "Pro barbery", exact: true })).toBeVisible();
     await expect(page.getByRole("link", { name: "Pro kadeřnictví", exact: true })).toBeVisible();
@@ -79,10 +79,10 @@ test.describe("public smoke", () => {
 
     await page.goto("/rezervacni-system-pro-kadernictvi", { waitUntil: "domcontentloaded" });
     await expect(page.getByText("Rezervační systém pro kadeřnictví").first()).toBeVisible();
-    await expect(page.getByRole("button", { name: "Řešení" })).toBeVisible();
-    await page.getByRole("button", { name: "Řešení" }).click();
-    await expect(page.getByRole("link", { name: /Barber shopy/ })).toBeVisible();
-    await expect(page.getByRole("link", { name: "Pro beauty salon", exact: true })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Produkt" })).toBeVisible();
+    await page.getByRole("button", { name: "Návody" }).click();
+    await expect(page.getByRole("link", { name: /Jak snížit no-show/ })).toBeVisible();
+    await expect(page.getByRole("link", { name: /SMS připomínky/ })).toBeVisible();
 
     await page.goto("/rezervacni-system-pro-kosmeticky-salon", { waitUntil: "domcontentloaded" });
     await expect(page.getByText("Rezervační systém pro kosmetický salon").first()).toBeVisible();
@@ -113,7 +113,7 @@ test.describe("public smoke", () => {
     await page.goto("/", { waitUntil: "domcontentloaded" });
 
     const homeHeader = page.locator("header").first();
-    const homeEyebrow = page.getByText("Pro salony, barbery a lokální služby").first();
+    const homeEyebrow = page.getByText("Rezervační systém, kde čas konečně drží tvar").first();
     const homeHeaderBox = await homeHeader.boundingBox();
     const homeEyebrowBox = await homeEyebrow.boundingBox();
 
@@ -132,7 +132,7 @@ test.describe("public smoke", () => {
     expect(eyebrowBox).not.toBeNull();
     expect(eyebrowBox!.y).toBeGreaterThan(before!.y + before!.height + 12);
     await page.mouse.wheel(0, 1400);
-    await expect(page.getByRole("button", { name: "Řešení" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Produkt" })).toBeVisible();
 
     const after = await header.boundingBox();
 
@@ -140,8 +140,8 @@ test.describe("public smoke", () => {
     expect(Math.round(after!.y)).toBe(Math.round(before!.y));
     expect(Math.abs(after!.height - before!.height)).toBeLessThan(1);
 
-    await page.getByRole("button", { name: "Řešení" }).click();
-    await expect(page.getByRole("link", { name: /Kadeřnictví/ })).toBeVisible();
+    await page.getByRole("button", { name: "Návody" }).click();
+    await expect(page.getByRole("link", { name: /SMS připomínky/ })).toBeVisible();
   });
 
   test("demo booking page renders selectable booking flow", async ({ page }) => {

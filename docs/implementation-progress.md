@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Aktualizováno: 2026-06-10 19:40 CEST
+Aktualizováno: 2026-06-10 19:47 CEST
 
 Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historické analýzy a staré design audity jsou přesunuté do `docs/archive/`.
 
@@ -16,6 +16,7 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - Homepage redesign podle `docs/TEMARO_REDESIGN_2026.md` je lokálně aplikovaný 2026-06-10: veřejná landing page přešla na koncept `Čas jako materiál`, nové tokeny `porcelain/cobalt/apricot/mint`, fonty Bricolage Grotesque, Instrument Sans a IBM Plex Mono, interaktivní hero timeline widget s oborovými segmenty, trust bar, timeline flow, bento grid, produktový mock, scénáře, manifest, ceník, bezpečnost a závěrečné CTA. Samostatné sekce `Pro koho` a body blok návodů byly z homepage odstraněné; návody zůstávají ve footeru.
 - Marketing navigace 2026-06-10 je zredukovaná na `Produkt`, `Ceník`, `Ukázka`, `Návody`; mobilní menu je fullscreen-like panel a CTA na mobilu už nepřekrývá hero widget.
 - Lokální ověření 2026-06-10 19:40 CEST po `TEMARO_REDESIGN_2026`: `npm run check` prošlo s 599 Vitest testy, migrations check, type-check, lint a produkční build. Cílený guard `npm run test -- tests/landing-polish.test.ts` prošel 21/21. Playwright screenshoty: `output/playwright/temaro-redesign-2026-desktop.png`, `output/playwright/temaro-redesign-2026-mobile.png`.
+- Staging deploy 2026-06-10 19:47 CEST: commit `e504a32` byl pushnutý na `dev` a ručně nasazený jako Vercel preview `dpl_9CSiNphyw8MZ3pY7dEQ82GKbEZB8`, alias `https://rezervacni-system-dev.vercel.app`. Ověřeno: `/api/health` je `ok`, HTML obsahuje `temaro-time-page` a `PLAYWRIGHT_BASE_URL=https://rezervacni-system-dev.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` prošel 11/11 po aktualizaci smoke testu na nové IA.
 - ESLint config 2026-06-10 nově ignoruje `.vercel/**`, protože manuální preview deploy generuje `.vercel/output`, který se nemá lintovat a předtím rozbíjel `npm run check`.
 - Staging deploy 2026-06-10 19:05 CEST: GitHub push na `dev` obsahoval commit `c3ff2ed`, ale alias `https://rezervacni-system-dev.vercel.app` zůstal na starém buildu. Staging byl proto nasazen ručně přes `npx vercel build`, `npx vercel deploy --prebuilt --yes` a `npx vercel alias set` na preview deploy `dpl_D6gFLBXogsR3Rge3MoRgZdV9HyxU`. Staging `/api/health` je `ok`, HTML obsahuje `temaro-editorial-page` a `PLAYWRIGHT_BASE_URL=https://rezervacni-system-dev.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` prošel 11/11.
 - Sdílený `MarketingHeader` má desktop dropdown navigaci a mobilní hamburger menu; na mobilu je v horní liště jen logo, CTA `Začít zdarma` a menu, aby nevznikal horizontální overflow.
