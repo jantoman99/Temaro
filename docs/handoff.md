@@ -1,6 +1,6 @@
 # Handoff
 
-Aktualizováno: 2026-06-10 19:47 CEST
+Aktualizováno: 2026-06-10 20:15 CEST
 
 ## Jak navázat
 
@@ -21,8 +21,9 @@ Aktualizováno: 2026-06-10 19:47 CEST
 - Staging deploy je připravený přes GitHub Actions workflow `.github/workflows/vercel-staging.yml`: push do branche `dev` vytvoří Vercel preview deploy bez zásahu do production aliasu a nastaví alias `https://rezervacni-system-dev.vercel.app`. Samostatný Supabase staging projekt `gzkurmputkhqdqgrlaje` je vytvořený, migrace jsou aplikované a GitHub Actions secrets `STAGING_NEXT_PUBLIC_SUPABASE_URL`, `STAGING_NEXT_PUBLIC_SUPABASE_ANON_KEY`, `STAGING_SUPABASE_SERVICE_ROLE_KEY` a `VERCEL_TOKEN` jsou nastavené.
 - Vercel SSO deployment protection je vypnutá, aby stabilní staging URL byla veřejně ověřitelná. Staging `/api/health` vrací `status=ok`, Supabase je configured/ok a `rate_limit.configured=false`, protože staging Upstash zatím není nastavený.
 - Aktuální frontend/design změna 2026-06-10: homepage je přepsaná podle `docs/TEMARO_REDESIGN_2026.md` na koncept `Čas jako materiál`. Root landing používá claim `Rezervace bez volání. Čas bez chaosu.`, nové fonty Bricolage Grotesque / Instrument Sans / IBM Plex Mono, tokeny `porcelain/cobalt/apricot/mint`, interaktivní časový hero widget, trust bar, timeline flow, bento grid, produktový mock, scénáře, manifest, ceník, bezpečnost a závěrečné CTA.
+- Update #2 podle `docs/TEMARO_UPDATE_2.md` je lokálně zapracovaný: marketing header už nemá theme toggle, `.temaro-time-page` resetuje shadcn tokeny do light režimu, hero timeline počítá rezervace podle času/délky bez clippingu, bento vrací no-show a paměť podniku, mobilní CTA je sticky po heru a menu má backdrop/Escape/scroll limit.
 - Homepage už nemá samostatnou body sekci `Pro koho` ani body blok návodů; návody jsou jen ve footeru. Marketing navigace je zredukovaná na `Produkt`, `Ceník`, `Ukázka`, `Návody`; `/podniky` zůstává ve footeru.
-- Poslední lokální ověření 2026-06-10 19:40 CEST po `TEMARO_REDESIGN_2026`: `npm run check` prošlo s 599 Vitest testy, migrations check, type-check, lint a produkční build. Cílený landing guard prošel 21/21. Screenshoty jsou `output/playwright/temaro-redesign-2026-desktop.png` a `output/playwright/temaro-redesign-2026-mobile.png`.
+- Poslední lokální ověření 2026-06-10 20:20 CEST po `TEMARO_UPDATE_2`: `npm run check` prošlo s 603 Vitest testy, migrations check, type-check, lint a produkční build. Cílený landing guard prošel 25/25. Staging deploy doplnit před předáním.
 - Poslední staging ověření 2026-06-10 19:47 CEST: commit `e504a32` je pushnutý na `dev` a ručně aliasovaný na preview deploy `dpl_9CSiNphyw8MZ3pY7dEQ82GKbEZB8`. `https://rezervacni-system-dev.vercel.app/api/health` je `ok`, HTML obsahuje `temaro-time-page` a public smoke proti stagingu prošel 11/11.
 - Staging ověření 2026-06-10 19:05 CEST: dev alias se po pushi na `dev` automaticky nepřepnul, proto byl staging nasazen ručně přes Vercel preview deploy `dpl_D6gFLBXogsR3Rge3MoRgZdV9HyxU` a aliasovaný na `https://rezervacni-system-dev.vercel.app`. Staging HTML obsahuje `temaro-editorial-page`, `/api/health` je `ok` a public smoke prošel 11/11.
 - Sdílený marketing header má desktop dropdowny a mobilní hamburger menu. Mobilní header schovává theme toggle a drží jen logo, CTA a menu kvůli stabilní šířce.

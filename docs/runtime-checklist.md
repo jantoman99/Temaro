@@ -1,6 +1,6 @@
 # Runtime checklist
 
-Aktualizováno: 2026-06-10 19:47 CEST
+Aktualizováno: 2026-06-10 20:15 CEST
 
 Tento checklist je pro první reálné ověření mimo demo režim.
 
@@ -28,7 +28,8 @@ Aktuální známý stav:
 - Vercel SSO deployment protection je vypnutá, aby stabilní staging URL byla veřejně ověřitelná. Staging `/api/health` vrací `status=ok`, Supabase je configured/ok a `rate_limit.configured=false`, protože staging Upstash zatím není nastavený.
 - Predeploy vizuální záloha 2026-06-09: screenshoty a patch aktuální homepage jsou uložené v `/mnt/c/Users/hanys/Desktop/temaro-visual-backups/2026-06-08-business-discovery-predeploy`; backup branch `backup/visual-predeploy-20260608-business-discovery` je pushnutá na GitHub.
 - Runtime po `TEMARO_REDESIGN_2026` ověřit na staging `/`: hero text `Rezervace bez volání. Čas bez chaosu.`, class `temaro-time-page`, cobalt/apricot/mint časový vizuál, interaktivní hero timeline widget, segmenty `Kadeřnictví / Barber / Kosmetika / Trenér`, desktop navigaci `Produkt / Ceník / Ukázka / Návody`, mobilní hamburger menu, sekce `trust-bar`, `jak-to-funguje`, `bento`, `produktove-demo`, `scenare`, `cenik`, `bezpecnost` a nulový horizontální overflow na desktopu i mobilu.
-- Lokální ověření 2026-06-10 19:40 CEST po `TEMARO_REDESIGN_2026`: `npm run check` prošlo s 599 Vitest testy, migrations check, type-check, lint a produkční build. Cílený `npm run test -- tests/landing-polish.test.ts` prošel 21/21. Screenshoty: `output/playwright/temaro-redesign-2026-desktop.png`, `output/playwright/temaro-redesign-2026-mobile.png`.
+- Runtime po `TEMARO_UPDATE_2` ověřit na staging `/`: marketing zůstává světlý i při uloženém dark režimu, v headeru není theme toggle, hero rezervace se po kliknutí `Rezervovat` nepřekrývá ani neclipuje, bento obsahuje `No-show pod kontrolou` a `Paměť podniku`, mobilní sticky CTA se objeví až po heru a zmizí u footeru, mobilní menu jde zavřít backdropem i Escape, trust marquee se zastaví na hoveru a při reduced motion neběží.
+- Lokální ověření 2026-06-10 20:20 CEST po `TEMARO_UPDATE_2`: `npm run check` prošlo s 603 Vitest testy, migrations check, type-check, lint a produkční build. Cílený `npm run test -- tests/landing-polish.test.ts` prošel 25/25. Staging smoke a případné screenshoty doplnit po dev deployi.
 - Staging ověření 2026-06-10 19:47 CEST: preview deploy `dpl_9CSiNphyw8MZ3pY7dEQ82GKbEZB8` je aliasovaný na `https://rezervacni-system-dev.vercel.app`; `/api/health` je `ok`, HTML obsahuje `temaro-time-page` a `PLAYWRIGHT_BASE_URL=https://rezervacni-system-dev.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` prošel 11/11.
 - Poznámka k lint/runtime 2026-06-10: `.vercel/**` je v ESLint ignore, protože preview deploy output je generovaný artefakt a nemá vstupovat do `npm run check`.
 - Staging ověření 2026-06-10 19:05 CEST: `https://rezervacni-system-dev.vercel.app` byl ručně aliasovaný na preview deploy `dpl_D6gFLBXogsR3Rge3MoRgZdV9HyxU`, protože automatický dev alias po pushi zůstal stale. Ověřeno: staging `/api/health` `ok`, HTML obsahuje `temaro-editorial-page`, public smoke 11/11.

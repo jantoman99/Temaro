@@ -248,6 +248,17 @@
     color: var(--cobalt);
   }
 
+  .section-eyebrow::before {
+    content: "";
+    display: inline-block;
+    width: 0.42rem;
+    height: 0.42rem;
+    margin-right: 0.5rem;
+    border-radius: 999px;
+    background: var(--cobalt);
+    transform: translateY(-1px);
+  }
+
   .time-chip {
     @apply inline-flex items-center justify-center rounded-full border px-3 py-2 text-sm font-semibold transition;
     border-color: color-mix(in srgb, var(--cobalt) 18%, transparent);
@@ -257,12 +268,17 @@
     font-variant-numeric: tabular-nums;
   }
 
-  .time-chip[data-active="true"],
   .time-chip:hover {
+    background: var(--cobalt-tint);
+    border-color: var(--cobalt);
+    color: var(--cobalt-deep);
+    transform: translateY(-1px);
+  }
+
+  .time-chip[data-active="true"] {
     background: var(--cobalt);
     border-color: var(--cobalt);
     color: white;
-    transform: translateY(-1px);
   }
 
   .temaro-day-grid {
@@ -280,7 +296,19 @@
     animation: trust-marquee 22s linear infinite;
   }
 
+  .trust-marquee:hover {
+    animation-play-state: paused;
+  }
+
   .temaro-time-page {
+    --background: var(--porcelain);
+    --foreground: var(--ink);
+    --card: var(--surface-card);
+    --card-foreground: var(--ink);
+    --border: var(--paper-line);
+    --primary: var(--cobalt);
+    --primary-foreground: #ffffff;
+    color-scheme: light;
     color: var(--ink);
     background:
       radial-gradient(circle at 20% 8%, color-mix(in srgb, var(--cobalt-tint) 72%, transparent), transparent 28rem),
@@ -404,6 +432,14 @@
 
     .interactive-demo-shell::before {
       opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .trust-marquee,
+    .time-card-in,
+    .confirm-toast-in {
+      animation: none;
     }
   }
 

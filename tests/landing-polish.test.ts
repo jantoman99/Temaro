@@ -144,6 +144,81 @@ describe("landing polish guard", () => {
     expect(hero).not.toContain("business-hero-visual");
   });
 
+  test("update 2 keeps marketing light-only and removes marketing theme toggle", () => {
+    const header = readProjectFile("components/marketing/marketing-header.tsx");
+    const globals = readProjectFile("app/globals.css");
+    const page = readProjectFile("app/page.tsx");
+
+    expect(header).not.toContain("ThemeToggle");
+    expect(header).not.toContain('tone="editorial"');
+    expect(page).toContain("temaro-time-page");
+    expect(globals).toContain(".temaro-time-page");
+    expect(globals).toContain("--background: var(--porcelain)");
+    expect(globals).toContain("--foreground: var(--ink)");
+    expect(globals).toContain("--card: var(--surface-card)");
+    expect(globals).toContain("--primary: var(--cobalt)");
+    expect(globals).toContain("color-scheme: light");
+  });
+
+  test("update 2 calculates hero reservations from real time data without clipping", () => {
+    const hero = readProjectFile("components/marketing/business-discovery-hero.tsx");
+
+    expect(hero).toContain("DAY_START");
+    expect(hero).toContain("DAY_END");
+    expect(hero).toContain("toPct");
+    expect(hero).toContain("durationMin");
+    expect(hero).toContain("lane");
+    expect(hero).toContain("reserveSelectedSlot");
+    expect(hero).toContain("confirmedSlot");
+    expect(hero).not.toContain("width: \"");
+    expect(hero).not.toContain("left: \"");
+    expect(hero).not.toContain("index * 66");
+    expect(hero).not.toContain("h-[330px] overflow-hidden");
+  });
+
+  test("update 2 restores strong bento arguments and consolidates booking channels", () => {
+    const page = readProjectFile("app/page.tsx");
+
+    expect(page).toContain("No-show pod kontrolou");
+    expect(page).toContain("riziková rezervace");
+    expect(page).toContain("Paměť podniku");
+    expect(page).toContain("12. 03.");
+    expect(page).toContain("Jeden odkaz, všechny kanály");
+    expect(page).toContain("Zálohy a platby");
+    expect(page).toContain("SMS / e-mail");
+    expect(page).toContain("Tým a role");
+    expect(page).not.toContain('title: "Vlastní web"');
+    expect(page).not.toContain('title: "Instagram bio"');
+    expect(page).not.toContain('title: "Google profil"');
+    expect(page).not.toContain('title: "QR v provozovně"');
+  });
+
+  test("update 2 fixes mobile CTA, menu, marquee and pricing release blockers", () => {
+    const page = readProjectFile("app/page.tsx");
+    const menu = readProjectFile("components/marketing/mobile-marketing-menu.tsx");
+    const globals = readProjectFile("app/globals.css");
+
+    expect(page).toContain("MobileStickyCta");
+    expect(page).toContain("skip-link");
+    expect(page).toContain("status");
+    expect(page).toContain("pripravujeme");
+    expect(page).toContain("price: null");
+    expect(page).not.toContain("BadgeEuro");
+    expect(page).toContain("sr-only");
+    expect(page).toContain('aria-hidden="true"');
+    expect(menu).toContain("max-h-[calc(100dvh-6rem)]");
+    expect(menu).toContain("overflow-y-auto");
+    expect(menu).toContain("keydown");
+    expect(menu).toContain("Escape");
+    expect(menu).toContain("bg-[var(--ink)]/20");
+    expect(menu).not.toContain("description");
+    expect(globals).toContain("@media (prefers-reduced-motion: reduce)");
+    expect(globals).toContain(".trust-marquee:hover");
+    expect(globals).toContain(".section-eyebrow::before");
+    expect(globals).toContain(".time-chip:hover");
+    expect(globals).toContain(".time-chip[data-active=\"true\"]");
+  });
+
   test("homepage avoids the previous cream serif editorial direction", () => {
     const page = readProjectFile("app/page.tsx");
     const hero = readProjectFile("components/marketing/business-discovery-hero.tsx");
@@ -249,8 +324,8 @@ describe("landing polish guard", () => {
     expect(sharedHeader).toContain("fixed left-4 right-4 top-3");
     expect(sharedHeader).toContain("min-h-16");
     expect(sharedHeader).toContain("max-w-[1280px]");
-    expect(sharedHeader).toContain('className="hidden sm:block"');
     expect(sharedHeader).toContain("px-3 text-sm");
+    expect(sharedHeader).not.toContain("ThemeToggle");
     expect(sharedHeader).toContain("Přihlášení");
     expect(sharedHeader).toContain("Začít zdarma");
 
@@ -287,7 +362,7 @@ describe("landing polish guard", () => {
     expect(mobileMenu).not.toContain("<details");
   });
 
-  test("homepage explains setup flow and booking channels inside bento cards", () => {
+  test("homepage explains setup flow and strong bento arguments", () => {
     const page = readProjectFile("app/page.tsx");
 
     expect(page).toContain("workflowSteps");
@@ -296,10 +371,10 @@ describe("landing polish guard", () => {
     expect(page).toContain("Klient si vybere termín");
     expect(page).toContain("Provoz má přehled");
     expect(page).toContain("bentoCards");
-    expect(page).toContain("Vlastní web");
-    expect(page).toContain("Instagram bio");
-    expect(page).toContain("Google profil");
-    expect(page).toContain("QR v provozovně");
+    expect(page).toContain("Méně telefonátů");
+    expect(page).toContain("No-show pod kontrolou");
+    expect(page).toContain("Paměť podniku");
+    expect(page).toContain("Jeden odkaz, všechny kanály");
   });
 
   test("homepage adds a product demo CTA with concrete demo moments", () => {

@@ -1,17 +1,19 @@
 import {
+  AlertTriangle,
   ArrowRight,
-  BadgeEuro,
+  BellRing,
   CalendarDays,
   CheckCircle2,
   ClipboardList,
+  CreditCard,
+  Globe2,
+  History,
   Link2,
   MailCheck,
-  MapPin,
   MonitorPlay,
   MousePointerClick,
-  QrCode,
   ShieldCheck,
-  Smartphone,
+  UsersRound,
 } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
@@ -22,6 +24,7 @@ import PublicSlugBookingPage from "@/app/(booking)/[slug]/page";
 import { TemaroLogo } from "@/components/brand/temaro-logo";
 import { BusinessDiscoveryHero } from "@/components/marketing/business-discovery-hero";
 import { MarketingHeader } from "@/components/marketing/marketing-header";
+import { MobileStickyCta } from "@/components/marketing/mobile-sticky-cta";
 import { Reveal } from "@/components/motion/reveal";
 import { isLikelyPlatformHost, normalizeRequestHost } from "@/lib/custom-domain";
 import { hasSupabaseAdminEnv } from "@/lib/env";
@@ -71,7 +74,7 @@ const workflowSteps = [
     icon: Link2,
     time: "02",
     title: "Sdílíte rezervační odkaz",
-    text: "Odkaz dáte na web, Instagram bio, Google profil, zprávu nebo QR v provozovně.",
+    text: "Odkaz dáte na web, Instagram, Google, zprávu nebo QR v provozovně.",
   },
   {
     icon: CalendarDays,
@@ -91,38 +94,54 @@ const bentoCards = [
   {
     icon: MousePointerClick,
     title: "Méně telefonátů",
-    text: "Klient si najde volný čas sám. Tým neřeší dlouhé zprávy tam a zpět.",
-    className: "lg:col-span-2 bg-[var(--cobalt)] text-white",
+    text: "Klient si najde volný čas sám. Tým neřeší dlouhé zprávy tam a zpět ani během špičky.",
+    detail: "Rezervace, změna i potvrzení běží ve stejném rytmu.",
+    className: "lg:col-span-2 lg:row-span-2 bg-[var(--cobalt)] text-white",
+  },
+  {
+    icon: AlertTriangle,
+    title: "No-show pod kontrolou",
+    text: "Riziková rezervace je vidět dřív, než rozbije denní kapacitu.",
+    chip: "riziková rezervace · 2× nedorazil",
+    className: "bg-[var(--apricot-tint)]",
+  },
+  {
+    icon: History,
+    title: "Paměť podniku",
+    text: "Historie návštěv, poznámky a preference zůstávají u klienta, ne v chatu.",
+    history: ["12. 03. Střih · Tereza", "05. 04. Barva · alergie nehlášena"],
+    className: "bg-[var(--mint)] text-[var(--mint-ink)]",
+  },
+  {
+    icon: Globe2,
+    title: "Jeden odkaz, všechny kanály",
+    text: "Stejný rezervační vstup funguje pro web, Instagram, Google i QR v provozovně.",
+    channels: ["web", "Instagram", "Google", "QR"],
+    className: "lg:col-span-2 bg-white",
   },
   {
     icon: ShieldCheck,
-    title: "Váš klient, žádná provize",
+    title: "Bez provize",
     text: "Temaro není marketplace. Rezervace z vašeho odkazu patří vašemu podniku.",
     className: "bg-white",
   },
   {
-    icon: MonitorPlay,
-    title: "Vlastní web",
-    text: "Rezervační tlačítko nebo widget může žít přímo na webu podniku.",
-    className: "bg-[var(--mint)] text-[var(--mint-ink)]",
-  },
-  {
-    icon: Smartphone,
-    title: "Instagram bio",
-    text: "Jeden odkaz pro story, profil i odpovědi klientům v chatu.",
+    icon: CreditCard,
+    title: "Zálohy a platby",
+    text: "Pro dražší služby můžete vyžadovat zálohu a snížit prázdná místa v kalendáři.",
     className: "bg-white",
   },
   {
-    icon: MapPin,
-    title: "Google profil",
-    text: "Měřitelný vstup pro lidi, kteří vás našli ve vyhledávání nebo mapách.",
-    className: "bg-[var(--apricot-tint)]",
+    icon: BellRing,
+    title: "SMS / e-mail",
+    text: "Potvrzení a připomínky drží klienta v obraze bez ručního obvolávání.",
+    className: "bg-white",
   },
   {
-    icon: QrCode,
-    title: "QR v provozovně",
-    text: "Klient si po návštěvě uloží odkaz nebo se rovnou objedná znovu.",
-    className: "lg:col-span-2 bg-[var(--ink)] text-white",
+    icon: UsersRound,
+    title: "Tým a role",
+    text: "Vlastník, tým i konkrétní pracovníci vidí jen to, co potřebují pro provoz.",
+    className: "bg-[var(--porcelain-deep)]",
   },
 ] as const;
 
@@ -134,18 +153,21 @@ const demoMoments = [
 
 const scenarioCards = [
   {
+    tag: "BARBER",
     title: "Barber a salon",
     text: "Rychlé přeobjednání, oblíbený člověk a jasný denní rytmus pro tým.",
     image: "/marketing/barber-studio-ai.webp",
     alt: "Detail barber služby během úpravy vousů",
   },
   {
+    tag: "BEAUTY",
     title: "Beauty provoz",
     text: "Klientská historie, poznámky a kapacita dne pro opakované návštěvy.",
     image: "/marketing/salon-interior-ai.webp",
     alt: "Klientka s upravenými vlasy v salonním prostředí",
   },
   {
+    tag: "TRÉNINK",
     title: "Trenéři a konzultace",
     text: "Jeden rezervační odkaz pro termíny, které klient zvládne vybrat sám.",
     image: "/marketing/training-studio-ai.webp",
@@ -157,20 +179,23 @@ const pricingPlans = [
   {
     name: "Pilot",
     price: "0 Kč",
+    status: "active",
     note: "pro první zapojené provozy",
     description: "Pro podniky, které chtějí ověřit online rezervace a kalendář v reálném provozu.",
     features: ["online rezervace", "kalendář", "klienti", "služby a tým"],
   },
   {
     name: "Solo",
-    price: "připravujeme",
+    price: null,
+    status: "pripravujeme",
     note: "pro jednoho provozovatele",
     description: "Jednoduchý tarif pro freelancery, trenéry a malé provozy bez složité správy týmu.",
     features: ["1 provoz", "rezervační stránka", "e-mail potvrzení", "změny termínu klientem"],
   },
   {
     name: "Tým",
-    price: "připravujeme",
+    price: null,
+    status: "pripravujeme",
     note: "pro více lidí v kalendáři",
     description: "Pro salony, ordinace a služby, kde rezervace řeší více zaměstnanců.",
     features: ["více zaměstnanců", "role vlastníka a týmu", "pracovní doba", "provozní přehledy"],
@@ -232,26 +257,29 @@ export default async function Home() {
 
   return (
     <main className="business-discovery-page temaro-time-page min-h-screen overflow-hidden">
+      <a
+        href="#produkt"
+        className="skip-link temaro-focus-ring sr-only fixed left-4 top-4 z-[80] rounded-full bg-white px-4 py-2 text-sm font-bold text-[var(--ink)] shadow-lg focus:not-sr-only"
+      >
+        Přeskočit na obsah
+      </a>
       <MarketingHeader />
       <BusinessDiscoveryHero />
-
-      <div className="mx-4 mb-8 sm:hidden">
-        <Link
-          href="/register"
-          className="temaro-focus-ring inline-flex h-12 w-full items-center justify-center rounded-full bg-[var(--cobalt)] text-sm font-bold text-white shadow-[0_18px_50px_rgba(43,63,242,0.30)]"
-        >
-          Začít zdarma
-        </Link>
-      </div>
+      <MobileStickyCta />
 
       <section id="trust-bar" className="border-y border-[var(--paper-line)] bg-white/58 py-4">
         <div className="mx-auto flex w-full max-w-[1280px] items-center gap-5 overflow-hidden px-4 sm:px-6 lg:px-8">
-          <p className="section-eyebrow shrink-0 text-[var(--ink-faint)]">Pro služby v Česku</p>
-          <div className="flex min-w-max gap-3 trust-marquee">
-            {[...trustBarItems, ...trustBarItems].map((item, index) => (
-              <span key={`${item}-${index}`} className="font-time rounded-full border border-[var(--paper-line)] bg-white px-4 py-2 text-sm font-semibold text-[var(--ink-soft)]">
-                {item}
-              </span>
+          <p className="section-eyebrow shrink-0 text-[var(--ink-soft)]">Pro služby v Česku</p>
+          <p className="sr-only">Temaro pro Praha, Brno, Ostrava, salony, barbery, kosmetiku, trenéry a lokální služby.</p>
+          <div className="trust-marquee flex min-w-max" aria-hidden="true">
+            {[0, 1].map((group) => (
+              <div key={group} className="flex gap-3 pr-3">
+                {trustBarItems.map((item) => (
+                  <span key={`${item}-${group}`} className="font-time rounded-full border border-[var(--paper-line)] bg-white px-4 py-2 text-sm font-semibold text-[var(--ink-soft)]">
+                    {item}
+                  </span>
+                ))}
+              </div>
             ))}
           </div>
         </div>
@@ -266,7 +294,7 @@ export default async function Home() {
                 Z chaosu vznikne čitelná časová osa.
               </h2>
             </div>
-            <p className="max-w-xl text-lg font-semibold leading-8 text-[var(--ink-soft)] lg:pt-8">
+            <p className="max-w-xl text-lg font-normal leading-8 text-[var(--ink-soft)] lg:pt-8">
               Temaro nestaví další formulář. Skládá službu, člověka, klienta a čas do stejného provozního rytmu.
             </p>
           </div>
@@ -281,7 +309,7 @@ export default async function Home() {
                   <step.icon className="size-5" strokeWidth={1.9} />
                 </div>
                 <h3 className="mt-5 text-xl font-bold tracking-[-0.02em]">{step.title}</h3>
-                <p className="mt-3 text-sm font-semibold leading-6 text-[var(--ink-soft)]">{step.text}</p>
+                <p className="mt-3 text-sm font-normal leading-6 text-[var(--ink-soft)]">{step.text}</p>
               </article>
             </Reveal>
           ))}
@@ -306,7 +334,37 @@ export default async function Home() {
                 </div>
                 <div>
                   <h3 className="text-2xl font-bold tracking-[-0.03em]">{card.title}</h3>
-                  <p className="mt-3 text-sm font-semibold leading-6 opacity-78">{card.text}</p>
+                  <p className={`mt-3 text-sm font-normal leading-6 ${card.className.includes("text-white") ? "text-white/92" : "text-[var(--ink-soft)]"}`}>
+                    {card.text}
+                  </p>
+                  {"detail" in card ? (
+                    <p className="mt-8 max-w-xs text-2xl font-semibold leading-tight text-white">
+                      {card.detail}
+                    </p>
+                  ) : null}
+                  {"chip" in card ? (
+                    <span className="font-time mt-5 inline-flex rounded-full bg-white/72 px-3 py-1.5 text-xs font-semibold text-[var(--ink)]">
+                      {card.chip}
+                    </span>
+                  ) : null}
+                  {"history" in card ? (
+                    <div className="mt-5 grid gap-2">
+                      {card.history.map((item) => (
+                        <span key={item} className="font-time rounded-full bg-white/58 px-3 py-2 text-xs font-semibold text-[var(--mint-ink)]">
+                          {item}
+                        </span>
+                      ))}
+                    </div>
+                  ) : null}
+                  {"channels" in card ? (
+                    <div className="mt-5 flex flex-wrap gap-2">
+                      {card.channels.map((channel) => (
+                        <span key={channel} className="font-time rounded-full border border-[var(--paper-line)] bg-[var(--porcelain)] px-3 py-1.5 text-xs font-semibold text-[var(--ink)]">
+                          {channel}
+                        </span>
+                      ))}
+                    </div>
+                  ) : null}
                 </div>
               </article>
             </Reveal>
@@ -326,7 +384,7 @@ export default async function Home() {
                 <h2 className="font-display mt-3 text-balance text-5xl font-semibold leading-[0.98] sm:text-6xl">
                   Kalendář, který ukazuje napětí dne.
                 </h2>
-                <p className="mt-5 max-w-md text-base font-semibold leading-7 text-white/70">
+                <p className="mt-5 max-w-md text-base font-normal leading-7 text-white/70">
                   Ukázka staví před oči to hlavní: volná okna, rezervace, zdroje klientů a místa, kde může den prasknout.
                 </p>
                 <Link
@@ -347,15 +405,12 @@ export default async function Home() {
                     <span className="font-time rounded-full bg-[var(--cobalt-tint)] px-3 py-1.5 text-sm font-semibold text-[var(--cobalt)]">12 rezervací</span>
                   </div>
                   <div className="mt-5 grid gap-3">
-                    {demoMoments.map(([time, title, text], index) => (
+                    {demoMoments.map(([time, title, text]) => (
                       <div key={time} className="grid grid-cols-[4.5rem_1fr] items-center gap-4 rounded-2xl bg-[var(--porcelain)] p-4">
                         <span className="font-time text-lg font-semibold text-[var(--cobalt)]">{time}</span>
                         <div>
                           <p className="font-bold">{title}</p>
-                          <p className="mt-1 text-sm font-semibold text-[var(--ink-soft)]">{text}</p>
-                          <div className="mt-2 h-2 rounded-full bg-[var(--paper-line)]">
-                            <div className="h-2 rounded-full bg-[var(--cobalt)]" style={{ width: `${48 + index * 16}%` }} />
-                          </div>
+                          <p className="mt-1 text-sm font-normal text-[var(--ink-soft)]">{text}</p>
                         </div>
                       </div>
                     ))}
@@ -377,7 +432,7 @@ export default async function Home() {
                   Služby vypadají různě. Čas bolí podobně.
                 </h2>
               </div>
-              <p className="max-w-sm text-sm font-semibold leading-6 text-[var(--ink-soft)]">
+              <p className="max-w-sm text-sm font-normal leading-6 text-[var(--ink-soft)]">
                 Fotky drží kontext oboru, produktová vrstva nad nimi drží nový Temaro jazyk.
               </p>
             </div>
@@ -396,12 +451,12 @@ export default async function Home() {
                     />
                     <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/66 to-transparent" />
                     <span className="font-time absolute left-4 top-4 rounded-full bg-white/86 px-3 py-1.5 text-xs font-semibold text-[var(--ink)] backdrop-blur">
-                      0{index + 1}
+                      {scenario.tag}
                     </span>
                   </div>
                   <div className="p-5">
                     <h3 className="text-2xl font-bold tracking-[-0.03em]">{scenario.title}</h3>
-                    <p className="mt-3 text-sm font-semibold leading-6 text-[var(--ink-soft)]">{scenario.text}</p>
+                    <p className="mt-3 text-sm font-normal leading-6 text-[var(--ink-soft)]">{scenario.text}</p>
                   </div>
                 </article>
               </Reveal>
@@ -412,12 +467,12 @@ export default async function Home() {
 
       <section className="mx-auto w-full max-w-[1180px] px-4 py-24 sm:px-6 lg:px-8">
         <Reveal>
-          <div className="rounded-[2rem] bg-[var(--cobalt)] p-8 text-white shadow-[0_30px_90px_rgba(43,63,242,0.22)] sm:p-12">
+          <div className="rounded-[2rem] bg-[var(--ink)] p-8 text-white shadow-[0_30px_90px_rgba(23,26,33,0.28)] sm:p-12">
             <p className="font-time text-xs font-semibold uppercase tracking-[0.18em] text-white/64">Manifest</p>
             <p className="font-display mt-5 max-w-5xl text-balance text-5xl font-semibold leading-[0.98] sm:text-7xl">
               Neprodáváme formulář. Prodáváme klidný provoz.
             </p>
-            <p className="mt-6 max-w-2xl text-lg font-semibold leading-8 text-white/74">
+            <p className="mt-6 max-w-2xl text-lg font-normal leading-8 text-white/78">
               Vlastní rezervační odkaz, váš kalendář, vaši klienti. Žádná provize z toho, co jste si přivedli sami.
             </p>
           </div>
@@ -439,11 +494,17 @@ export default async function Home() {
               <article className={`flex h-full flex-col rounded-[1.75rem] border p-6 shadow-sm ${index === 0 ? "border-[var(--cobalt)] bg-white shadow-[0_18px_54px_rgba(43,63,242,0.12)]" : "border-[var(--paper-line)] bg-white/70"}`}>
                 <div className="mb-8 flex items-center justify-between gap-4">
                   <h3 className="text-3xl font-bold tracking-[-0.04em]">{plan.name}</h3>
-                  <BadgeEuro className="size-6 text-[var(--cobalt)]" strokeWidth={1.8} />
+                  <span className={`font-time rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.12em] ${plan.status === "pripravujeme" ? "bg-[var(--apricot-tint)] text-[var(--ink)]" : "bg-[var(--cobalt-tint)] text-[var(--cobalt)]"}`}>
+                    {plan.status === "pripravujeme" ? "připravujeme" : "pilot"}
+                  </span>
                 </div>
-                <p className="font-display text-5xl font-semibold tracking-[-0.05em] text-[var(--cobalt)]">{plan.price}</p>
-                <p className="font-time mt-2 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--ink-faint)]">{plan.note}</p>
-                <p className="mt-5 text-sm font-semibold leading-6 text-[var(--ink-soft)]">{plan.description}</p>
+                {plan.price ? (
+                  <p className="font-display text-5xl font-semibold tracking-[-0.05em] text-[var(--cobalt)]">{plan.price}</p>
+                ) : (
+                  <p className="text-base font-normal leading-7 text-[var(--ink-soft)]">Cena bude upřesněna po pilotu.</p>
+                )}
+                <p className="font-time mt-2 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--ink-soft)]">{plan.note}</p>
+                <p className="mt-5 text-sm font-normal leading-6 text-[var(--ink-soft)]">{plan.description}</p>
                 <div className="mt-6 grid gap-3">
                   {plan.features.map((feature) => (
                     <div key={feature} className="flex items-center gap-2 text-sm font-bold text-[var(--ink)]">
@@ -466,7 +527,7 @@ export default async function Home() {
               <h2 className="font-display mt-3 text-balance text-5xl font-semibold leading-[0.98] sm:text-6xl">
                 Jednoduchá rezervace nesmí znamenat slabá data.
               </h2>
-              <p className="mt-5 max-w-md text-sm font-semibold leading-6 text-[var(--ink-soft)]">
+              <p className="mt-5 max-w-md text-sm font-normal leading-6 text-[var(--ink-soft)]">
                 Rezervační systém pracuje s klienty, termíny a historií podniku. Proto musí být kontrola dat základ, ne doplněk.
               </p>
             </header>
@@ -480,7 +541,7 @@ export default async function Home() {
                   </span>
                   <div>
                     <h3 className="text-xl font-bold tracking-[-0.02em]">{title}</h3>
-                    <p className="mt-1 text-sm font-semibold leading-6 text-[var(--ink-soft)]">{text}</p>
+                    <p className="mt-1 text-sm font-normal leading-6 text-[var(--ink-soft)]">{text}</p>
                   </div>
                 </article>
               </Reveal>
@@ -497,7 +558,7 @@ export default async function Home() {
               <h2 className="font-display mt-3 max-w-3xl text-balance text-5xl font-semibold leading-[0.98] sm:text-6xl">
                 {finalCta.title}
               </h2>
-              <p className="mt-5 max-w-xl text-base font-semibold leading-7 text-[var(--ink-soft)]">{finalCta.text}</p>
+              <p className="mt-5 max-w-xl text-base font-normal leading-7 text-[var(--ink-soft)]">{finalCta.text}</p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
               <Link href={CTA.primary.href} className="temaro-focus-ring inline-flex h-12 items-center justify-center gap-2 rounded-full bg-[var(--cobalt)] px-6 text-sm font-bold text-white transition hover:bg-[var(--cobalt-deep)]">
@@ -516,14 +577,14 @@ export default async function Home() {
         <div className="mx-auto grid w-full max-w-[1180px] gap-8 px-4 py-12 sm:px-6 lg:grid-cols-[1.2fr_0.8fr_1fr_0.8fr] lg:px-8">
           <div>
             <TemaroLogo />
-            <p className="mt-3 max-w-sm text-sm font-semibold leading-6 text-[var(--ink-soft)]">
+            <p className="mt-3 max-w-sm text-sm font-normal leading-6 text-[var(--ink-soft)]">
               Rezervační systém pro salony, ordinace, trenéry a další služby. Vyrobeno v Česku, připraveno pro EU provoz.
             </p>
           </div>
           <div>
-            <p className="section-eyebrow text-[var(--ink-faint)]">Produkt</p>
+            <p className="section-eyebrow text-[var(--ink-soft)]">Produkt</p>
             <ul className="mt-4 space-y-2 text-sm font-bold">
-              <li><Link href="#produkt" className="text-[var(--ink)] hover:underline">Funkce</Link></li>
+              <li><Link href="#produkt" className="text-[var(--ink)] hover:underline">Produkt</Link></li>
               <li><Link href="#bento" className="text-[var(--ink)] hover:underline">Proč Temaro</Link></li>
               <li><Link href="/podniky" className="text-[var(--ink)] hover:underline">Pro zákazníky</Link></li>
               <li><Link href="/ukazka" className="text-[var(--ink)] hover:underline">Interaktivní ukázka</Link></li>
@@ -532,7 +593,7 @@ export default async function Home() {
             </ul>
           </div>
           <div>
-            <p className="section-eyebrow text-[var(--ink-faint)]">Návody</p>
+            <p className="section-eyebrow text-[var(--ink-soft)]">Návody</p>
             <ul className="mt-4 space-y-2 text-sm font-bold">
               {guideLinks.map(([href, label]) => (
                 <li key={href}><Link href={href} className="text-[var(--ink)] hover:underline">{label}</Link></li>
@@ -540,7 +601,7 @@ export default async function Home() {
             </ul>
           </div>
           <div>
-            <p className="section-eyebrow text-[var(--ink-faint)]">Firma</p>
+            <p className="section-eyebrow text-[var(--ink-soft)]">Firma</p>
             <ul className="mt-4 space-y-2 text-sm font-bold">
               <li><Link href="/login" className="text-[var(--ink)] hover:underline">Přihlášení</Link></li>
               <li><Link href="/register" className="text-[var(--ink)] hover:underline">Registrace podniku</Link></li>
@@ -550,7 +611,7 @@ export default async function Home() {
           </div>
         </div>
         <div className="border-t border-[var(--paper-line)]">
-          <div className="mx-auto flex w-full max-w-[1180px] flex-col gap-2 px-4 py-4 text-xs font-bold text-[var(--ink-faint)] sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
+          <div className="mx-auto flex w-full max-w-[1180px] flex-col gap-2 px-4 py-4 text-xs font-semibold text-[var(--ink-soft)] sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
             <p>© 2026 Temaro</p>
             <p>Online rezervace pro služby</p>
           </div>

@@ -19,22 +19,19 @@ Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 - Na veřejném deployi bez env otevřít `/api/health` a ověřit, že `checks.env.missing` je číslo, ne seznam názvů interních proměnných.
 - Přes `curl -I http://localhost:3000` nebo DevTools Network ověřit, že response obsahuje `Content-Security-Policy`.
 - Přes `curl -I http://localhost:3000` nebo DevTools Network ověřit, že běžné routy obsahují `X-Frame-Options: DENY`; `/embed/booking/<slug>` ho mít nemá, protože booking widget musí jít vložit do iframe.
-- Zkontrolovat root landing page `/`: aktuální veřejný směr je čistší český SaaS web inspirovaný Reservly-like strukturou, ne tmavý Linear/Signal hero. Přihlášená aplikace dál může držet Signal OS.
-- Zkontrolovat top bar landing page: musi obsahovat `Produkt`, `Obory`, `Ceník`, `Demo`, `Přihlášení` a primary CTA `Začít zdarma`.
-- Přepnout theme toggle mezi světlým a tmavým režimem; landing se nesmí vizuálně rozpadnout ani ztratit kontrast textu.
-- Ověřit, že theme toggle nabízí jen `Světlý` a `Tmavý`; volba `System` nemá být v UI.
+- Zkontrolovat root landing page `/`: aktuální veřejný směr je `Čas jako materiál` z `TEMARO_REDESIGN_2026` + update #2, tedy porcelain/cobalt/apricot/mint, interaktivní časová osa a výraznější produktové argumenty. Přihlášená aplikace dál může držet Signal OS.
+- Zkontrolovat top bar landing page: musi obsahovat `Produkt`, `Ceník`, `Ukázka`, `Návody`, `Přihlášení` a primary CTA `Začít zdarma`.
+- Ověřit, že marketing header na homepage nemá theme toggle a landing zůstává light-only i při dříve uloženém dark režimu v prohlížeči.
+- Theme toggle dál ověřovat na `/podniky`, auth a booking demo stránkách, kde má zůstat součástí veřejného vstupu.
 - Proklikat top bar kotvy a overit, ze vedou na odpovidajici sekce, ne na prazdne nebo neexistujici stranky.
 - Na mobilni sirce zkontrolovat, ze top navigace nezmizi, nepreteka mimo viewport a ctyri hlavni polozky jsou citelne bez horizontalniho scrollu.
-- Na landing page zkontrolovat hero: eyebrow pro české salony/barbery/služby, claim `Získejte rezervace. Bez volání.`, subhead o vlastní rezervační stránce, týmovém kalendáři a booking kanálech a primary CTA `Začít zdarma`.
-- Na landing page zkontrolovat, že hero používá teplejší organic/editorial směr: sand podklad, jemný grain, moss provozní konzoli a terracotta CTA. Nemá působit jako starý fialový neon gradient.
-- Pod hero CTA zkontrolovat trust pilulky `Vlastní booking odkaz`, `Bez karty na start`, `Žádná provize z vašich klientů` a `Vlastní rezervační odkaz`; nemají se slévat ani přetékat.
-- Na mobilní šířce ověřit, že trust pilulky a CTA jsou čitelné, hero nevytváří horizontální scroll a marketing header má jen logo, CTA a hamburger.
-- V hero ověřit dvousloupcový layout: vlevo text, CTA, trust pilulky a obor/řešení panel, vpravo ukázkové booking/provozní karty. Pravá strana nesmí být prázdná a mock nesmí vytvářet horizontální overflow.
-- Ověřit, že pod herem už není duplicitní tmavá produktová sekce s tím stejným dashboardem; tmavá `command-surface` sekce se může vrátit později až pro jiné hero/demo video.
-- V produktové ukázce v heru ověřit jemné oživení: čísla se dopočítají až jako progressive enhancement, seznam rezervací po chvíli protočí další položku a telefon postupně zvýrazňuje časy.
-- V telefonu v hero produktové ukázce ověřit krátké potvrzení `Rezervace potvrzena`; nesmí překrýt CTA ani rozbít výšku telefonu.
-- Ověřit editorialní statement `Neprodáváme formulář. Prodáváme klidný provoz.` jako samostatný vizuální zlom mezi funkcemi a dalšími světlými sekcemi.
-- Zapnout systémové omezení pohybu nebo v DevTools emulovat `prefers-reduced-motion: reduce`; homepage má zůstat čitelná, ale reveal, rotace rezervací a telefonní potvrzení mají být statické/vypnuté.
+- Na landing page zkontrolovat hero: eyebrow `Rezervační systém pro služby`, claim `Rezervace bez volání. Čas bez chaosu.`, oborové segmenty a interaktivní klientské time chips.
+- V hero timeline ověřit, že rezervace jsou umístěné podle reálného času a délky, ne podle pořadí; po kliknutí `Rezervovat` vznikne nová rezervace bez clippingu a zobrazí se potvrzovací toast.
+- Na mobilní šířce ověřit, že statické CTA pod herem už není, sticky CTA se objeví až po odscrollování hero a zmizí u footeru.
+- V mobilním menu ověřit scroll limit, zavření backdropem, zavření klávesou Escape a to, že položky nemají dlouhé popisy.
+- Ověřit bento sekci: musí obsahovat `Méně telefonátů`, `No-show pod kontrolou`, `Paměť podniku`, `Jeden odkaz, všechny kanály`, `Bez provize`, `Zálohy a platby`, `SMS / e-mail`, `Tým a role`.
+- Ověřit trust marquee: duplicitní obsah je schovaný pro screenreadery, animace se zastaví na hoveru a při `prefers-reduced-motion: reduce` neběží.
+- Ověřit editorialní statement `Neprodáváme formulář. Prodáváme klidný provoz.` na ink pozadí jako samostatný vizuální zlom.
 - Zkontrolovat sekci `Reálné provozy`: obrázky se musí načíst, mít konzistentní poměr stran a být vizuálně odlišné pro barber, beauty a fitness/training segment.
 - Ověřit, že podnikatelská registrace `/register` a zákaznický účet `/account/login` zůstávají dostupné přes CTA/footer, i když samostatná homepage sekce `Dva typy účtů` byla odstraněná kvůli zkrácení stránky.
 - Otevřít `/podniky`, ověřit demo/veřejný výpis, hledání podle textu, města a oboru, booking CTA a odkaz `Otevřít mapu`.

@@ -4,7 +4,6 @@ import Link from "next/link";
 import { TemaroLogo } from "@/components/brand/temaro-logo";
 import { LandingNavigation } from "@/components/marketing/landing-navigation";
 import { MobileMarketingMenu } from "@/components/marketing/mobile-marketing-menu";
-import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 export function MarketingHeader() {
   return (
@@ -16,9 +15,6 @@ export function MarketingHeader() {
       <LandingNavigation />
 
       <div className="flex min-w-0 items-center gap-2">
-        <div className="hidden sm:block">
-          <ThemeToggle compact tone="editorial" />
-        </div>
         <Link
           href="/login"
           className="temaro-focus-ring hidden h-10 items-center justify-center rounded-full border border-[var(--paper-line)] bg-white px-4 text-sm font-bold text-[var(--ink-soft)] shadow-sm transition hover:border-[var(--cobalt)] hover:text-[var(--ink)] sm:inline-flex"
