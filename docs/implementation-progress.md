@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Aktualizováno: 2026-06-10 18:41 CEST
+Aktualizováno: 2026-06-10 19:40 CEST
 
 Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historické analýzy a staré design audity jsou přesunuté do `docs/archive/`.
 
@@ -13,9 +13,10 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - Produkce je po rollbacku vrácená na pre-redesign backup `backup/pre-redesign-20260608-2341` (`ac6c4fd`), Vercel deploy `dpl_3iNgj8xzsVMwypVkkicgP8c4ohqD`. Dev/staging drží novější změny včetně business discovery hero a bude místo pro další vývoj.
 - Staging deploy je připravený přes GitHub Actions workflow `.github/workflows/vercel-staging.yml`: push do branche `dev` vytvoří Vercel preview deploy bez zásahu do production aliasu a nastaví alias `https://rezervacni-system-dev.vercel.app`. Samostatný Supabase staging projekt `gzkurmputkhqdqgrlaje` je vytvořený, migrace jsou aplikované a GitHub Actions secrets `STAGING_NEXT_PUBLIC_SUPABASE_URL`, `STAGING_NEXT_PUBLIC_SUPABASE_ANON_KEY`, `STAGING_SUPABASE_SERVICE_ROLE_KEY` a `VERCEL_TOKEN` jsou nastavené.
 - Vercel SSO deployment protection je vypnutá, aby stabilní staging URL byla veřejně ověřitelná. Staging `/api/health` vrací `status=ok`, Supabase je configured/ok a `rate_limit.configured=false`, protože staging Upstash zatím není nastavený.
-- Homepage redesign 2026-06-09: veřejná landing page byla převedená na full-width business discovery směr inspirovaný schváleným návrhem B, ale positioning zůstává pro podniky. Původní fialovo-žlutý hero byl 2026-06-10 nahrazen teplejším organic/editorial směrem.
-- Homepage editorial polish 2026-06-10: hero a první navazující vrstva jsou převedené z fialovo-neonového směru na teplejší organic/editorial SaaS směr pro beauty/booking segment. Používá sand podklad, moss provozní konzoli, terracotta CTA, jemný grain, výraznější serif akcent pro `Bez volání.`, přebarvený marketing header a sjednocené bloky `Proč Temaro`, `Jak to funguje` a `Booking kanály`. Screenshoty: `output/playwright/homepage-before-editorial-desktop.png`, `output/playwright/homepage-before-editorial-mobile.png`, `output/playwright/homepage-after-editorial-desktop.png`, `output/playwright/homepage-after-editorial-mobile.png`.
-- Lokální ověření 2026-06-10 18:45 CEST po homepage editorial polishi: `npm run check` prošlo s 600 Vitest testy, migrations check, type-check, lint a produkční build. Browser smoke pro `/` potvrdil desktop i mobil `overflowX=0`, console errors 0 a aktuální hero text `Získejte rezervace. Bez volání.`.
+- Homepage redesign podle `docs/TEMARO_REDESIGN_2026.md` je lokálně aplikovaný 2026-06-10: veřejná landing page přešla na koncept `Čas jako materiál`, nové tokeny `porcelain/cobalt/apricot/mint`, fonty Bricolage Grotesque, Instrument Sans a IBM Plex Mono, interaktivní hero timeline widget s oborovými segmenty, trust bar, timeline flow, bento grid, produktový mock, scénáře, manifest, ceník, bezpečnost a závěrečné CTA. Samostatné sekce `Pro koho` a body blok návodů byly z homepage odstraněné; návody zůstávají ve footeru.
+- Marketing navigace 2026-06-10 je zredukovaná na `Produkt`, `Ceník`, `Ukázka`, `Návody`; mobilní menu je fullscreen-like panel a CTA na mobilu už nepřekrývá hero widget.
+- Lokální ověření 2026-06-10 19:40 CEST po `TEMARO_REDESIGN_2026`: `npm run check` prošlo s 599 Vitest testy, migrations check, type-check, lint a produkční build. Cílený guard `npm run test -- tests/landing-polish.test.ts` prošel 21/21. Playwright screenshoty: `output/playwright/temaro-redesign-2026-desktop.png`, `output/playwright/temaro-redesign-2026-mobile.png`.
+- ESLint config 2026-06-10 nově ignoruje `.vercel/**`, protože manuální preview deploy generuje `.vercel/output`, který se nemá lintovat a předtím rozbíjel `npm run check`.
 - Staging deploy 2026-06-10 19:05 CEST: GitHub push na `dev` obsahoval commit `c3ff2ed`, ale alias `https://rezervacni-system-dev.vercel.app` zůstal na starém buildu. Staging byl proto nasazen ručně přes `npx vercel build`, `npx vercel deploy --prebuilt --yes` a `npx vercel alias set` na preview deploy `dpl_D6gFLBXogsR3Rge3MoRgZdV9HyxU`. Staging `/api/health` je `ok`, HTML obsahuje `temaro-editorial-page` a `PLAYWRIGHT_BASE_URL=https://rezervacni-system-dev.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` prošel 11/11.
 - Sdílený `MarketingHeader` má desktop dropdown navigaci a mobilní hamburger menu; na mobilu je v horní liště jen logo, CTA `Začít zdarma` a menu, aby nevznikal horizontální overflow.
 - Před nasazením vznikla záloha vizuálu: Desktop screenshoty a patch jsou v `/mnt/c/Users/hanys/Desktop/temaro-visual-backups/2026-06-08-business-discovery-predeploy`; GitHub backup branch je `backup/visual-predeploy-20260608-business-discovery` na commitu `fdc3717`.
@@ -24,7 +25,7 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - Produkční ověření 2026-06-09 00:15 CEST: ruční Vercel production deploy je aliasovaný na `https://rezervacni-system-xi.vercel.app`. Produkční `/api/health` je `ok`, homepage obsahuje nový hero text a produkční public smoke prošel 11/11.
 - Zítřejší navázání: nepředělávat znovu hero od nuly. Nejbližší práce je druhá design vlna pod hero: zkrátit textové bloky homepage, sjednotit spodní sekce s novým výrazným stylem, přidat více interaktivních/product prvků a silněji napojit CTA na `/ukazka`.
 - Nákupy a placené provozní kroky jsou odložené: Supabase Pro/leaked password protection a Google OAuth runtime aktivace se řeší až před spuštěním na produkční doméně.
-- Aktivní vizuální směr je `docs/15-design-system-v3.md`; veřejný marketing web se od 2026-06-06 posouvá od Linear/Signal hero estetiky ke světlejšímu českému SaaS směru s konkrétní ukázkou PC + telefon, zatímco přihlášená aplikace dál drží provozní Signal OS.
+- Aktivní vizuální směr veřejného marketing webu je teď `docs/TEMARO_REDESIGN_2026.md`; starší `docs/15-design-system-v3.md` zůstává kontext pro design systém a přihlášená aplikace dál drží provozní Signal OS.
 - Aktivní tržní/product analýza je `docs/14-market-analysis-booking-systems.md`.
 - Aktivní business/pricing rámec je `docs/business-model.md`.
 - Aktivní niche/SEO/GEO/AEO strategie pro český trh je `docs/17-czech-market-niches-seo-geo-aeo.md`.
@@ -177,9 +178,9 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 
 - Temaro logo komponenta je v `components/brand/temaro-logo.tsx`.
 - Transparentní SVG brand assety jsou v `public/brand`.
-- Root landing page používá aktuální claim `Méně telefonátů. Více rezervací.`
-- Landing má zkrácenou top navigaci `Produkt`, `Obory`, `Ceník`, `Demo`.
-- Hero má statickou clean SaaS ukázku produktu: desktopový dashboard a telefonní booking preview; interaktivní průchod zůstává na `/ukazka`.
+- Root landing page používá aktuální claim `Rezervace bez volání. Čas bez chaosu.`
+- Landing má zkrácenou top navigaci `Produkt`, `Ceník`, `Ukázka`, `Návody`.
+- Hero má interaktivní časový widget: horní denní timeline provozu, spodní klientské time chips a oborové segmenty `Kadeřnictví / Barber / Kosmetika / Trenér`; interaktivní průchod zůstává na `/ukazka`.
 - Veřejný booking má checkoutovější strukturu a průběžný kontext výběru.
 - Dashboard shell, kalendář, klienti, služby a staff jsou sjednocené do Signal OS stylu.
 - Klienti, služby a tým používají kompaktní CRM/ERP tabulky místo roztažených karet.

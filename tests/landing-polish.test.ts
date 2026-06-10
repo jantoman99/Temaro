@@ -81,88 +81,81 @@ describe("landing polish guard", () => {
     expect(page).not.toContain("border border-border bg-secondary px-3 py-1 text-xs font-bold text-muted-foreground");
   });
 
-  test("homepage follows the full-width business discovery direction", () => {
-    const page = readProjectFile("app/page.tsx");
-    const hero = readProjectFile("components/marketing/business-discovery-hero.tsx");
+  test("homepage declares the Temaro redesign 2026 visual system", () => {
+    const layout = readProjectFile("app/layout.tsx");
+    const globals = readProjectFile("app/globals.css");
 
-    expect(page).toContain("business-discovery-page");
-    expect(page).toContain("<BusinessDiscoveryHero />");
-    expect(hero).toContain("business-discovery-hero");
-    expect(hero).toContain("Získejte rezervace");
-    expect(hero).toContain("Bez volání");
-    expect(hero).toContain("Vlastní booking odkaz");
-    expect(hero).toContain("Dnešní provoz");
-    expect(hero).toContain("Kadeřnictví / barber");
-    expect(hero).toContain("Méně telefonátů");
-    expect(hero).toContain("Bez karty na start");
-    expect(hero).toContain("Žádná provize z vašich klientů");
-    expect(hero).toContain('id="produkt"');
-    expect(hero).toContain("temaro-editorial-hero relative overflow-hidden");
-    expect(hero).toContain("bg-[#E8DCC7]");
-    expect(page).not.toContain("command-surface interactive-demo-shell py-20");
-    expect(page).not.toContain("clean-saas-page");
+    expect(layout).toContain("Bricolage_Grotesque");
+    expect(layout).toContain("Instrument_Sans");
+    expect(layout).toContain("IBM_Plex_Mono");
+    expect(layout).toContain("--font-bricolage");
+    expect(layout).toContain("--font-instrument");
+    expect(layout).toContain("--font-plex-mono");
+    expect(globals).toContain("--porcelain: #F6F4EF");
+    expect(globals).toContain("--cobalt: #2B3FF2");
+    expect(globals).toContain("--apricot: #FFB98A");
+    expect(globals).toContain("--mint: #BFEAD4");
+    expect(globals).toContain(".font-display");
+    expect(globals).toContain(".font-time");
+    expect(globals).toContain(".temaro-focus-ring");
   });
 
-  test("homepage uses a warmer 2026 editorial discovery palette instead of a purple-only hero", () => {
+  test("homepage follows the time-as-material section architecture", () => {
+    const page = readProjectFile("app/page.tsx");
+
+    expect(page).toContain("temaro-time-page");
+    expect(page).toContain("<BusinessDiscoveryHero />");
+    expect(page).toContain("trustBarItems");
+    expect(page).toContain("bentoCards");
+    expect(page).toContain("scenarioCards");
+    expect(page).toContain("finalCta");
+    expect(page).toContain('id="trust-bar"');
+    expect(page).toContain('id="jak-to-funguje"');
+    expect(page).toContain('id="bento"');
+    expect(page).toContain('id="produktove-demo"');
+    expect(page).toContain('id="scenare"');
+    expect(page).toContain('id="cenik"');
+    expect(page).toContain('id="bezpecnost"');
+    expect(page).not.toContain('id="pro-koho"');
+    expect(page).not.toContain("audienceSegments");
+    expect(page).not.toContain("Praktické návody");
+  });
+
+  test("homepage hero implements an interactive live timeline widget", () => {
+    const hero = readProjectFile("components/marketing/business-discovery-hero.tsx");
+
+    expect(hero).toContain('"use client"');
+    expect(hero).toContain("industryOptions");
+    expect(hero).toContain("timeSlots");
+    expect(hero).toContain("reservations");
+    expect(hero).toContain("selectedSlot");
+    expect(hero).toContain("setReservations");
+    expect(hero).toContain("usePrefersReducedMotion");
+    expect(hero).toContain('aria-live="off"');
+    expect(hero).toContain("temaro-time-hero");
+    expect(hero).toContain("temaro-day-grid");
+    expect(hero).toContain("time-chip");
+    expect(hero).toContain("Rezervovat");
+    expect(hero).toContain("Kadeřnictví");
+    expect(hero).toContain("Barber");
+    expect(hero).toContain("Kosmetika");
+    expect(hero).toContain("Trenér");
+    expect(hero).not.toContain("bookingSources");
+    expect(hero).not.toContain("business-hero-visual");
+  });
+
+  test("homepage avoids the previous cream serif editorial direction", () => {
     const page = readProjectFile("app/page.tsx");
     const hero = readProjectFile("components/marketing/business-discovery-hero.tsx");
 
-    expect(page).toContain("temaro-editorial-page");
-    expect(hero).toContain("temaro-editorial-hero");
-    expect(hero).toContain("bg-[#E8DCC7]");
-    expect(hero).toContain("bg-[#606C38]");
-    expect(hero).toContain("bg-[#C66B3D]");
-    expect(hero).toContain("backdrop-blur");
-    expect(hero).toContain("Dnešní provoz");
+    expect(page).not.toContain("temaro-editorial-page");
+    expect(hero).not.toContain("temaro-editorial-hero");
+    expect(hero).not.toContain("font-serif-accent");
+    expect(hero).not.toContain("bg-[#E8DCC7]");
+    expect(hero).not.toContain("bg-[#606C38]");
+    expect(hero).not.toContain("bg-[#C66B3D]");
     expect(hero).not.toContain("linear-gradient(135deg,#8b5cf6,#7c3aed_52%,#4c1d95)");
     expect(hero).not.toContain("text-[#facc15]");
-  });
-
-  test("homepage uses an edge-to-edge hero with business booking visuals", () => {
-    const page = readProjectFile("app/page.tsx");
-    const hero = readProjectFile("components/marketing/business-discovery-hero.tsx");
-
-    expect(page).toContain("<BusinessDiscoveryHero />");
-    expect(hero).toContain('<section');
-    expect(hero).toContain('id="produkt"');
-    expect(hero).toContain(
-      '<div className="mx-auto grid min-h-[760px] w-full max-w-[1280px] items-center gap-10 px-4 pb-16 pt-28 sm:px-6 lg:grid-cols-[0.94fr_1.06fr] lg:px-8 lg:pb-20 lg:pt-32">',
-    );
-    expect(hero).toContain("business-hero-visual");
-    expect(hero).toContain("booking-source-card");
-    expect(hero).toContain("business-dashboard-card");
-    expect(hero).toContain("client-booking-card");
-    expect(page).not.toContain('<section id="produkt" className="command-surface border-y border-white/10 py-20">');
-    expect(page).not.toContain("Reálný pohled");
-    expect(page).not.toContain("<LiveProductShowcase />");
-  });
-
-  test("homepage hero is not constrained to the old centered SaaS shell", () => {
-    const page = readProjectFile("app/page.tsx");
-    const hero = readProjectFile("components/marketing/business-discovery-hero.tsx");
-
-    expect(hero).toContain("max-w-[1280px]");
-    expect(hero).toContain("text-5xl font-black");
-    expect(hero).toContain("text-[#C66B3D]");
-    expect(hero).toContain("rounded-[1.6rem] bg-[#f7eddc]/82 p-2");
-    expect(hero).toContain("business-chip");
-    expect(hero).toContain("Žádná provize z vašich klientů");
-    expect(page).not.toContain("max-w-[1180px] flex-col px-4 py-4");
-    expect(page).not.toContain("grid flex-1 items-center gap-10 pb-10 pt-28");
-    expect(page).not.toContain("py-16 lg:py-24");
-    expect(page).not.toContain("max-w-3xl text-center");
-    expect(page).not.toContain("min-h-[78vh]");
-    expect(page).not.toContain("lg:min-h-[76vh]");
-  });
-
-  test("homepage has one editorial statement and keeps the serif accent rare", () => {
-    const page = readProjectFile("app/page.tsx");
-    const serifAccentCount = (page.match(/font-serif-accent/g) ?? []).length;
-
-    expect(page).toContain("Neprodáváme formulář. Prodáváme");
-    expect(page).toContain("klidný provoz");
-    expect(page).toContain("Vlastní rezervační odkaz, váš kalendář, vaši klienti.");
-    expect(serifAccentCount).toBe(1);
   });
 
   test("homepage uses progressive motion components without inline product showcase", () => {
@@ -219,7 +212,7 @@ describe("landing polish guard", () => {
     expect(globals).toContain("@keyframes confirm-toast-in");
   });
 
-  test("public navigation uses product, solution and resource dropdowns", () => {
+  test("public navigation uses the reduced redesign navigation model", () => {
     const page = readProjectFile("app/page.tsx");
     const navigation = readProjectFile("components/marketing/landing-navigation.tsx");
 
@@ -229,13 +222,14 @@ describe("landing polish guard", () => {
     expect(navigation).toContain("setOpenGroup(isOpen ? null : group.label)");
     expect(navigation).toContain("setOpenGroup(null)");
     expect(navigation).toContain("Produkt");
-    expect(navigation).toContain("Řešení");
+    expect(navigation).toContain("Ceník");
+    expect(navigation).toContain("Ukázka");
     expect(navigation).toContain("Návody");
     expect(navigation).toContain("Jak to funguje");
-    expect(navigation).toContain("Booking kanály");
-    expect(navigation).toContain("Barber shopy");
-    expect(navigation).toContain("Pro zákazníky");
+    expect(navigation).toContain("Proč Temaro");
     expect(page).toContain("/ukazka");
+    expect(navigation).not.toContain("Řešení");
+    expect(navigation).not.toContain("Pro zákazníky");
     expect(navigation).not.toContain("<details");
   });
 
@@ -288,12 +282,12 @@ describe("landing polish guard", () => {
     expect(mobileMenu).toContain("Otevřít menu");
     expect(mobileMenu).toContain("navGroups");
     expect(desktopNavigation).toContain("Produkt");
-    expect(desktopNavigation).toContain("Řešení");
+    expect(desktopNavigation).toContain("Ceník");
     expect(desktopNavigation).toContain("Návody");
     expect(mobileMenu).not.toContain("<details");
   });
 
-  test("homepage explains setup flow and booking channels", () => {
+  test("homepage explains setup flow and booking channels inside bento cards", () => {
     const page = readProjectFile("app/page.tsx");
 
     expect(page).toContain("workflowSteps");
@@ -301,7 +295,7 @@ describe("landing polish guard", () => {
     expect(page).toContain("Sdílíte rezervační odkaz");
     expect(page).toContain("Klient si vybere termín");
     expect(page).toContain("Provoz má přehled");
-    expect(page).toContain("bookingChannels");
+    expect(page).toContain("bentoCards");
     expect(page).toContain("Vlastní web");
     expect(page).toContain("Instagram bio");
     expect(page).toContain("Google profil");

@@ -9,17 +9,8 @@ export const navGroups = [
     label: "Produkt",
     items: [
       ["#jak-to-funguje", "Jak to funguje", "Od služeb a týmu po první online rezervaci."],
-      ["#booking-kanaly", "Booking kanály", "Web, Instagram, Google profil, QR a widget."],
-      ["#provoz", "Proč Temaro", "Méně telefonátů, méně chaosu v kalendáři."],
-    ],
-  },
-  {
-    label: "Řešení",
-    items: [
-      ["/rezervacni-system-pro-barbery", "Barber shopy", "Termíny podle služby, člověka a volného okna."],
-      ["/rezervacni-system-pro-kadernictvi", "Kadeřnictví", "Týmový kalendář a historie návštěv."],
-      ["/rezervacni-system-pro-kosmeticky-salon", "Beauty salony", "Přehled klientů, poznámky a připomínky."],
-      ["/rezervacni-system-pro-masaze", "Masáže a wellness", "Delší termíny, klidnější kapacita dne."],
+      ["#bento", "Proč Temaro", "Kanály, kalendář a klidnější den v jednom pohledu."],
+      ["#produktove-demo", "Produktová ukázka", "Jak vypadá provozní den uvnitř systému."],
     ],
   },
   {
@@ -33,7 +24,6 @@ export const navGroups = [
 ] as const;
 
 export const navDirectLinks = [
-  ["/podniky", "Pro zákazníky"],
   ["#cenik", "Ceník"],
   ["/ukazka", "Ukázka"],
 ] as const;
@@ -81,7 +71,7 @@ export function LandingNavigation() {
               type="button"
               aria-expanded={isOpen}
               aria-controls={panelId}
-              className="flex items-center justify-center gap-1.5 rounded-md px-3 py-2 text-sm font-semibold text-muted-foreground transition hover:bg-muted hover:text-foreground"
+              className="temaro-focus-ring flex items-center justify-center gap-1.5 rounded-full px-3 py-2 text-sm font-bold text-[var(--ink-soft)] transition hover:bg-[var(--porcelain-deep)] hover:text-[var(--ink)]"
               onClick={() => setOpenGroup(isOpen ? null : group.label)}
             >
               {group.label}
@@ -91,17 +81,17 @@ export function LandingNavigation() {
             {isOpen ? (
               <div
                 id={panelId}
-                className="mt-1 rounded-xl border border-border bg-card p-2 shadow-lg lg:absolute lg:left-1/2 lg:top-full lg:z-40 lg:mt-3 lg:w-[25rem] lg:-translate-x-1/2"
+                className="mt-1 rounded-2xl border border-[var(--paper-line)] bg-white p-2 shadow-lg lg:absolute lg:left-1/2 lg:top-full lg:z-40 lg:mt-3 lg:w-[25rem] lg:-translate-x-1/2"
               >
                 {group.items.map(([href, label, description]) => (
                   <Link
                     key={href}
                     href={href}
-                    className="block rounded-lg px-3 py-2.5 text-left transition hover:bg-muted"
+                    className="block rounded-xl px-3 py-2.5 text-left transition hover:bg-[var(--porcelain)]"
                     onClick={() => setOpenGroup(null)}
                   >
-                    <span className="text-sm font-semibold text-foreground">{label}</span>
-                    <span className="mt-1 block text-xs font-medium leading-5 text-secondary-foreground">
+                    <span className="text-sm font-bold text-[var(--ink)]">{label}</span>
+                    <span className="mt-1 block text-xs font-semibold leading-5 text-[var(--ink-soft)]">
                       {description}
                     </span>
                   </Link>
@@ -116,7 +106,7 @@ export function LandingNavigation() {
         <Link
           key={href}
           href={href}
-          className="rounded-md px-2 py-2 text-center text-sm font-semibold text-muted-foreground transition hover:bg-muted hover:text-foreground lg:px-3"
+          className="temaro-focus-ring rounded-full px-2 py-2 text-center text-sm font-bold text-[var(--ink-soft)] transition hover:bg-[var(--porcelain-deep)] hover:text-[var(--ink)] lg:px-3"
           onClick={() => setOpenGroup(null)}
         >
           {label}

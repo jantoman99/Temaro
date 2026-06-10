@@ -7,9 +7,9 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-serif: var(--font-serif);
+  --font-sans: var(--font-instrument);
+  --font-mono: var(--font-plex-mono);
+  --font-serif: var(--font-bricolage);
 
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -59,56 +59,73 @@
   --shadow-sm: 0 1px 2px oklch(0.20 0.015 250 / 0.06);
   --shadow-md: 0 2px 4px oklch(0.20 0.015 250 / 0.06), 0 4px 8px oklch(0.20 0.015 250 / 0.04);
   --shadow-lg: 0 4px 8px oklch(0.20 0.015 250 / 0.08), 0 12px 24px oklch(0.20 0.015 250 / 0.08);
-  --shadow-primary-glow: 0 10px 30px oklch(0.55 0.19 282 / 0.22);
+  --shadow-primary-glow: 0 10px 30px rgb(43 63 242 / 0.18);
   --shadow-command: 0 30px 80px oklch(0.18 0.025 222 / 0.16);
 
 }
 
 :root {
-  --font-serif: "Instrument Serif", "Source Serif Pro", Georgia, serif;
+  --porcelain: #F6F4EF;
+  --porcelain-deep: #EDEAE2;
+  --surface-card: #FFFFFF;
+  --ink: #171A21;
+  --ink-soft: #4A4E58;
+  --ink-faint: #8B8E96;
+  --cobalt: #2B3FF2;
+  --cobalt-deep: #1F2FC4;
+  --cobalt-tint: #E4E7FE;
+  --apricot: #FFB98A;
+  --apricot-tint: #FFE9DA;
+  --mint: #BFEAD4;
+  --mint-ink: #0F5132;
+  --signal-red: #E5484D;
+  --paper-line: #DDD9CF;
+  --font-display-stack: var(--font-bricolage), "Bricolage Grotesque", ui-sans-serif, sans-serif;
+  --font-body-stack: var(--font-instrument), "Instrument Sans", ui-sans-serif, sans-serif;
+  --font-time-stack: var(--font-plex-mono), "IBM Plex Mono", ui-monospace, monospace;
 
-  --background: oklch(0.976 0.006 255);
-  --foreground: oklch(0.18 0.018 255);
+  --background: var(--porcelain);
+  --foreground: var(--ink);
 
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.18 0.018 255);
+  --card: var(--surface-card);
+  --card-foreground: var(--ink);
 
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.18 0.018 255);
+  --popover: var(--surface-card);
+  --popover-foreground: var(--ink);
 
-  --primary: oklch(0.55 0.19 282);
-  --primary-foreground: oklch(0.99 0 0);
+  --primary: var(--cobalt);
+  --primary-foreground: #ffffff;
 
-  --secondary: oklch(0.94 0.008 255);
-  --secondary-foreground: oklch(0.26 0.018 255);
+  --secondary: var(--porcelain-deep);
+  --secondary-foreground: var(--ink-soft);
 
-  --muted: oklch(0.94 0.008 255);
-  --muted-foreground: oklch(0.55 0.020 255);
+  --muted: var(--porcelain-deep);
+  --muted-foreground: var(--ink-faint);
 
-  --accent: oklch(0.68 0.145 246);
-  --accent-foreground: oklch(0.99 0 0);
+  --accent: var(--apricot);
+  --accent-foreground: var(--ink);
 
   --destructive: oklch(0.55 0.22 27);
   --success: oklch(0.64 0.145 151);
   --warning: oklch(0.73 0.135 82);
   --info: oklch(0.68 0.145 246);
 
-  --border: oklch(0.89 0.010 255);
-  --input: oklch(0.89 0.010 255);
-  --ring: oklch(0.55 0.19 282);
+  --border: var(--paper-line);
+  --input: var(--paper-line);
+  --ring: var(--cobalt);
 
   --tag-blue: oklch(0.55 0.13 235);
   --tag-green: oklch(0.58 0.13 155);
   --tag-amber: oklch(0.72 0.15 75);
   --tag-violet: oklch(0.55 0.15 295);
 
-  --chart-1: oklch(0.55 0.19 282);
-  --chart-2: oklch(0.68 0.145 246);
-  --chart-3: oklch(0.64 0.145 151);
-  --chart-4: oklch(0.66 0.19 27);
+  --chart-1: var(--cobalt);
+  --chart-2: var(--apricot);
+  --chart-3: var(--mint);
+  --chart-4: var(--signal-red);
   --chart-5: oklch(0.73 0.135 82);
 
-  --radius: 0.5rem;
+  --radius: 0.875rem;
 
   --sidebar: oklch(0.16 0.018 255);
   --sidebar-foreground: oklch(0.96 0.006 255);
@@ -183,6 +200,7 @@
 
   body {
     @apply bg-background text-foreground antialiased;
+    font-family: var(--font-body-stack);
     font-feature-settings: "ss01", "cv11", "tnum";
     letter-spacing: -0.003em;
   }
@@ -199,6 +217,75 @@
 @layer utilities {
   .nums-tabular {
     font-variant-numeric: tabular-nums;
+  }
+
+  .font-display {
+    font-family: var(--font-display-stack);
+    letter-spacing: -0.045em;
+  }
+
+  .font-body {
+    font-family: var(--font-body-stack);
+  }
+
+  .font-time {
+    font-family: var(--font-time-stack);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+  }
+
+  .temaro-focus-ring {
+    @apply outline-none ring-offset-2 ring-offset-background focus-visible:ring-2;
+    --tw-ring-color: var(--cobalt);
+  }
+
+  .section-eyebrow {
+    font-family: var(--font-time-stack);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--cobalt);
+  }
+
+  .time-chip {
+    @apply inline-flex items-center justify-center rounded-full border px-3 py-2 text-sm font-semibold transition;
+    border-color: color-mix(in srgb, var(--cobalt) 18%, transparent);
+    background: color-mix(in srgb, var(--cobalt-tint) 46%, white);
+    color: var(--cobalt-deep);
+    font-family: var(--font-time-stack);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .time-chip[data-active="true"],
+  .time-chip:hover {
+    background: var(--cobalt);
+    border-color: var(--cobalt);
+    color: white;
+    transform: translateY(-1px);
+  }
+
+  .temaro-day-grid {
+    background-image:
+      linear-gradient(90deg, color-mix(in srgb, var(--paper-line) 72%, transparent) 1px, transparent 1px),
+      linear-gradient(0deg, color-mix(in srgb, var(--paper-line) 52%, transparent) 1px, transparent 1px);
+    background-size: 16.666% 100%, 100% 64px;
+  }
+
+  .time-card-in {
+    animation: time-card-in 520ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+
+  .trust-marquee {
+    animation: trust-marquee 22s linear infinite;
+  }
+
+  .temaro-time-page {
+    color: var(--ink);
+    background:
+      radial-gradient(circle at 20% 8%, color-mix(in srgb, var(--cobalt-tint) 72%, transparent), transparent 28rem),
+      radial-gradient(circle at 88% 18%, color-mix(in srgb, var(--apricot-tint) 76%, transparent), transparent 30rem),
+      var(--porcelain);
   }
 
   .font-serif-accent {
@@ -410,6 +497,26 @@
     to {
       opacity: 1;
       transform: translateY(0);
+    }
+  }
+
+  @keyframes time-card-in {
+    from {
+      opacity: 0;
+      transform: translateY(14px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes trust-marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
     }
   }
 }

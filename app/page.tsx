@@ -1,14 +1,12 @@
 import {
-  AlertTriangle,
   ArrowRight,
   BadgeEuro,
-  Building2,
   CalendarDays,
   CheckCircle2,
   ClipboardList,
-  CreditCard,
   Link2,
   MailCheck,
+  MapPin,
   MonitorPlay,
   MousePointerClick,
   QrCode,
@@ -21,8 +19,8 @@ import Link from "next/link";
 import { headers } from "next/headers";
 
 import PublicSlugBookingPage from "@/app/(booking)/[slug]/page";
-import { BusinessDiscoveryHero } from "@/components/marketing/business-discovery-hero";
 import { TemaroLogo } from "@/components/brand/temaro-logo";
+import { BusinessDiscoveryHero } from "@/components/marketing/business-discovery-hero";
 import { MarketingHeader } from "@/components/marketing/marketing-header";
 import { Reveal } from "@/components/motion/reveal";
 import { isLikelyPlatformHost, normalizeRequestHost } from "@/lib/custom-domain";
@@ -51,31 +49,93 @@ const CTA = {
   secondary: { href: "/ukazka", label: "Spustit ukázku" },
 } as const;
 
-const features = [
+const trustBarItems = [
+  "Praha",
+  "Brno",
+  "Ostrava",
+  "Salony",
+  "Barbeři",
+  "Kosmetika",
+  "Trenéři",
+  "Lokální služby",
+] as const;
+
+const workflowSteps = [
   {
-    icon: MousePointerClick,
-    title: "Méně telefonátů",
-    description: "Rezervace vznikne bez zpráv tam a zpět. Vy řešíte práci, ne hledání volného okna.",
-    tone: "border-info/25 bg-info/10 text-info hover:border-info/45",
+    icon: ClipboardList,
+    time: "01",
+    title: "Nastavíte služby a tým",
+    text: "Služby, pracovní dobu a lidi přepíšete do jednoho čitelného rozvrhu.",
   },
   {
-    icon: AlertTriangle,
-    title: "No-show pod kontrolou",
-    description: "Rizikový klient nebo čekající termín se neztratí v poznámkách. Systém ho vytáhne dopředu.",
-    tone: "border-warning/25 bg-warning/10 text-warning hover:border-warning/45",
+    icon: Link2,
+    time: "02",
+    title: "Sdílíte rezervační odkaz",
+    text: "Odkaz dáte na web, Instagram bio, Google profil, zprávu nebo QR v provozovně.",
+  },
+  {
+    icon: CalendarDays,
+    time: "03",
+    title: "Klient si vybere termín",
+    text: "Vidí jen dostupná okna, zvolí službu a odešle rezervaci bez telefonátu.",
   },
   {
     icon: MailCheck,
-    title: "Paměť podniku",
-    description: "Historie návštěv, preference a poznámky zůstávají u klienta, ne v hlavě jednoho člověka.",
-    tone: "border-success/25 bg-success/10 text-success hover:border-success/45",
+    time: "04",
+    title: "Provoz má přehled",
+    text: "Rezervace se propíše do kalendáře, klient zůstane v historii a tým ví, co se děje.",
   },
 ] as const;
 
-const visualSegments = [
+const bentoCards = [
+  {
+    icon: MousePointerClick,
+    title: "Méně telefonátů",
+    text: "Klient si najde volný čas sám. Tým neřeší dlouhé zprávy tam a zpět.",
+    className: "lg:col-span-2 bg-[var(--cobalt)] text-white",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Váš klient, žádná provize",
+    text: "Temaro není marketplace. Rezervace z vašeho odkazu patří vašemu podniku.",
+    className: "bg-white",
+  },
+  {
+    icon: MonitorPlay,
+    title: "Vlastní web",
+    text: "Rezervační tlačítko nebo widget může žít přímo na webu podniku.",
+    className: "bg-[var(--mint)] text-[var(--mint-ink)]",
+  },
+  {
+    icon: Smartphone,
+    title: "Instagram bio",
+    text: "Jeden odkaz pro story, profil i odpovědi klientům v chatu.",
+    className: "bg-white",
+  },
+  {
+    icon: MapPin,
+    title: "Google profil",
+    text: "Měřitelný vstup pro lidi, kteří vás našli ve vyhledávání nebo mapách.",
+    className: "bg-[var(--apricot-tint)]",
+  },
+  {
+    icon: QrCode,
+    title: "QR v provozovně",
+    text: "Klient si po návštěvě uloží odkaz nebo se rovnou objedná znovu.",
+    className: "lg:col-span-2 bg-[var(--ink)] text-white",
+  },
+] as const;
+
+const demoMoments = [
+  ["08:00", "Přehled provozu", "Volná okna jsou vidět hned"],
+  ["12:30", "Týmový kalendář", "Rizikové přesuny nezmizí v poznámkách"],
+  ["17:00", "Rezervační stránka", "Nová rezervace se zařadí do dne"],
+] as const;
+
+const scenarioCards = [
   {
     title: "Barber a salon",
-    text: "Online termíny, oblíbený člověk a rychlé přeobjednání bez zpráv tam a zpět.",
+    text: "Rychlé přeobjednání, oblíbený člověk a jasný denní rytmus pro tým.",
     image: "/marketing/barber-studio-ai.webp",
     alt: "Detail barber služby během úpravy vousů",
   },
@@ -93,43 +153,12 @@ const visualSegments = [
   },
 ] as const;
 
-const audienceSegments = [
-  {
-    title: "Salony a barber shopy",
-    text: "Klient si vybere službu, člověka i čas. Tým má přehled bez papírového diáře.",
-    points: ["oblíbený člověk", "historie návštěv", "rychlé přeobjednání"],
-    tone: "border-l-tag-blue",
-    iconTone: "bg-tag-blue/10 text-tag-blue",
-  },
-  {
-    title: "Trenéři a konzultanti",
-    text: "Pošlete jeden odkaz a klient si najde čas, který sedí oběma stranám.",
-    points: ["veřejný rezervační odkaz", "volná okna", "potvrzení e-mailem"],
-    tone: "border-l-tag-green",
-    iconTone: "bg-tag-green/10 text-tag-green",
-  },
-  {
-    title: "Ordinace a péče",
-    text: "Přehledné potvrzování, změny termínů a historie bez zbytečného provozního hluku.",
-    points: ["čekající rezervace", "přehled změn", "bezpečné odkazy pro klienty"],
-    tone: "border-l-tag-amber",
-    iconTone: "bg-tag-amber/10 text-tag-amber",
-  },
-  {
-    title: "Autoservisy a lokální služby",
-    text: "Kapacita dne, kontakt na klienta a interní poznámky jsou dostupné ve správný moment.",
-    points: ["kapacita dne", "interní poznámky", "rizikové termíny"],
-    tone: "border-l-tag-violet",
-    iconTone: "bg-tag-violet/10 text-tag-violet",
-  },
-] as const;
-
 const pricingPlans = [
   {
     name: "Pilot",
     price: "0 Kč",
     note: "pro první zapojené provozy",
-    description: "Pro první podniky, které chtějí ověřit online rezervace a kalendář v reálném provozu.",
+    description: "Pro podniky, které chtějí ověřit online rezervace a kalendář v reálném provozu.",
     features: ["online rezervace", "kalendář", "klienti", "služby a tým"],
   },
   {
@@ -148,111 +177,26 @@ const pricingPlans = [
   },
 ] as const;
 
-const trustItems = [
+const securityItems = [
   ["Data každého podniku zvlášť", "Klienti, termíny a historie jednoho provozu se nemíchají s jiným podnikem."],
-  ["Bezpečné rezervace", "Volné termíny se ověřují při odeslání, aby klient nemohl obsadit čas, který už neplatí."],
+  ["Bezpečné rezervace", "Volné termíny se ověřují při odeslání, aby klient neobsadil čas, který už neplatí."],
   ["Evropský provoz", "Projekt cílí na český a EU trh, s důrazem na jednoduchost a kontrolu dat."],
 ] as const;
 
-const workflowSteps = [
-  {
-    icon: ClipboardList,
-    title: "Nastavíte služby a tým",
-    text: "Vyberete obor, přidáte služby, pracovní dobu a lidi, kteří se dají rezervovat.",
-  },
-  {
-    icon: Link2,
-    title: "Sdílíte rezervační odkaz",
-    text: "Odkaz dáte na web, Instagram, Google profil, do zprávy nebo na QR kód v provozovně.",
-  },
-  {
-    icon: CalendarDays,
-    title: "Klient si vybere termín",
-    text: "Klient vidí volné časy, vybere službu, doplní kontakt a dostane potvrzení.",
-  },
-  {
-    icon: MailCheck,
-    title: "Provoz má přehled",
-    text: "Rezervace se objeví v kalendáři, klient zůstane v historii a připomínky omezí výpadky.",
-  },
-] as const;
-
-const bookingChannels = [
-  {
-    icon: MonitorPlay,
-    title: "Vlastní web",
-    text: "Rezervační tlačítko nebo widget vložený přímo na web podniku.",
-  },
-  {
-    icon: Smartphone,
-    title: "Instagram bio",
-    text: "Krátký odkaz pro story, profil a zprávy klientům.",
-  },
-  {
-    icon: MousePointerClick,
-    title: "Google profil",
-    text: "Měřitelný odkaz pro klienty, kteří podnik našli ve vyhledávání.",
-  },
-  {
-    icon: QrCode,
-    title: "QR v provozovně",
-    text: "Klient si uloží odkaz nebo se rovnou objedná na další návštěvu.",
-  },
-  {
-    icon: CreditCard,
-    title: "Zálohy a platby",
-    text: "Připravené flow pro zálohy, doplatky a přehled plateb.",
-  },
-  {
-    icon: MailCheck,
-    title: "E-mail a SMS",
-    text: "Potvrzení, připomínky a později cílené Last Minute nabídky.",
-  },
-] as const;
-
-const demoMoments = [
-  ["01", "Přehled provozu", "Co se děje dnes, kolik rezervací čeká a kde hrozí výpadek."],
-  ["02", "Týmový kalendář", "Jak vypadá den, týden, volná okna a rezervace podle lidí."],
-  ["03", "Rezervační stránka", "Jak klient vybere službu, termín a odešle rezervaci bez telefonátu."],
-] as const;
-
 const guideLinks = [
-  {
-    title: "Rezervační systém pro barbery",
-    href: "/rezervacni-system-pro-barbery",
-    text: "Online rezervace, barevný kalendář, klientská historie a méně telefonátů pro barber shopy.",
-  },
-  {
-    title: "Rezervační systém pro kadeřnictví",
-    href: "/rezervacni-system-pro-kadernictvi",
-    text: "Týmový kalendář, klientská historie a méně ručního domlouvání pro kadeřnictví a hair studia.",
-  },
-  {
-    title: "Rezervační systém pro kosmetický salon",
-    href: "/rezervacni-system-pro-kosmeticky-salon",
-    text: "Online rezervace, klientský kontext a menší no-show pro kosmetiku, lash i brow služby.",
-  },
-  {
-    title: "Rezervační systém pro masáže a wellness",
-    href: "/rezervacni-system-pro-masaze",
-    text: "Delší termíny, klidnější kapacita dne a připravenost na připomínky a zálohy pro masáže i wellness.",
-  },
-  {
-    title: "Jak snížit no-show",
-    href: "/jak-snizit-no-show",
-    text: "Praktický postup pro potvrzení termínu, připomínky, změny bez telefonátu a no-show signály.",
-  },
-  {
-    title: "SMS připomínky rezervací",
-    href: "/sms-pripominky-rezervaci",
-    text: "Kdy se SMS připomínka opravdu vyplatí, pro které služby dává smysl a proč ji nespouštět plošně všem.",
-  },
-  {
-    title: "Rezervační systém bez marketplace provizí",
-    href: "/rezervacni-system-bez-marketplace-provizi",
-    text: "Proč některé provozy chtějí vlastní rezervační odkaz, vlastní klientský vztah a bez provize z rezervací, které získaly samy.",
-  },
+  ["/rezervacni-system-pro-barbery", "Pro barbery"],
+  ["/rezervacni-system-pro-kadernictvi", "Pro kadeřnictví"],
+  ["/rezervacni-system-pro-kosmeticky-salon", "Pro beauty salon"],
+  ["/rezervacni-system-pro-masaze", "Pro masáže"],
+  ["/jak-snizit-no-show", "No-show návod"],
+  ["/sms-pripominky-rezervaci", "SMS připomínky"],
+  ["/rezervacni-system-bez-marketplace-provizi", "Bez marketplace provizí"],
 ] as const;
+
+const finalCta = {
+  title: "Pojďme zkusit, jestli se váš den dá číst líp.",
+  text: "Začněte pilotem, projděte ukázku nebo si otevřete demo rezervace z pohledu klienta.",
+} as const;
 
 async function getCustomDomainTenantSlug() {
   if (!hasSupabaseAdminEnv()) {
@@ -287,37 +231,27 @@ export default async function Home() {
   }
 
   return (
-    <main className="business-discovery-page temaro-editorial-page min-h-screen overflow-hidden bg-[#E8DCC7] text-foreground dark:bg-background">
+    <main className="business-discovery-page temaro-time-page min-h-screen overflow-hidden">
       <MarketingHeader />
       <BusinessDiscoveryHero />
 
-      <section id="provoz" className="relative mx-auto w-full max-w-[1180px] px-4 py-20 sm:px-6 lg:px-8">
-        <div className="grid gap-8 lg:grid-cols-[0.82fr_1.18fr]">
-          <Reveal>
-            <header>
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#606C38]">Proč Temaro</p>
-              <h2 className="mt-3 text-balance text-4xl font-semibold leading-[1.05] tracking-tight text-foreground sm:text-5xl">
-                Postaveno pro provozy, ne pro marketplace.
-              </h2>
-              <p className="mt-5 max-w-md text-base font-medium leading-7 text-[#5c4a39]">
-                Temaro má pomoct s vlastním klientským vztahem: odkaz na váš podnik, kalendář vašeho týmu a žádná provize z rezervací, které jste získali sami.
-              </p>
-            </header>
-          </Reveal>
+      <div className="mx-4 mb-8 sm:hidden">
+        <Link
+          href="/register"
+          className="temaro-focus-ring inline-flex h-12 w-full items-center justify-center rounded-full bg-[var(--cobalt)] text-sm font-bold text-white shadow-[0_18px_50px_rgba(43,63,242,0.30)]"
+        >
+          Začít zdarma
+        </Link>
+      </div>
 
-          <div className="grid gap-4 sm:grid-cols-3">
-            {features.map((feature, index) => (
-              <Reveal key={feature.title} delay={index * 70} className="h-full">
-                <article
-                  className="relative h-full overflow-hidden rounded-[1.5rem] border border-[#606C38]/14 bg-[#f7eddc]/68 p-6 shadow-sm ring-1 ring-[#606C38]/8 backdrop-blur transition hover:-translate-y-1 hover:bg-[#f7eddc]/88"
-                >
-                  <div className="mb-5 flex size-11 items-center justify-center rounded-xl bg-[#606C38] text-[#E8DCC7]" aria-hidden>
-                    <feature.icon className="h-5 w-5" strokeWidth={1.9} />
-                  </div>
-                  <h3 className="text-lg font-semibold tracking-tight text-foreground">{feature.title}</h3>
-                  <p className="mt-2 text-sm font-medium leading-6 text-[#5c4a39]">{feature.description}</p>
-                </article>
-              </Reveal>
+      <section id="trust-bar" className="border-y border-[var(--paper-line)] bg-white/58 py-4">
+        <div className="mx-auto flex w-full max-w-[1280px] items-center gap-5 overflow-hidden px-4 sm:px-6 lg:px-8">
+          <p className="section-eyebrow shrink-0 text-[var(--ink-faint)]">Pro služby v Česku</p>
+          <div className="flex min-w-max gap-3 trust-marquee">
+            {[...trustBarItems, ...trustBarItems].map((item, index) => (
+              <span key={`${item}-${index}`} className="font-time rounded-full border border-[var(--paper-line)] bg-white px-4 py-2 text-sm font-semibold text-[var(--ink-soft)]">
+                {item}
+              </span>
             ))}
           </div>
         </div>
@@ -325,121 +259,107 @@ export default async function Home() {
 
       <section id="jak-to-funguje" className="mx-auto w-full max-w-[1180px] px-4 py-20 sm:px-6 lg:px-8">
         <Reveal>
-          <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <div className="grid gap-6 lg:grid-cols-[0.86fr_1.14fr]">
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#606C38]">Jak to funguje</p>
-              <h2 className="mt-3 max-w-2xl text-balance text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
-                Od prázdného kalendáře k první online rezervaci.
+              <p className="section-eyebrow">Jak to funguje</p>
+              <h2 className="font-display mt-3 text-balance text-5xl font-semibold leading-[0.98] sm:text-6xl">
+                Z chaosu vznikne čitelná časová osa.
               </h2>
             </div>
-            <p className="max-w-sm text-sm font-medium leading-6 text-[#5c4a39]">
-              Nejdřív musí být jasné, jak se podnik dostane od nastavení služeb k první rezervaci bez telefonátu.
+            <p className="max-w-xl text-lg font-semibold leading-8 text-[var(--ink-soft)] lg:pt-8">
+              Temaro nestaví další formulář. Skládá službu, člověka, klienta a čas do stejného provozního rytmu.
             </p>
           </div>
         </Reveal>
 
-        <div className="grid gap-3 md:grid-cols-4">
+        <div className="mt-10 grid gap-4 md:grid-cols-4">
           {workflowSteps.map((step, index) => (
             <Reveal key={step.title} delay={index * 70} className="h-full">
-              <article className="relative h-full overflow-hidden rounded-[1.5rem] border border-[#606C38]/14 bg-[#f7eddc]/62 p-5 shadow-sm backdrop-blur">
-                <span className="nums-tabular absolute right-4 top-4 text-xs font-bold text-[#606C38]">
-                  {`0${index + 1}`}
-                </span>
-                <div className="mb-5 grid size-11 place-items-center rounded-xl bg-[#C66B3D]/16 text-[#606C38]">
+              <article className="relative h-full rounded-[1.5rem] border border-[var(--paper-line)] bg-white p-5 shadow-sm">
+                <span className="font-time text-sm font-semibold text-[var(--cobalt)]">{step.time}</span>
+                <div className="mt-8 grid size-11 place-items-center rounded-2xl bg-[var(--cobalt-tint)] text-[var(--cobalt)]">
                   <step.icon className="size-5" strokeWidth={1.9} />
                 </div>
-                <h3 className="text-lg font-semibold tracking-tight">{step.title}</h3>
-                <p className="mt-2 text-sm font-medium leading-6 text-[#5c4a39]">{step.text}</p>
+                <h3 className="mt-5 text-xl font-bold tracking-[-0.02em]">{step.title}</h3>
+                <p className="mt-3 text-sm font-semibold leading-6 text-[var(--ink-soft)]">{step.text}</p>
               </article>
             </Reveal>
           ))}
         </div>
       </section>
 
-      <section id="booking-kanaly" className="bg-[#606C38] py-20 text-[#E8DCC7]">
-        <div className="mx-auto grid w-full max-w-[1180px] gap-8 px-4 sm:px-6 lg:grid-cols-[0.82fr_1.18fr] lg:px-8">
-          <Reveal>
-            <header className="lg:sticky lg:top-28">
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#D4B895]">Booking kanály</p>
-              <h2 className="mt-3 text-balance text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
-                Rezervace nemá žít jen na jedné stránce.
-              </h2>
-              <p className="mt-5 max-w-md text-sm font-medium leading-6 text-[#E8DCC7]/78">
-                Salony a lokální služby získávají klienty z webu, Instagramu, Google profilu, QR kódů i přímých zpráv.
-                Temaro má tyto vstupy spojit do jednoho kalendáře a jednoho přehledu zdrojů.
-              </p>
-              <Link
-                href="/ukazka"
-                className="mt-6 inline-flex h-11 items-center justify-center gap-2 rounded-full bg-[#E8DCC7] px-5 text-sm font-semibold text-[#24170f] shadow-sm transition hover:-translate-y-0.5 hover:bg-[#D4B895]"
-              >
-                Projít ukázku
-                <ArrowRight className="size-4" />
-              </Link>
-            </header>
-          </Reveal>
-
-          <div className="grid gap-3 sm:grid-cols-2">
-            {bookingChannels.map((channel, index) => (
-              <Reveal key={channel.title} delay={index * 55} className="h-full">
-                <article className="group h-full rounded-[1.5rem] border border-[#E8DCC7]/12 bg-[#E8DCC7]/8 p-5 shadow-sm backdrop-blur transition hover:-translate-y-1 hover:bg-[#E8DCC7]/14">
-                  <div className="mb-5 flex items-center justify-between">
-                    <span className="grid size-10 place-items-center rounded-xl bg-[#E8DCC7] text-[#606C38] transition group-hover:bg-[#C66B3D] group-hover:text-[#24170f]">
-                      <channel.icon className="size-5" strokeWidth={1.9} />
-                    </span>
-                    <span className="rounded-full border border-[#E8DCC7]/12 bg-[#E8DCC7]/8 px-2.5 py-1 text-xs font-bold text-[#E8DCC7]/70">
-                      kanál
-                    </span>
-                  </div>
-                  <h3 className="text-lg font-semibold tracking-tight">{channel.title}</h3>
-                  <p className="mt-2 text-sm font-medium leading-6 text-[#E8DCC7]/76">{channel.text}</p>
-                </article>
-              </Reveal>
-            ))}
+      <section id="bento" className="mx-auto w-full max-w-[1180px] px-4 py-20 sm:px-6 lg:px-8">
+        <Reveal>
+          <div className="mb-8 max-w-3xl">
+            <p className="section-eyebrow">Proč Temaro</p>
+            <h2 className="font-display mt-3 text-balance text-5xl font-semibold leading-[0.98] sm:text-6xl">
+              Rezervace tam, kde už klient rozhoduje.
+            </h2>
           </div>
+        </Reveal>
+        <div className="grid auto-rows-[minmax(220px,auto)] gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {bentoCards.map((card, index) => (
+            <Reveal key={card.title} delay={index * 55} className="h-full">
+              <article className={`group flex h-full flex-col justify-between rounded-[1.75rem] border border-[var(--paper-line)] p-6 shadow-sm transition hover:-translate-y-1 ${card.className}`}>
+                <div className="grid size-12 place-items-center rounded-2xl bg-white/22 text-current ring-1 ring-current/10">
+                  <card.icon className="size-6" strokeWidth={1.9} />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold tracking-[-0.03em]">{card.title}</h3>
+                  <p className="mt-3 text-sm font-semibold leading-6 opacity-78">{card.text}</p>
+                </div>
+              </article>
+            </Reveal>
+          ))}
         </div>
       </section>
 
       <section id="produktove-demo" className="mx-auto w-full max-w-[1180px] px-4 py-20 sm:px-6 lg:px-8">
         <Reveal>
-          <div className="overflow-hidden rounded-[1.75rem] border border-border bg-foreground text-background shadow-sm dark:bg-card dark:text-foreground">
-            <div className="grid gap-0 lg:grid-cols-[0.92fr_1.08fr]">
+          <div className="overflow-hidden rounded-[2rem] border border-[var(--paper-line)] bg-[var(--ink)] text-white shadow-[0_34px_100px_rgba(23,26,33,0.22)]">
+            <div className="grid lg:grid-cols-[0.85fr_1.15fr]">
               <div className="p-6 sm:p-8">
-                <div className="mb-8 grid size-12 place-items-center rounded-2xl bg-primary text-primary-foreground">
+                <div className="grid size-13 place-items-center rounded-2xl bg-[var(--apricot)] text-[var(--ink)]">
                   <MonitorPlay className="size-6" strokeWidth={1.8} />
                 </div>
-                <p className="text-xs font-bold uppercase tracking-[0.16em] text-background/60 dark:text-secondary-foreground">
-                  Produktová ukázka
-                </p>
-                <h2 className="mt-3 text-balance text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
-                  Místo dlouhého vysvětlování ukažte, jak rezervace projde systémem.
+                <p className="font-time mt-8 text-xs font-semibold uppercase tracking-[0.18em] text-white/56">Produktová ukázka</p>
+                <h2 className="font-display mt-3 text-balance text-5xl font-semibold leading-[0.98] sm:text-6xl">
+                  Kalendář, který ukazuje napětí dne.
                 </h2>
-                <p className="mt-5 max-w-md text-base font-medium leading-7 text-background/70 dark:text-secondary-foreground">
-                  Krátká ukázka pomůže rychle pochopit, že Temaro není jen formulář. Je to cesta od klienta přes kalendář až po provozní přehled.
+                <p className="mt-5 max-w-md text-base font-semibold leading-7 text-white/70">
+                  Ukázka staví před oči to hlavní: volná okna, rezervace, zdroje klientů a místa, kde může den prasknout.
                 </p>
                 <Link
                   href="/ukazka"
-                  className="mt-7 inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-primary px-6 text-sm font-semibold text-primary-foreground shadow-sm transition hover:-translate-y-0.5 hover:bg-primary/92"
+                  className="temaro-focus-ring mt-7 inline-flex h-12 items-center justify-center gap-2 rounded-full bg-white px-6 text-sm font-bold text-[var(--ink)] transition hover:-translate-y-0.5"
                 >
                   Spustit produktovou ukázku
                   <ArrowRight className="size-4" />
                 </Link>
               </div>
-
-              <div className="bg-background/8 p-4 sm:p-6 dark:bg-background/40">
-                <div className="grid h-full gap-3">
-                  {demoMoments.map(([step, title, text], index) => (
-                    <Reveal key={title} delay={index * 80} className="h-full">
-                      <article className="grid h-full gap-4 rounded-2xl border border-white/10 bg-background/95 p-5 text-foreground shadow-sm dark:border-border dark:bg-card sm:grid-cols-[4rem_1fr]">
-                        <div className="nums-tabular grid size-12 place-items-center rounded-xl bg-primary/10 text-sm font-bold text-primary">
-                          {step}
-                        </div>
+              <div className="bg-white/[0.06] p-4 sm:p-6">
+                <div className="rounded-[1.5rem] border border-white/12 bg-white p-4 text-[var(--ink)]">
+                  <div className="flex items-center justify-between gap-3 border-b border-[var(--paper-line)] pb-4">
+                    <div>
+                      <p className="section-eyebrow">Přehled provozu</p>
+                      <h3 className="mt-1 text-2xl font-bold tracking-[-0.03em]">Středa v Hair Studio Luna</h3>
+                    </div>
+                    <span className="font-time rounded-full bg-[var(--cobalt-tint)] px-3 py-1.5 text-sm font-semibold text-[var(--cobalt)]">12 rezervací</span>
+                  </div>
+                  <div className="mt-5 grid gap-3">
+                    {demoMoments.map(([time, title, text], index) => (
+                      <div key={time} className="grid grid-cols-[4.5rem_1fr] items-center gap-4 rounded-2xl bg-[var(--porcelain)] p-4">
+                        <span className="font-time text-lg font-semibold text-[var(--cobalt)]">{time}</span>
                         <div>
-                          <h3 className="text-lg font-semibold tracking-tight">{title}</h3>
-                          <p className="mt-2 text-sm font-medium leading-6 text-secondary-foreground">{text}</p>
+                          <p className="font-bold">{title}</p>
+                          <p className="mt-1 text-sm font-semibold text-[var(--ink-soft)]">{text}</p>
+                          <div className="mt-2 h-2 rounded-full bg-[var(--paper-line)]">
+                            <div className="h-2 rounded-full bg-[var(--cobalt)]" style={{ width: `${48 + index * 16}%` }} />
+                          </div>
                         </div>
-                      </article>
-                    </Reveal>
-                  ))}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
@@ -447,49 +367,41 @@ export default async function Home() {
         </Reveal>
       </section>
 
-      <section className="mx-auto w-full max-w-[1180px] px-4 py-24 text-center sm:px-6 lg:px-8">
-        <Reveal>
-          <p className="mx-auto max-w-4xl text-balance text-4xl font-semibold leading-[1.05] tracking-tight text-foreground sm:text-6xl">
-            Neprodáváme formulář. Prodáváme <span className="font-serif-accent text-primary">klidný provoz</span>.
-          </p>
-          <p className="mx-auto mt-6 max-w-xl text-base font-medium leading-7 text-secondary-foreground">
-            Vlastní rezervační odkaz, váš kalendář, vaši klienti. Žádná provize z toho, co jste si přivedli sami.
-          </p>
-        </Reveal>
-      </section>
-
-      <section className="bg-card py-20">
+      <section id="scenare" className="bg-white/62 py-20">
         <div className="mx-auto w-full max-w-[1180px] px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Provozní scénáře</p>
-                <h2 className="mt-3 max-w-2xl text-balance text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
-                  Vypadá jako systém pro služby, ne jako obecná šablona.
+                <p className="section-eyebrow">Scénáře</p>
+                <h2 className="font-display mt-3 max-w-2xl text-balance text-5xl font-semibold leading-[0.98] sm:text-6xl">
+                  Služby vypadají různě. Čas bolí podobně.
                 </h2>
               </div>
-              <p className="max-w-sm text-sm font-medium leading-6 text-secondary-foreground">
-                Temaro míří na provozy, kde se střídají klienti, zaměstnanci, termíny a opakované návštěvy.
+              <p className="max-w-sm text-sm font-semibold leading-6 text-[var(--ink-soft)]">
+                Fotky drží kontext oboru, produktová vrstva nad nimi drží nový Temaro jazyk.
               </p>
             </div>
           </Reveal>
-          <div className="grid gap-4 md:grid-cols-3">
-            {visualSegments.map((segment, index) => (
-              <Reveal key={segment.title} delay={index * 70} className="h-full">
-                <article className="group h-full overflow-hidden rounded-xl border border-border bg-card shadow-sm">
+          <div className="grid snap-x gap-4 overflow-x-auto pb-2 md:grid-cols-3 md:overflow-visible">
+            {scenarioCards.map((scenario, index) => (
+              <Reveal key={scenario.title} delay={index * 70} className="h-full min-w-[82vw] snap-center md:min-w-0">
+                <article className="group h-full overflow-hidden rounded-[1.75rem] border border-[var(--paper-line)] bg-white shadow-sm">
                   <div className="relative aspect-[4/3] overflow-hidden">
                     <Image
-                      src={segment.image}
-                      alt={segment.alt}
+                      src={scenario.image}
+                      alt={scenario.alt}
                       fill
-                      sizes="(min-width: 1024px) 360px, 100vw"
-                      className="object-cover transition duration-500 group-hover:scale-[1.03]"
+                      sizes="(min-width: 1024px) 360px, 90vw"
+                      className="object-cover transition duration-500 group-hover:scale-[1.04]"
                     />
-                    <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/55 to-transparent" />
+                    <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/66 to-transparent" />
+                    <span className="font-time absolute left-4 top-4 rounded-full bg-white/86 px-3 py-1.5 text-xs font-semibold text-[var(--ink)] backdrop-blur">
+                      0{index + 1}
+                    </span>
                   </div>
                   <div className="p-5">
-                    <h3 className="text-xl font-semibold tracking-tight">{segment.title}</h3>
-                    <p className="mt-2 text-sm font-medium leading-6 text-secondary-foreground">{segment.text}</p>
+                    <h3 className="text-2xl font-bold tracking-[-0.03em]">{scenario.title}</h3>
+                    <p className="mt-3 text-sm font-semibold leading-6 text-[var(--ink-soft)]">{scenario.text}</p>
                   </div>
                 </article>
               </Reveal>
@@ -498,40 +410,46 @@ export default async function Home() {
         </div>
       </section>
 
-      <section id="pro-koho" className="mx-auto w-full max-w-[1180px] px-4 py-20 sm:px-6 lg:px-8">
+      <section className="mx-auto w-full max-w-[1180px] px-4 py-24 sm:px-6 lg:px-8">
         <Reveal>
-          <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Pro koho</p>
-              <h2 className="mt-3 max-w-2xl text-balance text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
-                Jeden systém pro služby, kde rozhoduje čas.
-              </h2>
-            </div>
-            <p className="max-w-sm text-sm font-medium leading-6 text-secondary-foreground">
-              Jeden základ pro různé provozy: kalendář, lidé, služby, klienti a jasný rezervační odkaz.
+          <div className="rounded-[2rem] bg-[var(--cobalt)] p-8 text-white shadow-[0_30px_90px_rgba(43,63,242,0.22)] sm:p-12">
+            <p className="font-time text-xs font-semibold uppercase tracking-[0.18em] text-white/64">Manifest</p>
+            <p className="font-display mt-5 max-w-5xl text-balance text-5xl font-semibold leading-[0.98] sm:text-7xl">
+              Neprodáváme formulář. Prodáváme klidný provoz.
+            </p>
+            <p className="mt-6 max-w-2xl text-lg font-semibold leading-8 text-white/74">
+              Vlastní rezervační odkaz, váš kalendář, vaši klienti. Žádná provize z toho, co jste si přivedli sami.
             </p>
           </div>
         </Reveal>
+      </section>
 
-        <div className="grid gap-3 md:grid-cols-2">
-          {audienceSegments.map((segment, index) => (
-            <Reveal key={segment.title} delay={index * 70} className="h-full">
-              <article
-                className={`h-full rounded-2xl border border-l-4 border-border bg-card p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-md ${segment.tone}`}
-              >
-                <div className="mb-5 flex items-center justify-between">
-                  <span className={`grid size-10 place-items-center rounded-xl ${segment.iconTone}`}>
-                    <Building2 className="size-5" strokeWidth={1.9} />
-                  </span>
-                  <span className="nums-tabular text-xs font-bold text-muted-foreground">{`0${index + 1}`}</span>
+      <section id="cenik" className="mx-auto w-full max-w-[1180px] px-4 py-20 sm:px-6 lg:px-8">
+        <Reveal>
+          <div className="mb-8 max-w-3xl">
+            <p className="section-eyebrow">Ceník</p>
+            <h2 className="font-display mt-3 text-balance text-5xl font-semibold leading-[0.98] sm:text-6xl">
+              Transparentní cena bez provizních překvapení.
+            </h2>
+          </div>
+        </Reveal>
+        <div className="grid snap-x gap-4 overflow-x-auto pb-2 lg:grid-cols-3 lg:overflow-visible">
+          {pricingPlans.map((plan, index) => (
+            <Reveal key={plan.name} delay={index * 70} className="h-full min-w-[84vw] snap-center lg:min-w-0">
+              <article className={`flex h-full flex-col rounded-[1.75rem] border p-6 shadow-sm ${index === 0 ? "border-[var(--cobalt)] bg-white shadow-[0_18px_54px_rgba(43,63,242,0.12)]" : "border-[var(--paper-line)] bg-white/70"}`}>
+                <div className="mb-8 flex items-center justify-between gap-4">
+                  <h3 className="text-3xl font-bold tracking-[-0.04em]">{plan.name}</h3>
+                  <BadgeEuro className="size-6 text-[var(--cobalt)]" strokeWidth={1.8} />
                 </div>
-                <h3 className="text-xl font-semibold tracking-tight">{segment.title}</h3>
-                <p className="mt-2 text-sm font-medium leading-6 text-secondary-foreground">{segment.text}</p>
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {segment.points.map((point) => (
-                    <span key={point} className="rounded-full border border-border bg-secondary px-3 py-1 text-xs font-bold text-secondary-foreground">
-                      {point}
-                    </span>
+                <p className="font-display text-5xl font-semibold tracking-[-0.05em] text-[var(--cobalt)]">{plan.price}</p>
+                <p className="font-time mt-2 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--ink-faint)]">{plan.note}</p>
+                <p className="mt-5 text-sm font-semibold leading-6 text-[var(--ink-soft)]">{plan.description}</p>
+                <div className="mt-6 grid gap-3">
+                  {plan.features.map((feature) => (
+                    <div key={feature} className="flex items-center gap-2 text-sm font-bold text-[var(--ink)]">
+                      <CheckCircle2 className="size-4 text-[var(--mint-ink)]" strokeWidth={1.9} />
+                      {feature}
+                    </div>
                   ))}
                 </div>
               </article>
@@ -540,181 +458,105 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="bg-[#f7f7f9] py-20 dark:bg-background">
-        <div className="mx-auto grid w-full max-w-[1180px] gap-6 px-4 sm:px-6 lg:grid-cols-[0.82fr_1.18fr] lg:px-8">
+      <section id="bezpecnost" className="bg-[var(--porcelain-deep)] py-20">
+        <div className="mx-auto grid w-full max-w-[1180px] gap-8 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
           <Reveal>
             <header>
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Praktické návody</p>
-              <h2 className="mt-3 text-balance text-3xl font-semibold leading-[1.08] tracking-tight text-foreground sm:text-4xl">
-                Začínáme tam, kde české provozovny nejvíc bolí čas a výpadky.
+              <p className="section-eyebrow">Důvěra a bezpečnost</p>
+              <h2 className="font-display mt-3 text-balance text-5xl font-semibold leading-[0.98] sm:text-6xl">
+                Jednoduchá rezervace nesmí znamenat slabá data.
               </h2>
-              <p className="mt-4 max-w-md text-sm font-medium leading-6 text-secondary-foreground">
-                Praktické stránky řeší konkrétní situace: prázdná okna v kalendáři, zmeškané návštěvy, připomínky a
-                vlastní vztah s klientem bez cizí provize.
+              <p className="mt-5 max-w-md text-sm font-semibold leading-6 text-[var(--ink-soft)]">
+                Rezervační systém pracuje s klienty, termíny a historií podniku. Proto musí být kontrola dat základ, ne doplněk.
               </p>
             </header>
           </Reveal>
-
-          <div className="grid gap-3 sm:grid-cols-2">
-            {guideLinks.slice(0, 4).map((guide, index) => (
-              <Reveal key={guide.href} delay={index * 70} className="h-full">
-                <Link
-                  href={guide.href}
-                  className="group block h-full rounded-2xl border border-border bg-card p-5 shadow-sm transition hover:-translate-y-1 hover:border-primary/35"
-                >
-                  <div className="flex items-start justify-between gap-4">
-                    <h3 className="text-lg font-semibold tracking-tight text-foreground">{guide.title}</h3>
-                    <ArrowRight className="mt-1 size-4 shrink-0 text-primary transition group-hover:translate-x-0.5" />
+          <div className="grid gap-3">
+            {securityItems.map(([title, text], index) => (
+              <Reveal key={title} delay={index * 70}>
+                <article className="flex gap-4 rounded-[1.5rem] border border-[var(--paper-line)] bg-white p-5 shadow-sm">
+                  <span className="grid size-11 shrink-0 place-items-center rounded-2xl bg-[var(--cobalt-tint)] text-[var(--cobalt)]">
+                    <ShieldCheck className="size-5" strokeWidth={1.9} />
+                  </span>
+                  <div>
+                    <h3 className="text-xl font-bold tracking-[-0.02em]">{title}</h3>
+                    <p className="mt-1 text-sm font-semibold leading-6 text-[var(--ink-soft)]">{text}</p>
                   </div>
-                  <p className="mt-3 text-sm font-medium leading-6 text-secondary-foreground">{guide.text}</p>
-                </Link>
+                </article>
               </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="cenik" className="mx-auto w-full max-w-[1180px] px-4 py-20 sm:px-6 lg:px-8">
+      <section className="mx-auto w-full max-w-[1180px] px-4 py-20 sm:px-6 lg:px-8">
         <Reveal>
-          <div className="grid overflow-hidden rounded-[1.75rem] border border-border bg-card shadow-sm lg:grid-cols-[0.9fr_1.1fr]">
-            <div className="bg-foreground p-6 text-background sm:p-8 dark:bg-card dark:text-foreground">
-              <div className="mb-8 grid size-12 place-items-center rounded-2xl bg-primary text-primary-foreground">
-                <BadgeEuro className="size-6" strokeWidth={1.8} />
-              </div>
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-background/60 dark:text-secondary-foreground">Ceník</p>
-              <h2 className="mt-3 text-balance text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
-                Transparentní cena bez provizních překvapení.
+          <div className="grid gap-6 rounded-[2rem] border border-[var(--paper-line)] bg-white p-6 shadow-sm sm:p-8 lg:grid-cols-[1fr_auto] lg:items-center">
+            <div>
+              <p className="section-eyebrow">Další krok</p>
+              <h2 className="font-display mt-3 max-w-3xl text-balance text-5xl font-semibold leading-[0.98] sm:text-6xl">
+                {finalCta.title}
               </h2>
-              <p className="mt-5 max-w-md text-base font-medium leading-7 text-background/70 dark:text-secondary-foreground">
-                Nechceme stavět systém, který vydělává na tom, že vám přivede vlastního klienta. Pilot ověří provozní cestu,
-                finální tarify zůstanou jednoduché a čitelné.
-              </p>
+              <p className="mt-5 max-w-xl text-base font-semibold leading-7 text-[var(--ink-soft)]">{finalCta.text}</p>
             </div>
-
-            <div className="grid gap-3 bg-secondary p-4 sm:p-6">
-              {pricingPlans.map((plan, index) => (
-                <article
-                  key={plan.name}
-                  className={`rounded-2xl border p-5 shadow-sm ${
-                    index === 0 ? "border-primary/30 bg-card shadow-primary/10" : "border-border bg-card"
-                  }`}
-                >
-                  <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                    <div>
-                      <h3 className="text-xl font-semibold tracking-tight">{plan.name}</h3>
-                      <p className="mt-2 max-w-md text-sm font-medium leading-6 text-secondary-foreground">
-                        {plan.description}
-                      </p>
-                    </div>
-                    <div className="shrink-0 sm:text-right">
-                      <p className="text-2xl font-semibold tracking-tight text-primary">{plan.price}</p>
-                      <p className="mt-1 text-xs font-bold uppercase tracking-wider text-muted-foreground">{plan.note}</p>
-                    </div>
-                  </div>
-                  <div className="mt-5 grid gap-2 sm:grid-cols-2">
-                    {plan.features.map((feature) => (
-                      <div key={feature} className="flex items-center gap-2 text-sm font-semibold text-foreground">
-                        <CheckCircle2 className="size-4 text-success" strokeWidth={1.9} />
-                        {feature}
-                      </div>
-                    ))}
-                  </div>
-                </article>
-              ))}
-              <Link
-                href={CTA.primary.href}
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-primary px-5 text-sm font-semibold text-primary-foreground shadow-sm transition hover:bg-primary/92"
-              >
+            <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
+              <Link href={CTA.primary.href} className="temaro-focus-ring inline-flex h-12 items-center justify-center gap-2 rounded-full bg-[var(--cobalt)] px-6 text-sm font-bold text-white transition hover:bg-[var(--cobalt-deep)]">
                 {CTA.primary.label}
                 <ArrowRight className="size-4" />
+              </Link>
+              <Link href={CTA.secondary.href} className="temaro-focus-ring inline-flex h-12 items-center justify-center rounded-full border border-[var(--paper-line)] bg-[var(--porcelain)] px-6 text-sm font-bold text-[var(--ink)] transition hover:border-[var(--cobalt)]">
+                {CTA.secondary.label}
               </Link>
             </div>
           </div>
         </Reveal>
       </section>
 
-      <section id="bezpecnost" className="bg-secondary/70 py-20">
-        <div className="mx-auto grid w-full max-w-[1180px] gap-8 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
-          <Reveal>
-            <header>
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Bezpečnost a důvěra</p>
-              <h2 className="mt-3 text-balance text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
-                Rezervace jsou jednoduché. Data musí být bezpečně oddělená.
-              </h2>
-              <p className="mt-5 max-w-md text-sm font-medium leading-6 text-secondary-foreground">
-                Rezervační systém pracuje s klienty, termíny a historií podniku. Proto je důležité, aby se data nepletla
-                mezi podniky a veřejná rezervace nešla obejít ručně poslaným formulářem.
-              </p>
-            </header>
-          </Reveal>
-
-          <div className="grid gap-3">
-            {trustItems.map(([title, text], index) => (
-              <Reveal key={title} delay={index * 70}>
-                <article className="flex gap-4 rounded-2xl border border-border bg-card p-5 shadow-sm">
-                  <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary">
-                    <ShieldCheck className="size-5" strokeWidth={1.9} />
-                  </span>
-                  <div>
-                    <h3 className="text-lg font-semibold tracking-tight">{title}</h3>
-                    <p className="mt-1 text-sm font-medium leading-6 text-secondary-foreground">{text}</p>
-                  </div>
-                </article>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <footer className="border-t border-border bg-card">
+      <footer className="border-t border-[var(--paper-line)] bg-white">
         <div className="mx-auto grid w-full max-w-[1180px] gap-8 px-4 py-12 sm:px-6 lg:grid-cols-[1.2fr_0.8fr_1fr_0.8fr] lg:px-8">
           <div>
             <TemaroLogo />
-            <p className="mt-3 max-w-sm text-sm font-medium leading-6 text-secondary-foreground">
+            <p className="mt-3 max-w-sm text-sm font-semibold leading-6 text-[var(--ink-soft)]">
               Rezervační systém pro salony, ordinace, trenéry a další služby. Vyrobeno v Česku, připraveno pro EU provoz.
             </p>
           </div>
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.16em] text-muted-foreground">Produkt</p>
-            <ul className="mt-4 space-y-2 text-sm font-semibold">
-              <li><Link href="#produkt" className="text-foreground hover:underline">Funkce</Link></li>
-              <li><Link href="#pro-koho" className="text-foreground hover:underline">Pro koho</Link></li>
-              <li><Link href="/podniky" className="text-foreground hover:underline">Pro zákazníky</Link></li>
-              <li><Link href="/ukazka" className="text-foreground hover:underline">Interaktivní ukázka</Link></li>
-              <li><Link href="#cenik" className="text-foreground hover:underline">Ceník</Link></li>
-              <li><Link href="#bezpecnost" className="text-foreground hover:underline">Bezpečnost</Link></li>
-              <li><Link href="/demo-barber" className="text-foreground hover:underline">Ukázka rezervace</Link></li>
+            <p className="section-eyebrow text-[var(--ink-faint)]">Produkt</p>
+            <ul className="mt-4 space-y-2 text-sm font-bold">
+              <li><Link href="#produkt" className="text-[var(--ink)] hover:underline">Funkce</Link></li>
+              <li><Link href="#bento" className="text-[var(--ink)] hover:underline">Proč Temaro</Link></li>
+              <li><Link href="/podniky" className="text-[var(--ink)] hover:underline">Pro zákazníky</Link></li>
+              <li><Link href="/ukazka" className="text-[var(--ink)] hover:underline">Interaktivní ukázka</Link></li>
+              <li><Link href="#cenik" className="text-[var(--ink)] hover:underline">Ceník</Link></li>
+              <li><Link href="#bezpecnost" className="text-[var(--ink)] hover:underline">Bezpečnost</Link></li>
             </ul>
           </div>
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.16em] text-muted-foreground">Návody</p>
-            <ul className="mt-4 space-y-2 text-sm font-semibold">
-              <li><Link href="/rezervacni-system-pro-barbery" className="text-foreground hover:underline">Pro barbery</Link></li>
-              <li><Link href="/rezervacni-system-pro-kadernictvi" className="text-foreground hover:underline">Pro kadeřnictví</Link></li>
-              <li><Link href="/rezervacni-system-pro-kosmeticky-salon" className="text-foreground hover:underline">Pro beauty salon</Link></li>
-              <li><Link href="/rezervacni-system-pro-masaze" className="text-foreground hover:underline">Pro masáže</Link></li>
-              <li><Link href="/jak-snizit-no-show" className="text-foreground hover:underline">No-show návod</Link></li>
-              <li><Link href="/sms-pripominky-rezervaci" className="text-foreground hover:underline">SMS připomínky</Link></li>
-              <li><Link href="/rezervacni-system-bez-marketplace-provizi" className="text-foreground hover:underline">Bez marketplace provizí</Link></li>
+            <p className="section-eyebrow text-[var(--ink-faint)]">Návody</p>
+            <ul className="mt-4 space-y-2 text-sm font-bold">
+              {guideLinks.map(([href, label]) => (
+                <li key={href}><Link href={href} className="text-[var(--ink)] hover:underline">{label}</Link></li>
+              ))}
             </ul>
           </div>
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.16em] text-muted-foreground">Firma</p>
-            <ul className="mt-4 space-y-2 text-sm font-semibold">
-              <li><Link href="/login" className="text-foreground hover:underline">Přihlášení</Link></li>
-              <li><Link href="/register" className="text-foreground hover:underline">Registrace podniku</Link></li>
-              <li><Link href="/account/login" className="text-foreground hover:underline">Zákaznický účet</Link></li>
-              <li><a href="mailto:hello@temaro.cz" className="text-foreground hover:underline">Kontakt</a></li>
+            <p className="section-eyebrow text-[var(--ink-faint)]">Firma</p>
+            <ul className="mt-4 space-y-2 text-sm font-bold">
+              <li><Link href="/login" className="text-[var(--ink)] hover:underline">Přihlášení</Link></li>
+              <li><Link href="/register" className="text-[var(--ink)] hover:underline">Registrace podniku</Link></li>
+              <li><Link href="/account/login" className="text-[var(--ink)] hover:underline">Zákaznický účet</Link></li>
+              <li><a href="mailto:hello@temaro.cz" className="text-[var(--ink)] hover:underline">Kontakt</a></li>
             </ul>
           </div>
         </div>
-        <div className="border-t border-border">
-          <div className="mx-auto flex w-full max-w-[1180px] flex-col gap-2 px-4 py-4 text-xs font-semibold text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
+        <div className="border-t border-[var(--paper-line)]">
+          <div className="mx-auto flex w-full max-w-[1180px] flex-col gap-2 px-4 py-4 text-xs font-bold text-[var(--ink-faint)] sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
             <p>© 2026 Temaro</p>
             <p>Online rezervace pro služby</p>
           </div>
         </div>
       </footer>
+
     </main>
   );
 }
