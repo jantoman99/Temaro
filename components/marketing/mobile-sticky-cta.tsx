@@ -32,7 +32,7 @@ export function MobileStickyCta() {
   }
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-40 border-t border-[var(--paper-line)] bg-[var(--porcelain)]/90 px-4 pb-[calc(env(safe-area-inset-bottom)+0.75rem)] pt-3 shadow-[0_-18px_50px_rgba(23,26,33,0.12)] backdrop-blur sm:hidden">
+    <div className="fixed inset-x-0 bottom-0 z-40 border-t border-[var(--paper-line)] bg-[var(--porcelain)]/90 px-4 pb-[calc(env(safe-area-inset-bottom)+0.625rem)] pt-3 shadow-[0_-18px_50px_rgba(23,26,33,0.12)] backdrop-blur sm:hidden">
       <p className="font-time mb-2 text-center text-xs font-medium text-[var(--ink-soft)]">0 Kč · bez karty</p>
       <Link
         href="/register"

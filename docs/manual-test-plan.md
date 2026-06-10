@@ -27,6 +27,8 @@ Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 - Na mobilni sirce zkontrolovat, ze top navigace nezmizi, nepreteka mimo viewport a ctyri hlavni polozky jsou citelne bez horizontalniho scrollu.
 - Na landing page zkontrolovat hero: eyebrow `Rezervační systém pro služby`, claim `Rezervace bez volání. Čas bez chaosu.`, oborové segmenty a interaktivní klientské time chips.
 - V hero timeline ověřit, že rezervace jsou umístěné podle reálného času a délky, ne podle pořadí; po kliknutí `Rezervovat` vznikne nová rezervace bez clippingu a zobrazí se potvrzovací toast.
+- Na mobilní šířce 360-390px ověřit hero timeline: rezervační položky se mají zobrazit jako čitelné řádky s časem, službou a klientem, ne jako úzké sloupce s useknutým textem.
+- V desktop navigaci otevřít dropdowny `Produkt` a `Návody`; položky mají být čisté názvy bez drobných popisků a víceslovné labely jako `Produktová ukázka` nesmí opticky splývat.
 - V sekci `Časový engine` ověřit tři AI fotky provozů: salon, beauty a trénink. Fotky musí působit jako reálné provozy, ne jako náhodná galerie; přes každou má být produktový signál.
 - V sekci `Časový engine` ověřit animaci `příchozí chaos -> složený den`: zprávy se jemně hýbou, sloty vpravo pulzují, barvy rozlišují rezervaci, volné okno, SMS připomínku a riziko no-show.
 - Na mobilní šířce ověřit, že sekce `Časový engine` nemá horizontální scroll, foto karty jsou čitelné a sticky CTA nepřekrývá důležitý obsah.

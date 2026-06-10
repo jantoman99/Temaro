@@ -356,6 +356,7 @@
     --primary-foreground: #ffffff;
     color-scheme: light;
     color: var(--ink);
+    scroll-padding-top: 7rem;
     background:
       radial-gradient(circle at 20% 8%, color-mix(in srgb, var(--cobalt-tint) 72%, transparent), transparent 28rem),
       radial-gradient(circle at 88% 18%, color-mix(in srgb, var(--apricot-tint) 76%, transparent), transparent 30rem),
@@ -468,6 +469,10 @@
   }
 
   @media (max-width: 640px) {
+    .temaro-time-page {
+      padding-bottom: calc(env(safe-area-inset-bottom) + 6.5rem);
+    }
+
     .signal-grid {
       background-image: none;
     }

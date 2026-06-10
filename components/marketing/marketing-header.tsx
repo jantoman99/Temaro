@@ -7,7 +7,7 @@ import { MobileMarketingMenu } from "@/components/marketing/mobile-marketing-men
 
 export function MarketingHeader() {
   return (
-    <header className="fixed left-4 right-4 top-3 z-50 mx-auto flex min-h-16 max-w-[1280px] items-center justify-between gap-3 rounded-[1.35rem] border border-[var(--paper-line)] bg-white/82 px-3 py-3 shadow-[0_16px_48px_rgba(23,26,33,0.10)] backdrop-blur-md sm:left-6 sm:right-6 sm:px-4 lg:left-8 lg:right-8">
+    <header className="marketing-fixed-header fixed left-4 right-4 top-[max(0.75rem,env(safe-area-inset-top))] z-50 mx-auto flex min-h-16 max-w-[1280px] items-center justify-between gap-3 rounded-[1.35rem] border border-[var(--paper-line)] bg-white/82 px-3 py-3 shadow-[0_16px_48px_rgba(23,26,33,0.10)] backdrop-blur-md sm:left-6 sm:right-6 sm:px-4 lg:left-8 lg:right-8">
       <Link href="/" className="flex items-center gap-3" aria-label="Temaro homepage">
         <TemaroLogo />
       </Link>

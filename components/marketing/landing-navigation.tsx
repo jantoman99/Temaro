@@ -83,16 +83,17 @@ export function LandingNavigation() {
                 id={panelId}
                 className="mt-1 rounded-2xl border border-[var(--paper-line)] bg-white p-2 shadow-lg lg:absolute lg:left-1/2 lg:top-full lg:z-40 lg:mt-3 lg:w-[25rem] lg:-translate-x-1/2"
               >
-                {group.items.map(([href, label, description]) => (
+                {group.items.map(([href, label]) => (
                   <Link
                     key={href}
                     href={href}
-                    className="block rounded-xl px-3 py-2.5 text-left transition hover:bg-[var(--porcelain)]"
+                    className="block rounded-xl px-3 py-3 text-left transition hover:bg-[var(--porcelain)]"
                     onClick={() => setOpenGroup(null)}
                   >
-                    <span className="text-sm font-bold text-[var(--ink)]">{label}</span>
-                    <span className="mt-1 block text-xs font-semibold leading-5 text-[var(--ink-soft)]">
-                      {description}
+                    <span className="inline-flex flex-wrap gap-x-1.5 text-base font-bold text-[var(--ink)]">
+                      {label.split(" ").map((word) => (
+                        <span key={word}>{word}</span>
+                      ))}
                     </span>
                   </Link>
                 ))}

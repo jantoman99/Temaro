@@ -210,7 +210,7 @@ describe("landing polish guard", () => {
     expect(menu).toContain("overflow-y-auto");
     expect(menu).toContain("keydown");
     expect(menu).toContain("Escape");
-    expect(menu).toContain("bg-[var(--ink)]/20");
+    expect(menu).toContain("bg-[var(--ink)]/42");
     expect(menu).not.toContain("description");
     expect(globals).toContain("@media (prefers-reduced-motion: reduce)");
     expect(globals).toContain(".trust-marquee:hover");
@@ -242,6 +242,36 @@ describe("landing polish guard", () => {
     expect(globals).toContain(".engine-slot");
     expect(globals).toContain("@keyframes engine-message");
     expect(globals).toContain("@keyframes engine-slot");
+  });
+
+  test("visual audit fixes mobile clipping, sticky overlap and menu text spacing", () => {
+    const hero = readProjectFile("components/marketing/business-discovery-hero.tsx");
+    const header = readProjectFile("components/marketing/marketing-header.tsx");
+    const menu = readProjectFile("components/marketing/mobile-marketing-menu.tsx");
+    const nav = readProjectFile("components/marketing/landing-navigation.tsx");
+    const stickyCta = readProjectFile("components/marketing/mobile-sticky-cta.tsx");
+    const globals = readProjectFile("app/globals.css");
+
+    expect(hero).toContain("mobile-reservation-list");
+    expect(hero).toContain("desktop-reservation-card");
+    expect(hero).toContain("sm:block");
+    expect(hero).toContain("sm:hidden");
+    expect(hero).toContain("min-h-[680px]");
+    expect(hero).toContain("sm:min-h-[790px]");
+    expect(hero).not.toContain("h-[360px] rounded-[1.25rem]");
+
+    expect(header).toContain("top-[max(0.75rem,env(safe-area-inset-top))]");
+    expect(header).toContain("marketing-fixed-header");
+    expect(menu).toContain("bg-[var(--ink)]/42");
+    expect(menu).toContain("backdrop-blur-[2px]");
+    expect(menu).toContain("top-[calc(max(0.75rem,env(safe-area-inset-top))+4.75rem)]");
+    expect(nav).toContain("group.items.map(([href, label])");
+    expect(nav).toContain("text-base font-bold");
+    expect(nav).not.toContain("{description}");
+    expect(stickyCta).toContain("pb-[calc(env(safe-area-inset-bottom)+0.625rem)]");
+    expect(globals).toContain(".temaro-time-page");
+    expect(globals).toContain("scroll-padding-top: 7rem");
+    expect(globals).toContain("padding-bottom: calc(env(safe-area-inset-bottom) + 6.5rem)");
   });
 
   test("homepage avoids the previous cream serif editorial direction", () => {
@@ -346,7 +376,8 @@ describe("landing polish guard", () => {
 
     expect(sharedHeader).toContain("<LandingNavigation />");
     expect(sharedHeader).toContain("<MobileMarketingMenu />");
-    expect(sharedHeader).toContain("fixed left-4 right-4 top-3");
+    expect(sharedHeader).toContain("marketing-fixed-header");
+    expect(sharedHeader).toContain("top-[max(0.75rem,env(safe-area-inset-top))]");
     expect(sharedHeader).toContain("min-h-16");
     expect(sharedHeader).toContain("max-w-[1280px]");
     expect(sharedHeader).toContain("px-3 text-sm");

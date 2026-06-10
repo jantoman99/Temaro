@@ -115,7 +115,7 @@ export function BusinessDiscoveryHero() {
   return (
     <section id="produkt" className="business-discovery-hero temaro-time-hero relative overflow-hidden pt-24 sm:pt-28">
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(115deg,rgba(43,63,242,0.08),transparent_42%),radial-gradient(circle_at_82%_20%,rgba(255,185,138,0.55),transparent_28rem)]" />
-      <div className="mx-auto grid min-h-[790px] w-full max-w-[1280px] items-center gap-10 px-4 pb-16 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8 lg:pb-24">
+      <div className="mx-auto grid min-h-[680px] w-full max-w-[1280px] items-center gap-10 px-4 pb-16 sm:min-h-[790px] sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8 lg:pb-24">
         <div className="relative z-10 max-w-3xl">
           <p className="section-eyebrow">Rezervační systém pro služby</p>
           <h1 className="font-display mt-5 text-balance text-6xl font-semibold leading-[0.96] text-[var(--ink)] sm:text-7xl lg:text-[6.8rem]">
@@ -187,8 +187,8 @@ export function BusinessDiscoveryHero() {
               </div>
             </div>
 
-            <div className="temaro-day-grid relative h-[360px] rounded-[1.25rem] border border-white/10 bg-white/[0.06] p-3">
-              <div className="font-time flex justify-between text-[0.68rem] uppercase tracking-[0.12em] text-white/70">
+            <div className="temaro-day-grid relative rounded-[1.25rem] border border-white/10 bg-white/[0.06] p-3 sm:h-[360px]">
+              <div className="font-time hidden justify-between text-[0.68rem] uppercase tracking-[0.12em] text-white/70 sm:flex">
                 {["08", "10", "12", "14", "16", "18"].map((hour) => (
                   <span key={hour}>{hour}:00</span>
                 ))}
@@ -197,7 +197,7 @@ export function BusinessDiscoveryHero() {
               {reservations.map((reservation) => (
                 <article
                   key={`${reservation.time}-${reservation.client}`}
-                  className={`absolute top-[4.2rem] rounded-2xl border border-white/12 bg-white p-3 text-[var(--ink)] shadow-[0_16px_34px_rgba(0,0,0,0.20)] ${reduceMotion ? "" : "time-card-in"}`}
+                  className={`desktop-reservation-card absolute top-[4.2rem] hidden rounded-2xl border border-white/12 bg-white p-3 text-[var(--ink)] shadow-[0_16px_34px_rgba(0,0,0,0.20)] sm:block ${reduceMotion ? "" : "time-card-in"}`}
                   style={{
                     left: `${toPct(reservation.time)}%`,
                     width: `${durationToPct(reservation.durationMin)}%`,
@@ -209,6 +209,21 @@ export function BusinessDiscoveryHero() {
                   <p className="mt-1 text-xs font-medium text-[var(--ink-soft)]">{reservation.client}</p>
                 </article>
               ))}
+
+              <div className="mobile-reservation-list grid gap-2 sm:hidden">
+                {reservations.map((reservation) => (
+                  <article
+                    key={`mobile-${reservation.time}-${reservation.client}`}
+                    className={`grid grid-cols-[4.25rem_1fr] items-center gap-3 rounded-2xl bg-white p-3 text-[var(--ink)] shadow-[0_12px_26px_rgba(0,0,0,0.18)] ${reduceMotion ? "" : "time-card-in"}`}
+                  >
+                    <p className="font-time text-sm font-semibold text-[var(--cobalt)]">{reservation.time}</p>
+                    <div className="min-w-0">
+                      <h3 className="text-sm font-bold leading-5">{reservation.title}</h3>
+                      <p className="mt-0.5 text-xs font-medium text-[var(--ink-soft)]">{reservation.client}</p>
+                    </div>
+                  </article>
+                ))}
+              </div>
             </div>
           </div>
 

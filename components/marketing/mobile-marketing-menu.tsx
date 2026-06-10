@@ -41,10 +41,10 @@ export function MobileMarketingMenu() {
           <button
             type="button"
             aria-label="Zavřít menu"
-            className="fixed inset-0 z-40 bg-[var(--ink)]/20"
+            className="fixed inset-0 z-40 bg-[var(--ink)]/42 backdrop-blur-[2px]"
             onClick={() => setOpen(false)}
           />
-          <div className="fixed inset-x-3 top-20 z-50 max-h-[calc(100dvh-6rem)] overflow-y-auto rounded-[1.5rem] border border-[var(--paper-line)] bg-white shadow-xl">
+          <div className="fixed inset-x-3 top-[calc(max(0.75rem,env(safe-area-inset-top))+4.75rem)] z-50 max-h-[calc(100dvh-6rem)] overflow-y-auto rounded-[1.5rem] border border-[var(--paper-line)] bg-white shadow-xl">
             <div className="grid gap-1 p-2">
               {navGroups.map((group) => (
                 <div key={group.label} className="rounded-[1.1rem] bg-[var(--porcelain)] p-2">
