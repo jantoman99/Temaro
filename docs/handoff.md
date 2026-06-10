@@ -1,6 +1,6 @@
 # Handoff
 
-Aktualizováno: 2026-06-10 23:50 CEST
+Aktualizováno: 2026-06-11 00:10 CEST
 
 ## Jak navázat
 
@@ -25,7 +25,8 @@ Aktualizováno: 2026-06-10 23:50 CEST
 - Time Engine foto/motion vrstva je lokálně zapracovaná: nové AI WebP fotky v `public/marketing/time-engine-*.webp`, sekce `#casovy-engine`, animovaný převod příchozích zpráv do složeného dne a produktové overlaye přes fotky provozů.
 - Landing visual audit fix je lokálně zapracovaný: mobilní hero timeline už na 360-390px neclipuje rezervační karty, mobilní sticky/menu vrstvy respektují safe-area a desktop dropdown navigace je zjednodušená na čisté položky bez drobných popisků.
 - Homepage už nemá samostatnou body sekci `Pro koho` ani body blok návodů; návody jsou jen ve footeru. Marketing navigace je zredukovaná na `Produkt`, `Ceník`, `Ukázka`, `Návody`; `/podniky` zůstává ve footeru.
-- Poslední lokální ověření 2026-06-10 23:56 CEST po landing visual audit fixu: `npm run check` prošlo s 605 Vitest testy, migrations check, type-check, lint a produkční build. Cílený landing guard prošel 27/27; Playwright screenshoty jsou v `output/playwright/visual-fix-pass-clean/` a potvrdily mobilní overflow `0` a rezervační karty bez interního přetečení.
+- Poslední lokální ověření 2026-06-11 00:10 CEST po landing visual audit fixu: `npm run check` prošlo s 605 Vitest testy, migrations check, type-check, lint a produkční build. Cílený landing guard prošel 27/27; Playwright screenshoty jsou v `output/playwright/visual-fix-pass-clean/` a potvrdily mobilní overflow `0` a rezervační karty bez interního přetečení.
+- Poslední staging ověření 2026-06-11 00:02 CEST po landing visual audit fixu: commit `f5a2b47` je pushnutý na `dev` a ručně aliasovaný na preview deploy `dpl_GzrQdWGTESycAgKrfBnFAGqhBoBi`. `https://rezervacni-system-dev.vercel.app/api/health` je `ok`, HTML obsahuje `mobile-reservation-list` a public smoke proti stagingu prošel 11/11 po scope fixu footer linků v testu.
 - Poslední staging ověření 2026-06-10 19:47 CEST: commit `e504a32` je pushnutý na `dev` a ručně aliasovaný na preview deploy `dpl_9CSiNphyw8MZ3pY7dEQ82GKbEZB8`. `https://rezervacni-system-dev.vercel.app/api/health` je `ok`, HTML obsahuje `temaro-time-page` a public smoke proti stagingu prošel 11/11.
 - Poslední staging ověření 2026-06-10 20:24 CEST po `TEMARO_UPDATE_2`: commit `1087fd4` je pushnutý na `dev` a ručně aliasovaný na preview deploy `dpl_GuVuZHhNKq43YZqN8LgRAG95yKP8`. `https://rezervacni-system-dev.vercel.app/api/health` je `ok`, HTML obsahuje `temaro-time-page`, `No-show pod kontrolou`, `Paměť podniku` a public smoke proti stagingu prošel 11/11.
 - Poslední staging ověření 2026-06-10 21:06 CEST po Time Engine vrstvě: commit `c249077` je pushnutý na `dev` a ručně aliasovaný na preview deploy `dpl_HNRstj8ynLDrcwRE2NnRTmqZ1uGo`. `https://rezervacni-system-dev.vercel.app/api/health` je `ok`, HTML obsahuje `casovy-engine` a nové `time-engine-*` fotky, public smoke proti stagingu prošel 11/11.

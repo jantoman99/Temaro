@@ -41,13 +41,14 @@ test.describe("public smoke", () => {
     await expect(page.getByRole("heading", { name: /Rezervace tam, kde už klient rozhoduje/i })).toBeVisible();
     await expect(page.getByRole("heading", { name: /Kalendář, který ukazuje napětí dne/i })).toBeVisible();
     await expect(page.getByRole("link", { name: "Spustit produktovou ukázku" })).toHaveAttribute("href", "/ukazka");
-    await expect(page.getByRole("link", { name: "Pro barbery", exact: true })).toBeVisible();
-    await expect(page.getByRole("link", { name: "Pro kadeřnictví", exact: true })).toBeVisible();
-    await expect(page.getByRole("link", { name: "Pro beauty salon", exact: true })).toBeVisible();
-    await expect(page.getByRole("link", { name: "Pro masáže", exact: true })).toBeVisible();
-    await expect(page.getByRole("link", { name: "No-show návod", exact: true })).toBeVisible();
-    await expect(page.getByRole("link", { name: "SMS připomínky", exact: true })).toBeVisible();
-    await expect(page.getByRole("link", { name: "Bez marketplace provizí", exact: true })).toBeVisible();
+    const footer = page.locator("footer");
+    await expect(footer.getByRole("link", { name: "Pro barbery", exact: true })).toBeVisible();
+    await expect(footer.getByRole("link", { name: "Pro kadeřnictví", exact: true })).toBeVisible();
+    await expect(footer.getByRole("link", { name: "Pro beauty salon", exact: true })).toBeVisible();
+    await expect(footer.getByRole("link", { name: "Pro masáže", exact: true })).toBeVisible();
+    await expect(footer.getByRole("link", { name: "No-show návod", exact: true })).toBeVisible();
+    await expect(footer.getByRole("link", { name: "SMS připomínky", exact: true })).toBeVisible();
+    await expect(footer.getByRole("link", { name: "Bez marketplace provizí", exact: true })).toBeVisible();
   });
 
   test("customer directory uses address search without coordinate fields", async ({ page }) => {
