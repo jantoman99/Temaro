@@ -9,12 +9,21 @@ function readProjectFile(path: string) {
 }
 
 describe("landing polish guard", () => {
-  test("homepage uses generated segment images instead of older source photos", () => {
+  test("homepage consolidates scenario copy into engine proof images", () => {
     const page = readProjectFile("app/page.tsx");
 
-    expect(page).toContain("/marketing/barber-studio-ai.webp");
-    expect(page).toContain("/marketing/salon-interior-ai.webp");
-    expect(page).toContain("/marketing/training-studio-ai.webp");
+    expect(page).toContain("/marketing/time-engine-salon.webp");
+    expect(page).toContain("/marketing/time-engine-beauty.webp");
+    expect(page).toContain("/marketing/time-engine-fitness.webp");
+    expect(page).toContain("Rychlé přeobjednání");
+    expect(page).toContain("Klientská historie");
+    expect(page).toContain("Jeden rezervační odkaz");
+    expect(page).toContain("quality={70}");
+    expect(page).not.toContain("scenarioCards");
+    expect(page).not.toContain('id="scenare"');
+    expect(page).not.toContain("/marketing/barber-studio-ai.webp");
+    expect(page).not.toContain("/marketing/salon-interior-ai.webp");
+    expect(page).not.toContain("/marketing/training-studio-ai.webp");
     expect(page).not.toContain("/marketing/barber-studio.jpg");
     expect(page).not.toContain("/marketing/salon-interior.jpg");
     expect(page).not.toContain("/marketing/training-studio.jpg");
@@ -107,15 +116,15 @@ describe("landing polish guard", () => {
     expect(page).toContain("<BusinessDiscoveryHero />");
     expect(page).toContain("trustBarItems");
     expect(page).toContain("bentoCards");
-    expect(page).toContain("scenarioCards");
     expect(page).toContain("finalCta");
     expect(page).toContain('id="trust-bar"');
     expect(page).toContain('id="jak-to-funguje"');
     expect(page).toContain('id="bento"');
     expect(page).toContain('id="produktove-demo"');
-    expect(page).toContain('id="scenare"');
     expect(page).toContain('id="cenik"');
     expect(page).toContain('id="bezpecnost"');
+    expect(page).not.toContain("scenarioCards");
+    expect(page).not.toContain('id="scenare"');
     expect(page).not.toContain('id="pro-koho"');
     expect(page).not.toContain("audienceSegments");
     expect(page).not.toContain("Praktické návody");
@@ -167,9 +176,20 @@ describe("landing polish guard", () => {
     expect(hero).toContain("DAY_END");
     expect(hero).toContain("toPct");
     expect(hero).toContain("durationMin");
-    expect(hero).toContain("lane");
+    expect(hero).toContain("overlaps");
+    expect(hero).toContain("isSlotFree");
+    expect(hero).toContain("findFirstFreeSlot");
+    expect(hero).toContain("laneForSlot(reservation.time)");
+    expect(hero).toContain("Math.min(durationToPct(reservation.durationMin), 100 - toPct(reservation.time))");
+    expect(hero).toContain("durationToPct(45)");
     expect(hero).toContain("reserveSelectedSlot");
     expect(hero).toContain("confirmedSlot");
+    expect(hero).toContain('aria-disabled={!slotFree}');
+    expect(hero).toContain('disabled={!slotFree}');
+    expect(hero).toContain("mobileReservations");
+    expect(hero).toContain('client === "Nová online rezervace"');
+    expect(hero).toContain("nové");
+    expect(hero).not.toContain("lane: ");
     expect(hero).not.toContain("width: \"");
     expect(hero).not.toContain("left: \"");
     expect(hero).not.toContain("index * 66");
@@ -221,6 +241,7 @@ describe("landing polish guard", () => {
 
   test("photo motion layer turns service imagery into product proof", () => {
     const page = readProjectFile("app/page.tsx");
+    const timeEnginePanel = readProjectFile("components/marketing/time-engine-panel.tsx");
     const globals = readProjectFile("app/globals.css");
 
     expect(page).toContain("visualProofImages");
@@ -232,14 +253,25 @@ describe("landing polish guard", () => {
     expect(page).toContain("messageCloud");
     expect(page).toContain("engineSlots");
     expect(page).toContain("photo-proof-card");
-    expect(page).toContain("time-engine-flow");
-    expect(page).toContain("signal-red");
+    expect(page).toContain("AlertTriangle");
+    expect(page).toContain("text-[var(--signal-red)]");
+    expect(page).toContain("3 volná okna");
+    expect(page).toContain("timeProofChips");
     expect(page).toContain("slot se uvolní");
     expect(page).toContain("SMS připomínka");
+    expect(page).not.toContain("bg-[var(--signal-red)] text-white");
+    expect(page).not.toContain("rgba(229,72,77,0.10)");
+    expect(timeEnginePanel).toContain("time-engine-flow");
+    expect(timeEnginePanel).toContain("useInView");
+    expect(timeEnginePanel).toContain("data-engine-active={active}");
     expect(globals).toContain(".photo-proof-card");
     expect(globals).toContain(".time-engine-flow");
     expect(globals).toContain(".engine-message");
     expect(globals).toContain(".engine-slot");
+    expect(globals).toContain("[data-engine-active=\"true\"] .engine-message");
+    expect(globals).toContain("animation-iteration-count: 3");
+    expect(globals).toContain(".time-engine-flow::after");
+    expect(globals).toContain("animation: none");
     expect(globals).toContain("@keyframes engine-message");
     expect(globals).toContain("@keyframes engine-slot");
   });
@@ -258,7 +290,8 @@ describe("landing polish guard", () => {
     expect(hero).toContain("sm:hidden");
     expect(hero).toContain("min-h-[680px]");
     expect(hero).toContain("sm:min-h-[790px]");
-    expect(hero).not.toContain("h-[360px] rounded-[1.25rem]");
+    expect(hero).toContain("sm:h-[392px]");
+    expect(hero).not.toContain("sm:h-[360px]");
 
     expect(header).toContain("top-[max(0.75rem,env(safe-area-inset-top))]");
     expect(header).toContain("marketing-fixed-header");
@@ -312,10 +345,31 @@ describe("landing polish guard", () => {
     expect(inView).toContain("setInView(true)");
     expect(reveal).toContain("usePrefersReducedMotion");
     expect(reveal).toContain("opacity: 1");
+    expect(reveal).toContain('willChange: active && !reduce ? "transform" : "auto"');
     expect(reveal).not.toContain("opacity: active ? 1 : 0");
+    expect(reveal).not.toContain('willChange: "opacity, transform"');
     expect(countUp).toContain("toLocaleString(\"cs-CZ\"");
     expect(countUp).toContain("node.textContent");
     expect(countUp).toContain("{fmt(to, decimals)}");
+  });
+
+  test("implementation 3 fixes sticky, image formats and engine overflow constraints", () => {
+    const page = readProjectFile("app/page.tsx");
+    const nextConfig = readProjectFile("next.config.ts");
+    const globals = readProjectFile("app/globals.css");
+
+    expect(page).toContain("[overflow-x:clip]");
+    expect(page).not.toContain("business-discovery-page");
+    expect(page).not.toContain("min-h-screen overflow-hidden");
+    expect(page).toContain('<TimeEnginePanel messageCloud={messageCloud} engineSlots={engineSlots} />');
+    expect(page).toContain('href="#jak-to-funguje"');
+    expect(page).not.toContain('href="#produkt" className="text-[var(--ink)] hover:underline">Produkt');
+    expect(nextConfig).toContain("images");
+    expect(nextConfig).toContain('"image/avif"');
+    expect(nextConfig).toContain('"image/webp"');
+    expect(globals).toContain("@media (max-width: 640px)");
+    expect(globals).toContain(".time-engine-flow::after");
+    expect(globals).toContain("opacity: 0");
   });
 
   test("live product showcase animates only as progressive enhancement", () => {

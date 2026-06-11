@@ -25,6 +25,7 @@ import { TemaroLogo } from "@/components/brand/temaro-logo";
 import { BusinessDiscoveryHero } from "@/components/marketing/business-discovery-hero";
 import { MarketingHeader } from "@/components/marketing/marketing-header";
 import { MobileStickyCta } from "@/components/marketing/mobile-sticky-cta";
+import { TimeEnginePanel } from "@/components/marketing/time-engine-panel";
 import { Reveal } from "@/components/motion/reveal";
 import { isLikelyPlatformHost, normalizeRequestHost } from "@/lib/custom-domain";
 import { hasSupabaseAdminEnv } from "@/lib/env";
@@ -158,6 +159,7 @@ const visualProofImages = [
     label: "Salon",
     signal: "4 volná okna",
     title: "Telefon zvoní. Slot už drží místo.",
+    text: "Rychlé přeobjednání, oblíbený člověk a jasný denní rytmus pro tým.",
   },
   {
     src: "/marketing/time-engine-beauty.webp",
@@ -165,6 +167,7 @@ const visualProofImages = [
     label: "Beauty",
     signal: "SMS připomínka",
     title: "Připomínka odejde dřív, než vznikne díra.",
+    text: "Klientská historie, poznámky a kapacita dne pro opakované návštěvy.",
   },
   {
     src: "/marketing/time-engine-fitness.webp",
@@ -172,6 +175,7 @@ const visualProofImages = [
     label: "Trénink",
     signal: "slot se uvolní",
     title: "Uvolněný termín se vrátí do nabídky.",
+    text: "Jeden rezervační odkaz pro termíny, které klient zvládne vybrat sám.",
   },
 ] as const;
 
@@ -186,31 +190,13 @@ const engineSlots = [
   { time: "09:30", title: "Barva kořínků", tone: "bg-[var(--cobalt)] text-white" },
   { time: "11:00", title: "Volné okno", tone: "bg-[var(--apricot)] text-[var(--ink)]" },
   { time: "14:00", title: "SMS připomínka", tone: "bg-[var(--mint)] text-[var(--mint-ink)]" },
-  { time: "16:30", title: "Riziko no-show", tone: "bg-[var(--signal-red)] text-white" },
+  { time: "16:30", title: "Riziko no-show", tone: "bg-[var(--apricot-tint)] text-[var(--ink)]", iconTone: "text-[var(--signal-red)]" },
 ] as const;
 
-const scenarioCards = [
-  {
-    tag: "BARBER",
-    title: "Barber a salon",
-    text: "Rychlé přeobjednání, oblíbený člověk a jasný denní rytmus pro tým.",
-    image: "/marketing/barber-studio-ai.webp",
-    alt: "Detail barber služby během úpravy vousů",
-  },
-  {
-    tag: "BEAUTY",
-    title: "Beauty provoz",
-    text: "Klientská historie, poznámky a kapacita dne pro opakované návštěvy.",
-    image: "/marketing/salon-interior-ai.webp",
-    alt: "Klientka s upravenými vlasy v salonním prostředí",
-  },
-  {
-    tag: "TRÉNINK",
-    title: "Trenéři a konzultace",
-    text: "Jeden rezervační odkaz pro termíny, které klient zvládne vybrat sám.",
-    image: "/marketing/training-studio-ai.webp",
-    alt: "Trénink s činkou ve fitness studiu",
-  },
+const timeProofChips = [
+  { time: "09:30", label: "obsazeno", tone: "bg-[var(--ink)] text-white" },
+  { time: "11:00", label: "obsazeno", tone: "bg-[var(--ink)] text-white" },
+  { time: "14:00", label: "volno", tone: "bg-[var(--mint)] text-[var(--mint-ink)]" },
 ] as const;
 
 const pricingPlans = [
@@ -294,7 +280,7 @@ export default async function Home() {
   }
 
   return (
-    <main className="business-discovery-page temaro-time-page min-h-screen overflow-hidden">
+    <main className="temaro-time-page min-h-screen [overflow-x:clip]">
       <a
         href="#produkt"
         className="skip-link temaro-focus-ring sr-only fixed left-4 top-4 z-[80] rounded-full bg-white px-4 py-2 text-sm font-bold text-[var(--ink)] shadow-lg focus:not-sr-only"
@@ -324,7 +310,7 @@ export default async function Home() {
       </section>
 
       <section id="casovy-engine" className="relative overflow-hidden py-20 sm:py-24">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_16%_20%,rgba(43,63,242,0.14),transparent_24rem),radial-gradient(circle_at_84%_28%,rgba(229,72,77,0.10),transparent_26rem)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_16%_20%,rgba(43,63,242,0.14),transparent_24rem)]" />
         <div className="relative mx-auto grid w-full max-w-[1280px] gap-8 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
           <Reveal>
             <div className="sticky top-28">
@@ -335,44 +321,7 @@ export default async function Home() {
               <p className="mt-5 max-w-xl text-lg font-normal leading-8 text-[var(--ink-soft)]">
                 Fotka provozu ukáže realitu. Temaro přes ni položí signály dne: volné okno, riziko no-show, připomínku a potvrzenou rezervaci.
               </p>
-              <div className="time-engine-flow mt-8 rounded-[2rem] border border-[var(--paper-line)] bg-[var(--ink)] p-4 text-white shadow-[0_30px_90px_rgba(23,26,33,0.24)]">
-                <div className="grid gap-3 sm:grid-cols-[0.9fr_1.1fr]">
-                  <div className="rounded-[1.4rem] bg-white/[0.06] p-4">
-                    <p className="font-time text-xs font-semibold uppercase tracking-[0.16em] text-white/62">příchozí chaos</p>
-                    <div className="mt-4 grid gap-2">
-                      {messageCloud.map((message, index) => (
-                        <span
-                          key={message}
-                          className="engine-message rounded-full border border-white/12 bg-white px-3 py-2 text-xs font-semibold text-[var(--ink)]"
-                          style={{ animationDelay: `${index * 180}ms` }}
-                        >
-                          {message}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="rounded-[1.4rem] bg-white p-4 text-[var(--ink)]">
-                    <div className="flex items-center justify-between gap-3">
-                      <p className="section-eyebrow">složený den</p>
-                      <span className="font-time rounded-full bg-[var(--cobalt-tint)] px-3 py-1 text-xs font-semibold text-[var(--cobalt)]">
-                        12 rezervací
-                      </span>
-                    </div>
-                    <div className="mt-4 grid gap-2">
-                      {engineSlots.map((slot, index) => (
-                        <div
-                          key={`${slot.time}-${slot.title}`}
-                          className={`engine-slot grid grid-cols-[4rem_1fr] items-center gap-3 rounded-2xl px-3 py-2 text-sm font-bold ${slot.tone}`}
-                          style={{ animationDelay: `${index * 160}ms` }}
-                        >
-                          <span className="font-time text-xs">{slot.time}</span>
-                          <span>{slot.title}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <TimeEnginePanel messageCloud={messageCloud} engineSlots={engineSlots} />
             </div>
           </Reveal>
 
@@ -385,6 +334,7 @@ export default async function Home() {
                     alt={image.alt}
                     fill
                     sizes="(min-width: 1024px) 700px, 95vw"
+                    quality={70}
                     className="object-cover transition duration-700 group-hover:scale-[1.045]"
                   />
                   <div className="absolute inset-0 bg-gradient-to-r from-[rgba(23,26,33,0.78)] via-[rgba(23,26,33,0.26)] to-transparent" />
@@ -396,11 +346,18 @@ export default async function Home() {
                       <p className="font-display mt-3 max-w-md text-4xl font-semibold leading-[0.96] text-white sm:text-5xl">
                         {image.title}
                       </p>
+                      <p className="mt-3 max-w-md text-sm font-normal leading-6 text-white/80">
+                        {image.text}
+                      </p>
                     </div>
                     <div className="rounded-[1.3rem] border border-white/18 bg-white/90 p-3 text-[var(--ink)] shadow-xl backdrop-blur">
                       <p className="font-time text-xs font-semibold uppercase tracking-[0.12em] text-[var(--cobalt)]">{image.signal}</p>
-                      <div className="mt-3 h-2 w-44 overflow-hidden rounded-full bg-[var(--cobalt-tint)]">
-                        <div className="h-full w-2/3 rounded-full bg-[var(--cobalt)] transition duration-500 group-hover:w-full" />
+                      <div className="mt-3 flex w-48 flex-wrap gap-1.5">
+                        {timeProofChips.map((chip) => (
+                          <span key={`${image.src}-${chip.time}`} className={`font-time rounded-full px-2.5 py-1 text-[0.68rem] font-semibold ${chip.tone}`}>
+                            {chip.time} · {chip.label}
+                          </span>
+                        ))}
                       </div>
                     </div>
                   </div>
@@ -528,7 +485,7 @@ export default async function Home() {
                       <p className="section-eyebrow">Přehled provozu</p>
                       <h3 className="mt-1 text-2xl font-bold tracking-[-0.03em]">Středa v Hair Studio Luna</h3>
                     </div>
-                    <span className="font-time rounded-full bg-[var(--cobalt-tint)] px-3 py-1.5 text-sm font-semibold text-[var(--cobalt)]">12 rezervací</span>
+                    <span className="font-time rounded-full bg-[var(--cobalt-tint)] px-3 py-1.5 text-sm font-semibold text-[var(--cobalt)]">3 volná okna</span>
                   </div>
                   <div className="mt-5 grid gap-3">
                     {demoMoments.map(([time, title, text]) => (
@@ -546,49 +503,6 @@ export default async function Home() {
             </div>
           </div>
         </Reveal>
-      </section>
-
-      <section id="scenare" className="bg-white/62 py-20">
-        <div className="mx-auto w-full max-w-[1180px] px-4 sm:px-6 lg:px-8">
-          <Reveal>
-            <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-              <div>
-                <p className="section-eyebrow">Scénáře</p>
-                <h2 className="font-display mt-3 max-w-2xl text-balance text-5xl font-semibold leading-[0.98] sm:text-6xl">
-                  Služby vypadají různě. Čas bolí podobně.
-                </h2>
-              </div>
-              <p className="max-w-sm text-sm font-normal leading-6 text-[var(--ink-soft)]">
-                Fotky drží kontext oboru, produktová vrstva nad nimi drží nový Temaro jazyk.
-              </p>
-            </div>
-          </Reveal>
-          <div className="grid snap-x gap-4 overflow-x-auto pb-2 md:grid-cols-3 md:overflow-visible">
-            {scenarioCards.map((scenario, index) => (
-              <Reveal key={scenario.title} delay={index * 70} className="h-full min-w-[82vw] snap-center md:min-w-0">
-                <article className="group h-full overflow-hidden rounded-[1.75rem] border border-[var(--paper-line)] bg-white shadow-sm">
-                  <div className="relative aspect-[4/3] overflow-hidden">
-                    <Image
-                      src={scenario.image}
-                      alt={scenario.alt}
-                      fill
-                      sizes="(min-width: 1024px) 360px, 90vw"
-                      className="object-cover transition duration-500 group-hover:scale-[1.04]"
-                    />
-                    <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/66 to-transparent" />
-                    <span className="font-time absolute left-4 top-4 rounded-full bg-white/86 px-3 py-1.5 text-xs font-semibold text-[var(--ink)] backdrop-blur">
-                      {scenario.tag}
-                    </span>
-                  </div>
-                  <div className="p-5">
-                    <h3 className="text-2xl font-bold tracking-[-0.03em]">{scenario.title}</h3>
-                    <p className="mt-3 text-sm font-normal leading-6 text-[var(--ink-soft)]">{scenario.text}</p>
-                  </div>
-                </article>
-              </Reveal>
-            ))}
-          </div>
-        </div>
       </section>
 
       <section className="mx-auto w-full max-w-[1180px] px-4 py-24 sm:px-6 lg:px-8">
@@ -710,7 +624,7 @@ export default async function Home() {
           <div>
             <p className="section-eyebrow text-[var(--ink-soft)]">Produkt</p>
             <ul className="mt-4 space-y-2 text-sm font-bold">
-              <li><Link href="#produkt" className="text-[var(--ink)] hover:underline">Produkt</Link></li>
+              <li><Link href="#jak-to-funguje" className="text-[var(--ink)] hover:underline">Produkt</Link></li>
               <li><Link href="#bento" className="text-[var(--ink)] hover:underline">Proč Temaro</Link></li>
               <li><Link href="/podniky" className="text-[var(--ink)] hover:underline">Pro zákazníky</Link></li>
               <li><Link href="/ukazka" className="text-[var(--ink)] hover:underline">Interaktivní ukázka</Link></li>

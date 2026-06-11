@@ -23,7 +23,7 @@ export function Reveal({ children, delay = 0, className }: RevealProps) {
     transitionDuration: reduce ? "0ms" : "620ms",
     transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",
     transitionDelay: active && !reduce ? `${delay}ms` : "0ms",
-    willChange: "opacity, transform",
+    willChange: active && !reduce ? "transform" : "auto",
   };
 
   return (

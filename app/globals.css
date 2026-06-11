@@ -268,7 +268,7 @@
     font-variant-numeric: tabular-nums;
   }
 
-  .time-chip:hover {
+  .time-chip:hover:not(:disabled) {
     background: var(--cobalt-tint);
     border-color: var(--cobalt);
     color: var(--cobalt-deep);
@@ -279,6 +279,16 @@
     background: var(--cobalt);
     border-color: var(--cobalt);
     color: white;
+  }
+
+  .time-chip:disabled,
+  .time-chip[data-free="false"] {
+    cursor: not-allowed;
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--porcelain);
+    opacity: 1;
+    transform: none;
   }
 
   .temaro-day-grid {
@@ -327,15 +337,20 @@
     opacity: 0.35;
     pointer-events: none;
     transform: translateX(-26%);
+  }
+
+  [data-engine-active="true"] .time-engine-flow::after {
     animation: engine-scan 4.8s ease-in-out infinite;
   }
 
-  .engine-message {
+  [data-engine-active="true"] .engine-message {
     animation: engine-message 3.6s ease-in-out infinite;
+    animation-iteration-count: 3;
   }
 
-  .engine-slot {
+  [data-engine-active="true"] .engine-slot {
     animation: engine-slot 3.8s ease-in-out infinite;
+    animation-iteration-count: 3;
   }
 
   .trust-marquee {
@@ -482,6 +497,11 @@
     }
 
     .interactive-demo-shell::before {
+      opacity: 0;
+    }
+
+    .time-engine-flow::after {
+      animation: none;
       opacity: 0;
     }
   }

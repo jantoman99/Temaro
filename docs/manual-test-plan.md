@@ -27,17 +27,24 @@ Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 - Na mobilni sirce zkontrolovat, ze top navigace nezmizi, nepreteka mimo viewport a ctyri hlavni polozky jsou citelne bez horizontalniho scrollu.
 - Na landing page zkontrolovat hero: eyebrow `Rezervační systém pro služby`, claim `Rezervace bez volání. Čas bez chaosu.`, oborové segmenty a interaktivní klientské time chips.
 - V hero timeline ověřit, že rezervace jsou umístěné podle reálného času a délky, ne podle pořadí; po kliknutí `Rezervovat` vznikne nová rezervace bez clippingu a zobrazí se potvrzovací toast.
+- V hero timeline prokliknout obory `Kadeřnictví`, `Barber`, `Kosmetika`, `Trenér`: obsazené časy musí být tmavé, disabled a bez hover efektu; defaultní vybraný slot musí být v každém oboru volný.
+- Na desktopu ověřit, že pozdní rezervace v hero timeline nepřesahují pravý okraj gridu a že poslední lane končí viditelně nad spodní hranou panelu.
 - Na mobilní šířce 360-390px ověřit hero timeline: rezervační položky se mají zobrazit jako čitelné řádky s časem, službou a klientem, ne jako úzké sloupce s useknutým textem.
+- Na mobilní šířce po vytvoření rezervace ověřit, že seznam zůstává seřazený podle času a nová karta má cobalt ring a badge `nové`.
 - V desktop navigaci otevřít dropdowny `Produkt` a `Návody`; položky mají být čisté názvy bez drobných popisků a víceslovné labely jako `Produktová ukázka` nesmí opticky splývat.
 - V sekci `Časový engine` ověřit tři AI fotky provozů: salon, beauty a trénink. Fotky musí působit jako reálné provozy, ne jako náhodná galerie; přes každou má být produktový signál.
-- V sekci `Časový engine` ověřit animaci `příchozí chaos -> složený den`: zprávy se jemně hýbou, sloty vpravo pulzují, barvy rozlišují rezervaci, volné okno, SMS připomínku a riziko no-show.
+- V sekci `Časový engine` ověřit animaci `příchozí chaos -> složený den`: zprávy se jemně hýbou, sloty vpravo pulzují jen po vstupu sekce do viewportu a animace doběhne po několika cyklech, ne donekonečna mimo viewport.
+- V sekci `Časový engine` ověřit, že `Riziko no-show` používá světlé apricot pozadí, tmavý text a červenou jen jako ikonu. Dekorativní červený radial v pozadí sekce nemá být vidět.
+- Ověřit, že sekce `Scénáře` na homepage už neexistuje a že texty Barber/Beauty/Trénink jsou přesunuté jako popisky pod titulky engine fotek.
+- Ověřit, že engine foto karty mají místo fake progress baru tři malé time chipy, dva obsazené a jeden volný.
 - Na mobilní šířce ověřit, že sekce `Časový engine` nemá horizontální scroll, foto karty jsou čitelné a sticky CTA nepřekrývá důležitý obsah.
+- Na mobilní šířce ověřit, že scan animace v `Časový engine` neběží; při nastavení reduced motion musí být zprávy i sloty statické.
 - Na mobilní šířce ověřit, že statické CTA pod herem už není, sticky CTA se objeví až po odscrollování hero a zmizí u footeru.
 - V mobilním menu ověřit scroll limit, zavření backdropem, zavření klávesou Escape a to, že položky nemají dlouhé popisy.
 - Ověřit bento sekci: musí obsahovat `Méně telefonátů`, `No-show pod kontrolou`, `Paměť podniku`, `Jeden odkaz, všechny kanály`, `Bez provize`, `Zálohy a platby`, `SMS / e-mail`, `Tým a role`.
 - Ověřit trust marquee: duplicitní obsah je schovaný pro screenreadery, animace se zastaví na hoveru a při `prefers-reduced-motion: reduce` neběží.
 - Ověřit editorialní statement `Neprodáváme formulář. Prodáváme klidný provoz.` na ink pozadí jako samostatný vizuální zlom.
-- Zkontrolovat sekci `Reálné provozy`: obrázky se musí načíst, mít konzistentní poměr stran a být vizuálně odlišné pro barber, beauty a fitness/training segment.
+- Zkontrolovat, že `12 rezervací` je na homepage jen jednou a produktová ukázka používá jiný údaj, například `3 volná okna`.
 - Ověřit, že podnikatelská registrace `/register` a zákaznický účet `/account/login` zůstávají dostupné přes CTA/footer, i když samostatná homepage sekce `Dva typy účtů` byla odstraněná kvůli zkrácení stránky.
 - Otevřít `/podniky`, ověřit demo/veřejný výpis, hledání podle textu, města a oboru, booking CTA a odkaz `Otevřít mapu`.
 - Na `/podniky` ověřit theme toggle ve veřejné hlavičce a návrat na podnikatelskou homepage přes `Pro podniky`.
