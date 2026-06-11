@@ -373,26 +373,34 @@ describe("landing polish guard", () => {
     expect(globals).toContain("opacity: 0");
   });
 
-  test("implementation 5 turns the first fold into a before-after day proof", () => {
+  test("implementation 6 turns the first fold into an operating table for the day", () => {
     const page = readProjectFile("app/page.tsx");
     const hero = readProjectFile("components/marketing/business-discovery-hero.tsx");
     const globals = readProjectFile("app/globals.css");
     const nextConfig = readProjectFile("next.config.ts");
 
-    expect(hero).toContain("beforeAfterMoments");
-    expect(hero).toContain("hero-before-after-stage");
-    expect(hero).toContain("chaos-column");
-    expect(hero).toContain("calm-column");
-    expect(hero).toContain("before-after-connector");
-    expect(hero).toContain("mobile-proof-panel");
-    expect(hero).toContain("Den před Temarem");
-    expect(hero).toContain("Den s Temarem");
-    expect(hero).toContain("Z chaosu do čitelného dne");
-    expect(hero).toContain("Tři zprávy čekají");
-    expect(hero).toContain("Volné okno");
-    expect(hero).toContain("Riziko no-show");
-    expect(hero).toContain("Potvrzeno online");
-    expect(hero).toContain("Rezervace bez volání");
+    expect(hero).toContain("dailyOperations");
+    expect(hero).toContain("decisionStack");
+    expect(hero).toContain("operating-table-stage");
+    expect(hero).toContain("operations-inbox");
+    expect(hero).toContain("shift-time-band");
+    expect(hero).toContain("decision-stack-panel");
+    expect(hero).toContain("Provozní stůl dne");
+    expect(hero).toContain("Dnes 08:00-18:00");
+    expect(hero).toContain("Volné okno chráněné");
+    expect(hero).toContain("Rizikový klient");
+    expect(hero).toContain("Rezervace drží den pohromadě");
+    expect(hero).toContain("Nastavit stejný den");
+    expect(hero).toContain("Klient vybírá jen skutečně volný čas");
+    expect(hero).toContain("Jeden den, žádné přepínání");
+    expect(hero).not.toContain("beforeAfterMoments");
+    expect(hero).not.toContain("Den před Temarem");
+    expect(hero).not.toContain("Den s Temarem");
+    expect(hero).not.toContain("hero-before-after-stage");
+    expect(hero).not.toContain("chaos-column");
+    expect(hero).not.toContain("calm-column");
+    expect(hero).not.toContain("before-after-connector");
+    expect(hero).not.toContain("mobile-proof-panel");
 
     expect(page).not.toContain("dispatchProofItems");
     expect(page).not.toContain("dispatch-proof-strip");
@@ -403,10 +411,12 @@ describe("landing polish guard", () => {
     expect(page).toContain("product-demo-rail");
     expect(page).not.toContain("trust-marquee flex min-w-max");
 
-    expect(globals).toContain(".hero-before-after-stage");
-    expect(globals).toContain(".chaos-column");
-    expect(globals).toContain(".calm-column");
-    expect(globals).toContain(".before-after-connector");
+    expect(globals).toContain(".operating-table-stage");
+    expect(globals).toContain(".operations-inbox");
+    expect(globals).toContain(".shift-time-band");
+    expect(globals).toContain(".decision-stack-panel");
+    expect(globals).not.toContain(".hero-before-after-stage");
+    expect(globals).not.toContain(".before-after-connector");
     expect(globals).toContain(".engine-rail-section");
     expect(globals).toContain(".workflow-rail-grid");
     expect(globals).toContain(".product-demo-rail");

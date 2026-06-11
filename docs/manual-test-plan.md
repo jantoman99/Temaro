@@ -19,16 +19,16 @@ Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 - Na veřejném deployi bez env otevřít `/api/health` a ověřit, že `checks.env.missing` je číslo, ne seznam názvů interních proměnných.
 - Přes `curl -I http://localhost:3000` nebo DevTools Network ověřit, že response obsahuje `Content-Security-Policy`.
 - Přes `curl -I http://localhost:3000` nebo DevTools Network ověřit, že běžné routy obsahují `X-Frame-Options: DENY`; `/embed/booking/<slug>` ho mít nemá, protože booking widget musí jít vložit do iframe.
-- Zkontrolovat root landing page `/`: aktuální veřejný směr je `Čas jako materiál` z `TEMARO_REDESIGN_2026` + update #2, tedy porcelain/cobalt/apricot/mint, interaktivní časová osa a výraznější produktové argumenty. Přihlášená aplikace dál může držet Signal OS.
+- Zkontrolovat root landing page `/`: aktuální veřejný směr je `Čas jako materiál` s first foldem `Provozní stůl dne`, tedy porcelain/cobalt/apricot/mint, výrazná časová mapa, interaktivní výběr slotu a konkrétní produktové argumenty. Přihlášená aplikace dál může držet Signal OS.
 - Zkontrolovat top bar landing page: musi obsahovat `Produkt`, `Ceník`, `Ukázka`, `Návody`, `Přihlášení` a primary CTA `Začít zdarma`.
 - Ověřit, že marketing header na homepage nemá theme toggle a landing zůstává light-only i při dříve uloženém dark režimu v prohlížeči.
 - Theme toggle dál ověřovat na `/podniky`, auth a booking demo stránkách, kde má zůstat součástí veřejného vstupu.
 - Proklikat top bar kotvy a overit, ze vedou na odpovidajici sekce, ne na prazdne nebo neexistujici stranky.
 - Na mobilni sirce zkontrolovat, ze top navigace nezmizi, nepreteka mimo viewport a ctyri hlavni polozky jsou citelne bez horizontalniho scrollu.
-- Na landing page zkontrolovat hero: eyebrow `Rezervační systém pro služby`, claim `Rezervace bez volání. Čas bez chaosu.`, oborové segmenty a interaktivní klientské time chips.
-- Na landing page zkontrolovat WOW pass: hero musí ukazovat before/after důkaz `Den před Temarem` a `Den s Temarem`, zprávy klientů se musí skládat do stavů `Volné okno`, `Riziko no-show`, `Potvrzeno online` a do výběru volného termínu.
-- Pod herem nesmí být samostatný `dispatch-proof-strip`, `dispatch-day-rail`, `mobile-day-rail` ani `trust-bar`; sekce `Časový engine` má navazovat hned po hero bloku.
-- Na viewportech 1440, 1366, 768, 390 a 375px ověřit, že není horizontální scroll. Tablet má používat kompaktní before/after panel místo plného chaos sloupce, mobil má v prvním scrollu ukázat produktový výběr času.
+- Na landing page zkontrolovat hero: eyebrow `Provozní stůl dne`, claim `Rezervace drží den pohromadě.`, oborové segmenty, CTA `Nastavit stejný den`, produktové plátno `Provozní stůl dne` a interaktivní klientské time chips.
+- Na landing page zkontrolovat operating-table pass: hero musí ukazovat `Dnes 08:00-18:00`, desktop inbox příchozích zpráv, kalendář bez přepínání, rozhodnutí `Volné okno chráněné`, `Rizikový klient`, `Potvrzeno online` a výběr volného termínu.
+- Pod herem nesmí být samostatný `dispatch-proof-strip`, `dispatch-day-rail`, `mobile-day-rail`, `hero-before-after-stage`, `Den před Temarem`, `Den s Temarem` ani `trust-bar`; sekce `Časový engine` má navazovat hned po hero bloku.
+- Na viewportech 1440, 1366, 768, 390 a 375px ověřit, že není horizontální scroll. Desktop má ukazovat inbox + kalendář + rozhodnutí, tablet schovává inbox zpráv, mobil má v prvním scrollu ukázat produktový výběr času a rozhodnutí dne.
 - V hero timeline ověřit, že rezervace jsou umístěné podle reálného času a délky, ne podle pořadí; po kliknutí `Rezervovat` vznikne nová rezervace bez clippingu a zobrazí se potvrzovací toast.
 - V hero timeline prokliknout obory `Kadeřnictví`, `Barber`, `Kosmetika`, `Trenér`: obsazené časy musí být tmavé, disabled a bez hover efektu; defaultní vybraný slot musí být v každém oboru volný.
 - Na desktopu ověřit, že pozdní rezervace v hero timeline nepřesahují pravý okraj gridu a že poslední lane končí viditelně nad spodní hranou panelu.
