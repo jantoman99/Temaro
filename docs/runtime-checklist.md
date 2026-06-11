@@ -1,6 +1,6 @@
 # Runtime checklist
 
-Aktualizováno: 2026-06-11 15:24 CEST
+Aktualizováno: 2026-06-11 15:39 CEST
 
 Tento checklist je pro první reálné ověření mimo demo režim.
 
@@ -41,6 +41,7 @@ Aktuální známý stav:
 - Vercel env úkol mimo repo: v dev projektu nastavit `NEXT_PUBLIC_APP_URL=https://rezervacni-system-dev.vercel.app`; v produkčním projektu nastavit produkční doménu. Bez toho mohou canonical/OG metadata ukazovat localhost.
 - Lokální ověření 2026-06-11 12:45 CEST po dispatch passu: `npm run check` prošlo s 607 Vitest testy, migrations check, type-check, lint a produkční build. Lokální Playwright screenshoty: `output/playwright/landing-dispatch-2026-06-11/home-1440x1400-final.png`, `output/playwright/landing-dispatch-2026-06-11/home-390x1000-final.png`.
 - Lokální ověření 2026-06-11 15:24 CEST po photo-led passu: `npx vitest run tests/landing-polish.test.ts` prošel 30/30, `npx impeccable detect app components` je čistý, `npm run check` prošel s 608 Vitest testy, migrations check, type-check, lint a produkční build. Lokální Playwright screenshoty jsou bez horizontálního overflow: `output/playwright/landing-photo-led-2026-06-11/home-1440-fold.png`, `home-1366-fold.png`, `home-768-fold.png`, `home-390-fold.png`, `home-375-fold.png` a odpovídající `*-full.png`.
+- Staging ověření 2026-06-11 15:39 CEST po photo-led passu: preview deploy `dpl_62Zw1AQqgNc7yP62BERA7ACycX3Z` je aliasovaný na `https://rezervacni-system-dev.vercel.app`; `/api/health` je `ok`, HTML obsahuje `Méně zvonění`, `Plnější kalendář`, `photo-led-hero`, `salon-day-hero`, `salon-phone-card`, `salon-proof-strip` a neobsahuje `operating-table-stage`, `Provozní stůl dne`, `hero-before-after-stage`, `Den před Temarem`, `Den s Temarem`, `dispatch-day-rail`, `mobile-day-rail`, `dispatch-proof-strip` ani `id="trust-bar"`.
 - Staging ověření 2026-06-11 14:16 CEST po operating-table passu: preview deploy `dpl_3PsCFBPZt3Tv4CnnuCmy45DCLcYj` je aliasovaný na `https://rezervacni-system-dev.vercel.app`; `/api/health` je `ok`, HTML obsahuje `Provozní stůl dne`, `Rezervace drží den pohromadě`, `operating-table-stage`, `Volné okno chráněné`, `Rizikový klient`, `Nastavit stejný den` a neobsahuje `hero-before-after-stage`, `Den před Temarem`, `Den s Temarem`, `dispatch-day-rail`, `mobile-day-rail`, `dispatch-proof-strip` ani `id="trust-bar"`.
 - Staging ověření 2026-06-11 12:52 CEST po dispatch passu: preview deploy `dpl_Bk6vKW6RPQkgaDL9obFzGvmzKHnL` je aliasovaný na `https://rezervacni-system-dev.vercel.app`; `/api/health` je `ok`, HTML obsahuje `dispatch-day-rail`, `mobile-day-rail`, `Jeden den, čtyři provozní signály` a neobsahuje starý `trust-marquee flex min-w-max`.
 - Lokální ověření 2026-06-11 12:14 CEST po implementaci #3: `npm run check` prošlo s 606 Vitest testy, migrations check, type-check, lint a produkční build. Cílený `npm run test -- tests/landing-polish.test.ts` prošel 28/28; před implementací selhal na 7 guardech podle očekávání.

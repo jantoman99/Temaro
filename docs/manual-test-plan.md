@@ -1,6 +1,6 @@
 # Manualni test plan
 
-Aktualizováno: 2026-06-11 15:24 CEST
+Aktualizováno: 2026-06-11 15:39 CEST
 
 Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 
@@ -20,6 +20,7 @@ Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 - Otevřít `http://localhost:3000/api/health` a ověřit, že vrací JSON se `status`, `checks.env`, `checks.supabase`, `checks.rate_limit` a `version`; nesmí obsahovat konkrétní hodnoty tajných env proměnných.
 - Na veřejném deployi bez env otevřít `/api/health` a ověřit, že `checks.env.missing` je číslo, ne seznam názvů interních proměnných.
 - Na stagingu `https://rezervacni-system-dev.vercel.app` ověřit `/api/health=ok` a HTML signatury aktuálního landing směru: obsahuje `Méně zvonění`, `Plnější kalendář`, `photo-led-hero`, `salon-day-hero`, `salon-phone-card`, `salon-proof-strip`; neobsahuje `operating-table-stage`, `Provozní stůl dne`, `hero-before-after-stage`, `Den před Temarem`, `Den s Temarem`, `dispatch-day-rail`, `mobile-day-rail`, `dispatch-proof-strip` ani `id="trust-bar"`.
+- Poslední staging ověření 2026-06-11 15:39 CEST splnilo předchozí bod na preview deployi `dpl_62Zw1AQqgNc7yP62BERA7ACycX3Z`, alias `https://rezervacni-system-dev.vercel.app`.
 - Přes `curl -I http://localhost:3000` nebo DevTools Network ověřit, že response obsahuje `Content-Security-Policy`.
 - Přes `curl -I http://localhost:3000` nebo DevTools Network ověřit, že běžné routy obsahují `X-Frame-Options: DENY`; `/embed/booking/<slug>` ho mít nemá, protože booking widget musí jít vložit do iframe.
 - Zkontrolovat root landing page `/`: aktuální veřejný směr je `Salonový den, ne dashboard`, tedy porcelain/cobalt/apricot/mint, velká službová fotka, klidný booking overlay, jednodušší text a konkrétní produktové argumenty. Přihlášená aplikace dál může držet Signal OS.
