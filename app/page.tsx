@@ -10,9 +10,9 @@ import {
   MonitorPlay,
   MousePointerClick,
   ShieldCheck,
+  UsersRound,
 } from "lucide-react";
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { headers } from "next/headers";
 
@@ -121,28 +121,34 @@ const demoMoments = [
   ["17:00", "Rezervační stránka", "Nová rezervace se zařadí do dne"],
 ] as const;
 
-const salonSceneImages = [
+const productProofScenes = [
   {
-    src: "/marketing/salon-day-barber.webp",
-    alt: "Barber dokončuje střih a na pultu je telefon s dostupnými časy",
-    label: "Barber",
-    title: "Telefon nemusí zastavit střih.",
-    text: "Volné časy jsou vidět online, takže klient vybírá bez přerušení práce.",
+    icon: CalendarDays,
+    label: "Týmový kalendář",
+    title: "Volno a obsazeno nejsou dekorace.",
+    text: "Kalendář rozlišuje lidi, časy a stav rezervace tak, aby tým věděl, kde je kapacita a kde vzniká riziko.",
+    surface: "calendar",
   },
   {
-    src: "/marketing/salon-day-beauty.webp",
-    alt: "Beauty studio s připraveným lehátkem a tabletem s kalendářem",
-    label: "Beauty",
-    title: "Připomínka hlídá prázdná místa.",
-    text: "Klient ví, kdy má přijít, a tým vidí kontext návštěvy včas.",
+    icon: MousePointerClick,
+    label: "Veřejná rezervační stránka",
+    title: "Klient vidí jen to, co může opravdu rezervovat.",
+    text: "Služby, délky, ceny a volná okna jsou v jednom jednoduchém pohledu. Booking odkaz můžete poslat na web, Instagram nebo Google profil.",
+    surface: "booking",
   },
   {
-    src: "/marketing/salon-day-fitness.webp",
-    alt: "Tréninkové studio s telefonem ukazujícím volné rezervační sloty",
-    label: "Trénink",
-    title: "Uvolněný termín se znovu prodává.",
-    text: "Když se místo uvolní, klient ho najde bez ručního obvolávání.",
+    icon: UsersRound,
+    label: "Zákaznický účet bez telefonátu",
+    title: "Změna termínu nemusí být zpráva v chatu.",
+    text: "Klient si najde vlastní rezervace a provoz nepřepisuje stejnou změnu ručně do diáře.",
+    surface: "account",
   },
+] as const;
+
+const bookingServices = [
+  ["Pánský střih", "45 min", "450 Kč"],
+  ["Střih + vousy", "60 min", "690 Kč"],
+  ["Barva + styling", "90 min", "1 290 Kč"],
 ] as const;
 
 const pricingPlans = [
@@ -239,62 +245,120 @@ export default async function Home() {
       <span className="sr-only" aria-hidden="true" />
       <p className="sr-only">Temaro pro {trustBarItems.join(", ")}.</p>
 
-      <section id="casovy-engine" className="salon-proof-strip relative overflow-hidden py-20 sm:py-24">
-        <div className="relative mx-auto grid w-full max-w-[1280px] gap-8 px-4 sm:px-6 lg:grid-cols-[0.82fr_1.18fr] lg:px-8">
+      <section id="casovy-engine" className="product-proof-strip relative overflow-hidden py-16 sm:py-20">
+        <div className="relative mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
           <Reveal>
-            <div className="lg:sticky lg:top-28">
-              <p className="section-eyebrow">Provoz v obrazech</p>
-              <h2 className="font-display mt-3 max-w-2xl text-balance text-5xl font-semibold leading-[0.96] sm:text-7xl">
-                Software má zmizet do provozu.
+            <div className="grid gap-6 lg:grid-cols-[0.82fr_1.18fr] lg:items-end">
+              <div>
+              <p className="section-eyebrow">Product proof</p>
+                <h2 className="font-display mt-3 max-w-2xl text-balance text-5xl font-semibold leading-[0.96] sm:text-7xl">
+                Co klient a tým skutečně uvidí.
               </h2>
-              <p className="mt-5 max-w-xl text-lg font-normal leading-8 text-[var(--ink-soft)]">
-                Inspirace z nejlepších booking systémů je jednoduchá: ukažte skutečný svět služby a produkt jen jako klidnou vrstvu, která drží dostupnost, potvrzení a připomínky.
-              </p>
-              <div className="mt-8 grid gap-3 rounded-[1.75rem] border border-[var(--paper-line)] bg-white p-4 shadow-sm">
-                {[
-                  ["01", "Klient rezervuje bez volání"],
-                  ["02", "Tým vidí volná a obsazená místa"],
-                  ["03", "Připomínka sníží riziko prázdné židle"],
-                ].map(([time, text]) => (
-                  <div key={time} className="grid grid-cols-[3rem_1fr] items-center gap-3 rounded-2xl bg-[var(--porcelain)] p-3">
-                    <span className="font-time text-sm font-semibold text-[var(--cobalt)]">{time}</span>
-                    <p className="text-sm font-bold text-[var(--ink)]">{text}</p>
-                  </div>
-                ))}
+              </div>
+              <div className="grid gap-4">
+                <p className="max-w-2xl text-lg font-normal leading-8 text-[var(--ink-soft)]">
+                  Fotka provozu neřekne, co majitel kupuje. Tady jsou tři skutečné produktové pohledy: týmový kalendář, veřejná rezervace a klientský účet.
+                </p>
+                <div className="grid gap-3 sm:grid-cols-3">
+                  {productProofScenes.map((scene) => (
+                    <div key={scene.label} className="rounded-[1.25rem] border border-[var(--paper-line)] bg-white/82 p-4 shadow-sm">
+                      <div className="flex items-center gap-2 text-[var(--cobalt)]">
+                        <scene.icon className="size-4" strokeWidth={1.9} />
+                        <p className="font-time text-[0.68rem] font-semibold uppercase tracking-[0.14em]">{scene.label}</p>
+                      </div>
+                      <p className="mt-3 text-sm font-bold leading-5 text-[var(--ink)]">{scene.title}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </Reveal>
 
-          <div className="salon-scenes-grid grid gap-4">
-            {salonSceneImages.map((image, index) => (
-              <Reveal key={image.src} delay={index * 80}>
-                <article className="salon-scene-card group relative min-h-[360px] overflow-hidden rounded-[2rem] border border-[var(--paper-line)] bg-[var(--ink)] shadow-[0_26px_80px_rgba(23,26,33,0.18)] sm:min-h-[420px]">
-                  <Image
-                    src={image.src}
-                    alt={image.alt}
-                    fill
-                    sizes="(min-width: 1024px) 700px, 95vw"
-                    quality={75}
-                    className="object-cover transition duration-700 group-hover:scale-[1.045]"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-r from-[rgba(23,26,33,0.74)] via-[rgba(23,26,33,0.22)] to-transparent" />
-                  <div className="absolute inset-x-4 bottom-4 sm:inset-x-6 sm:bottom-6">
-                    <div>
-                      <span className="font-time inline-flex rounded-full bg-white/88 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ink)] backdrop-blur">
-                        {image.label}
-                      </span>
-                      <p className="font-display mt-3 max-w-md text-4xl font-semibold leading-[0.96] text-white sm:text-5xl">
-                        {image.title}
-                      </p>
-                      <p className="mt-3 max-w-md text-sm font-normal leading-6 text-white/80">
-                        {image.text}
-                      </p>
+          <Reveal delay={80}>
+            <div className="product-proof-gallery product-proof-board mt-10 grid gap-4 rounded-[2.25rem] border border-white/70 bg-[var(--ink)] p-3 text-[var(--ink)] shadow-[0_34px_110px_rgba(23,26,33,0.22)] sm:p-4 lg:grid-cols-[1.08fr_0.92fr]">
+              <article className="product-proof-card rounded-[1.75rem] bg-white p-4 shadow-sm sm:p-5">
+                <div className="flex items-center justify-between gap-3 border-b border-[var(--paper-line)] pb-4">
+                  <div>
+                    <p className="font-time text-xs font-semibold uppercase tracking-[0.16em] text-[var(--cobalt)]">Týmový kalendář</p>
+                    <h3 className="mt-1 text-2xl font-bold tracking-[-0.04em]">Středa podle lidí</h3>
+                  </div>
+                  <span className="font-time rounded-full bg-[var(--mint)] px-3 py-1.5 text-xs font-semibold text-[var(--mint-ink)]">3 volná okna</span>
+                </div>
+                <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                  {["Tereza", "Adam", "Nela"].map((name, personIndex) => (
+                    <div key={name} className="rounded-2xl border border-[var(--paper-line)] bg-[var(--porcelain)] p-3">
+                      <p className="text-sm font-bold">{name}</p>
+                      <div className="mt-3 grid gap-2">
+                        {["09:00", "12:30", "15:00"].map((time, timeIndex) => (
+                          <span key={time} className={`font-time rounded-xl px-2 py-2 text-xs font-semibold ${personIndex === timeIndex ? "bg-[var(--cobalt)] text-white" : "bg-white text-[var(--ink-soft)]"}`}>
+                            {time}
+                          </span>
+                        ))}
+                      </div>
                     </div>
+                  ))}
+                </div>
+                <div className="mt-4 rounded-2xl bg-[var(--ink)] p-4 text-white">
+                  <p className="font-time text-xs font-semibold uppercase tracking-[0.16em] text-white/54">Stav dne</p>
+                  <p className="mt-2 text-2xl font-semibold tracking-[-0.04em]">Volno, obsazeno a riziko jsou v jednom pohledu.</p>
+                </div>
+                <div className="mt-4 hidden gap-2 sm:grid">
+                  {demoMoments.map(([time, title, text]) => (
+                    <div key={`${time}-${title}`} className="grid grid-cols-[4.5rem_1fr] items-center gap-3 rounded-2xl border border-[var(--paper-line)] bg-[var(--porcelain)] p-3">
+                      <span className="font-time text-sm font-semibold text-[var(--cobalt)]">{time}</span>
+                      <div>
+                        <p className="font-bold">{title}</p>
+                        <p className="text-xs font-semibold text-[var(--ink-soft)]">{text}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </article>
+
+              <div className="grid gap-4">
+                <article className="product-proof-card rounded-[1.75rem] bg-[var(--porcelain)] p-4 shadow-sm">
+                  <p className="font-time text-xs font-semibold uppercase tracking-[0.16em] text-[var(--cobalt)]">Online rezervace</p>
+                  <h3 className="mt-1 text-2xl font-black tracking-[-0.04em]">Hair Studio Luna</h3>
+                  <div className="mt-4 grid gap-2">
+                    {bookingServices.map(([service, duration, price]) => (
+                      <div key={service} className="rounded-2xl bg-white p-3 shadow-sm">
+                        <div className="flex items-start justify-between gap-3">
+                          <div>
+                            <p className="font-bold">{service}</p>
+                            <p className="font-time mt-1 text-xs font-semibold text-[var(--ink-soft)]">{duration}</p>
+                          </div>
+                          <p className="font-time text-xs font-semibold text-[var(--cobalt)]">{price}</p>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </article>
-              </Reveal>
-            ))}
-          </div>
+
+                <article className="product-proof-card rounded-[1.75rem] bg-white p-4 shadow-sm">
+                  <div className="flex items-center justify-between gap-3">
+                    <div>
+                      <p className="font-time text-xs font-semibold uppercase tracking-[0.16em] text-[var(--cobalt)]">Zákaznický účet</p>
+                      <h3 className="mt-1 text-2xl font-bold tracking-[-0.04em]">Moje rezervace</h3>
+                    </div>
+                    <UsersRound className="size-5 text-[var(--cobalt)]" strokeWidth={1.9} />
+                  </div>
+                  <div className="mt-4 grid gap-2">
+                    {[
+                      ["Zítra 10:30", "Pánský střih", "Přesun možný"],
+                      ["12. 6. 15:00", "Úprava vousů", "Potvrzeno"],
+                      ["Historie", "Barva + styling", "Dokončeno"],
+                    ].map(([date, service, state]) => (
+                      <div key={`${date}-${service}`} className="grid grid-cols-[4.25rem_1fr_auto] items-center gap-3 rounded-2xl bg-[var(--porcelain)] p-3">
+                        <span className="font-time text-xs font-semibold text-[var(--cobalt)]">{date}</span>
+                        <p className="truncate font-bold">{service}</p>
+                        <span className="hidden rounded-full bg-white px-2.5 py-1 text-xs font-bold text-[var(--ink-soft)] sm:inline-flex">{state}</span>
+                      </div>
+                    ))}
+                  </div>
+                </article>
+              </div>
+            </div>
+          </Reveal>
         </div>
       </section>
 

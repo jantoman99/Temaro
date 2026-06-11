@@ -299,22 +299,24 @@
     background-size: 16.666% 100%, 100% 64px;
   }
 
-  .photo-led-hero,
-  .salon-scenes-grid,
-  .salon-scene-card,
+  .product-window-hero,
+  .product-window-frame,
+  .product-proof-gallery,
+  .product-proof-card,
   .workflow-rail-grid article,
   .product-demo-rail > * {
     position: relative;
   }
 
-  .photo-led-hero {
+  .product-window-hero {
     background:
-      radial-gradient(circle at 16% 18%, color-mix(in srgb, var(--cobalt-tint) 74%, transparent), transparent 28rem),
-      radial-gradient(circle at 92% 8%, color-mix(in srgb, var(--mint) 46%, transparent), transparent 26rem),
+      radial-gradient(circle at 18% 18%, color-mix(in srgb, var(--cobalt-tint) 78%, transparent), transparent 30rem),
+      radial-gradient(circle at 88% 10%, color-mix(in srgb, var(--mint) 44%, transparent), transparent 26rem),
+      radial-gradient(circle at 72% 82%, color-mix(in srgb, var(--apricot-tint) 62%, transparent), transparent 34rem),
       linear-gradient(180deg, rgba(255, 255, 255, 0.72), transparent 42%);
   }
 
-  .photo-led-hero::after {
+  .product-window-hero::after {
     background:
       linear-gradient(90deg, color-mix(in srgb, var(--paper-line) 58%, transparent) 1px, transparent 1px),
       linear-gradient(0deg, color-mix(in srgb, var(--paper-line) 44%, transparent) 1px, transparent 1px);
@@ -326,44 +328,51 @@
     position: absolute;
   }
 
-  .photo-led-hero > * {
+  .product-window-hero > * {
     position: relative;
     z-index: 1;
   }
 
-  .salon-phone-card {
+  .product-window-frame {
     isolation: isolate;
   }
 
-  .salon-phone-card::before {
-    background: linear-gradient(135deg, rgba(43, 63, 242, 0.08), transparent 44%);
+  .product-window-frame::before {
+    background:
+      linear-gradient(135deg, rgba(43, 63, 242, 0.18), transparent 36%),
+      radial-gradient(circle at 72% 22%, rgba(191, 234, 212, 0.2), transparent 18rem);
     border-radius: inherit;
     content: "";
     inset: 0;
+    opacity: 0.9;
     pointer-events: none;
     position: absolute;
   }
 
-  .salon-phone-card > * {
+  .product-window-frame > * {
     position: relative;
     z-index: 1;
   }
 
-  .salon-proof-strip {
+  .product-window-frame > .booking-phone-preview {
+    isolation: isolate;
+    position: absolute;
+  }
+
+  .product-window-active {
+    box-shadow: 0 18px 44px rgba(43, 63, 242, 0.14);
+  }
+
+  .product-proof-strip {
     background:
       linear-gradient(180deg, var(--porcelain), var(--porcelain-deep));
   }
 
-  .salon-scene-card {
+  .product-proof-card {
     isolation: isolate;
   }
 
-  .salon-scene-card > * {
-    position: relative;
-    z-index: 1;
-  }
-
-  .salon-proof-strip::before,
+  .product-proof-strip::before,
   .workflow-rail-grid::before,
   .product-demo-rail::before {
     background: linear-gradient(90deg, transparent, var(--cobalt), var(--apricot), var(--mint), transparent);
@@ -376,7 +385,7 @@
     top: 0;
   }
 
-  .salon-proof-strip::before {
+  .product-proof-strip::before {
     left: 50%;
     max-width: 1120px;
     right: auto;
@@ -416,6 +425,10 @@
 
   .time-card-in {
     animation: time-card-in 520ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+
+  .product-window-active {
+    animation: product-window-pulse 3.8s ease-in-out infinite;
   }
 
   .time-engine-flow {
@@ -603,6 +616,7 @@
   @media (prefers-reduced-motion: reduce) {
     .trust-marquee,
     .time-card-in,
+    .product-window-active,
     .confirm-toast-in,
     .engine-message,
     .engine-slot,
@@ -712,6 +726,18 @@
     to {
       opacity: 1;
       transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes product-window-pulse {
+    0%,
+    100% {
+      transform: translateY(0);
+      box-shadow: 0 12px 34px rgba(43, 63, 242, 0.08);
+    }
+    50% {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 44px rgba(43, 63, 242, 0.16);
     }
   }
 

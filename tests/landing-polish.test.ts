@@ -9,16 +9,37 @@ function readProjectFile(path: string) {
 }
 
 describe("landing polish guard", () => {
-  test("homepage consolidates scenario copy into salon proof images", () => {
+  test("homepage uses app product views instead of lifestyle image proof", () => {
     const page = readProjectFile("app/page.tsx");
+    const hero = readProjectFile("components/marketing/business-discovery-hero.tsx");
+    const globals = readProjectFile("app/globals.css");
 
-    expect(page).toContain("/marketing/salon-day-barber.webp");
-    expect(page).toContain("/marketing/salon-day-beauty.webp");
-    expect(page).toContain("/marketing/salon-day-fitness.webp");
-    expect(page).toContain("Telefon nemusí zastavit střih");
-    expect(page).toContain("Připomínka hlídá prázdná místa");
-    expect(page).toContain("Uvolněný termín se znovu prodává");
-    expect(page).toContain("quality={75}");
+    expect(hero).toContain("product-window-hero");
+    expect(hero).toContain("product-window-frame");
+    expect(hero).toContain("booking-phone-preview");
+    expect(hero).toContain("ProductWindowHero");
+    expect(hero).toContain("Přehled provozu");
+    expect(hero).toContain("Dnešní rezervace");
+    expect(hero).toContain("Týmový kalendář");
+    expect(hero).toContain("Rezervační stránka");
+    expect(hero).toContain("Zákaznický účet");
+    expect(page).toContain("productProofScenes");
+    expect(page).toContain("product-proof-gallery");
+    expect(page).toContain("Co klient a tým skutečně uvidí");
+    expect(page).toContain("Veřejná rezervační stránka");
+    expect(page).toContain("Zákaznický účet bez telefonátu");
+    expect(globals).toContain(".product-window-hero");
+    expect(globals).toContain(".product-window-frame");
+    expect(globals).toContain(".booking-phone-preview");
+    expect(globals).toContain(".product-proof-gallery");
+    expect(page).not.toContain("salonSceneImages");
+    expect(hero).not.toContain("salonServiceTabs");
+    expect(hero).not.toContain("/marketing/salon-day-hero.webp");
+    expect(hero).not.toContain("photo-led-hero");
+    expect(hero).not.toContain("salon-phone-card");
+    expect(page).not.toContain("/marketing/salon-day-barber.webp");
+    expect(page).not.toContain("/marketing/salon-day-beauty.webp");
+    expect(page).not.toContain("/marketing/salon-day-fitness.webp");
     expect(page).not.toContain("scenarioCards");
     expect(page).not.toContain('id="scenare"');
     expect(page).not.toContain("/marketing/time-engine-salon.webp");
@@ -133,29 +154,34 @@ describe("landing polish guard", () => {
     expect(page).not.toContain("Praktické návody");
   });
 
-  test("homepage hero implements an interactive photo-led booking widget", () => {
+  test("homepage hero implements a product-window app demo", () => {
     const hero = readProjectFile("components/marketing/business-discovery-hero.tsx");
 
     expect(hero).toContain('"use client"');
-    expect(hero).toContain("industryOptions");
-    expect(hero).toContain("salonServiceTabs");
-    expect(hero).toContain("timeSlots");
-    expect(hero).toContain("reservations");
-    expect(hero).toContain("selectedSlot");
-    expect(hero).toContain("setReservations");
+    expect(hero).toContain("productSurfaces");
+    expect(hero).toContain("activeSurfaceId");
+    expect(hero).toContain("setActiveSurfaceId");
+    expect(hero).toContain("ProductWindowHero");
+    expect(hero).toContain("SurfacePanel");
+    expect(hero).toContain("BookingPhonePreview");
     expect(hero).toContain("usePrefersReducedMotion");
     expect(hero).toContain('aria-live="off"');
     expect(hero).toContain("temaro-time-hero");
-    expect(hero).toContain("photo-led-hero");
-    expect(hero).toContain("salon-day-hero.webp");
-    expect(hero).toContain("salon-phone-card");
-    expect(hero).toContain("temaro-day-grid");
-    expect(hero).toContain("time-chip");
-    expect(hero).toContain("Rezervovat");
-    expect(hero).toContain("Kadeřnictví");
-    expect(hero).toContain("Barber");
-    expect(hero).toContain("Kosmetika");
-    expect(hero).toContain("Trenér");
+    expect(hero).toContain("product-window-hero");
+    expect(hero).toContain("product-window-frame");
+    expect(hero).toContain("booking-phone-preview");
+    expect(hero).toContain("Rezervace, které vidíte hned v kalendáři");
+    expect(hero).toContain("Přehled provozu");
+    expect(hero).toContain("Dnešní rezervace");
+    expect(hero).toContain("Tržba dnes");
+    expect(hero).toContain("Volná okna");
+    expect(hero).toContain("Riziko");
+    expect(hero).toContain("Otevřít kalendář");
+    expect(hero).toContain("Veřejná rezervační stránka");
+    expect(hero).toContain("Zákaznický účet");
+    expect(hero).toContain("Spustit produktovou ukázku");
+    expect(hero).not.toContain("salon-day-hero.webp");
+    expect(hero).not.toContain("salon-phone-card");
     expect(hero).not.toContain("bookingSources");
     expect(hero).not.toContain("business-hero-visual");
   });
@@ -176,31 +202,24 @@ describe("landing polish guard", () => {
     expect(globals).toContain("color-scheme: light");
   });
 
-  test("update 2 calculates hero reservations from real time data without clipping", () => {
+  test("product-window hero keeps real product surfaces readable without fake screenshot data", () => {
     const hero = readProjectFile("components/marketing/business-discovery-hero.tsx");
 
-    expect(hero).toContain("DAY_START");
-    expect(hero).toContain("DAY_END");
-    expect(hero).toContain("toPct");
-    expect(hero).toContain("durationMin");
-    expect(hero).toContain("overlaps");
-    expect(hero).toContain("isSlotFree");
-    expect(hero).toContain("findFirstFreeSlot");
-    expect(hero).toContain("laneForSlot(reservation.time)");
-    expect(hero).toContain("Math.min(durationToPct(reservation.durationMin), 100 - toPct(reservation.time))");
-    expect(hero).toContain("durationToPct(45)");
-    expect(hero).toContain("reserveSelectedSlot");
-    expect(hero).toContain("confirmedSlot");
-    expect(hero).toContain('aria-disabled={!slotFree}');
-    expect(hero).toContain('disabled={!slotFree}');
-    expect(hero).toContain("mobileReservations");
-    expect(hero).toContain('client === "Nová online rezervace"');
-    expect(hero).toContain("nové");
-    expect(hero).not.toContain("lane: ");
-    expect(hero).not.toContain("width: \"");
-    expect(hero).not.toContain("left: \"");
-    expect(hero).not.toContain("index * 66");
-    expect(hero).not.toContain("h-[330px] overflow-hidden");
+    expect(hero).toContain("kpiItems");
+    expect(hero).toContain("agendaRows");
+    expect(hero).toContain("calendarColumns");
+    expect(hero).toContain("bookingServices");
+    expect(hero).toContain("accountBookings");
+    expect(hero).toContain("window.setInterval");
+    expect(hero).toContain("reduceMotion");
+    expect(hero).toContain("min-w-0");
+    expect(hero).toContain("overflow-x-auto");
+    expect(hero).not.toContain("Kokot");
+    expect(hero).not.toContain("Jebat");
+    expect(hero).not.toContain("faker");
+    expect(hero).not.toContain("AI");
+    expect(hero).not.toContain("12 000+");
+    expect(hero).not.toContain("99 %");
   });
 
   test("update 2 keeps strong photo-led bento arguments and booking ownership", () => {
@@ -246,40 +265,32 @@ describe("landing polish guard", () => {
     expect(globals).toContain(".time-chip[data-active=\"true\"]");
   });
 
-  test("photo-led proof layer shows real service scenes before dense product sections", () => {
+  test("product proof layer shows app surfaces before dense product sections", () => {
     const page = readProjectFile("app/page.tsx");
     const globals = readProjectFile("app/globals.css");
 
-    expect(page).toContain("salonSceneImages");
-    expect(page).toContain("/marketing/salon-day-barber.webp");
-    expect(page).toContain("/marketing/salon-day-beauty.webp");
-    expect(page).toContain("/marketing/salon-day-fitness.webp");
+    expect(page).toContain("productProofScenes");
     expect(page).toContain('id="casovy-engine"');
-    expect(page).toContain("salon-proof-strip");
-    expect(page).toContain("salon-scenes-grid");
-    expect(page).toContain("salon-scene-card");
-    expect(page).toContain("Software má zmizet do provozu");
-    expect(page).toContain("Telefon nemusí zastavit střih");
-    expect(page).toContain("Připomínka hlídá prázdná místa");
-    expect(page).toContain("Uvolněný termín se znovu prodává");
+    expect(page).toContain("product-proof-strip");
+    expect(page).toContain("product-proof-gallery");
+    expect(page).toContain("product-proof-card");
+    expect(page).toContain("Co klient a tým skutečně uvidí");
+    expect(page).toContain("Týmový kalendář");
+    expect(page).toContain("Veřejná rezervační stránka");
+    expect(page).toContain("Zákaznický účet bez telefonátu");
+    expect(page).not.toContain("salonSceneImages");
+    expect(page).not.toContain("salon-proof-strip");
+    expect(page).not.toContain("salon-scenes-grid");
+    expect(page).not.toContain("salon-scene-card");
     expect(page).not.toContain("messageCloud");
     expect(page).not.toContain("engineSlots");
     expect(page).not.toContain("timeProofChips");
-    expect(page).not.toContain("photo-proof-card");
     expect(page).not.toContain("bg-[var(--signal-red)] text-white");
     expect(page).not.toContain("rgba(229,72,77,0.10)");
-    expect(globals).toContain(".salon-proof-strip");
-    expect(globals).toContain(".salon-scenes-grid");
-    expect(globals).toContain(".salon-scene-card");
-    expect(globals).toContain(".time-engine-flow");
-    expect(globals).toContain(".engine-message");
-    expect(globals).toContain(".engine-slot");
-    expect(globals).toContain("[data-engine-active=\"true\"] .engine-message");
-    expect(globals).toContain("animation-iteration-count: 3");
-    expect(globals).toContain(".time-engine-flow::after");
+    expect(globals).toContain(".product-proof-strip");
+    expect(globals).toContain(".product-proof-gallery");
+    expect(globals).toContain(".product-proof-card");
     expect(globals).toContain("animation: none");
-    expect(globals).toContain("@keyframes engine-message");
-    expect(globals).toContain("@keyframes engine-slot");
   });
 
   test("visual audit fixes mobile clipping, sticky overlap and menu text spacing", () => {
@@ -290,15 +301,15 @@ describe("landing polish guard", () => {
     const stickyCta = readProjectFile("components/marketing/mobile-sticky-cta.tsx");
     const globals = readProjectFile("app/globals.css");
 
-    expect(hero).toContain("mobile-reservation-list");
-    expect(hero).toContain("desktop-reservation-card");
-    expect(hero).toContain("sm:block");
-    expect(hero).toContain("sm:hidden");
-    expect(hero).toContain("min-h-[680px]");
-    expect(hero).toContain("sm:min-h-[790px]");
-    expect(hero).toContain("sm:h-[330px]");
-    expect(hero).not.toContain("sm:h-[360px]");
-    expect(hero).not.toContain("sm:h-[392px]");
+    expect(hero).toContain("product-window-frame");
+    expect(hero).toContain("booking-phone-preview");
+    expect(hero).toContain("lg:grid-cols-[0.76fr_1.24fr]");
+    expect(hero).toContain("min-w-0");
+    expect(hero).toContain("overflow-x-auto");
+    expect(hero).not.toContain("mobile-reservation-list");
+    expect(hero).not.toContain("desktop-reservation-card");
+    expect(hero).not.toContain("min-h-[680px]");
+    expect(hero).not.toContain("sm:min-h-[790px]");
 
     expect(header).toContain("top-[max(0.75rem,env(safe-area-inset-top))]");
     expect(header).toContain("marketing-fixed-header");
@@ -368,34 +379,40 @@ describe("landing polish guard", () => {
     expect(page).toContain("[overflow-x:clip]");
     expect(page).not.toContain("business-discovery-page");
     expect(page).not.toContain("min-h-screen overflow-hidden");
-    expect(page).toContain("salon-proof-strip");
-    expect(page).toContain("salon-scenes-grid");
+    expect(page).toContain("product-proof-strip");
+    expect(page).toContain("product-proof-gallery");
     expect(page).toContain('href="#jak-to-funguje"');
     expect(page).not.toContain('href="#produkt" className="text-[var(--ink)] hover:underline">Produkt');
     expect(nextConfig).toContain("images");
     expect(nextConfig).toContain('"image/avif"');
     expect(nextConfig).toContain('"image/webp"');
     expect(globals).toContain("@media (max-width: 640px)");
-    expect(globals).toContain(".salon-proof-strip");
+    expect(globals).toContain(".product-proof-strip");
     expect(globals).toContain("opacity: 0");
   });
 
-  test("implementation 7 turns the landing into a photo-led salon day", () => {
+  test("implementation 7 turns the landing into a product-window app proof", () => {
     const page = readProjectFile("app/page.tsx");
     const hero = readProjectFile("components/marketing/business-discovery-hero.tsx");
     const globals = readProjectFile("app/globals.css");
     const nextConfig = readProjectFile("next.config.ts");
 
-    expect(hero).toContain("salon-day-hero.webp");
-    expect(hero).toContain("salonServiceTabs");
-    expect(hero).toContain("photo-led-hero");
-    expect(hero).toContain("salon-phone-card");
-    expect(hero).toContain("Méně zvonění.");
-    expect(hero).toContain("Plnější kalendář.");
+    expect(hero).toContain("product-window-hero");
+    expect(hero).toContain("product-window-frame");
+    expect(hero).toContain("booking-phone-preview");
+    expect(hero).toContain("productSurfaces");
+    expect(hero).toContain("Rezervace, které vidíte hned v kalendáři");
+    expect(hero).toContain("Přehled provozu");
+    expect(hero).toContain("Týmový kalendář");
+    expect(hero).toContain("Rezervační stránka");
+    expect(hero).toContain("Zákaznický účet");
     expect(hero).toContain("Rezervační systém pro salony a služby");
-    expect(hero).toContain("Volno dnes");
     expect(hero).toContain("Bez provize z vašich klientů");
-    expect(hero).toContain("Vybrat pilot");
+    expect(hero).toContain("Začít zdarma");
+    expect(hero).not.toContain("salon-day-hero.webp");
+    expect(hero).not.toContain("salonServiceTabs");
+    expect(hero).not.toContain("photo-led-hero");
+    expect(hero).not.toContain("salon-phone-card");
     expect(hero).not.toContain("dailyOperations");
     expect(hero).not.toContain("decisionStack");
     expect(hero).not.toContain("operating-table-stage");
@@ -419,17 +436,19 @@ describe("landing polish guard", () => {
     expect(page).not.toContain("dispatch-proof-strip");
     expect(page).not.toContain("Časová osa od prvního scrollu");
     expect(page).not.toContain('id="trust-bar"');
-    expect(page).toContain("salon-proof-strip");
-    expect(page).toContain("salon-scenes-grid");
-    expect(page).toContain("/marketing/salon-day-barber.webp");
-    expect(page).toContain("/marketing/salon-day-beauty.webp");
-    expect(page).toContain("/marketing/salon-day-fitness.webp");
+    expect(page).toContain("product-proof-strip");
+    expect(page).toContain("product-proof-gallery");
+    expect(page).toContain("productProofScenes");
+    expect(page).not.toContain("/marketing/salon-day-barber.webp");
+    expect(page).not.toContain("/marketing/salon-day-beauty.webp");
+    expect(page).not.toContain("/marketing/salon-day-fitness.webp");
     expect(page).toContain("product-demo-rail");
     expect(page).not.toContain("trust-marquee flex min-w-max");
 
-    expect(globals).toContain(".photo-led-hero");
-    expect(globals).toContain(".salon-phone-card");
-    expect(globals).toContain(".salon-scenes-grid");
+    expect(globals).toContain(".product-window-hero");
+    expect(globals).toContain(".product-window-frame");
+    expect(globals).toContain(".booking-phone-preview");
+    expect(globals).toContain(".product-proof-gallery");
     expect(globals).not.toContain(".operating-table-stage");
     expect(globals).not.toContain(".operations-inbox");
     expect(globals).not.toContain(".shift-time-band");
@@ -440,22 +459,21 @@ describe("landing polish guard", () => {
     expect(nextConfig).toContain("qualities: [70, 75]");
   });
 
-  test("implementation 8 keeps the hero image visible before mobile action clutter", () => {
+  test("implementation 8 keeps the product frame visible before mobile action clutter", () => {
     const hero = readProjectFile("components/marketing/business-discovery-hero.tsx");
     const globals = readProjectFile("app/globals.css");
-    const relativePositionGroup = globals.match(/\.photo-led-hero,[\s\S]*?position: relative;\n\s*}/)?.[0] ?? "";
+    const relativePositionGroup = globals.match(/\.product-window-hero,[\s\S]*?position: relative;\n\s*}/)?.[0] ?? "";
 
-    expect(relativePositionGroup).not.toContain(".salon-phone-card");
-    expect(hero).toContain("salon-phone-card !absolute");
-    expect(hero).toContain("photo-led-mobile-actions");
-    expect(hero).toContain("mobile-reservation-list mt-3 flex");
-    expect(hero).toContain("overflow-x-auto pb-1 sm:hidden");
-    expect(hero).toContain("sm:grid sm:grid-cols-5 sm:overflow-visible");
-    expect(hero.indexOf('aria-label="Ukázka online rezervace v provozu"')).toBeLessThan(
-      hero.indexOf("photo-led-mobile-actions"),
+    expect(relativePositionGroup).not.toContain(".booking-phone-preview");
+    expect(hero).toContain("product-window-frame relative");
+    expect(hero).toContain("booking-phone-preview absolute");
+    expect(hero).toContain("mb-4 flex gap-2 overflow-x-auto pb-1 lg:hidden");
+    expect(hero).toContain("grid min-h-[560px] lg:grid-cols-[13rem_minmax(0,1fr)]");
+    expect(hero.indexOf('aria-label="Reálný produktový pohled Temaro"')).toBeGreaterThan(
+      hero.indexOf("Rezervace, které vidíte hned v kalendáři"),
     );
-    expect(hero).toContain("lg:flex lg:flex-row");
-    expect(hero).toContain("lg:grid lg:grid-cols-3");
+    expect(hero).toContain("lg:grid-cols-[0.76fr_1.24fr]");
+    expect(hero).not.toContain("photo-led-mobile-actions");
   });
 
   test("live product showcase animates only as progressive enhancement", () => {

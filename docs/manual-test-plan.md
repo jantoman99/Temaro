@@ -1,6 +1,6 @@
 # Manualni test plan
 
-Aktualizováno: 2026-06-11 15:39 CEST
+Aktualizováno: 2026-06-11 16:48 CEST
 
 Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 
@@ -19,34 +19,31 @@ Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 - Otevrit `http://localhost:3000`.
 - Otevřít `http://localhost:3000/api/health` a ověřit, že vrací JSON se `status`, `checks.env`, `checks.supabase`, `checks.rate_limit` a `version`; nesmí obsahovat konkrétní hodnoty tajných env proměnných.
 - Na veřejném deployi bez env otevřít `/api/health` a ověřit, že `checks.env.missing` je číslo, ne seznam názvů interních proměnných.
-- Na stagingu `https://rezervacni-system-dev.vercel.app` ověřit `/api/health=ok` a HTML signatury aktuálního landing směru: obsahuje `Méně zvonění`, `Plnější kalendář`, `photo-led-hero`, `salon-day-hero`, `salon-phone-card`, `salon-proof-strip`; neobsahuje `operating-table-stage`, `Provozní stůl dne`, `hero-before-after-stage`, `Den před Temarem`, `Den s Temarem`, `dispatch-day-rail`, `mobile-day-rail`, `dispatch-proof-strip` ani `id="trust-bar"`.
-- Poslední staging ověření 2026-06-11 15:39 CEST splnilo předchozí bod na preview deployi `dpl_62Zw1AQqgNc7yP62BERA7ACycX3Z`, alias `https://rezervacni-system-dev.vercel.app`.
+- Na stagingu `https://rezervacni-system-dev.vercel.app` ověřit `/api/health=ok` a HTML signatury aktuálního landing směru: obsahuje `Rezervace, které vidíte hned v kalendáři`, `product-window-hero`, `product-window-frame`, `booking-phone-preview`, `product-proof-gallery`, `product-proof-board`; neobsahuje `photo-led-hero`, `salon-phone-card`, `/marketing/salon-day-hero.webp`, `operating-table-stage`, `Provozní stůl dne`, `hero-before-after-stage`, `Den před Temarem`, `Den s Temarem`, `dispatch-day-rail`, `mobile-day-rail`, `dispatch-proof-strip` ani `id="trust-bar"`.
+- Poslední staging před product-window deployem byl photo-led preview `dpl_62Zw1AQqgNc7yP62BERA7ACycX3Z`; nový product-window deploy musí splnit předchozí bod.
 - Přes `curl -I http://localhost:3000` nebo DevTools Network ověřit, že response obsahuje `Content-Security-Policy`.
 - Přes `curl -I http://localhost:3000` nebo DevTools Network ověřit, že běžné routy obsahují `X-Frame-Options: DENY`; `/embed/booking/<slug>` ho mít nemá, protože booking widget musí jít vložit do iframe.
-- Zkontrolovat root landing page `/`: aktuální veřejný směr je `Salonový den, ne dashboard`, tedy porcelain/cobalt/apricot/mint, velká službová fotka, klidný booking overlay, jednodušší text a konkrétní produktové argumenty. Přihlášená aplikace dál může držet Signal OS.
+- Zkontrolovat root landing page `/`: aktuální veřejný směr je `Temaro Product Window`, tedy porcelain/cobalt/apricot/mint, velký app rám, klientský booking telefon, produktová proof deska a konkrétní app pohledy místo lifestyle/AI fotek. Přihlášená aplikace dál může držet Signal OS.
 - Zkontrolovat top bar landing page: musi obsahovat `Produkt`, `Ceník`, `Ukázka`, `Návody`, `Přihlášení` a primary CTA `Začít zdarma`.
 - Ověřit, že marketing header na homepage nemá theme toggle a landing zůstává light-only i při dříve uloženém dark režimu v prohlížeči.
 - Theme toggle dál ověřovat na `/podniky`, auth a booking demo stránkách, kde má zůstat součástí veřejného vstupu.
 - Proklikat top bar kotvy a overit, ze vedou na odpovidajici sekce, ne na prazdne nebo neexistujici stranky.
 - Na mobilni sirce zkontrolovat, ze top navigace nezmizi, nepreteka mimo viewport a ctyri hlavni polozky jsou citelne bez horizontalniho scrollu.
-- Na landing page zkontrolovat hero: eyebrow `Rezervační systém pro salony a služby`, claim `Méně zvonění. Plnější kalendář.`, oborové segmenty, CTA `Vybrat pilot`, fotku `salon-day-hero.webp`, štítek `Volno dnes` a interaktivní booking overlay s time chips.
-- Na landing page zkontrolovat photo-led pass: hero musí působit jako službový provoz, ne jako generický dashboard. Produktová vrstva má být jen klidný overlay přes fotku; nesmí překrýt celý mobilní první fold.
-- Pod herem nesmí být samostatný `operating-table-stage`, `dispatch-proof-strip`, `dispatch-day-rail`, `mobile-day-rail`, `hero-before-after-stage`, `Den před Temarem`, `Den s Temarem` ani `trust-bar`; sekce `Provoz v obrazech` má navazovat hned po hero bloku.
-- Na viewportech 1440, 1366, 768, 390 a 375px ověřit, že není horizontální scroll. Desktop má ukazovat velký headline a fotku s absolutním booking overlayem, tablet má fotku před CTA/proof blokem, mobil má viditelnou fotku nad kompaktním overlayem.
-- V hero booking overlayi ověřit, že rezervace jsou umístěné podle reálného času a délky, ne podle pořadí; po kliknutí `Rezervovat` vznikne nová rezervace bez clippingu a potvrdí se stav tlačítka.
-- V hero booking overlayi prokliknout obory `Kadeřnictví`, `Barber`, `Kosmetika`, `Trenér`: obsazené časy musí být tmavé, disabled a bez hover efektu; defaultní vybraný slot musí být v každém oboru volný.
-- Na desktopu ověřit, že pozdní rezervace v booking gridu nepřesahují pravý okraj a že poslední lane končí viditelně nad spodní hranou panelu.
-- Na mobilní šířce 360-390px ověřit hero booking overlay: rezervace a časy mají být kompaktní vodorovné prvky, ne vysoký stack, který zakryje celou fotku.
-- Na mobilní šířce po vytvoření rezervace ověřit, že seznam zůstává seřazený podle času a nová karta má cobalt ring a badge `nové`.
+- Na landing page zkontrolovat hero: eyebrow `Rezervační systém pro salony a služby`, claim `Rezervace, které vidíte hned v kalendáři.`, CTA `Začít zdarma`, CTA `Spustit produktovou ukázku`, produktový app rám `Reálný pohled po přihlášení`, klientský telefon `Hair Studio Luna` a trust štítek `Bez provize z vašich klientů`.
+- Na landing page zkontrolovat product-window pass: první dojem musí být reálný software pro rezervace, ne generická SaaS abstrakce, fotogalerie ani lifestyle salon. Produktový frame má být dominantní a čitelný už na první obrazovce.
+- Pod herem nesmí být samostatný `photo-led-hero`, `salon-phone-card`, `operating-table-stage`, `dispatch-proof-strip`, `dispatch-day-rail`, `mobile-day-rail`, `hero-before-after-stage`, `Den před Temarem`, `Den s Temarem` ani `trust-bar`; sekce `Co klient a tým skutečně uvidí.` má navazovat jako produktová proof deska.
+- Na viewportech 1440, 1366, 768, 390 a 375px ověřit, že není horizontální scroll. Desktop má ukazovat velký headline a app frame s absolutním booking telefonem, tablet app frame bez telefonu, mobil produktový frame hned po CTA a bez useknutých app karet.
+- V hero app rámu prokliknout `Přehled provozu`, `Týmový kalendář`, `Rezervační stránka` a `Zákaznický účet`; každá plocha musí zůstat čitelná, bez vnitřního scrollu a bez falešných zákaznických referencí nebo log.
+- Na desktopu ověřit, že `booking-phone-preview` je absolutní overlay a neprodlužuje hero. Na mobilu a tabletu ověřit, že telefon je skrytý a hlavní app frame drží šířku viewportu.
+- Na mobilní šířce 360-390px ověřit hero app frame: horní produktové taby mají být scrollovatelné vodorovně, KPI a agenda řádky čitelné a sticky CTA nesmí překrýt hlavní produktový pohled.
 - V desktop navigaci otevřít dropdowny `Produkt` a `Návody`; položky mají být čisté názvy bez drobných popisků a víceslovné labely jako `Produktová ukázka` nesmí opticky splývat.
-- V sekci `Provoz v obrazech` ověřit tři AI fotky provozů: barber, beauty a trénink. Fotky musí působit jako reálné provozy, ne jako náhodná galerie; produkt je jen podpůrný kontext v textu.
-- V sekci `Provoz v obrazech` ověřit, že levý text vysvětluje jednoduchý pohyb `klient rezervuje bez volání -> tým vidí kapacitu -> připomínka sníží riziko prázdné židle`.
-- V sekci `Provoz v obrazech` ověřit čitelnost bílých titulků přes fotky a dostatečný kontrast štítků `Barber`, `Beauty`, `Trénink`.
-- Ověřit, že sekce `Scénáře` na homepage už neexistuje a že texty Barber/Beauty/Trénink jsou přesunuté jako popisky pod titulky engine fotek.
-- Ověřit, že foto karty už nemají fake progress bar ani time chip dekorace; nesmí působit jako náhodné floating cards.
-- Na mobilní šířce ověřit, že sekce `Provoz v obrazech` nemá horizontální scroll, foto karty jsou čitelné a sticky CTA nepřekrývá důležitý obsah.
+- V sekci `Co klient a tým skutečně uvidí.` ověřit produktovou desku `product-proof-board`: hlavní panel je týmový kalendář, pravý horní panel veřejná rezervace `Hair Studio Luna` a pravý dolní panel zákaznický účet `Moje rezervace`.
+- V sekci `Co klient a tým skutečně uvidí.` ověřit, že horní proof karty vysvětlují tři app pohledy (`Týmový kalendář`, `Veřejná rezervační stránka`, `Zákaznický účet bez telefonátu`) a nejsou to falešné metriky ani testimonials.
+- Ověřit, že sekce `Scénáře` na homepage už neexistuje a že staré foto karty Barber/Beauty/Trénink se nevrátily na root landing.
+- Ověřit, že produktová proof deska nemá fake progress bar, náhodné floating cards ani lifestyle obrázky; má působit jako skutečná app ukázka.
+- Na mobilní šířce ověřit, že `product-proof-board` nemá horizontální scroll, app panely jsou čitelné a sticky CTA nepřekrývá důležitý obsah.
 - Při nastavení reduced motion musí zůstat obsah statický a čitelný.
-- Na mobilní šířce ověřit, že CTA/proof blok pod herem přichází až po fotce a nepřekrývá booking overlay.
+- Na mobilní šířce ověřit, že produktový proof blok přichází až po hero app rámu a sticky CTA nepřekrývá app panely.
 - V mobilním menu ověřit scroll limit, zavření backdropem, zavření klávesou Escape a to, že položky nemají dlouhé popisy.
 - Ověřit bento sekci: musí obsahovat `Klient rezervuje sám`, `No-show pod kontrolou`, `Vlastní klienti` a `Připomínky a platby`.
 - Ověřit, že se starý trust marquee nevrátil; stránka nemá používat falešné logotypy, reference ani běžící dekorativní pás důvěry.
