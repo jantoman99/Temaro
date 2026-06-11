@@ -1,6 +1,6 @@
 # Manualni test plan
 
-Aktualizováno: 2026-06-11 18:55 CEST
+Aktualizováno: 2026-06-11 23:51 CEST
 
 Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 
@@ -20,7 +20,7 @@ Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 - Otevřít `http://localhost:3000/api/health` a ověřit, že vrací JSON se `status`, `checks.env`, `checks.supabase`, `checks.rate_limit` a `version`; nesmí obsahovat konkrétní hodnoty tajných env proměnných.
 - Na veřejném deployi bez env otevřít `/api/health` a ověřit, že `checks.env.missing` je číslo, ne seznam názvů interních proměnných.
 - Na stagingu `https://rezervacni-system-dev.vercel.app` ověřit `/api/health=ok` a HTML signatury aktuálního landing směru: obsahuje `Plnější kalendář bez marketplace provizí`, `salon-operating-hero`, `salon-command-frame`, `industry-switcher`, `marketplace-free-proof`, `salon-proof-board`, `marketplace-compare-panel`; neobsahuje `product-window-hero`, `product-window-frame`, `product-proof-gallery`, `photo-led-hero`, `salon-phone-card`, `/marketing/salon-day-hero.webp`, `operating-table-stage`, `Provozní stůl dne`, `hero-before-after-stage`, `Den před Temarem`, `Den s Temarem`, `dispatch-day-rail`, `mobile-day-rail`, `dispatch-proof-strip` ani `id="trust-bar"`.
-- Salon-operating staging deploy zatím čeká na commit/push a ruční preview deploy; po nasazení doplnit deploy ID a nové staging ověření.
+- Poslední staging ověření 2026-06-11 23:51 CEST splnilo předchozí bod na preview deployi `dpl_8ozzwSbGcdG2XKRP9Ku3KJssKgFZ`, alias `https://rezervacni-system-dev.vercel.app`; staging screenshot audit je v `output/playwright/landing-salon-operating-2026-06-11/staging/`.
 - Přes `curl -I http://localhost:3000` nebo DevTools Network ověřit, že response obsahuje `Content-Security-Policy`.
 - Přes `curl -I http://localhost:3000` nebo DevTools Network ověřit, že běžné routy obsahují `X-Frame-Options: DENY`; `/embed/booking/<slug>` ho mít nemá, protože booking widget musí jít vložit do iframe.
 - Zkontrolovat root landing page `/`: aktuální veřejný směr je `Temaro Salon Operating`, tedy salonový operating-room layout, oborové vstupy pro lokální služby, app-only produktové scény, pricing early a anti-marketplace argument bez fake metrik, referencí a log. Přihlášená aplikace dál může držet Signal OS.
