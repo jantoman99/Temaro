@@ -62,4 +62,4 @@
 - [x] Capture screenshots at 1440, 1366, 768, 390, 375 and verify no horizontal overflow.
 - [x] Run `npm run check`.
 - [x] Update docs with product-window direction and screenshots.
-- [ ] Commit and push to `origin/dev`, deploy staging, verify `/api/health` and HTML signatures.
+- [x] Commit and push to `origin/dev`, deploy staging, verify `/api/health` and HTML signatures.
