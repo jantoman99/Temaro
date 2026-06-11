@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Aktualizováno: 2026-06-11 14:08 CEST
+Aktualizováno: 2026-06-11 14:16 CEST
 
 Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historické analýzy a staré design audity jsou přesunuté do `docs/archive/`.
 
@@ -27,6 +27,7 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - Landing operating-table pass 2026-06-11 je lokálně zapracovaný: hero je nově `Provozní stůl dne` s claimem `Rezervace drží den pohromadě.`, daty `dailyOperations` a `decisionStack`, produktovým plátnem `operating-table-stage`, desktop inboxem `operations-inbox`, časovým pásem `shift-time-band` a panelem `decision-stack-panel`. CTA v heru je `Nastavit stejný den`; interaktivní výběr slotu a disabled obsazené časy zůstávají zachované.
 - Lokální screenshot audit po operating-table passu: `output/playwright/landing-redesign-2026-06-11/implementation-pass-3/home-1440-pass3.png`, `home-1366-pass3.png`, `home-768-pass3.png`, `home-390-pass3.png`, `home-375-pass3.png`. Naměřeno bez horizontálního overflow na 1440, 1366, 768, 390 a 375px; hero výška je cca 1079px desktop, 2077px tablet, 1850-1895px mobil.
 - Lokální ověření 2026-06-11 14:08 CEST po operating-table passu: cílený `npx vitest run tests/landing-polish.test.ts` prošel 29/29, `npx impeccable detect app components` prošel bez výstupu a plný `npm run check` prošel s 607 Vitest testy, migrations check, type-check, lint a produkční build. Nový guard před implementací správně selhal na chybějícím `dailyOperations`.
+- Staging deploy 2026-06-11 14:16 CEST po operating-table passu: commit `dfc56e0` je na `origin/dev`, ručně nasazený přes `npx vercel build` + `npx vercel deploy --prebuilt --yes` jako preview `dpl_3PsCFBPZt3Tv4CnnuCmy45DCLcYj` a aliasovaný na `https://rezervacni-system-dev.vercel.app`. Ověřeno: `/api/health` je `ok`, HTML obsahuje `Provozní stůl dne`, `Rezervace drží den pohromadě`, `operating-table-stage`, `Volné okno chráněné`, `Rizikový klient`, `Nastavit stejný den` a neobsahuje `hero-before-after-stage`, `Den před Temarem`, `Den s Temarem`, `dispatch-day-rail`, `mobile-day-rail`, `dispatch-proof-strip` ani `id="trust-bar"`.
 - Impeccable design skill byl přidaný mimo repo do `/home/hanys/.codex/skills/impeccable-style` a prošel `quick_validate.py`. `npx impeccable detect app components` po úpravě produktu nehlásí anti-patterny; detekovaný `border-l-4` side-tab v `interactive-product-demo` byl nahrazen jemným vnitřním markerem.
 - Lokální screenshot audit po WOW passu: `output/playwright/landing-wow-2026-06-11/home-1440-final3.png`, `home-1366-final3.png`, `home-768-final3.png`, `home-390-final3.png`, `home-375-final3.png`. Naměřeno bez horizontálního overflow: desktop hero 1139px, tablet 1505px, mobil 1255-1299px. Mobilní/tablet výsledek je cílový 5/5; desktop je vědomě 4.5/5 kvůli vyššímu, ale silnému split-screen důkazu.
 - Lokální ověření 2026-06-11 13:22 CEST po WOW passu: `npm run check` prošlo s 607 Vitest testy, migrations check, type-check, lint a produkční build. Cíleně prošlo `npx vitest run tests/landing-polish.test.ts` 29/29 a `npx vitest run tests/vercel-staging-workflow.test.ts` 2/2.

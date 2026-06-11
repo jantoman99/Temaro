@@ -17,6 +17,7 @@ Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 - Otevrit `http://localhost:3000`.
 - Otevřít `http://localhost:3000/api/health` a ověřit, že vrací JSON se `status`, `checks.env`, `checks.supabase`, `checks.rate_limit` a `version`; nesmí obsahovat konkrétní hodnoty tajných env proměnných.
 - Na veřejném deployi bez env otevřít `/api/health` a ověřit, že `checks.env.missing` je číslo, ne seznam názvů interních proměnných.
+- Na stagingu `https://rezervacni-system-dev.vercel.app` ověřit `/api/health=ok` a HTML signatury aktuálního landing směru: obsahuje `Provozní stůl dne`, `Rezervace drží den pohromadě`, `operating-table-stage`; neobsahuje `hero-before-after-stage`, `Den před Temarem`, `Den s Temarem`, `dispatch-day-rail`, `mobile-day-rail`, `dispatch-proof-strip` ani `id="trust-bar"`.
 - Přes `curl -I http://localhost:3000` nebo DevTools Network ověřit, že response obsahuje `Content-Security-Policy`.
 - Přes `curl -I http://localhost:3000` nebo DevTools Network ověřit, že běžné routy obsahují `X-Frame-Options: DENY`; `/embed/booking/<slug>` ho mít nemá, protože booking widget musí jít vložit do iframe.
 - Zkontrolovat root landing page `/`: aktuální veřejný směr je `Čas jako materiál` s first foldem `Provozní stůl dne`, tedy porcelain/cobalt/apricot/mint, výrazná časová mapa, interaktivní výběr slotu a konkrétní produktové argumenty. Přihlášená aplikace dál může držet Signal OS.
