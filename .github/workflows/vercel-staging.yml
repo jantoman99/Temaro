@@ -85,12 +85,23 @@ jobs:
         id: deploy
         shell: bash
         run: |
-          deployment_url="$(
-            npx vercel deploy --prebuilt --token="$VERCEL_TOKEN" \
+          deployment_json="$(
+            npx vercel deploy --prebuilt --yes --format json --token="$VERCEL_TOKEN" \
               --env NEXT_PUBLIC_APP_URL="$NEXT_PUBLIC_APP_URL" \
               --env NEXT_PUBLIC_SUPABASE_ANON_KEY="$NEXT_PUBLIC_SUPABASE_ANON_KEY" \
               --env NEXT_PUBLIC_SUPABASE_URL="$NEXT_PUBLIC_SUPABASE_URL" \
               --env SUPABASE_SERVICE_ROLE_KEY="$SUPABASE_SERVICE_ROLE_KEY"
+          )"
+          deployment_url="$(
+            DEPLOYMENT_JSON="$deployment_json" node -e '
+              const payload = JSON.parse(process.env.DEPLOYMENT_JSON || "{}");
+              const url = payload.url || payload.deployment?.url;
+              if (!url) {
+                console.error("Vercel deploy did not return a deployment URL.");
+                process.exit(1);
+              }
+              console.log(url.replace(/^https?:\/\//, ""));
+            '
           )"
           echo "url=$deployment_url" >> "$GITHUB_OUTPUT"
           echo "Staging deployment: $deployment_url"
