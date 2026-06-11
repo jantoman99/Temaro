@@ -26,6 +26,8 @@ Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 - Proklikat top bar kotvy a overit, ze vedou na odpovidajici sekce, ne na prazdne nebo neexistujici stranky.
 - Na mobilni sirce zkontrolovat, ze top navigace nezmizi, nepreteka mimo viewport a ctyri hlavni polozky jsou citelne bez horizontalniho scrollu.
 - Na landing page zkontrolovat hero: eyebrow `Rezervační systém pro služby`, claim `Rezervace bez volání. Čas bez chaosu.`, oborové segmenty a interaktivní klientské time chips.
+- Na landing page zkontrolovat dispatch pass: v heru musí být `Živý dispečink dne` s časy `09:30`, `11:00`, `16:30`, `17:30`; na mobilu musí být kompaktní `mobile-day-rail` uvnitř tmavého widgetu bez horizontálního scrollu.
+- Pod herem zkontrolovat tmavý pás `Jeden den, čtyři provozní signály.`; starý běžící trust marquee už se nemá zobrazovat jako řada měst/oborů.
 - V hero timeline ověřit, že rezervace jsou umístěné podle reálného času a délky, ne podle pořadí; po kliknutí `Rezervovat` vznikne nová rezervace bez clippingu a zobrazí se potvrzovací toast.
 - V hero timeline prokliknout obory `Kadeřnictví`, `Barber`, `Kosmetika`, `Trenér`: obsazené časy musí být tmavé, disabled a bez hover efektu; defaultní vybraný slot musí být v každém oboru volný.
 - Na desktopu ověřit, že pozdní rezervace v hero timeline nepřesahují pravý okraj gridu a že poslední lane končí viditelně nad spodní hranou panelu.

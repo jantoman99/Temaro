@@ -64,6 +64,25 @@ const trustBarItems = [
   "Lokální služby",
 ] as const;
 
+const dispatchProofItems = [
+  {
+    label: "Časová osa od prvního scrollu",
+    text: "Návštěvník hned vidí den, ne obecný formulář.",
+  },
+  {
+    label: "Pouze dostupná okna",
+    text: "Volné a obsazené časy jsou oddělené vizuálně i funkčně.",
+  },
+  {
+    label: "Riziko jako signál",
+    text: "No-show stav varuje, ale nepřebarví celou značku na červeno.",
+  },
+  {
+    label: "Vlastní vztah s klientem",
+    text: "Rezervace zůstává u podniku, ne v cizím marketplace.",
+  },
+] as const;
+
 const workflowSteps = [
   {
     icon: ClipboardList,
@@ -291,25 +310,29 @@ export default async function Home() {
       <BusinessDiscoveryHero />
       <MobileStickyCta />
 
-      <section id="trust-bar" className="border-y border-[var(--paper-line)] bg-white/58 py-4">
-        <div className="mx-auto flex w-full max-w-[1280px] items-center gap-5 overflow-hidden px-4 sm:px-6 lg:px-8">
-          <p className="section-eyebrow shrink-0 text-[var(--ink-soft)]">Pro služby v Česku</p>
-          <p className="sr-only">Temaro pro Praha, Brno, Ostrava, salony, barbery, kosmetiku, trenéry a lokální služby.</p>
-          <div className="trust-marquee flex min-w-max" aria-hidden="true">
-            {[0, 1].map((group) => (
-              <div key={group} className="flex gap-3 pr-3">
-                {trustBarItems.map((item) => (
-                  <span key={`${item}-${group}`} className="font-time rounded-full border border-[var(--paper-line)] bg-white px-4 py-2 text-sm font-semibold text-[var(--ink-soft)]">
-                    {item}
-                  </span>
-                ))}
-              </div>
+      <section id="trust-bar" className="dispatch-proof-strip border-y border-[var(--ink)] bg-[var(--ink)] py-5 text-white">
+        <div className="mx-auto grid w-full max-w-[1280px] gap-4 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.4fr] lg:px-8">
+          <span className="sr-only" aria-hidden="true" />
+          <p className="sr-only">Temaro pro {trustBarItems.join(", ")}.</p>
+          <div>
+            <p className="font-time text-xs font-semibold uppercase tracking-[0.16em] text-white/58">Dispečink dne</p>
+            <h2 className="font-display mt-2 max-w-xl text-3xl font-semibold leading-[0.98] sm:text-5xl">
+              Jeden den, čtyři provozní signály.
+            </h2>
+          </div>
+          <div className="grid gap-2 sm:grid-cols-2">
+            {dispatchProofItems.map((item, index) => (
+              <article key={item.label} className="grid gap-1 rounded-[1.15rem] border border-white/12 bg-white/[0.06] px-4 py-3">
+                <p className="font-time text-xs font-semibold text-[var(--apricot)]">0{index + 1}</p>
+                <h3 className="text-base font-bold tracking-[-0.02em]">{item.label}</h3>
+                <p className="text-xs font-medium leading-5 text-white/68">{item.text}</p>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="casovy-engine" className="relative overflow-hidden py-20 sm:py-24">
+      <section id="casovy-engine" className="engine-rail-section relative overflow-hidden py-20 sm:py-24">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_16%_20%,rgba(43,63,242,0.14),transparent_24rem)]" />
         <div className="relative mx-auto grid w-full max-w-[1280px] gap-8 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
           <Reveal>
@@ -383,7 +406,7 @@ export default async function Home() {
           </div>
         </Reveal>
 
-        <div className="mt-10 grid gap-4 md:grid-cols-4">
+        <div className="workflow-rail-grid mt-10 grid gap-4 md:grid-cols-4">
           {workflowSteps.map((step, index) => (
             <Reveal key={step.title} delay={index * 70} className="h-full">
               <article className="relative h-full rounded-[1.5rem] border border-[var(--paper-line)] bg-white p-5 shadow-sm">
@@ -455,7 +478,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <section id="produktove-demo" className="mx-auto w-full max-w-[1180px] px-4 py-20 sm:px-6 lg:px-8">
+      <section id="produktove-demo" className="product-demo-rail mx-auto w-full max-w-[1180px] px-4 py-20 sm:px-6 lg:px-8">
         <Reveal>
           <div className="overflow-hidden rounded-[2rem] border border-[var(--paper-line)] bg-[var(--ink)] text-white shadow-[0_34px_100px_rgba(23,26,33,0.22)]">
             <div className="grid lg:grid-cols-[0.85fr_1.15fr]">

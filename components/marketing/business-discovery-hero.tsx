@@ -98,6 +98,13 @@ const industryOptions = [
 
 const heroTrustItems = ["Bez karty na start", "Žádná provize z vašich klientů", "Vlastní rezervační odkaz"] as const;
 
+const dayRailEvents = [
+  { time: "09:30", label: "Obsazený čas", text: "Tým vidí službu, klienta i délku návštěvy.", tone: "bg-white text-[var(--ink)]" },
+  { time: "11:00", label: "Volné okno", text: "Mezera v kalendáři zůstane dostupná pro klienta.", tone: "bg-[var(--apricot)] text-[var(--ink)]" },
+  { time: "16:30", label: "Riziko no-show", text: "Riziková rezervace je signál, ne červená plocha.", tone: "bg-[var(--apricot-tint)] text-[var(--ink)]" },
+  { time: "17:30", label: "Potvrzeno online", text: "Nový termín se zařadí bez telefonátu.", tone: "bg-[var(--mint)] text-[var(--mint-ink)]" },
+] as const;
+
 export function BusinessDiscoveryHero() {
   const reduceMotion = usePrefersReducedMotion();
   const [activeIndustry, setActiveIndustry] = useState(0);
@@ -192,6 +199,26 @@ export function BusinessDiscoveryHero() {
               </span>
             ))}
           </div>
+
+          <div className="dispatch-day-rail mt-8 hidden rounded-[1.75rem] border border-[var(--paper-line)] bg-white/72 p-3 shadow-[0_18px_54px_rgba(23,26,33,0.08)] backdrop-blur md:block">
+            <div className="mb-3 flex items-center justify-between gap-4 px-2">
+              <p className="section-eyebrow">Živý dispečink dne</p>
+              <span className="font-time rounded-full bg-[var(--cobalt-tint)] px-3 py-1.5 text-xs font-semibold text-[var(--cobalt)]">
+                08:00-18:00
+              </span>
+            </div>
+            <div className="grid gap-2 lg:grid-cols-4">
+              {dayRailEvents.map((event) => (
+                <article key={event.label} className="relative rounded-[1.2rem] bg-[var(--porcelain)] p-3">
+                  <div className={`font-time inline-flex rounded-full px-2.5 py-1 text-xs font-semibold ${event.tone}`}>
+                    {event.time}
+                  </div>
+                  <h3 className="mt-3 text-base font-bold tracking-[-0.02em]">{event.label}</h3>
+                  <p className="mt-1 text-xs font-medium leading-5 text-[var(--ink-soft)]">{event.text}</p>
+                </article>
+              ))}
+            </div>
+          </div>
         </div>
 
         <aside
@@ -214,6 +241,15 @@ export function BusinessDiscoveryHero() {
               <div className="font-time hidden justify-between text-[0.68rem] uppercase tracking-[0.12em] text-white/70 sm:flex">
                 {["08", "10", "12", "14", "16", "18"].map((hour) => (
                   <span key={hour}>{hour}:00</span>
+                ))}
+              </div>
+
+              <div className="mobile-day-rail mb-3 grid grid-cols-4 gap-1.5 sm:hidden" aria-label="Stavy dne v kalendáři">
+                {dayRailEvents.map((event) => (
+                  <div key={`mobile-${event.label}`} className="rounded-xl bg-white/[0.08] p-2">
+                    <p className="font-time text-[0.64rem] font-semibold text-white/70">{event.time}</p>
+                    <p className="mt-1 text-[0.68rem] font-bold leading-3 text-white">{event.label}</p>
+                  </div>
                 ))}
               </div>
 

@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Aktualizováno: 2026-06-11 12:15 CEST
+Aktualizováno: 2026-06-11 12:45 CEST
 
 Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historické analýzy a staré design audity jsou přesunuté do `docs/archive/`.
 
@@ -20,6 +20,9 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - Implementace #3 podle `docs/TEMARO_IMPLEMENTACE_3.md` je lokálně zapracovaná 2026-06-11: hero widget má kolizní engine pro 45min sloty, obsazené časy jsou disabled v ink stavu, default každého oboru je první volný slot, desktop karty se clampují na osu a lane se počítá z času. Mobilní seznam rezervací se řadí chronologicky a nová online rezervace má cobalt zvýraznění.
 - Homepage po implementaci #3 už nemá sekci `#scenare`; scénářové texty jsou přesunuté jako popisky do engine fotokaret. Engine panel je client wrapper přes `useInView`, animace běží až ve viewportu a max 3 cykly, scan se na mobilu vypíná, `Reveal` už nedrží trvalé `will-change` a `<main>` používá `[overflow-x:clip]` místo `overflow-hidden`.
 - Kontrast implementace #3: `Riziko no-show` je apricot tint s ink textem a červená `--signal-red` zůstává jen jako ikona/signál. Dekorativní červený radial v `#casovy-engine` je odstraněný. Next image formáty jsou nastavené na AVIF/WebP a engine fotky používají `quality={70}`.
+- Landing dispatch pass 2026-06-11 je lokálně zapracovaný: homepage má art direction `provozní dispečink dne`, hero dostal `dispatch-day-rail` a mobilní `mobile-day-rail`, původní slabý trust marquee je nahrazený tmavým `dispatch-proof-strip` pásem a navazující engine/workflow/product demo sekce jsou napojené přes rail utility. `next.config.ts` povoluje `images.qualities: [70, 75]`, aby `quality={70}` negenerovalo Next warning.
+- Lokální screenshot audit po dispatch passu: `output/playwright/landing-dispatch-2026-06-11/home-1440x1400-final.png` a `output/playwright/landing-dispatch-2026-06-11/home-390x1000-final.png`. Při ověření byl nalezen stale `next dev` proces na portu 3010; po zabití starého procesu čistý render obsahoval tmavý dispatch strip.
+- Lokální ověření 2026-06-11 12:45 CEST po dispatch passu: `npm run check` prošlo s 607 Vitest testy, migrations check, type-check, lint a produkční build. Cílený `npx vitest run tests/landing-polish.test.ts` prošel 29/29; před implementací nový guard správně selhal na chybějícím `dayRailEvents`.
 - Poznámka pro vlastníka: na Vercel dev projektu nastavit `NEXT_PUBLIC_APP_URL=https://rezervacni-system-dev.vercel.app` a v produkci produkční doménu, aby canonical/OG metadata neukazovala `localhost:3000`. Tato změna je mimo repo.
 - Marketing navigace 2026-06-10 je zredukovaná na `Produkt`, `Ceník`, `Ukázka`, `Návody`; mobilní menu je fullscreen-like panel a CTA na mobilu už nepřekrývá hero widget.
 - Lokální ověření 2026-06-11 12:14 CEST po implementaci #3: `npm run check` prošlo s 606 Vitest testy, migrations check, type-check, lint a produkční build. Cílený `npm run test -- tests/landing-polish.test.ts` prošel 28/28 a před implementací selhal na 7 guardech podle očekávání.

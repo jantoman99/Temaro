@@ -1,6 +1,6 @@
 # Runtime checklist
 
-Aktualizováno: 2026-06-11 12:15 CEST
+Aktualizováno: 2026-06-11 12:45 CEST
 
 Tento checklist je pro první reálné ověření mimo demo režim.
 
@@ -34,7 +34,10 @@ Aktuální známý stav:
 - Runtime po `TEMARO_IMPLEMENTACE_3` ověřit na staging `/`: pro všechny čtyři obory proklikat pět slotů; obsazené sloty musí být disabled v ink stavu, default vybraný čas musí být volný, žádná desktop karta nesmí přesáhnout pravý ani dolní okraj gridu a mobilní list musí být chronologický s badge `nové` u nové online rezervace.
 - Runtime po `TEMARO_IMPLEMENTACE_3` ověřit `#casovy-engine`: sticky levý sloupec funguje nebo je případně odstraněný, ne rozbitý; animace zpráv/slotů začnou až po vstupu do viewportu a doběhnou po cca třech cyklech; na mobilu neběží scan efekt; při `prefers-reduced-motion: reduce` zůstává obsah statický a čitelný.
 - Runtime po `TEMARO_IMPLEMENTACE_3` ověřit kontrast a obsah: `Riziko no-show` nemá bílé písmo na červené ploše, červená se používá jen pro ikonu, engine fotky mají popisky a mini time chipy místo fake progress baru, `12 rezervací` se na homepage neopakuje dvakrát.
+- Runtime po dispatch passu ověřit na staging `/`: hero obsahuje `Živý dispečink dne`, desktop `dispatch-day-rail` a mobilní `mobile-day-rail`; pod herem je tmavý `dispatch-proof-strip` s textem `Jeden den, čtyři provozní signály.` místo starého trust marquee; engine/workflow/product demo drží rail vizuál bez horizontálního overflow na 1440px i 390px.
+- Runtime po dispatch passu ověřit, že `quality={70}` u engine fotek už v dev/build konzoli negeneruje Next image quality warning díky `images.qualities: [70, 75]`.
 - Vercel env úkol mimo repo: v dev projektu nastavit `NEXT_PUBLIC_APP_URL=https://rezervacni-system-dev.vercel.app`; v produkčním projektu nastavit produkční doménu. Bez toho mohou canonical/OG metadata ukazovat localhost.
+- Lokální ověření 2026-06-11 12:45 CEST po dispatch passu: `npm run check` prošlo s 607 Vitest testy, migrations check, type-check, lint a produkční build. Lokální Playwright screenshoty: `output/playwright/landing-dispatch-2026-06-11/home-1440x1400-final.png`, `output/playwright/landing-dispatch-2026-06-11/home-390x1000-final.png`.
 - Lokální ověření 2026-06-11 12:14 CEST po implementaci #3: `npm run check` prošlo s 606 Vitest testy, migrations check, type-check, lint a produkční build. Cílený `npm run test -- tests/landing-polish.test.ts` prošel 28/28; před implementací selhal na 7 guardech podle očekávání.
 - Lokální ověření 2026-06-11 00:10 CEST po landing visual audit fixu: `npm run check` prošlo s 605 Vitest testy, migrations check, type-check, lint a produkční build. Cílený `npm test -- tests/landing-polish.test.ts` prošel 27/27. Playwright lokálně ověřil mobilní overflow `0` a mobilní rezervační karty bez interního přetečení.
 - Staging ověření 2026-06-11 00:02 CEST po landing visual audit fixu: preview deploy `dpl_GzrQdWGTESycAgKrfBnFAGqhBoBi` je aliasovaný na `https://rezervacni-system-dev.vercel.app`; `/api/health` je `ok`, HTML obsahuje `mobile-reservation-list`, `desktop-reservation-card`, `casovy-engine` a `temaro-time-page`; `PLAYWRIGHT_BASE_URL=https://rezervacni-system-dev.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` prošel 11/11 po scope fixu footer linků v testu.

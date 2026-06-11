@@ -372,6 +372,37 @@ describe("landing polish guard", () => {
     expect(globals).toContain("opacity: 0");
   });
 
+  test("implementation 4 turns the landing into a dispatch day rail", () => {
+    const page = readProjectFile("app/page.tsx");
+    const hero = readProjectFile("components/marketing/business-discovery-hero.tsx");
+    const globals = readProjectFile("app/globals.css");
+    const nextConfig = readProjectFile("next.config.ts");
+
+    expect(hero).toContain("dayRailEvents");
+    expect(hero).toContain("dispatch-day-rail");
+    expect(hero).toContain("mobile-day-rail");
+    expect(hero).toContain("Obsazený čas");
+    expect(hero).toContain("Volné okno");
+    expect(hero).toContain("Riziko no-show");
+    expect(hero).toContain("Potvrzeno online");
+    expect(hero).toContain("Živý dispečink dne");
+
+    expect(page).toContain("dispatchProofItems");
+    expect(page).toContain("dispatch-proof-strip");
+    expect(page).toContain("Časová osa od prvního scrollu");
+    expect(page).toContain("engine-rail-section");
+    expect(page).toContain("workflow-rail-grid");
+    expect(page).toContain("product-demo-rail");
+    expect(page).not.toContain("trust-marquee flex min-w-max");
+
+    expect(globals).toContain(".dispatch-day-rail");
+    expect(globals).toContain(".dispatch-proof-strip");
+    expect(globals).toContain(".engine-rail-section");
+    expect(globals).toContain(".workflow-rail-grid");
+    expect(globals).toContain(".product-demo-rail");
+    expect(nextConfig).toContain("qualities: [70, 75]");
+  });
+
   test("live product showcase animates only as progressive enhancement", () => {
     const showcase = readProjectFile("components/marketing/live-product-showcase.tsx");
     const globals = readProjectFile("app/globals.css");
