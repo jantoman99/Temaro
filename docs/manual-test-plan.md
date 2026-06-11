@@ -1,5 +1,7 @@
 # Manualni test plan
 
+Aktualizováno: 2026-06-11 15:24 CEST
+
 Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 
 ## 1. Priprava
@@ -17,36 +19,36 @@ Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 - Otevrit `http://localhost:3000`.
 - Otevřít `http://localhost:3000/api/health` a ověřit, že vrací JSON se `status`, `checks.env`, `checks.supabase`, `checks.rate_limit` a `version`; nesmí obsahovat konkrétní hodnoty tajných env proměnných.
 - Na veřejném deployi bez env otevřít `/api/health` a ověřit, že `checks.env.missing` je číslo, ne seznam názvů interních proměnných.
-- Na stagingu `https://rezervacni-system-dev.vercel.app` ověřit `/api/health=ok` a HTML signatury aktuálního landing směru: obsahuje `Provozní stůl dne`, `Rezervace drží den pohromadě`, `operating-table-stage`; neobsahuje `hero-before-after-stage`, `Den před Temarem`, `Den s Temarem`, `dispatch-day-rail`, `mobile-day-rail`, `dispatch-proof-strip` ani `id="trust-bar"`.
+- Na stagingu `https://rezervacni-system-dev.vercel.app` ověřit `/api/health=ok` a HTML signatury aktuálního landing směru: obsahuje `Méně zvonění`, `Plnější kalendář`, `photo-led-hero`, `salon-day-hero`, `salon-phone-card`, `salon-proof-strip`; neobsahuje `operating-table-stage`, `Provozní stůl dne`, `hero-before-after-stage`, `Den před Temarem`, `Den s Temarem`, `dispatch-day-rail`, `mobile-day-rail`, `dispatch-proof-strip` ani `id="trust-bar"`.
 - Přes `curl -I http://localhost:3000` nebo DevTools Network ověřit, že response obsahuje `Content-Security-Policy`.
 - Přes `curl -I http://localhost:3000` nebo DevTools Network ověřit, že běžné routy obsahují `X-Frame-Options: DENY`; `/embed/booking/<slug>` ho mít nemá, protože booking widget musí jít vložit do iframe.
-- Zkontrolovat root landing page `/`: aktuální veřejný směr je `Čas jako materiál` s first foldem `Provozní stůl dne`, tedy porcelain/cobalt/apricot/mint, výrazná časová mapa, interaktivní výběr slotu a konkrétní produktové argumenty. Přihlášená aplikace dál může držet Signal OS.
+- Zkontrolovat root landing page `/`: aktuální veřejný směr je `Salonový den, ne dashboard`, tedy porcelain/cobalt/apricot/mint, velká službová fotka, klidný booking overlay, jednodušší text a konkrétní produktové argumenty. Přihlášená aplikace dál může držet Signal OS.
 - Zkontrolovat top bar landing page: musi obsahovat `Produkt`, `Ceník`, `Ukázka`, `Návody`, `Přihlášení` a primary CTA `Začít zdarma`.
 - Ověřit, že marketing header na homepage nemá theme toggle a landing zůstává light-only i při dříve uloženém dark režimu v prohlížeči.
 - Theme toggle dál ověřovat na `/podniky`, auth a booking demo stránkách, kde má zůstat součástí veřejného vstupu.
 - Proklikat top bar kotvy a overit, ze vedou na odpovidajici sekce, ne na prazdne nebo neexistujici stranky.
 - Na mobilni sirce zkontrolovat, ze top navigace nezmizi, nepreteka mimo viewport a ctyri hlavni polozky jsou citelne bez horizontalniho scrollu.
-- Na landing page zkontrolovat hero: eyebrow `Provozní stůl dne`, claim `Rezervace drží den pohromadě.`, oborové segmenty, CTA `Nastavit stejný den`, produktové plátno `Provozní stůl dne` a interaktivní klientské time chips.
-- Na landing page zkontrolovat operating-table pass: hero musí ukazovat `Dnes 08:00-18:00`, desktop inbox příchozích zpráv, kalendář bez přepínání, rozhodnutí `Volné okno chráněné`, `Rizikový klient`, `Potvrzeno online` a výběr volného termínu.
-- Pod herem nesmí být samostatný `dispatch-proof-strip`, `dispatch-day-rail`, `mobile-day-rail`, `hero-before-after-stage`, `Den před Temarem`, `Den s Temarem` ani `trust-bar`; sekce `Časový engine` má navazovat hned po hero bloku.
-- Na viewportech 1440, 1366, 768, 390 a 375px ověřit, že není horizontální scroll. Desktop má ukazovat inbox + kalendář + rozhodnutí, tablet schovává inbox zpráv, mobil má v prvním scrollu ukázat produktový výběr času a rozhodnutí dne.
-- V hero timeline ověřit, že rezervace jsou umístěné podle reálného času a délky, ne podle pořadí; po kliknutí `Rezervovat` vznikne nová rezervace bez clippingu a zobrazí se potvrzovací toast.
-- V hero timeline prokliknout obory `Kadeřnictví`, `Barber`, `Kosmetika`, `Trenér`: obsazené časy musí být tmavé, disabled a bez hover efektu; defaultní vybraný slot musí být v každém oboru volný.
-- Na desktopu ověřit, že pozdní rezervace v hero timeline nepřesahují pravý okraj gridu a že poslední lane končí viditelně nad spodní hranou panelu.
-- Na mobilní šířce 360-390px ověřit hero timeline: rezervační položky se mají zobrazit jako čitelné řádky s časem, službou a klientem, ne jako úzké sloupce s useknutým textem.
+- Na landing page zkontrolovat hero: eyebrow `Rezervační systém pro salony a služby`, claim `Méně zvonění. Plnější kalendář.`, oborové segmenty, CTA `Vybrat pilot`, fotku `salon-day-hero.webp`, štítek `Volno dnes` a interaktivní booking overlay s time chips.
+- Na landing page zkontrolovat photo-led pass: hero musí působit jako službový provoz, ne jako generický dashboard. Produktová vrstva má být jen klidný overlay přes fotku; nesmí překrýt celý mobilní první fold.
+- Pod herem nesmí být samostatný `operating-table-stage`, `dispatch-proof-strip`, `dispatch-day-rail`, `mobile-day-rail`, `hero-before-after-stage`, `Den před Temarem`, `Den s Temarem` ani `trust-bar`; sekce `Provoz v obrazech` má navazovat hned po hero bloku.
+- Na viewportech 1440, 1366, 768, 390 a 375px ověřit, že není horizontální scroll. Desktop má ukazovat velký headline a fotku s absolutním booking overlayem, tablet má fotku před CTA/proof blokem, mobil má viditelnou fotku nad kompaktním overlayem.
+- V hero booking overlayi ověřit, že rezervace jsou umístěné podle reálného času a délky, ne podle pořadí; po kliknutí `Rezervovat` vznikne nová rezervace bez clippingu a potvrdí se stav tlačítka.
+- V hero booking overlayi prokliknout obory `Kadeřnictví`, `Barber`, `Kosmetika`, `Trenér`: obsazené časy musí být tmavé, disabled a bez hover efektu; defaultní vybraný slot musí být v každém oboru volný.
+- Na desktopu ověřit, že pozdní rezervace v booking gridu nepřesahují pravý okraj a že poslední lane končí viditelně nad spodní hranou panelu.
+- Na mobilní šířce 360-390px ověřit hero booking overlay: rezervace a časy mají být kompaktní vodorovné prvky, ne vysoký stack, který zakryje celou fotku.
 - Na mobilní šířce po vytvoření rezervace ověřit, že seznam zůstává seřazený podle času a nová karta má cobalt ring a badge `nové`.
 - V desktop navigaci otevřít dropdowny `Produkt` a `Návody`; položky mají být čisté názvy bez drobných popisků a víceslovné labely jako `Produktová ukázka` nesmí opticky splývat.
-- V sekci `Časový engine` ověřit tři AI fotky provozů: salon, beauty a trénink. Fotky musí působit jako reálné provozy, ne jako náhodná galerie; přes každou má být produktový signál.
-- V sekci `Časový engine` ověřit animaci `příchozí chaos -> složený den`: zprávy se jemně hýbou, sloty vpravo pulzují jen po vstupu sekce do viewportu a animace doběhne po několika cyklech, ne donekonečna mimo viewport.
-- V sekci `Časový engine` ověřit, že `Riziko no-show` používá světlé apricot pozadí, tmavý text a červenou jen jako ikonu. Dekorativní červený radial v pozadí sekce nemá být vidět.
+- V sekci `Provoz v obrazech` ověřit tři AI fotky provozů: barber, beauty a trénink. Fotky musí působit jako reálné provozy, ne jako náhodná galerie; produkt je jen podpůrný kontext v textu.
+- V sekci `Provoz v obrazech` ověřit, že levý text vysvětluje jednoduchý pohyb `klient rezervuje bez volání -> tým vidí kapacitu -> připomínka sníží riziko prázdné židle`.
+- V sekci `Provoz v obrazech` ověřit čitelnost bílých titulků přes fotky a dostatečný kontrast štítků `Barber`, `Beauty`, `Trénink`.
 - Ověřit, že sekce `Scénáře` na homepage už neexistuje a že texty Barber/Beauty/Trénink jsou přesunuté jako popisky pod titulky engine fotek.
-- Ověřit, že engine foto karty mají místo fake progress baru tři malé time chipy, dva obsazené a jeden volný.
-- Na mobilní šířce ověřit, že sekce `Časový engine` nemá horizontální scroll, foto karty jsou čitelné a sticky CTA nepřekrývá důležitý obsah.
-- Na mobilní šířce ověřit, že scan animace v `Časový engine` neběží; při nastavení reduced motion musí být zprávy i sloty statické.
-- Na mobilní šířce ověřit, že statické CTA pod herem už není, sticky CTA se objeví až po odscrollování hero a zmizí u footeru.
+- Ověřit, že foto karty už nemají fake progress bar ani time chip dekorace; nesmí působit jako náhodné floating cards.
+- Na mobilní šířce ověřit, že sekce `Provoz v obrazech` nemá horizontální scroll, foto karty jsou čitelné a sticky CTA nepřekrývá důležitý obsah.
+- Při nastavení reduced motion musí zůstat obsah statický a čitelný.
+- Na mobilní šířce ověřit, že CTA/proof blok pod herem přichází až po fotce a nepřekrývá booking overlay.
 - V mobilním menu ověřit scroll limit, zavření backdropem, zavření klávesou Escape a to, že položky nemají dlouhé popisy.
-- Ověřit bento sekci: musí obsahovat `Méně telefonátů`, `No-show pod kontrolou`, `Paměť podniku`, `Jeden odkaz, všechny kanály`, `Bez provize`, `Zálohy a platby`, `SMS / e-mail`, `Tým a role`.
-- Ověřit trust marquee: duplicitní obsah je schovaný pro screenreadery, animace se zastaví na hoveru a při `prefers-reduced-motion: reduce` neběží.
+- Ověřit bento sekci: musí obsahovat `Klient rezervuje sám`, `No-show pod kontrolou`, `Vlastní klienti` a `Připomínky a platby`.
+- Ověřit, že se starý trust marquee nevrátil; stránka nemá používat falešné logotypy, reference ani běžící dekorativní pás důvěry.
 - Ověřit editorialní statement `Neprodáváme formulář. Prodáváme klidný provoz.` na ink pozadí jako samostatný vizuální zlom.
 - Zkontrolovat, že `12 rezervací` je na homepage jen jednou a produktová ukázka používá jiný údaj, například `3 volná okna`.
 - Ověřit, že podnikatelská registrace `/register` a zákaznický účet `/account/login` zůstávají dostupné přes CTA/footer, i když samostatná homepage sekce `Dva typy účtů` byla odstraněná kvůli zkrácení stránky.

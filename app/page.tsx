@@ -5,15 +5,11 @@ import {
   CalendarDays,
   CheckCircle2,
   ClipboardList,
-  CreditCard,
-  Globe2,
-  History,
   Link2,
   MailCheck,
   MonitorPlay,
   MousePointerClick,
   ShieldCheck,
-  UsersRound,
 } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
@@ -25,7 +21,6 @@ import { TemaroLogo } from "@/components/brand/temaro-logo";
 import { BusinessDiscoveryHero } from "@/components/marketing/business-discovery-hero";
 import { MarketingHeader } from "@/components/marketing/marketing-header";
 import { MobileStickyCta } from "@/components/marketing/mobile-sticky-cta";
-import { TimeEnginePanel } from "@/components/marketing/time-engine-panel";
 import { Reveal } from "@/components/motion/reveal";
 import { isLikelyPlatformHost, normalizeRequestHost } from "@/lib/custom-domain";
 import { hasSupabaseAdminEnv } from "@/lib/env";
@@ -94,9 +89,9 @@ const workflowSteps = [
 const bentoCards = [
   {
     icon: MousePointerClick,
-    title: "Méně telefonátů",
-    text: "Klient si najde volný čas sám. Tým neřeší dlouhé zprávy tam a zpět ani během špičky.",
-    detail: "Rezervace, změna i potvrzení běží ve stejném rytmu.",
+    title: "Klient rezervuje sám",
+    text: "Vidí jen dostupná okna a nemusí čekat, až někdo zvedne telefon.",
+    detail: "Méně zpráv tam a zpět. Více času na práci v provozu.",
     className: "lg:col-span-2 lg:row-span-2 bg-[var(--cobalt)] text-white",
   },
   {
@@ -107,42 +102,16 @@ const bentoCards = [
     className: "bg-[var(--apricot-tint)]",
   },
   {
-    icon: History,
-    title: "Paměť podniku",
-    text: "Historie návštěv, poznámky a preference zůstávají u klienta, ne v chatu.",
-    history: ["12. 03. Střih · Tereza", "05. 04. Barva · alergie nehlášena"],
+    icon: ShieldCheck,
+    title: "Vlastní klienti",
+    text: "Temaro není marketplace. Rezervace z vašeho odkazu patří vašemu podniku.",
     className: "bg-[var(--mint)] text-[var(--mint-ink)]",
   },
   {
-    icon: Globe2,
-    title: "Jeden odkaz, všechny kanály",
-    text: "Stejný rezervační vstup funguje pro web, Instagram, Google i QR v provozovně.",
-    channels: ["web", "Instagram", "Google", "QR"],
-    className: "lg:col-span-2 bg-white",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Bez provize",
-    text: "Temaro není marketplace. Rezervace z vašeho odkazu patří vašemu podniku.",
-    className: "bg-white",
-  },
-  {
-    icon: CreditCard,
-    title: "Zálohy a platby",
-    text: "Pro dražší služby můžete vyžadovat zálohu a snížit prázdná místa v kalendáři.",
-    className: "bg-white",
-  },
-  {
     icon: BellRing,
-    title: "SMS / e-mail",
-    text: "Potvrzení a připomínky drží klienta v obraze bez ručního obvolávání.",
-    className: "bg-white",
-  },
-  {
-    icon: UsersRound,
-    title: "Tým a role",
-    text: "Vlastník, tým i konkrétní pracovníci vidí jen to, co potřebují pro provoz.",
-    className: "bg-[var(--porcelain-deep)]",
+    title: "Připomínky a platby",
+    text: "Potvrzení, připomínky a zálohy sníží prázdná místa v kalendáři.",
+    className: "lg:col-span-2 bg-white",
   },
 ] as const;
 
@@ -152,51 +121,28 @@ const demoMoments = [
   ["17:00", "Rezervační stránka", "Nová rezervace se zařadí do dne"],
 ] as const;
 
-const visualProofImages = [
+const salonSceneImages = [
   {
-    src: "/marketing/time-engine-salon.webp",
-    alt: "Moderní barber a salon jako provozní prostředí pro online rezervace",
-    label: "Salon",
-    signal: "4 volná okna",
-    title: "Telefon zvoní. Slot už drží místo.",
-    text: "Rychlé přeobjednání, oblíbený člověk a jasný denní rytmus pro tým.",
+    src: "/marketing/salon-day-barber.webp",
+    alt: "Barber dokončuje střih a na pultu je telefon s dostupnými časy",
+    label: "Barber",
+    title: "Telefon nemusí zastavit střih.",
+    text: "Volné časy jsou vidět online, takže klient vybírá bez přerušení práce.",
   },
   {
-    src: "/marketing/time-engine-beauty.webp",
-    alt: "Světlé beauty studio s lehátkem a produktovou vrstvou rezervací",
+    src: "/marketing/salon-day-beauty.webp",
+    alt: "Beauty studio s připraveným lehátkem a tabletem s kalendářem",
     label: "Beauty",
-    signal: "SMS připomínka",
-    title: "Připomínka odejde dřív, než vznikne díra.",
-    text: "Klientská historie, poznámky a kapacita dne pro opakované návštěvy.",
+    title: "Připomínka hlídá prázdná místa.",
+    text: "Klient ví, kdy má přijít, a tým vidí kontext návštěvy včas.",
   },
   {
-    src: "/marketing/time-engine-fitness.webp",
-    alt: "Tréninkové studio s volnými sloty pro konzultace a lekce",
+    src: "/marketing/salon-day-fitness.webp",
+    alt: "Tréninkové studio s telefonem ukazujícím volné rezervační sloty",
     label: "Trénink",
-    signal: "slot se uvolní",
-    title: "Uvolněný termín se vrátí do nabídky.",
-    text: "Jeden rezervační odkaz pro termíny, které klient zvládne vybrat sám.",
+    title: "Uvolněný termín se znovu prodává.",
+    text: "Když se místo uvolní, klient ho najde bez ručního obvolávání.",
   },
-] as const;
-
-const messageCloud = [
-  "Můžu dnes po práci?",
-  "Přesuneme to na pátek?",
-  "Nepřijdu, omlouvám se",
-  "Má Tereza něco v 15:30?",
-] as const;
-
-const engineSlots = [
-  { time: "09:30", title: "Barva kořínků", tone: "bg-[var(--cobalt)] text-white" },
-  { time: "11:00", title: "Volné okno", tone: "bg-[var(--apricot)] text-[var(--ink)]" },
-  { time: "14:00", title: "SMS připomínka", tone: "bg-[var(--mint)] text-[var(--mint-ink)]" },
-  { time: "16:30", title: "Riziko no-show", tone: "bg-[var(--apricot-tint)] text-[var(--ink)]", iconTone: "text-[var(--signal-red)]" },
-] as const;
-
-const timeProofChips = [
-  { time: "09:30", label: "obsazeno", tone: "bg-[var(--ink)] text-white" },
-  { time: "11:00", label: "obsazeno", tone: "bg-[var(--ink)] text-white" },
-  { time: "14:00", label: "volno", tone: "bg-[var(--mint)] text-[var(--mint-ink)]" },
 ] as const;
 
 const pricingPlans = [
@@ -293,36 +239,46 @@ export default async function Home() {
       <span className="sr-only" aria-hidden="true" />
       <p className="sr-only">Temaro pro {trustBarItems.join(", ")}.</p>
 
-      <section id="casovy-engine" className="engine-rail-section relative overflow-hidden py-20 sm:py-24">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_16%_20%,rgba(43,63,242,0.14),transparent_24rem)]" />
-        <div className="relative mx-auto grid w-full max-w-[1280px] gap-8 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
+      <section id="casovy-engine" className="salon-proof-strip relative overflow-hidden py-20 sm:py-24">
+        <div className="relative mx-auto grid w-full max-w-[1280px] gap-8 px-4 sm:px-6 lg:grid-cols-[0.82fr_1.18fr] lg:px-8">
           <Reveal>
-            <div className="sticky top-28">
-              <p className="section-eyebrow">Časový engine</p>
+            <div className="lg:sticky lg:top-28">
+              <p className="section-eyebrow">Provoz v obrazech</p>
               <h2 className="font-display mt-3 max-w-2xl text-balance text-5xl font-semibold leading-[0.96] sm:text-7xl">
-                Chaos se skládá do dne.
+                Software má zmizet do provozu.
               </h2>
               <p className="mt-5 max-w-xl text-lg font-normal leading-8 text-[var(--ink-soft)]">
-                Fotka provozu ukáže realitu. Temaro přes ni položí signály dne: volné okno, riziko no-show, připomínku a potvrzenou rezervaci.
+                Inspirace z nejlepších booking systémů je jednoduchá: ukažte skutečný svět služby a produkt jen jako klidnou vrstvu, která drží dostupnost, potvrzení a připomínky.
               </p>
-              <TimeEnginePanel messageCloud={messageCloud} engineSlots={engineSlots} />
+              <div className="mt-8 grid gap-3 rounded-[1.75rem] border border-[var(--paper-line)] bg-white p-4 shadow-sm">
+                {[
+                  ["01", "Klient rezervuje bez volání"],
+                  ["02", "Tým vidí volná a obsazená místa"],
+                  ["03", "Připomínka sníží riziko prázdné židle"],
+                ].map(([time, text]) => (
+                  <div key={time} className="grid grid-cols-[3rem_1fr] items-center gap-3 rounded-2xl bg-[var(--porcelain)] p-3">
+                    <span className="font-time text-sm font-semibold text-[var(--cobalt)]">{time}</span>
+                    <p className="text-sm font-bold text-[var(--ink)]">{text}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </Reveal>
 
-          <div className="grid gap-4">
-            {visualProofImages.map((image, index) => (
+          <div className="salon-scenes-grid grid gap-4">
+            {salonSceneImages.map((image, index) => (
               <Reveal key={image.src} delay={index * 80}>
-                <article className="photo-proof-card group relative min-h-[300px] overflow-hidden rounded-[2rem] border border-[var(--paper-line)] bg-[var(--ink)] shadow-[0_26px_80px_rgba(23,26,33,0.18)] sm:min-h-[360px]">
+                <article className="salon-scene-card group relative min-h-[360px] overflow-hidden rounded-[2rem] border border-[var(--paper-line)] bg-[var(--ink)] shadow-[0_26px_80px_rgba(23,26,33,0.18)] sm:min-h-[420px]">
                   <Image
                     src={image.src}
                     alt={image.alt}
                     fill
                     sizes="(min-width: 1024px) 700px, 95vw"
-                    quality={70}
+                    quality={75}
                     className="object-cover transition duration-700 group-hover:scale-[1.045]"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-r from-[rgba(23,26,33,0.78)] via-[rgba(23,26,33,0.26)] to-transparent" />
-                  <div className="absolute inset-x-4 bottom-4 grid gap-3 sm:inset-x-6 sm:bottom-6 sm:grid-cols-[1fr_auto] sm:items-end">
+                  <div className="absolute inset-0 bg-gradient-to-r from-[rgba(23,26,33,0.74)] via-[rgba(23,26,33,0.22)] to-transparent" />
+                  <div className="absolute inset-x-4 bottom-4 sm:inset-x-6 sm:bottom-6">
                     <div>
                       <span className="font-time inline-flex rounded-full bg-white/88 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ink)] backdrop-blur">
                         {image.label}
@@ -333,16 +289,6 @@ export default async function Home() {
                       <p className="mt-3 max-w-md text-sm font-normal leading-6 text-white/80">
                         {image.text}
                       </p>
-                    </div>
-                    <div className="rounded-[1.3rem] border border-white/18 bg-white/90 p-3 text-[var(--ink)] shadow-xl backdrop-blur">
-                      <p className="font-time text-xs font-semibold uppercase tracking-[0.12em] text-[var(--cobalt)]">{image.signal}</p>
-                      <div className="mt-3 flex w-48 flex-wrap gap-1.5">
-                        {timeProofChips.map((chip) => (
-                          <span key={`${image.src}-${chip.time}`} className={`font-time rounded-full px-2.5 py-1 text-[0.68rem] font-semibold ${chip.tone}`}>
-                            {chip.time} · {chip.label}
-                          </span>
-                        ))}
-                      </div>
                     </div>
                   </div>
                 </article>
@@ -358,11 +304,11 @@ export default async function Home() {
             <div>
               <p className="section-eyebrow">Jak to funguje</p>
               <h2 className="font-display mt-3 text-balance text-5xl font-semibold leading-[0.98] sm:text-6xl">
-                Z chaosu vznikne čitelná časová osa.
+                Rezervace má být jednoduchý pohyb.
               </h2>
             </div>
             <p className="max-w-xl text-lg font-normal leading-8 text-[var(--ink-soft)] lg:pt-8">
-              Temaro nestaví další formulář. Skládá službu, člověka, klienta a čas do stejného provozního rytmu.
+              Klient si vybere čas, systém ho potvrdí a provoz vidí další krok bez přepínání mezi telefonem, zprávami a papírem.
             </p>
           </div>
         </Reveal>
@@ -413,24 +359,6 @@ export default async function Home() {
                     <span className="font-time mt-5 inline-flex rounded-full bg-white/72 px-3 py-1.5 text-xs font-semibold text-[var(--ink)]">
                       {card.chip}
                     </span>
-                  ) : null}
-                  {"history" in card ? (
-                    <div className="mt-5 grid gap-2">
-                      {card.history.map((item) => (
-                        <span key={item} className="font-time rounded-full bg-white/58 px-3 py-2 text-xs font-semibold text-[var(--mint-ink)]">
-                          {item}
-                        </span>
-                      ))}
-                    </div>
-                  ) : null}
-                  {"channels" in card ? (
-                    <div className="mt-5 flex flex-wrap gap-2">
-                      {card.channels.map((channel) => (
-                        <span key={channel} className="font-time rounded-full border border-[var(--paper-line)] bg-[var(--porcelain)] px-3 py-1.5 text-xs font-semibold text-[var(--ink)]">
-                          {channel}
-                        </span>
-                      ))}
-                    </div>
                   ) : null}
                 </div>
               </article>

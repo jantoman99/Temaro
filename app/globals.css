@@ -266,6 +266,7 @@
     color: var(--cobalt-deep);
     font-family: var(--font-time-stack);
     font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
   }
 
   .time-chip:hover:not(:disabled) {
@@ -298,49 +299,44 @@
     background-size: 16.666% 100%, 100% 64px;
   }
 
-  .operating-table-stage,
-  .operations-inbox,
-  .decision-stack-panel,
+  .photo-led-hero,
+  .salon-scenes-grid,
+  .salon-scene-card,
   .workflow-rail-grid article,
   .product-demo-rail > * {
     position: relative;
   }
 
-  .operating-table-stage {
+  .photo-led-hero {
+    background:
+      radial-gradient(circle at 16% 18%, color-mix(in srgb, var(--cobalt-tint) 74%, transparent), transparent 28rem),
+      radial-gradient(circle at 92% 8%, color-mix(in srgb, var(--mint) 46%, transparent), transparent 26rem),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.72), transparent 42%);
+  }
+
+  .photo-led-hero::after {
+    background:
+      linear-gradient(90deg, color-mix(in srgb, var(--paper-line) 58%, transparent) 1px, transparent 1px),
+      linear-gradient(0deg, color-mix(in srgb, var(--paper-line) 44%, transparent) 1px, transparent 1px);
+    background-size: 84px 84px;
+    content: "";
+    inset: 0;
+    opacity: 0.34;
+    pointer-events: none;
+    position: absolute;
+  }
+
+  .photo-led-hero > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .salon-phone-card {
     isolation: isolate;
   }
 
-  .operating-table-stage::before {
-    background:
-      linear-gradient(90deg, rgba(43, 63, 242, 0.10) 1px, transparent 1px),
-      linear-gradient(0deg, rgba(23, 26, 33, 0.07) 1px, transparent 1px),
-      radial-gradient(circle at 78% 18%, rgba(43, 63, 242, 0.18), transparent 24rem),
-      radial-gradient(circle at 10% 18%, rgba(255, 185, 138, 0.28), transparent 20rem);
-    background-size: 48px 48px, 48px 48px, auto, auto;
-    content: "";
-    inset: 0;
-    opacity: 0.86;
-    pointer-events: none;
-    position: absolute;
-  }
-
-  .operating-table-stage::after {
-    background: linear-gradient(105deg, transparent 0 58%, rgba(43, 63, 242, 0.13) 58% 61%, transparent 61% 100%);
-    content: "";
-    inset: 0;
-    pointer-events: none;
-    position: absolute;
-  }
-
-  .operating-table-stage > * {
-    position: relative;
-    z-index: 1;
-  }
-
-  .operations-inbox::before {
-    background:
-      linear-gradient(135deg, rgba(255, 185, 138, 0.18), transparent 58%),
-      radial-gradient(circle at 20% 10%, rgba(43, 63, 242, 0.18), transparent 13rem);
+  .salon-phone-card::before {
+    background: linear-gradient(135deg, rgba(43, 63, 242, 0.08), transparent 44%);
     border-radius: inherit;
     content: "";
     inset: 0;
@@ -348,61 +344,26 @@
     position: absolute;
   }
 
-  .decision-stack-panel::before {
+  .salon-phone-card > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .salon-proof-strip {
     background:
-      radial-gradient(circle at 84% 8%, rgba(191, 234, 212, 0.62), transparent 12rem),
-      linear-gradient(135deg, rgba(43, 63, 242, 0.08), transparent 44%);
-    border-radius: inherit;
-    content: "";
-    inset: 0;
-    pointer-events: none;
-    position: absolute;
+      linear-gradient(180deg, var(--porcelain), var(--porcelain-deep));
   }
 
-  .operations-inbox > *,
-  .decision-stack-panel > * {
+  .salon-scene-card {
+    isolation: isolate;
+  }
+
+  .salon-scene-card > * {
     position: relative;
     z-index: 1;
   }
 
-  .shift-time-band {
-    position: relative;
-  }
-
-  .shift-time-band::after {
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
-    border-radius: 999px;
-    content: "";
-    height: 1px;
-    left: 0;
-    position: absolute;
-    right: 0;
-    top: 1.55rem;
-  }
-
-  .shift-time-band span {
-    background: var(--ink);
-    padding-inline: 0.2rem;
-    position: relative;
-    z-index: 1;
-  }
-
-  .operation-time-ribbon {
-    position: relative;
-  }
-
-  .operation-time-ribbon::before {
-    background: linear-gradient(90deg, var(--cobalt), var(--apricot), var(--mint));
-    border-radius: 999px;
-    content: "";
-    height: 3px;
-    left: 1rem;
-    position: absolute;
-    right: 1rem;
-    top: 2.15rem;
-  }
-
-  .engine-rail-section::before,
+  .salon-proof-strip::before,
   .workflow-rail-grid::before,
   .product-demo-rail::before {
     background: linear-gradient(90deg, transparent, var(--cobalt), var(--apricot), var(--mint), transparent);
@@ -415,7 +376,7 @@
     top: 0;
   }
 
-  .engine-rail-section::before {
+  .salon-proof-strip::before {
     left: 50%;
     max-width: 1120px;
     right: auto;
@@ -455,28 +416,6 @@
 
   .time-card-in {
     animation: time-card-in 520ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
-  }
-
-  .photo-proof-card {
-    isolation: isolate;
-  }
-
-  .photo-proof-card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    background:
-      linear-gradient(90deg, rgba(43, 63, 242, 0.18) 0 1px, transparent 1px),
-      linear-gradient(0deg, rgba(255, 255, 255, 0.14) 0 1px, transparent 1px);
-    background-size: 72px 100%, 100% 72px;
-    mix-blend-mode: screen;
-    opacity: 0.42;
-    pointer-events: none;
-  }
-
-  .photo-proof-card > * {
-    z-index: 2;
   }
 
   .time-engine-flow {
