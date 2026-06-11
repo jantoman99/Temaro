@@ -117,12 +117,12 @@ describe("landing polish guard", () => {
     expect(page).toContain("trustBarItems");
     expect(page).toContain("bentoCards");
     expect(page).toContain("finalCta");
-    expect(page).toContain('id="trust-bar"');
     expect(page).toContain('id="jak-to-funguje"');
     expect(page).toContain('id="bento"');
     expect(page).toContain('id="produktove-demo"');
     expect(page).toContain('id="cenik"');
     expect(page).toContain('id="bezpecnost"');
+    expect(page).not.toContain('id="trust-bar"');
     expect(page).not.toContain("scenarioCards");
     expect(page).not.toContain('id="scenare"');
     expect(page).not.toContain('id="pro-koho"');
@@ -290,8 +290,9 @@ describe("landing polish guard", () => {
     expect(hero).toContain("sm:hidden");
     expect(hero).toContain("min-h-[680px]");
     expect(hero).toContain("sm:min-h-[790px]");
-    expect(hero).toContain("sm:h-[392px]");
+    expect(hero).toContain("sm:h-[330px]");
     expect(hero).not.toContain("sm:h-[360px]");
+    expect(hero).not.toContain("sm:h-[392px]");
 
     expect(header).toContain("top-[max(0.75rem,env(safe-area-inset-top))]");
     expect(header).toContain("marketing-fixed-header");
@@ -372,31 +373,40 @@ describe("landing polish guard", () => {
     expect(globals).toContain("opacity: 0");
   });
 
-  test("implementation 4 turns the landing into a dispatch day rail", () => {
+  test("implementation 5 turns the first fold into a before-after day proof", () => {
     const page = readProjectFile("app/page.tsx");
     const hero = readProjectFile("components/marketing/business-discovery-hero.tsx");
     const globals = readProjectFile("app/globals.css");
     const nextConfig = readProjectFile("next.config.ts");
 
-    expect(hero).toContain("dayRailEvents");
-    expect(hero).toContain("dispatch-day-rail");
-    expect(hero).toContain("mobile-day-rail");
-    expect(hero).toContain("Obsazený čas");
+    expect(hero).toContain("beforeAfterMoments");
+    expect(hero).toContain("hero-before-after-stage");
+    expect(hero).toContain("chaos-column");
+    expect(hero).toContain("calm-column");
+    expect(hero).toContain("before-after-connector");
+    expect(hero).toContain("mobile-proof-panel");
+    expect(hero).toContain("Den před Temarem");
+    expect(hero).toContain("Den s Temarem");
+    expect(hero).toContain("Z chaosu do čitelného dne");
+    expect(hero).toContain("Tři zprávy čekají");
     expect(hero).toContain("Volné okno");
     expect(hero).toContain("Riziko no-show");
     expect(hero).toContain("Potvrzeno online");
-    expect(hero).toContain("Živý dispečink dne");
+    expect(hero).toContain("Rezervace bez volání");
 
-    expect(page).toContain("dispatchProofItems");
-    expect(page).toContain("dispatch-proof-strip");
-    expect(page).toContain("Časová osa od prvního scrollu");
+    expect(page).not.toContain("dispatchProofItems");
+    expect(page).not.toContain("dispatch-proof-strip");
+    expect(page).not.toContain("Časová osa od prvního scrollu");
+    expect(page).not.toContain('id="trust-bar"');
     expect(page).toContain("engine-rail-section");
     expect(page).toContain("workflow-rail-grid");
     expect(page).toContain("product-demo-rail");
     expect(page).not.toContain("trust-marquee flex min-w-max");
 
-    expect(globals).toContain(".dispatch-day-rail");
-    expect(globals).toContain(".dispatch-proof-strip");
+    expect(globals).toContain(".hero-before-after-stage");
+    expect(globals).toContain(".chaos-column");
+    expect(globals).toContain(".calm-column");
+    expect(globals).toContain(".before-after-connector");
     expect(globals).toContain(".engine-rail-section");
     expect(globals).toContain(".workflow-rail-grid");
     expect(globals).toContain(".product-demo-rail");

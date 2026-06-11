@@ -26,8 +26,9 @@ Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 - Proklikat top bar kotvy a overit, ze vedou na odpovidajici sekce, ne na prazdne nebo neexistujici stranky.
 - Na mobilni sirce zkontrolovat, ze top navigace nezmizi, nepreteka mimo viewport a ctyri hlavni polozky jsou citelne bez horizontalniho scrollu.
 - Na landing page zkontrolovat hero: eyebrow `Rezervační systém pro služby`, claim `Rezervace bez volání. Čas bez chaosu.`, oborové segmenty a interaktivní klientské time chips.
-- Na landing page zkontrolovat dispatch pass: v heru musí být `Živý dispečink dne` s časy `09:30`, `11:00`, `16:30`, `17:30`; na mobilu musí být kompaktní `mobile-day-rail` uvnitř tmavého widgetu bez horizontálního scrollu.
-- Pod herem zkontrolovat tmavý pás `Jeden den, čtyři provozní signály.`; starý běžící trust marquee už se nemá zobrazovat jako řada měst/oborů.
+- Na landing page zkontrolovat WOW pass: hero musí ukazovat before/after důkaz `Den před Temarem` a `Den s Temarem`, zprávy klientů se musí skládat do stavů `Volné okno`, `Riziko no-show`, `Potvrzeno online` a do výběru volného termínu.
+- Pod herem nesmí být samostatný `dispatch-proof-strip`, `dispatch-day-rail`, `mobile-day-rail` ani `trust-bar`; sekce `Časový engine` má navazovat hned po hero bloku.
+- Na viewportech 1440, 1366, 768, 390 a 375px ověřit, že není horizontální scroll. Tablet má používat kompaktní before/after panel místo plného chaos sloupce, mobil má v prvním scrollu ukázat produktový výběr času.
 - V hero timeline ověřit, že rezervace jsou umístěné podle reálného času a délky, ne podle pořadí; po kliknutí `Rezervovat` vznikne nová rezervace bez clippingu a zobrazí se potvrzovací toast.
 - V hero timeline prokliknout obory `Kadeřnictví`, `Barber`, `Kosmetika`, `Trenér`: obsazené časy musí být tmavé, disabled a bez hover efektu; defaultní vybraný slot musí být v každém oboru volný.
 - Na desktopu ověřit, že pozdní rezervace v hero timeline nepřesahují pravý okraj gridu a že poslední lane končí viditelně nad spodní hranou panelu.

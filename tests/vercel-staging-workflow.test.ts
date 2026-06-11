@@ -17,7 +17,9 @@ describe("Vercel staging workflow", () => {
     expect(workflow).toContain("branches:");
     expect(workflow).toContain("- dev");
     expect(workflow).toContain("npx vercel build --token");
-    expect(workflow).toContain("npx vercel deploy --prebuilt --token");
+    expect(workflow).toContain("npx vercel deploy --prebuilt --yes --format json --token");
+    expect(workflow).toContain("JSON.parse");
+    expect(workflow).toContain("payload.url || payload.deployment?.url");
     expect(workflow).not.toContain("--prod");
   });
 

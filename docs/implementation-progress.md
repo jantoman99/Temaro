@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Aktualizováno: 2026-06-11 12:53 CEST
+Aktualizováno: 2026-06-11 13:22 CEST
 
 Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historické analýzy a staré design audity jsou přesunuté do `docs/archive/`.
 
@@ -23,6 +23,10 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - Landing dispatch pass 2026-06-11 je lokálně zapracovaný: homepage má art direction `provozní dispečink dne`, hero dostal `dispatch-day-rail` a mobilní `mobile-day-rail`, původní slabý trust marquee je nahrazený tmavým `dispatch-proof-strip` pásem a navazující engine/workflow/product demo sekce jsou napojené přes rail utility. `next.config.ts` povoluje `images.qualities: [70, 75]`, aby `quality={70}` negenerovalo Next warning.
 - Lokální screenshot audit po dispatch passu: `output/playwright/landing-dispatch-2026-06-11/home-1440x1400-final.png` a `output/playwright/landing-dispatch-2026-06-11/home-390x1000-final.png`. Při ověření byl nalezen stale `next dev` proces na portu 3010; po zabití starého procesu čistý render obsahoval tmavý dispatch strip.
 - Lokální ověření 2026-06-11 12:45 CEST po dispatch passu: `npm run check` prošlo s 607 Vitest testy, migrations check, type-check, lint a produkční build. Cílený `npx vitest run tests/landing-polish.test.ts` prošel 29/29; před implementací nový guard správně selhal na chybějícím `dayRailEvents`.
+- Landing WOW pass 2026-06-11 je lokálně zapracovaný: starý `dispatch-day-rail` a samostatný `dispatch-proof-strip` nahradil jeden hero produktový canvas `Den před Temarem / Den s Temarem`. Desktop má split-screen chaos zpráv proti živému kalendáři, tablet/mobil používají kompaktní before/after panel a výběr volného termínu. Pod herem už není extra trust/dispatch pás, takže `#casovy-engine` navazuje přímo.
+- Impeccable design skill byl přidaný mimo repo do `/home/hanys/.codex/skills/impeccable-style` a prošel `quick_validate.py`. `npx impeccable detect app components` po úpravě produktu nehlásí anti-patterny; detekovaný `border-l-4` side-tab v `interactive-product-demo` byl nahrazen jemným vnitřním markerem.
+- Lokální screenshot audit po WOW passu: `output/playwright/landing-wow-2026-06-11/home-1440-final3.png`, `home-1366-final3.png`, `home-768-final3.png`, `home-390-final3.png`, `home-375-final3.png`. Naměřeno bez horizontálního overflow: desktop hero 1139px, tablet 1505px, mobil 1255-1299px. Mobilní/tablet výsledek je cílový 5/5; desktop je vědomě 4.5/5 kvůli vyššímu, ale silnému split-screen důkazu.
+- Lokální ověření 2026-06-11 13:22 CEST po WOW passu: `npm run check` prošlo s 607 Vitest testy, migrations check, type-check, lint a produkční build. Cíleně prošlo `npx vitest run tests/landing-polish.test.ts` 29/29 a `npx vitest run tests/vercel-staging-workflow.test.ts` 2/2.
 - Staging deploy 2026-06-11 12:52 CEST po dispatch passu: commit `c049ba6` byl pushnutý na `dev`, ručně nasazený přes `npx vercel build` + `npx vercel deploy --prebuilt --yes` jako preview `dpl_Bk6vKW6RPQkgaDL9obFzGvmzKHnL` a aliasovaný na `https://rezervacni-system-dev.vercel.app`. Ověřeno: `/api/health` je `ok`, HTML obsahuje `dispatch-day-rail`, `mobile-day-rail`, `Jeden den, čtyři provozní signály` a neobsahuje starý `trust-marquee flex min-w-max`.
 - Poznámka pro vlastníka: na Vercel dev projektu nastavit `NEXT_PUBLIC_APP_URL=https://rezervacni-system-dev.vercel.app` a v produkci produkční doménu, aby canonical/OG metadata neukazovala `localhost:3000`. Tato změna je mimo repo.
 - Marketing navigace 2026-06-10 je zredukovaná na `Produkt`, `Ceník`, `Ukázka`, `Návody`; mobilní menu je fullscreen-like panel a CTA na mobilu už nepřekrývá hero widget.

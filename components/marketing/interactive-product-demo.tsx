@@ -51,9 +51,9 @@ const agenda = [
 ] as const;
 
 const toneClassNames = {
-  confirm: "border-l-success bg-success/10 text-success",
-  wait: "border-l-warning bg-warning/10 text-warning",
-  risk: "border-l-destructive bg-destructive/10 text-destructive",
+  confirm: "bg-success/10 text-success before:bg-success",
+  wait: "bg-warning/10 text-warning before:bg-warning",
+  risk: "bg-destructive/10 text-destructive before:bg-destructive",
 } as const;
 
 const calendarDays = [
@@ -228,7 +228,7 @@ function SurfacePanel({ activeSurfaceId }: { activeSurfaceId: SurfaceId }) {
         {agenda.slice(1, 3).map((item) => (
           <div
             key={`${item.time}-${item.client}`}
-            className={`grid grid-cols-[3.5rem_1fr_auto] items-center gap-3 rounded-xl border border-border border-l-4 p-3 shadow-sm ${toneClassNames[item.tone]}`}
+            className={`relative grid grid-cols-[3.5rem_1fr_auto] items-center gap-3 rounded-xl border border-border p-3 pl-4 shadow-sm before:absolute before:inset-y-3 before:left-2 before:w-1 before:rounded-full ${toneClassNames[item.tone]}`}
           >
             <p className="nums-tabular text-sm font-bold text-foreground">{item.time}</p>
             <div className="min-w-0">

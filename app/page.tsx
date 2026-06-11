@@ -64,25 +64,6 @@ const trustBarItems = [
   "Lokální služby",
 ] as const;
 
-const dispatchProofItems = [
-  {
-    label: "Časová osa od prvního scrollu",
-    text: "Návštěvník hned vidí den, ne obecný formulář.",
-  },
-  {
-    label: "Pouze dostupná okna",
-    text: "Volné a obsazené časy jsou oddělené vizuálně i funkčně.",
-  },
-  {
-    label: "Riziko jako signál",
-    text: "No-show stav varuje, ale nepřebarví celou značku na červeno.",
-  },
-  {
-    label: "Vlastní vztah s klientem",
-    text: "Rezervace zůstává u podniku, ne v cizím marketplace.",
-  },
-] as const;
-
 const workflowSteps = [
   {
     icon: ClipboardList,
@@ -309,28 +290,8 @@ export default async function Home() {
       <MarketingHeader />
       <BusinessDiscoveryHero />
       <MobileStickyCta />
-
-      <section id="trust-bar" className="dispatch-proof-strip border-y border-[var(--ink)] bg-[var(--ink)] py-5 text-white">
-        <div className="mx-auto grid w-full max-w-[1280px] gap-4 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.4fr] lg:px-8">
-          <span className="sr-only" aria-hidden="true" />
-          <p className="sr-only">Temaro pro {trustBarItems.join(", ")}.</p>
-          <div>
-            <p className="font-time text-xs font-semibold uppercase tracking-[0.16em] text-white/58">Dispečink dne</p>
-            <h2 className="font-display mt-2 max-w-xl text-3xl font-semibold leading-[0.98] sm:text-5xl">
-              Jeden den, čtyři provozní signály.
-            </h2>
-          </div>
-          <div className="grid gap-2 sm:grid-cols-2">
-            {dispatchProofItems.map((item, index) => (
-              <article key={item.label} className="grid gap-1 rounded-[1.15rem] border border-white/12 bg-white/[0.06] px-4 py-3">
-                <p className="font-time text-xs font-semibold text-[var(--apricot)]">0{index + 1}</p>
-                <h3 className="text-base font-bold tracking-[-0.02em]">{item.label}</h3>
-                <p className="text-xs font-medium leading-5 text-white/68">{item.text}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+      <span className="sr-only" aria-hidden="true" />
+      <p className="sr-only">Temaro pro {trustBarItems.join(", ")}.</p>
 
       <section id="casovy-engine" className="engine-rail-section relative overflow-hidden py-20 sm:py-24">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_16%_20%,rgba(43,63,242,0.14),transparent_24rem)]" />

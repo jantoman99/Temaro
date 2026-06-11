@@ -1,6 +1,6 @@
 # Handoff
 
-Aktualizováno: 2026-06-11 12:53 CEST
+Aktualizováno: 2026-06-11 13:22 CEST
 
 ## Jak navázat
 
@@ -28,6 +28,9 @@ Aktualizováno: 2026-06-11 12:53 CEST
 - Časový engine po implementaci #3 používá `TimeEnginePanel` client wrapper, animace se spouští až ve viewportu a doběhnou po třech cyklech. Sticky fix je řešený přes `Reveal.willChange` a hlavní stránka používá `[overflow-x:clip]`; pokud by staging vizuálně ukázal problém se sticky, raději sticky odstranit než nechat rozbitý stav.
 - Landing dispatch pass 2026-06-11 je lokálně zapracovaný: směr `provozní dispečink dne`, hero `dispatch-day-rail`, mobilní `mobile-day-rail`, tmavý `dispatch-proof-strip` místo slabého marquee a rail utility pro engine/workflow/product demo. Screenshoty jsou v `output/playwright/landing-dispatch-2026-06-11/home-1440x1400-final.png` a `output/playwright/landing-dispatch-2026-06-11/home-390x1000-final.png`.
 - Lokální ověření 2026-06-11 12:45 CEST po dispatch passu: `npm run check` prošlo s 607 Vitest testy, migrations check, type-check, lint a produkční build. Cílený `npx vitest run tests/landing-polish.test.ts` prošel 29/29.
+- Aktuální landing WOW pass 2026-06-11 nahrazuje dispatch pass v aktivním UI: hero je `Den před Temarem / Den s Temarem` before/after canvas, bez samostatného `dispatch-proof-strip` pod herem. Desktop ukazuje chaos zpráv proti živému kalendáři, tablet/mobil mají kompaktní before/after panel a výběr termínu. `#casovy-engine` jde hned po heru.
+- Impeccable skill je lokálně mimo repo v `/home/hanys/.codex/skills/impeccable-style`; validace prošla. `npx impeccable detect app components` je po úpravě čistý.
+- Poslední lokální ověření 2026-06-11 13:22 CEST po WOW passu: `npm run check` prošlo s 607 Vitest testy, migrations check, type-check, lint a produkční build. Screenshoty: `output/playwright/landing-wow-2026-06-11/home-1440-final3.png`, `home-768-final3.png`, `home-390-final3.png`, `home-375-final3.png`.
 - Staging 2026-06-11 12:52 CEST: commit `c049ba6` je na `origin/dev`, preview deploy `dpl_Bk6vKW6RPQkgaDL9obFzGvmzKHnL` je aliasovaný na `https://rezervacni-system-dev.vercel.app`. Ověřeno `/api/health=ok` a HTML signatury `dispatch-day-rail`, `mobile-day-rail`, `Jeden den, čtyři provozní signály`; starý `trust-marquee flex min-w-max` se nevrací.
 - Vercel env úkol mimo repo: nastavit `NEXT_PUBLIC_APP_URL=https://rezervacni-system-dev.vercel.app` na dev projektu a produkční doménu v production env, aby canonical/OG metadata neukazovala localhost.
 - Homepage už nemá samostatnou body sekci `Pro koho` ani body blok návodů; návody jsou jen ve footeru. Marketing navigace je zredukovaná na `Produkt`, `Ceník`, `Ukázka`, `Návody`; `/podniky` zůstává ve footeru.
