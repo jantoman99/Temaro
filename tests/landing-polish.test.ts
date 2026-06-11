@@ -8,112 +8,25 @@ function readProjectFile(path: string) {
   return readFileSync(join(rootDir, path), "utf8");
 }
 
+const forbiddenOldLandingSignatures = [
+  "dispatch-day-rail",
+  "mobile-day-rail",
+  "dispatch-proof-strip",
+  'id="trust-bar"',
+  "hero-before-after-stage",
+  "Den před Temarem",
+  "Den s Temarem",
+  "operating-table-stage",
+  "Provozní stůl dne",
+  "photo-led-hero",
+  "salon-phone-card",
+  "/marketing/salon-day-hero.webp",
+  "/marketing/salon-day-barber.webp",
+  "/marketing/salon-day-beauty.webp",
+  "/marketing/salon-day-fitness.webp",
+] as const;
+
 describe("landing polish guard", () => {
-  test("homepage uses app product views instead of lifestyle image proof", () => {
-    const page = readProjectFile("app/page.tsx");
-    const hero = readProjectFile("components/marketing/business-discovery-hero.tsx");
-    const globals = readProjectFile("app/globals.css");
-
-    expect(hero).toContain("product-window-hero");
-    expect(hero).toContain("product-window-frame");
-    expect(hero).toContain("booking-phone-preview");
-    expect(hero).toContain("ProductWindowHero");
-    expect(hero).toContain("Přehled provozu");
-    expect(hero).toContain("Dnešní rezervace");
-    expect(hero).toContain("Týmový kalendář");
-    expect(hero).toContain("Rezervační stránka");
-    expect(hero).toContain("Zákaznický účet");
-    expect(page).toContain("productProofScenes");
-    expect(page).toContain("product-proof-gallery");
-    expect(page).toContain("Co klient a tým skutečně uvidí");
-    expect(page).toContain("Veřejná rezervační stránka");
-    expect(page).toContain("Zákaznický účet bez telefonátu");
-    expect(globals).toContain(".product-window-hero");
-    expect(globals).toContain(".product-window-frame");
-    expect(globals).toContain(".booking-phone-preview");
-    expect(globals).toContain(".product-proof-gallery");
-    expect(page).not.toContain("salonSceneImages");
-    expect(hero).not.toContain("salonServiceTabs");
-    expect(hero).not.toContain("/marketing/salon-day-hero.webp");
-    expect(hero).not.toContain("photo-led-hero");
-    expect(hero).not.toContain("salon-phone-card");
-    expect(page).not.toContain("/marketing/salon-day-barber.webp");
-    expect(page).not.toContain("/marketing/salon-day-beauty.webp");
-    expect(page).not.toContain("/marketing/salon-day-fitness.webp");
-    expect(page).not.toContain("scenarioCards");
-    expect(page).not.toContain('id="scenare"');
-    expect(page).not.toContain("/marketing/time-engine-salon.webp");
-    expect(page).not.toContain("/marketing/time-engine-beauty.webp");
-    expect(page).not.toContain("/marketing/time-engine-fitness.webp");
-    expect(page).not.toContain("/marketing/barber-studio-ai.webp");
-    expect(page).not.toContain("/marketing/salon-interior-ai.webp");
-    expect(page).not.toContain("/marketing/training-studio-ai.webp");
-    expect(page).not.toContain("/marketing/barber-studio.jpg");
-    expect(page).not.toContain("/marketing/salon-interior.jpg");
-    expect(page).not.toContain("/marketing/training-studio.jpg");
-  });
-
-  test("homepage avoids weak local-origin copy in the footer", () => {
-    const page = readProjectFile("app/page.tsx").toLowerCase();
-
-    expect(page).not.toContain("postaveno v brně");
-  });
-
-  test("product demo uses customer-facing labels and mirrors signed-in screens", () => {
-    const demo = readProjectFile("components/marketing/interactive-product-demo.tsx");
-
-    expect(demo).toContain("Přehled provozu");
-    expect(demo).toContain("Dnešní rezervace");
-    expect(demo).toContain("Tržba dnes");
-    expect(demo).toContain("Volná okna");
-    expect(demo).toContain("Riziko");
-    expect(demo).toContain("Otevřít kalendář");
-    expect(demo).toContain("Spravovat rezervace");
-    expect(demo).toContain("selectSurface");
-    expect(demo).toContain("setHasInteracted(true)");
-    expect(demo).toContain("overflow-hidden");
-    expect(demo).toContain("Spustit ukázku");
-    expect(demo).toContain("Další krok");
-    expect(demo).toContain("Zavřít ukázku");
-
-    expect(demo).not.toContain("quickLinks");
-    expect(demo).not.toContain("overflow-y-auto");
-    expect(demo).not.toContain("Dashboard");
-    expect(demo).not.toContain("Temaro MVP");
-    expect(demo).not.toContain("Live demo");
-    expect(demo).not.toContain("tenant izolace");
-    expect(demo).not.toContain("self-service");
-    expect(demo).not.toContain("/dashboard");
-    expect(demo).not.toContain("/calendar");
-  });
-
-  test("homepage copy avoids internal product and marketing terms", () => {
-    const page = readProjectFile("app/page.tsx");
-    const forbiddenTerms = [
-      "MVP",
-      "booking flow",
-      "SEO/GEO",
-      "tenant izolace",
-      "tenant_id",
-      "self-service",
-      "Multi-tenant",
-      "booking link",
-      "SaaS šablona",
-      "role owner/staff",
-    ];
-
-    for (const term of forbiddenTerms) {
-      expect(page).not.toContain(term);
-    }
-  });
-
-  test("homepage avoids low-contrast muted text on tinted surfaces", () => {
-    const page = readProjectFile("app/page.tsx");
-
-    expect(page).not.toContain("text-sm font-medium leading-6 text-muted-foreground");
-    expect(page).not.toContain("border border-border bg-secondary px-3 py-1 text-xs font-bold text-muted-foreground");
-  });
-
   test("homepage declares the Temaro redesign 2026 visual system", () => {
     const layout = readProjectFile("app/layout.tsx");
     const globals = readProjectFile("app/globals.css");
@@ -133,68 +46,181 @@ describe("landing polish guard", () => {
     expect(globals).toContain(".temaro-focus-ring");
   });
 
-  test("homepage follows the time-as-material section architecture", () => {
+  test("homepage uses the salon operating redesign architecture", () => {
     const page = readProjectFile("app/page.tsx");
 
     expect(page).toContain("temaro-time-page");
+    expect(page).toContain("<MarketingHeader />");
     expect(page).toContain("<BusinessDiscoveryHero />");
-    expect(page).toContain("trustBarItems");
-    expect(page).toContain("bentoCards");
-    expect(page).toContain("finalCta");
-    expect(page).toContain('id="jak-to-funguje"');
-    expect(page).toContain('id="bento"');
-    expect(page).toContain('id="produktove-demo"');
+    expect(page).toContain("MobileStickyCta");
+    expect(page).toContain("industryCards");
+    expect(page).toContain("productProofScenes");
+    expect(page).toContain("pricingPlans");
+    expect(page).toContain("marketplaceRows");
+    expect(page).toContain("workflowSteps");
+    expect(page).toContain('id="pro-koho"');
+    expect(page).toContain('id="produktovy-dukaz"');
     expect(page).toContain('id="cenik"');
+    expect(page).toContain('id="bez-marketplace"');
+    expect(page).toContain('id="jak-to-funguje"');
     expect(page).toContain('id="bezpecnost"');
-    expect(page).not.toContain('id="trust-bar"');
-    expect(page).not.toContain("scenarioCards");
+    expect(page).not.toContain("bentoCards");
+    expect(page).not.toContain("trustBarItems");
     expect(page).not.toContain('id="scenare"');
-    expect(page).not.toContain('id="pro-koho"');
-    expect(page).not.toContain("audienceSegments");
-    expect(page).not.toContain("Praktické návody");
   });
 
-  test("homepage hero implements a product-window app demo", () => {
+  test("homepage hero is a salon operating app view, not generic product-window proof", () => {
     const hero = readProjectFile("components/marketing/business-discovery-hero.tsx");
 
     expect(hero).toContain('"use client"');
+    expect(hero).toContain("industryProfiles");
+    expect(hero).toContain("activeIndustryId");
+    expect(hero).toContain("setActiveIndustryId");
     expect(hero).toContain("productSurfaces");
-    expect(hero).toContain("activeSurfaceId");
-    expect(hero).toContain("setActiveSurfaceId");
-    expect(hero).toContain("ProductWindowHero");
-    expect(hero).toContain("SurfacePanel");
-    expect(hero).toContain("BookingPhonePreview");
-    expect(hero).toContain("usePrefersReducedMotion");
-    expect(hero).toContain('aria-live="off"');
-    expect(hero).toContain("temaro-time-hero");
-    expect(hero).toContain("product-window-hero");
-    expect(hero).toContain("product-window-frame");
+    expect(hero).toContain("salon-operating-hero");
+    expect(hero).toContain("salon-command-frame");
     expect(hero).toContain("booking-phone-preview");
-    expect(hero).toContain("Rezervace, které vidíte hned v kalendáři");
-    expect(hero).toContain("Přehled provozu");
-    expect(hero).toContain("Dnešní rezervace");
-    expect(hero).toContain("Tržba dnes");
-    expect(hero).toContain("Volná okna");
-    expect(hero).toContain("Riziko");
-    expect(hero).toContain("Otevřít kalendář");
-    expect(hero).toContain("Veřejná rezervační stránka");
-    expect(hero).toContain("Zákaznický účet");
-    expect(hero).toContain("Spustit produktovou ukázku");
-    expect(hero).not.toContain("salon-day-hero.webp");
-    expect(hero).not.toContain("salon-phone-card");
-    expect(hero).not.toContain("bookingSources");
-    expect(hero).not.toContain("business-hero-visual");
+    expect(hero).toContain("marketplace-free-proof");
+    expect(hero).toContain("Plnější kalendář bez marketplace provizí");
+    expect(hero).toContain("Rezervační systém pro salony, barbery a beauty služby");
+    expect(hero).toContain("Registrovat salon");
+    expect(hero).toContain("Spustit ukázku");
+    expect(hero).toContain("Vyberte typ provozu");
+    expect(hero).toContain("Barber");
+    expect(hero).toContain("Kosmetika");
+    expect(hero).toContain("Kadeřnictví");
+    expect(hero).toContain("Masáže");
+    expect(hero).toContain("Reálný app pohled");
+    expect(hero).toContain("Kalendář");
+    expect(hero).toContain("Rezervace");
+    expect(hero).toContain("Klienti");
+    expect(hero).toContain("Kanály");
+    expect(hero).not.toContain("product-window-hero");
+    expect(hero).not.toContain("product-window-frame");
+    expect(hero).not.toContain("Rezervace, které vidíte hned v kalendáři");
   });
 
-  test("update 2 keeps marketing light-only and removes marketing theme toggle", () => {
+  test("hero product surfaces show real app concepts without fabricated testimonials or logos", () => {
+    const hero = readProjectFile("components/marketing/business-discovery-hero.tsx");
+
+    expect(hero).toContain("CalendarSurface");
+    expect(hero).toContain("BookingSurface");
+    expect(hero).toContain("ClientsSurface");
+    expect(hero).toContain("ChannelsSurface");
+    expect(hero).toContain("Dnešní provoz");
+    expect(hero).toContain("Klient vidí jen volné časy");
+    expect(hero).toContain("Klient nezmizí v cizí aplikaci");
+    expect(hero).toContain("Rezervace z vašich míst");
+    expect(hero).toContain("Web podniku");
+    expect(hero).toContain("Instagram bio");
+    expect(hero).toContain("QR v provozovně");
+    expect(hero).toContain("Google profil");
+    expect(hero).toContain("usePrefersReducedMotion");
+    expect(hero).toContain("window.setInterval");
+    expect(hero).toContain("reduceMotion");
+    expect(hero).toContain("overflow-x-auto");
+    expect(hero).not.toContain("testimonial");
+    expect(hero).not.toContain("logo zákazníka");
+    expect(hero).not.toContain("12 000+");
+    expect(hero).not.toContain("99 %");
+    expect(hero).not.toContain("faker");
+  });
+
+  test("homepage explains industry focus, product proof, pricing and marketplace difference", () => {
+    const page = readProjectFile("app/page.tsx");
+
+    expect(page).toContain("Jeden systém, různé tempo provozu");
+    expect(page).toContain("Barber");
+    expect(page).toContain("Kadeřnictví");
+    expect(page).toContain("Beauty");
+    expect(page).toContain("Masáže");
+    expect(page).toContain("Ne fotka salonu. Skutečný provozní obraz");
+    expect(page).toContain("Týmový kalendář");
+    expect(page).toContain("Veřejná rezervace");
+    expect(page).toContain("Klientská paměť");
+    expect(page).toContain("Cena má být čitelná dřív než smlouva");
+    expect(page).toContain("Pilot");
+    expect(page).toContain("Solo");
+    expect(page).toContain("Tým");
+    expect(page).toContain("Váš klient nemá být daň za cizí aplikaci");
+    expect(page).toContain("Bez provize z vlastního webu, QR nebo Instagramu");
+  });
+
+  test("homepage keeps pricing honest without fake final tariffs", () => {
+    const page = readProjectFile("app/page.tsx");
+
+    expect(page).toContain('price: "0 Kč"');
+    expect(page).toContain("Cena bude upřesněna po pilotu");
+    expect(page).toContain("Finální tarify se zamknou po pilotu");
+    expect(page).toContain("žádná provize z vlastních klientů");
+    expect(page).not.toContain("299 Kč");
+    expect(page).not.toContain("599 Kč");
+    expect(page).not.toContain("247 Kč / měsíc");
+    expect(page).not.toContain("Neomezené rezervace zdarma");
+  });
+
+  test("homepage avoids internal product and marketing terms", () => {
+    const page = readProjectFile("app/page.tsx");
+    const hero = readProjectFile("components/marketing/business-discovery-hero.tsx");
+    const combined = `${page}\n${hero}`;
+    const forbiddenTerms = [
+      "MVP",
+      "booking flow",
+      "SEO/GEO",
+      "tenant izolace",
+      "tenant_id",
+      "self-service",
+      "Multi-tenant",
+      "booking link",
+      "SaaS šablona",
+      "role owner/staff",
+    ];
+
+    for (const term of forbiddenTerms) {
+      expect(combined).not.toContain(term);
+    }
+  });
+
+  test("homepage avoids lifestyle image proof and old landing signatures", () => {
+    const page = readProjectFile("app/page.tsx");
+    const hero = readProjectFile("components/marketing/business-discovery-hero.tsx");
+    const globals = readProjectFile("app/globals.css");
+    const combined = `${page}\n${hero}\n${globals}`;
+
+    expect(page).not.toContain("salonSceneImages");
+    expect(hero).not.toContain("salonServiceTabs");
+    expect(combined).not.toContain("/marketing/time-engine-salon.webp");
+    expect(combined).not.toContain("/marketing/barber-studio-ai.webp");
+    expect(combined).not.toContain("/marketing/salon-interior-ai.webp");
+    expect(combined).not.toContain("/marketing/training-studio-ai.webp");
+
+    for (const signature of forbiddenOldLandingSignatures) {
+      expect(combined).not.toContain(signature);
+    }
+  });
+
+  test("new salon visual classes are declared and old active classes are not required", () => {
+    const globals = readProjectFile("app/globals.css");
+
+    expect(globals).toContain(".salon-operating-hero");
+    expect(globals).toContain(".salon-command-frame");
+    expect(globals).toContain(".industry-switcher");
+    expect(globals).toContain(".salon-proof-strip");
+    expect(globals).toContain(".salon-proof-board");
+    expect(globals).toContain(".marketplace-compare-panel");
+    expect(globals).toContain("@media (prefers-reduced-motion: reduce)");
+    expect(globals).toContain(".temaro-time-page");
+    expect(globals).toContain("color-scheme: light");
+    expect(globals).toContain("padding-bottom: calc(env(safe-area-inset-bottom) + 6.5rem)");
+  });
+
+  test("marketing light-only setup stays intact", () => {
     const header = readProjectFile("components/marketing/marketing-header.tsx");
     const globals = readProjectFile("app/globals.css");
     const page = readProjectFile("app/page.tsx");
 
     expect(header).not.toContain("ThemeToggle");
-    expect(header).not.toContain('tone="editorial"');
     expect(page).toContain("temaro-time-page");
-    expect(globals).toContain(".temaro-time-page");
     expect(globals).toContain("--background: var(--porcelain)");
     expect(globals).toContain("--foreground: var(--ink)");
     expect(globals).toContain("--card: var(--surface-card)");
@@ -202,154 +228,119 @@ describe("landing polish guard", () => {
     expect(globals).toContain("color-scheme: light");
   });
 
-  test("product-window hero keeps real product surfaces readable without fake screenshot data", () => {
-    const hero = readProjectFile("components/marketing/business-discovery-hero.tsx");
-
-    expect(hero).toContain("kpiItems");
-    expect(hero).toContain("agendaRows");
-    expect(hero).toContain("calendarColumns");
-    expect(hero).toContain("bookingServices");
-    expect(hero).toContain("accountBookings");
-    expect(hero).toContain("window.setInterval");
-    expect(hero).toContain("reduceMotion");
-    expect(hero).toContain("min-w-0");
-    expect(hero).toContain("overflow-x-auto");
-    expect(hero).not.toContain("Kokot");
-    expect(hero).not.toContain("Jebat");
-    expect(hero).not.toContain("faker");
-    expect(hero).not.toContain("AI");
-    expect(hero).not.toContain("12 000+");
-    expect(hero).not.toContain("99 %");
-  });
-
-  test("update 2 keeps strong photo-led bento arguments and booking ownership", () => {
-    const page = readProjectFile("app/page.tsx");
-
-    expect(page).toContain("Klient rezervuje sám");
-    expect(page).toContain("No-show pod kontrolou");
-    expect(page).toContain("riziková rezervace");
-    expect(page).toContain("Vlastní klienti");
-    expect(page).toContain("Připomínky a platby");
-    expect(page).toContain("Potvrzení, připomínky a zálohy");
-    expect(page).toContain("Temaro není marketplace");
-    expect(page).toContain("bez provizních překvapení");
-    expect(page).not.toContain('title: "Vlastní web"');
-    expect(page).not.toContain('title: "Instagram bio"');
-    expect(page).not.toContain('title: "Google profil"');
-    expect(page).not.toContain('title: "QR v provozovně"');
-  });
-
-  test("update 2 fixes mobile CTA, menu, marquee and pricing release blockers", () => {
-    const page = readProjectFile("app/page.tsx");
+  test("mobile CTA, menu and header match the salon direction", () => {
+    const header = readProjectFile("components/marketing/marketing-header.tsx");
     const menu = readProjectFile("components/marketing/mobile-marketing-menu.tsx");
-    const globals = readProjectFile("app/globals.css");
+    const stickyCta = readProjectFile("components/marketing/mobile-sticky-cta.tsx");
 
-    expect(page).toContain("MobileStickyCta");
-    expect(page).toContain("skip-link");
-    expect(page).toContain("status");
-    expect(page).toContain("pripravujeme");
-    expect(page).toContain("price: null");
-    expect(page).not.toContain("BadgeEuro");
-    expect(page).toContain("sr-only");
-    expect(page).toContain('aria-hidden="true"');
+    expect(header).toContain("marketing-fixed-header");
+    expect(header).toContain("top-[max(0.75rem,env(safe-area-inset-top))]");
+    expect(header).toContain("Registrovat salon");
+    expect(stickyCta).toContain("0 Kč · bez karty");
+    expect(stickyCta).toContain("Registrovat salon");
+    expect(stickyCta).toContain("pb-[calc(env(safe-area-inset-bottom)+0.625rem)]");
     expect(menu).toContain("max-h-[calc(100dvh-6rem)]");
     expect(menu).toContain("overflow-y-auto");
     expect(menu).toContain("keydown");
     expect(menu).toContain("Escape");
     expect(menu).toContain("bg-[var(--ink)]/42");
-    expect(menu).not.toContain("description");
-    expect(globals).toContain("@media (prefers-reduced-motion: reduce)");
-    expect(globals).toContain(".trust-marquee:hover");
-    expect(globals).toContain(".section-eyebrow::before");
-    expect(globals).toContain(".time-chip:hover");
-    expect(globals).toContain(".time-chip[data-active=\"true\"]");
+    expect(menu).not.toContain("<details");
   });
 
-  test("product proof layer shows app surfaces before dense product sections", () => {
-    const page = readProjectFile("app/page.tsx");
-    const globals = readProjectFile("app/globals.css");
+  test("public navigation exposes product, industry, pricing and anti-marketplace paths", () => {
+    const navigation = readProjectFile("components/marketing/landing-navigation.tsx");
 
-    expect(page).toContain("productProofScenes");
-    expect(page).toContain('id="casovy-engine"');
-    expect(page).toContain("product-proof-strip");
-    expect(page).toContain("product-proof-gallery");
-    expect(page).toContain("product-proof-card");
-    expect(page).toContain("Co klient a tým skutečně uvidí");
-    expect(page).toContain("Týmový kalendář");
-    expect(page).toContain("Veřejná rezervační stránka");
-    expect(page).toContain("Zákaznický účet bez telefonátu");
-    expect(page).not.toContain("salonSceneImages");
-    expect(page).not.toContain("salon-proof-strip");
-    expect(page).not.toContain("salon-scenes-grid");
-    expect(page).not.toContain("salon-scene-card");
-    expect(page).not.toContain("messageCloud");
-    expect(page).not.toContain("engineSlots");
-    expect(page).not.toContain("timeProofChips");
-    expect(page).not.toContain("bg-[var(--signal-red)] text-white");
-    expect(page).not.toContain("rgba(229,72,77,0.10)");
-    expect(globals).toContain(".product-proof-strip");
-    expect(globals).toContain(".product-proof-gallery");
-    expect(globals).toContain(".product-proof-card");
-    expect(globals).toContain("animation: none");
+    expect(navigation).toContain('"use client"');
+    expect(navigation).toContain("openGroup");
+    expect(navigation).toContain("Produkt");
+    expect(navigation).toContain("Pro koho");
+    expect(navigation).toContain("Návody");
+    expect(navigation).toContain("Ceník");
+    expect(navigation).toContain("Bez marketplace");
+    expect(navigation).toContain("Bezpečnost");
+    expect(navigation).toContain("Produktový pohled");
+    expect(navigation).toContain("Produktový důkaz");
+    expect(navigation).toContain("/rezervacni-system-pro-barbery");
+    expect(navigation).toContain("/rezervacni-system-pro-kadernictvi");
+    expect(navigation).toContain("/rezervacni-system-pro-kosmeticky-salon");
+    expect(navigation).toContain("/rezervacni-system-pro-masaze");
+    expect(navigation).not.toContain("<details");
   });
 
-  test("visual audit fixes mobile clipping, sticky overlap and menu text spacing", () => {
-    const hero = readProjectFile("components/marketing/business-discovery-hero.tsx");
-    const header = readProjectFile("components/marketing/marketing-header.tsx");
-    const menu = readProjectFile("components/marketing/mobile-marketing-menu.tsx");
-    const nav = readProjectFile("components/marketing/landing-navigation.tsx");
-    const stickyCta = readProjectFile("components/marketing/mobile-sticky-cta.tsx");
-    const globals = readProjectFile("app/globals.css");
+  test("business marketing pages keep the same shared header", () => {
+    const sharedHeader = readProjectFile("components/marketing/marketing-header.tsx");
+    const businessPages = [
+      "app/page.tsx",
+      "components/marketing/industry-landing-page.tsx",
+      "app/jak-snizit-no-show/page.tsx",
+      "app/sms-pripominky-rezervaci/page.tsx",
+      "app/rezervacni-system-bez-marketplace-provizi/page.tsx",
+      "app/ukazka/page.tsx",
+    ];
 
-    expect(hero).toContain("product-window-frame");
-    expect(hero).toContain("booking-phone-preview");
-    expect(hero).toContain("lg:grid-cols-[0.76fr_1.24fr]");
-    expect(hero).toContain("min-w-0");
-    expect(hero).toContain("overflow-x-auto");
-    expect(hero).not.toContain("mobile-reservation-list");
-    expect(hero).not.toContain("desktop-reservation-card");
-    expect(hero).not.toContain("min-h-[680px]");
-    expect(hero).not.toContain("sm:min-h-[790px]");
+    expect(sharedHeader).toContain("<LandingNavigation />");
+    expect(sharedHeader).toContain("<MobileMarketingMenu />");
+    expect(sharedHeader).toContain("marketing-fixed-header");
+    expect(sharedHeader).not.toContain("ThemeToggle");
+    expect(sharedHeader).toContain("Přihlášení");
+    expect(sharedHeader).toContain("Registrovat salon");
 
-    expect(header).toContain("top-[max(0.75rem,env(safe-area-inset-top))]");
-    expect(header).toContain("marketing-fixed-header");
-    expect(menu).toContain("bg-[var(--ink)]/42");
-    expect(menu).toContain("backdrop-blur-[2px]");
-    expect(menu).toContain("top-[calc(max(0.75rem,env(safe-area-inset-top))+4.75rem)]");
-    expect(nav).toContain("group.items.map(([href, label])");
-    expect(nav).toContain("text-base font-bold");
-    expect(nav).not.toContain("{description}");
-    expect(stickyCta).toContain("pb-[calc(env(safe-area-inset-bottom)+0.625rem)]");
-    expect(globals).toContain(".temaro-time-page");
-    expect(globals).toContain("scroll-padding-top: 7rem");
-    expect(globals).toContain("padding-bottom: calc(env(safe-area-inset-bottom) + 6.5rem)");
+    for (const filePath of businessPages) {
+      const source = readProjectFile(filePath);
+
+      expect(source).toContain("MarketingHeader");
+      expect(source).not.toContain("<LandingNavigation />");
+      expect(source).not.toContain('aria-label="Hlavní navigace"');
+    }
   });
 
-  test("homepage avoids the previous cream serif editorial direction", () => {
-    const page = readProjectFile("app/page.tsx");
-    const hero = readProjectFile("components/marketing/business-discovery-hero.tsx");
-
-    expect(page).not.toContain("temaro-editorial-page");
-    expect(hero).not.toContain("temaro-editorial-hero");
-    expect(hero).not.toContain("font-serif-accent");
-    expect(hero).not.toContain("bg-[#E8DCC7]");
-    expect(hero).not.toContain("bg-[#606C38]");
-    expect(hero).not.toContain("bg-[#C66B3D]");
-    expect(hero).not.toContain("linear-gradient(135deg,#8b5cf6,#7c3aed_52%,#4c1d95)");
-    expect(hero).not.toContain("text-[#facc15]");
-  });
-
-  test("homepage uses progressive motion components without inline product showcase", () => {
+  test("homepage preserves custom-domain fallback without touching tenant inputs", () => {
     const page = readProjectFile("app/page.tsx");
 
-    expect(page).toContain('import { Reveal } from "@/components/motion/reveal"');
-    expect(page).toContain('import { BusinessDiscoveryHero } from "@/components/marketing/business-discovery-hero"');
-    expect(page).toContain("<BusinessDiscoveryHero />");
-    expect(page).toContain("<Reveal");
-    expect(page).toContain("delay={");
-    expect(page).not.toContain('import { LiveProductShowcase } from "@/components/marketing/live-product-showcase"');
-    expect(page).not.toContain("function ProductShowcase()");
-    expect(page).not.toContain("<ProductShowcase />");
+    expect(page).toContain("getCustomDomainTenantSlug");
+    expect(page).toContain("normalizeRequestHost");
+    expect(page).toContain("isLikelyPlatformHost");
+    expect(page).toContain("createAdminClient()");
+    expect(page).toContain(".eq(\"custom_domain\", host)");
+    expect(page).toContain(".eq(\"custom_domain_status\", \"active\")");
+    expect(page).toContain("PublicSlugBookingPage");
+    expect(page).not.toContain("params.tenantId");
+    expect(page).not.toContain("body.tenantId");
+    expect(page).not.toContain("searchParams.tenantId");
+  });
+
+  test("interactive demo page is present", () => {
+    const demoPage = readProjectFile("app/ukazka/page.tsx");
+
+    expect(demoPage).toContain("Interaktivní ukázka Temara");
+    expect(demoPage).toContain("InteractiveProductDemo");
+    expect(demoPage).toContain("demoFlow");
+    expect(demoPage).toContain("Krátký průchod místo dlouhé prezentace.");
+    expect(demoPage).toContain("Vidět klientskou rezervaci");
+    expect(demoPage).toContain("Začít zdarma");
+  });
+
+  test("interactive product demo keeps customer-facing labels", () => {
+    const demo = readProjectFile("components/marketing/interactive-product-demo.tsx");
+
+    expect(demo).toContain("Přehled provozu");
+    expect(demo).toContain("Dnešní rezervace");
+    expect(demo).toContain("Tržba dnes");
+    expect(demo).toContain("Volná okna");
+    expect(demo).toContain("Riziko");
+    expect(demo).toContain("Otevřít kalendář");
+    expect(demo).toContain("Spravovat rezervace");
+    expect(demo).toContain("selectSurface");
+    expect(demo).toContain("setHasInteracted(true)");
+    expect(demo).toContain("overflow-hidden");
+    expect(demo).toContain("Spustit ukázku");
+    expect(demo).toContain("Další krok");
+    expect(demo).toContain("Zavřít ukázku");
+    expect(demo).not.toContain("quickLinks");
+    expect(demo).not.toContain("overflow-y-auto");
+    expect(demo).not.toContain("Temaro MVP");
+    expect(demo).not.toContain("tenant izolace");
+    expect(demo).not.toContain("/dashboard");
   });
 
   test("motion primitives preserve SSR content and respect reduced motion", () => {
@@ -371,238 +362,6 @@ describe("landing polish guard", () => {
     expect(countUp).toContain("{fmt(to, decimals)}");
   });
 
-  test("implementation 3 keeps image formats and landing overflow constraints", () => {
-    const page = readProjectFile("app/page.tsx");
-    const nextConfig = readProjectFile("next.config.ts");
-    const globals = readProjectFile("app/globals.css");
-
-    expect(page).toContain("[overflow-x:clip]");
-    expect(page).not.toContain("business-discovery-page");
-    expect(page).not.toContain("min-h-screen overflow-hidden");
-    expect(page).toContain("product-proof-strip");
-    expect(page).toContain("product-proof-gallery");
-    expect(page).toContain('href="#jak-to-funguje"');
-    expect(page).not.toContain('href="#produkt" className="text-[var(--ink)] hover:underline">Produkt');
-    expect(nextConfig).toContain("images");
-    expect(nextConfig).toContain('"image/avif"');
-    expect(nextConfig).toContain('"image/webp"');
-    expect(globals).toContain("@media (max-width: 640px)");
-    expect(globals).toContain(".product-proof-strip");
-    expect(globals).toContain("opacity: 0");
-  });
-
-  test("implementation 7 turns the landing into a product-window app proof", () => {
-    const page = readProjectFile("app/page.tsx");
-    const hero = readProjectFile("components/marketing/business-discovery-hero.tsx");
-    const globals = readProjectFile("app/globals.css");
-    const nextConfig = readProjectFile("next.config.ts");
-
-    expect(hero).toContain("product-window-hero");
-    expect(hero).toContain("product-window-frame");
-    expect(hero).toContain("booking-phone-preview");
-    expect(hero).toContain("productSurfaces");
-    expect(hero).toContain("Rezervace, které vidíte hned v kalendáři");
-    expect(hero).toContain("Přehled provozu");
-    expect(hero).toContain("Týmový kalendář");
-    expect(hero).toContain("Rezervační stránka");
-    expect(hero).toContain("Zákaznický účet");
-    expect(hero).toContain("Rezervační systém pro salony a služby");
-    expect(hero).toContain("Bez provize z vašich klientů");
-    expect(hero).toContain("Začít zdarma");
-    expect(hero).not.toContain("salon-day-hero.webp");
-    expect(hero).not.toContain("salonServiceTabs");
-    expect(hero).not.toContain("photo-led-hero");
-    expect(hero).not.toContain("salon-phone-card");
-    expect(hero).not.toContain("dailyOperations");
-    expect(hero).not.toContain("decisionStack");
-    expect(hero).not.toContain("operating-table-stage");
-    expect(hero).not.toContain("operations-inbox");
-    expect(hero).not.toContain("shift-time-band");
-    expect(hero).not.toContain("decision-stack-panel");
-    expect(hero).not.toContain("Provozní stůl dne");
-    expect(hero).not.toContain("Rezervace drží den pohromadě");
-    expect(hero).not.toContain("Klient vybírá jen skutečně volný čas");
-    expect(hero).not.toContain("Jeden den, žádné přepínání");
-    expect(hero).not.toContain("beforeAfterMoments");
-    expect(hero).not.toContain("Den před Temarem");
-    expect(hero).not.toContain("Den s Temarem");
-    expect(hero).not.toContain("hero-before-after-stage");
-    expect(hero).not.toContain("chaos-column");
-    expect(hero).not.toContain("calm-column");
-    expect(hero).not.toContain("before-after-connector");
-    expect(hero).not.toContain("mobile-proof-panel");
-
-    expect(page).not.toContain("dispatchProofItems");
-    expect(page).not.toContain("dispatch-proof-strip");
-    expect(page).not.toContain("Časová osa od prvního scrollu");
-    expect(page).not.toContain('id="trust-bar"');
-    expect(page).toContain("product-proof-strip");
-    expect(page).toContain("product-proof-gallery");
-    expect(page).toContain("productProofScenes");
-    expect(page).not.toContain("/marketing/salon-day-barber.webp");
-    expect(page).not.toContain("/marketing/salon-day-beauty.webp");
-    expect(page).not.toContain("/marketing/salon-day-fitness.webp");
-    expect(page).toContain("product-demo-rail");
-    expect(page).not.toContain("trust-marquee flex min-w-max");
-
-    expect(globals).toContain(".product-window-hero");
-    expect(globals).toContain(".product-window-frame");
-    expect(globals).toContain(".booking-phone-preview");
-    expect(globals).toContain(".product-proof-gallery");
-    expect(globals).not.toContain(".operating-table-stage");
-    expect(globals).not.toContain(".operations-inbox");
-    expect(globals).not.toContain(".shift-time-band");
-    expect(globals).not.toContain(".decision-stack-panel");
-    expect(globals).not.toContain(".hero-before-after-stage");
-    expect(globals).not.toContain(".before-after-connector");
-    expect(globals).toContain(".product-demo-rail");
-    expect(nextConfig).toContain("qualities: [70, 75]");
-  });
-
-  test("implementation 8 keeps the product frame visible before mobile action clutter", () => {
-    const hero = readProjectFile("components/marketing/business-discovery-hero.tsx");
-    const globals = readProjectFile("app/globals.css");
-    const relativePositionGroup = globals.match(/\.product-window-hero,[\s\S]*?position: relative;\n\s*}/)?.[0] ?? "";
-
-    expect(relativePositionGroup).not.toContain(".booking-phone-preview");
-    expect(hero).toContain("product-window-frame relative");
-    expect(hero).toContain("booking-phone-preview absolute");
-    expect(hero).toContain("mb-4 flex gap-2 overflow-x-auto pb-1 lg:hidden");
-    expect(hero).toContain("grid min-h-[560px] lg:grid-cols-[13rem_minmax(0,1fr)]");
-    expect(hero.indexOf('aria-label="Reálný produktový pohled Temaro"')).toBeGreaterThan(
-      hero.indexOf("Rezervace, které vidíte hned v kalendáři"),
-    );
-    expect(hero).toContain("lg:grid-cols-[0.76fr_1.24fr]");
-    expect(hero).not.toContain("photo-led-mobile-actions");
-  });
-
-  test("live product showcase animates only as progressive enhancement", () => {
-    const showcase = readProjectFile("components/marketing/live-product-showcase.tsx");
-    const globals = readProjectFile("app/globals.css");
-
-    expect(showcase).toContain('"use client"');
-    expect(showcase).toContain("BOOKING_POOL");
-    expect(showcase).toContain("PHONE_TIMES");
-    expect(showcase).toContain("usePrefersReducedMotion");
-    expect(showcase).toContain("if (reduce) return");
-    expect(showcase).toContain("booking-row-in");
-    expect(showcase).toContain("confirm-toast-in");
-    expect(showcase).toContain("data-motion-booking-row");
-    expect(showcase).toContain("data-motion-phone-time");
-    expect(showcase).toContain("Rezervace potvrzena");
-    expect(showcase).toContain("<CountUp to={12}");
-    expect(showcase).toContain("<CountUp to={76} suffix=\" %\"");
-    expect(showcase).toContain("<CountUp to={4.9} decimals={1}");
-    expect(showcase).toContain("<CountUp to={128}");
-    expect(globals).toContain(".booking-row-in");
-    expect(globals).toContain("@keyframes booking-row-in");
-    expect(globals).toContain(".confirm-toast-in");
-    expect(globals).toContain("@keyframes confirm-toast-in");
-  });
-
-  test("public navigation uses the reduced redesign navigation model", () => {
-    const page = readProjectFile("app/page.tsx");
-    const navigation = readProjectFile("components/marketing/landing-navigation.tsx");
-
-    expect(page).toContain("<MarketingHeader />");
-    expect(navigation).toContain('"use client"');
-    expect(navigation).toContain("openGroup");
-    expect(navigation).toContain("setOpenGroup(isOpen ? null : group.label)");
-    expect(navigation).toContain("setOpenGroup(null)");
-    expect(navigation).toContain("Produkt");
-    expect(navigation).toContain("Ceník");
-    expect(navigation).toContain("Ukázka");
-    expect(navigation).toContain("Návody");
-    expect(navigation).toContain("Jak to funguje");
-    expect(navigation).toContain("Proč Temaro");
-    expect(page).toContain("/ukazka");
-    expect(navigation).not.toContain("Řešení");
-    expect(navigation).not.toContain("Pro zákazníky");
-    expect(navigation).not.toContain("<details");
-  });
-
-  test("business marketing pages keep the same landing navigation", () => {
-    const sharedHeader = readProjectFile("components/marketing/marketing-header.tsx");
-    const businessPages = [
-      "app/page.tsx",
-      "components/marketing/industry-landing-page.tsx",
-      "app/jak-snizit-no-show/page.tsx",
-      "app/sms-pripominky-rezervaci/page.tsx",
-      "app/rezervacni-system-bez-marketplace-provizi/page.tsx",
-      "app/ukazka/page.tsx",
-    ];
-
-    expect(sharedHeader).toContain("<LandingNavigation />");
-    expect(sharedHeader).toContain("<MobileMarketingMenu />");
-    expect(sharedHeader).toContain("marketing-fixed-header");
-    expect(sharedHeader).toContain("top-[max(0.75rem,env(safe-area-inset-top))]");
-    expect(sharedHeader).toContain("min-h-16");
-    expect(sharedHeader).toContain("max-w-[1280px]");
-    expect(sharedHeader).toContain("px-3 text-sm");
-    expect(sharedHeader).not.toContain("ThemeToggle");
-    expect(sharedHeader).toContain("Přihlášení");
-    expect(sharedHeader).toContain("Začít zdarma");
-
-    for (const filePath of businessPages) {
-      const source = readProjectFile(filePath);
-
-      expect(source).toContain("MarketingHeader");
-      expect(source).not.toContain("<LandingNavigation />");
-      expect(source).not.toContain('aria-label="Hlavní navigace"');
-    }
-
-    const customerDirectory = readProjectFile("app/podniky/page.tsx");
-
-    expect(customerDirectory).not.toContain("MarketingHeader");
-    expect(customerDirectory).toContain("Pro podniky");
-    expect(customerDirectory).toContain("Pro zákazníky");
-  });
-
-  test("mobile marketing navigation uses a compact hamburger menu", () => {
-    const sharedHeader = readProjectFile("components/marketing/marketing-header.tsx");
-    const desktopNavigation = readProjectFile("components/marketing/landing-navigation.tsx");
-    const mobileMenu = readProjectFile("components/marketing/mobile-marketing-menu.tsx");
-
-    expect(sharedHeader).toContain("<MobileMarketingMenu />");
-    expect(desktopNavigation).toContain("hidden lg:flex");
-    expect(mobileMenu).toContain("lg:hidden");
-    expect(mobileMenu).toContain('"use client"');
-    expect(mobileMenu).toContain("Menu");
-    expect(mobileMenu).toContain("Otevřít menu");
-    expect(mobileMenu).toContain("navGroups");
-    expect(desktopNavigation).toContain("Produkt");
-    expect(desktopNavigation).toContain("Ceník");
-    expect(desktopNavigation).toContain("Návody");
-    expect(mobileMenu).not.toContain("<details");
-  });
-
-  test("homepage explains setup flow and strong bento arguments", () => {
-    const page = readProjectFile("app/page.tsx");
-
-    expect(page).toContain("workflowSteps");
-    expect(page).toContain("Nastavíte služby a tým");
-    expect(page).toContain("Sdílíte rezervační odkaz");
-    expect(page).toContain("Klient si vybere termín");
-    expect(page).toContain("Provoz má přehled");
-    expect(page).toContain("bentoCards");
-    expect(page).toContain("Klient rezervuje sám");
-    expect(page).toContain("No-show pod kontrolou");
-    expect(page).toContain("Vlastní klienti");
-    expect(page).toContain("Připomínky a platby");
-  });
-
-  test("homepage adds a product demo CTA with concrete demo moments", () => {
-    const page = readProjectFile("app/page.tsx");
-
-    expect(page).toContain("demoMoments");
-    expect(page).toContain("Produktová ukázka");
-    expect(page).toContain("Spustit produktovou ukázku");
-    expect(page).toContain("Přehled provozu");
-    expect(page).toContain("Týmový kalendář");
-    expect(page).toContain("Rezervační stránka");
-    expect(page).toContain('id="produktove-demo"');
-  });
-
   test("customer directory uses address search without raw coordinates", () => {
     const directory = readProjectFile("app/podniky/page.tsx");
 
@@ -615,17 +374,6 @@ describe("landing polish guard", () => {
     expect(directory).not.toContain('name="lat"');
     expect(directory).not.toContain('name="lng"');
     expect(directory).not.toContain('name="radius"');
-  });
-
-  test("interactive demo page is present", () => {
-    const demoPage = readProjectFile("app/ukazka/page.tsx");
-
-    expect(demoPage).toContain("Interaktivní ukázka Temara");
-    expect(demoPage).toContain("InteractiveProductDemo");
-    expect(demoPage).toContain("demoFlow");
-    expect(demoPage).toContain("Krátký průchod místo dlouhé prezentace.");
-    expect(demoPage).toContain("Vidět klientskou rezervaci");
-    expect(demoPage).toContain("Začít zdarma");
   });
 
   test("demo booking page keeps visitors connected to Temaro", () => {

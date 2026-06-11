@@ -8,9 +8,18 @@ export const navGroups = [
   {
     label: "Produkt",
     items: [
-      ["#jak-to-funguje", "Jak to funguje", "Od služeb a týmu po první online rezervaci."],
-      ["#bento", "Proč Temaro", "Kanály, kalendář a klidnější den v jednom pohledu."],
-      ["#produktove-demo", "Produktová ukázka", "Jak vypadá provozní den uvnitř systému."],
+      ["#produkt", "Produktový pohled", "Kalendář, rezervace, klienti a vlastní kanály."],
+      ["#produktovy-dukaz", "Produktový důkaz", "App pohledy místo lifestyle galerie."],
+      ["/ukazka", "Ukázka", "Průchod rezervací z pohledu majitele i klienta."],
+    ],
+  },
+  {
+    label: "Pro koho",
+    items: [
+      ["/rezervacni-system-pro-barbery", "Barbery", "Rychlé střihy, vousy a opakovaní klienti."],
+      ["/rezervacni-system-pro-kadernictvi", "Kadeřnictví", "Delší bloky, barvy a týmový kalendář."],
+      ["/rezervacni-system-pro-kosmeticky-salon", "Beauty salony", "Procedury, historie klienta a no-show signály."],
+      ["/rezervacni-system-pro-masaze", "Masáže", "Dlouhé bloky bez telefonů mezi klienty."],
     ],
   },
   {
@@ -25,6 +34,8 @@ export const navGroups = [
 
 export const navDirectLinks = [
   ["#cenik", "Ceník"],
+  ["#bez-marketplace", "Bez marketplace"],
+  ["#bezpecnost", "Bezpečnost"],
   ["/ukazka", "Ukázka"],
 ] as const;
 

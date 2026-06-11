@@ -38,7 +38,7 @@ export function MobileStickyCta() {
         href="/register"
         className="temaro-focus-ring inline-flex h-12 w-full items-center justify-center rounded-full bg-[var(--cobalt)] text-sm font-bold text-white shadow-[0_18px_50px_rgba(43,63,242,0.30)]"
       >
-        Začít zdarma
+        Registrovat salon
       </Link>
     </div>
   );

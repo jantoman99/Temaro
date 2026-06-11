@@ -301,11 +301,101 @@
 
   .product-window-hero,
   .product-window-frame,
+  .salon-operating-hero,
+  .salon-command-frame,
   .product-proof-gallery,
+  .salon-proof-board,
   .product-proof-card,
   .workflow-rail-grid article,
   .product-demo-rail > * {
     position: relative;
+  }
+
+  .salon-operating-hero {
+    background:
+      radial-gradient(circle at 16% 18%, color-mix(in srgb, var(--cobalt-tint) 70%, transparent), transparent 28rem),
+      radial-gradient(circle at 86% 12%, color-mix(in srgb, var(--mint) 48%, transparent), transparent 26rem),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.82), transparent 46%),
+      var(--porcelain);
+  }
+
+  .salon-operating-hero::after {
+    background:
+      linear-gradient(90deg, color-mix(in srgb, var(--paper-line) 58%, transparent) 1px, transparent 1px),
+      linear-gradient(0deg, color-mix(in srgb, var(--paper-line) 42%, transparent) 1px, transparent 1px);
+    background-size: 92px 92px;
+    content: "";
+    inset: 0;
+    opacity: 0.32;
+    pointer-events: none;
+    position: absolute;
+  }
+
+  .salon-operating-hero > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .salon-command-frame {
+    isolation: isolate;
+    max-width: 100%;
+    width: min(100%, calc(100vw - 2rem));
+  }
+
+  .salon-command-frame::before {
+    background:
+      linear-gradient(135deg, rgba(43, 63, 242, 0.18), transparent 36%),
+      radial-gradient(circle at 76% 20%, rgba(191, 234, 212, 0.22), transparent 18rem);
+    border-radius: inherit;
+    content: "";
+    inset: 0;
+    opacity: 0.9;
+    pointer-events: none;
+    position: absolute;
+  }
+
+  .salon-command-frame > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .salon-command-frame > .booking-phone-preview {
+    isolation: isolate;
+    position: absolute;
+  }
+
+  .industry-switcher {
+    backdrop-filter: blur(16px);
+  }
+
+  .salon-proof-strip {
+    background:
+      linear-gradient(180deg, var(--porcelain), var(--porcelain-deep));
+  }
+
+  .salon-proof-strip::before {
+    background: linear-gradient(90deg, transparent, var(--cobalt), var(--apricot), var(--mint), transparent);
+    content: "";
+    height: 2px;
+    left: 50%;
+    max-width: 1120px;
+    opacity: 0.62;
+    pointer-events: none;
+    position: absolute;
+    top: 4rem;
+    transform: translateX(-50%);
+    width: calc(100% - 2rem);
+  }
+
+  .salon-proof-board {
+    isolation: isolate;
+  }
+
+  .marketplace-compare-panel {
+    background:
+      radial-gradient(circle at 20% 12%, rgba(43, 63, 242, 0.34), transparent 26rem),
+      radial-gradient(circle at 86% 8%, rgba(191, 234, 212, 0.18), transparent 24rem),
+      var(--ink);
   }
 
   .product-window-hero {

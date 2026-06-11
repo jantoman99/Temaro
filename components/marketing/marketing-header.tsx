@@ -25,7 +25,7 @@ export function MarketingHeader() {
           href="/register"
           className="temaro-focus-ring inline-flex h-10 items-center justify-center gap-1.5 whitespace-nowrap rounded-full bg-[var(--cobalt)] px-3 text-sm font-bold text-white shadow-sm transition hover:bg-[var(--cobalt-deep)] sm:gap-2 sm:px-4"
         >
-          Začít zdarma
+          Registrovat salon
           <ArrowRight className="h-4 w-4" />
         </Link>
         <MobileMarketingMenu />
