@@ -1,6 +1,6 @@
 # Handoff
 
-Aktualizováno: 2026-06-11 12:45 CEST
+Aktualizováno: 2026-06-11 12:53 CEST
 
 ## Jak navázat
 
@@ -28,6 +28,7 @@ Aktualizováno: 2026-06-11 12:45 CEST
 - Časový engine po implementaci #3 používá `TimeEnginePanel` client wrapper, animace se spouští až ve viewportu a doběhnou po třech cyklech. Sticky fix je řešený přes `Reveal.willChange` a hlavní stránka používá `[overflow-x:clip]`; pokud by staging vizuálně ukázal problém se sticky, raději sticky odstranit než nechat rozbitý stav.
 - Landing dispatch pass 2026-06-11 je lokálně zapracovaný: směr `provozní dispečink dne`, hero `dispatch-day-rail`, mobilní `mobile-day-rail`, tmavý `dispatch-proof-strip` místo slabého marquee a rail utility pro engine/workflow/product demo. Screenshoty jsou v `output/playwright/landing-dispatch-2026-06-11/home-1440x1400-final.png` a `output/playwright/landing-dispatch-2026-06-11/home-390x1000-final.png`.
 - Lokální ověření 2026-06-11 12:45 CEST po dispatch passu: `npm run check` prošlo s 607 Vitest testy, migrations check, type-check, lint a produkční build. Cílený `npx vitest run tests/landing-polish.test.ts` prošel 29/29.
+- Staging 2026-06-11 12:52 CEST: commit `c049ba6` je na `origin/dev`, preview deploy `dpl_Bk6vKW6RPQkgaDL9obFzGvmzKHnL` je aliasovaný na `https://rezervacni-system-dev.vercel.app`. Ověřeno `/api/health=ok` a HTML signatury `dispatch-day-rail`, `mobile-day-rail`, `Jeden den, čtyři provozní signály`; starý `trust-marquee flex min-w-max` se nevrací.
 - Vercel env úkol mimo repo: nastavit `NEXT_PUBLIC_APP_URL=https://rezervacni-system-dev.vercel.app` na dev projektu a produkční doménu v production env, aby canonical/OG metadata neukazovala localhost.
 - Homepage už nemá samostatnou body sekci `Pro koho` ani body blok návodů; návody jsou jen ve footeru. Marketing navigace je zredukovaná na `Produkt`, `Ceník`, `Ukázka`, `Návody`; `/podniky` zůstává ve footeru.
 - Poslední lokální ověření 2026-06-11 12:14 CEST po implementaci #3: `npm run check` prošlo s 606 Vitest testy, migrations check, type-check, lint a produkční build. Cílený landing guard prošel 28/28; před implementací selhal na 7 guardech podle očekávání.
@@ -42,7 +43,7 @@ Aktualizováno: 2026-06-11 12:45 CEST
 - Poslední lokální ověření 2026-06-09 23:38 CEST po staging DB/workflow: `npm run check` prošlo s 599 Vitest testy, migrations check, type-check, lint i produkčním buildem. Staging `npm run runtime:schema-smoke` prošel proti samostatné Supabase DB.
 - Produkční/staging smoke 2026-06-09 23:45 CEST: GitHub Actions staging workflow pro `dev` doběhl úspěšně a `PLAYWRIGHT_BASE_URL=https://rezervacni-system-dev.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` prošel 11/11.
 - Produkční ověření 2026-06-09 00:15 CEST: ruční Vercel production deploy je aliasovaný na `https://rezervacni-system-xi.vercel.app`; `/api/health` je `ok`, nový hero je na produkci a public smoke prošel 11/11.
-- Další krok: pushnout dispatch pass na `dev`, ověřit aktuální staging alias `https://rezervacni-system-dev.vercel.app` a produkci nepromovat bez explicitního schválení.
+- Další krok: vizuálně reviewnout aktuální staging `https://rezervacni-system-dev.vercel.app` a produkci nepromovat bez explicitního schválení.
 - Nákupy a placené provozní kroky jsou odložené až před spuštěním: produkční doména, Supabase Pro/leaked password protection a Google OAuth runtime aktivace.
 - Nové produktové rozhodnutí: Temaro má komunikovat dva typy účtů, podnikatelský a zákaznický. Veřejný katalog podniků podle lokality/oboru, mapa podniku a plný Google Calendar sync jsou schválené další vrstvy po stabilním core.
 - Veřejný katalog má první implementovanou vrstvu: `/podniky`, strukturovaný obor tenantu, veřejná lokalizační pole, mapový odkaz a owner volbu `Zobrazit podnik ve veřejném katalogu`; veřejné vyhledávání je zákaznické přes službu a místo/adresu, ne přes syrové souřadnice.

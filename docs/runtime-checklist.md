@@ -1,6 +1,6 @@
 # Runtime checklist
 
-Aktualizováno: 2026-06-11 12:45 CEST
+Aktualizováno: 2026-06-11 12:53 CEST
 
 Tento checklist je pro první reálné ověření mimo demo režim.
 
@@ -38,6 +38,7 @@ Aktuální známý stav:
 - Runtime po dispatch passu ověřit, že `quality={70}` u engine fotek už v dev/build konzoli negeneruje Next image quality warning díky `images.qualities: [70, 75]`.
 - Vercel env úkol mimo repo: v dev projektu nastavit `NEXT_PUBLIC_APP_URL=https://rezervacni-system-dev.vercel.app`; v produkčním projektu nastavit produkční doménu. Bez toho mohou canonical/OG metadata ukazovat localhost.
 - Lokální ověření 2026-06-11 12:45 CEST po dispatch passu: `npm run check` prošlo s 607 Vitest testy, migrations check, type-check, lint a produkční build. Lokální Playwright screenshoty: `output/playwright/landing-dispatch-2026-06-11/home-1440x1400-final.png`, `output/playwright/landing-dispatch-2026-06-11/home-390x1000-final.png`.
+- Staging ověření 2026-06-11 12:52 CEST po dispatch passu: preview deploy `dpl_Bk6vKW6RPQkgaDL9obFzGvmzKHnL` je aliasovaný na `https://rezervacni-system-dev.vercel.app`; `/api/health` je `ok`, HTML obsahuje `dispatch-day-rail`, `mobile-day-rail`, `Jeden den, čtyři provozní signály` a neobsahuje starý `trust-marquee flex min-w-max`.
 - Lokální ověření 2026-06-11 12:14 CEST po implementaci #3: `npm run check` prošlo s 606 Vitest testy, migrations check, type-check, lint a produkční build. Cílený `npm run test -- tests/landing-polish.test.ts` prošel 28/28; před implementací selhal na 7 guardech podle očekávání.
 - Lokální ověření 2026-06-11 00:10 CEST po landing visual audit fixu: `npm run check` prošlo s 605 Vitest testy, migrations check, type-check, lint a produkční build. Cílený `npm test -- tests/landing-polish.test.ts` prošel 27/27. Playwright lokálně ověřil mobilní overflow `0` a mobilní rezervační karty bez interního přetečení.
 - Staging ověření 2026-06-11 00:02 CEST po landing visual audit fixu: preview deploy `dpl_GzrQdWGTESycAgKrfBnFAGqhBoBi` je aliasovaný na `https://rezervacni-system-dev.vercel.app`; `/api/health` je `ok`, HTML obsahuje `mobile-reservation-list`, `desktop-reservation-card`, `casovy-engine` a `temaro-time-page`; `PLAYWRIGHT_BASE_URL=https://rezervacni-system-dev.vercel.app npx playwright test tests/e2e/public-smoke.spec.ts` prošel 11/11 po scope fixu footer linků v testu.
