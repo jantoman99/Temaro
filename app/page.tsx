@@ -10,6 +10,7 @@ import {
   UsersRound,
 } from "lucide-react";
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { headers } from "next/headers";
 
@@ -78,18 +79,24 @@ const productProofScenes = [
     label: "Týmový kalendář",
     title: "Volno, obsazeno a riziko v jednom pohledu.",
     text: "Tým neřeší, jestli se termín ztratil ve zprávě. Stav rezervace je vidět přímo v kalendáři.",
+    image: "/marketing/product/temaro-product-app-screen.jpg",
+    imageAlt: "Produktová ukázka Temara s provozním přehledem a rezervacemi",
   },
   {
     icon: MousePointerClick,
     label: "Veřejná rezervace",
     title: "Klient vybírá jen dostupná okna.",
     text: "Služba, délka, cena a volný čas jsou v jednom jednoduchém flow na mobilu.",
+    image: "/marketing/product/temaro-client-booking-mobile.jpg",
+    imageAlt: "Mobilní rezervační stránka podniku v Temaru",
   },
   {
     icon: UsersRound,
     label: "Klientská paměť",
     title: "Vztah zůstává u podniku.",
     text: "Historie, poznámky, preference a no-show signál patří provozu, ne cizímu marketplace.",
+    image: "/marketing/product/temaro-business-discovery.jpg",
+    imageAlt: "Zákaznické hledání podniku a termínu v Temaru",
   },
 ] as const;
 
@@ -224,7 +231,7 @@ export default async function Home() {
               </h2>
             </div>
             <p className="max-w-2xl text-lg font-normal leading-8 text-[var(--ink-soft)]">
-              Salona ukazuje sílu jasné salonové vertikály. Temaro na ni navazuje konkrétními provozy, ale nebere si marketplace daň z klientů, které si přivedete sami.
+              Temaro je stavěné pro provozy, kde délka služby, tým, volná okna a návraty klientů rozhodují o tom, jestli den běží klidně.
             </p>
           </div>
         </Reveal>
@@ -253,34 +260,49 @@ export default async function Home() {
         </div>
       </section>
 
-      <section id="produktovy-dukaz" className="salon-proof-strip relative overflow-hidden py-20 sm:py-24">
+      <section id="produktovy-dukaz" className="temaro-screenshot-strip relative overflow-hidden py-20 sm:py-24">
         <div className="relative mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
               <div>
                 <p className="section-eyebrow">Produktový důkaz</p>
                 <h2 className="font-display mt-3 max-w-2xl text-balance text-5xl font-semibold leading-[0.96] sm:text-7xl">
-                  Ne fotka salonu. Skutečný provozní obraz.
+                  Obrázky jsou produkt, ne dekorace.
                 </h2>
               </div>
               <p className="max-w-2xl text-lg font-normal leading-8 text-[var(--ink-soft)]">
-                Všechny hlavní vizuály jsou app pohledy: kalendář, veřejná rezervace, klientská paměť a vlastní kanály. Žádné fake reference, žádná generická galerie.
+                Každý obraz na stránce je screenshot reálné Temaro obrazovky: provozní ukázka, mobilní rezervace a zákaznické hledání. Žádná generická galerie bez souvislosti.
               </p>
             </div>
           </Reveal>
 
           <Reveal delay={80}>
-            <div className="salon-proof-board mt-10 grid gap-4 rounded-[2.25rem] border border-white/70 bg-[var(--ink)] p-3 text-[var(--ink)] shadow-[0_34px_110px_rgba(23,26,33,0.22)] sm:p-4 lg:grid-cols-3">
+            <div className="temaro-screenshot-gallery temaro-screenshot-board mt-10 grid gap-4 rounded-[2.25rem] border border-white/70 bg-[var(--ink)] p-3 text-[var(--ink)] shadow-[0_34px_110px_rgba(23,26,33,0.22)] sm:p-4 lg:grid-cols-3">
               {productProofScenes.map((scene, index) => (
-                <article key={scene.label} className={`${index === 0 ? "bg-white" : "bg-[var(--porcelain)]"} rounded-[1.75rem] p-5 shadow-sm`}>
-                  <div className="grid size-12 place-items-center rounded-2xl bg-[var(--cobalt-tint)] text-[var(--cobalt)]">
-                    <scene.icon className="size-6" strokeWidth={1.9} />
+                <article key={scene.label} className={`${index === 0 ? "bg-white" : "bg-[var(--porcelain)]"} overflow-hidden rounded-[1.75rem] shadow-sm`}>
+                  <div className={`relative overflow-hidden bg-[var(--porcelain-deep)] ${index === 1 ? "h-[21rem]" : "h-[15.5rem]"}`}>
+                    <Image
+                      src={scene.image}
+                      alt={scene.imageAlt}
+                      width={index === 1 ? 398 : 1254}
+                      height={index === 1 ? 650 : 760}
+                      loading="eager"
+                      sizes="(min-width: 1024px) 31vw, 100vw"
+                      className={`h-full w-full object-cover ${index === 1 ? "object-top" : "object-left-top"}`}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[rgba(23,26,33,0.38)] to-transparent" />
+                    <div className="absolute bottom-3 left-3 flex items-center gap-2 rounded-full bg-white/92 px-3 py-2 text-xs font-bold text-[var(--ink)] shadow-sm backdrop-blur">
+                      <scene.icon className="size-4 text-[var(--cobalt)]" strokeWidth={1.9} />
+                      {scene.label}
+                    </div>
                   </div>
-                  <p className="font-time mt-6 text-xs font-semibold uppercase tracking-[0.16em] text-[var(--cobalt)]">
-                    {scene.label}
-                  </p>
-                  <h3 className="mt-2 text-2xl font-bold tracking-[-0.03em]">{scene.title}</h3>
-                  <p className="mt-3 text-sm font-normal leading-6 text-[var(--ink-soft)]">{scene.text}</p>
+                  <div className="p-5">
+                    <p className="font-time text-xs font-semibold uppercase tracking-[0.16em] text-[var(--cobalt)]">
+                      reálná obrazovka
+                    </p>
+                    <h3 className="mt-2 text-2xl font-bold tracking-[-0.03em]">{scene.title}</h3>
+                    <p className="mt-3 text-sm font-normal leading-6 text-[var(--ink-soft)]">{scene.text}</p>
+                  </div>
                 </article>
               ))}
             </div>

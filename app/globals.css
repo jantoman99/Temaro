@@ -299,81 +299,144 @@
     background-size: 16.666% 100%, 100% 64px;
   }
 
-  .product-window-hero,
-  .product-window-frame,
-  .salon-operating-hero,
-  .salon-command-frame,
-  .product-proof-gallery,
-  .salon-proof-board,
-  .product-proof-card,
+  .temaro-time-atelier-hero,
+  .temaro-cinema-frame,
+  .temaro-screenshot-gallery,
+  .temaro-screenshot-board,
   .workflow-rail-grid article,
   .product-demo-rail > * {
     position: relative;
   }
 
-  .salon-operating-hero {
+  .temaro-time-atelier-hero {
     background:
-      radial-gradient(circle at 16% 18%, color-mix(in srgb, var(--cobalt-tint) 70%, transparent), transparent 28rem),
-      radial-gradient(circle at 86% 12%, color-mix(in srgb, var(--mint) 48%, transparent), transparent 26rem),
-      linear-gradient(180deg, rgba(255, 255, 255, 0.82), transparent 46%),
+      radial-gradient(circle at 16% 14%, color-mix(in srgb, var(--cobalt-tint) 78%, transparent), transparent 31rem),
+      radial-gradient(circle at 78% 8%, color-mix(in srgb, var(--mint) 42%, transparent), transparent 24rem),
+      radial-gradient(circle at 64% 72%, color-mix(in srgb, var(--apricot-tint) 72%, transparent), transparent 34rem),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.74), transparent 48%),
       var(--porcelain);
   }
 
-  .salon-operating-hero::after {
+  .temaro-time-atelier-hero::before {
     background:
-      linear-gradient(90deg, color-mix(in srgb, var(--paper-line) 58%, transparent) 1px, transparent 1px),
-      linear-gradient(0deg, color-mix(in srgb, var(--paper-line) 42%, transparent) 1px, transparent 1px);
-    background-size: 92px 92px;
+      linear-gradient(90deg, color-mix(in srgb, var(--paper-line) 52%, transparent) 1px, transparent 1px),
+      linear-gradient(0deg, color-mix(in srgb, var(--paper-line) 34%, transparent) 1px, transparent 1px);
+    background-size: 86px 86px;
     content: "";
     inset: 0;
-    opacity: 0.32;
+    opacity: 0.42;
     pointer-events: none;
     position: absolute;
   }
 
-  .salon-operating-hero > * {
-    position: relative;
-    z-index: 1;
-  }
-
-  .salon-command-frame {
-    isolation: isolate;
-    max-width: 100%;
-    width: min(100%, calc(100vw - 2rem));
-  }
-
-  .salon-command-frame::before {
-    background:
-      linear-gradient(135deg, rgba(43, 63, 242, 0.18), transparent 36%),
-      radial-gradient(circle at 76% 20%, rgba(191, 234, 212, 0.22), transparent 18rem);
-    border-radius: inherit;
+  .temaro-time-atelier-hero::after {
+    background: linear-gradient(90deg, transparent, var(--cobalt), var(--apricot), var(--mint), transparent);
     content: "";
-    inset: 0;
-    opacity: 0.9;
+    height: 2px;
+    left: 50%;
+    opacity: 0.68;
     pointer-events: none;
     position: absolute;
+    top: 7.5rem;
+    transform: translateX(-50%);
+    width: min(1180px, calc(100% - 2rem));
   }
 
-  .salon-command-frame > * {
+  .temaro-time-atelier-hero > * {
     position: relative;
     z-index: 1;
   }
 
-  .salon-command-frame > .booking-phone-preview {
-    isolation: isolate;
+  .temaro-word-swap {
+    color: var(--cobalt);
+    display: inline-block;
+    min-width: 0;
+    position: relative;
+    text-shadow: 0 14px 44px color-mix(in srgb, var(--cobalt) 24%, transparent);
+  }
+
+  .temaro-word-swap::after {
+    background: var(--apricot);
+    border-radius: 999px;
+    bottom: 0.06em;
+    content: "";
+    height: 0.09em;
+    left: 0.02em;
+    opacity: 0.88;
     position: absolute;
+    right: 0.02em;
+    z-index: -1;
+  }
+
+  .temaro-cinema-frame {
+    background: var(--ink);
+    border: 1px solid color-mix(in srgb, white 24%, transparent);
+    border-radius: 2rem;
+    box-shadow: 0 32px 110px rgba(23, 26, 33, 0.26);
+    isolation: isolate;
+    overflow: hidden;
+  }
+
+  .temaro-cinema-frame::before {
+    background:
+      radial-gradient(circle at 20% 16%, rgba(43, 63, 242, 0.42), transparent 18rem),
+      radial-gradient(circle at 80% 0%, rgba(191, 234, 212, 0.28), transparent 16rem);
+    content: "";
+    inset: 0;
+    opacity: 0.86;
+    pointer-events: none;
+    position: absolute;
+    z-index: 0;
+  }
+
+  .temaro-cinema-frame > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .temaro-time-thread {
+    animation: temaro-thread-scan 4.8s ease-in-out infinite;
+    background: linear-gradient(180deg, transparent, var(--cobalt), var(--mint), transparent);
+    bottom: 0;
+    left: 56%;
+    opacity: 0.74;
+    position: absolute;
+    top: 0;
+    width: 2px;
+  }
+
+  .temaro-time-thread::before,
+  .temaro-time-thread::after {
+    background: var(--cobalt);
+    border: 4px solid white;
+    border-radius: 999px;
+    box-shadow: 0 10px 30px rgba(43, 63, 242, 0.28);
+    content: "";
+    height: 18px;
+    left: 50%;
+    position: absolute;
+    transform: translateX(-50%);
+    width: 18px;
+  }
+
+  .temaro-time-thread::before {
+    top: 22%;
+  }
+
+  .temaro-time-thread::after {
+    bottom: 24%;
   }
 
   .industry-switcher {
     backdrop-filter: blur(16px);
   }
 
-  .salon-proof-strip {
+  .temaro-screenshot-strip {
     background:
       linear-gradient(180deg, var(--porcelain), var(--porcelain-deep));
   }
 
-  .salon-proof-strip::before {
+  .temaro-screenshot-strip::before {
     background: linear-gradient(90deg, transparent, var(--cobalt), var(--apricot), var(--mint), transparent);
     content: "";
     height: 2px;
@@ -387,7 +450,7 @@
     width: calc(100% - 2rem);
   }
 
-  .salon-proof-board {
+  .temaro-screenshot-board {
     isolation: isolate;
   }
 
@@ -396,61 +459,6 @@
       radial-gradient(circle at 20% 12%, rgba(43, 63, 242, 0.34), transparent 26rem),
       radial-gradient(circle at 86% 8%, rgba(191, 234, 212, 0.18), transparent 24rem),
       var(--ink);
-  }
-
-  .product-window-hero {
-    background:
-      radial-gradient(circle at 18% 18%, color-mix(in srgb, var(--cobalt-tint) 78%, transparent), transparent 30rem),
-      radial-gradient(circle at 88% 10%, color-mix(in srgb, var(--mint) 44%, transparent), transparent 26rem),
-      radial-gradient(circle at 72% 82%, color-mix(in srgb, var(--apricot-tint) 62%, transparent), transparent 34rem),
-      linear-gradient(180deg, rgba(255, 255, 255, 0.72), transparent 42%);
-  }
-
-  .product-window-hero::after {
-    background:
-      linear-gradient(90deg, color-mix(in srgb, var(--paper-line) 58%, transparent) 1px, transparent 1px),
-      linear-gradient(0deg, color-mix(in srgb, var(--paper-line) 44%, transparent) 1px, transparent 1px);
-    background-size: 84px 84px;
-    content: "";
-    inset: 0;
-    opacity: 0.34;
-    pointer-events: none;
-    position: absolute;
-  }
-
-  .product-window-hero > * {
-    position: relative;
-    z-index: 1;
-  }
-
-  .product-window-frame {
-    isolation: isolate;
-  }
-
-  .product-window-frame::before {
-    background:
-      linear-gradient(135deg, rgba(43, 63, 242, 0.18), transparent 36%),
-      radial-gradient(circle at 72% 22%, rgba(191, 234, 212, 0.2), transparent 18rem);
-    border-radius: inherit;
-    content: "";
-    inset: 0;
-    opacity: 0.9;
-    pointer-events: none;
-    position: absolute;
-  }
-
-  .product-window-frame > * {
-    position: relative;
-    z-index: 1;
-  }
-
-  .product-window-frame > .booking-phone-preview {
-    isolation: isolate;
-    position: absolute;
-  }
-
-  .product-window-active {
-    box-shadow: 0 18px 44px rgba(43, 63, 242, 0.14);
   }
 
   .product-proof-strip {
@@ -515,10 +523,6 @@
 
   .time-card-in {
     animation: time-card-in 520ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
-  }
-
-  .product-window-active {
-    animation: product-window-pulse 3.8s ease-in-out infinite;
   }
 
   .time-engine-flow {
@@ -706,10 +710,10 @@
   @media (prefers-reduced-motion: reduce) {
     .trust-marquee,
     .time-card-in,
-    .product-window-active,
     .confirm-toast-in,
     .engine-message,
     .engine-slot,
+    .temaro-time-thread,
     .time-engine-flow::after {
       animation: none;
     }
@@ -819,15 +823,15 @@
     }
   }
 
-  @keyframes product-window-pulse {
+  @keyframes temaro-thread-scan {
     0%,
     100% {
-      transform: translateY(0);
-      box-shadow: 0 12px 34px rgba(43, 63, 242, 0.08);
+      opacity: 0.42;
+      transform: translateY(-2%);
     }
     50% {
-      transform: translateY(-2px);
-      box-shadow: 0 18px 44px rgba(43, 63, 242, 0.16);
+      opacity: 0.88;
+      transform: translateY(2%);
     }
   }
 

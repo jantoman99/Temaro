@@ -1,6 +1,6 @@
 # Manualni test plan
 
-Aktualizováno: 2026-06-11 23:51 CEST
+Aktualizováno: 2026-06-11 23:59 CEST
 
 Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 
@@ -19,29 +19,29 @@ Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 - Otevrit `http://localhost:3000`.
 - Otevřít `http://localhost:3000/api/health` a ověřit, že vrací JSON se `status`, `checks.env`, `checks.supabase`, `checks.rate_limit` a `version`; nesmí obsahovat konkrétní hodnoty tajných env proměnných.
 - Na veřejném deployi bez env otevřít `/api/health` a ověřit, že `checks.env.missing` je číslo, ne seznam názvů interních proměnných.
-- Na stagingu `https://rezervacni-system-dev.vercel.app` ověřit `/api/health=ok` a HTML signatury aktuálního landing směru: obsahuje `Plnější kalendář bez marketplace provizí`, `salon-operating-hero`, `salon-command-frame`, `industry-switcher`, `marketplace-free-proof`, `salon-proof-board`, `marketplace-compare-panel`; neobsahuje `product-window-hero`, `product-window-frame`, `product-proof-gallery`, `photo-led-hero`, `salon-phone-card`, `/marketing/salon-day-hero.webp`, `operating-table-stage`, `Provozní stůl dne`, `hero-before-after-stage`, `Den před Temarem`, `Den s Temarem`, `dispatch-day-rail`, `mobile-day-rail`, `dispatch-proof-strip` ani `id="trust-bar"`.
-- Poslední staging ověření 2026-06-11 23:51 CEST splnilo předchozí bod na preview deployi `dpl_8ozzwSbGcdG2XKRP9Ku3KJssKgFZ`, alias `https://rezervacni-system-dev.vercel.app`; staging screenshot audit je v `output/playwright/landing-salon-operating-2026-06-11/staging/`.
+- Na stagingu `https://rezervacni-system-dev.vercel.app` ověřit `/api/health=ok` a HTML signatury aktuálního landing směru: obsahuje `Váš kalendář má mít vlastní rytmus`, `Ateliér času Temaro`, `temaro-time-atelier-hero`, `temaro-cinema-frame`, `temaro-screenshot-gallery`, `temaro-time-thread`, `/marketing/product/temaro-product-app-screen.jpg`, `/marketing/product/temaro-client-booking-mobile.jpg`, `/marketing/product/temaro-business-discovery.jpg`; neobsahuje `salon-operating-hero`, `salon-command-frame`, `product-window-hero`, `product-window-frame`, `product-proof-gallery`, `photo-led-hero`, `salon-phone-card`, `/marketing/salon-day-hero.webp`, `operating-table-stage`, `Provozní stůl dne`, `hero-before-after-stage`, `Den před Temarem`, `Den s Temarem`, `dispatch-day-rail`, `mobile-day-rail`, `dispatch-proof-strip` ani `id="trust-bar"`.
+- Staging ověření pro Time Atelier pass zatím čeká na commit/push/deploy; lokální screenshot audit je v `output/playwright/landing-personality-2026-06-11/pass5/`.
 - Přes `curl -I http://localhost:3000` nebo DevTools Network ověřit, že response obsahuje `Content-Security-Policy`.
 - Přes `curl -I http://localhost:3000` nebo DevTools Network ověřit, že běžné routy obsahují `X-Frame-Options: DENY`; `/embed/booking/<slug>` ho mít nemá, protože booking widget musí jít vložit do iframe.
-- Zkontrolovat root landing page `/`: aktuální veřejný směr je `Temaro Salon Operating`, tedy salonový operating-room layout, oborové vstupy pro lokální služby, app-only produktové scény, pricing early a anti-marketplace argument bez fake metrik, referencí a log. Přihlášená aplikace dál může držet Signal OS.
+- Zkontrolovat root landing page `/`: aktuální veřejný směr je `Temaro Time Atelier` / `Ateliér času Temaro`, tedy výrazná typografie, reálné screenshoty Temara jako hlavní proof, časová linka, count-up čísla a anti-marketplace argument bez fake metrik, referencí a log. Přihlášená aplikace dál může držet Signal OS.
 - Zkontrolovat top bar landing page: musí obsahovat `Produkt`, `Pro koho`, `Návody`, `Ceník`, `Bez marketplace`, `Bezpečnost`, `Ukázka`, `Přihlášení` a primary CTA `Registrovat salon`.
 - Ověřit, že marketing header na homepage nemá theme toggle a landing zůstává light-only i při dříve uloženém dark režimu v prohlížeči.
 - Theme toggle dál ověřovat na `/podniky`, auth a booking demo stránkách, kde má zůstat součástí veřejného vstupu.
 - Proklikat top bar kotvy a overit, ze vedou na odpovidajici sekce, ne na prazdne nebo neexistujici stranky.
 - Na mobilni sirce zkontrolovat, ze top navigace nezmizi, nepreteka mimo viewport a ctyri hlavni polozky jsou citelne bez horizontalniho scrollu.
-- Na landing page zkontrolovat hero: eyebrow `Rezervační systém pro salony a lokální služby`, claim `Plnější kalendář bez marketplace provizí.`, CTA `Registrovat salon`, CTA `Spustit ukázku`, app rám `Dnešní provoz`, oborový přepínač `Barber/Kosmetika/Kadeřnictví/Masáže`, klientský telefon `Rezervace bez telefonátu` na desktopu a důkaz `0 % marketplace provize`.
-- Na landing page zkontrolovat salon-operating pass: první dojem musí být konkrétní rezervační software pro salon/provoz, ne generická SaaS abstrakce, fotogalerie ani lifestyle salon. App frame má být dominantní, srozumitelný a na mobilu se musí vejít bez useknutí.
-- Pod herem nesmí být samostatný `product-window-hero`, `photo-led-hero`, `salon-phone-card`, `operating-table-stage`, `dispatch-proof-strip`, `dispatch-day-rail`, `mobile-day-rail`, `hero-before-after-stage`, `Den před Temarem`, `Den s Temarem` ani `trust-bar`; navazovat má oborová sekce, produktový důkaz, ceník a anti-marketplace porovnání.
-- Na viewportech 1440, 1366, 768, 390 a 375px ověřit, že není horizontální scroll. Desktop má ukazovat velký headline a app frame s absolutním booking telefonem, tablet app frame bez telefonu, mobil produktový frame hned po CTA a bez useknutých app karet.
-- V hero app rámu prokliknout `Kalendář`, `Rezervace`, `Klienti` a `Kanály`; každá plocha musí zůstat čitelná, bez vnitřního scrollu a bez falešných zákaznických referencí nebo log.
-- Na desktopu ověřit, že `booking-phone-preview` je absolutní overlay a neprodlužuje hero. Na mobilu a tabletu ověřit, že telefon je skrytý a hlavní app frame drží šířku viewportu.
-- Na mobilní šířce 360-390px ověřit hero app frame: horní produktové taby mají být scrollovatelné vodorovně, KPI a agenda řádky čitelné a sticky CTA nesmí překrýt hlavní produktový pohled.
+- Na landing page zkontrolovat hero: badge `Ateliér času Temaro`, claim `Váš kalendář má mít vlastní rytmus.`, animované slovo v H1, CTA `Registrovat salon`, CTA `Spustit ukázku`, produktové kino s reálným screenshotem `Přehled provozu`, desktopový telefonní overlay s mobilní rezervací a důkaz `0 % marketplace provize`.
+- Na landing page zkontrolovat Time Atelier pass: první dojem musí být konkrétní rezervační software pro salon/provoz s vlastní osobností, ne generická SaaS abstrakce, fotogalerie ani lifestyle salon. Screenshot Temara má být dominantní, srozumitelný a na mobilu se musí vejít bez useknutí.
+- Pod herem nesmí být samostatný `salon-operating-hero`, `salon-command-frame`, `product-window-hero`, `photo-led-hero`, `salon-phone-card`, `operating-table-stage`, `dispatch-proof-strip`, `dispatch-day-rail`, `mobile-day-rail`, `hero-before-after-stage`, `Den před Temarem`, `Den s Temarem` ani `trust-bar`; navazovat má oborová sekce, produktový screenshot důkaz, ceník a anti-marketplace porovnání.
+- Na viewportech 1440, 1366, 768, 390 a 375px ověřit, že není horizontální scroll. Desktop má ukazovat velký headline a produktové kino s booking telefonem, tablet produktové kino bez telefonu, mobil produktový screenshot hned po CTA a bez prázdných/lazy-loaded šedých obrazových ploch.
+- V hero oborovém přepínači prokliknout `Barber`, `Kosmetika`, `Kadeřnictví` a `Masáže`; obsah musí měnit tempo provozu bez fake názvů podniků, falešných zákaznických referencí nebo log.
+- Na desktopu ověřit, že `booking-phone-preview` je absolutní overlay a neprodlužuje hero. Na mobilu a tabletu ověřit, že telefon je skrytý a hlavní screenshot drží šířku viewportu.
+- Na mobilní šířce 360-390px ověřit hero produktový screenshot: obraz má být načtený, čitelný a sticky CTA nesmí překrýt hlavní produktový pohled.
 - V desktop navigaci otevřít dropdowny `Produkt` a `Návody`; položky mají být čisté názvy bez drobných popisků a víceslovné labely jako `Produktová ukázka` nesmí opticky splývat.
-- V sekci `Produktový důkaz místo slibů.` ověřit produktovou desku `salon-proof-board`: hlavní panel je týdenní kalendář týmu, doplňkové panely ukazují veřejnou rezervaci, klientský účet a kanály rezervací.
-- V sekci `Produktový důkaz místo slibů.` ověřit, že proof karty vysvětlují tři app pohledy (`Kalendář týmu`, `Online rezervace`, `Klienti a kanály`) a nejsou to falešné metriky ani testimonials.
+- V sekci `Obrázky jsou produkt, ne dekorace.` ověřit screenshot desku `temaro-screenshot-gallery`: první panel je přihlášený provozní přehled, druhý mobilní rezervační stránka a třetí zákaznické hledání podniku.
+- V sekci `Obrázky jsou produkt, ne dekorace.` ověřit, že proof karty vysvětlují tři reálné obrazovky (`Týmový kalendář`, `Veřejná rezervace`, `Klientská paměť`) a nejsou to falešné metriky ani testimonials.
 - Ověřit, že sekce `Scénáře` na homepage už neexistuje a že staré foto karty Barber/Beauty/Trénink se nevrátily na root landing.
 - Ověřit, že produktová proof deska nemá fake progress bar, náhodné floating cards ani lifestyle obrázky; má působit jako skutečná app ukázka.
-- Na mobilní šířce ověřit, že `salon-proof-board` a `marketplace-compare-panel` nemají horizontální scroll, app panely jsou čitelné a sticky CTA nepřekrývá důležitý obsah.
+- Na mobilní šířce ověřit, že `temaro-screenshot-gallery` a `marketplace-compare-panel` nemají horizontální scroll, screenshoty jsou načtené a sticky CTA nepřekrývá důležitý obsah.
 - Při nastavení reduced motion musí zůstat obsah statický a čitelný.
 - Na mobilní šířce ověřit, že produktový proof blok přichází až po oborové sekci a sticky CTA nepřekrývá app panely.
 - V mobilním menu ověřit scroll limit, zavření backdropem, zavření klávesou Escape a to, že položky nemají dlouhé popisy.

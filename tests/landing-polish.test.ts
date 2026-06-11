@@ -46,7 +46,7 @@ describe("landing polish guard", () => {
     expect(globals).toContain(".temaro-focus-ring");
   });
 
-  test("homepage uses the salon operating redesign architecture", () => {
+  test("homepage uses the screenshot-led Time Atelier architecture", () => {
     const page = readProjectFile("app/page.tsx");
 
     expect(page).toContain("temaro-time-page");
@@ -55,6 +55,12 @@ describe("landing polish guard", () => {
     expect(page).toContain("MobileStickyCta");
     expect(page).toContain("industryCards");
     expect(page).toContain("productProofScenes");
+    expect(page).toContain("temaro-screenshot-gallery");
+    expect(page).toContain("temaro-screenshot-strip");
+    expect(page).toContain("temaro-screenshot-board");
+    expect(page).toContain("/marketing/product/temaro-product-app-screen.jpg");
+    expect(page).toContain("/marketing/product/temaro-client-booking-mobile.jpg");
+    expect(page).toContain("/marketing/product/temaro-business-discovery.jpg");
     expect(page).toContain("pricingPlans");
     expect(page).toContain("marketplaceRows");
     expect(page).toContain("workflowSteps");
@@ -67,58 +73,82 @@ describe("landing polish guard", () => {
     expect(page).not.toContain("bentoCards");
     expect(page).not.toContain("trustBarItems");
     expect(page).not.toContain('id="scenare"');
+    expect(page).not.toContain("Salona ukazuje");
   });
 
-  test("homepage hero is a salon operating app view, not generic product-window proof", () => {
+  test("homepage hero is a screenshot-led Temaro product cinema", () => {
     const hero = readProjectFile("components/marketing/business-discovery-hero.tsx");
 
     expect(hero).toContain('"use client"');
     expect(hero).toContain("industryProfiles");
     expect(hero).toContain("activeIndustryId");
     expect(hero).toContain("setActiveIndustryId");
-    expect(hero).toContain("productSurfaces");
-    expect(hero).toContain("salon-operating-hero");
-    expect(hero).toContain("salon-command-frame");
+    expect(hero).toContain("animatedWords");
+    expect(hero).toContain("proofStats");
+    expect(hero).toContain("imageStack");
+    expect(hero).toContain("productMoments");
+    expect(hero).toContain("AnimatedWord");
+    expect(hero).toContain("AnimatedNumber");
+    expect(hero).toContain("ProductCinema");
+    expect(hero).toContain("temaro-time-atelier-hero");
+    expect(hero).toContain("temaro-cinema-frame");
+    expect(hero).toContain("temaro-time-thread");
+    expect(hero).toContain("/marketing/product/temaro-product-app-screen.jpg");
+    expect(hero).toContain("/marketing/product/temaro-client-booking-mobile.jpg");
+    expect(hero).toContain("/marketing/product/temaro-business-discovery.jpg");
     expect(hero).toContain("booking-phone-preview");
-    expect(hero).toContain("marketplace-free-proof");
-    expect(hero).toContain("Plnější kalendář bez marketplace provizí");
-    expect(hero).toContain("Rezervační systém pro salony, barbery a beauty služby");
+    expect(hero).toContain("Ateliér času Temaro");
+    expect(hero).toContain("Váš <AnimatedWord /> má mít vlastní rytmus");
+    expect(hero).toContain("Temaro není další šablona pro rezervace");
     expect(hero).toContain("Registrovat salon");
     expect(hero).toContain("Spustit ukázku");
-    expect(hero).toContain("Vyberte typ provozu");
+    expect(hero).toContain("Vyberte tempo provozu");
     expect(hero).toContain("Barber");
     expect(hero).toContain("Kosmetika");
     expect(hero).toContain("Kadeřnictví");
     expect(hero).toContain("Masáže");
-    expect(hero).toContain("Reálný app pohled");
+    expect(hero).toContain("Reálné obrazovky Temara");
+    expect(hero).toContain("rezervací v demo dni");
+    expect(hero).toContain("volná okna v přehledu");
+    expect(hero).toContain("marketplace provize");
     expect(hero).toContain("Kalendář");
     expect(hero).toContain("Rezervace");
     expect(hero).toContain("Klienti");
     expect(hero).toContain("Kanály");
+    expect(hero).not.toContain("Sharp Cut Studio");
+    expect(hero).not.toContain("Luna Beauty");
+    expect(hero).not.toContain("Studio Vlna");
+    expect(hero).not.toContain("Tiché Studio");
+    expect(hero).not.toContain("salon-operating-hero");
+    expect(hero).not.toContain("salon-command-frame");
     expect(hero).not.toContain("product-window-hero");
     expect(hero).not.toContain("product-window-frame");
     expect(hero).not.toContain("Rezervace, které vidíte hned v kalendáři");
   });
 
-  test("hero product surfaces show real app concepts without fabricated testimonials or logos", () => {
+  test("hero screenshot cinema shows product truth without fabricated testimonials or logos", () => {
     const hero = readProjectFile("components/marketing/business-discovery-hero.tsx");
 
-    expect(hero).toContain("CalendarSurface");
-    expect(hero).toContain("BookingSurface");
-    expect(hero).toContain("ClientsSurface");
-    expect(hero).toContain("ChannelsSurface");
-    expect(hero).toContain("Dnešní provoz");
-    expect(hero).toContain("Klient vidí jen volné časy");
-    expect(hero).toContain("Klient nezmizí v cizí aplikaci");
-    expect(hero).toContain("Rezervace z vašich míst");
-    expect(hero).toContain("Web podniku");
-    expect(hero).toContain("Instagram bio");
-    expect(hero).toContain("QR v provozovně");
-    expect(hero).toContain("Google profil");
+    expect(hero).toContain("Reálné obrazovky Temara");
+    expect(hero).toContain("Bez provize z vlastních klientů");
+    expect(hero).toContain("Vlastní rezervační odkaz");
+    expect(hero).toContain("Přehled provozu");
+    expect(hero).toContain("Katalog a hledání");
+    expect(hero).toContain("živý den");
+    expect(hero).toContain("10:30 čeká na potvrzení");
+    expect(hero).toContain("Barber provoz");
+    expect(hero).toContain("Beauty provoz");
+    expect(hero).toContain("Kadeřnický tým");
+    expect(hero).toContain("Masérské studio");
+    expect(hero).toContain("web, QR, Instagram, Google");
     expect(hero).toContain("usePrefersReducedMotion");
     expect(hero).toContain("window.setInterval");
     expect(hero).toContain("reduceMotion");
     expect(hero).toContain("overflow-x-auto");
+    expect(hero).not.toContain("CalendarSurface");
+    expect(hero).not.toContain("BookingSurface");
+    expect(hero).not.toContain("ClientsSurface");
+    expect(hero).not.toContain("ChannelsSurface");
     expect(hero).not.toContain("testimonial");
     expect(hero).not.toContain("logo zákazníka");
     expect(hero).not.toContain("12 000+");
@@ -134,7 +164,9 @@ describe("landing polish guard", () => {
     expect(page).toContain("Kadeřnictví");
     expect(page).toContain("Beauty");
     expect(page).toContain("Masáže");
-    expect(page).toContain("Ne fotka salonu. Skutečný provozní obraz");
+    expect(page).toContain("Obrázky jsou produkt, ne dekorace");
+    expect(page).toContain("Každý obraz na stránce je screenshot reálné Temaro obrazovky");
+    expect(page).toContain("reálná obrazovka");
     expect(page).toContain("Týmový kalendář");
     expect(page).toContain("Veřejná rezervace");
     expect(page).toContain("Klientská paměť");
@@ -199,19 +231,25 @@ describe("landing polish guard", () => {
     }
   });
 
-  test("new salon visual classes are declared and old active classes are not required", () => {
+  test("new Time Atelier visual classes are declared and old active classes are gone", () => {
     const globals = readProjectFile("app/globals.css");
 
-    expect(globals).toContain(".salon-operating-hero");
-    expect(globals).toContain(".salon-command-frame");
+    expect(globals).toContain(".temaro-time-atelier-hero");
+    expect(globals).toContain(".temaro-cinema-frame");
+    expect(globals).toContain(".temaro-word-swap");
+    expect(globals).toContain(".temaro-time-thread");
+    expect(globals).toContain(".temaro-screenshot-strip");
+    expect(globals).toContain(".temaro-screenshot-board");
     expect(globals).toContain(".industry-switcher");
-    expect(globals).toContain(".salon-proof-strip");
-    expect(globals).toContain(".salon-proof-board");
     expect(globals).toContain(".marketplace-compare-panel");
     expect(globals).toContain("@media (prefers-reduced-motion: reduce)");
     expect(globals).toContain(".temaro-time-page");
     expect(globals).toContain("color-scheme: light");
     expect(globals).toContain("padding-bottom: calc(env(safe-area-inset-bottom) + 6.5rem)");
+    expect(globals).not.toContain(".salon-operating-hero");
+    expect(globals).not.toContain(".salon-command-frame");
+    expect(globals).not.toContain(".product-window-hero");
+    expect(globals).not.toContain(".product-window-frame");
   });
 
   test("marketing light-only setup stays intact", () => {
