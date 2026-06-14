@@ -10,6 +10,7 @@ import {
   UsersRound,
 } from "lucide-react";
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { headers } from "next/headers";
 
@@ -49,26 +50,44 @@ const industryCards = [
   {
     href: "/rezervacni-system-pro-barbery",
     label: "Barber",
-    title: "Rychlé střihy bez zpráv tam a zpět.",
+    title: "Barber",
     text: "Služby po 30-60 minutách, opakovaní klienti, volná okna a no-show signál.",
+    image: "/marketing/premium/barber-chair.webp",
   },
   {
     href: "/rezervacni-system-pro-kadernictvi",
     label: "Kadeřnictví",
-    title: "Barvy, střihy a delší bloky v jednom kalendáři.",
+    title: "Kadeřnictví",
     text: "Délky služeb, tým, pracovní doba a změny termínů bez ručního přepisování.",
+    image: "/marketing/salon-interior.jpg",
   },
   {
     href: "/rezervacni-system-pro-kosmeticky-salon",
     label: "Beauty",
-    title: "Klidnější plán pro procedury, které nejdou uspěchat.",
+    title: "Beauty",
     text: "Klient vidí dostupnost, provoz vidí historii a riziko ještě před návštěvou.",
+    image: "/marketing/premium/beauty-room.webp",
   },
   {
     href: "/rezervacni-system-pro-masaze",
     label: "Masáže",
-    title: "Dlouhé bloky bez telefonů mezi klienty.",
+    title: "Masáže",
     text: "Rezervace, připomínky a změny drží den pohromadě i u tichých provozů.",
+    image: "/marketing/premium/salon-detail.webp",
+  },
+  {
+    href: "/rezervacni-system-pro-wellness",
+    label: "Wellness",
+    title: "Wellness",
+    text: "Delší bloky, opakované návštěvy a klidné potvrzení bez recepčního chaosu.",
+    image: "/marketing/premium/salon-hero-wide.webp",
+  },
+  {
+    href: "/rezervacni-system-pro-wellness",
+    label: "Fitness",
+    title: "Fitness",
+    text: "Lekce, trenéři a kapacita na jednom místě pro rychlé rezervace.",
+    image: "/marketing/training-studio.jpg",
   },
 ] as const;
 
@@ -263,21 +282,28 @@ export default async function Home() {
           </div>
         </Reveal>
 
-        <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {industryCards.map((card, index) => (
-            <Reveal key={card.href} delay={index * 70} className="h-full">
+            <Reveal key={card.label} delay={index * 70} className="h-full">
               <Link
                 href={card.href}
-                className="temaro-focus-ring group flex h-full flex-col justify-between rounded-[1.75rem] border border-[var(--paper-line)] bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:border-[var(--cobalt)]"
+                className="temaro-industry-photo-card temaro-focus-ring group flex h-full min-h-[22rem] flex-col justify-end overflow-hidden rounded-[1.75rem] border border-white/70 bg-[var(--ink)] p-5 text-white shadow-sm transition hover:-translate-y-1"
               >
-                <div>
-                  <span className="font-time rounded-full bg-[var(--apricot-tint)] px-3 py-1.5 text-xs font-semibold text-[var(--ink)]">
+                <Image
+                  src={card.image}
+                  alt={`${card.label} provoz pro Temaro`}
+                  fill
+                  sizes="(min-width: 1024px) 31vw, (min-width: 768px) 46vw, 92vw"
+                  className="object-cover transition duration-500 group-hover:scale-105"
+                />
+                <div className="relative z-10">
+                  <span className="font-time rounded-full bg-white/16 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-md">
                     {card.label}
                   </span>
-                  <h3 className="mt-6 text-2xl font-bold tracking-[-0.03em]">{card.title}</h3>
-                  <p className="mt-3 text-sm font-normal leading-6 text-[var(--ink-soft)]">{card.text}</p>
+                  <h3 className="mt-5 text-4xl font-bold tracking-[-0.06em]">{card.title}</h3>
+                  <p className="mt-3 max-w-sm text-sm font-semibold leading-6 text-white/78">{card.text}</p>
                 </div>
-                <span className="mt-8 inline-flex items-center gap-2 text-sm font-bold text-[var(--cobalt)]">
+                <span className="relative z-10 mt-8 inline-flex items-center gap-2 text-sm font-bold text-white">
                   Otevřít obor
                   <ArrowRight className="size-4 transition group-hover:translate-x-1" />
                 </span>

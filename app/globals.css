@@ -388,6 +388,21 @@
 
   .temaro-product-desktop {
     min-height: 39rem;
+    overflow: visible;
+  }
+
+  .temaro-product-desktop::after {
+    background:
+      linear-gradient(180deg, color-mix(in srgb, var(--ink) 15%, white), color-mix(in srgb, var(--ink) 30%, white));
+    border-radius: 0 0 2.4rem 2.4rem;
+    bottom: -1.05rem;
+    box-shadow: 0 22px 60px rgba(23, 26, 33, 0.16);
+    content: "";
+    height: 1.25rem;
+    left: 10%;
+    position: absolute;
+    width: 68%;
+    z-index: -1;
   }
 
   .temaro-product-topbar {
@@ -540,16 +555,32 @@
   }
 
   .temaro-product-phone {
-    background: rgba(255, 255, 255, 0.86);
-    border: 1px solid rgba(255, 255, 255, 0.84);
-    border-radius: 2rem;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0.86)),
+      var(--porcelain);
+    border: 0.55rem solid color-mix(in srgb, var(--ink) 88%, var(--cobalt));
+    border-radius: 2.4rem;
     bottom: -2.1rem;
     box-shadow: 0 32px 90px rgba(23, 26, 33, 0.22);
-    padding: 1rem;
+    overflow: hidden;
+    padding: 1.15rem 1rem 1rem;
     position: absolute;
     right: 1.6rem;
     width: min(22rem, 31vw);
     z-index: 3;
+  }
+
+  .temaro-product-phone::before {
+    background: color-mix(in srgb, var(--ink) 92%, var(--cobalt));
+    border-radius: 999px;
+    content: "";
+    height: 0.42rem;
+    left: 50%;
+    position: absolute;
+    top: 0.55rem;
+    transform: translateX(-50%);
+    width: 5.2rem;
+    z-index: 4;
   }
 
   .temaro-phone-top {
@@ -610,6 +641,32 @@
     position: relative;
   }
 
+  .temaro-industry-photo-card {
+    isolation: isolate;
+    position: relative;
+  }
+
+  .temaro-industry-photo-card::before {
+    background:
+      linear-gradient(180deg, rgba(23, 26, 33, 0.08) 0%, rgba(23, 26, 33, 0.18) 38%, rgba(23, 26, 33, 0.86) 100%),
+      radial-gradient(circle at 15% 10%, color-mix(in srgb, var(--mint) 34%, transparent), transparent 14rem);
+    content: "";
+    inset: 0;
+    pointer-events: none;
+    position: absolute;
+    z-index: 1;
+  }
+
+  .temaro-industry-photo-card::after {
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: inherit;
+    content: "";
+    inset: 0.55rem;
+    pointer-events: none;
+    position: absolute;
+    z-index: 2;
+  }
+
   .temaro-premium-industries::before {
     background:
       radial-gradient(circle at 10% 20%, color-mix(in srgb, var(--mint) 30%, transparent), transparent 18rem),
@@ -651,6 +708,11 @@
 
     .temaro-product-desktop {
       min-height: 22rem;
+    }
+
+    .temaro-product-desktop::after {
+      left: 12%;
+      width: 56%;
     }
 
     .temaro-premium-product > div:first-child {
@@ -707,6 +769,7 @@
 
     .temaro-product-phone {
       bottom: -1.25rem;
+      border-width: 0.42rem;
       left: 4.4rem;
       right: auto;
       width: calc(100% - 5.2rem);

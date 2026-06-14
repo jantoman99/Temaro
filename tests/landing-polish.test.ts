@@ -54,6 +54,12 @@ describe("landing polish guard", () => {
     expect(page).toContain("<BusinessDiscoveryHero />");
     expect(page).toContain("MobileStickyCta");
     expect(page).toContain("industryCards");
+    expect(page).toContain("next/image");
+    expect(page).toContain("temaro-industry-photo-card");
+    expect(page).toContain("/marketing/premium/barber-chair.webp");
+    expect(page).toContain("/marketing/salon-interior.jpg");
+    expect(page).toContain("/marketing/premium/beauty-room.webp");
+    expect(page).toContain("/marketing/premium/salon-detail.webp");
     expect(page).toContain("productProofScenes");
     expect(page).toContain("temaro-operations-strip");
     expect(page).toContain("temaro-operations-board");
@@ -176,6 +182,8 @@ describe("landing polish guard", () => {
     expect(page).toContain("Kadeřnictví");
     expect(page).toContain("Beauty");
     expect(page).toContain("Masáže");
+    expect(page).toContain("Wellness");
+    expect(page).toContain("Fitness");
     expect(page).toContain("Vše, co salon řeší každý den");
     expect(page).toContain("Čas, stav, klientský kontext a kanál rezervace");
     expect(page).toContain("provozní signál");
@@ -290,6 +298,9 @@ describe("landing polish guard", () => {
     expect(globals).toContain(".temaro-booking-detail-card");
     expect(globals).toContain(".temaro-product-phone");
     expect(globals).toContain(".temaro-premium-industries");
+    expect(globals).toContain(".temaro-industry-photo-card");
+    expect(globals).toContain(".temaro-product-desktop::after");
+    expect(globals).toContain(".temaro-product-phone::before");
     expect(globals).not.toContain(".temaro-premium-product-column");
     expect(globals).not.toContain(".temaro-salon-image-strip");
     expect(globals).not.toContain(".temaro-salon-image-tile");

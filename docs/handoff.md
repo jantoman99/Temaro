@@ -1,6 +1,6 @@
 # Handoff
 
-Aktualizováno: 2026-06-14 18:23 CEST
+Aktualizováno: 2026-06-14 18:45 CEST
 
 ## Jak navázat
 
@@ -36,6 +36,7 @@ Aktualizováno: 2026-06-14 18:23 CEST
 - Poslední lokální screenshot/vision audit 2026-06-14 18:23 CEST: `output/playwright/fresha-reference-2026-06-14/` pro Fresha referenci a `output/playwright/fresha-product-hero-2026-06-14/home-desktop-v5-final.png`, `home-mobile-v5-final.png` pro Temaro. Metrics: desktop `productTop=388.03125`, mobile `productTop=410.859375`, oba `overflowX=0`, `phoneVisible=true`, `oldHeroCount=0`.
 - Poslední lokální ověření 2026-06-14 18:23 CEST: landing guard 22/22, `npm run type-check`, `npm run lint -- --quiet`, `git diff --check`, `npx impeccable detect app components` a `npm run check` s 600 Vitest testy prošly.
 - Poslední staging ověření 2026-06-14 18:28 CEST po product-image hero passu: commit `970a807` je na `origin/dev`, preview deploy `dpl_6qC1Eyhp8TE42TbPuCkTfpZaQtR4` je aliasovaný na `https://rezervacni-system-dev.vercel.app`. Ověřeno `/api/health=ok`; HTML obsahuje product-image signatury a neobsahuje staré hero karty/image strip/screenshot signatury.
+- Aktuální lokální Fresha-inspired polish 2026-06-14 18:45 CEST: full-page Fresha audit je v `output/playwright/fresha-cs-full-2026-06-14/`; Temaro screenshot/vision audit je v `output/playwright/fresha-inspired-polish-2026-06-14/`. Hero zařízení mají jasnější desktop/phone rám a `#pro-koho` je fotografická 6kartová mřížka `temaro-industry-photo-card`, ne textové karty. Poslední lokální ověření: landing guard 22/22, `git diff --check`, `npx impeccable detect app components`, `npm run lint -- --quiet` a `npm run check` s 600 Vitest testy prošly.
 - Impeccable skill je lokálně mimo repo v `/home/hanys/.codex/skills/impeccable-style`; validace prošla. `npx impeccable detect app components` je po úpravě čistý.
 - Poslední lokální ověření 2026-06-11 23:59 CEST po Time Atelier passu: `npx vitest run tests/landing-polish.test.ts` prošel 20/20, `npx impeccable detect app components` prošel s exit 0 bez výstupu, `npm run lint` prošel a `npm run check` prošel s 598 Vitest testy, migrations check, type-check, lint a produkční build. Screenshoty: `output/playwright/landing-personality-2026-06-11/pass5/home-1440.png`, `home-1366.png`, `home-768.png`, `home-390.png`, `home-375.png`; všech 5 viewportů má horizontální overflow `0`, `hasHero=true`, `hasCinema=true`, `hasGallery=true`, `hasOldSalonHero=false`, `hasOldProductWindow=false`.
 - Poslední lokální ověření 2026-06-14 13:27 CEST po navázání projektu: `npm run check` prošlo s 598 Vitest testy, migrations check, type-check, lint a produkční build.
