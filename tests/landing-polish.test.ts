@@ -48,6 +48,7 @@ describe("landing polish guard", () => {
 
   test("homepage uses the Fresha-like premium salon platform architecture", () => {
     const page = readProjectFile("app/page.tsx");
+    const bento = readProjectFile("components/marketing/feature-story-bento.tsx");
 
     expect(page).toContain("temaro-time-page");
     expect(page).toContain("<MarketingHeader />");
@@ -60,6 +61,12 @@ describe("landing polish guard", () => {
     expect(page).toContain("Kanály v jednom kalendáři");
     expect(page).toContain("Zálohy a SMS");
     expect(page).toContain("Klikatelná ukázka");
+    expect(page).toContain("FeatureStoryBento");
+    expect(bento).toContain("Jedna rezervace projde celým provozem");
+    expect(bento).toContain('id="produktovy-pribeh"');
+    expect(bento).toContain("Instagram termín padá rovnou do kalendáře");
+    expect(bento).toContain("SMS připomínka připravena");
+    expect(bento).toContain("300 Kč záloha připravena");
     expect(page).toContain("industryCards");
     expect(page).toContain("featuredIndustry");
     expect(page).toContain("secondaryIndustries");
@@ -73,9 +80,9 @@ describe("landing polish guard", () => {
     expect(page).toContain("Dnešní plán");
     expect(page).toContain("Google rezervace");
     expect(page).toContain("/marketing/industries/barber.webp");
-    expect(page).toContain("/marketing/industries/hair-salon.webp");
+    expect(page).toContain("/marketing/industries/hair-salon-wide.webp");
     expect(page).toContain("/marketing/industries/beauty.webp");
-    expect(page).toContain("/marketing/industries/massage.webp");
+    expect(page).toContain("/marketing/industries/massage-wide.webp");
     expect(page).toContain("/marketing/industries/wellness.webp");
     expect(page).toContain("/marketing/industries/fitness.webp");
     expect(page).toContain("productProofScenes");
@@ -340,6 +347,11 @@ describe("landing polish guard", () => {
     expect(globals).toContain(".temaro-product-phone");
     expect(globals).toContain(".temaro-hero-proof-band");
     expect(globals).toContain(".temaro-hero-proof-card");
+    expect(globals).toContain(".temaro-feature-bento");
+    expect(globals).toContain(".temaro-bento-grid");
+    expect(globals).toContain(".temaro-bento-live");
+    expect(globals).toContain(".temaro-bento-source-flow");
+    expect(globals).toContain("bento-source-pop");
     expect(globals).toContain(".temaro-premium-industries");
     expect(globals).toContain(".temaro-industry-showcase");
     expect(globals).toContain(".temaro-industry-kicker-row");

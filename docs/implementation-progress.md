@@ -901,6 +901,12 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - Prošel produkční build.
 - `npm run seed:demo` proběhl 2026-05-02 14:03 CEST pro dva aktivní tenanty a nahrál 5 služeb, 3 členy týmu, 7 klientů a 16 rezervací.
 
+## Poslední změny
+
+- 2026-06-14 23:46 CEST: dokončen design-fix průchod podle `codex-design-fixes.md` tasků 6-7. Homepage má nový `FeatureStoryBento` blok `#produktovy-pribeh` s pěti produktovými kartami, živým source flow a reduced-motion fallbackem; industry showcase používá nové vlastní široké WebP assety `hair-salon-wide.webp` a `massage-wide.webp`.
+- 2026-06-14 23:46 CEST: mobilní/desktop vision kontrola proběhla ze screenshotů `output/playwright/design-fixes-2026-06-14/task-6-7-final/desktop-current.png`, `mobile-current.png` a `mobile-industry-section-current.png`; ověřeno `overflowX: 0`, nové wide assety v DOM a žádný slepený text `Instagramtermín`/`Barvaa`.
+- 2026-06-14 23:46 CEST: `npm run check` prošlo: 600 Vitest testů, migrations check, type-check, lint i produkční build. `PLAYWRIGHT_BASE_URL=http://localhost:3005 npx playwright test tests/e2e/public-smoke.spec.ts` prošlo 11/11 po aktualizaci zastaralých marketing copy očekávání.
+
 ## Známé limity
 
 - Landing navigace je od 2026-06-08 sjednocená jako fixed business header pro homepage, `/ukazka`, oborové landingy a guide stránky. Hotfix 2026-06-08 23:06 CEST přidal explicitní hero odsazení pod fixed header (`pt-28`, desktop `lg:pt-32`), aby první badge/text nebyl useknutý pod navigací.

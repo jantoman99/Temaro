@@ -776,6 +776,223 @@
     margin-top: 0.72rem;
   }
 
+  .temaro-feature-bento {
+    background:
+      radial-gradient(circle at 8% 18%, color-mix(in srgb, var(--mint) 30%, transparent), transparent 20rem),
+      linear-gradient(180deg, var(--porcelain) 0%, #ffffff 52%, var(--porcelain) 100%);
+  }
+
+  .temaro-bento-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: minmax(0, 1.18fr) minmax(0, 0.82fr) minmax(0, 0.82fr);
+  }
+
+  .temaro-bento-card {
+    background: white;
+    border: 1px solid rgba(255, 255, 255, 0.76);
+    border-radius: 1.8rem;
+    box-shadow: 0 1.8rem 4.2rem rgba(23, 26, 33, 0.1);
+    color: var(--ink);
+    min-height: 17rem;
+    overflow: hidden;
+    padding: 1.25rem;
+    position: relative;
+  }
+
+  .temaro-bento-card-head {
+    align-items: center;
+    display: flex;
+    gap: 0.75rem;
+    justify-content: space-between;
+  }
+
+  .temaro-bento-card-head span {
+    align-items: center;
+    background: var(--porcelain);
+    border: 1px solid var(--paper-line);
+    border-radius: 999px;
+    color: var(--ink);
+    display: inline-flex;
+    font-size: 0.78rem;
+    font-weight: 850;
+    gap: 0.45rem;
+    min-height: 2.35rem;
+    padding: 0.55rem 0.75rem;
+  }
+
+  .temaro-bento-card-head strong {
+    color: var(--cobalt);
+    font-family: var(--font-plex-mono);
+    font-size: 1.35rem;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+  }
+
+  .temaro-bento-card h3 {
+    font-family: var(--font-body-stack);
+    font-size: clamp(1.55rem, 2.4vw, 2.65rem);
+    font-weight: 900;
+    letter-spacing: -0.055em;
+    line-height: 1;
+    margin-top: 1.3rem;
+    max-width: 12ch;
+  }
+
+  .temaro-bento-live {
+    background:
+      radial-gradient(circle at 82% 4%, color-mix(in srgb, var(--apricot) 42%, transparent), transparent 16rem),
+      linear-gradient(135deg, var(--ink) 0%, #101631 100%);
+    color: white;
+    grid-row: span 2;
+    min-height: 35rem;
+  }
+
+  .temaro-bento-live .temaro-bento-card-head span {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.18);
+    color: white;
+  }
+
+  .temaro-bento-live h3 {
+    color: white;
+    font-size: clamp(2.45rem, 4.2vw, 4.7rem);
+    letter-spacing: -0.045em;
+    max-width: 10ch;
+  }
+
+  .temaro-bento-source-flow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 2rem;
+  }
+
+  .temaro-bento-source-flow span {
+    animation: bento-source-pop 3.8s ease-in-out infinite;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 999px;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 0.82rem;
+    font-weight: 850;
+    padding: 0.58rem 0.75rem;
+  }
+
+  .temaro-bento-booking-card {
+    background: white;
+    border-radius: 1.45rem;
+    bottom: 1.25rem;
+    box-shadow: 0 1.6rem 4rem rgba(0, 0, 0, 0.2);
+    color: var(--ink);
+    left: 1.25rem;
+    padding: 1rem;
+    position: absolute;
+    right: 1.25rem;
+  }
+
+  .temaro-bento-booking-card small,
+  .temaro-bento-booking-card span {
+    color: var(--ink-soft);
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 800;
+  }
+
+  .temaro-bento-booking-card strong {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 1.45rem;
+    font-weight: 950;
+    gap: 0.22em;
+    letter-spacing: -0.035em;
+    margin-top: 0.35rem;
+  }
+
+  .temaro-bento-calendar {
+    background: color-mix(in srgb, var(--mint) 28%, white);
+  }
+
+  .temaro-bento-day,
+  .temaro-bento-client-list {
+    display: grid;
+    gap: 0.55rem;
+    margin-top: 1.3rem;
+  }
+
+  .temaro-bento-day span,
+  .temaro-bento-client-list span,
+  .temaro-bento-message,
+  .temaro-bento-deposit-pill {
+    border-radius: 1rem;
+    font-size: 0.86rem;
+    font-weight: 850;
+    padding: 0.75rem 0.85rem;
+  }
+
+  .temaro-bento-day span.apricot {
+    background: color-mix(in srgb, var(--apricot) 70%, white);
+  }
+
+  .temaro-bento-day span.mint,
+  .temaro-bento-deposit-pill {
+    background: color-mix(in srgb, var(--mint) 74%, white);
+  }
+
+  .temaro-bento-day span.blue {
+    background: color-mix(in srgb, var(--cobalt) 14%, white);
+  }
+
+  .temaro-bento-day span.ink {
+    background: var(--ink);
+    color: white;
+  }
+
+  .temaro-bento-client {
+    background: color-mix(in srgb, var(--apricot) 24%, white);
+  }
+
+  .temaro-bento-client-list span {
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(255, 255, 255, 0.76);
+  }
+
+  .temaro-bento-client-list span.risk {
+    background: color-mix(in srgb, var(--signal-red) 12%, white);
+    color: var(--signal-red);
+  }
+
+  .temaro-bento-reminder {
+    background: color-mix(in srgb, var(--cobalt-tint) 76%, white);
+  }
+
+  .temaro-bento-message {
+    background: white;
+    margin-top: 1.35rem;
+  }
+
+  .temaro-bento-message span,
+  .temaro-bento-message strong {
+    display: block;
+  }
+
+  .temaro-bento-message span {
+    color: var(--ink-soft);
+    font-size: 0.78rem;
+  }
+
+  .temaro-bento-message strong {
+    margin-top: 0.35rem;
+  }
+
+  .temaro-bento-deposit {
+    background: color-mix(in srgb, var(--mint) 38%, white);
+  }
+
+  .temaro-bento-deposit-pill {
+    margin-top: 1.5rem;
+  }
+
   .temaro-premium-industries {
     position: relative;
   }
@@ -1061,9 +1278,11 @@
   }
 
   .temaro-industry-compact-card span {
-    background: rgba(255, 255, 255, 0.16);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(255, 255, 255, 0.78);
     border-radius: 999px;
+    box-shadow: 0 0.85rem 1.8rem rgba(0, 0, 0, 0.16);
+    color: var(--ink);
     font-size: 0.82rem;
     font-weight: 850;
     padding: 0.5rem 0.72rem;
@@ -1088,6 +1307,15 @@
   }
 
   @media (max-width: 1024px) {
+    .temaro-bento-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .temaro-bento-live {
+      grid-column: 1 / -1;
+      min-height: 30rem;
+    }
+
     .temaro-industry-kicker-row,
     .temaro-industry-layout {
       grid-template-columns: 1fr;
@@ -1105,6 +1333,19 @@
   }
 
   @media (max-width: 640px) {
+    .temaro-bento-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .temaro-bento-live {
+      grid-column: auto;
+      min-height: 31rem;
+    }
+
+    .temaro-bento-card h3 {
+      max-width: 13ch;
+    }
+
     .temaro-industry-kicker-row,
     .temaro-industry-layout {
       grid-template-columns: 1fr;
@@ -1129,7 +1370,7 @@
     }
 
     .temaro-industry-compact-card {
-      min-height: 14rem;
+      min-height: 10.5rem;
     }
 
     .temaro-industry-overlay {
@@ -1917,6 +2158,7 @@
     .engine-slot,
     .temaro-market-pin,
     .temaro-proof-pulse,
+    .temaro-bento-source-flow span,
     .time-engine-flow::after {
       animation: none;
     }
@@ -1984,6 +2226,20 @@
     }
     50% {
       box-shadow: 0 0 0 8px color-mix(in srgb, var(--cobalt) 4%, transparent);
+    }
+  }
+
+  @keyframes bento-source-pop {
+    0%,
+    100% {
+      background: rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.72);
+      transform: translateY(0);
+    }
+    45% {
+      background: var(--cobalt);
+      color: white;
+      transform: translateY(-3px);
     }
   }
 

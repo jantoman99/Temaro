@@ -757,6 +757,12 @@ Aktualizováno: 2026-06-14 23:00 CEST
 - Prošlo 331 testů, migrations check, type-check, lint i produkční build.
 - `npm run seed:demo` proběhl 2026-05-02 14:03 CEST pro dva aktivní tenanty a nahrál 16 rezervací do každého.
 
+## Poslední handoff
+
+- 2026-06-14 23:46 CEST: design-fix tasky z `codex-design-fixes.md` jsou dokončené. Tasky 1-5 jsou v předchozích commitech `5e6966f` a `d6b00ca`; aktuální navazující změna přidává produktový bento storytelling blok, nové wide industry fotografie pro kadeřnictví a masáže a aktualizovaný public smoke test na aktuální landing/demo copy.
+- Vizuální kontrola: aktuální screenshoty jsou v `output/playwright/design-fixes-2026-06-14/task-6-7-final/`. Mobilní industry výřez po restartu dev serveru potvrzuje čitelné compact labely; sticky CTA může při konkrétním scrollu překrýt část karty, ale obsah lze doscrollovat a nejde o blokující regresi.
+- Ověření: `npm run check` prošlo 2026-06-14 23:46 CEST se 600 Vitest testy, migrations checkem, type-checkem, lintem a buildem. `PLAYWRIGHT_BASE_URL=http://localhost:3005 npx playwright test tests/e2e/public-smoke.spec.ts` prošlo 11/11.
+
 ## Co nedělat
 
 - Landing business navigace je sjednocená přes `MarketingHeader` a zůstává fixed napříč homepage, `/ukazka`, oborovými landingy a guide stránkami. Hotfix 2026-06-08 23:06 CEST přidal horní hero odsazení pod fixed header; neměnit zpět na per-page navigace ani na kotvy bez ověření Playwright smoke.

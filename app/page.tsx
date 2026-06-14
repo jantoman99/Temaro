@@ -17,6 +17,7 @@ import { headers } from "next/headers";
 import PublicSlugBookingPage from "@/app/(booking)/[slug]/page";
 import { TemaroLogo } from "@/components/brand/temaro-logo";
 import { BusinessDiscoveryHero } from "@/components/marketing/business-discovery-hero";
+import { FeatureStoryBento } from "@/components/marketing/feature-story-bento";
 import { MarketingHeader } from "@/components/marketing/marketing-header";
 import { MobileStickyCta } from "@/components/marketing/mobile-sticky-cta";
 import { Reveal } from "@/components/motion/reveal";
@@ -59,7 +60,7 @@ const industryCards = [
     label: "Kadeřnictví",
     title: "Kadeřnictví",
     text: "Délky služeb, tým, pracovní doba a změny termínů bez ručního přepisování.",
-    image: "/marketing/industries/hair-salon.webp",
+    image: "/marketing/industries/hair-salon-wide.webp",
   },
   {
     href: "/rezervacni-system-pro-kosmeticky-salon",
@@ -73,7 +74,7 @@ const industryCards = [
     label: "Masáže",
     title: "Masáže",
     text: "Rezervace, připomínky a změny drží den pohromadě i u tichých provozů.",
-    image: "/marketing/industries/massage.webp",
+    image: "/marketing/industries/massage-wide.webp",
   },
   {
     href: "/rezervacni-system-pro-wellness",
@@ -309,6 +310,8 @@ export default async function Home() {
           ))}
         </div>
       </section>
+
+      <FeatureStoryBento />
 
       <section id="pro-koho" className="temaro-premium-industries temaro-industry-showcase mx-auto w-full max-w-[1180px] px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
         <Reveal>

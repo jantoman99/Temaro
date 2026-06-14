@@ -25,22 +25,23 @@ test.describe("public smoke", () => {
   test("landing page exposes primary marketing paths", async ({ page }) => {
     await page.goto("/");
 
-    await expect(page.getByRole("heading", { name: /Rezervace bez volání.*Čas bez chaosu/i })).toBeVisible();
-    await expect(page.getByRole("link", { name: /Začít zdarma/i }).first()).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Rezervace pro salony/i })).toBeVisible();
+    await expect(page.getByRole("link", { name: /Registrovat salon/i }).first()).toBeVisible();
     await expect(page.getByText("Produkt").first()).toBeVisible();
     await expect(page.getByText("Ceník").first()).toBeVisible();
     await expect(page.getByText("Ukázka").first()).toBeVisible();
     await expect(page.getByText("Návody").first()).toBeVisible();
     await expect(page.getByRole("link", { name: "Ukázka", exact: true }).first()).toHaveAttribute("href", "/ukazka");
     await page.getByRole("button", { name: "Produkt" }).click();
-    await expect(page.getByRole("link", { name: /Jak to funguje/ })).toBeVisible();
+    const productDropdownLink = page.locator('a[href="#produkt"]').filter({ hasText: /Produktový/ }).first();
+    await expect(productDropdownLink).toBeVisible();
     await page.getByRole("button", { name: "Návody" }).click();
-    await expect(page.getByRole("link", { name: /Jak to funguje/ })).not.toBeVisible();
-    await expect(page.getByRole("link", { name: /Jak snížit no-show/ })).toBeVisible();
-    await expect(page.getByRole("heading", { name: /Z chaosu vznikne čitelná časová osa/i })).toBeVisible();
-    await expect(page.getByRole("heading", { name: /Rezervace tam, kde už klient rozhoduje/i })).toBeVisible();
-    await expect(page.getByRole("heading", { name: /Kalendář, který ukazuje napětí dne/i })).toBeVisible();
-    await expect(page.getByRole("link", { name: "Spustit produktovou ukázku" })).toHaveAttribute("href", "/ukazka");
+    await expect(productDropdownLink).not.toBeVisible();
+    await expect(page.locator('a[href="/jak-snizit-no-show"]').first()).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Jedna rezervace projde celým provozem/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Jeden kalendář pro provozy/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Vše, co salon řeší každý den/i })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Spustit ukázku" })).toHaveAttribute("href", "/ukazka");
     const footer = page.locator("footer");
     await expect(footer.getByRole("link", { name: "Pro barbery", exact: true })).toBeVisible();
     await expect(footer.getByRole("link", { name: "Pro kadeřnictví", exact: true })).toBeVisible();
@@ -67,10 +68,10 @@ test.describe("public smoke", () => {
   test("interactive product demo page renders", async ({ page }) => {
     await page.goto("/ukazka");
 
-    await expect(page.getByText("Interaktivní ukázka Temara").first()).toBeVisible();
-    await expect(page.getByRole("heading", { name: /Projděte si Temaro/i })).toBeVisible();
-    await expect(page.getByRole("button", { name: "Spustit ukázku" })).toBeVisible();
-    await expect(page.getByRole("link", { name: "Začít zdarma" }).first()).toBeVisible();
+    await expect(page.getByText("Klikatelná ukázka interního CRM").first()).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Tohle je produkt, který má být vidět/i })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Kalendář" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Registrovat salon" }).first()).toBeVisible();
   });
 
   test("segment SEO pages render and cross-link", async ({ page }) => {
@@ -114,7 +115,7 @@ test.describe("public smoke", () => {
     await page.goto("/", { waitUntil: "domcontentloaded" });
 
     const homeHeader = page.locator("header").first();
-    const homeEyebrow = page.getByText("Rezervační systém pro služby").first();
+    const homeEyebrow = page.getByRole("heading", { name: /Rezervace pro salony/i }).first();
     const homeHeaderBox = await homeHeader.boundingBox();
     const homeEyebrowBox = await homeEyebrow.boundingBox();
 
