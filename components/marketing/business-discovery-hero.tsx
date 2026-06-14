@@ -60,9 +60,9 @@ const industryProfiles = [
 ] as const;
 
 const heroStats = [
-  { value: "12", label: "rezervací dnes" },
-  { value: "3", label: "volná okna" },
-  { value: "0 %", label: "provize z vlastních klientů" },
+  { value: "16:00", label: "volné", signal: "16:00 volné", tone: "mint" },
+  { value: "10:30", label: "čeká", signal: "10:30 čeká", tone: "apricot" },
+  { value: "0 Kč", label: "provize", signal: "0 Kč provize", tone: "ink" },
 ] as const;
 
 const channelCards = [
@@ -115,6 +115,12 @@ const bookingRows = [
     meta: "Instagram · SMS připravena",
     tone: "new",
   },
+] as const;
+
+const proofFlow = [
+  { label: "Story", text: "klient bere odkaz", tone: "instagram" },
+  { label: "Volný slot", text: "16:00 drží kalendář", tone: "mint" },
+  { label: "SMS", text: "připomínka připravena", tone: "cobalt" },
 ] as const;
 
 const productMoments = [
@@ -177,7 +183,7 @@ function SalonCommandWall() {
         <div className="mt-5 grid gap-2">
           {bookingRows.map((booking) => (
             <article key={`${booking.time}-${booking.title}`} className={`temaro-booking-row ${booking.tone}`}>
-              <span className="font-time text-sm font-bold">{booking.time}</span>
+              <span className="temaro-booking-time font-time">{booking.time}</span>
               <div>
                 <p className="font-bold">{booking.title}</p>
                 <p className="text-sm font-semibold text-[var(--ink-soft)]">{booking.meta}</p>
@@ -186,7 +192,7 @@ function SalonCommandWall() {
           ))}
         </div>
 
-        <div className="mt-4 grid gap-2 rounded-[1.25rem] bg-[var(--ink)] p-3 text-white">
+        <div className="temaro-risk-strip mt-4 grid gap-2 rounded-[1.25rem] bg-[var(--ink)] p-3 text-white">
           <div className="flex items-center gap-2">
             <MessageCircle className="size-4 text-[var(--mint)]" strokeWidth={1.9} />
             <p className="text-sm font-bold">SMS připomínka připravena</p>
@@ -194,6 +200,10 @@ function SalonCommandWall() {
           <div className="flex items-center gap-2">
             <BellRing className="size-4 text-[var(--apricot)]" strokeWidth={1.9} />
             <p className="text-sm font-bold">No-show signál u 10:30</p>
+          </div>
+          <div className="flex items-center gap-2">
+            <ShieldCheck className="size-4 text-white" strokeWidth={1.9} />
+            <p className="text-sm font-bold">Záloha 300 Kč připravena</p>
           </div>
         </div>
       </div>
@@ -215,11 +225,11 @@ export function BusinessDiscoveryHero() {
           </div>
 
           <h1 className="font-display mt-7 text-balance text-[clamp(3rem,7vw,7.1rem)] font-semibold leading-[0.86] tracking-[-0.075em]">
-            Rezervace bez chaosu v inboxu.
+            Klienti rezervují. Kalendář drží den.
           </h1>
 
-          <p className="mt-7 max-w-2xl text-pretty text-xl font-normal leading-8 text-[var(--ink-soft)]">
-            Klient přijde z Instagramu, Googlu, QR nebo webu. Temaro mu nabídne volný čas a vám nechá přehledný den.
+          <p className="temaro-command-copy mt-7 max-w-2xl text-pretty text-xl font-semibold leading-8 text-[var(--ink-soft)]">
+            Instagram, Google, QR i web posílají termíny rovnou do jednoho dne.
           </p>
 
           <div className="temaro-channel-dock mt-7 flex flex-wrap gap-2">
@@ -249,7 +259,7 @@ export function BusinessDiscoveryHero() {
 
           <div className="mt-8 hidden gap-3 sm:grid sm:grid-cols-3">
             {heroStats.map((stat) => (
-              <div key={stat.label} className="rounded-[1.35rem] border border-[var(--paper-line)] bg-white/82 p-4 shadow-sm">
+              <div key={stat.label} aria-label={stat.signal} className={`temaro-stat-card ${stat.tone}`}>
                 <p className="font-time text-3xl font-semibold text-[var(--ink)]">{stat.value}</p>
                 <p className="mt-1 text-sm font-semibold leading-5 text-[var(--ink-soft)]">{stat.label}</p>
               </div>
@@ -263,6 +273,18 @@ export function BusinessDiscoveryHero() {
       <div className="temaro-hero-channels mx-auto mt-10 grid max-w-[1320px] gap-3 md:grid-cols-4">
         {channelCards.map((channel) => (
           <ChannelCard key={channel.label} channel={channel} />
+        ))}
+      </div>
+
+      <div className="temaro-proof-flow mx-auto mt-4 grid max-w-[1320px] gap-3 md:grid-cols-3">
+        {proofFlow.map((step, index) => (
+          <article key={step.label} className={`temaro-proof-step ${step.tone}`}>
+            <span className="font-time text-xs font-semibold uppercase tracking-[0.16em]">0{index + 1}</span>
+            <div>
+              <h3 className="text-lg font-bold tracking-[-0.03em]">{step.label}</h3>
+              <p className="text-sm font-semibold text-[var(--ink-soft)]">{step.text}</p>
+            </div>
+          </article>
         ))}
       </div>
 

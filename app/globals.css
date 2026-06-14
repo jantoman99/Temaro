@@ -341,11 +341,15 @@
 
   .temaro-salon-hero {
     background:
-      radial-gradient(circle at 12% 18%, color-mix(in srgb, var(--apricot) 34%, transparent), transparent 25rem),
-      radial-gradient(circle at 76% 14%, color-mix(in srgb, var(--cobalt) 28%, transparent), transparent 27rem),
-      radial-gradient(circle at 82% 68%, color-mix(in srgb, var(--mint) 48%, transparent), transparent 28rem),
-      linear-gradient(180deg, rgba(255, 255, 255, 0.68), transparent 44%),
+      radial-gradient(circle at 10% 14%, color-mix(in srgb, var(--apricot) 48%, transparent), transparent 22rem),
+      radial-gradient(circle at 74% 8%, color-mix(in srgb, var(--cobalt) 36%, transparent), transparent 30rem),
+      radial-gradient(circle at 76% 76%, color-mix(in srgb, var(--mint) 62%, transparent), transparent 29rem),
+      linear-gradient(115deg, color-mix(in srgb, var(--porcelain-deep) 74%, white), transparent 42%),
       var(--porcelain);
+  }
+
+  .temaro-command-copy {
+    color: color-mix(in srgb, var(--ink) 78%, var(--cobalt));
   }
 
   .temaro-salon-wall {
@@ -394,10 +398,12 @@
   }
 
   .temaro-booking-stack {
-    background: rgba(255, 255, 255, 0.92);
-    border: 1px solid rgba(255, 255, 255, 0.72);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(255, 255, 255, 0.88)),
+      radial-gradient(circle at 85% 0%, color-mix(in srgb, var(--mint) 40%, transparent), transparent 12rem);
+    border: 1px solid rgba(255, 255, 255, 0.82);
     border-radius: 1.8rem;
-    box-shadow: 0 24px 80px rgba(23, 26, 33, 0.18);
+    box-shadow: 0 28px 92px rgba(23, 26, 33, 0.24);
     padding: 0.92rem;
   }
 
@@ -414,14 +420,52 @@
     padding: 0.78rem 0.9rem;
   }
 
+  .temaro-booking-time {
+    color: var(--ink);
+    font-size: 1.22rem;
+    font-weight: 750;
+    letter-spacing: -0.04em;
+  }
+
   .temaro-booking-row.pending {
     border-left-color: var(--apricot);
-    background: color-mix(in srgb, var(--apricot-tint) 48%, white);
+    background: color-mix(in srgb, var(--apricot) 28%, white);
   }
 
   .temaro-booking-row.new {
     border-left-color: var(--mint);
-    background: color-mix(in srgb, var(--mint) 24%, white);
+    background: color-mix(in srgb, var(--mint) 42%, white);
+  }
+
+  .temaro-risk-strip {
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  }
+
+  .temaro-stat-card {
+    border: 1px solid rgba(255, 255, 255, 0.74);
+    border-radius: 1.35rem;
+    box-shadow: 0 16px 44px rgba(23, 26, 33, 0.1);
+    padding: 1rem;
+  }
+
+  .temaro-stat-card.mint {
+    background: color-mix(in srgb, var(--mint) 64%, white);
+  }
+
+  .temaro-stat-card.apricot {
+    background: color-mix(in srgb, var(--apricot) 58%, white);
+  }
+
+  .temaro-stat-card.ink {
+    background: var(--ink);
+  }
+
+  .temaro-stat-card.ink p {
+    color: white;
+  }
+
+  .temaro-stat-card.ink p + p {
+    color: rgba(255, 255, 255, 0.72);
   }
 
   .temaro-hero-channels {
@@ -483,19 +527,57 @@
   }
 
   .temaro-channel-card.instagram {
-    background: linear-gradient(135deg, color-mix(in srgb, var(--apricot) 48%, white), white);
+    background: linear-gradient(135deg, color-mix(in srgb, var(--apricot) 70%, white), white);
   }
 
   .temaro-channel-card.google {
-    background: linear-gradient(135deg, color-mix(in srgb, var(--cobalt-tint) 72%, white), white);
+    background: linear-gradient(135deg, color-mix(in srgb, var(--cobalt-tint) 84%, white), white);
   }
 
   .temaro-channel-card.qr {
-    background: linear-gradient(135deg, color-mix(in srgb, var(--mint) 54%, white), white);
+    background: linear-gradient(135deg, color-mix(in srgb, var(--mint) 76%, white), white);
   }
 
   .temaro-channel-card.web {
-    background: linear-gradient(135deg, white, color-mix(in srgb, var(--porcelain-deep) 72%, white));
+    background: linear-gradient(135deg, var(--ink), color-mix(in srgb, var(--ink) 82%, var(--cobalt)));
+    color: white;
+  }
+
+  .temaro-channel-card.web p {
+    color: rgba(255, 255, 255, 0.74);
+  }
+
+  .temaro-proof-flow {
+    position: relative;
+  }
+
+  .temaro-proof-step {
+    align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.76);
+    border-radius: 1.35rem;
+    box-shadow: 0 16px 48px rgba(23, 26, 33, 0.1);
+    display: grid;
+    gap: 0.9rem;
+    grid-template-columns: auto 1fr;
+    min-height: 5.8rem;
+    padding: 1rem;
+  }
+
+  .temaro-proof-step.instagram {
+    background: color-mix(in srgb, var(--apricot) 62%, white);
+  }
+
+  .temaro-proof-step.mint {
+    background: color-mix(in srgb, var(--mint) 70%, white);
+  }
+
+  .temaro-proof-step.cobalt {
+    background: var(--cobalt);
+    color: white;
+  }
+
+  .temaro-proof-step.cobalt p {
+    color: rgba(255, 255, 255, 0.78);
   }
 
   @media (min-width: 1024px) {
@@ -511,14 +593,14 @@
 
   @media (max-width: 640px) {
     .temaro-hero-photo {
-      min-height: 17rem;
+      min-height: 15rem;
     }
 
     .temaro-booking-stack {
       border-radius: 1.5rem;
-      margin: 0 0.75rem -8.5rem;
+      margin: 0 0.75rem -13.5rem;
       position: relative;
-      transform: translateY(-8.5rem);
+      transform: translateY(-13.5rem);
       z-index: 3;
     }
 
