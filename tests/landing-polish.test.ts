@@ -208,6 +208,12 @@ describe("landing polish guard", () => {
     expect(design).toContain("No decorative grid background is visible");
     expect(page).toContain("serviceCommandMoments");
     expect(page).toContain("temaro-command-band");
+    expect(page).toContain("temaro-market-story");
+    expect(page).toContain("temaro-market-device-stage");
+    expect(page).toContain("temaro-market-phone");
+    expect(page).toContain("temaro-market-word");
+    expect(page).toContain("Vlastní");
+    expect(page).toContain("rezervační cesta");
     expect(page).toContain("temaro-visual-moment");
     expect(page).toContain("temaro-channel-strip");
     expect(page).toContain("temaro-risk-stack");
@@ -223,6 +229,10 @@ describe("landing polish guard", () => {
     expect(page).toContain("QR");
     expect(page).toContain("Google");
     expect(globals).toContain(".temaro-command-band");
+    expect(globals).toContain(".temaro-market-story");
+    expect(globals).toContain(".temaro-market-phone");
+    expect(globals).toContain(".temaro-market-word");
+    expect(globals).toContain("@keyframes temaro-market-pin");
     expect(globals).toContain(".temaro-visual-moment");
     expect(globals).toContain(".temaro-channel-strip");
     expect(globals).toContain(".temaro-risk-stack");
@@ -307,7 +317,8 @@ describe("landing polish guard", () => {
     expect(globals).toContain("linear-gradient(180deg, #ffffff 0%, #fbfcf9 52%, #f3f7ef 100%)");
     expect(globals).toContain("aspect-ratio: 9 / 16");
     expect(globals).toContain("min-height: 34rem");
-    expect(globals).toContain("right: 5.4rem");
+    expect(globals).toContain("bottom: 1.15rem");
+    expect(globals).toContain("right: 4.2rem");
     expect(globals).toContain("width: min(19rem, 24vw)");
     expect(globals).toContain("width: min(17.4rem, calc(100% - 6.4rem))");
     expect(globals).not.toContain(".temaro-product-phone .temaro-phone-event:nth-of-type(1)");

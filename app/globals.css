@@ -418,13 +418,13 @@
     background:
       linear-gradient(180deg, color-mix(in srgb, var(--ink) 22%, white), color-mix(in srgb, var(--ink) 42%, white));
     border-radius: 0 0 2.4rem 2.4rem;
-    bottom: -1.05rem;
+    bottom: -0.75rem;
     box-shadow: 0 22px 60px rgba(23, 26, 33, 0.16);
     content: "";
     height: 1.25rem;
     left: 10%;
     position: absolute;
-    width: 54%;
+    width: 42%;
     z-index: -1;
   }
 
@@ -584,7 +584,7 @@
       var(--porcelain);
     border: 0.55rem solid color-mix(in srgb, var(--ink) 88%, var(--cobalt));
     border-radius: 2.75rem;
-    bottom: -2.35rem;
+    bottom: 1.15rem;
     box-shadow: 0 32px 90px rgba(23, 26, 33, 0.22);
     display: flex;
     flex-direction: column;
@@ -592,7 +592,7 @@
     overflow: hidden;
     padding: 1.3rem 1rem 1rem;
     position: absolute;
-    right: 5.4rem;
+    right: 4.2rem;
     width: min(19rem, 24vw);
     z-index: 3;
   }
@@ -810,6 +810,119 @@
       width: min(17.4rem, calc(100% - 6.4rem));
     }
 
+  }
+
+  .temaro-market-story {
+    background:
+      linear-gradient(180deg, #ffffff 0%, #f7f8f3 100%);
+  }
+
+  .temaro-market-device-stage {
+    min-height: 34rem;
+    position: relative;
+  }
+
+  .temaro-market-phone {
+    background: #ffffff;
+    border: 0.58rem solid color-mix(in srgb, var(--ink) 88%, var(--cobalt));
+    border-radius: 2.65rem;
+    box-shadow: 0 30px 84px rgba(23, 26, 33, 0.16);
+    overflow: hidden;
+    position: absolute;
+  }
+
+  .temaro-market-phone::before {
+    background: color-mix(in srgb, var(--ink) 92%, var(--cobalt));
+    border-radius: 999px;
+    content: "";
+    height: 0.38rem;
+    left: 50%;
+    position: absolute;
+    top: 0.6rem;
+    transform: translateX(-50%);
+    width: 4.6rem;
+    z-index: 3;
+  }
+
+  .temaro-market-phone.profile {
+    aspect-ratio: 9 / 16;
+    left: 0;
+    top: 1rem;
+    width: min(20rem, 42vw);
+    z-index: 2;
+  }
+
+  .temaro-market-phone.flow {
+    aspect-ratio: 9 / 16;
+    left: min(18.5rem, 38vw);
+    top: 7.2rem;
+    width: min(15.5rem, 32vw);
+    z-index: 3;
+  }
+
+  .temaro-market-photo {
+    background:
+      linear-gradient(135deg, rgba(23, 26, 33, 0.06), rgba(43, 63, 242, 0.06)),
+      url("/marketing/premium/beauty-room.webp") center/cover;
+    height: 11.8rem;
+  }
+
+  .temaro-market-tab {
+    background: var(--ink);
+    border-radius: 999px;
+    color: #ffffff;
+    display: inline-flex;
+    font-size: 0.78rem;
+    font-weight: 850;
+    padding: 0.58rem 1rem;
+  }
+
+  .temaro-market-map {
+    background:
+      radial-gradient(circle at 22% 18%, rgba(43, 63, 242, 0.16), transparent 3.5rem),
+      radial-gradient(circle at 72% 54%, rgba(191, 234, 212, 0.7), transparent 4rem),
+      linear-gradient(135deg, #edf4ef, #f8f7ef);
+    min-height: 22rem;
+    position: relative;
+  }
+
+  .temaro-market-pin {
+    animation: temaro-market-pin 3.4s ease-in-out infinite;
+    background: var(--ink);
+    border: 3px solid #ffffff;
+    border-radius: 999px;
+    box-shadow: 0 14px 30px rgba(23, 26, 33, 0.18);
+    color: #ffffff;
+    display: grid;
+    font-size: 0.68rem;
+    font-weight: 900;
+    height: 2.35rem;
+    place-items: center;
+    position: absolute;
+    width: 2.35rem;
+  }
+
+  .temaro-market-word {
+    color: #cc4fb2;
+    display: inline-block;
+    margin-inline: 0.08em;
+  }
+
+  @media (max-width: 640px) {
+    .temaro-market-device-stage {
+      min-height: 27rem;
+    }
+
+    .temaro-market-phone.profile {
+      left: 0;
+      width: 14.6rem;
+    }
+
+    .temaro-market-phone.flow {
+      left: 7.8rem;
+      top: 6.7rem;
+      width: 12rem;
+    }
   }
 
   .temaro-control-room {
@@ -1351,6 +1464,7 @@
     .confirm-toast-in,
     .engine-message,
     .engine-slot,
+    .temaro-market-pin,
     .temaro-proof-pulse,
     .time-engine-flow::after {
       animation: none;
@@ -1470,6 +1584,17 @@
     50% {
       transform: scale(1.18);
       opacity: 1;
+    }
+  }
+
+  @keyframes temaro-market-pin {
+    0%,
+    100% {
+      transform: translateY(0) scale(1);
+    }
+
+    50% {
+      transform: translateY(-0.22rem) scale(1.06);
     }
   }
 

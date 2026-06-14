@@ -313,6 +313,85 @@ export default async function Home() {
         </div>
       </section>
 
+      <section className="temaro-market-story overflow-hidden py-20 sm:py-24">
+        <div className="mx-auto grid w-full max-w-[1180px] gap-12 px-4 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:px-8">
+          <Reveal>
+            <div className="temaro-market-device-stage">
+              <div className="temaro-market-phone profile">
+                <div className="temaro-market-photo" />
+                <div className="p-5 pt-6">
+                  <h3 className="text-2xl font-black tracking-[-0.05em]">Studio Vlna</h3>
+                  <p className="mt-1 text-sm font-bold text-[var(--ink-soft)]">5.0 hodnocení · Praha</p>
+                  <div className="mt-5 grid gap-3 text-sm font-bold text-[var(--ink)]">
+                    <span>Online rezervace</span>
+                    <span>Platba zálohy</span>
+                    <span>Klientská historie</span>
+                  </div>
+                  <div className="mt-7 flex items-center justify-between">
+                    <span className="temaro-market-tab">Služby</span>
+                    <span className="rounded-full border border-[var(--paper-line)] px-3 py-2 text-xs font-bold">Tým</span>
+                    <span className="rounded-full border border-[var(--paper-line)] px-3 py-2 text-xs font-bold">Klienti</span>
+                  </div>
+                  <div className="mt-6 rounded-2xl bg-[var(--porcelain)] p-4">
+                    <p className="text-sm font-black">Barva a foukaná</p>
+                    <p className="mt-1 text-xs font-bold text-[var(--ink-soft)]">90 min · 1 450 Kč</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="temaro-market-phone flow">
+                <div className="temaro-market-map">
+                  {[
+                    ["16%", "28%", "5.0"],
+                    ["42%", "46%", "4.9"],
+                    ["68%", "24%", "5.0"],
+                    ["74%", "66%", "4.8"],
+                    ["28%", "72%", "5.0"],
+                  ].map(([left, top, label], index) => (
+                    <span
+                      key={`${left}-${top}`}
+                      className="temaro-market-pin"
+                      style={{ left, top, animationDelay: `${index * 140}ms` }}
+                    >
+                      {label}
+                    </span>
+                  ))}
+                </div>
+                <div className="grid grid-cols-3 border-t border-[var(--paper-line)] bg-white p-3 text-center text-xs font-black text-[var(--ink-soft)]">
+                  <span>Mapy</span>
+                  <span className="text-[var(--cobalt)]">Volno</span>
+                  <span>Salon</span>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+
+          <Reveal delay={90}>
+            <div>
+              <p className="section-eyebrow">Rezervace z vlastních kanálů</p>
+              <h2 className="mt-4 max-w-2xl text-balance text-4xl font-black leading-[1.02] tracking-[-0.055em] sm:text-6xl sm:leading-[0.98]">
+                Vlastní <span className="temaro-market-word">rezervační cesta</span> pro růst salonu
+              </h2>
+              <p className="mt-6 max-w-xl text-lg font-semibold leading-8 text-[var(--ink-soft)]">
+                Temaro propojí Instagram, Google, web a QR do jedné rezervace. Klient vidí volný čas, tým vidí kontext a vztah zůstává u salonu.
+              </p>
+              <div className="mt-7 grid gap-4 text-base font-semibold leading-7 text-[var(--ink)]">
+                {[
+                  "Zvyšte online viditelnost bez přepisování zpráv.",
+                  "Nechte klienty rezervovat 24 hodin denně.",
+                  "Udržte klientskou historii pod vlastní značkou.",
+                ].map((item) => (
+                  <div key={item} className="flex gap-3">
+                    <CheckCircle2 className="mt-1 size-5 shrink-0 text-[var(--cobalt)]" strokeWidth={2.1} />
+                    <p>{item}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       <section id="produktovy-dukaz" className="temaro-operations-strip relative overflow-hidden py-20 sm:py-24">
         <div className="relative mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
           <Reveal>
