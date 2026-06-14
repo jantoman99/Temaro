@@ -300,7 +300,11 @@ describe("landing polish guard", () => {
     expect(globals).toContain(".temaro-premium-industries");
     expect(globals).toContain(".temaro-industry-photo-card");
     expect(globals).toContain(".temaro-product-desktop::after");
+    expect(globals).toContain(".temaro-product-desktop::before");
     expect(globals).toContain(".temaro-product-phone::before");
+    expect(globals).toContain("border: 0.62rem solid color-mix(in srgb, var(--ink) 88%, var(--cobalt))");
+    expect(globals).toContain("font-family: var(--font-body-stack)");
+    expect(globals).toContain("linear-gradient(180deg, #fbfcf7 0%, #f7f8f1 58%, #eef1e8 100%)");
     expect(globals).toContain("aspect-ratio: 9 / 16");
     expect(globals).toContain("min-height: 34rem");
     expect(globals).toContain("width: min(19rem, 24vw)");

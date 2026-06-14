@@ -341,18 +341,26 @@
 
   .temaro-premium-hero {
     background:
-      radial-gradient(circle at 18% 12%, color-mix(in srgb, var(--apricot) 46%, transparent), transparent 24rem),
-      radial-gradient(circle at 78% 10%, color-mix(in srgb, var(--mint) 52%, transparent), transparent 26rem),
-      linear-gradient(180deg, #fffaf4 0%, var(--porcelain) 58%, var(--porcelain-deep) 100%);
+      radial-gradient(circle at 16% 12%, color-mix(in srgb, var(--apricot) 28%, transparent), transparent 22rem),
+      radial-gradient(circle at 82% 6%, color-mix(in srgb, var(--mint) 36%, transparent), transparent 24rem),
+      linear-gradient(180deg, #fbfcf7 0%, #f7f8f1 58%, #eef1e8 100%);
   }
 
   .temaro-premium-copy {
     position: relative;
   }
 
+  .temaro-premium-copy h1 {
+    color: color-mix(in srgb, var(--ink) 94%, black);
+    font-family: var(--font-body-stack);
+    font-weight: 900;
+    letter-spacing: -0.052em;
+  }
+
   .temaro-premium-highlight {
-    color: color-mix(in srgb, var(--ink) 62%, var(--cobalt));
-    display: inline;
+    color: #18247d;
+    display: inline-block;
+    margin-left: 0.12em;
   }
 
   .temaro-premium-stat {
@@ -376,24 +384,40 @@
   .temaro-premium-product {
     background:
       linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(255, 255, 255, 0.9)),
-      radial-gradient(circle at 8% 12%, color-mix(in srgb, var(--apricot) 42%, transparent), transparent 17rem),
-      radial-gradient(circle at 92% 10%, color-mix(in srgb, var(--mint) 46%, transparent), transparent 18rem);
+      radial-gradient(circle at 8% 12%, color-mix(in srgb, var(--apricot) 24%, transparent), transparent 17rem),
+      radial-gradient(circle at 92% 10%, color-mix(in srgb, var(--mint) 32%, transparent), transparent 18rem);
     border: 1px solid rgba(255, 255, 255, 0.82);
     border-radius: 2.4rem;
-    box-shadow: 0 34px 120px rgba(23, 26, 33, 0.18);
+    box-shadow: 0 34px 110px rgba(23, 26, 33, 0.16);
     overflow: hidden;
     position: relative;
     z-index: 2;
   }
 
   .temaro-product-desktop {
+    border: 0.62rem solid color-mix(in srgb, var(--ink) 88%, var(--cobalt));
+    border-radius: 2.75rem;
+    box-shadow: 0 34px 110px rgba(23, 26, 33, 0.18);
     min-height: 39rem;
     overflow: visible;
   }
 
+  .temaro-product-desktop::before {
+    background: color-mix(in srgb, var(--ink) 92%, var(--cobalt));
+    border-radius: 999px;
+    content: "";
+    height: 0.36rem;
+    left: 50%;
+    position: absolute;
+    top: 0.72rem;
+    transform: translateX(-50%);
+    width: 4.7rem;
+    z-index: 4;
+  }
+
   .temaro-product-desktop::after {
     background:
-      linear-gradient(180deg, color-mix(in srgb, var(--ink) 15%, white), color-mix(in srgb, var(--ink) 30%, white));
+      linear-gradient(180deg, color-mix(in srgb, var(--ink) 22%, white), color-mix(in srgb, var(--ink) 42%, white));
     border-radius: 0 0 2.4rem 2.4rem;
     bottom: -1.05rem;
     box-shadow: 0 22px 60px rgba(23, 26, 33, 0.16);
@@ -411,7 +435,7 @@
     display: flex;
     gap: 1rem;
     justify-content: space-between;
-    padding: 1.1rem 1.25rem;
+    padding: 1.35rem 1.25rem 1.1rem;
   }
 
   .temaro-premium-channel {
