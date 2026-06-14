@@ -555,18 +555,22 @@
   }
 
   .temaro-product-phone {
+    aspect-ratio: 9 / 16;
     background:
       linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0.86)),
       var(--porcelain);
     border: 0.55rem solid color-mix(in srgb, var(--ink) 88%, var(--cobalt));
-    border-radius: 2.4rem;
-    bottom: -2.1rem;
+    border-radius: 2.75rem;
+    bottom: -3.1rem;
     box-shadow: 0 32px 90px rgba(23, 26, 33, 0.22);
+    display: flex;
+    flex-direction: column;
+    min-height: 34rem;
     overflow: hidden;
-    padding: 1.15rem 1rem 1rem;
+    padding: 1.3rem 1rem 1rem;
     position: absolute;
-    right: 1.6rem;
-    width: min(22rem, 31vw);
+    right: 2.2rem;
+    width: min(19rem, 24vw);
     z-index: 3;
   }
 
@@ -590,12 +594,18 @@
     font-size: 0.84rem;
     font-weight: 900;
     justify-content: space-between;
-    margin-bottom: 0.9rem;
+    margin-bottom: 1rem;
     padding-bottom: 0.8rem;
+  }
+
+  .temaro-product-phone > .grid {
+    flex: 1;
+    grid-auto-rows: minmax(0, 1fr);
   }
 
   .temaro-phone-event {
     border-radius: 1rem;
+    min-height: 6rem;
     padding: 0.85rem;
   }
 
@@ -699,7 +709,7 @@
 
     .temaro-premium-stage {
       margin-top: 1.7rem;
-      min-height: 30rem;
+      min-height: 34rem;
     }
 
     .temaro-premium-product {
@@ -768,15 +778,13 @@
     }
 
     .temaro-product-phone {
-      bottom: -1.25rem;
+      bottom: -2.6rem;
       border-width: 0.42rem;
-      left: 4.4rem;
+      left: 50%;
+      min-height: 25.5rem;
       right: auto;
-      width: calc(100% - 5.2rem);
-    }
-
-    .temaro-product-phone .temaro-phone-event:nth-of-type(1) {
-      display: none;
+      transform: translateX(-50%);
+      width: min(17.4rem, calc(100% - 6.4rem));
     }
 
   }
