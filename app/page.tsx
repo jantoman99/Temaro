@@ -76,23 +76,23 @@ const productProofScenes = [
   {
     icon: CalendarDays,
     label: "Kalendář",
-    title: "Den je mapa, ne seznam.",
-    text: "Rezervace, volná okna a rizikové termíny mají vlastní signál přímo v provozním plánu.",
+    title: "Volný čas je vidět hned.",
+    text: "Tým vidí rezervace, čekající potvrzení i volná okna bez přepínání mezi zprávami.",
     accent: "blue",
     meta: ["08:30 potvrzeno", "10:30 čeká", "16:00 volno"],
   },
   {
     icon: MousePointerClick,
     label: "Rezervační stránka",
-    title: "Klient si vezme jen dostupný čas.",
-    text: "Odkaz z webu, Instagramu nebo QR vede do jednoduchého flow bez volání a přepisování zpráv.",
+    title: "Klient klikne tam, kde vás našel.",
+    text: "Web, Instagram, Google i QR vedou do stejného výběru služby, času a potvrzení.",
     accent: "apricot",
     meta: ["služba", "čas", "potvrzení"],
   },
   {
     icon: UsersRound,
     label: "Klientská paměť",
-    title: "Kontext zůstává u podniku.",
+    title: "Vztah zůstává u salonu.",
     text: "Historie, poznámky, preference a no-show signál patří provozu, ne cizímu marketplace.",
     accent: "mint",
     meta: ["historie", "poznámka", "no-show signál"],
@@ -102,27 +102,27 @@ const productProofScenes = [
 const serviceCommandMoments = [
   {
     label: "Kanály rezervací",
-    title: "Všechny vstupy končí v jednom dni.",
+    title: "Web, Instagram, Google, QR.",
     tone: "blue",
-    detail: "Web, Instagram, QR i Google posílají termíny do stejného provozního plánu.",
+    detail: "Každý vstup končí ve stejném kalendáři. Žádné ruční přepisování zpráv.",
     primary: "16:00 volné okno",
     secondary: "zdroj: Instagram",
     items: ["web", "Instagram", "QR", "Google"],
   },
   {
     label: "No-show ochrana",
-    title: "Riziko je vidět dřív než prázdná židle.",
+    title: "Záloha a připomínka před návštěvou.",
     tone: "apricot",
-    detail: "Čekající termín, klientská historie a záloha jsou jeden provozní signál.",
+    detail: "Čekající termín, historie klienta a další krok jsou vidět dřív než prázdná židle.",
     primary: "10:30 čeká",
     secondary: "Záloha 300 Kč",
     items: ["2 no-show", "SMS připomínka připravena", "potvrdit do 18:00"],
   },
   {
     label: "Klientská paměť",
-    title: "Tým ví, kdo přichází a co řešit.",
+    title: "Tým ví, kdo přichází.",
     tone: "mint",
-    detail: "Preference, poznámka a poslední návštěva zůstávají u podniku.",
+    detail: "Preference, poznámka a poslední návštěva jsou součást provozu, ne cizí databáze.",
     primary: "Klientská paměť",
     secondary: "poslední návštěva 12. 6.",
     items: ["preferuje ráno", "citlivá pokožka", "balíček: 2 vstupy"],
@@ -250,17 +250,15 @@ export default async function Home() {
       <BusinessDiscoveryHero />
       <MobileStickyCta />
 
-      <section id="pro-koho" className="salon-industry-board mx-auto w-full max-w-[1180px] px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
+      <section id="pro-koho" className="temaro-premium-industries mx-auto w-full max-w-[1180px] px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
         <Reveal>
-          <div className="grid gap-6 lg:grid-cols-[0.76fr_1.24fr] lg:items-end">
-            <div>
-              <p className="section-eyebrow">Pro koho</p>
-              <h2 className="font-display mt-3 text-balance text-5xl font-semibold leading-[0.98] sm:text-6xl">
-                Jeden systém, různé tempo provozu.
-              </h2>
-            </div>
-            <p className="max-w-2xl text-lg font-normal leading-8 text-[var(--ink-soft)]">
-              Každý obor má jiné tempo. Temaro drží délky služeb, tým a volná okna v jednom kalendáři.
+          <div className="mx-auto max-w-4xl text-center">
+            <p className="section-eyebrow">Pro koho</p>
+            <h2 className="font-display mt-3 text-balance text-5xl font-semibold leading-[0.98] sm:text-6xl">
+              Provozy, kde se prodává čas.
+            </h2>
+            <p className="mx-auto mt-5 max-w-2xl text-lg font-normal leading-8 text-[var(--ink-soft)]">
+              Barber, beauty, kadeřnictví i masáže potřebují stejný základ: volný čas, jasné potvrzení a klidný návrat klienta.
             </p>
           </div>
         </Reveal>
@@ -273,7 +271,7 @@ export default async function Home() {
                 className="temaro-focus-ring group flex h-full flex-col justify-between rounded-[1.75rem] border border-[var(--paper-line)] bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:border-[var(--cobalt)]"
               >
                 <div>
-                  <span className="font-time rounded-full bg-[var(--cobalt-tint)] px-3 py-1.5 text-xs font-semibold text-[var(--cobalt)]">
+                  <span className="font-time rounded-full bg-[var(--apricot-tint)] px-3 py-1.5 text-xs font-semibold text-[var(--ink)]">
                     {card.label}
                   </span>
                   <h3 className="mt-6 text-2xl font-bold tracking-[-0.03em]">{card.title}</h3>
@@ -296,11 +294,11 @@ export default async function Home() {
               <div>
                 <p className="section-eyebrow">Produktový důkaz</p>
                 <h2 className="font-display mt-3 max-w-2xl text-balance text-5xl font-semibold leading-[0.96] sm:text-7xl">
-                  Produkt má být živý, ne vyfocený.
+                  Vše, co salon řeší každý den.
                 </h2>
               </div>
               <p className="max-w-2xl text-lg font-normal leading-8 text-[var(--ink-soft)]">
-                Landing ukazuje stejnou logiku jako interní CRM: čas, stav, klientský kontext a kanál rezervace.
+                Čas, stav, klientský kontext a kanál rezervace musí být vidět dřív než dlouhý seznam funkcí.
               </p>
             </div>
           </Reveal>
@@ -346,13 +344,13 @@ export default async function Home() {
           <Reveal>
             <div className="grid gap-6 lg:grid-cols-[0.78fr_1.22fr] lg:items-end">
               <div>
-                <p className="font-time text-xs font-semibold uppercase tracking-[0.18em] text-white/62">Command desk</p>
+                <p className="font-time text-xs font-semibold uppercase tracking-[0.18em] text-white/62">Salon platforma</p>
                 <h2 className="font-display mt-3 text-balance text-5xl font-semibold leading-[0.96] sm:text-7xl">
-                  Méně textu. Více provozu.
+                  Méně textu. Více jasných akcí.
                 </h2>
               </div>
               <p className="max-w-2xl text-lg font-normal leading-8 text-white/72">
-                Temaro má ukazovat konkrétní situace: odkud termín přišel, co hrozí a co má tým udělat dál.
+                Marketing musí působit jako produkt: odkud termín přišel, co hrozí a co má tým udělat dál.
               </p>
             </div>
           </Reveal>

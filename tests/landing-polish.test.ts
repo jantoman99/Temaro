@@ -46,7 +46,7 @@ describe("landing polish guard", () => {
     expect(globals).toContain(".temaro-focus-ring");
   });
 
-  test("homepage uses the calendar-led control room architecture", () => {
+  test("homepage uses the Fresha-like premium salon platform architecture", () => {
     const page = readProjectFile("app/page.tsx");
 
     expect(page).toContain("temaro-time-page");
@@ -58,8 +58,9 @@ describe("landing polish guard", () => {
     expect(page).toContain("temaro-operations-strip");
     expect(page).toContain("temaro-operations-board");
     expect(page).toContain("temaro-proof-module");
-    expect(page).toContain("Produkt má být živý, ne vyfocený");
+    expect(page).toContain("Vše, co salon řeší každý den");
     expect(page).toContain("provozní signál");
+    expect(page).toContain("Méně textu. Více jasných akcí");
     expect(page).not.toContain("/marketing/product/temaro-product-app-screen.jpg");
     expect(page).not.toContain("/marketing/product/temaro-client-booking-mobile.jpg");
     expect(page).not.toContain("/marketing/product/temaro-business-discovery.jpg");
@@ -78,63 +79,54 @@ describe("landing polish guard", () => {
     expect(page).not.toContain("Salona ukazuje");
   });
 
-  test("homepage hero is a live Temaro calendar control room", () => {
+  test("homepage hero follows the Fresha-like premium salon platform direction", () => {
     const hero = readProjectFile("components/marketing/business-discovery-hero.tsx");
 
     expect(hero).toContain('"use client"');
-    expect(hero).toContain("industryProfiles");
-    expect(hero).toContain("activeIndustryId");
-    expect(hero).toContain("setActiveIndustryId");
-    expect(hero).toContain("heroStats");
-    expect(hero).toContain("channelCards");
-    expect(hero).toContain("bookingRows");
-    expect(hero).toContain("productMoments");
-    expect(hero).toContain("ChannelCard");
-    expect(hero).toContain("SalonCommandWall");
+    expect(hero).toContain("freshaPremiumStats");
+    expect(hero).toContain("premiumProductColumns");
+    expect(hero).toContain("salonImageTiles");
     expect(hero).toContain("temaro-time-atelier-hero");
-    expect(hero).toContain("temaro-salon-hero");
-    expect(hero).toContain("temaro-salon-wall");
-    expect(hero).toContain("temaro-hero-photo");
-    expect(hero).toContain("temaro-booking-stack");
-    expect(hero).toContain("temaro-channel-card");
-    expect(hero).toContain("temaro-hero-channels");
+    expect(hero).toContain("temaro-premium-hero");
+    expect(hero).toContain("temaro-premium-copy");
+    expect(hero).toContain("temaro-premium-stage");
+    expect(hero).toContain("temaro-premium-product");
+    expect(hero).toContain("temaro-premium-product-column");
+    expect(hero).toContain("temaro-salon-image-strip");
+    expect(hero).toContain("temaro-salon-image-tile");
+    expect(hero).toContain("temaro-premium-highlight");
+    expect(hero).toContain("temaro-premium-flow-card");
     expect(hero).toContain("next/image");
-    expect(hero).toContain("/marketing/hero/salon-command-wall.webp");
+    expect(hero).toContain("/marketing/premium/salon-hero-wide.webp");
+    expect(hero).toContain("/marketing/premium/beauty-room.webp");
+    expect(hero).toContain("/marketing/premium/barber-chair.webp");
+    expect(hero).toContain("/marketing/premium/salon-detail.webp");
     expect(hero).not.toContain("/marketing/product/temaro-product-app-screen.jpg");
     expect(hero).not.toContain("/marketing/product/temaro-client-booking-mobile.jpg");
     expect(hero).not.toContain("/marketing/product/temaro-business-discovery.jpg");
     expect(hero).not.toContain("booking-phone-preview");
-    expect(hero).toContain("Rezervace ze všech kanálů");
-    expect(hero).toContain("Klienti rezervují. Kalendář drží den");
-    expect(hero).toContain("Instagram, Google, QR i web posílají termíny rovnou do jednoho dne");
-    expect(hero).toContain("temaro-command-copy");
-    expect(hero).toContain("temaro-proof-flow");
-    expect(hero).toContain("temaro-stat-card");
+    expect(hero).toContain("Salon platforma Temaro");
+    expect(hero).toContain("Rezervace, platby a klienti");
+    expect(hero).toContain("v jednom salon systému");
+    expect(hero).toContain("Temaro spojí web, Instagram, Google a QR");
     expect(hero).toContain("Registrovat salon");
     expect(hero).toContain("Vidět ukázku");
-    expect(hero).toContain("Vyberte tempo provozu");
-    expect(hero).toContain("Barber");
-    expect(hero).toContain("Kosmetika");
-    expect(hero).toContain("Kadeřnictví");
-    expect(hero).toContain("Masáže");
-    expect(hero).toContain("Instagram");
-    expect(hero).toContain("Google");
-    expect(hero).toContain("QR");
-    expect(hero).toContain("Web");
-    expect(hero).toContain("16:00 volné");
-    expect(hero).toContain("10:30 čeká");
-    expect(hero).toContain("0 Kč provize");
-    expect(hero).toContain("Story");
-    expect(hero).toContain("Volný slot");
-    expect(hero).toContain("SMS");
-    expect(hero).toContain("Kalendář");
-    expect(hero).toContain("Rezervace");
-    expect(hero).toContain("Klienti");
-    expect(hero).toContain("Bez provize");
+    expect(hero).toContain("Online rezervace");
+    expect(hero).toContain("Týmový kalendář");
+    expect(hero).toContain("Klientská karta");
+    expect(hero).toContain("SMS a záloha");
+    expect(hero).toContain("24/7");
+    expect(hero).toContain("0 Kč");
+    expect(hero).toContain("1 den");
     expect(hero).not.toContain("Sharp Cut Studio");
     expect(hero).not.toContain("Luna Beauty");
     expect(hero).not.toContain("Studio Vlna");
     expect(hero).not.toContain("Tiché Studio");
+    expect(hero).not.toContain("SalonCommandWall");
+    expect(hero).not.toContain("temaro-salon-wall");
+    expect(hero).not.toContain("temaro-proof-flow");
+    expect(hero).not.toContain("temaro-stat-card");
+    expect(hero).not.toContain("Klienti rezervují. Kalendář drží den");
     expect(hero).not.toContain("salon-operating-hero");
     expect(hero).not.toContain("salon-command-frame");
     expect(hero).not.toContain("product-window-hero");
@@ -145,28 +137,23 @@ describe("landing polish guard", () => {
   test("hero control room shows product truth without fabricated testimonials or logos", () => {
     const hero = readProjectFile("components/marketing/business-discovery-hero.tsx");
 
-    expect(hero).toContain("Rezervace ze všech kanálů");
+    expect(hero).toContain("Salon platforma Temaro");
     expect(hero).toContain("vlastní klienti zůstávají vám");
     expect(hero).toContain("Web podniku");
-    expect(hero).toContain("Živý provoz");
-    expect(hero).toContain("Rezervace dne");
-    expect(hero).toContain("10:30");
-    expect(hero).toContain("Konzultace");
+    expect(hero).toContain("Dnešní provoz");
+    expect(hero).toContain("16:00 z Instagramu");
+    expect(hero).toContain("Lucie čeká na potvrzení");
     expect(hero).toContain("SMS připomínka připravena");
-    expect(hero).toContain("Barber provoz");
-    expect(hero).toContain("Beauty provoz");
-    expect(hero).toContain("Kadeřnický tým");
-    expect(hero).toContain("Masérské studio");
+    expect(hero).toContain("300 Kč připraveno");
     expect(hero).toContain("Instagram");
     expect(hero).toContain("Google");
     expect(hero).toContain("QrCode");
-    expect(hero).toContain("temaro-booking-time");
-    expect(hero).toContain("temaro-risk-strip");
-    expect(hero).toContain("Záloha 300 Kč připravena");
+    expect(hero).toContain("CalendarDays");
+    expect(hero).toContain("CreditCard");
     expect(hero).not.toContain("usePrefersReducedMotion");
     expect(hero).not.toContain("window.setInterval");
     expect(hero).not.toContain("reduceMotion");
-    expect(hero).toContain("overflow-x-auto");
+    expect(hero).not.toContain("overflow-x-auto");
     expect(hero).not.toContain("CalendarSurface");
     expect(hero).not.toContain("BookingSurface");
     expect(hero).not.toContain("ClientsSurface");
@@ -181,13 +168,15 @@ describe("landing polish guard", () => {
   test("homepage explains industry focus, product proof, pricing and marketplace difference", () => {
     const page = readProjectFile("app/page.tsx");
 
-    expect(page).toContain("Jeden systém, různé tempo provozu");
+    expect(page).toContain("temaro-premium-industries");
+    expect(page).toContain("Provozy, kde se prodává čas");
+    expect(page).not.toContain("Jeden systém, různé tempo provozu");
     expect(page).toContain("Barber");
     expect(page).toContain("Kadeřnictví");
     expect(page).toContain("Beauty");
     expect(page).toContain("Masáže");
-    expect(page).toContain("Produkt má být živý, ne vyfocený");
-    expect(page).toContain("Landing ukazuje stejnou logiku jako interní CRM");
+    expect(page).toContain("Vše, co salon řeší každý den");
+    expect(page).toContain("Čas, stav, klientský kontext a kanál rezervace");
     expect(page).toContain("provozní signál");
     expect(page).toContain("Kalendář");
     expect(page).toContain("Rezervační stránka");
@@ -206,7 +195,7 @@ describe("landing polish guard", () => {
     const globals = readProjectFile("app/globals.css");
     const combined = `${page}\n${globals}`;
 
-    expect(design).toContain("Local Service Command Desk");
+    expect(design).toContain("Fresha-like Premium Salon Platform");
     expect(design).toContain("No decorative grid background is visible");
     expect(page).toContain("serviceCommandMoments");
     expect(page).toContain("temaro-command-band");
@@ -216,6 +205,7 @@ describe("landing polish guard", () => {
     expect(page).toContain("temaro-flow-panel");
     expect(page).toContain("Kanály rezervací");
     expect(page).toContain("No-show ochrana");
+    expect(page).toContain("Web, Instagram, Google, QR");
     expect(page).toContain("SMS připomínka připravena");
     expect(page).toContain("Záloha 300 Kč");
     expect(page).toContain("Klientská paměť");
@@ -288,18 +278,19 @@ describe("landing polish guard", () => {
     const globals = readProjectFile("app/globals.css");
 
     expect(globals).toContain(".temaro-time-atelier-hero");
-    expect(globals).toContain(".temaro-salon-hero");
-    expect(globals).toContain(".temaro-salon-wall");
-    expect(globals).toContain(".temaro-hero-photo");
-    expect(globals).toContain(".temaro-booking-stack");
-    expect(globals).toContain(".temaro-booking-row");
-    expect(globals).toContain(".temaro-booking-time");
-    expect(globals).toContain(".temaro-command-copy");
-    expect(globals).toContain(".temaro-proof-flow");
-    expect(globals).toContain(".temaro-stat-card");
-    expect(globals).toContain(".temaro-risk-strip");
-    expect(globals).toContain(".temaro-hero-channels");
-    expect(globals).toContain(".temaro-channel-card");
+    expect(globals).toContain(".temaro-premium-hero");
+    expect(globals).toContain(".temaro-premium-copy");
+    expect(globals).toContain(".temaro-premium-stage");
+    expect(globals).toContain(".temaro-premium-product");
+    expect(globals).toContain(".temaro-premium-product-column");
+    expect(globals).toContain(".temaro-salon-image-strip");
+    expect(globals).toContain(".temaro-salon-image-tile");
+    expect(globals).toContain(".temaro-premium-flow-card");
+    expect(globals).toContain(".temaro-premium-industries");
+    expect(globals).not.toContain(".temaro-salon-wall");
+    expect(globals).not.toContain(".temaro-booking-stack");
+    expect(globals).not.toContain(".temaro-proof-flow");
+    expect(globals).not.toContain(".temaro-stat-card");
     expect(globals).toContain(".temaro-operations-strip");
     expect(globals).toContain(".temaro-operations-board");
     expect(globals).toContain(".temaro-proof-module");

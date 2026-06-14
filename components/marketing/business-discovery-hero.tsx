@@ -2,21 +2,18 @@
 
 import {
   ArrowRight,
-  BellRing,
   CalendarDays,
-  Clock3,
+  CreditCard,
   Globe2,
   MessageCircle,
   QrCode,
-  Scissors,
   Search,
   ShieldCheck,
-  Smartphone,
+  Sparkles,
   UsersRound,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 
 function InstagramGlyph({ className }: { className?: string }) {
   return (
@@ -28,316 +25,192 @@ function InstagramGlyph({ className }: { className?: string }) {
   );
 }
 
-const industryProfiles = [
-  {
-    id: "barber",
-    label: "Barber",
-    business: "Barber provoz",
-    promise: "rychlé střihy, vousy, návraty klientů",
-    cue: "45 min",
-  },
-  {
-    id: "beauty",
-    label: "Kosmetika",
-    business: "Beauty provoz",
-    promise: "delší procedury bez přepisování zpráv",
-    cue: "75 min",
-  },
-  {
-    id: "hair",
-    label: "Kadeřnictví",
-    business: "Kadeřnický tým",
-    promise: "barvy, tým a bloky v jednom dni",
-    cue: "120 min",
-  },
-  {
-    id: "massage",
-    label: "Masáže",
-    business: "Masérské studio",
-    promise: "tichý provoz bez telefonů mezi klienty",
-    cue: "60 min",
-  },
+const freshaPremiumStats = [
+  { value: "24/7", label: "online rezervace" },
+  { value: "0 Kč", label: "provize z vlastních kanálů" },
+  { value: "1 den", label: "kalendář, klient i platba" },
 ] as const;
 
-const heroStats = [
-  { value: "16:00", label: "volné", signal: "16:00 volné", tone: "mint" },
-  { value: "10:30", label: "čeká", signal: "10:30 čeká", tone: "apricot" },
-  { value: "0 Kč", label: "provize", signal: "0 Kč provize", tone: "ink" },
-] as const;
-
-const channelCards = [
+const premiumProductColumns = [
   {
     icon: InstagramGlyph,
-    label: "Instagram",
-    title: "Story odkaz",
-    note: "16:00 volné okno",
-    tone: "instagram",
+    label: "Online rezervace",
+    title: "16:00 z Instagramu",
+    note: "klient vybral volný čas",
+    tone: "apricot",
   },
   {
-    icon: Search,
-    label: "Google",
-    title: "Profil podniku",
-    note: "nový klient",
-    tone: "google",
+    icon: CalendarDays,
+    label: "Týmový kalendář",
+    title: "Adam / Lucie / Eva",
+    note: "den bez kolizí",
+    tone: "mint",
   },
   {
-    icon: QrCode,
-    label: "QR",
-    title: "Recepce",
-    note: "rychlá rezervace",
-    tone: "qr",
+    icon: UsersRound,
+    label: "Klientská karta",
+    title: "Lucie čeká na potvrzení",
+    note: "historie, poznámka, no-show signál",
+    tone: "porcelain",
   },
   {
-    icon: Globe2,
-    label: "Web",
-    title: "Web podniku",
-    note: "bez marketplace",
-    tone: "web",
+    icon: CreditCard,
+    label: "SMS a záloha",
+    title: "300 Kč připraveno",
+    note: "SMS připomínka připravena",
+    tone: "ink",
   },
 ] as const;
 
-const bookingRows = [
+const salonImageTiles = [
   {
-    time: "08:30",
-    title: "Pánský střih",
-    meta: "Adam · potvrzeno",
-    tone: "confirmed",
+    src: "/marketing/premium/salon-hero-wide.webp",
+    alt: "Světlý salon interiér pro Temaro",
+    label: "Beauty provoz",
   },
   {
-    time: "10:30",
-    title: "Konzultace",
-    meta: "Lucie · čeká na potvrzení",
-    tone: "pending",
+    src: "/marketing/premium/beauty-room.webp",
+    alt: "Kosmetický provoz pro online rezervace",
+    label: "Klienti",
   },
   {
-    time: "16:00",
-    title: "Nová rezervace",
-    meta: "Instagram · SMS připravena",
-    tone: "new",
+    src: "/marketing/premium/barber-chair.webp",
+    alt: "Barber pracovní místo pro Temaro",
+    label: "Barber",
+  },
+  {
+    src: "/marketing/premium/salon-detail.webp",
+    alt: "Detail salon provozu pro Temaro",
+    label: "Wellness",
   },
 ] as const;
 
-const proofFlow = [
-  { label: "Story", text: "klient bere odkaz", tone: "instagram" },
-  { label: "Volný slot", text: "16:00 drží kalendář", tone: "mint" },
-  { label: "SMS", text: "připomínka připravena", tone: "cobalt" },
+const sourceChannels = [
+  { icon: Globe2, label: "Web podniku" },
+  { icon: InstagramGlyph, label: "Instagram" },
+  { icon: Search, label: "Google" },
+  { icon: QrCode, label: "QR recepce" },
 ] as const;
 
-const productMoments = [
-  { icon: CalendarDays, title: "Kalendář", text: "tým, volno a riziko" },
-  { icon: Smartphone, title: "Rezervace", text: "mobilní rezervace" },
-  { icon: UsersRound, title: "Klienti", text: "historie a preference" },
-  { icon: ShieldCheck, title: "Bez provize", text: "vlastní klienti zůstávají vám" },
-] as const;
-
-function ChannelCard({
-  channel,
-}: {
-  channel: (typeof channelCards)[number];
-}) {
+function PremiumProductStage() {
   return (
-    <article className={`temaro-channel-card ${channel.tone}`}>
-      <span className="grid size-11 shrink-0 place-items-center rounded-2xl bg-white text-[var(--ink)] shadow-sm">
-        <channel.icon className="size-5" strokeWidth={1.9} />
-      </span>
-      <div>
-        <p className="font-time text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[var(--ink-soft)]">
-          {channel.label}
-        </p>
-        <h3 className="mt-1 text-base font-bold tracking-[-0.02em]">{channel.title}</h3>
-        <p className="mt-1 text-sm font-semibold text-[var(--ink-soft)]">{channel.note}</p>
-      </div>
-    </article>
-  );
-}
-
-function SalonCommandWall() {
-  return (
-    <div className="temaro-salon-wall">
-      <div className="temaro-hero-photo">
-        <Image
-          src="/marketing/hero/salon-command-wall.webp"
-          alt="Atmosférický barber a salon interiér pro ukázku provozu Temaro"
-          fill
-          priority
-          sizes="(min-width: 1024px) 48vw, 100vw"
-          className="object-cover"
-        />
-        <div className="temaro-photo-badge">
-          <Clock3 className="size-4" strokeWidth={1.9} />
-          Dnes 16:00 volné
-        </div>
-      </div>
-
-      <div className="temaro-booking-stack">
-        <div className="flex items-center justify-between gap-3">
+    <div className="temaro-premium-stage">
+      <div className="temaro-premium-product">
+        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[var(--paper-line)] p-4 sm:p-5">
           <div>
-            <p className="font-time text-xs font-semibold uppercase tracking-[0.16em] text-[var(--cobalt)]">Živý provoz</p>
-            <h2 className="mt-1 text-2xl font-bold tracking-[-0.04em]">Rezervace dne</h2>
+            <p className="font-time text-xs font-semibold uppercase tracking-[0.16em] text-[var(--cobalt)]">
+              Dnešní provoz
+            </p>
+            <h2 className="mt-1 text-2xl font-bold tracking-[-0.04em] sm:text-3xl">Salon v jednom pohledu</h2>
           </div>
-          <span className="rounded-full bg-[var(--mint)] px-3 py-1.5 text-xs font-bold text-[var(--mint-ink)]">
-            bez volání
-          </span>
+          <div className="flex flex-wrap gap-2">
+            {sourceChannels.map(({ icon: Icon, label }) => (
+              <span key={label} className="temaro-premium-channel">
+                <Icon className="size-4" strokeWidth={1.9} />
+                {label}
+              </span>
+            ))}
+          </div>
         </div>
 
-        <div className="mt-5 grid gap-2">
-          {bookingRows.map((booking) => (
-            <article key={`${booking.time}-${booking.title}`} className={`temaro-booking-row ${booking.tone}`}>
-              <span className="temaro-booking-time font-time">{booking.time}</span>
-              <div>
-                <p className="font-bold">{booking.title}</p>
-                <p className="text-sm font-semibold text-[var(--ink-soft)]">{booking.meta}</p>
+        <div className="grid gap-3 p-4 sm:p-5 lg:grid-cols-4">
+          {premiumProductColumns.map((column) => (
+            <article key={column.label} className={`temaro-premium-product-column ${column.tone}`}>
+              <div className="flex items-center justify-between gap-3">
+                <span className="grid size-10 place-items-center rounded-2xl bg-white/78 text-[var(--ink)]">
+                  <column.icon className="size-5" strokeWidth={1.9} />
+                </span>
+                <span className="font-time text-[0.68rem] font-semibold uppercase tracking-[0.14em] opacity-70">
+                  {column.label}
+                </span>
               </div>
+              <h3 className="mt-9 text-2xl font-bold tracking-[-0.04em]">{column.title}</h3>
+              <p className="mt-2 text-sm font-semibold leading-6 opacity-75">{column.note}</p>
             </article>
           ))}
         </div>
 
-        <div className="temaro-risk-strip mt-4 grid gap-2 rounded-[1.25rem] bg-[var(--ink)] p-3 text-white">
+        <div className="temaro-premium-flow-card mx-4 mb-4 grid gap-3 rounded-[1.4rem] bg-[var(--ink)] p-4 text-white sm:mx-5 sm:mb-5 md:grid-cols-3">
           <div className="flex items-center gap-2">
             <MessageCircle className="size-4 text-[var(--mint)]" strokeWidth={1.9} />
             <p className="text-sm font-bold">SMS připomínka připravena</p>
           </div>
           <div className="flex items-center gap-2">
-            <BellRing className="size-4 text-[var(--apricot)]" strokeWidth={1.9} />
-            <p className="text-sm font-bold">No-show signál u 10:30</p>
+            <ShieldCheck className="size-4 text-[var(--apricot)]" strokeWidth={1.9} />
+            <p className="text-sm font-bold">vlastní klienti zůstávají vám</p>
           </div>
           <div className="flex items-center gap-2">
-            <ShieldCheck className="size-4 text-white" strokeWidth={1.9} />
-            <p className="text-sm font-bold">Záloha 300 Kč připravena</p>
+            <CreditCard className="size-4 text-white" strokeWidth={1.9} />
+            <p className="text-sm font-bold">záloha připravená bez volání</p>
           </div>
         </div>
+      </div>
+
+      <div className="temaro-salon-image-strip">
+        {salonImageTiles.map((tile, index) => (
+          <figure key={tile.label} className={`temaro-salon-image-tile tile-${index + 1}`}>
+            <Image
+              src={tile.src}
+              alt={tile.alt}
+              fill
+              sizes="(min-width: 1024px) 24vw, 48vw"
+              className="object-cover"
+            />
+            <figcaption>{tile.label}</figcaption>
+          </figure>
+        ))}
       </div>
     </div>
   );
 }
 
 export function BusinessDiscoveryHero() {
-  const [activeIndustryId, setActiveIndustryId] = useState<(typeof industryProfiles)[number]["id"]>("barber");
-  const activeIndustry = industryProfiles.find((item) => item.id === activeIndustryId) ?? industryProfiles[0];
-
   return (
-    <section id="produkt" className="temaro-time-atelier-hero temaro-salon-hero relative overflow-hidden px-4 pb-16 pt-32 sm:px-6 sm:pb-20 lg:px-8">
-      <div className="mx-auto grid w-full max-w-[1320px] gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
-        <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-2 rounded-full border border-[var(--paper-line)] bg-white/88 px-3 py-2 text-sm font-bold text-[var(--ink)] shadow-sm">
-            <Scissors className="size-4 text-[var(--cobalt)]" strokeWidth={1.9} />
-            Rezervace ze všech kanálů
-          </div>
-
-          <h1 className="font-display mt-7 text-balance text-[clamp(3rem,7vw,7.1rem)] font-semibold leading-[0.86] tracking-[-0.075em]">
-            Klienti rezervují. Kalendář drží den.
-          </h1>
-
-          <p className="temaro-command-copy mt-7 max-w-2xl text-pretty text-xl font-semibold leading-8 text-[var(--ink-soft)]">
-            Instagram, Google, QR i web posílají termíny rovnou do jednoho dne.
-          </p>
-
-          <div className="temaro-channel-dock mt-7 flex flex-wrap gap-2">
-            {channelCards.map((channel) => (
-              <span key={channel.label} className={`temaro-channel-pill ${channel.tone}`}>
-                <channel.icon className="size-4" />
-                {channel.label}
-              </span>
-            ))}
-          </div>
-
-          <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-            <Link
-              href="/register"
-              className="temaro-focus-ring group inline-flex h-13 items-center justify-center gap-2 rounded-full bg-[var(--cobalt)] px-7 text-base font-bold text-white shadow-[0_18px_44px_rgba(43,63,242,0.26)] transition hover:-translate-y-0.5 hover:bg-[var(--cobalt-deep)]"
-            >
-              Registrovat salon
-              <ArrowRight className="size-5 transition group-hover:translate-x-1" />
-            </Link>
-            <Link
-              href="/ukazka"
-              className="temaro-focus-ring inline-flex h-13 items-center justify-center rounded-full border border-[var(--paper-line)] bg-white px-7 text-base font-bold text-[var(--ink)] transition hover:border-[var(--cobalt)]"
-            >
-              Vidět ukázku
-            </Link>
-          </div>
-
-          <div className="mt-8 hidden gap-3 sm:grid sm:grid-cols-3">
-            {heroStats.map((stat) => (
-              <div key={stat.label} aria-label={stat.signal} className={`temaro-stat-card ${stat.tone}`}>
-                <p className="font-time text-3xl font-semibold text-[var(--ink)]">{stat.value}</p>
-                <p className="mt-1 text-sm font-semibold leading-5 text-[var(--ink-soft)]">{stat.label}</p>
-              </div>
-            ))}
-          </div>
+    <section
+      id="produkt"
+      className="temaro-time-atelier-hero temaro-premium-hero relative overflow-hidden px-4 pb-16 pt-28 sm:px-6 sm:pb-20 sm:pt-32 lg:px-8"
+    >
+      <div className="temaro-premium-copy mx-auto max-w-[1120px] text-center">
+        <div className="inline-flex items-center gap-2 rounded-full border border-[var(--paper-line)] bg-white/86 px-4 py-2 text-sm font-bold text-[var(--ink)] shadow-sm">
+          <Sparkles className="size-4 text-[var(--cobalt)]" strokeWidth={1.9} />
+          Salon platforma Temaro
         </div>
 
-        <SalonCommandWall />
-      </div>
+        <h1 className="font-display mx-auto mt-5 max-w-6xl text-balance text-[clamp(2.85rem,13vw,3.45rem)] font-semibold leading-[0.92] tracking-[-0.078em] sm:mt-7 sm:text-[clamp(3.35rem,8.6vw,8.4rem)] sm:leading-[0.88]">
+          Rezervace, platby a klienti <span className="temaro-premium-highlight">v jednom salon systému.</span>
+        </h1>
 
-      <div className="temaro-hero-channels mx-auto mt-10 grid max-w-[1320px] gap-3 md:grid-cols-4">
-        {channelCards.map((channel) => (
-          <ChannelCard key={channel.label} channel={channel} />
-        ))}
-      </div>
+        <p className="mx-auto mt-4 max-w-2xl text-pretty text-base font-semibold leading-7 text-[var(--ink-soft)] sm:mt-6 sm:text-xl sm:leading-8">
+          Temaro spojí web, Instagram, Google a QR do jednoho přehledného kalendáře.
+        </p>
 
-      <div className="temaro-proof-flow mx-auto mt-4 grid max-w-[1320px] gap-3 md:grid-cols-3">
-        {proofFlow.map((step, index) => (
-          <article key={step.label} className={`temaro-proof-step ${step.tone}`}>
-            <span className="font-time text-xs font-semibold uppercase tracking-[0.16em]">0{index + 1}</span>
-            <div>
-              <h3 className="text-lg font-bold tracking-[-0.03em]">{step.label}</h3>
-              <p className="text-sm font-semibold text-[var(--ink-soft)]">{step.text}</p>
+        <div className="mt-5 flex flex-col items-center justify-center gap-3 sm:mt-7 sm:flex-row">
+          <Link
+            href="/register"
+            className="temaro-focus-ring group inline-flex h-13 w-full items-center justify-center gap-2 rounded-full bg-[var(--cobalt)] px-7 text-base font-bold text-white shadow-[0_18px_44px_rgba(43,63,242,0.24)] transition hover:-translate-y-0.5 hover:bg-[var(--cobalt-deep)] sm:w-auto"
+          >
+            Registrovat salon
+            <ArrowRight className="size-5 transition group-hover:translate-x-1" />
+          </Link>
+          <Link
+            href="/ukazka"
+            className="temaro-focus-ring inline-flex h-13 w-full items-center justify-center rounded-full border border-[var(--paper-line)] bg-white px-7 text-base font-bold text-[var(--ink)] transition hover:border-[var(--cobalt)] sm:w-auto"
+          >
+            Vidět ukázku
+          </Link>
+        </div>
+
+        <div className="mx-auto mt-7 grid max-w-3xl gap-2 sm:grid-cols-3">
+          {freshaPremiumStats.map((stat) => (
+            <div key={stat.label} className="temaro-premium-stat">
+              <p className="font-time text-xl font-semibold text-[var(--ink)]">{stat.value}</p>
+              <p className="text-xs font-bold text-[var(--ink-soft)]">{stat.label}</p>
             </div>
-          </article>
-        ))}
-      </div>
-
-      <div className="industry-switcher mx-auto mt-8 max-w-[1320px] rounded-[2rem] border border-white/70 bg-white/72 p-3 shadow-[0_20px_70px_rgba(23,26,33,0.11)]">
-        <div className="grid gap-2 lg:grid-cols-[auto_1fr_auto] lg:items-center">
-          <p className="font-time px-3 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--cobalt)]">
-            Vyberte tempo provozu
-          </p>
-          <div className="flex gap-2 overflow-x-auto">
-            {industryProfiles.map((industry) => {
-              const isActive = industry.id === activeIndustry.id;
-
-              return (
-                <button
-                  key={industry.id}
-                  type="button"
-                  className={`temaro-focus-ring flex min-w-max items-center gap-2 rounded-full px-4 py-3 text-sm font-bold transition ${
-                    isActive
-                      ? "bg-[var(--ink)] text-white"
-                      : "bg-[var(--porcelain)] text-[var(--ink-soft)] hover:bg-[var(--cobalt-tint)] hover:text-[var(--cobalt)]"
-                  }`}
-                  onClick={() => setActiveIndustryId(industry.id)}
-                >
-                  <Scissors className="size-4" strokeWidth={1.9} />
-                  {industry.label}
-                </button>
-              );
-            })}
-          </div>
-          <div className="rounded-[1.35rem] bg-[var(--porcelain)] px-4 py-3">
-            <p className="font-bold text-[var(--ink)]">{activeIndustry.business}</p>
-            <p className="mt-1 text-sm font-semibold text-[var(--ink-soft)]">
-              {activeIndustry.promise} · <span className="font-time">{activeIndustry.cue}</span>
-            </p>
-          </div>
+          ))}
         </div>
       </div>
 
-      <div className="mx-auto mt-8 grid max-w-[1320px] gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        {productMoments.map(({ icon: Icon, title, text }) => (
-          <article key={title} className="rounded-[1.5rem] border border-[var(--paper-line)] bg-white/74 p-4 shadow-sm">
-            <div className="flex items-center gap-3">
-              <span className="grid size-10 place-items-center rounded-2xl bg-[var(--cobalt-tint)] text-[var(--cobalt)]">
-                <Icon className="size-5" strokeWidth={1.9} />
-              </span>
-              <div>
-                <p className="font-bold">{title}</p>
-                <p className="text-sm font-semibold text-[var(--ink-soft)]">{text}</p>
-              </div>
-            </div>
-          </article>
-        ))}
-      </div>
+      <PremiumProductStage />
     </section>
   );
 }

@@ -13,21 +13,27 @@ The buyer is usually an owner/operator, not a software enthusiast. They need to 
 - Will the calendar protect revenue and no-show risk?
 - Does this look trustworthy enough for my clients?
 
-The interface must feel like a local service command desk: energetic, concrete, operational, and trustworthy. It must not feel like a generic Linear/Vercel clone, a sterile dashboard template, or a lifestyle salon brochure.
+The interface must feel like a premium salon platform: visual, calm, direct, and commercially trustworthy. It must not feel like a generic Linear/Vercel clone, a sterile dashboard template, a dark command center, or a lifestyle salon brochure with no product truth.
 
 ## 2. Creative Direction
 
-Name: Local Service Command Desk.
+Name: Fresha-like Premium Salon Platform.
 
-Promise: The business owner sees the day, the risk, the client context, and the next action in one controlled view.
+Promise: The business owner sees booking, calendar, client context, deposits, and source channels in one beautiful salon operating surface.
 
-Signature move: A colorful live day surface. Booking slots, client memory, SMS reminders, source channels, and revenue signals should appear as visible product objects, not as paragraphs explaining features.
+Signature move: A full-width hero with a large editorial headline, a direct product object across the page, and a short strip of salon imagery that makes the product feel real without using website screenshots.
 
-Visual intensity: Confident and colorful. Avoid chaos, but do not hide behind pale cards.
+Visual intensity: Premium, warm, spacious, and colorful. Use fewer words, larger surfaces, and sharper visual proof.
+
+Reference direction:
+
+- Fresha-like first impression: large simple claim, direct business software preview, minimal text, service-business imagery, high trust.
+- Temaro must stay Czech, concrete, and honest: no fake testimonials, no fake customer logos, no invented scale metrics.
+- The first 5 seconds matter more than explaining every feature.
 
 ## 3. Color System
 
-Use color in large, intentional surfaces. The current page is too pale when everything is porcelain + cobalt.
+Use color in large, intentional surfaces. The page must not become pale porcelain cards with small cobalt accents.
 
 Core neutrals:
 
@@ -75,9 +81,9 @@ Rules:
 
 Landing rhythm should alternate:
 
-1. Hero with one strong product proof.
-2. Color-blocked product story.
-3. Dense visual proof or mini flow.
+1. Full-screen premium hero with one strong product proof.
+2. Service-business imagery and industry proof.
+3. Dense product object or mini flow.
 4. Short text/CTA.
 5. Dark or colored contrast band.
 
@@ -85,6 +91,7 @@ Rules:
 
 - Do not stack five pale card sections in a row.
 - Do not use decorative background grids or dot patterns. They make Temaro look noisy and generic.
+- No decorative grid background is visible.
 - Do not add more cards to fix boring UI. Change scale, color, composition, or product proof.
 - Use breakout sections. At least one major section per page should escape the standard white-card rhythm.
 - Mobile must still sell the product, not merely stack desktop sections.
@@ -99,11 +106,13 @@ Use product-native visuals instead of screenshots when possible:
 - SMS reminder sequence.
 - Source channel strip: web, Instagram, QR, Google, widget.
 - Revenue/deposit/no-show signal.
+- Product columns that show real booking states such as Instagram source, team calendar, client card, SMS, and deposit.
 
 Rules:
 
 - Product proof must be interactive or feel alive: selected slot, active signal, changing status, progress through a flow.
 - Do not use screenshots of the marketing website as product proof.
+- Do not use screenshots of the product UI as a crutch when the source code can produce a cleaner code-native demo.
 - Do not use fake testimonials, fake customer logos, or unverified scale metrics.
 - Sample data must read as sample product data, not as real customer claims.
 
@@ -116,11 +125,12 @@ Allowed:
 - Code-native product illustrations.
 - Simple service-category visual cards with real functional labels.
 - Abstract color panels tied to operational meaning.
+- AI-generated or locally owned salon imagery when it supports service-business context and does not pretend to be a customer photo.
 - Later: real pilot customer photos with permission.
 
 Avoid:
 
-- Random AI salon interiors.
+- Random AI salon interiors that are not tied to the product composition.
 - Lifestyle photos that do not explain booking.
 - Screenshot galleries.
 - Decorative dashboard mockups without product truth.
