@@ -169,6 +169,7 @@ Cards:
 - Default cards are not enough for marketing.
 - Use cards only when they contain a meaningful product object.
 - Avoid identical cards with same border, radius, shadow, and density.
+- Glass surfaces use only the shared blur tokens: `--blur-sm` for small chips, `--blur-md` for nav/switchers, and `--blur-lg` for major overlays. Do not add inline pixel blur values.
 
 Calendar:
 

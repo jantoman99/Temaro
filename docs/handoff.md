@@ -1,6 +1,6 @@
 # Handoff
 
-Aktualizováno: 2026-06-14 22:10 CEST
+Aktualizováno: 2026-06-14 22:50 CEST
 
 ## Jak navázat
 
@@ -52,6 +52,7 @@ Aktualizováno: 2026-06-14 22:10 CEST
 - Poslední staging ověření 2026-06-14 21:42 CEST po Fresha proof-band passu: commit `0901872` je na `origin/dev`, preview deploy `dpl_3wGYdNz1A27a5dSJerUgxHfjvsZG` je aliasovaný na `https://rezervacni-system-dev.vercel.app`. `/api/health=ok`, staging screenshot je v `output/playwright/fresha-proof-band-2026-06-14/staging-desktop.png`, `proofCards=4`, `productSideNav=5`, `bookingClient=true`, `overflowX=0`.
 - Aktuální lokální industry showcase pass 2026-06-14 22:10 CEST: další práce po proof-bandu převedla `#pro-koho` z obyčejného foto gridu na `temaro-industry-showcase`. Sekce má výrazný heading s modrým slovem `čas`, category pills pro 6 oborů, velkou featured kartu Kadeřnictví, produktový overlay `temaro-industry-overlay`, dvě sekundární karty a tři kompaktní bento karty. Screenshot/vision audit: `output/playwright/industry-showcase-2026-06-14/desktop-industry-final.png`, `mobile-industry-final.png`; metrics `overflow=0`, `cardCount=6`, `pills=6`. Lokální ověření: landing guard 22/22, `git diff --check`, `npx impeccable detect app components`, `npm run check` s 600 testy.
 - Poslední staging ověření 2026-06-14 22:14 CEST po industry showcase passu: commit `823a5f4` je na `origin/dev`, preview deploy `dpl_GRtKSkXx2JkEZByQfxQaHKbtXzAc` je aliasovaný na `https://rezervacni-system-dev.vercel.app`. `/api/health=ok`, staging screenshoty jsou v `output/playwright/industry-showcase-2026-06-14/staging/`, `industryShowcase=true`, `featureCard=true`, `overlay=true`, `cardCount=6`, `pills=6`, `hasOldUniformGrid=false`, `overflowX=0`.
+- Aktuální design fixes task 1-4 2026-06-14 22:50 CEST: brand/action barvy jsou kobaltové bez `oklch(... 282)` driftu, hero H1 používá display font, magenta únik je odstraněný a glass blur je tokenizovaný přes `--blur-sm|md|lg`. `DESIGN.md` obsahuje pravidlo pro blur tokeny. Screenshot audit: `output/playwright/design-fixes-2026-06-14/task-1-4/desktop-after-final.png`; `npm run check` prošlo s 600 testy.
 - Impeccable skill je lokálně mimo repo v `/home/hanys/.codex/skills/impeccable-style`; validace prošla. `npx impeccable detect app components` je po úpravě čistý.
 - Poslední lokální ověření 2026-06-11 23:59 CEST po Time Atelier passu: `npx vitest run tests/landing-polish.test.ts` prošel 20/20, `npx impeccable detect app components` prošel s exit 0 bez výstupu, `npm run lint` prošel a `npm run check` prošel s 598 Vitest testy, migrations check, type-check, lint a produkční build. Screenshoty: `output/playwright/landing-personality-2026-06-11/pass5/home-1440.png`, `home-1366.png`, `home-768.png`, `home-390.png`, `home-375.png`; všech 5 viewportů má horizontální overflow `0`, `hasHero=true`, `hasCinema=true`, `hasGallery=true`, `hasOldSalonHero=false`, `hasOldProductWindow=false`.
 - Poslední lokální ověření 2026-06-14 13:27 CEST po navázání projektu: `npm run check` prošlo s 598 Vitest testy, migrations check, type-check, lint a produkční build.

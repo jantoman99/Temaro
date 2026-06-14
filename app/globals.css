@@ -80,6 +80,9 @@
   --mint-ink: #0F5132;
   --signal-red: #E5484D;
   --paper-line: #DDD9CF;
+  --blur-sm: 12px;
+  --blur-md: 16px;
+  --blur-lg: 18px;
   --font-display-stack: var(--font-bricolage), "Bricolage Grotesque", ui-sans-serif, sans-serif;
   --font-body-stack: var(--font-instrument), "Instrument Sans", ui-sans-serif, sans-serif;
   --font-time-stack: var(--font-plex-mono), "IBM Plex Mono", ui-monospace, monospace;
@@ -129,12 +132,12 @@
 
   --sidebar: oklch(0.16 0.018 255);
   --sidebar-foreground: oklch(0.96 0.006 255);
-  --sidebar-primary: oklch(0.55 0.19 282);
+  --sidebar-primary: var(--cobalt);
   --sidebar-primary-foreground: oklch(0.99 0 0);
   --sidebar-accent: oklch(0.24 0.025 255);
   --sidebar-accent-foreground: oklch(0.98 0.006 92);
   --sidebar-border: oklch(1 0 0 / 0.10);
-  --sidebar-ring: oklch(0.55 0.19 282);
+  --sidebar-ring: var(--cobalt);
 }
 
 .dark {
@@ -147,7 +150,7 @@
   --popover: oklch(0.20 0.016 255);
   --popover-foreground: oklch(0.96 0.006 255);
 
-  --primary: oklch(0.64 0.18 282);
+  --primary: var(--cobalt);
   --primary-foreground: oklch(0.99 0 0);
 
   --secondary: oklch(0.23 0.014 255);
@@ -166,14 +169,14 @@
 
   --border: oklch(0.30 0.015 255);
   --input: oklch(0.32 0.015 255);
-  --ring: oklch(0.64 0.18 282);
+  --ring: var(--cobalt);
 
   --tag-blue: oklch(0.70 0.11 235);
   --tag-green: oklch(0.68 0.12 155);
   --tag-amber: oklch(0.78 0.14 75);
   --tag-violet: oklch(0.70 0.13 295);
 
-  --chart-1: oklch(0.64 0.18 282);
+  --chart-1: var(--cobalt);
   --chart-2: oklch(0.65 0.11 215);
   --chart-3: oklch(0.58 0.10 195);
   --chart-4: oklch(0.75 0.08 250);
@@ -181,12 +184,12 @@
 
   --sidebar: oklch(0.18 0.012 250);
   --sidebar-foreground: oklch(0.90 0.006 240);
-  --sidebar-primary: oklch(0.64 0.18 282);
+  --sidebar-primary: var(--cobalt);
   --sidebar-primary-foreground: oklch(0.99 0 0);
   --sidebar-accent: oklch(0.24 0.014 250);
   --sidebar-accent-foreground: oklch(0.95 0.005 240);
   --sidebar-border: oklch(1 0 0 / 0.09);
-  --sidebar-ring: oklch(0.72 0.10 235);
+  --sidebar-ring: var(--cobalt);
 }
 
 @layer base {
@@ -351,9 +354,9 @@
 
   .temaro-premium-copy h1 {
     color: color-mix(in srgb, var(--ink) 94%, black);
-    font-family: var(--font-body-stack);
-    font-weight: 900;
-    letter-spacing: -0.052em;
+    font-family: var(--font-display-stack);
+    font-weight: 850;
+    letter-spacing: -0.06em;
   }
 
   .temaro-premium-highlight {
@@ -419,7 +422,9 @@
     border-radius: 1.5rem;
     display: grid;
     gap: 0.75rem;
-    left: -0.2rem;
+    inline-size: 3.85rem;
+    justify-items: center;
+    left: 1rem;
     padding: 0.75rem;
     position: absolute;
     top: 6.2rem;
@@ -728,7 +733,7 @@
   .temaro-hero-proof-band {
     background:
       radial-gradient(circle at 16% 0%, rgba(43, 63, 242, 0.34), transparent 22rem),
-      radial-gradient(circle at 82% 18%, rgba(204, 79, 178, 0.3), transparent 22rem),
+      radial-gradient(circle at 82% 18%, color-mix(in srgb, var(--apricot) 34%, transparent), transparent 22rem),
       linear-gradient(135deg, #101326 0%, #17218d 48%, #050712 100%);
     color: #ffffff;
     margin-top: -0.05rem;
@@ -912,7 +917,7 @@
     letter-spacing: 0.1em;
     padding: 0.48rem 0.72rem;
     text-transform: uppercase;
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(var(--blur-sm));
   }
 
   .temaro-industry-card-copy h3 {
@@ -959,7 +964,7 @@
     right: 1.45rem;
     top: 1.45rem;
     z-index: 4;
-    backdrop-filter: blur(18px);
+    backdrop-filter: blur(var(--blur-lg));
   }
 
   .temaro-industry-overlay p {
@@ -1064,7 +1069,7 @@
     padding: 0.5rem 0.72rem;
     position: relative;
     z-index: 2;
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(var(--blur-sm));
   }
 
   .temaro-premium-industries::before {
@@ -1349,7 +1354,7 @@
   }
 
   .temaro-market-word {
-    color: #cc4fb2;
+    color: var(--cobalt);
     display: inline-block;
     margin-inline: 0.08em;
   }
@@ -1458,7 +1463,7 @@
   }
 
   .industry-switcher {
-    backdrop-filter: blur(16px);
+    backdrop-filter: blur(var(--blur-md));
   }
 
   .temaro-operations-strip {
@@ -1799,14 +1804,14 @@
 
   .signal-hero {
     background:
-      radial-gradient(circle at 18% 16%, oklch(0.55 0.19 282 / 0.18), transparent 32rem),
+      radial-gradient(circle at 18% 16%, color-mix(in srgb, var(--cobalt) 18%, transparent), transparent 32rem),
       radial-gradient(circle at 82% 12%, oklch(0.68 0.145 246 / 0.16), transparent 28rem),
       linear-gradient(135deg, oklch(0.99 0.004 255), oklch(0.94 0.010 255));
   }
 
   .dark .signal-hero {
     background:
-      radial-gradient(circle at 18% 16%, oklch(0.55 0.19 282 / 0.24), transparent 32rem),
+      radial-gradient(circle at 18% 16%, color-mix(in srgb, var(--cobalt) 24%, transparent), transparent 32rem),
       radial-gradient(circle at 82% 12%, oklch(0.68 0.145 246 / 0.16), transparent 28rem),
       linear-gradient(135deg, oklch(0.18 0.018 255), oklch(0.13 0.014 255));
   }
@@ -1835,7 +1840,7 @@
   }
 
   .signal-rail {
-    box-shadow: inset 4px 0 0 oklch(0.55 0.19 282);
+    box-shadow: inset 4px 0 0 var(--cobalt);
   }
 
   .booking-row-in {
@@ -1870,13 +1875,13 @@
 
   .signal-map {
     background:
-      radial-gradient(circle at 50% 50%, oklch(0.55 0.19 282 / 0.12), transparent 18rem),
+      radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--cobalt) 12%, transparent), transparent 18rem),
       oklch(1 0 0);
   }
 
   .dark .signal-map {
     background:
-      radial-gradient(circle at 50% 50%, oklch(0.55 0.19 282 / 0.18), transparent 18rem),
+      radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--cobalt) 18%, transparent), transparent 18rem),
       oklch(0.20 0.016 255);
   }
 
@@ -1975,10 +1980,10 @@
   @keyframes signal-pulse {
     0%,
     100% {
-      box-shadow: 0 0 0 4px oklch(0.55 0.19 282 / 0.12);
+      box-shadow: 0 0 0 4px color-mix(in srgb, var(--cobalt) 12%, transparent);
     }
     50% {
-      box-shadow: 0 0 0 8px oklch(0.55 0.19 282 / 0.04);
+      box-shadow: 0 0 0 8px color-mix(in srgb, var(--cobalt) 4%, transparent);
     }
   }
 
