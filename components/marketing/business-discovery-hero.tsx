@@ -9,7 +9,6 @@ import {
   Sparkles,
   UsersRound,
 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -55,22 +54,46 @@ const proofStats = [
 ] as const;
 
 const heroTrustItems = [
-  "Reálné obrazovky Temara",
+  "Živý CRM kalendář",
   "Bez provize z vlastních klientů",
   "Vlastní rezervační odkaz",
 ] as const;
 
-const imageStack = [
+const controlBookings = [
   {
-    src: "/marketing/product/temaro-product-app-screen.jpg",
-    alt: "Produktová ukázka Temara s přehledem provozu a rezervacemi",
-    label: "Přehled provozu",
+    time: "08:30",
+    title: "Pánský střih",
+    staff: "Adam",
+    status: "confirmed",
+    lane: "Barber",
   },
   {
-    src: "/marketing/product/temaro-business-discovery.jpg",
-    alt: "Zákaznické hledání podniků a služeb v Temaru",
-    label: "Katalog a hledání",
+    time: "10:30",
+    title: "Konzultace",
+    staff: "Lucie",
+    status: "pending",
+    lane: "Beauty",
   },
+  {
+    time: "13:15",
+    title: "Barva + styling",
+    staff: "Eva",
+    status: "confirmed",
+    lane: "Kadeřnictví",
+  },
+  {
+    time: "16:00",
+    title: "Volné okno",
+    staff: "Instagram kampaň",
+    status: "open",
+    lane: "Last minute",
+  },
+] as const;
+
+const controlSignals = [
+  ["Dnešní rezervace", "12", "stabilní den"],
+  ["Tržba dnes", "8 400 Kč", "z dokončených rezervací"],
+  ["Riziko", "1", "čeká na potvrzení"],
 ] as const;
 
 const productMoments = [
@@ -113,7 +136,7 @@ function AnimatedNumber({
   value: number;
 }) {
   const reduceMotion = usePrefersReducedMotion();
-  const [current, setCurrent] = useState(0);
+  const [current, setCurrent] = useState(value);
   const displayedValue = reduceMotion ? value : current;
 
   useEffect(() => {
@@ -150,9 +173,9 @@ function AnimatedNumber({
   );
 }
 
-function ProductCinema() {
+function OperationControlRoom() {
   const reduceMotion = usePrefersReducedMotion();
-  const [activeImage, setActiveImage] = useState(0);
+  const [activeBooking, setActiveBooking] = useState(1);
 
   useEffect(() => {
     if (reduceMotion) {
@@ -160,16 +183,16 @@ function ProductCinema() {
     }
 
     const interval = window.setInterval(() => {
-      setActiveImage((current) => (current + 1) % imageStack.length);
-    }, 3800);
+      setActiveBooking((current) => (current + 1) % controlBookings.length);
+    }, 2600);
 
     return () => window.clearInterval(interval);
   }, [reduceMotion]);
 
-  const image = imageStack[activeImage];
+  const selected = controlBookings[activeBooking];
 
   return (
-    <div className="temaro-cinema-frame relative">
+    <div className="temaro-control-room relative">
       <div className="flex items-center justify-between gap-4 border-b border-white/10 px-4 py-3 text-white">
         <div className="flex items-center gap-2">
           <span className="size-3 rounded-full bg-[#FF5F57]" />
@@ -177,41 +200,87 @@ function ProductCinema() {
           <span className="size-3 rounded-full bg-[#28C840]" />
         </div>
         <span className="font-time rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em]">
-          {image.label}
+          Provozní kalendář
         </span>
       </div>
 
-      <div className="relative overflow-hidden rounded-b-[1.9rem] bg-[var(--porcelain)]">
-        <Image
-          src={image.src}
-          alt={image.alt}
-          width={1254}
-          height={760}
-          loading="eager"
-          fetchPriority="high"
-          sizes="(min-width: 1024px) 58vw, 100vw"
-          className="h-auto w-full"
-        />
+      <div className="relative overflow-hidden rounded-b-[1.9rem] bg-[var(--porcelain)] p-4 sm:p-5">
+        <div className="temaro-live-thread" aria-hidden="true" />
+        <div className="grid gap-4 md:grid-cols-[0.7fr_1.3fr]">
+          <aside className="order-2 rounded-[1.5rem] bg-[var(--ink)] p-4 text-white md:order-1">
+            <p className="font-time text-xs font-semibold uppercase tracking-[0.16em] text-white/50">Studio Magnolia</p>
+            <p className="mt-2 text-2xl font-bold tracking-[-0.04em]">Dnes</p>
+            <div className="mt-5 grid gap-2">
+              {controlSignals.map(([label, value, note], index) => (
+                <div key={label} className={`rounded-2xl p-3 ${index === 2 ? "bg-[rgba(255,185,138,0.16)]" : "bg-white/8"}`}>
+                  <p className="font-time text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-white/50">{label}</p>
+                  <p className="mt-1 text-2xl font-bold">{value}</p>
+                  <p className="mt-1 text-xs font-semibold text-white/55">{note}</p>
+                </div>
+              ))}
+            </div>
+          </aside>
 
-        <div className="temaro-time-thread" aria-hidden="true" />
+          <div className="temaro-calendar-surface order-1 rounded-[1.5rem] border border-[var(--paper-line)] bg-white p-4 shadow-sm md:order-2">
+            <div className="flex items-center justify-between gap-3">
+              <div>
+                <p className="font-time text-xs font-semibold uppercase tracking-[0.14em] text-[var(--cobalt)]">Úterý 16. 6.</p>
+                <h2 className="mt-1 text-2xl font-bold tracking-[-0.04em]">Kalendář týmu</h2>
+              </div>
+              <Link
+                href="/ukazka"
+                className="temaro-focus-ring hidden rounded-full bg-[var(--cobalt)] px-4 py-2 text-sm font-bold text-white sm:inline-flex"
+              >
+                Kliknout demo
+              </Link>
+            </div>
 
-        <div className="absolute left-5 top-5 hidden rounded-2xl border border-white/55 bg-white/90 p-3 shadow-[0_18px_50px_rgba(23,26,33,0.16)] backdrop-blur sm:block">
-          <p className="font-time text-xs font-semibold uppercase tracking-[0.14em] text-[var(--cobalt)]">
-            živý den
-          </p>
-          <p className="mt-1 text-sm font-bold text-[var(--ink)]">10:30 čeká na potvrzení</p>
+            <div className="mt-4 grid grid-cols-[4.25rem_1fr] gap-3">
+              <div className="grid gap-2 pt-8 font-time text-xs font-semibold text-[var(--ink-faint)]">
+                {["08:00", "10:00", "12:00", "14:00", "16:00"].map((time) => (
+                  <span key={time}>{time}</span>
+                ))}
+              </div>
+              <div className="temaro-calendar-board grid gap-2">
+                {controlBookings.map((booking, index) => {
+                  const isActive = index === activeBooking;
+
+                  return (
+                    <button
+                      key={`${booking.time}-${booking.title}`}
+                      type="button"
+                      onClick={() => setActiveBooking(index)}
+                      className={`temaro-focus-ring temaro-live-booking text-left ${booking.status} ${isActive ? "is-active" : ""}`}
+                    >
+                      <span className="font-time text-sm font-bold">{booking.time}</span>
+                      <span>
+                        <strong>{booking.title}</strong>
+                        <small>{booking.staff} · {booking.lane}</small>
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
         </div>
 
-        <figure className="booking-phone-preview absolute -bottom-10 -right-5 hidden w-[210px] rotate-[2.5deg] overflow-hidden rounded-[2rem] border-[10px] border-[var(--ink)] bg-white shadow-[0_22px_70px_rgba(23,26,33,0.32)] lg:block">
-          <Image
-            src="/marketing/product/temaro-client-booking-mobile.jpg"
-            alt="Mobilní rezervační stránka podniku v Temaru"
-            width={398}
-            height={650}
-            sizes="210px"
-            className="h-auto w-full"
-          />
-        </figure>
+        <div className="mt-4 grid gap-3 rounded-[1.5rem] border border-[var(--paper-line)] bg-white/86 p-4 shadow-sm sm:grid-cols-[1fr_auto] sm:items-center">
+          <div>
+            <p className="font-time text-xs font-semibold uppercase tracking-[0.14em] text-[var(--cobalt)]">
+              Vybraný signál
+            </p>
+            <p className="mt-1 text-xl font-bold tracking-[-0.03em]">
+              {selected.time} · {selected.title}
+            </p>
+            <p className="mt-1 text-sm font-semibold text-[var(--ink-soft)]">
+              {selected.staff} · {selected.lane}
+            </p>
+          </div>
+          <div className="rounded-2xl bg-[var(--cobalt-tint)] px-4 py-3 text-sm font-bold text-[var(--cobalt)]">
+            SMS připomínka připravena
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -265,14 +334,14 @@ export function BusinessDiscoveryHero() {
             ))}
           </div>
 
-          <div className="mt-8 grid gap-3 sm:grid-cols-3">
+          <div className="mt-8 hidden gap-3 lg:grid lg:grid-cols-3">
             {proofStats.map((stat) => (
               <AnimatedNumber key={stat.label} {...stat} />
             ))}
           </div>
         </div>
 
-        <ProductCinema />
+        <OperationControlRoom />
       </div>
 
       <div className="industry-switcher mx-auto mt-12 max-w-[1320px] rounded-[2rem] border border-white/70 bg-white/72 p-3 shadow-[0_20px_70px_rgba(23,26,33,0.11)]">

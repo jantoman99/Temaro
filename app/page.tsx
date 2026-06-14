@@ -10,7 +10,6 @@ import {
   UsersRound,
 } from "lucide-react";
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { headers } from "next/headers";
 
@@ -76,27 +75,27 @@ const industryCards = [
 const productProofScenes = [
   {
     icon: CalendarDays,
-    label: "Týmový kalendář",
-    title: "Volno, obsazeno a riziko v jednom pohledu.",
-    text: "Tým neřeší, jestli se termín ztratil ve zprávě. Stav rezervace je vidět přímo v kalendáři.",
-    image: "/marketing/product/temaro-product-app-screen.jpg",
-    imageAlt: "Produktová ukázka Temara s provozním přehledem a rezervacemi",
+    label: "Kalendář",
+    title: "Den je mapa, ne seznam.",
+    text: "Rezervace, volná okna a rizikové termíny mají vlastní signál přímo v provozním plánu.",
+    accent: "blue",
+    meta: ["08:30 potvrzeno", "10:30 čeká", "16:00 volno"],
   },
   {
     icon: MousePointerClick,
-    label: "Veřejná rezervace",
-    title: "Klient vybírá jen dostupná okna.",
-    text: "Služba, délka, cena a volný čas jsou v jednom jednoduchém flow na mobilu.",
-    image: "/marketing/product/temaro-client-booking-mobile.jpg",
-    imageAlt: "Mobilní rezervační stránka podniku v Temaru",
+    label: "Rezervační stránka",
+    title: "Klient si vezme jen dostupný čas.",
+    text: "Odkaz z webu, Instagramu nebo QR vede do jednoduchého flow bez volání a přepisování zpráv.",
+    accent: "apricot",
+    meta: ["služba", "čas", "potvrzení"],
   },
   {
     icon: UsersRound,
     label: "Klientská paměť",
-    title: "Vztah zůstává u podniku.",
+    title: "Kontext zůstává u podniku.",
     text: "Historie, poznámky, preference a no-show signál patří provozu, ne cizímu marketplace.",
-    image: "/marketing/product/temaro-business-discovery.jpg",
-    imageAlt: "Zákaznické hledání podniku a termínu v Temaru",
+    accent: "mint",
+    meta: ["historie", "poznámka", "no-show signál"],
   },
 ] as const;
 
@@ -260,48 +259,50 @@ export default async function Home() {
         </div>
       </section>
 
-      <section id="produktovy-dukaz" className="temaro-screenshot-strip relative overflow-hidden py-20 sm:py-24">
+      <section id="produktovy-dukaz" className="temaro-operations-strip relative overflow-hidden py-20 sm:py-24">
         <div className="relative mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
               <div>
                 <p className="section-eyebrow">Produktový důkaz</p>
                 <h2 className="font-display mt-3 max-w-2xl text-balance text-5xl font-semibold leading-[0.96] sm:text-7xl">
-                  Obrázky jsou produkt, ne dekorace.
+                  Produkt má být živý, ne vyfocený.
                 </h2>
               </div>
               <p className="max-w-2xl text-lg font-normal leading-8 text-[var(--ink-soft)]">
-                Každý obraz na stránce je screenshot reálné Temaro obrazovky: provozní ukázka, mobilní rezervace a zákaznické hledání. Žádná generická galerie bez souvislosti.
+                Landing ukazuje stejnou logiku jako interní CRM: časový plán, stav rezervace, klientský kontext a kanál, ze kterého termín přišel.
               </p>
             </div>
           </Reveal>
 
           <Reveal delay={80}>
-            <div className="temaro-screenshot-gallery temaro-screenshot-board mt-10 grid gap-4 rounded-[2.25rem] border border-white/70 bg-[var(--ink)] p-3 text-[var(--ink)] shadow-[0_34px_110px_rgba(23,26,33,0.22)] sm:p-4 lg:grid-cols-3">
+            <div className="temaro-operations-board mt-10 grid gap-4 rounded-[2.25rem] border border-white/70 bg-[var(--ink)] p-3 text-[var(--ink)] shadow-[0_34px_110px_rgba(23,26,33,0.22)] sm:p-4 lg:grid-cols-[1.25fr_0.9fr_0.9fr]">
               {productProofScenes.map((scene, index) => (
-                <article key={scene.label} className={`${index === 0 ? "bg-white" : "bg-[var(--porcelain)]"} overflow-hidden rounded-[1.75rem] shadow-sm`}>
-                  <div className={`relative overflow-hidden bg-[var(--porcelain-deep)] ${index === 1 ? "h-[21rem]" : "h-[15.5rem]"}`}>
-                    <Image
-                      src={scene.image}
-                      alt={scene.imageAlt}
-                      width={index === 1 ? 398 : 1254}
-                      height={index === 1 ? 650 : 760}
-                      loading="eager"
-                      sizes="(min-width: 1024px) 31vw, 100vw"
-                      className={`h-full w-full object-cover ${index === 1 ? "object-top" : "object-left-top"}`}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[rgba(23,26,33,0.38)] to-transparent" />
-                    <div className="absolute bottom-3 left-3 flex items-center gap-2 rounded-full bg-white/92 px-3 py-2 text-xs font-bold text-[var(--ink)] shadow-sm backdrop-blur">
+                <article
+                  key={scene.label}
+                  className={`temaro-proof-module ${scene.accent} ${index === 0 ? "lg:row-span-2" : ""} overflow-hidden rounded-[1.75rem] bg-white p-5 shadow-sm`}
+                >
+                  <div className="flex items-center justify-between gap-4">
+                    <div className="flex items-center gap-2 rounded-full bg-[var(--porcelain)] px-3 py-2 text-xs font-bold text-[var(--ink)]">
                       <scene.icon className="size-4 text-[var(--cobalt)]" strokeWidth={1.9} />
                       {scene.label}
                     </div>
+                    <span className="temaro-proof-pulse" aria-hidden="true" />
                   </div>
-                  <div className="p-5">
+                  <div className="mt-8">
                     <p className="font-time text-xs font-semibold uppercase tracking-[0.16em] text-[var(--cobalt)]">
-                      reálná obrazovka
+                      provozní signál
                     </p>
-                    <h3 className="mt-2 text-2xl font-bold tracking-[-0.03em]">{scene.title}</h3>
+                    <h3 className="mt-2 text-3xl font-bold tracking-[-0.04em]">{scene.title}</h3>
                     <p className="mt-3 text-sm font-normal leading-6 text-[var(--ink-soft)]">{scene.text}</p>
+                  </div>
+                  <div className={`${index === 0 ? "mt-8" : "mt-6"} grid gap-2`}>
+                    {scene.meta.map((item) => (
+                      <div key={item} className="temaro-proof-row">
+                        <span />
+                        <p>{item}</p>
+                      </div>
+                    ))}
                   </div>
                 </article>
               ))}
