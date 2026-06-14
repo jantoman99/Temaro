@@ -53,6 +53,13 @@ describe("landing polish guard", () => {
     expect(page).toContain("<MarketingHeader />");
     expect(page).toContain("<BusinessDiscoveryHero />");
     expect(page).toContain("MobileStickyCta");
+    expect(page).toContain("heroProofItems");
+    expect(page).toContain("temaro-hero-proof-band");
+    expect(page).toContain("temaro-hero-proof-card");
+    expect(page).toContain("Bez marketplace provize");
+    expect(page).toContain("Kanály v jednom kalendáři");
+    expect(page).toContain("Zálohy a SMS");
+    expect(page).toContain("Klikatelná ukázka");
     expect(page).toContain("industryCards");
     expect(page).toContain("next/image");
     expect(page).toContain("temaro-industry-photo-card");
@@ -93,6 +100,7 @@ describe("landing polish guard", () => {
     expect(hero).toContain('"use client"');
     expect(hero).toContain("calendarEvents");
     expect(hero).toContain("sourceChannels");
+    expect(hero).toContain("productNavItems");
     expect(hero).toContain("temaro-time-atelier-hero");
     expect(hero).toContain("temaro-premium-hero");
     expect(hero).toContain("temaro-premium-copy");
@@ -104,6 +112,9 @@ describe("landing polish guard", () => {
     expect(hero).toContain("temaro-product-grid");
     expect(hero).toContain("temaro-calendar-event");
     expect(hero).toContain("temaro-booking-detail-card");
+    expect(hero).toContain("temaro-product-side-nav");
+    expect(hero).toContain("temaro-product-action-icons");
+    expect(hero).toContain("temaro-booking-client");
     expect(hero).toContain("temaro-product-phone");
     expect(hero).toContain("temaro-premium-highlight");
     expect(hero).not.toContain("next/image");
@@ -310,10 +321,15 @@ describe("landing polish guard", () => {
     expect(globals).toContain(".temaro-premium-product");
     expect(globals).toContain(".temaro-hero-product-visual");
     expect(globals).toContain(".temaro-product-desktop");
+    expect(globals).toContain(".temaro-product-side-nav");
+    expect(globals).toContain(".temaro-product-action-icons");
+    expect(globals).toContain(".temaro-booking-client");
     expect(globals).toContain(".temaro-product-calendar");
     expect(globals).toContain(".temaro-calendar-event");
     expect(globals).toContain(".temaro-booking-detail-card");
     expect(globals).toContain(".temaro-product-phone");
+    expect(globals).toContain(".temaro-hero-proof-band");
+    expect(globals).toContain(".temaro-hero-proof-card");
     expect(globals).toContain(".temaro-premium-industries");
     expect(globals).toContain(".temaro-industry-photo-card");
     expect(globals).toContain(".temaro-product-desktop::before");

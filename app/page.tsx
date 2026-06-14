@@ -91,6 +91,29 @@ const industryCards = [
   },
 ] as const;
 
+const heroProofItems = [
+  {
+    label: "Bez marketplace provize",
+    title: "Vlastní klient zůstává salonu.",
+    text: "Odkaz z webu, Instagramu, Googlu nebo QR neodvádí vztah do cizího marketplace.",
+  },
+  {
+    label: "Kanály v jednom kalendáři",
+    title: "Jeden den, jeden zdroj pravdy.",
+    text: "Tým vidí zdroj rezervace, službu, čas, klienta i další krok bez přepisování zpráv.",
+  },
+  {
+    label: "Zálohy a SMS",
+    title: "Méně prázdných míst.",
+    text: "Potvrzení, připomínka a platba zálohy jsou součást stejného rezervačního toku.",
+  },
+  {
+    label: "Klikatelná ukázka",
+    title: "Produkt se dá projít.",
+    text: "Demo ukazuje interní CRM kalendář po přihlášení, ne statické screenshoty webu.",
+  },
+] as const;
+
 const productProofScenes = [
   {
     icon: CalendarDays,
@@ -268,6 +291,20 @@ export default async function Home() {
       <MarketingHeader />
       <BusinessDiscoveryHero />
       <MobileStickyCta />
+
+      <section className="temaro-hero-proof-band px-4 py-10 sm:px-6 lg:px-8" aria-label="Důkaz produktu Temaro">
+        <div className="mx-auto grid w-full max-w-[1180px] gap-3 md:grid-cols-2 xl:grid-cols-4">
+          {heroProofItems.map((item, index) => (
+            <Reveal key={item.label} delay={index * 50} className="h-full">
+              <article className="temaro-hero-proof-card h-full">
+                <p>{item.label}</p>
+                <h2>{item.title}</h2>
+                <span>{item.text}</span>
+              </article>
+            </Reveal>
+          ))}
+        </div>
+      </section>
 
       <section id="pro-koho" className="temaro-premium-industries mx-auto w-full max-w-[1180px] px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
         <Reveal>

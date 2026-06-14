@@ -2,11 +2,17 @@
 
 import {
   ArrowRight,
+  Bell,
   CalendarDays,
+  CreditCard,
   Globe2,
   Menu,
   QrCode,
   Search,
+  Settings,
+  Smile,
+  Tag,
+  UsersRound,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -58,10 +64,26 @@ const sourceChannels = [
   { icon: QrCode, label: "QR recepce" },
 ] as const;
 
+const productNavItems = [
+  { icon: CalendarDays, label: "Kalendář", active: true },
+  { icon: Tag, label: "Služby", active: false },
+  { icon: UsersRound, label: "Klienti", active: false },
+  { icon: CreditCard, label: "Platby", active: false },
+  { icon: Settings, label: "Nastavení", active: false },
+] as const;
+
 function PremiumProductStage() {
   return (
     <div className="temaro-premium-stage temaro-hero-product-visual">
       <div className="temaro-premium-product temaro-product-desktop">
+        <nav className="temaro-product-side-nav" aria-label="Produktové moduly">
+          {productNavItems.map(({ icon: Icon, label, active }) => (
+            <span key={label} className={active ? "active" : undefined} aria-label={label}>
+              <Icon className="size-4" strokeWidth={2} />
+            </span>
+          ))}
+        </nav>
+
         <div className="temaro-product-topbar">
           <div className="flex items-center gap-3">
             <div className="grid size-10 place-items-center rounded-2xl bg-[var(--cobalt)] text-sm font-black text-white">
@@ -73,6 +95,11 @@ function PremiumProductStage() {
                 Dnes v salonu
               </p>
             </div>
+          </div>
+          <div className="temaro-product-action-icons">
+            <Search className="size-4" strokeWidth={2} />
+            <Bell className="size-4" strokeWidth={2} />
+            <Smile className="size-6 rounded-full bg-[var(--apricot)] p-1 text-[var(--ink)]" strokeWidth={2} />
           </div>
           <div className="hidden flex-wrap gap-2 md:flex">
             {sourceChannels.map(({ icon: Icon, label }) => (
@@ -109,10 +136,19 @@ function PremiumProductStage() {
               Nová rezervace
             </p>
             <h3>16:00 z Instagramu</h3>
-            <div className="mt-5 grid gap-2">
+            <div className="temaro-booking-client">
+              <div className="grid size-11 place-items-center rounded-full bg-[var(--mint)] text-sm font-black text-[var(--ink)]">
+                MK
+              </div>
+              <div>
+                <strong>Klientská karta</strong>
+                <small>poznámka, historie, zdroj</small>
+              </div>
+            </div>
+            <div className="mt-4 grid gap-2">
               <span>Lucie čeká na potvrzení</span>
+              <span className="paid">300 Kč záloha připravena</span>
               <span>SMS připomínka připravena</span>
-              <span>300 Kč záloha</span>
             </div>
           </aside>
         </div>

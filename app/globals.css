@@ -414,6 +414,34 @@
     z-index: 4;
   }
 
+  .temaro-product-side-nav {
+    background: color-mix(in srgb, var(--ink) 96%, var(--cobalt));
+    border-radius: 1.5rem;
+    display: grid;
+    gap: 0.75rem;
+    left: -0.2rem;
+    padding: 0.75rem;
+    position: absolute;
+    top: 6.2rem;
+    z-index: 6;
+  }
+
+  .temaro-product-side-nav span {
+    align-items: center;
+    border-radius: 1rem;
+    color: rgba(255, 255, 255, 0.62);
+    display: inline-flex;
+    height: 2.35rem;
+    justify-content: center;
+    width: 2.35rem;
+  }
+
+  .temaro-product-side-nav span.active {
+    background: var(--cobalt);
+    color: #ffffff;
+    box-shadow: 0 12px 28px rgba(43, 63, 242, 0.32);
+  }
+
   .temaro-product-topbar {
     align-items: center;
     border-bottom: 1px solid var(--paper-line);
@@ -421,6 +449,14 @@
     gap: 1rem;
     justify-content: space-between;
     padding: 1.35rem 1.25rem 1.1rem;
+  }
+
+  .temaro-product-action-icons {
+    align-items: center;
+    color: var(--ink);
+    display: flex;
+    gap: 0.82rem;
+    margin-left: auto;
   }
 
   .temaro-premium-channel {
@@ -439,7 +475,7 @@
 
   .temaro-product-calendar {
     display: grid;
-    grid-template-columns: 4.4rem minmax(0, 1fr) 20rem;
+    grid-template-columns: 8rem minmax(0, 1fr) 20rem;
     min-height: 31rem;
     position: relative;
   }
@@ -451,7 +487,7 @@
     font-size: 0.72rem;
     font-weight: 800;
     grid-template-rows: repeat(5, 1fr);
-    padding: 4.4rem 0.8rem 2rem;
+    padding: 4.4rem 0.8rem 2rem 6.5rem;
     text-align: right;
   }
 
@@ -563,6 +599,39 @@
     padding: 0.7rem 0.85rem;
   }
 
+  .temaro-booking-detail-card span.paid {
+    background: color-mix(in srgb, var(--mint) 78%, white);
+  }
+
+  .temaro-booking-client {
+    align-items: center;
+    background: color-mix(in srgb, var(--porcelain) 72%, white);
+    border: 1px solid var(--paper-line);
+    border-radius: 1.15rem;
+    display: flex;
+    gap: 0.8rem;
+    margin-top: 1rem;
+    padding: 0.85rem;
+  }
+
+  .temaro-booking-client strong,
+  .temaro-booking-client small {
+    display: block;
+  }
+
+  .temaro-booking-client strong {
+    font-size: 0.86rem;
+    font-weight: 950;
+    letter-spacing: -0.025em;
+  }
+
+  .temaro-booking-client small {
+    color: var(--ink-soft);
+    font-size: 0.7rem;
+    font-weight: 800;
+    margin-top: 0.16rem;
+  }
+
   .temaro-product-phone {
     aspect-ratio: 9 / 16;
     background:
@@ -656,6 +725,52 @@
     color: white;
   }
 
+  .temaro-hero-proof-band {
+    background:
+      radial-gradient(circle at 16% 0%, rgba(43, 63, 242, 0.34), transparent 22rem),
+      radial-gradient(circle at 82% 18%, rgba(204, 79, 178, 0.3), transparent 22rem),
+      linear-gradient(135deg, #101326 0%, #17218d 48%, #050712 100%);
+    color: #ffffff;
+    margin-top: -0.05rem;
+    position: relative;
+  }
+
+  .temaro-hero-proof-card {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 1.6rem;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    padding: 1.25rem;
+  }
+
+  .temaro-hero-proof-card p {
+    color: color-mix(in srgb, var(--mint) 82%, white);
+    font-family: var(--font-plex-mono);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+  }
+
+  .temaro-hero-proof-card h2 {
+    font-family: var(--font-body-stack);
+    font-size: clamp(1.25rem, 2vw, 1.65rem);
+    font-weight: 850;
+    letter-spacing: -0.008em;
+    line-height: 1.08;
+    margin-top: 0.85rem;
+    word-spacing: 0.14em;
+  }
+
+  .temaro-hero-proof-card span {
+    color: rgba(255, 255, 255, 0.72);
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 650;
+    line-height: 1.55;
+    margin-top: 0.72rem;
+  }
+
   .temaro-premium-industries {
     position: relative;
   }
@@ -727,6 +842,11 @@
 
     .temaro-product-desktop {
       min-height: 22rem;
+    }
+
+    .temaro-product-side-nav,
+    .temaro-product-action-icons {
+      display: none;
     }
 
     .temaro-premium-product > div:first-child {
