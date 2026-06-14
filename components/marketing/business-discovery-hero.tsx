@@ -3,16 +3,11 @@
 import {
   ArrowRight,
   CalendarDays,
-  CreditCard,
   Globe2,
-  MessageCircle,
+  Menu,
   QrCode,
   Search,
-  ShieldCheck,
-  Sparkles,
-  UsersRound,
 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 
 function InstagramGlyph({ className }: { className?: string }) {
@@ -25,63 +20,34 @@ function InstagramGlyph({ className }: { className?: string }) {
   );
 }
 
-const freshaPremiumStats = [
-  { value: "24/7", label: "online rezervace" },
-  { value: "0 Kč", label: "provize z vlastních kanálů" },
-  { value: "1 den", label: "kalendář, klient i platba" },
-] as const;
-
-const premiumProductColumns = [
+const calendarEvents = [
   {
-    icon: InstagramGlyph,
-    label: "Online rezervace",
-    title: "16:00 z Instagramu",
-    note: "klient vybral volný čas",
+    time: "08:30",
+    title: "Pánský střih",
+    source: "Web",
+    staff: "Adam",
     tone: "apricot",
   },
   {
-    icon: CalendarDays,
-    label: "Týmový kalendář",
-    title: "Adam / Lucie / Eva",
-    note: "den bez kolizí",
+    time: "10:30",
+    title: "Barva a foukaná",
+    source: "Google",
+    staff: "Lucie",
     tone: "mint",
   },
   {
-    icon: UsersRound,
-    label: "Klientská karta",
-    title: "Lucie čeká na potvrzení",
-    note: "historie, poznámka, no-show signál",
-    tone: "porcelain",
+    time: "12:15",
+    title: "Kosmetika",
+    source: "QR",
+    staff: "Eva",
+    tone: "blue",
   },
   {
-    icon: CreditCard,
-    label: "SMS a záloha",
-    title: "300 Kč připraveno",
-    note: "SMS připomínka připravena",
+    time: "16:00",
+    title: "Nová rezervace",
+    source: "Instagram",
+    staff: "Lucie",
     tone: "ink",
-  },
-] as const;
-
-const salonImageTiles = [
-  {
-    src: "/marketing/premium/salon-hero-wide.webp",
-    alt: "Světlý salon interiér pro Temaro",
-    label: "Beauty provoz",
-  },
-  {
-    src: "/marketing/premium/beauty-room.webp",
-    alt: "Kosmetický provoz pro online rezervace",
-    label: "Klienti",
-  },
-  {
-    src: "/marketing/premium/barber-chair.webp",
-    alt: "Barber pracovní místo pro Temaro",
-    label: "Barber",
-  },
-  {
-    src: "/marketing/premium/salon-detail.webp",
-    alt: "Detail salon provozu pro Temaro",
-    label: "Wellness",
   },
 ] as const;
 
@@ -94,16 +60,21 @@ const sourceChannels = [
 
 function PremiumProductStage() {
   return (
-    <div className="temaro-premium-stage">
-      <div className="temaro-premium-product">
-        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[var(--paper-line)] p-4 sm:p-5">
-          <div>
-            <p className="font-time text-xs font-semibold uppercase tracking-[0.16em] text-[var(--cobalt)]">
-              Dnešní provoz
-            </p>
-            <h2 className="mt-1 text-2xl font-bold tracking-[-0.04em] sm:text-3xl">Salon v jednom pohledu</h2>
+    <div className="temaro-premium-stage temaro-hero-product-visual">
+      <div className="temaro-premium-product temaro-product-desktop">
+        <div className="temaro-product-topbar">
+          <div className="flex items-center gap-3">
+            <div className="grid size-10 place-items-center rounded-2xl bg-[var(--cobalt)] text-sm font-black text-white">
+              T
+            </div>
+            <div>
+              <p className="text-sm font-black tracking-[-0.02em]">Temaro</p>
+              <p className="font-time text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[var(--ink-soft)]">
+                Dnes v salonu
+              </p>
+            </div>
           </div>
-          <div className="flex flex-wrap gap-2">
+          <div className="hidden flex-wrap gap-2 md:flex">
             {sourceChannels.map(({ icon: Icon, label }) => (
               <span key={label} className="temaro-premium-channel">
                 <Icon className="size-4" strokeWidth={1.9} />
@@ -113,52 +84,55 @@ function PremiumProductStage() {
           </div>
         </div>
 
-        <div className="grid gap-3 p-4 sm:p-5 lg:grid-cols-4">
-          {premiumProductColumns.map((column) => (
-            <article key={column.label} className={`temaro-premium-product-column ${column.tone}`}>
-              <div className="flex items-center justify-between gap-3">
-                <span className="grid size-10 place-items-center rounded-2xl bg-white/78 text-[var(--ink)]">
-                  <column.icon className="size-5" strokeWidth={1.9} />
-                </span>
-                <span className="font-time text-[0.68rem] font-semibold uppercase tracking-[0.14em] opacity-70">
-                  {column.label}
-                </span>
+        <div className="temaro-product-calendar">
+          <div className="temaro-product-rail">
+            {["08", "10", "12", "14", "16"].map((hour) => (
+              <span key={hour}>{hour}:00</span>
+            ))}
+          </div>
+          <div className="temaro-product-grid">
+            {["Adam", "Lucie", "Eva", "Recepce"].map((staff) => (
+              <div key={staff} className="temaro-product-staff">
+                <span>{staff}</span>
               </div>
-              <h3 className="mt-9 text-2xl font-bold tracking-[-0.04em]">{column.title}</h3>
-              <p className="mt-2 text-sm font-semibold leading-6 opacity-75">{column.note}</p>
-            </article>
-          ))}
-        </div>
-
-        <div className="temaro-premium-flow-card mx-4 mb-4 grid gap-3 rounded-[1.4rem] bg-[var(--ink)] p-4 text-white sm:mx-5 sm:mb-5 md:grid-cols-3">
-          <div className="flex items-center gap-2">
-            <MessageCircle className="size-4 text-[var(--mint)]" strokeWidth={1.9} />
-            <p className="text-sm font-bold">SMS připomínka připravena</p>
+            ))}
+            {calendarEvents.map((event, index) => (
+              <article key={`${event.time}-${event.title}`} className={`temaro-calendar-event ${event.tone} event-${index + 1}`}>
+                <p className="font-time text-xs font-semibold">{event.time}</p>
+                <h3>{event.title}</h3>
+                <span>{event.source}</span>
+              </article>
+            ))}
           </div>
-          <div className="flex items-center gap-2">
-            <ShieldCheck className="size-4 text-[var(--apricot)]" strokeWidth={1.9} />
-            <p className="text-sm font-bold">vlastní klienti zůstávají vám</p>
-          </div>
-          <div className="flex items-center gap-2">
-            <CreditCard className="size-4 text-white" strokeWidth={1.9} />
-            <p className="text-sm font-bold">záloha připravená bez volání</p>
-          </div>
+          <aside className="temaro-booking-detail-card">
+            <p className="font-time text-xs font-semibold uppercase tracking-[0.14em] text-[var(--cobalt)]">
+              Nová rezervace
+            </p>
+            <h3>16:00 z Instagramu</h3>
+            <div className="mt-5 grid gap-2">
+              <span>Lucie čeká na potvrzení</span>
+              <span>SMS připomínka připravena</span>
+              <span>300 Kč záloha</span>
+            </div>
+          </aside>
         </div>
       </div>
 
-      <div className="temaro-salon-image-strip">
-        {salonImageTiles.map((tile, index) => (
-          <figure key={tile.label} className={`temaro-salon-image-tile tile-${index + 1}`}>
-            <Image
-              src={tile.src}
-              alt={tile.alt}
-              fill
-              sizes="(min-width: 1024px) 24vw, 48vw"
-              className="object-cover"
-            />
-            <figcaption>{tile.label}</figcaption>
-          </figure>
-        ))}
+      <div className="temaro-product-phone" aria-label="Mobilní náhled rezervací">
+        <div className="temaro-phone-top">
+          <Menu className="size-4" strokeWidth={2} />
+          <span>Středa</span>
+          <CalendarDays className="size-4" strokeWidth={2} />
+        </div>
+        <div className="grid gap-2">
+          {calendarEvents.slice(1).map((event) => (
+            <article key={event.time} className={`temaro-phone-event ${event.tone}`}>
+              <span>{event.time}</span>
+              <strong>{event.title}</strong>
+              <small>{event.source}</small>
+            </article>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -168,20 +142,15 @@ export function BusinessDiscoveryHero() {
   return (
     <section
       id="produkt"
-      className="temaro-time-atelier-hero temaro-premium-hero relative overflow-hidden px-4 pb-16 pt-28 sm:px-6 sm:pb-20 sm:pt-32 lg:px-8"
+      className="temaro-time-atelier-hero temaro-premium-hero relative overflow-hidden px-4 pb-12 pt-28 sm:px-6 sm:pb-16 sm:pt-32 lg:px-8"
     >
-      <div className="temaro-premium-copy mx-auto max-w-[1120px] text-center">
-        <div className="inline-flex items-center gap-2 rounded-full border border-[var(--paper-line)] bg-white/86 px-4 py-2 text-sm font-bold text-[var(--ink)] shadow-sm">
-          <Sparkles className="size-4 text-[var(--cobalt)]" strokeWidth={1.9} />
-          Salon platforma Temaro
-        </div>
-
-        <h1 className="font-display mx-auto mt-5 max-w-6xl text-balance text-[clamp(2.85rem,13vw,3.45rem)] font-semibold leading-[0.92] tracking-[-0.078em] sm:mt-7 sm:text-[clamp(3.35rem,8.6vw,8.4rem)] sm:leading-[0.88]">
-          Rezervace, platby a klienti <span className="temaro-premium-highlight">v jednom salon systému.</span>
+      <div className="temaro-premium-copy mx-auto max-w-[1040px] text-center">
+        <h1 className="font-display mx-auto max-w-5xl text-balance text-[clamp(3.2rem,13vw,4rem)] font-semibold leading-[0.92] tracking-[-0.078em] sm:text-[clamp(3.8rem,7.2vw,7rem)] sm:leading-[0.88]">
+          Rezervace <span className="temaro-premium-highlight">pro salony.</span>
         </h1>
 
-        <p className="mx-auto mt-4 max-w-2xl text-pretty text-base font-semibold leading-7 text-[var(--ink-soft)] sm:mt-6 sm:text-xl sm:leading-8">
-          Temaro spojí web, Instagram, Google a QR do jednoho přehledného kalendáře.
+        <p className="mx-auto mt-4 max-w-xl text-pretty text-base font-semibold leading-7 text-[var(--ink-soft)] sm:text-xl sm:leading-8">
+          Kalendář, klienti a platby bez volání.
         </p>
 
         <div className="mt-5 flex flex-col items-center justify-center gap-3 sm:mt-7 sm:flex-row">
@@ -200,14 +169,6 @@ export function BusinessDiscoveryHero() {
           </Link>
         </div>
 
-        <div className="mx-auto mt-7 grid max-w-3xl gap-2 sm:grid-cols-3">
-          {freshaPremiumStats.map((stat) => (
-            <div key={stat.label} className="temaro-premium-stat">
-              <p className="font-time text-xl font-semibold text-[var(--ink)]">{stat.value}</p>
-              <p className="text-xs font-bold text-[var(--ink-soft)]">{stat.label}</p>
-            </div>
-          ))}
-        </div>
       </div>
 
       <PremiumProductStage />

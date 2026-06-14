@@ -1,6 +1,6 @@
 # Runtime checklist
 
-Aktualizováno: 2026-06-14 17:54 CEST
+Aktualizováno: 2026-06-14 18:23 CEST
 
 Tento checklist je pro první reálné ověření mimo demo režim.
 
@@ -31,6 +31,8 @@ Aktuální známý stav:
 - Lokální ověření 2026-06-14 17:54 CEST po Fresha-like premium passu: screenshot/vision audit je v `output/playwright/fresha-premium-final-2026-06-14/`; mobilní metrics po čistém dev restartu potvrdily `overflowX=0`, `firstCardTop=807.296875`, `firstCardVisible=true`, `oldHeroCount=0`.
 - Lokální check 2026-06-14 17:56 CEST: `npx vitest run tests/landing-polish.test.ts` 22/22, `git diff --check` čistý, `npx impeccable detect app components` bez výstupu, `npm run lint` prošel a `npm run check` prošlo s 600 Vitest testy, migrations check, type-check, lint a produkční build.
 - Staging check 2026-06-14 18:03 CEST: `https://rezervacni-system-dev.vercel.app` míří na preview `dpl_FY2Ev4AcUnPy4LSW3aNWg3e2S8Mn`; `/api/health` vrací `status=ok`; HTML obsahuje `Rezervace, platby a klienti`, `temaro-premium-hero`, `temaro-premium-stage`, `temaro-premium-product`, `temaro-salon-image-strip` a neobsahuje staré salon-wall/screenshot signatury. Asset `/marketing/premium/salon-hero-wide.webp` vrací `200 image/webp`.
+- Runtime po Fresha product-image hero passu ověřit na staging `/`: first fold má obsahovat `Rezervace pro salony.`, `Kalendář, klienti a platby bez volání.`, `temaro-hero-product-visual`, `temaro-product-desktop`, `temaro-product-calendar`, `temaro-booking-detail-card`, `temaro-product-phone`, CTA `Registrovat salon` a `Vidět ukázku`. Produktový obraz má začít zhruba v první polovině first foldu, desktop kolem `y≈388` a mobil kolem `y≈411`. Nesmí se vrátit `temaro-premium-product-column`, `temaro-salon-image-strip`, stat chips v hero, product screenshot assety ani nadbytečný odstavec v hero.
+- Lokální check 2026-06-14 18:23 CEST po product-image hero passu: `output/playwright/fresha-product-hero-2026-06-14/home-desktop-v5-final.png`, `home-mobile-v5-final.png`; `npx vitest run tests/landing-polish.test.ts` 22/22, `npm run type-check`, `npm run lint -- --quiet`, `git diff --check`, `npx impeccable detect app components` a `npm run check` s 600 Vitest testy prošly.
 - Ověření 2026-06-14 17:05 CEST po hero salon wall redesignu: staging alias `https://rezervacni-system-dev.vercel.app` míří na preview `dpl_9E3BBxEbtf8GyGr5n9SXGQXWcrfz`; `/api/health` vrací `status=ok`; HTML obsahuje nové salon wall signatury a neobsahuje staré flow/orbit/screenshot signatury; asset `/marketing/hero/salon-command-wall.webp` vrací `200 image/webp`.
 - Ověření 2026-06-14 17:18 CEST po color/type 5/5 passu: staging alias `https://rezervacni-system-dev.vercel.app` míří na preview `dpl_7hd1itBUXzXiZWzcisQLBq1zJzM5`; `/api/health` vrací `status=ok`; HTML obsahuje `Klienti rezervují. Kalendář drží den.`, `temaro-command-copy`, `temaro-stat-card`, `temaro-proof-flow`, `temaro-risk-strip`, `temaro-booking-time`; neobsahuje starý claim `Rezervace bez chaosu v inboxu.` ani staré flow/orbit/screenshot signatury.
 - Runtime landingu ověřit bez dekorativních grid pozadí: žádná viditelná mřížka na hero pozadí, proof modulech, `signal-grid`, `signal-map`, `interactive-demo-shell` ani `temaro-day-grid`. Kalendář může používat slotové karty a časové popisky, ne mřížkované pozadí jako dekoraci.
