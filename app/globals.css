@@ -775,9 +775,94 @@
     position: relative;
   }
 
+  .temaro-industry-showcase {
+    color: var(--ink);
+  }
+
+  .temaro-industry-kicker-row {
+    align-items: end;
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: minmax(0, 1.08fr) minmax(18rem, 0.46fr);
+  }
+
+  .temaro-industry-intro {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    gap: 1.35rem;
+  }
+
+  .temaro-industry-intro p {
+    color: var(--ink-soft);
+    font-size: 1.04rem;
+    font-weight: 620;
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .temaro-industry-pill-strip {
+    display: flex;
+    gap: 0.65rem;
+    overflow-x: auto;
+    padding: 0.25rem 0.05rem 0.4rem;
+    scrollbar-width: none;
+  }
+
+  .temaro-industry-pill-strip::-webkit-scrollbar {
+    display: none;
+  }
+
+  .temaro-industry-pill-strip a {
+    align-items: center;
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid color-mix(in srgb, var(--ink) 11%, transparent);
+    border-radius: 999px;
+    box-shadow: 0 1rem 2.4rem rgba(22, 24, 33, 0.06);
+    color: var(--ink);
+    display: inline-flex;
+    flex: 0 0 auto;
+    font-size: 0.86rem;
+    font-weight: 780;
+    gap: 0.45rem;
+    padding: 0.78rem 1rem;
+    text-decoration: none;
+    transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
+  }
+
+  .temaro-industry-pill-strip a:hover {
+    background: white;
+    border-color: color-mix(in srgb, var(--cobalt) 34%, transparent);
+    transform: translateY(-2px);
+  }
+
+  .temaro-industry-layout {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: minmax(0, 1.24fr) minmax(0, 0.72fr) minmax(0, 0.72fr);
+  }
+
   .temaro-industry-photo-card {
+    background: var(--ink);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 2rem;
+    box-shadow: 0 2.2rem 5rem rgba(25, 28, 38, 0.13);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 20rem;
+    overflow: hidden;
+    padding: 1.35rem;
+    text-decoration: none;
+    transition: transform 220ms ease, box-shadow 220ms ease;
     isolation: isolate;
     position: relative;
+  }
+
+  .temaro-industry-photo-card:hover {
+    box-shadow: 0 2.6rem 5.5rem rgba(25, 28, 38, 0.18);
+    transform: translateY(-4px);
   }
 
   .temaro-industry-photo-card::before {
@@ -801,10 +886,192 @@
     z-index: 2;
   }
 
+  .temaro-industry-feature-shell {
+    grid-row: span 2;
+  }
+
+  .temaro-industry-feature-card {
+    min-height: 42rem;
+    padding: 1.55rem;
+  }
+
+  .temaro-industry-card-copy {
+    position: relative;
+    z-index: 3;
+  }
+
+  .temaro-industry-card-copy span {
+    background: rgba(255, 255, 255, 0.16);
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    border-radius: 999px;
+    color: white;
+    display: inline-flex;
+    font-family: var(--font-plex-mono);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    padding: 0.48rem 0.72rem;
+    text-transform: uppercase;
+    backdrop-filter: blur(12px);
+  }
+
+  .temaro-industry-card-copy h3 {
+    font-family: var(--font-body-stack);
+    font-size: clamp(2.5rem, 4.6vw, 5rem);
+    font-weight: 900;
+    letter-spacing: -0.075em;
+    line-height: 0.9;
+    margin-top: 1rem;
+    max-width: 9ch;
+  }
+
+  .temaro-industry-card-copy p {
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 0.95rem;
+    font-weight: 680;
+    line-height: 1.55;
+    margin-top: 0.9rem;
+    max-width: 21rem;
+  }
+
+  .temaro-industry-mini-card {
+    min-height: 20.5rem;
+  }
+
+  .temaro-industry-mini-card .temaro-industry-card-copy h3 {
+    font-size: clamp(2.25rem, 3vw, 3.4rem);
+  }
+
+  .temaro-industry-mini-card .temaro-industry-card-copy p {
+    max-width: 18rem;
+  }
+
+  .temaro-industry-overlay {
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(255, 255, 255, 0.82);
+    border-radius: 1.45rem;
+    box-shadow: 0 1.4rem 3rem rgba(15, 18, 30, 0.18);
+    color: var(--ink);
+    left: 1.45rem;
+    max-width: min(22rem, calc(100% - 2.9rem));
+    padding: 1rem;
+    position: absolute;
+    right: 1.45rem;
+    top: 1.45rem;
+    z-index: 4;
+    backdrop-filter: blur(18px);
+  }
+
+  .temaro-industry-overlay p {
+    color: var(--cobalt);
+    font-family: var(--font-plex-mono);
+    font-size: 0.7rem;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    margin: 0 0 0.65rem;
+    text-transform: uppercase;
+  }
+
+  .temaro-industry-overlay strong {
+    align-items: baseline;
+    display: flex;
+    font-size: 1.14rem;
+    font-weight: 900;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    letter-spacing: -0.035em;
+    line-height: 1.05;
+  }
+
+  .temaro-industry-overlay strong span:first-child {
+    background: var(--cobalt-tint);
+    border-radius: 999px;
+    color: var(--cobalt);
+    display: inline-flex;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+    padding: 0.22rem 0.45rem;
+  }
+
+  .temaro-industry-overlay > span {
+    color: var(--ink-soft);
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 720;
+    margin-top: 0.42rem;
+  }
+
+  .temaro-industry-overlay div {
+    display: flex;
+    gap: 0.45rem;
+    margin-top: 0.8rem;
+  }
+
+  .temaro-industry-overlay small {
+    background: color-mix(in srgb, var(--mint) 54%, white);
+    border-radius: 999px;
+    color: var(--ink);
+    font-size: 0.72rem;
+    font-weight: 850;
+    padding: 0.38rem 0.55rem;
+  }
+
+  .temaro-industry-compact-shell {
+    grid-column: 2 / 4;
+  }
+
+  .temaro-industry-compact-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .temaro-industry-compact-card {
+    align-items: end;
+    background: var(--ink);
+    border: 1px solid rgba(255, 255, 255, 0.74);
+    border-radius: 1.65rem;
+    box-shadow: 0 1.4rem 3.6rem rgba(25, 28, 38, 0.11);
+    color: white;
+    display: flex;
+    min-height: 18.5rem;
+    overflow: hidden;
+    padding: 1rem;
+    position: relative;
+    text-decoration: none;
+    transition: transform 220ms ease, box-shadow 220ms ease;
+  }
+
+  .temaro-industry-compact-card:hover {
+    box-shadow: 0 1.8rem 4rem rgba(25, 28, 38, 0.16);
+    transform: translateY(-4px);
+  }
+
+  .temaro-industry-compact-card::before {
+    background: linear-gradient(180deg, transparent 0%, rgba(16, 18, 28, 0.85) 100%);
+    content: "";
+    inset: 0;
+    position: absolute;
+    z-index: 1;
+  }
+
+  .temaro-industry-compact-card span {
+    background: rgba(255, 255, 255, 0.16);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 850;
+    padding: 0.5rem 0.72rem;
+    position: relative;
+    z-index: 2;
+    backdrop-filter: blur(12px);
+  }
+
   .temaro-premium-industries::before {
     background:
-      radial-gradient(circle at 10% 20%, color-mix(in srgb, var(--mint) 30%, transparent), transparent 18rem),
-      radial-gradient(circle at 92% 6%, color-mix(in srgb, var(--apricot) 28%, transparent), transparent 18rem);
+      radial-gradient(circle at 10% 22%, color-mix(in srgb, var(--mint) 34%, transparent), transparent 19rem),
+      radial-gradient(circle at 92% 4%, color-mix(in srgb, var(--apricot) 34%, transparent), transparent 20rem),
+      linear-gradient(180deg, transparent 0%, color-mix(in srgb, var(--porcelain) 66%, transparent) 100%);
     content: "";
     inset: 0;
     pointer-events: none;
@@ -815,7 +1082,57 @@
     position: relative;
   }
 
+  @media (max-width: 1024px) {
+    .temaro-industry-kicker-row,
+    .temaro-industry-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .temaro-industry-feature-shell,
+    .temaro-industry-compact-shell {
+      grid-column: auto;
+      grid-row: auto;
+    }
+
+    .temaro-industry-compact-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
   @media (max-width: 640px) {
+    .temaro-industry-kicker-row,
+    .temaro-industry-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .temaro-industry-feature-shell,
+    .temaro-industry-compact-shell {
+      grid-column: auto;
+      grid-row: auto;
+    }
+
+    .temaro-industry-feature-card {
+      min-height: 34rem;
+    }
+
+    .temaro-industry-mini-card {
+      min-height: 24rem;
+    }
+
+    .temaro-industry-compact-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .temaro-industry-compact-card {
+      min-height: 14rem;
+    }
+
+    .temaro-industry-overlay {
+      left: 1rem;
+      right: 1rem;
+      top: 1rem;
+    }
+
     .temaro-premium-copy h1 {
       font-size: clamp(2.85rem, 13vw, 3.45rem);
       line-height: 0.92;

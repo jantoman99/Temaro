@@ -91,6 +91,10 @@ const industryCards = [
   },
 ] as const;
 
+const featuredIndustry = industryCards[1];
+const secondaryIndustries = [industryCards[0], industryCards[3]] as const;
+const compactIndustries = [industryCards[2], industryCards[4], industryCards[5]] as const;
+
 const heroProofItems = [
   {
     label: "Bez marketplace provize",
@@ -306,47 +310,108 @@ export default async function Home() {
         </div>
       </section>
 
-      <section id="pro-koho" className="temaro-premium-industries mx-auto w-full max-w-[1180px] px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
+      <section id="pro-koho" className="temaro-premium-industries temaro-industry-showcase mx-auto w-full max-w-[1180px] px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
         <Reveal>
-          <div className="mx-auto max-w-4xl text-center">
-            <p className="section-eyebrow">Pro koho</p>
-            <h2 className="font-display mt-3 text-balance text-5xl font-semibold leading-[0.98] sm:text-6xl">
-              Provozy, kde se prodává čas.
-            </h2>
-            <p className="mx-auto mt-5 max-w-2xl text-lg font-normal leading-8 text-[var(--ink-soft)]">
-              Barber, beauty, kadeřnictví i masáže potřebují stejný základ: volný čas, jasné potvrzení a klidný návrat klienta.
-            </p>
+          <div className="temaro-industry-kicker-row">
+            <div>
+              <p className="section-eyebrow">Pro koho</p>
+              <h2 className="font-display mt-3 text-balance text-5xl font-semibold leading-[0.96] sm:text-6xl">
+                Jeden kalendář pro provozy, které prodávají <span className="text-[var(--cobalt)]">čas.</span>
+              </h2>
+            </div>
+            <div className="temaro-industry-intro">
+              <p>
+                Každý obor má jiné tempo. Temaro drží stejný základ: služba, člověk, volný termín,
+                zdroj rezervace a další krok.
+              </p>
+              <Link href="/ukazka" className="temaro-focus-ring inline-flex items-center gap-2 rounded-full bg-[var(--ink)] px-5 py-3 text-sm font-bold text-white">
+                Projít ukázku
+                <ArrowRight className="size-4" />
+              </Link>
+            </div>
           </div>
         </Reveal>
 
-        <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {industryCards.map((card, index) => (
-            <Reveal key={card.label} delay={index * 70} className="h-full">
+        <Reveal delay={80}>
+          <div className="temaro-industry-pill-strip" aria-label="Obory pro Temaro">
+            {industryCards.map((card) => (
+              <Link key={card.label} href={card.href} className="temaro-focus-ring">
+                {card.label}
+                <ArrowRight className="size-3.5" />
+              </Link>
+            ))}
+          </div>
+        </Reveal>
+
+        <div className="temaro-industry-layout mt-8">
+          <Reveal className="temaro-industry-feature-shell h-full">
+            <Link
+              href={featuredIndustry.href}
+              className="temaro-industry-photo-card temaro-industry-feature-card temaro-focus-ring group"
+            >
+              <Image
+                src={featuredIndustry.image}
+                alt={`${featuredIndustry.label} provoz pro Temaro`}
+                fill
+                sizes="(min-width: 1024px) 48vw, 92vw"
+                className="object-cover transition duration-700 group-hover:scale-105"
+                priority={false}
+              />
+              <div className="temaro-industry-card-copy">
+                <span>{featuredIndustry.label}</span>
+                <h3>{featuredIndustry.title}</h3>
+                <p>{featuredIndustry.text}</p>
+              </div>
+              <div className="temaro-industry-overlay" aria-hidden="true">
+                <p>Dnešní plán</p>
+                <strong><span>10:30</span><span>Barva a foukaná</span></strong>
+                <span>Google rezervace · záloha připravena</span>
+                <div>
+                  <small>Lucie</small>
+                  <small>90 min</small>
+                </div>
+              </div>
+            </Link>
+          </Reveal>
+
+          {secondaryIndustries.map((card, index) => (
+            <Reveal key={card.label} delay={(index + 2) * 70} className="h-full">
               <Link
                 href={card.href}
-                className="temaro-industry-photo-card temaro-focus-ring group flex h-full min-h-[22rem] flex-col justify-end overflow-hidden rounded-[1.75rem] border border-white/70 bg-[var(--ink)] p-5 text-white shadow-sm transition hover:-translate-y-1"
+                className="temaro-industry-photo-card temaro-industry-mini-card temaro-focus-ring group"
               >
                 <Image
                   src={card.image}
                   alt={`${card.label} provoz pro Temaro`}
                   fill
-                  sizes="(min-width: 1024px) 31vw, (min-width: 768px) 46vw, 92vw"
-                  className="object-cover transition duration-500 group-hover:scale-105"
+                  sizes="(min-width: 1024px) 24vw, (min-width: 768px) 46vw, 92vw"
+                  className="object-cover transition duration-700 group-hover:scale-105"
                 />
-                <div className="relative z-10">
-                  <span className="font-time rounded-full bg-white/16 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-md">
-                    {card.label}
-                  </span>
-                  <h3 className="mt-5 text-4xl font-bold tracking-[-0.06em]">{card.title}</h3>
-                  <p className="mt-3 max-w-sm text-sm font-semibold leading-6 text-white/78">{card.text}</p>
+                <div className="temaro-industry-card-copy">
+                  <span>{card.label}</span>
+                  <h3>{card.title}</h3>
+                  <p>{card.text}</p>
                 </div>
-                <span className="relative z-10 mt-8 inline-flex items-center gap-2 text-sm font-bold text-white">
-                  Otevřít obor
-                  <ArrowRight className="size-4 transition group-hover:translate-x-1" />
-                </span>
               </Link>
             </Reveal>
           ))}
+
+          <Reveal delay={260} className="temaro-industry-compact-shell">
+            <div className="temaro-industry-compact-grid">
+              {compactIndustries.map((card) => (
+                <Link key={card.label} href={card.href} className="temaro-industry-compact-card temaro-focus-ring">
+                  <Image
+                    src={card.image}
+                    alt={`${card.label} provoz pro Temaro`}
+                    fill
+                    sizes="(min-width: 1024px) 16vw, 44vw"
+                    className="object-cover"
+                  />
+                  <span>{card.label}</span>
+                </Link>
+              ))}
+            </div>
+          </Reveal>
         </div>
       </section>
 

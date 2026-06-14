@@ -61,8 +61,17 @@ describe("landing polish guard", () => {
     expect(page).toContain("Zálohy a SMS");
     expect(page).toContain("Klikatelná ukázka");
     expect(page).toContain("industryCards");
+    expect(page).toContain("featuredIndustry");
+    expect(page).toContain("secondaryIndustries");
+    expect(page).toContain("compactIndustries");
     expect(page).toContain("next/image");
+    expect(page).toContain("temaro-industry-showcase");
+    expect(page).toContain("temaro-industry-pill-strip");
     expect(page).toContain("temaro-industry-photo-card");
+    expect(page).toContain("temaro-industry-feature-card");
+    expect(page).toContain("temaro-industry-overlay");
+    expect(page).toContain("Dnešní plán");
+    expect(page).toContain("Google rezervace");
     expect(page).toContain("/marketing/industries/barber.webp");
     expect(page).toContain("/marketing/industries/hair-salon.webp");
     expect(page).toContain("/marketing/industries/beauty.webp");
@@ -189,7 +198,8 @@ describe("landing polish guard", () => {
     const page = readProjectFile("app/page.tsx");
 
     expect(page).toContain("temaro-premium-industries");
-    expect(page).toContain("Provozy, kde se prodává čas");
+    expect(page).toContain("Jeden kalendář pro provozy, které prodávají");
+    expect(page).toContain('text-[var(--cobalt)]">čas.');
     expect(page).not.toContain("Jeden systém, různé tempo provozu");
     expect(page).toContain("Barber");
     expect(page).toContain("Kadeřnictví");
@@ -331,7 +341,14 @@ describe("landing polish guard", () => {
     expect(globals).toContain(".temaro-hero-proof-band");
     expect(globals).toContain(".temaro-hero-proof-card");
     expect(globals).toContain(".temaro-premium-industries");
+    expect(globals).toContain(".temaro-industry-showcase");
+    expect(globals).toContain(".temaro-industry-kicker-row");
+    expect(globals).toContain(".temaro-industry-pill-strip");
     expect(globals).toContain(".temaro-industry-photo-card");
+    expect(globals).toContain(".temaro-industry-feature-card");
+    expect(globals).toContain(".temaro-industry-mini-card");
+    expect(globals).toContain(".temaro-industry-overlay");
+    expect(globals).toContain(".temaro-industry-compact-card");
     expect(globals).toContain(".temaro-product-desktop::before");
     expect(globals).toContain(".temaro-product-phone::before");
     expect(globals).toContain("border: 0.62rem solid color-mix(in srgb, var(--ink) 88%, var(--cobalt))");
