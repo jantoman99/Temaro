@@ -182,11 +182,11 @@ export function BusinessDiscoveryHero() {
     >
       <div className="temaro-premium-copy mx-auto max-w-[1040px] text-center">
         <h1 className="font-display mx-auto max-w-5xl text-balance text-[clamp(3.2rem,13vw,4rem)] font-semibold leading-[0.92] tracking-[-0.078em] sm:text-[clamp(3.8rem,7.2vw,7rem)] sm:leading-[0.88]">
-          Rezervace <span className="temaro-premium-highlight">pro salony.</span>
+          Plnější kalendář <span className="temaro-premium-highlight">bez volání.</span>
         </h1>
 
-        <p className="mx-auto mt-4 max-w-xl text-pretty text-base font-semibold leading-7 text-[var(--ink-soft)] sm:text-xl sm:leading-8">
-          Kalendář, klienti a platby bez volání.
+        <p className="mx-auto mt-4 max-w-2xl text-pretty text-base font-semibold leading-7 text-[var(--ink-soft)] sm:text-xl sm:leading-8">
+          Online rezervace, klienti, SMS a zálohy v jednom pohledu pro salony, barbery a služby.
         </p>
 
         <div className="mt-5 flex flex-col items-center justify-center gap-3 sm:mt-7 sm:flex-row">

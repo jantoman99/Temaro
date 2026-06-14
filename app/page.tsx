@@ -98,24 +98,24 @@ const compactIndustries = [industryCards[2], industryCards[4], industryCards[5]]
 
 const heroProofItems = [
   {
-    label: "Bez marketplace provize",
-    title: "Vlastní klient zůstává salonu.",
-    text: "Odkaz z webu, Instagramu, Googlu nebo QR neodvádí vztah do cizího marketplace.",
+    label: "Vlastní klienti",
+    title: "0 %",
+    text: "provize z rezervací z vašeho webu, Instagramu, Googlu nebo QR.",
   },
   {
-    label: "Kanály v jednom kalendáři",
-    title: "Jeden den, jeden zdroj pravdy.",
-    text: "Tým vidí zdroj rezervace, službu, čas, klienta i další krok bez přepisování zpráv.",
+    label: "Jeden kalendář",
+    title: "4 kanály",
+    text: "web, Instagram, Google a QR končí ve stejném provozním pohledu.",
   },
   {
-    label: "Zálohy a SMS",
-    title: "Méně prázdných míst.",
-    text: "Potvrzení, připomínka a platba zálohy jsou součást stejného rezervačního toku.",
+    label: "No-show ochrana",
+    title: "SMS + záloha",
+    text: "připomínka a další krok jsou vidět dřív než prázdná židle.",
   },
   {
-    label: "Klikatelná ukázka",
-    title: "Produkt se dá projít.",
-    text: "Demo ukazuje interní CRM kalendář po přihlášení, ne statické screenshoty webu.",
+    label: "Produktová ukázka",
+    title: "CRM demo",
+    text: "klikací kalendář po přihlášení, ne statické screenshoty webu.",
   },
 ] as const;
 
@@ -297,7 +297,7 @@ export default async function Home() {
       <BusinessDiscoveryHero />
       <MobileStickyCta />
 
-      <section className="temaro-hero-proof-band px-4 py-10 sm:px-6 lg:px-8" aria-label="Důkaz produktu Temaro">
+      <section className="temaro-hero-proof-band px-4 py-8 sm:px-6 sm:py-9 lg:px-8" aria-label="Důkaz produktu Temaro">
         <div className="mx-auto grid w-full max-w-[1180px] gap-3 md:grid-cols-2 xl:grid-cols-4">
           {heroProofItems.map((item, index) => (
             <Reveal key={item.label} delay={index * 50} className="h-full">

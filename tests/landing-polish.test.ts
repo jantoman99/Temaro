@@ -57,10 +57,10 @@ describe("landing polish guard", () => {
     expect(page).toContain("heroProofItems");
     expect(page).toContain("temaro-hero-proof-band");
     expect(page).toContain("temaro-hero-proof-card");
-    expect(page).toContain("Bez marketplace provize");
-    expect(page).toContain("Kanály v jednom kalendáři");
-    expect(page).toContain("Zálohy a SMS");
-    expect(page).toContain("Klikatelná ukázka");
+    expect(page).toContain("Vlastní klienti");
+    expect(page).toContain("Jeden kalendář");
+    expect(page).toContain("No-show ochrana");
+    expect(page).toContain("Produktová ukázka");
     expect(page).toContain("FeatureStoryBento");
     expect(bento).toContain("Jedna rezervace projde celým provozem");
     expect(bento).toContain('id="produktovy-pribeh"');
@@ -142,9 +142,9 @@ describe("landing polish guard", () => {
     expect(hero).not.toContain("/marketing/product/temaro-client-booking-mobile.jpg");
     expect(hero).not.toContain("/marketing/product/temaro-business-discovery.jpg");
     expect(hero).not.toContain("booking-phone-preview");
-    expect(hero).toContain("Rezervace");
-    expect(hero).toContain("pro salony");
-    expect(hero).toContain("Kalendář, klienti a platby bez volání");
+    expect(hero).toContain("Plnější kalendář");
+    expect(hero).toContain("bez volání");
+    expect(hero).toContain("Online rezervace, klienti, SMS a zálohy");
     expect(hero).toContain("Registrovat salon");
     expect(hero).toContain("Vidět ukázku");
     expect(hero).toContain("Dnes v salonu");
