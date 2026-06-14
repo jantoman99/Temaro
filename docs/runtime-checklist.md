@@ -1,6 +1,6 @@
 # Runtime checklist
 
-Aktualizováno: 2026-06-14 14:52 CEST
+Aktualizováno: 2026-06-14 15:17 CEST
 
 Tento checklist je pro první reálné ověření mimo demo režim.
 
@@ -28,6 +28,7 @@ Aktuální známý stav:
 - Vercel SSO deployment protection je vypnutá, aby stabilní staging URL byla veřejně ověřitelná. Staging `/api/health` vrací `status=ok`, Supabase je configured/ok a `rate_limit.configured=false`, protože staging Upstash zatím není nastavený.
 - Predeploy vizuální záloha 2026-06-09: screenshoty a patch aktuální homepage jsou uložené v `/mnt/c/Users/hanys/Desktop/temaro-visual-backups/2026-06-08-business-discovery-predeploy`; backup branch `backup/visual-predeploy-20260608-business-discovery` je pushnutá na GitHub.
 - Runtime po aktuálním calendar-led landing redesignu ověřit na staging `/`: hero text `Váš kalendář má mít vlastní rytmus.`, viditelný badge `Ateliér času Temaro`, class `temaro-time-atelier-hero`, code-native provozní kalendář `temaro-control-room`, `temaro-calendar-board`, `temaro-live-booking`, `temaro-live-thread`, proof sekci `temaro-operations-board`, CTA `Registrovat salon` a `Spustit ukázku`, desktop navigaci `Produkt / Pro koho / Návody / Ceník / Bez marketplace / Bezpečnost / Ukázka`, mobilní hamburger menu, sekce `pro-koho`, `produktovy-dukaz`, `cenik`, `bez-marketplace`, `jak-to-funguje`, `bezpecnost` a nulový horizontální overflow na desktopu i mobilu. Hero nesmí obsahovat `img`. Nesmí existovat `temaro-cinema-frame`, `temaro-screenshot-gallery`, `temaro-screenshot-strip`, `booking-phone-preview`, `/marketing/product/temaro-product-app-screen.jpg`, `/marketing/product/temaro-client-booking-mobile.jpg`, `/marketing/product/temaro-business-discovery.jpg`, `trust-bar`, `salon-operating-hero`, `product-window-*`, `photo-led-hero`, `dispatch-day-rail`, `mobile-day-rail` ani `dispatch-proof-strip`.
+- Runtime landingu ověřit bez dekorativních grid pozadí: žádná viditelná mřížka na hero pozadí, proof modulech, `signal-grid`, `signal-map`, `interactive-demo-shell` ani `temaro-day-grid`. Kalendář může používat slotové karty a časové popisky, ne mřížkované pozadí jako dekoraci.
 - Historická poznámka k `TEMARO_UPDATE_2`: marketing zůstal světlý, header bez theme toggle, mobilní menu dostalo backdrop/Escape/scroll limit a pricing status chipy. Staré bento položky typu `Paměť podniku` a trust marquee už nejsou aktivní runtime očekávání.
 - Historická poznámka k Time Engine/photo vrstvě: staré `time-engine-salon.webp`, `time-engine-beauty.webp`, `time-engine-fitness.webp` i `salon-day-*.webp` byly na root homepage nahrazené code-native produktovými pohledy.
 - Runtime po landing visual audit fixu ověřit na staging `/`: na 360-390px se v hero widgetu zobrazují čitelné rezervační řádky bez úzkých absolutních karet, desktop dropdown `Produkt`/`Návody` má jen čisté položky bez drobných slepených popisků, mobilní menu má silnější backdrop a sticky CTA nepřekrývá hero ani footer.

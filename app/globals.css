@@ -293,10 +293,7 @@
   }
 
   .temaro-day-grid {
-    background-image:
-      linear-gradient(90deg, color-mix(in srgb, var(--paper-line) 72%, transparent) 1px, transparent 1px),
-      linear-gradient(0deg, color-mix(in srgb, var(--paper-line) 52%, transparent) 1px, transparent 1px);
-    background-size: 16.666% 100%, 100% 64px;
+    background-image: none;
   }
 
   .temaro-time-atelier-hero,
@@ -318,13 +315,8 @@
   }
 
   .temaro-time-atelier-hero::before {
-    background:
-      linear-gradient(90deg, color-mix(in srgb, var(--paper-line) 52%, transparent) 1px, transparent 1px),
-      linear-gradient(0deg, color-mix(in srgb, var(--paper-line) 34%, transparent) 1px, transparent 1px);
-    background-size: 86px 86px;
     content: "";
     inset: 0;
-    opacity: 0.42;
     pointer-events: none;
     position: absolute;
   }
@@ -434,9 +426,7 @@
   }
 
   .temaro-calendar-board {
-    background-image:
-      linear-gradient(0deg, color-mix(in srgb, var(--paper-line) 62%, transparent) 1px, transparent 1px);
-    background-size: 100% 3.2rem;
+    background-image: none;
   }
 
   .temaro-live-booking {
@@ -524,10 +514,7 @@
 
   .temaro-proof-module::before {
     background:
-      radial-gradient(circle at 18% 12%, color-mix(in srgb, var(--cobalt-tint) 82%, transparent), transparent 11rem),
-      linear-gradient(90deg, color-mix(in srgb, var(--paper-line) 52%, transparent) 1px, transparent 1px),
-      linear-gradient(0deg, color-mix(in srgb, var(--paper-line) 42%, transparent) 1px, transparent 1px);
-    background-size: auto, 3.6rem 3.6rem, 3.6rem 3.6rem;
+      radial-gradient(circle at 18% 12%, color-mix(in srgb, var(--cobalt-tint) 82%, transparent), transparent 11rem);
     content: "";
     inset: 0;
     opacity: 0.7;
@@ -537,16 +524,12 @@
 
   .temaro-proof-module.apricot::before {
     background:
-      radial-gradient(circle at 18% 12%, color-mix(in srgb, var(--apricot-tint) 88%, transparent), transparent 11rem),
-      linear-gradient(90deg, color-mix(in srgb, var(--paper-line) 52%, transparent) 1px, transparent 1px),
-      linear-gradient(0deg, color-mix(in srgb, var(--paper-line) 42%, transparent) 1px, transparent 1px);
+      radial-gradient(circle at 18% 12%, color-mix(in srgb, var(--apricot-tint) 88%, transparent), transparent 11rem);
   }
 
   .temaro-proof-module.mint::before {
     background:
-      radial-gradient(circle at 18% 12%, color-mix(in srgb, var(--mint) 44%, transparent), transparent 11rem),
-      linear-gradient(90deg, color-mix(in srgb, var(--paper-line) 52%, transparent) 1px, transparent 1px),
-      linear-gradient(0deg, color-mix(in srgb, var(--paper-line) 42%, transparent) 1px, transparent 1px);
+      radial-gradient(circle at 18% 12%, color-mix(in srgb, var(--mint) 44%, transparent), transparent 11rem);
   }
 
   .temaro-proof-module > * {
@@ -719,10 +702,7 @@
   }
 
   .signal-grid {
-    background-image:
-      linear-gradient(oklch(0.55 0.19 282 / 0.045) 1px, transparent 1px),
-      linear-gradient(90deg, oklch(0.55 0.19 282 / 0.045) 1px, transparent 1px);
-    background-size: 32px 32px;
+    background-image: none;
   }
 
   .signal-hero {
@@ -750,13 +730,10 @@
   }
 
   .interactive-demo-shell::before {
-    background:
-      radial-gradient(circle, oklch(0.68 0.145 246 / 0.26) 0 1px, transparent 1px);
-    background-size: 18px 18px;
     content: "";
     inset: 0;
     mask-image: linear-gradient(135deg, black, transparent 64%);
-    opacity: 0.32;
+    opacity: 0;
     pointer-events: none;
     position: absolute;
   }
@@ -802,17 +779,12 @@
   .signal-map {
     background:
       radial-gradient(circle at 50% 50%, oklch(0.55 0.19 282 / 0.12), transparent 18rem),
-      linear-gradient(oklch(0.55 0.19 282 / 0.035) 1px, transparent 1px),
-      linear-gradient(90deg, oklch(0.55 0.19 282 / 0.035) 1px, transparent 1px),
       oklch(1 0 0);
-    background-size: auto, 28px 28px, 28px 28px, auto;
   }
 
   .dark .signal-map {
     background:
       radial-gradient(circle at 50% 50%, oklch(0.55 0.19 282 / 0.18), transparent 18rem),
-      linear-gradient(oklch(0.64 0.18 282 / 0.06) 1px, transparent 1px),
-      linear-gradient(90deg, oklch(0.64 0.18 282 / 0.06) 1px, transparent 1px),
       oklch(0.20 0.016 255);
   }
 
