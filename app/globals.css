@@ -398,7 +398,7 @@
     border-radius: 2.75rem;
     box-shadow: 0 34px 110px rgba(23, 26, 33, 0.18);
     min-height: 39rem;
-    overflow: visible;
+    overflow: hidden;
   }
 
   .temaro-product-desktop::before {
@@ -412,20 +412,6 @@
     transform: translateX(-50%);
     width: 4.7rem;
     z-index: 4;
-  }
-
-  .temaro-product-desktop::after {
-    background:
-      linear-gradient(180deg, color-mix(in srgb, var(--ink) 22%, white), color-mix(in srgb, var(--ink) 42%, white));
-    border-radius: 0 0 2.4rem 2.4rem;
-    bottom: -0.75rem;
-    box-shadow: 0 22px 60px rgba(23, 26, 33, 0.16);
-    content: "";
-    height: 1.25rem;
-    left: 10%;
-    position: absolute;
-    width: 42%;
-    z-index: -1;
   }
 
   .temaro-product-topbar {
@@ -743,11 +729,6 @@
       min-height: 22rem;
     }
 
-    .temaro-product-desktop::after {
-      left: 12%;
-      width: 56%;
-    }
-
     .temaro-premium-product > div:first-child {
       padding: 0.95rem;
     }
@@ -863,7 +844,7 @@
   .temaro-market-photo {
     background:
       linear-gradient(135deg, rgba(23, 26, 33, 0.06), rgba(43, 63, 242, 0.06)),
-      url("/marketing/premium/beauty-room.webp") center/cover;
+      url("/marketing/industries/beauty.webp") center/cover;
     height: 11.8rem;
   }
 
@@ -877,11 +858,11 @@
     padding: 0.58rem 1rem;
   }
 
-  .temaro-market-map {
+  .temaro-market-channel-flow {
     background:
-      radial-gradient(circle at 22% 18%, rgba(43, 63, 242, 0.16), transparent 3.5rem),
-      radial-gradient(circle at 72% 54%, rgba(191, 234, 212, 0.7), transparent 4rem),
-      linear-gradient(135deg, #edf4ef, #f8f7ef);
+      radial-gradient(circle at 18% 28%, rgba(43, 63, 242, 0.13), transparent 4.6rem),
+      radial-gradient(circle at 78% 62%, rgba(191, 234, 212, 0.72), transparent 5.2rem),
+      linear-gradient(135deg, #f7fbf6, #f7f4ea);
     min-height: 22rem;
     position: relative;
   }
@@ -894,12 +875,40 @@
     box-shadow: 0 14px 30px rgba(23, 26, 33, 0.18);
     color: #ffffff;
     display: grid;
-    font-size: 0.68rem;
+    font-size: 0.62rem;
     font-weight: 900;
-    height: 2.35rem;
+    min-height: 2.2rem;
+    min-width: 2.2rem;
+    padding: 0 0.58rem;
     place-items: center;
     position: absolute;
-    width: 2.35rem;
+    white-space: nowrap;
+  }
+
+  .temaro-market-booking-card {
+    background: var(--ink);
+    border-radius: 1.15rem;
+    bottom: 1.15rem;
+    box-shadow: 0 18px 44px rgba(23, 26, 33, 0.2);
+    color: #ffffff;
+    display: grid;
+    gap: 0.22rem;
+    left: 1.15rem;
+    padding: 1rem;
+    position: absolute;
+    right: 1.15rem;
+  }
+
+  .temaro-market-booking-card span,
+  .temaro-market-booking-card small {
+    font-size: 0.72rem;
+    font-weight: 850;
+  }
+
+  .temaro-market-booking-card strong {
+    font-size: 1rem;
+    font-weight: 950;
+    letter-spacing: -0.035em;
   }
 
   .temaro-market-word {

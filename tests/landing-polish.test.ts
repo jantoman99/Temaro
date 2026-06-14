@@ -56,10 +56,12 @@ describe("landing polish guard", () => {
     expect(page).toContain("industryCards");
     expect(page).toContain("next/image");
     expect(page).toContain("temaro-industry-photo-card");
-    expect(page).toContain("/marketing/premium/barber-chair.webp");
-    expect(page).toContain("/marketing/salon-interior.jpg");
-    expect(page).toContain("/marketing/premium/beauty-room.webp");
-    expect(page).toContain("/marketing/premium/salon-detail.webp");
+    expect(page).toContain("/marketing/industries/barber.webp");
+    expect(page).toContain("/marketing/industries/hair-salon.webp");
+    expect(page).toContain("/marketing/industries/beauty.webp");
+    expect(page).toContain("/marketing/industries/massage.webp");
+    expect(page).toContain("/marketing/industries/wellness.webp");
+    expect(page).toContain("/marketing/industries/fitness.webp");
     expect(page).toContain("productProofScenes");
     expect(page).toContain("temaro-operations-strip");
     expect(page).toContain("temaro-operations-board");
@@ -212,6 +214,9 @@ describe("landing polish guard", () => {
     expect(page).toContain("temaro-market-device-stage");
     expect(page).toContain("temaro-market-phone");
     expect(page).toContain("temaro-market-word");
+    expect(page).toContain("temaro-market-channel-flow");
+    expect(page).toContain("temaro-market-booking-card");
+    expect(page).toContain("Vlastní rezervace · bez marketplace");
     expect(page).toContain("Vlastní");
     expect(page).toContain("rezervační cesta");
     expect(page).toContain("temaro-visual-moment");
@@ -232,6 +237,8 @@ describe("landing polish guard", () => {
     expect(globals).toContain(".temaro-market-story");
     expect(globals).toContain(".temaro-market-phone");
     expect(globals).toContain(".temaro-market-word");
+    expect(globals).toContain(".temaro-market-channel-flow");
+    expect(globals).toContain(".temaro-market-booking-card");
     expect(globals).toContain("@keyframes temaro-market-pin");
     expect(globals).toContain(".temaro-visual-moment");
     expect(globals).toContain(".temaro-channel-strip");
@@ -309,10 +316,10 @@ describe("landing polish guard", () => {
     expect(globals).toContain(".temaro-product-phone");
     expect(globals).toContain(".temaro-premium-industries");
     expect(globals).toContain(".temaro-industry-photo-card");
-    expect(globals).toContain(".temaro-product-desktop::after");
     expect(globals).toContain(".temaro-product-desktop::before");
     expect(globals).toContain(".temaro-product-phone::before");
     expect(globals).toContain("border: 0.62rem solid color-mix(in srgb, var(--ink) 88%, var(--cobalt))");
+    expect(globals).toContain("overflow: hidden");
     expect(globals).toContain("font-family: var(--font-body-stack)");
     expect(globals).toContain("linear-gradient(180deg, #ffffff 0%, #fbfcf9 52%, #f3f7ef 100%)");
     expect(globals).toContain("aspect-ratio: 9 / 16");

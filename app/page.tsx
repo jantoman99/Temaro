@@ -52,42 +52,42 @@ const industryCards = [
     label: "Barber",
     title: "Barber",
     text: "Služby po 30-60 minutách, opakovaní klienti, volná okna a no-show signál.",
-    image: "/marketing/premium/barber-chair.webp",
+    image: "/marketing/industries/barber.webp",
   },
   {
     href: "/rezervacni-system-pro-kadernictvi",
     label: "Kadeřnictví",
     title: "Kadeřnictví",
     text: "Délky služeb, tým, pracovní doba a změny termínů bez ručního přepisování.",
-    image: "/marketing/salon-interior.jpg",
+    image: "/marketing/industries/hair-salon.webp",
   },
   {
     href: "/rezervacni-system-pro-kosmeticky-salon",
     label: "Beauty",
     title: "Beauty",
     text: "Klient vidí dostupnost, provoz vidí historii a riziko ještě před návštěvou.",
-    image: "/marketing/premium/beauty-room.webp",
+    image: "/marketing/industries/beauty.webp",
   },
   {
     href: "/rezervacni-system-pro-masaze",
     label: "Masáže",
     title: "Masáže",
     text: "Rezervace, připomínky a změny drží den pohromadě i u tichých provozů.",
-    image: "/marketing/premium/salon-detail.webp",
+    image: "/marketing/industries/massage.webp",
   },
   {
     href: "/rezervacni-system-pro-wellness",
     label: "Wellness",
     title: "Wellness",
     text: "Delší bloky, opakované návštěvy a klidné potvrzení bez recepčního chaosu.",
-    image: "/marketing/premium/salon-hero-wide.webp",
+    image: "/marketing/industries/wellness.webp",
   },
   {
     href: "/rezervacni-system-pro-wellness",
     label: "Fitness",
     title: "Fitness",
     text: "Lekce, trenéři a kapacita na jednom místě pro rychlé rezervace.",
-    image: "/marketing/training-studio.jpg",
+    image: "/marketing/industries/fitness.webp",
   },
 ] as const;
 
@@ -320,8 +320,8 @@ export default async function Home() {
               <div className="temaro-market-phone profile">
                 <div className="temaro-market-photo" />
                 <div className="p-5 pt-6">
-                  <h3 className="text-2xl font-black tracking-[-0.05em]">Studio Vlna</h3>
-                  <p className="mt-1 text-sm font-bold text-[var(--ink-soft)]">5.0 hodnocení · Praha</p>
+                  <h3 className="text-2xl font-black tracking-[-0.05em]">Ukázkový salon</h3>
+                  <p className="mt-1 text-sm font-bold text-[var(--ink-soft)]">Vlastní rezervace · bez marketplace</p>
                   <div className="mt-5 grid gap-3 text-sm font-bold text-[var(--ink)]">
                     <span>Online rezervace</span>
                     <span>Platba zálohy</span>
@@ -340,13 +340,20 @@ export default async function Home() {
               </div>
 
               <div className="temaro-market-phone flow">
-                <div className="temaro-market-map">
+                <div className="temaro-market-channel-flow">
+                  <div className="px-5 pt-9">
+                    <p className="font-time text-xs font-semibold uppercase tracking-[0.14em] text-[var(--cobalt)]">
+                      Dnešní kanály
+                    </p>
+                    <h3 className="mt-2 text-3xl font-black leading-[0.96] tracking-[-0.06em]">
+                      Volné časy z každého vstupu
+                    </h3>
+                  </div>
                   {[
-                    ["16%", "28%", "5.0"],
-                    ["42%", "46%", "4.9"],
-                    ["68%", "24%", "5.0"],
-                    ["74%", "66%", "4.8"],
-                    ["28%", "72%", "5.0"],
+                    ["12%", "48%", "Web"],
+                    ["48%", "36%", "IG"],
+                    ["62%", "62%", "QR"],
+                    ["18%", "74%", "Google"],
                   ].map(([left, top, label], index) => (
                     <span
                       key={`${left}-${top}`}
@@ -356,11 +363,16 @@ export default async function Home() {
                       {label}
                     </span>
                   ))}
+                  <div className="temaro-market-booking-card">
+                    <span>16:00</span>
+                    <strong>Nová rezervace</strong>
+                    <small>Instagram</small>
+                  </div>
                 </div>
                 <div className="grid grid-cols-3 border-t border-[var(--paper-line)] bg-white p-3 text-center text-xs font-black text-[var(--ink-soft)]">
-                  <span>Mapy</span>
+                  <span>Kanály</span>
                   <span className="text-[var(--cobalt)]">Volno</span>
-                  <span>Salon</span>
+                  <span>Klienti</span>
                 </div>
               </div>
             </div>
