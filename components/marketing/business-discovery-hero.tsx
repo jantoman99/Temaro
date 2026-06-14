@@ -2,8 +2,10 @@
 
 import {
   ArrowRight,
+  BellRing,
   CalendarDays,
   Link2,
+  MessageSquareText,
   Scissors,
   Smartphone,
   Sparkles,
@@ -44,8 +46,6 @@ const industryProfiles = [
     cue: "60 min",
   },
 ] as const;
-
-const animatedWords = ["kalendář", "provoz", "rozvrh", "den"] as const;
 
 const proofStats = [
   { value: 12, suffix: "", label: "rezervací v demo dni" },
@@ -103,26 +103,52 @@ const productMoments = [
   { icon: Link2, title: "Kanály", text: "web, QR, Instagram, Google" },
 ] as const;
 
-function AnimatedWord() {
-  const reduceMotion = usePrefersReducedMotion();
-  const [index, setIndex] = useState(0);
+const heroFlowSteps = [
+  {
+    icon: Smartphone,
+    label: "Nový termín z Instagramu",
+    title: "Klient bere 16:00",
+    tone: "blue",
+  },
+  {
+    icon: CalendarDays,
+    label: "Volné okno chráněné",
+    title: "Kalendář blokuje kolizi",
+    tone: "mint",
+  },
+  {
+    icon: BellRing,
+    label: "Potvrzení bez volání",
+    title: "SMS připomínka připravena",
+    tone: "apricot",
+  },
+] as const;
 
-  useEffect(() => {
-    if (reduceMotion) {
-      return;
-    }
-
-    const interval = window.setInterval(() => {
-      setIndex((current) => (current + 1) % animatedWords.length);
-    }, 2100);
-
-    return () => window.clearInterval(interval);
-  }, [reduceMotion]);
-
+function HeroSignalFlow() {
   return (
-    <span className="temaro-word-swap" aria-hidden="true">
-      {animatedWords[index]}
-    </span>
+    <div className="temaro-hero-flow mt-8 grid gap-2 rounded-[1.75rem] border border-white/78 bg-white/78 p-3 shadow-[0_22px_70px_rgba(23,26,33,0.12)]">
+      <div className="flex items-center justify-between gap-3 px-2">
+        <p className="font-time text-xs font-semibold uppercase tracking-[0.16em] text-[var(--cobalt)]">
+          Právě teď
+        </p>
+        <span className="rounded-full bg-[var(--mint)] px-3 py-1.5 text-xs font-bold text-[var(--mint-ink)]">
+          živý demo den
+        </span>
+      </div>
+      <div className="grid gap-2 sm:grid-cols-3">
+        {heroFlowSteps.map((step, index) => (
+          <article key={step.label} className={`temaro-arrival-card ${step.tone}`} style={{ animationDelay: `${index * 180}ms` }}>
+            <span className="grid size-10 place-items-center rounded-2xl bg-white/82 text-[var(--cobalt)]">
+              <step.icon className="size-5" strokeWidth={1.9} />
+            </span>
+            <div>
+              <p className="font-time text-[0.68rem] font-semibold uppercase tracking-[0.13em]">{step.label}</p>
+              <h3 className="mt-1 text-sm font-bold leading-5">{step.title}</h3>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -193,6 +219,14 @@ function OperationControlRoom() {
 
   return (
     <div className="temaro-control-room relative">
+      <div className="temaro-orbit-card left">
+        <MessageSquareText className="size-4" strokeWidth={1.9} />
+        <span>Nová rezervace</span>
+      </div>
+      <div className="temaro-orbit-card right">
+        <BellRing className="size-4" strokeWidth={1.9} />
+        <span>SMS připravena</span>
+      </div>
       <div className="flex items-center justify-between gap-4 border-b border-white/10 px-4 py-3 text-white">
         <div className="flex items-center gap-2">
           <span className="size-3 rounded-full bg-[#FF5F57]" />
@@ -233,6 +267,16 @@ function OperationControlRoom() {
               >
                 Kliknout demo
               </Link>
+            </div>
+
+            <div className="temaro-arrival-card blue mt-4">
+              <span className="grid size-10 place-items-center rounded-2xl bg-white/82 text-[var(--cobalt)]">
+                <Smartphone className="size-5" strokeWidth={1.9} />
+              </span>
+              <div>
+                <p className="font-time text-[0.68rem] font-semibold uppercase tracking-[0.13em]">Nový termín z Instagramu</p>
+                <h3 className="mt-1 text-sm font-bold leading-5">16:00 se mění z volného okna na rezervaci</h3>
+              </div>
             </div>
 
             <div className="mt-4 grid grid-cols-[4.25rem_1fr] gap-3">
@@ -278,7 +322,7 @@ function OperationControlRoom() {
             </p>
           </div>
           <div className="rounded-2xl bg-[var(--cobalt-tint)] px-4 py-3 text-sm font-bold text-[var(--cobalt)]">
-            SMS připomínka připravena
+            Potvrzení bez volání
           </div>
         </div>
       </div>
@@ -296,18 +340,18 @@ export function BusinessDiscoveryHero() {
         <div className="max-w-3xl">
           <div className="inline-flex items-center gap-2 rounded-full border border-[var(--paper-line)] bg-white/82 px-3 py-2 text-sm font-bold text-[var(--ink)] shadow-sm">
             <Sparkles className="size-4 text-[var(--cobalt)]" strokeWidth={1.9} />
-            Ateliér času Temaro
+            Právě teď v Temaru
           </div>
 
           <h1
-            aria-label="Váš kalendář má mít vlastní rytmus."
-            className="font-display mt-7 text-balance text-[clamp(3.55rem,8vw,8rem)] font-semibold leading-[0.87] tracking-[-0.075em]"
+            aria-label="Nová rezervace. Klidný den."
+            className="font-display mt-7 text-balance text-[clamp(3.45rem,7vw,7rem)] font-semibold leading-[0.86] tracking-[-0.075em]"
           >
-            Váš <AnimatedWord /> má mít vlastní rytmus.
+            Nová rezervace. Klidný den.
           </h1>
 
           <p className="mt-7 max-w-2xl text-pretty text-xl font-normal leading-8 text-[var(--ink-soft)]">
-            Temaro není další šablona pro rezervace. Je to vizuální provozní systém pro salony, barbery, beauty a lokální služby, kde klient vidí krásnou rezervaci a tým vidí klidný den.
+            Rezervace přichází z webu, Instagramu nebo QR. Temaro ověří dostupnost, zapíše termín a připraví další krok.
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -325,6 +369,8 @@ export function BusinessDiscoveryHero() {
               Spustit ukázku
             </Link>
           </div>
+
+          <HeroSignalFlow />
 
           <div className="mt-7 flex flex-wrap gap-2">
             {heroTrustItems.map((item) => (

@@ -1,6 +1,6 @@
 # Runtime checklist
 
-Aktualizováno: 2026-06-14 15:35 CEST
+Aktualizováno: 2026-06-14 16:01 CEST
 
 Tento checklist je pro první reálné ověření mimo demo režim.
 
@@ -31,6 +31,7 @@ Aktuální známý stav:
 - Runtime landingu ověřit bez dekorativních grid pozadí: žádná viditelná mřížka na hero pozadí, proof modulech, `signal-grid`, `signal-map`, `interactive-demo-shell` ani `temaro-day-grid`. Kalendář může používat slotové karty a časové popisky, ne mřížkované pozadí jako dekoraci.
 - Runtime po landing 5/5 passu ověřit na staging `/`: za `#produktovy-dukaz` musí být tmavý `temaro-command-band` se třemi produktovými objekty `Kanály rezervací`, `No-show ochrana`, `Klientská paměť`. Musí být vidět kanály `web`, `Instagram`, `QR`, `Google`, signály `SMS připomínka připravena`, `Záloha 300 Kč`, klientské preference a zkrácený `temaro-flow-panel`. Sekce nesmí působit jako další řada bílých textových karet.
 - Ověření 2026-06-14 15:43 CEST po landing 5/5 passu: staging alias `https://rezervacni-system-dev.vercel.app` míří na preview `dpl_5zigbSK9wnd6N9CcdCXmPv3G3QMr`; `/api/health` vrací `status=ok`; HTML obsahuje nové command/product signatury a neobsahuje staré screenshot signatury `temaro-cinema-frame`, `temaro-screenshot-gallery`, `/marketing/product/temaro-product-app-screen.jpg`, `photo-led-hero`, `dispatch-day-rail`.
+- Runtime po hero first-5 passu ověřit na staging `/`: první viewport musí obsahovat claim `Nová rezervace. Klidný den.`, `Právě teď v Temaru`, `temaro-hero-flow`, tři `temaro-arrival-card` kroky (`Nový termín z Instagramu`, `Volné okno chráněné`, `Potvrzení bez volání`) a code-native control room. Na desktopu má být control room vidět vedle headline; na mobilu musí být hero flow vidět před dlouhým scrollováním. Nesmí se vrátit `AnimatedWord`, `temaro-word-swap`, screenshot galerie ani dekorativní grid pozadí.
 - Historická poznámka k `TEMARO_UPDATE_2`: marketing zůstal světlý, header bez theme toggle, mobilní menu dostalo backdrop/Escape/scroll limit a pricing status chipy. Staré bento položky typu `Paměť podniku` a trust marquee už nejsou aktivní runtime očekávání.
 - Historická poznámka k Time Engine/photo vrstvě: staré `time-engine-salon.webp`, `time-engine-beauty.webp`, `time-engine-fitness.webp` i `salon-day-*.webp` byly na root homepage nahrazené code-native produktovými pohledy.
 - Runtime po landing visual audit fixu ověřit na staging `/`: na 360-390px se v hero widgetu zobrazují čitelné rezervační řádky bez úzkých absolutních karet, desktop dropdown `Produkt`/`Návody` má jen čisté položky bez drobných slepených popisků, mobilní menu má silnější backdrop a sticky CTA nepřekrývá hero ani footer.

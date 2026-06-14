@@ -85,12 +85,20 @@ describe("landing polish guard", () => {
     expect(hero).toContain("industryProfiles");
     expect(hero).toContain("activeIndustryId");
     expect(hero).toContain("setActiveIndustryId");
-    expect(hero).toContain("animatedWords");
     expect(hero).toContain("proofStats");
     expect(hero).toContain("controlBookings");
     expect(hero).toContain("controlSignals");
     expect(hero).toContain("productMoments");
-    expect(hero).toContain("AnimatedWord");
+    expect(hero).toContain("heroFlowSteps");
+    expect(hero).toContain("HeroSignalFlow");
+    expect(hero).toContain("temaro-hero-flow");
+    expect(hero).toContain("temaro-arrival-card");
+    expect(hero).toContain("Právě teď");
+    expect(hero).toContain("Nová rezervace. Klidný den.");
+    expect(hero).toContain("Rezervace přichází z webu, Instagramu nebo QR");
+    expect(hero).toContain("Nový termín z Instagramu");
+    expect(hero).toContain("Volné okno chráněné");
+    expect(hero).toContain("Potvrzení bez volání");
     expect(hero).toContain("AnimatedNumber");
     expect(hero).toContain("OperationControlRoom");
     expect(hero).toContain("temaro-time-atelier-hero");
@@ -103,9 +111,9 @@ describe("landing polish guard", () => {
     expect(hero).not.toContain("/marketing/product/temaro-client-booking-mobile.jpg");
     expect(hero).not.toContain("/marketing/product/temaro-business-discovery.jpg");
     expect(hero).not.toContain("booking-phone-preview");
-    expect(hero).toContain("Ateliér času Temaro");
-    expect(hero).toContain("Váš <AnimatedWord /> má mít vlastní rytmus");
-    expect(hero).toContain("Temaro není další šablona pro rezervace");
+    expect(hero).toContain("Právě teď v Temaru");
+    expect(hero).toContain("Nová rezervace. Klidný den.");
+    expect(hero).toContain("Temaro ověří dostupnost");
     expect(hero).toContain("Registrovat salon");
     expect(hero).toContain("Spustit ukázku");
     expect(hero).toContain("Vyberte tempo provozu");
@@ -274,7 +282,9 @@ describe("landing polish guard", () => {
 
     expect(globals).toContain(".temaro-time-atelier-hero");
     expect(globals).toContain(".temaro-control-room");
-    expect(globals).toContain(".temaro-word-swap");
+    expect(globals).toContain(".temaro-hero-flow");
+    expect(globals).toContain(".temaro-arrival-card");
+    expect(globals).toContain(".temaro-orbit-card");
     expect(globals).toContain(".temaro-live-thread");
     expect(globals).toContain(".temaro-calendar-board");
     expect(globals).toContain(".temaro-live-booking");
