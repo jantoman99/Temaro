@@ -185,6 +185,37 @@ describe("landing polish guard", () => {
     expect(page).toContain("Bez provize z vlastního webu, QR nebo Instagramu");
   });
 
+  test("homepage follows DESIGN.md 5/5 product-object rhythm", () => {
+    const design = readProjectFile("DESIGN.md");
+    const page = readProjectFile("app/page.tsx");
+    const globals = readProjectFile("app/globals.css");
+    const combined = `${page}\n${globals}`;
+
+    expect(design).toContain("Local Service Command Desk");
+    expect(design).toContain("No decorative grid background is visible");
+    expect(page).toContain("serviceCommandMoments");
+    expect(page).toContain("temaro-command-band");
+    expect(page).toContain("temaro-visual-moment");
+    expect(page).toContain("temaro-channel-strip");
+    expect(page).toContain("temaro-risk-stack");
+    expect(page).toContain("temaro-flow-panel");
+    expect(page).toContain("Kanály rezervací");
+    expect(page).toContain("No-show ochrana");
+    expect(page).toContain("SMS připomínka připravena");
+    expect(page).toContain("Záloha 300 Kč");
+    expect(page).toContain("Klientská paměť");
+    expect(page).toContain("web");
+    expect(page).toContain("Instagram");
+    expect(page).toContain("QR");
+    expect(page).toContain("Google");
+    expect(globals).toContain(".temaro-command-band");
+    expect(globals).toContain(".temaro-visual-moment");
+    expect(globals).toContain(".temaro-channel-strip");
+    expect(globals).toContain(".temaro-risk-stack");
+    expect(globals).toContain(".temaro-flow-panel");
+    expect(combined).not.toContain("background-image: linear-gradient(var(--paper-line)");
+  });
+
   test("homepage keeps pricing honest without fake final tariffs", () => {
     const page = readProjectFile("app/page.tsx");
 

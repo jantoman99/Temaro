@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Aktualizováno: 2026-06-14 15:17 CEST
+Aktualizováno: 2026-06-14 15:35 CEST
 
 Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historické analýzy a staré design audity jsou přesunuté do `docs/archive/`.
 
@@ -20,6 +20,7 @@ Tento soubor je aktivní zdroj pravdy o aktuálním stavu implementace. Historic
 - Staging deploy 2026-06-14 15:03 CEST po landing calendar-led WOW passu: commit `2b9a5d7` je na `origin/dev`, ručně nasazený přes `npx vercel build` + `npx vercel deploy --prebuilt --yes` jako preview `dpl_5zCryvsPwuZUHk8wxXBv3rvd97Ct` a aliasovaný na `https://rezervacni-system-dev.vercel.app`. Ověřeno přes HTML: obsahuje `Živý CRM kalendář`, `temaro-control-room`, `temaro-calendar-board`, `temaro-operations-board` a nevrací staré screenshot signatury `temaro-cinema-frame` ani `temaro-screenshot-gallery`.
 - Lokální grid cleanup 2026-06-14: dekorativní mřížky a dot patterny jsou odstraněné z marketing povrchů (`temaro-time-atelier-hero`, `temaro-calendar-board`, `temaro-proof-module`, `signal-grid`, `signal-map`, `interactive-demo-shell`, `temaro-day-grid`). Zachovat se smí jen skutečná layout mřížka Tailwindu a produktově nutné kalendářové členění přes karty/sloty, ne pozadí.
 - Root `DESIGN.md` je od 2026-06-14 přidaný jako AI-readable design contract pro Temaro. Obsahuje směr `Local Service Command Desk`, barevné role, copy pravidla, anti-patterny, zákaz dekorativních gridů, product-proof pravidla a 5/5 landing acceptance bar.
+- Landing 5/5 pass 2026-06-14 15:35 CEST: homepage začíná aplikovat `DESIGN.md` do navazujících sekcí za herem. Přibyl tmavý `temaro-command-band` se třemi code-native produktovými momenty `Kanály rezervací`, `No-show ochrana` a `Klientská paměť`, třídami `temaro-visual-moment`, `temaro-channel-strip`, `temaro-risk-stack` a výraznějšími provozními barvami. Sekce `#produktovy-dukaz` a `#jak-to-funguje` jsou zkrácené; workflow přešlo na `temaro-flow-panel`. Nejsou použité screenshoty webu ani dekorativní grid pozadí.
 - Lokální ověření 2026-06-11 23:59 CEST po Time Atelier passu: `npx vitest run tests/landing-polish.test.ts` prošel 20/20, `npx impeccable detect app components` prošel s exit 0 bez výstupu, `npm run lint` prošel a `npm run check` prošel s 598 Vitest testy, migrations check, type-check, lint a produkční build.
 - Lokální ověření 2026-06-14 13:27 CEST po navázání projektu: `npm run check` prošlo s 598 Vitest testy, migrations check, type-check, lint a produkční build.
 - `/ukazka` je od 2026-06-14 přestavěná na code-native interní CRM demo, ne na screenshotovou/landing ukázku. `InteractiveProductDemo` teď používá `crm-demo-shell`, `crm-sidebar`, `crm-calendar-grid` a `crm-booking-detail`; výchozí obrazovka je `Kalendář` s týdenní mřížkou 7-20h, booking eventy, filtry, vybraným termínem a detailem rezervace. Další klikatelné stavy jsou `Přehled`, `Detail rezervace`, `Klienti` a `Rezervační stránka`.

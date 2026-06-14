@@ -1,6 +1,6 @@
 # Handoff
 
-Aktualizováno: 2026-06-14 15:17 CEST
+Aktualizováno: 2026-06-14 15:35 CEST
 
 ## Jak navázat
 
@@ -39,6 +39,7 @@ Aktualizováno: 2026-06-14 15:17 CEST
 - Poslední staging ověření 2026-06-14 15:03 CEST po landing calendar-led WOW passu: commit `2b9a5d7` je na `origin/dev`, preview deploy `dpl_5zCryvsPwuZUHk8wxXBv3rvd97Ct` je aliasovaný na `https://rezervacni-system-dev.vercel.app`. HTML stagingu obsahuje `Živý CRM kalendář`, `temaro-control-room`, `temaro-calendar-board`, `temaro-operations-board` a už nevrací staré screenshot signatury `temaro-cinema-frame` ani `temaro-screenshot-gallery`.
 - Aktuální lokální grid cleanup 2026-06-14: dekorativní mřížky a dot patterny jsou odstraněné z marketing povrchů (`temaro-time-atelier-hero`, `temaro-calendar-board`, `temaro-proof-module`, `signal-grid`, `signal-map`, `interactive-demo-shell`, `temaro-day-grid`). Při dalším landing redesignu nevracet grid jako výplň prázdného prostoru.
 - Root `DESIGN.md` je od 2026-06-14 nový vizuální kontrakt pro AI/UI práci. Při každé další marketing, booking, dashboard nebo demo úpravě ho číst před kódem; starší design docs jsou kontext, ale pokud se liší, `DESIGN.md` má přednost pro vizuální pravidla.
+- Aktuální navazující landing pass 2026-06-14 15:35 CEST aplikuje `DESIGN.md` za herem: přibyl tmavý `temaro-command-band`, produktové objekty `serviceCommandMoments`, `temaro-visual-moment`, `temaro-channel-strip`, `temaro-risk-stack` a `temaro-flow-panel`. Runtime musí ukázat výraznější barvy, méně dlouhých odstavců, no-show/deposit/SMS signál, kanály web/Instagram/QR/Google a klientskou paměť bez screenshotů a dekorativních gridů.
 - Poslední staging ověření 2026-06-11 23:59 CEST po Time Atelier passu: commit `aaa5e19` je na `origin/dev`, preview deploy `dpl_9gxFWsUEM9d1MUGjdeZmAhN84KCd` je aliasovaný na `https://rezervacni-system-dev.vercel.app`. Ověřeno `/api/health=ok`, HTML signatury `Váš kalendář má mít vlastní rytmus`, `Ateliér času Temaro`, `temaro-time-atelier-hero`, `temaro-cinema-frame`, `temaro-screenshot-gallery`, `temaro-time-thread` a `/marketing/product/*`; staré salon-operating/product-window/dispatch/before-after signatury nejsou přítomné. Staging screenshot audit je v `output/playwright/landing-personality-2026-06-11/staging/` a potvrdil overflow `0` na 1440, 1366, 768, 390 a 375px.
 - Staging 2026-06-11 13:30 CEST po WOW passu: commit `93f9ac1` je na `origin/dev`, preview deploy `dpl_3m5kBMLTbfWDTesCBVBRyPFo3PiA` je aliasovaný na `https://rezervacni-system-dev.vercel.app`. Ověřeno `/api/health=ok` a HTML signatury `Den před Temarem`, `hero-before-after-stage`, `Rezervovat 11:00`; staré `dispatch-day-rail`, `mobile-day-rail`, `dispatch-proof-strip` se nevrací.
 - Staging 2026-06-11 12:52 CEST: commit `c049ba6` je na `origin/dev`, preview deploy `dpl_Bk6vKW6RPQkgaDL9obFzGvmzKHnL` je aliasovaný na `https://rezervacni-system-dev.vercel.app`. Ověřeno `/api/health=ok` a HTML signatury `dispatch-day-rail`, `mobile-day-rail`, `Jeden den, čtyři provozní signály`; starý `trust-marquee flex min-w-max` se nevrací.

@@ -512,6 +512,21 @@
     position: relative;
   }
 
+  .temaro-proof-module.blue {
+    background:
+      linear-gradient(145deg, color-mix(in srgb, var(--cobalt) 11%, white), white 62%);
+  }
+
+  .temaro-proof-module.apricot {
+    background:
+      linear-gradient(145deg, color-mix(in srgb, var(--apricot) 42%, white), white 68%);
+  }
+
+  .temaro-proof-module.mint {
+    background:
+      linear-gradient(145deg, color-mix(in srgb, var(--mint) 58%, white), white 68%);
+  }
+
   .temaro-proof-module::before {
     background:
       radial-gradient(circle at 18% 12%, color-mix(in srgb, var(--cobalt-tint) 82%, transparent), transparent 11rem);
@@ -567,6 +582,106 @@
   .temaro-proof-row p {
     font-size: 0.88rem;
     font-weight: 750;
+  }
+
+  .temaro-command-band {
+    background:
+      radial-gradient(circle at 14% 16%, rgba(43, 63, 242, 0.38), transparent 23rem),
+      radial-gradient(circle at 82% 20%, rgba(255, 185, 138, 0.28), transparent 25rem),
+      radial-gradient(circle at 50% 105%, rgba(191, 234, 212, 0.2), transparent 28rem),
+      var(--ink);
+  }
+
+  .temaro-visual-moment {
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    box-shadow: 0 28px 86px rgba(0, 0, 0, 0.24);
+    min-height: 24rem;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .temaro-visual-moment::before {
+    border-radius: 999px;
+    content: "";
+    height: 12rem;
+    opacity: 0.55;
+    pointer-events: none;
+    position: absolute;
+    right: -4rem;
+    top: -4rem;
+    width: 12rem;
+  }
+
+  .temaro-visual-moment > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .temaro-visual-moment.blue {
+    background: linear-gradient(145deg, #2233d8, #121526 76%);
+  }
+
+  .temaro-visual-moment.blue::before {
+    background: var(--mint);
+  }
+
+  .temaro-visual-moment.apricot {
+    background: linear-gradient(145deg, #9b4f25, #18131a 76%);
+  }
+
+  .temaro-visual-moment.apricot::before {
+    background: var(--apricot);
+  }
+
+  .temaro-visual-moment.mint {
+    background: linear-gradient(145deg, #1d6244, #101b18 78%);
+  }
+
+  .temaro-visual-moment.mint::before {
+    background: var(--mint);
+  }
+
+  .temaro-channel-strip {
+    display: grid;
+    gap: 0.55rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .temaro-channel-strip span,
+  .temaro-risk-stack span {
+    align-items: center;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 1rem;
+    color: rgba(255, 255, 255, 0.86);
+    display: flex;
+    font-size: 0.86rem;
+    font-weight: 800;
+    min-height: 2.9rem;
+    padding: 0.65rem 0.78rem;
+  }
+
+  .temaro-risk-stack {
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .temaro-flow-panel {
+    background:
+      linear-gradient(90deg, color-mix(in srgb, var(--cobalt-tint) 56%, white), white 36%, color-mix(in srgb, var(--mint) 28%, white));
+  }
+
+  .temaro-flow-panel article {
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(255, 255, 255, 0.78);
+  }
+
+  .temaro-flow-panel > *:nth-child(2) article {
+    background: color-mix(in srgb, var(--apricot-tint) 72%, white);
+  }
+
+  .temaro-flow-panel > *:nth-child(3) article {
+    background: color-mix(in srgb, var(--mint) 34%, white);
   }
 
   .marketplace-compare-panel {

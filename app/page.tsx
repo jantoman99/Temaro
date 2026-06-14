@@ -99,6 +99,36 @@ const productProofScenes = [
   },
 ] as const;
 
+const serviceCommandMoments = [
+  {
+    label: "Kanály rezervací",
+    title: "Všechny vstupy končí v jednom dni.",
+    tone: "blue",
+    detail: "Web, Instagram, QR i Google posílají termíny do stejného provozního plánu.",
+    primary: "16:00 volné okno",
+    secondary: "zdroj: Instagram",
+    items: ["web", "Instagram", "QR", "Google"],
+  },
+  {
+    label: "No-show ochrana",
+    title: "Riziko je vidět dřív než prázdná židle.",
+    tone: "apricot",
+    detail: "Čekající termín, klientská historie a záloha jsou jeden provozní signál.",
+    primary: "10:30 čeká",
+    secondary: "Záloha 300 Kč",
+    items: ["2 no-show", "SMS připomínka připravena", "potvrdit do 18:00"],
+  },
+  {
+    label: "Klientská paměť",
+    title: "Tým ví, kdo přichází a co řešit.",
+    tone: "mint",
+    detail: "Preference, poznámka a poslední návštěva zůstávají u podniku.",
+    primary: "Klientská paměť",
+    secondary: "poslední návštěva 12. 6.",
+    items: ["preferuje ráno", "citlivá pokožka", "balíček: 2 vstupy"],
+  },
+] as const;
+
 const pricingPlans = [
   {
     name: "Pilot",
@@ -137,26 +167,26 @@ const workflowSteps = [
   {
     icon: ClipboardList,
     time: "01",
-    title: "Nastavíte služby a tým",
-    text: "Délky, ceny, pracovní dobu a lidi dáte do jednoho čitelného rozvrhu.",
+    title: "Služby a tým",
+    text: "Délky, ceny a pracovní dobu dáte do jednoho rozvrhu.",
   },
   {
     icon: Link2,
     time: "02",
-    title: "Sdílíte vlastní odkaz",
-    text: "Odkaz patří na web, Instagram, Google profil, zprávu nebo QR u recepce.",
+    title: "Vlastní odkaz",
+    text: "Web, Instagram, Google profil, zpráva nebo QR u recepce.",
   },
   {
     icon: CalendarDays,
     time: "03",
-    title: "Klient si vybere termín",
-    text: "Vidí jen dostupná okna, zvolí službu a odešle rezervaci bez telefonátu.",
+    title: "Dostupný termín",
+    text: "Klient vidí jen volná okna a odešle rezervaci bez telefonátu.",
   },
   {
     icon: MailCheck,
     time: "04",
-    title: "Tým vidí další krok",
-    text: "Rezervace se propíše do kalendáře a klient zůstane v historii podniku.",
+    title: "Další krok",
+    text: "Tým vidí stav, připomínku a klientský kontext v kalendáři.",
   },
 ] as const;
 
@@ -230,7 +260,7 @@ export default async function Home() {
               </h2>
             </div>
             <p className="max-w-2xl text-lg font-normal leading-8 text-[var(--ink-soft)]">
-              Temaro je stavěné pro provozy, kde délka služby, tým, volná okna a návraty klientů rozhodují o tom, jestli den běží klidně.
+              Každý obor má jiné tempo. Temaro drží délky služeb, tým a volná okna v jednom kalendáři.
             </p>
           </div>
         </Reveal>
@@ -270,7 +300,7 @@ export default async function Home() {
                 </h2>
               </div>
               <p className="max-w-2xl text-lg font-normal leading-8 text-[var(--ink-soft)]">
-                Landing ukazuje stejnou logiku jako interní CRM: časový plán, stav rezervace, klientský kontext a kanál, ze kterého termín přišel.
+                Landing ukazuje stejnou logiku jako interní CRM: čas, stav, klientský kontext a kanál rezervace.
               </p>
             </div>
           </Reveal>
@@ -308,6 +338,60 @@ export default async function Home() {
               ))}
             </div>
           </Reveal>
+        </div>
+      </section>
+
+      <section className="temaro-command-band relative overflow-hidden py-20 text-white sm:py-24">
+        <div className="relative mx-auto w-full max-w-[1180px] px-4 sm:px-6 lg:px-8">
+          <Reveal>
+            <div className="grid gap-6 lg:grid-cols-[0.78fr_1.22fr] lg:items-end">
+              <div>
+                <p className="font-time text-xs font-semibold uppercase tracking-[0.18em] text-white/62">Command desk</p>
+                <h2 className="font-display mt-3 text-balance text-5xl font-semibold leading-[0.96] sm:text-7xl">
+                  Méně textu. Více provozu.
+                </h2>
+              </div>
+              <p className="max-w-2xl text-lg font-normal leading-8 text-white/72">
+                Temaro má ukazovat konkrétní situace: odkud termín přišel, co hrozí a co má tým udělat dál.
+              </p>
+            </div>
+          </Reveal>
+
+          <div className="mt-10 grid gap-4 lg:grid-cols-3">
+            {serviceCommandMoments.map((moment, index) => (
+              <Reveal key={moment.label} delay={index * 80} className="h-full">
+                <article className={`temaro-visual-moment ${moment.tone} flex h-full flex-col justify-between rounded-[1.8rem] p-5`}>
+                  <div>
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <span className="font-time rounded-full bg-white/14 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-white/76">
+                        {moment.label}
+                      </span>
+                      <span className="rounded-full bg-white px-3 py-1.5 text-xs font-bold text-[var(--ink)]">{moment.primary}</span>
+                    </div>
+                    <h3 className="mt-8 text-3xl font-bold tracking-[-0.04em]">{moment.title}</h3>
+                    <p className="mt-3 text-sm font-normal leading-6 text-white/72">{moment.detail}</p>
+                  </div>
+
+                  <div className="mt-8">
+                    {moment.tone === "blue" ? (
+                      <div className="temaro-channel-strip">
+                        {moment.items.map((item) => (
+                          <span key={item}>{item}</span>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="temaro-risk-stack">
+                        {moment.items.map((item) => (
+                          <span key={item}>{item}</span>
+                        ))}
+                      </div>
+                    )}
+                    <p className="font-time mt-4 text-xs font-semibold uppercase tracking-[0.14em] text-white/68">{moment.secondary}</p>
+                  </div>
+                </article>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -405,16 +489,18 @@ export default async function Home() {
           </div>
         </Reveal>
 
-        <div className="workflow-rail-grid mt-10 grid gap-4 md:grid-cols-4">
+        <div className="temaro-flow-panel mt-10 grid gap-3 rounded-[2rem] border border-[var(--paper-line)] bg-white p-3 shadow-sm md:grid-cols-4">
           {workflowSteps.map((step, index) => (
             <Reveal key={step.title} delay={index * 70} className="h-full">
-              <article className="relative h-full rounded-[1.5rem] border border-[var(--paper-line)] bg-white p-5 shadow-sm">
-                <span className="font-time text-sm font-semibold text-[var(--cobalt)]">{step.time}</span>
-                <div className="mt-8 grid size-11 place-items-center rounded-2xl bg-[var(--cobalt-tint)] text-[var(--cobalt)]">
-                  <step.icon className="size-5" strokeWidth={1.9} />
+              <article className="relative h-full rounded-[1.45rem] p-4">
+                <div className="flex items-center justify-between gap-3">
+                  <span className="font-time text-sm font-semibold text-[var(--cobalt)]">{step.time}</span>
+                  <span className="grid size-10 place-items-center rounded-2xl bg-[var(--cobalt-tint)] text-[var(--cobalt)]">
+                    <step.icon className="size-5" strokeWidth={1.9} />
+                  </span>
                 </div>
-                <h3 className="mt-5 text-xl font-bold tracking-[-0.02em]">{step.title}</h3>
-                <p className="mt-3 text-sm font-normal leading-6 text-[var(--ink-soft)]">{step.text}</p>
+                <h3 className="mt-6 text-xl font-bold tracking-[-0.02em]">{step.title}</h3>
+                <p className="mt-2 text-sm font-normal leading-6 text-[var(--ink-soft)]">{step.text}</p>
               </article>
             </Reveal>
           ))}
