@@ -732,20 +732,36 @@
 
   .temaro-hero-proof-band {
     background:
-      radial-gradient(circle at 16% 0%, color-mix(in srgb, var(--mint) 34%, transparent), transparent 19rem),
-      radial-gradient(circle at 92% 20%, color-mix(in srgb, var(--apricot) 32%, transparent), transparent 20rem),
-      linear-gradient(180deg, #ffffff 0%, color-mix(in srgb, var(--porcelain) 72%, white) 100%);
+      linear-gradient(90deg, color-mix(in srgb, var(--ink) 7%, transparent) 1px, transparent 1px),
+      linear-gradient(180deg, #ffffff 0%, color-mix(in srgb, var(--porcelain) 66%, white) 100%);
+    background-size: 7.5rem 100%, auto;
     border-block: 1px solid color-mix(in srgb, var(--paper-line) 80%, transparent);
     color: var(--ink);
     margin-top: -0.05rem;
     position: relative;
   }
 
+  .temaro-hero-proof-grid {
+    position: relative;
+  }
+
+  .temaro-hero-proof-grid::before {
+    background: var(--ink);
+    border-radius: 999px;
+    content: "";
+    height: 0.2rem;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: -1rem;
+  }
+
   .temaro-hero-proof-card {
-    background: rgba(255, 255, 255, 0.7);
-    border-left: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
-    box-shadow: none;
-    padding: 0.6rem 1.25rem;
+    background: rgba(255, 255, 255, 0.86);
+    border: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+    border-radius: 1.35rem;
+    box-shadow: 0 1.2rem 3rem rgba(23, 26, 33, 0.07);
+    padding: 1rem 1.1rem;
   }
 
   .temaro-hero-proof-card p {
@@ -777,9 +793,285 @@
 
   .temaro-feature-bento {
     background:
-      radial-gradient(circle at 8% 18%, color-mix(in srgb, var(--mint) 24%, transparent), transparent 20rem),
-      radial-gradient(circle at 94% 5%, color-mix(in srgb, var(--apricot) 22%, transparent), transparent 18rem),
-      linear-gradient(180deg, #ffffff 0%, var(--porcelain) 100%);
+      linear-gradient(90deg, color-mix(in srgb, var(--ink) 5%, transparent) 1px, transparent 1px),
+      linear-gradient(180deg, #ffffff 0%, #f8f8f5 48%, var(--porcelain) 100%);
+    background-size: 9rem 100%, auto;
+  }
+
+  .temaro-reservation-flow {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  }
+
+  .temaro-flow-board,
+  .temaro-flow-step,
+  .temaro-flow-status-grid article {
+    border: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+    box-shadow: 0 1.7rem 4.2rem rgba(23, 26, 33, 0.1);
+    position: relative;
+  }
+
+  .temaro-flow-board {
+    background:
+      linear-gradient(135deg, color-mix(in srgb, var(--ink) 94%, var(--cobalt)) 0%, var(--ink) 100%);
+    border-color: color-mix(in srgb, white 16%, transparent);
+    border-radius: 2rem;
+    color: white;
+    min-height: 42rem;
+    overflow: hidden;
+    padding: 1.35rem;
+  }
+
+  .temaro-flow-board::before {
+    background:
+      linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    background-size: 4.5rem 4.5rem;
+    content: "";
+    inset: 0;
+    opacity: 0.52;
+    pointer-events: none;
+    position: absolute;
+  }
+
+  .temaro-flow-board > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .temaro-flow-board-head,
+  .temaro-flow-step-head {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .temaro-flow-board-head span,
+  .temaro-flow-step-head span {
+    align-items: center;
+    border-radius: 999px;
+    display: inline-flex;
+    font-size: 0.78rem;
+    font-weight: 850;
+    gap: 0.45rem;
+    min-height: 2.35rem;
+    padding: 0.52rem 0.74rem;
+  }
+
+  .temaro-flow-board-head span {
+    background: rgba(255, 255, 255, 0.11);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: rgba(255, 255, 255, 0.86);
+  }
+
+  .temaro-flow-board-head strong,
+  .temaro-flow-step-head strong {
+    font-family: var(--font-plex-mono);
+    font-weight: 900;
+    letter-spacing: -0.04em;
+  }
+
+  .temaro-flow-board-head strong {
+    color: white;
+    font-size: 1.55rem;
+  }
+
+  .temaro-flow-board h3 {
+    font-family: var(--font-display-stack);
+    font-size: clamp(2.5rem, 4.3vw, 4.85rem);
+    font-weight: 850;
+    letter-spacing: -0.062em;
+    line-height: 0.92;
+    margin-top: 2rem;
+    max-width: 10ch;
+  }
+
+  .temaro-flow-board p {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 1rem;
+    font-weight: 650;
+    line-height: 1.65;
+    margin-top: 1.15rem;
+    max-width: 31rem;
+  }
+
+  .temaro-flow-source-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1.8rem;
+  }
+
+  .temaro-flow-source-row span {
+    animation: bento-source-pop 3.8s ease-in-out infinite;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 999px;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 0.82rem;
+    font-weight: 850;
+    padding: 0.58rem 0.75rem;
+  }
+
+  .temaro-flow-booking-card {
+    background: white;
+    border-radius: 1.45rem;
+    bottom: 1.25rem;
+    box-shadow: 0 1.6rem 4rem rgba(0, 0, 0, 0.24);
+    color: var(--ink);
+    left: 1.25rem;
+    padding: 1rem;
+    position: absolute;
+    right: 1.25rem;
+  }
+
+  .temaro-flow-booking-card small,
+  .temaro-flow-booking-card > span {
+    color: var(--ink-soft);
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 800;
+  }
+
+  .temaro-flow-booking-card strong {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 1.45rem;
+    font-weight: 950;
+    gap: 0.22em;
+    letter-spacing: -0.035em;
+    margin-top: 0.35rem;
+  }
+
+  .temaro-flow-booking-card div {
+    align-items: center;
+    background: var(--porcelain);
+    border: 1px solid var(--paper-line);
+    border-radius: 0.9rem;
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.55rem;
+    padding: 0.62rem 0.72rem;
+  }
+
+  .temaro-flow-booking-card div:last-child {
+    background: color-mix(in srgb, var(--mint) 58%, white);
+  }
+
+  .temaro-flow-booking-card div span {
+    color: var(--ink);
+    font-size: 0.82rem;
+    font-weight: 850;
+  }
+
+  .temaro-flow-rail {
+    display: grid;
+    gap: 0.72rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .temaro-flow-step:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .temaro-flow-step {
+    background: rgba(255, 255, 255, 0.88);
+    border-radius: 1.35rem;
+    padding: 1rem;
+  }
+
+  .temaro-flow-step::before {
+    background: var(--cobalt);
+    border-radius: 999px;
+    bottom: 1rem;
+    content: "";
+    left: -0.57rem;
+    position: absolute;
+    top: 1rem;
+    width: 0.18rem;
+  }
+
+  .temaro-flow-step-head span {
+    background: var(--porcelain);
+    border: 1px solid var(--paper-line);
+    color: var(--ink);
+  }
+
+  .temaro-flow-step-head strong {
+    color: var(--cobalt);
+    font-size: 1.05rem;
+  }
+
+  .temaro-flow-step h3 {
+    font-family: var(--font-body-stack);
+    font-size: clamp(1.35rem, 2vw, 2rem);
+    font-weight: 900;
+    letter-spacing: -0.047em;
+    line-height: 1.02;
+    margin-top: 0.85rem;
+    max-width: 19ch;
+  }
+
+  .temaro-flow-step p {
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+    font-weight: 630;
+    line-height: 1.52;
+    margin-top: 0.52rem;
+    max-width: 34rem;
+  }
+
+  .temaro-flow-status {
+    background: color-mix(in srgb, var(--cobalt-tint) 68%, white);
+    border: 1px solid color-mix(in srgb, var(--cobalt) 18%, transparent);
+    border-radius: 999px;
+    color: var(--cobalt-deep);
+    display: inline-flex;
+    font-family: var(--font-plex-mono);
+    font-size: 0.72rem;
+    font-weight: 850;
+    margin-top: 0.85rem;
+    padding: 0.48rem 0.64rem;
+  }
+
+  .temaro-flow-status.risk {
+    background: color-mix(in srgb, var(--signal-red) 11%, white);
+    border-color: color-mix(in srgb, var(--signal-red) 25%, transparent);
+    color: var(--signal-red);
+  }
+
+  .temaro-flow-status-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .temaro-flow-status-grid article {
+    background: rgba(255, 255, 255, 0.78);
+    border-radius: 1.25rem;
+    padding: 1rem;
+  }
+
+  .temaro-flow-status-grid strong,
+  .temaro-flow-status-grid span {
+    display: block;
+  }
+
+  .temaro-flow-status-grid strong {
+    color: var(--ink);
+    font-size: 1rem;
+    font-weight: 900;
+    letter-spacing: -0.025em;
+  }
+
+  .temaro-flow-status-grid span {
+    color: var(--ink-soft);
+    font-size: 0.88rem;
+    font-weight: 630;
+    line-height: 1.45;
+    margin-top: 0.35rem;
   }
 
   .temaro-bento-grid {
@@ -1307,6 +1599,23 @@
   }
 
   @media (max-width: 1024px) {
+    .temaro-reservation-flow,
+    .temaro-flow-status-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .temaro-flow-board {
+      min-height: 35rem;
+    }
+
+    .temaro-flow-rail {
+      grid-template-columns: 1fr;
+    }
+
+    .temaro-flow-step:last-child {
+      grid-column: auto;
+    }
+
     .temaro-bento-grid {
       grid-template-columns: 1fr 1fr;
     }
@@ -1333,6 +1642,40 @@
   }
 
   @media (max-width: 640px) {
+    .temaro-flow-board {
+      border-radius: 1.45rem;
+      min-height: 34rem;
+      padding: 1rem;
+    }
+
+    .temaro-flow-board h3 {
+      font-size: clamp(2.1rem, 11vw, 3rem);
+      max-width: 11ch;
+    }
+
+    .temaro-flow-board p {
+      font-size: 0.92rem;
+      line-height: 1.55;
+    }
+
+    .temaro-flow-booking-card {
+      left: 1rem;
+      right: 1rem;
+    }
+
+    .temaro-flow-step {
+      border-radius: 1.1rem;
+    }
+
+    .temaro-flow-step::before {
+      left: 0.45rem;
+      top: -0.35rem;
+      right: 0.45rem;
+      bottom: auto;
+      height: 0.16rem;
+      width: auto;
+    }
+
     .temaro-bento-grid {
       grid-template-columns: 1fr;
     }
@@ -2183,6 +2526,7 @@
     .temaro-market-pin,
     .temaro-proof-pulse,
     .temaro-bento-source-flow span,
+    .temaro-flow-source-row span,
     .time-engine-flow::after {
       animation: none;
     }

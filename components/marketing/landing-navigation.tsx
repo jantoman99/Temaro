@@ -69,7 +69,7 @@ export function LandingNavigation() {
   return (
     <nav
       ref={navRef}
-      className="hidden lg:flex w-auto items-center gap-1"
+      className="hidden w-auto items-center gap-1.5 lg:flex"
       aria-label="Hlavní navigace"
     >
       {navGroups.map((group) => {
@@ -82,7 +82,7 @@ export function LandingNavigation() {
               type="button"
               aria-expanded={isOpen}
               aria-controls={panelId}
-              className="temaro-focus-ring flex items-center justify-center gap-1.5 rounded-full px-3 py-2 text-sm font-bold text-[var(--ink-soft)] transition hover:bg-[var(--porcelain-deep)] hover:text-[var(--ink)]"
+              className="temaro-focus-ring flex min-h-11 items-center justify-center gap-1.5 rounded-full px-4 text-[0.95rem] font-bold text-[var(--ink-soft)] transition hover:bg-[var(--porcelain-deep)] hover:text-[var(--ink)]"
               onClick={() => setOpenGroup(isOpen ? null : group.label)}
             >
               {group.label}
@@ -118,7 +118,7 @@ export function LandingNavigation() {
         <Link
           key={href}
           href={href}
-          className="temaro-focus-ring rounded-full px-2 py-2 text-center text-sm font-bold text-[var(--ink-soft)] transition hover:bg-[var(--porcelain-deep)] hover:text-[var(--ink)] lg:px-3"
+          className="temaro-focus-ring inline-flex min-h-11 items-center justify-center rounded-full px-3 text-center text-[0.95rem] font-bold text-[var(--ink-soft)] transition hover:bg-[var(--porcelain-deep)] hover:text-[var(--ink)] lg:px-4"
           onClick={() => setOpenGroup(null)}
         >
           {label}

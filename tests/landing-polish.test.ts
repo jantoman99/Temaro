@@ -64,6 +64,9 @@ describe("landing polish guard", () => {
     expect(page).toContain("FeatureStoryBento");
     expect(bento).toContain("Jedna rezervace projde celým provozem");
     expect(bento).toContain('id="produktovy-pribeh"');
+    expect(bento).toContain("temaro-reservation-flow");
+    expect(bento).toContain("temaro-flow-board");
+    expect(bento).toContain("Zdroj → kalendář → klient → zpráva → platba");
     expect(bento).toContain("Instagram termín padá rovnou do kalendáře");
     expect(bento).toContain("SMS připomínka připravena");
     expect(bento).toContain("300 Kč záloha připravena");
@@ -346,8 +349,14 @@ describe("landing polish guard", () => {
     expect(globals).toContain(".temaro-booking-detail-card");
     expect(globals).toContain(".temaro-product-phone");
     expect(globals).toContain(".temaro-hero-proof-band");
+    expect(globals).toContain(".temaro-hero-proof-grid");
     expect(globals).toContain(".temaro-hero-proof-card");
     expect(globals).toContain(".temaro-feature-bento");
+    expect(globals).toContain(".temaro-reservation-flow");
+    expect(globals).toContain(".temaro-flow-board");
+    expect(globals).toContain(".temaro-flow-rail");
+    expect(globals).toContain(".temaro-flow-step");
+    expect(globals).toContain(".temaro-flow-status");
     expect(globals).toContain(".temaro-bento-grid");
     expect(globals).toContain(".temaro-bento-live");
     expect(globals).toContain(".temaro-bento-source-flow");
@@ -388,6 +397,10 @@ describe("landing polish guard", () => {
     expect(globals).toContain(".industry-switcher");
     expect(globals).toContain(".marketplace-compare-panel");
     expect(globals).toContain("@media (prefers-reduced-motion: reduce)");
+    expect(globals).not.toContain("radial-gradient(circle at 16% 0%, color-mix(in srgb, var(--mint)");
+    expect(globals).not.toContain("radial-gradient(circle at 92% 20%, color-mix(in srgb, var(--apricot)");
+    expect(globals).not.toContain("radial-gradient(circle at 8% 18%, color-mix(in srgb, var(--mint)");
+    expect(globals).not.toContain("radial-gradient(circle at 94% 5%, color-mix(in srgb, var(--apricot)");
     expect(globals).toContain(".temaro-time-page");
     expect(globals).toContain("color-scheme: light");
     expect(globals).toContain("padding-bottom: calc(env(safe-area-inset-bottom) + 6.5rem)");
@@ -456,6 +469,8 @@ describe("landing polish guard", () => {
     expect(navigation).toContain("/rezervacni-system-pro-kadernictvi");
     expect(navigation).toContain("/rezervacni-system-pro-kosmeticky-salon");
     expect(navigation).toContain("/rezervacni-system-pro-masaze");
+    expect(navigation).toContain("min-h-11");
+    expect(navigation).toContain("text-[0.95rem]");
     expect(navigation).not.toContain("<details");
   });
 
@@ -473,6 +488,8 @@ describe("landing polish guard", () => {
     expect(sharedHeader).toContain("<LandingNavigation />");
     expect(sharedHeader).toContain("<MobileMarketingMenu />");
     expect(sharedHeader).toContain("marketing-fixed-header");
+    expect(sharedHeader).toContain("min-h-[4.75rem]");
+    expect(sharedHeader).toContain("h-11");
     expect(sharedHeader).not.toContain("ThemeToggle");
     expect(sharedHeader).toContain("Přihlášení");
     expect(sharedHeader).toContain("Registrovat salon");

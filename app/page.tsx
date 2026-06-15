@@ -298,7 +298,7 @@ export default async function Home() {
       <MobileStickyCta />
 
       <section className="temaro-hero-proof-band px-4 py-8 sm:px-6 sm:py-9 lg:px-8" aria-label="Důkaz produktu Temaro">
-        <div className="mx-auto grid w-full max-w-[1180px] gap-3 md:grid-cols-2 xl:grid-cols-4">
+        <div className="temaro-hero-proof-grid mx-auto grid w-full max-w-[1180px] gap-3 md:grid-cols-2 xl:grid-cols-4">
           {heroProofItems.map((item, index) => (
             <Reveal key={item.label} delay={index * 50} className="h-full">
               <article className="temaro-hero-proof-card h-full">
