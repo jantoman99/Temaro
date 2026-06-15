@@ -1,6 +1,6 @@
 # Manualni test plan
 
-Aktualizováno: 2026-06-15 15:01 CEST
+Aktualizováno: 2026-06-15 15:11 CEST
 
 Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 
@@ -20,7 +20,7 @@ Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 - Otevřít `http://localhost:3000/api/health` a ověřit, že vrací JSON se `status`, `checks.env`, `checks.supabase`, `checks.rate_limit` a `version`; nesmí obsahovat konkrétní hodnoty tajných env proměnných.
 - Na veřejném deployi bez env otevřít `/api/health` a ověřit, že `checks.env.missing` je číslo, ne seznam názvů interních proměnných.
 - Na stagingu `https://rezervacni-system-dev.vercel.app` ověřit `/api/health=ok` a HTML signatury aktuálního landing směru: obsahuje `Plnější kalendář`, `temaro-hero-product-visual`, `temaro-product-desktop`, `temaro-product-phone`, `temaro-hero-photo-ribbon`, `temaro-hero-photo-card`, `temaro-reservation-flow`, `temaro-flow-board`, `Zdroj → kalendář → klient → zpráva → platba`; neobsahuje `temaro-black-hero-grid`, `temaro-salon-wall`, `temaro-cinema-frame`, `temaro-screenshot-gallery`, `temaro-screenshot-strip`, `booking-phone-preview`, `/marketing/product/temaro-product-app-screen.jpg`, `/marketing/product/temaro-client-booking-mobile.jpg`, `/marketing/product/temaro-business-discovery.jpg`, `salon-operating-hero`, `salon-command-frame`, `product-window-hero`, `product-window-frame`, `product-proof-gallery`, `photo-led-hero`, `salon-phone-card`, `/marketing/salon-day-hero.webp`, `operating-table-stage`, `Provozní stůl dne`, `hero-before-after-stage`, `Den před Temarem`, `Den s Temarem`, `dispatch-day-rail`, `mobile-day-rail`, `dispatch-proof-strip` ani `id="trust-bar"`.
-- Poslední staging ověření 2026-06-11 23:59 CEST splnilo předchozí bod na preview deployi `dpl_9gxFWsUEM9d1MUGjdeZmAhN84KCd`, alias `https://rezervacni-system-dev.vercel.app`; staging screenshot audit je v `output/playwright/landing-personality-2026-06-11/staging/`.
+- Poslední staging ověření 2026-06-15 15:11 CEST splnilo předchozí bod na preview deployi `dpl_CWMBGT8HMiPALCB5R2ZAKz1RNqjp`, alias `https://rezervacni-system-dev.vercel.app`; staging screenshot audit je v `output/playwright/temaro-wow-cleanup-2026-06-15/staging/`.
 - Přes `curl -I http://localhost:3000` nebo DevTools Network ověřit, že response obsahuje `Content-Security-Policy`.
 - Přes `curl -I http://localhost:3000` nebo DevTools Network ověřit, že běžné routy obsahují `X-Frame-Options: DENY`; `/embed/booking/<slug>` ho mít nemá, protože booking widget musí jít vložit do iframe.
 - Zkontrolovat root landing page `/`: aktuální veřejný směr je Fresha-like premium salon platform, tedy krátký claim `Plnější kalendář bez volání.`, velký code-native produktový desktop+telefon náhled, čistý bílý/porcelain canvas, tři service fotky v hero ribbonu a produktový průchod rezervace bez fake metrik, referencí a log. Přihlášená aplikace dál může držet Signal OS.

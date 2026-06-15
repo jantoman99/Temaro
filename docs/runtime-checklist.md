@@ -1,6 +1,6 @@
 # Runtime checklist
 
-Aktualizováno: 2026-06-15 15:01 CEST
+Aktualizováno: 2026-06-15 15:11 CEST
 
 Tento checklist je pro první reálné ověření mimo demo režim.
 
@@ -22,6 +22,7 @@ curl -I http://localhost:3000
 
 Aktuální známý stav:
 
+- Staging ověření po Fresha visual cleanupu 2026-06-15 15:11 CEST: `https://rezervacni-system-dev.vercel.app` míří na ruční preview deploy `dpl_CWMBGT8HMiPALCB5R2ZAKz1RNqjp` z commitu `47bc245`. `/api/health` vrací `status=ok`, `env.ok=true`, `supabase.ok=true`, `rate_limit.configured=false`. HTML obsahuje `Plnější kalendář`, `temaro-hero-product-visual`, `temaro-hero-photo-ribbon`, `temaro-hero-photo-card`, `temaro-reservation-flow`, `temaro-flow-board` a `Zdroj → kalendář → klient → zpráva → platba`; neobsahuje `temaro-black-hero-grid`, `temaro-salon-wall` ani `booking-phone-preview`. Staging browser metrics: desktop/mobile `overflowX=0`, header `76px`, desktop product `1360x709`, mobile product `358x544`, hero visible images `3`, H1 `Instrument Sans` `780`. Console error je pouze Vercel Live feedback script blokovaný CSP.
 - Lokální ověření po Fresha visual cleanupu 2026-06-15 15:01 CEST: `npm run check` prošlo s 601 Vitest testy, migrations check, TypeScript type-check, lint a produkční build. Cíleně prošlo `npx vitest run tests/landing-polish.test.ts` 23/23, `git diff --check` a `npx impeccable detect app components`. Browser audit je v `output/playwright/temaro-wow-cleanup-2026-06-15/`: desktop/mobile `overflowX=0`, header `76px`, desktop product `1360x709`, mobile product `358x544`, hero visible images `3`, H1 `Instrument Sans` `780`, dekorativní grid backgroundy odstraněné z proof/story/flow surfaces, console warnings/errors `0` po finální Image úpravě.
 - Runtime po Fresha visual cleanupu ověřit na staging `/`: hero musí zůstat velký Fresha-like produktový náhled `temaro-hero-product-visual` s desktopem a telefonem, nad produktem musí být `temaro-hero-photo-ribbon` se třemi lokálními service fotkami, H1 má být klidnější `Instrument Sans` kolem `82px` desktop / `45px` mobil a `font-weight: 780`. V marketing pozadí nesmí být dekorativní mřížky ani náhodné oranžové/mint fleky; grid se smí používat jen jako produktové členění kalendáře. Desktop i mobil musí mít `overflowX=0` a bez aplikačních console errors.
 - Staging ověření po UI/UX Pro Max follow-up passu 2026-06-15 14:38 CEST: `https://rezervacni-system-dev.vercel.app` míří na ruční preview deploy `dpl_8qkJQL2qW2sCNTAhNKMt5gL2Mci6` z commitu `cf3fef0`. `/api/health` vrací `status=ok`, `env.ok=true`, `supabase.ok=true`, `rate_limit.configured=false`. HTML obsahuje `temaro-hero-product-visual`, `temaro-product-desktop`, `temaro-product-phone`, `temaro-reservation-flow`, `temaro-flow-board`, `temaro-flow-rail` a `Zdroj → kalendář → klient → zpráva → platba`; neobsahuje `temaro-fresha-product-hero`, `temaro-black-hero-grid` ani `temaro-salon-wall`. Staging browser metrics: desktop/mobile `overflowX=0`, header `76px`, desktop product `1360x709`, mobile product `358x544`, desktop flow rail `2` sloupce, mobile flow rail `1` sloupec. Console error je pouze Vercel Live feedback script blokovaný CSP.
