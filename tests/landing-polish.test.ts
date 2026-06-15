@@ -56,7 +56,9 @@ describe("landing polish guard", () => {
     expect(page).toContain("MobileStickyCta");
     expect(page).toContain("heroProofItems");
     expect(page).toContain("temaro-hero-proof-band");
+    expect(page).toContain("temaro-hero-proof-shell");
     expect(page).toContain("temaro-hero-proof-card");
+    expect(page).toContain("temaro-hero-proof-rating-row");
     expect(page).toContain("Vlastní klienti");
     expect(page).toContain("Jeden kalendář");
     expect(page).toContain("No-show ochrana");
@@ -346,7 +348,9 @@ describe("landing polish guard", () => {
     expect(globals).toContain(".temaro-booking-detail-card");
     expect(globals).toContain(".temaro-product-phone");
     expect(globals).toContain(".temaro-hero-proof-band");
+    expect(globals).toContain(".temaro-hero-proof-shell");
     expect(globals).toContain(".temaro-hero-proof-card");
+    expect(globals).toContain(".temaro-hero-proof-rating-row");
     expect(globals).toContain(".temaro-feature-bento");
     expect(globals).toContain(".temaro-bento-grid");
     expect(globals).toContain(".temaro-bento-live");
@@ -366,7 +370,10 @@ describe("landing polish guard", () => {
     expect(globals).toContain("border: 0.62rem solid color-mix(in srgb, var(--ink) 88%, var(--cobalt))");
     expect(globals).toContain("overflow: hidden");
     expect(globals).toContain("font-family: var(--font-body-stack)");
-    expect(globals).toContain("linear-gradient(180deg, #ffffff 0%, #fbfcf9 52%, #f3f7ef 100%)");
+    expect(globals).toContain("font-weight: 780");
+    expect(globals).toContain("letter-spacing: -0.045em");
+    expect(globals).toContain("linear-gradient(180deg, #ffffff 0%, #fbfcf9 48%, #f7f2ea 100%)");
+    expect(globals).toContain("linear-gradient(120deg, #2B3FF2 0%, #7A5BFF 38%, #FF8FC2 72%, #FFB98A 100%)");
     expect(globals).toContain("aspect-ratio: 9 / 16");
     expect(globals).toContain("min-height: 34rem");
     expect(globals).toContain("bottom: 1.15rem");

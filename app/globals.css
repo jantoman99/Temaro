@@ -344,8 +344,9 @@
 
   .temaro-premium-hero {
     background:
-      radial-gradient(circle at 50% 18%, rgba(43, 63, 242, 0.06), transparent 26rem),
-      linear-gradient(180deg, #ffffff 0%, #fbfcf9 52%, #f3f7ef 100%);
+      radial-gradient(circle at 50% 20%, rgba(43, 63, 242, 0.09), transparent 25rem),
+      radial-gradient(circle at 88% 66%, rgba(255, 185, 138, 0.18), transparent 26rem),
+      linear-gradient(180deg, #ffffff 0%, #fbfcf9 48%, #f7f2ea 100%);
   }
 
   .temaro-premium-copy {
@@ -355,12 +356,12 @@
   .temaro-premium-copy h1 {
     color: color-mix(in srgb, var(--ink) 94%, black);
     font-family: var(--font-display-stack);
-    font-weight: 850;
-    letter-spacing: -0.06em;
+    font-weight: 780;
+    letter-spacing: -0.045em;
   }
 
   .temaro-premium-highlight {
-    color: #17218d;
+    color: #2432d8;
     display: inline-block;
     margin-left: 0.12em;
   }
@@ -374,7 +375,7 @@
   }
 
   .temaro-premium-stage {
-    margin: 2.55rem auto 0;
+    margin: 2.25rem auto 0;
     max-width: 1360px;
     position: relative;
   }
@@ -732,24 +733,72 @@
 
   .temaro-hero-proof-band {
     background:
-      radial-gradient(circle at 16% 0%, color-mix(in srgb, var(--mint) 34%, transparent), transparent 19rem),
-      radial-gradient(circle at 92% 20%, color-mix(in srgb, var(--apricot) 32%, transparent), transparent 20rem),
-      linear-gradient(180deg, #ffffff 0%, color-mix(in srgb, var(--porcelain) 72%, white) 100%);
-    border-block: 1px solid color-mix(in srgb, var(--paper-line) 80%, transparent);
-    color: var(--ink);
-    margin-top: -0.05rem;
+      radial-gradient(circle at 18% 14%, rgba(255, 255, 255, 0.34), transparent 18rem),
+      radial-gradient(circle at 72% 18%, rgba(191, 234, 212, 0.42), transparent 21rem),
+      linear-gradient(120deg, #2B3FF2 0%, #7A5BFF 38%, #FF8FC2 72%, #FFB98A 100%);
+    color: white;
+    margin-top: -0.2rem;
     position: relative;
   }
 
+  .temaro-hero-proof-band::before {
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.68), transparent 64%),
+      radial-gradient(circle at 50% 100%, rgba(23, 26, 33, 0.22), transparent 30rem);
+    content: "";
+    inset: 0;
+    pointer-events: none;
+    position: absolute;
+  }
+
+  .temaro-hero-proof-band > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .temaro-hero-proof-shell {
+    display: grid;
+    gap: 2rem;
+  }
+
+  .temaro-hero-proof-rating-row {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem 1.4rem;
+    justify-content: center;
+  }
+
+  .temaro-hero-proof-rating-row span {
+    align-items: center;
+    color: rgba(255, 255, 255, 0.9);
+    display: inline-flex;
+    font-size: 0.86rem;
+    font-weight: 850;
+    gap: 0.45rem;
+    text-shadow: 0 1px 18px rgba(23, 26, 33, 0.24);
+  }
+
+  .temaro-hero-proof-rating-row span::before {
+    background: rgba(255, 255, 255, 0.72);
+    border-radius: 999px;
+    box-shadow: 0 0 24px rgba(255, 255, 255, 0.4);
+    content: "";
+    height: 0.42rem;
+    width: 0.42rem;
+  }
+
   .temaro-hero-proof-card {
-    background: rgba(255, 255, 255, 0.7);
-    border-left: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
-    box-shadow: none;
-    padding: 0.6rem 1.25rem;
+    background: rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    border-radius: 1.55rem;
+    box-shadow: 0 1.6rem 4rem rgba(23, 26, 33, 0.16);
+    min-height: 10.5rem;
+    padding: 1.15rem;
   }
 
   .temaro-hero-proof-card p {
-    color: var(--cobalt);
+    color: rgba(255, 255, 255, 0.78);
     font-family: var(--font-plex-mono);
     font-size: 0.68rem;
     font-weight: 800;
@@ -767,7 +816,7 @@
   }
 
   .temaro-hero-proof-card span {
-    color: var(--ink-soft);
+    color: rgba(255, 255, 255, 0.86);
     display: block;
     font-size: 0.86rem;
     font-weight: 650;
@@ -1405,6 +1454,7 @@
 
     .temaro-premium-copy h1 {
       font-size: clamp(2.85rem, 13vw, 3.45rem);
+      letter-spacing: -0.045em;
       line-height: 0.92;
     }
 
@@ -1419,8 +1469,8 @@
     }
 
     .temaro-premium-stage {
-      margin-top: 1.7rem;
-      min-height: 34rem;
+      margin-top: 1.45rem;
+      min-height: 29rem;
     }
 
     .temaro-premium-product {
@@ -1428,7 +1478,7 @@
     }
 
     .temaro-product-desktop {
-      min-height: 22rem;
+      min-height: 18.5rem;
     }
 
     .temaro-product-side-nav,
@@ -1446,7 +1496,7 @@
 
     .temaro-product-calendar {
       grid-template-columns: 2.9rem minmax(0, 1fr);
-      min-height: 18.5rem;
+      min-height: 16.5rem;
     }
 
     .temaro-product-rail {
@@ -1489,13 +1539,19 @@
     }
 
     .temaro-product-phone {
-      bottom: -2.15rem;
+      bottom: -1.35rem;
       border-width: 0.42rem;
       left: 50%;
-      min-height: 25.5rem;
+      min-height: 22.6rem;
+      padding: 1.15rem 0.82rem 0.82rem;
       right: auto;
       transform: translateX(-50%);
       width: min(17.4rem, calc(100% - 6.4rem));
+    }
+
+    .temaro-phone-event {
+      min-height: 5.2rem;
+      padding: 0.72rem;
     }
 
   }

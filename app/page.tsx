@@ -297,17 +297,25 @@ export default async function Home() {
       <BusinessDiscoveryHero />
       <MobileStickyCta />
 
-      <section className="temaro-hero-proof-band px-4 py-8 sm:px-6 sm:py-9 lg:px-8" aria-label="Důkaz produktu Temaro">
-        <div className="mx-auto grid w-full max-w-[1180px] gap-3 md:grid-cols-2 xl:grid-cols-4">
-          {heroProofItems.map((item, index) => (
-            <Reveal key={item.label} delay={index * 50} className="h-full">
-              <article className="temaro-hero-proof-card h-full">
-                <p>{item.label}</p>
-                <h2>{item.title}</h2>
-                <span>{item.text}</span>
-              </article>
-            </Reveal>
-          ))}
+      <section className="temaro-hero-proof-band px-4 py-10 sm:px-6 sm:py-12 lg:px-8" aria-label="Důkaz produktu Temaro">
+        <div className="temaro-hero-proof-shell mx-auto w-full max-w-[1180px]">
+          <div className="temaro-hero-proof-rating-row" aria-label="Stav produktu Temaro">
+            <span>Vlastní kanály</span>
+            <span>Online rezervace</span>
+            <span>SMS a záloha</span>
+            <span>CRM demo</span>
+          </div>
+          <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+            {heroProofItems.map((item, index) => (
+              <Reveal key={item.label} delay={index * 50} className="h-full">
+                <article className="temaro-hero-proof-card h-full">
+                  <p>{item.label}</p>
+                  <h2>{item.title}</h2>
+                  <span>{item.text}</span>
+                </article>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 
