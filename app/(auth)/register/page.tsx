@@ -2,7 +2,6 @@ import Link from "next/link";
 
 import { TemaroLogo } from "@/components/brand/temaro-logo";
 import { RegisterForm } from "@/components/auth/register-form";
-import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 type RegisterPageProps = {
   searchParams: Promise<{
@@ -22,12 +21,11 @@ export default async function RegisterPage({ searchParams }: RegisterPageProps) 
   const notice = params.error && params.error in noticeCopy ? noticeCopy[params.error as keyof typeof noticeCopy] : null;
 
   return (
-    <main className="min-h-screen bg-[linear-gradient(180deg,#ffffff_0%,#f7f8f1_48%,#eef1e8_100%)] px-4 py-6 text-foreground sm:px-6">
-      <header className="mx-auto flex w-full max-w-[520px] items-center justify-between">
+    <main className="temaro-public-auth min-h-screen px-4 py-6 text-foreground sm:px-6">
+      <header className="mx-auto flex w-full max-w-[520px] items-center justify-start">
         <Link href="/" className="text-sm font-semibold text-muted-foreground transition hover:text-foreground">
           Zpět na web
         </Link>
-        <ThemeToggle compact />
       </header>
       <div className="grid min-h-[calc(100vh-5rem)] place-items-center">
       <section className="w-full max-w-[480px]">

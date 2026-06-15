@@ -5,7 +5,6 @@ import Link from "next/link";
 import { PublicBookingForm } from "@/components/booking/public-booking-form";
 import { TemaroLogo } from "@/components/brand/temaro-logo";
 import { DemoBanner } from "@/components/demo/demo-banner";
-import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { getAvailabilitySlots } from "@/lib/booking/availability";
 import { demoBookings, demoServices, demoStaff, demoTenant } from "@/lib/demo/data";
 import { hasSupabaseAdminEnv } from "@/lib/env";
@@ -263,7 +262,7 @@ function DemoBookingPage({
   });
 
   return (
-    <main className="signal-hero signal-grid min-h-screen px-4 py-10 text-foreground">
+    <main className="temaro-public-light signal-hero signal-grid min-h-screen px-4 py-10 text-foreground">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -288,7 +287,6 @@ function DemoBookingPage({
               </Link>
             ))}
           </nav>
-          <ThemeToggle compact />
         </header>
         <div className="mb-6">
           <DemoBanner />
@@ -409,7 +407,7 @@ export default async function BookingPage({ params, searchParams }: BookingPageP
   });
 
   return (
-    <main className="signal-hero signal-grid min-h-screen px-4 py-10 text-foreground">
+    <main className="temaro-public-light signal-hero signal-grid min-h-screen px-4 py-10 text-foreground">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

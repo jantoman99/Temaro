@@ -8,16 +8,14 @@ import {
 import { SocialProviderIcon } from "@/components/auth/social-provider-icon";
 import { TemaroLogo } from "@/components/brand/temaro-logo";
 import { Button } from "@/components/ui/button";
-import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 export default function CustomerAccountLoginPage() {
   return (
-    <main className="min-h-screen bg-background px-4 py-6 text-foreground sm:px-6">
-      <header className="mx-auto flex w-full max-w-[460px] items-center justify-between">
+    <main className="temaro-public-auth min-h-screen px-4 py-6 text-foreground sm:px-6">
+      <header className="mx-auto flex w-full max-w-[460px] items-center justify-start">
         <Link href="/" className="text-sm font-semibold text-muted-foreground transition hover:text-foreground">
           Zpět na web
         </Link>
-        <ThemeToggle compact />
       </header>
       <div className="grid min-h-[calc(100vh-5rem)] place-items-center">
       <section className="w-full max-w-[420px]">

@@ -1,6 +1,6 @@
 # Manualni test plan
 
-Aktualizováno: 2026-06-15 19:23 CEST
+Aktualizováno: 2026-06-15 20:49 CEST
 
 Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 
@@ -25,8 +25,8 @@ Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 - Přes `curl -I http://localhost:3000` nebo DevTools Network ověřit, že běžné routy obsahují `X-Frame-Options: DENY`; `/embed/booking/<slug>` ho mít nemá, protože booking widget musí jít vložit do iframe.
 - Zkontrolovat root landing page `/`: aktuální veřejný směr je Fresha-like premium salon platform, tedy krátký claim `Plnější kalendář bez volání.`, velký code-native produktový desktop+telefon náhled, čistý bílý/porcelain canvas, bez tří malých překryvných hero fotek, image-led service sekce až pod proof bandem a produktový průchod rezervace bez fake metrik, referencí a log. Přihlášená aplikace dál může držet Signal OS.
 - Zkontrolovat top bar landing page: musí obsahovat `Produkt`, `Pro koho`, `Návody`, `Ceník`, `Bez marketplace`, `Bezpečnost`, `Ukázka`, `Přihlášení` a primary CTA `Registrovat salon`; desktop labely se nesmí lámat na dva řádky.
-- Ověřit, že marketing header na homepage nemá theme toggle a landing zůstává light-only i při dříve uloženém dark režimu v prohlížeči.
-- Theme toggle dál ověřovat na `/podniky`, auth a booking demo stránkách, kde má zůstat součástí veřejného vstupu.
+- Ověřit, že žádná veřejná stránka nemá theme toggle a public web zůstává light-only i při dříve uloženém dark režimu v prohlížeči.
+- Theme toggle dál ověřovat jen v dashboardu. `/podniky`, auth/customer vstupy, `/demo-barber`, `/ukazka` a SEO landingy mají zůstat bez veřejného přepínače.
 - Proklikat top bar kotvy a overit, ze vedou na odpovidajici sekce, ne na prazdne nebo neexistujici stranky.
 - Na mobilni sirce zkontrolovat, ze top navigace nezmizi, nepreteka mimo viewport a ctyri hlavni polozky jsou citelne bez horizontalniho scrollu.
 - Na landing page zkontrolovat hero: claim `Plnější kalendář bez volání.`, CTA `Registrovat salon`, CTA `Vidět ukázku`, žádné malé foto karty nad produktem, code-native produktový desktop+telefon náhled, kanály `Web podniku`, `Instagram`, `Google`, `QR recepce`, booking řádky `08:30`, `10:30`, `12:15`, `16:00`, detail `16:00 z Instagramu` a důkaz pod herem `0 %`, `4 kanály`, `SMS + záloha`, `CRM demo`.
@@ -52,8 +52,8 @@ Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 - Zkontrolovat ceník: `Pilot` může mít `0 Kč`, ale `Solo` a `Tým` musí zůstat bez vymyšlené finální ceny, dokud není pricing rozhodnutý.
 - Ověřit, že podnikatelská registrace `/register` a zákaznický účet `/account/login` zůstávají dostupné přes CTA/footer, i když samostatná homepage sekce `Dva typy účtů` byla odstraněná kvůli zkrácení stránky.
 - Otevřít `/podniky`, ověřit demo/veřejný výpis, hledání podle textu, města a oboru, booking CTA a odkaz `Otevřít mapu`.
-- Na `/podniky` ověřit theme toggle ve veřejné hlavičce a návrat na podnikatelskou homepage přes `Pro podniky`.
-- Otevřít `/demo-barber` a ověřit, že není slepá ulička: nahoře musí být `Zpět na web`, `Interaktivní ukázka`, `Registrovat podnik` a theme toggle. Vlastní demo rezervační flow musí zůstat použitelné.
+- Na `/podniky` ověřit absenci theme toggle ve veřejné hlavičce a návrat na podnikatelskou homepage přes `Pro podniky`.
+- Otevřít `/demo-barber` a ověřit, že není slepá ulička: nahoře musí být `Zpět na web`, `Interaktivní ukázka`, `Registrovat podnik` a žádný theme toggle. Vlastní demo rezervační flow musí zůstat použitelné.
 - Na mobilní šířce `/demo-barber` ověřit, že se galerie, mapa a rezervační formulář vejdou bez horizontálního scrollu a DevTools Network neukazuje 404 pro `/marketing/*-ai.webp`.
 - Na landing page zkontrolovat světlé pozadí, konkrétní provozní copy a produktový náhled bez tmavého Linear/Signal hero dojmu.
 - Na landing page zkontrolovat produktovou ukázku: desktopový dashboard musí působit jako reálný SaaS produkt a telefonní overlay jako veřejná rezervační stránka.
@@ -72,12 +72,12 @@ Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 - Na landing page zkontrolovat, ze produktovy mockup vypada jako provozni konzole se signaly dne, ne jako genericky bily wireframe.
 - Zkontrolovat, ze prohlizec pouziva Temaro favicon a ze SVG loga v `public/brand` maji transparentni pozadi.
 - Otevrit `http://localhost:3000/design-preview` a zkontrolovat, ze presmeruje na aktualni homepage; zastarale preview uz nema byt samostatny zdroj pravdy.
-- Otevrit `/login` a `/register` a zkontrolovat centrovane auth karty s Temaro logem, bez marketing hero bloku a demo dat. Nahoře musí být `Zpět na web` a theme toggle.
+- Otevrit `/login` a `/register` a zkontrolovat centrovane auth karty s Temaro logem, bez marketing hero bloku a demo dat. Nahoře musí být `Zpět na web`, ale žádný theme toggle.
 - Na `/login`, `/register` a `/account/login` ověřit OAuth tlačítka `Google`, `Facebook` a `Apple`: mají být barevná podle provideru, s logem a sladěná s auth redesignem. Poslední automatické ověření 2026-06-15 19:59 CEST: focused auth/callback/helpers 89/89, OAuth entrypoint Playwright smoke 2/2 a plný `npm run check` s 611 Vitest testy. Runtime: podnikatelská OAuth registrace nesmí chtít název podniku před klikem na provider; tenant vzniká až ve druhém kroku `/register/complete` po vyplnění názvu podniku a jména vlastníka. Zákaznický OAuth login nesmí vytvořit tenant.
 - Na stagingu je pro OAuth entrypointy poslední ověřený deploy `dpl_2sjmwQ9gorRysbJTdBLUUp8FKqdb` z 2026-06-15 20:04 CEST; `/api/health=ok`, HTML auth stránek obsahuje Google/Facebook/Apple tlačítka, staging Playwright OAuth smoke prošel 2/2 a klik na Google z `/register` bez vyplnění polí vede na Google s návratem na `/register/complete`.
 - Runtime OAuth config 2026-06-15 20:04 CEST: Supabase allow-list už obsahuje `https://rezervacni-system-dev.vercel.app/**` a Google provider je zapnutý. Facebook/Apple netestovat, dokud nejsou v Supabase doplněné jejich client ID/secret.
 - Google OAuth 2026-06-15 20:04 CEST: na stagingu ručně dokončit login testovacím Google účtem. Pro `/register` očekávat redirect na `/register/complete`, až tam doplnit název podniku a jméno vlastníka, potom ověřit `/start`. Pro `/login` ověřit návrat do adminu existujícího ownera. Pro `/account/login` ověřit, že Google účet bez tenant metadata skončí jen v zákaznickém účtu.
-- Otevřít `/forgot-password`, `/reset-password` a `/account/login`; ověřit stejný návrat `Zpět na web` a theme toggle bez plné marketing navigace.
+- Otevřít `/forgot-password`, `/reset-password` a `/account/login`; ověřit stejný návrat `Zpět na web`, žádný theme toggle a žádnou plnou marketing navigaci.
 - Produkční Google OAuth runtime test dělat až po zakoupení/napojení produkční domény; staging Google provider už zapnutý je.
 - Po zakoupení domény na `/register` kliknout `Pokračovat přes Google`, po callbacku na `/register/complete` vyplnit název podniku a jméno vlastníka a ověřit, že vznikne nový tenant a otevře se `/start` jako owner.
 - Po zakoupení domény otevřít `/account/login`, přihlásit se Google účtem bez tenant metadata a ověřit, že `/account` zobrazí jen rezervace podle ověřeného e-mailu.
@@ -91,14 +91,14 @@ Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 - Otevřít cizí nebo neplatné `/account/bookings/<bookingId>`; očekávání je 404 nebo login redirect, nikdy zobrazení cizí rezervace.
 - Automatika už ověřuje, že `/account/login` renderuje zákaznický Google vstup; reálný Supabase Google callback a data v `/account` ověřit až po doméně.
 - Ověřit, že stejný zákaznický účet bez tenant metadata nemá přístup do `/dashboard`, `/calendar`, `/clients`, `/services`, `/staff`, `/settings` ani `/payments`.
-- Otevřít `/rezervacni-system-pro-barbery` a ověřit title/hero/FAQ/CTA, desktop i mobil, světlý i tmavý režim.
-- Otevřít `/rezervacni-system-pro-kadernictvi` a ověřit title/hero/FAQ/CTA, desktop i mobil, světlý i tmavý režim.
-- Otevřít `/rezervacni-system-pro-kosmeticky-salon` a ověřit title/hero/FAQ/CTA, desktop i mobil, světlý i tmavý režim.
-- Otevřít `/rezervacni-system-pro-masaze` a ověřit title/hero/FAQ/CTA, desktop i mobil, světlý i tmavý režim.
-- Otevřít `/rezervacni-system-pro-wellness` a ověřit title/hero/FAQ/CTA, desktop i mobil, světlý i tmavý režim.
-- Otevřít `/jak-snizit-no-show` a ověřit article layout, FAQ, interní odkazy a CTA, desktop i mobil, světlý i tmavý režim.
-- Otevřít `/sms-pripominky-rezervaci` a ověřit article layout, FAQ, interní odkazy a CTA, desktop i mobil, světlý i tmavý režim.
-- Otevřít `/rezervacni-system-bez-marketplace-provizi` a ověřit article layout, FAQ, interní odkazy a CTA, desktop i mobil, světlý i tmavý režim.
+- Otevřít `/rezervacni-system-pro-barbery` a ověřit title/hero/FAQ/CTA, desktop i mobil, light-only vzhled i při uloženém dark režimu.
+- Otevřít `/rezervacni-system-pro-kadernictvi` a ověřit title/hero/FAQ/CTA, desktop i mobil, light-only vzhled i při uloženém dark režimu.
+- Otevřít `/rezervacni-system-pro-kosmeticky-salon` a ověřit title/hero/FAQ/CTA, desktop i mobil, light-only vzhled i při uloženém dark režimu.
+- Otevřít `/rezervacni-system-pro-masaze` a ověřit title/hero/FAQ/CTA, desktop i mobil, light-only vzhled i při uloženém dark režimu.
+- Otevřít `/rezervacni-system-pro-wellness` a ověřit title/hero/FAQ/CTA, desktop i mobil, light-only vzhled i při uloženém dark režimu.
+- Otevřít `/jak-snizit-no-show` a ověřit article layout, FAQ, interní odkazy a CTA, desktop i mobil, light-only vzhled i při uloženém dark režimu.
+- Otevřít `/sms-pripominky-rezervaci` a ověřit article layout, FAQ, interní odkazy a CTA, desktop i mobil, light-only vzhled i při uloženém dark režimu.
+- Otevřít `/rezervacni-system-bez-marketplace-provizi` a ověřit article layout, FAQ, interní odkazy a CTA, desktop i mobil, light-only vzhled i při uloženém dark režimu.
 - Ve footeru homepage ověřit odkazy `Pro barbery`, `Pro kadeřnictví`, `Pro beauty salon`, `Pro masáže`, `No-show guide`, `SMS připomínky` a `Bez marketplace provizí`.
 - Po prihlaseni otevrit dashboard a zkontrolovat Signal OS shell: Temaro logo v tmavem ink sidebaru, fialovo-modry aktivni signal, topbar search, CTA pro novou rezervaci a logout.
 - Na desktopu zkontrolovat, že dashboard entity neplavou v úzkém centrovaném sloupci; pracovní plocha má využívat dostupnou šířku mezi sidebarem a pravým okrajem.

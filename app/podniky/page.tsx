@@ -2,7 +2,6 @@ import { ArrowRight, CalendarCheck2, MapPin, Search, UserRoundCheck } from "luci
 import Link from "next/link";
 
 import { TemaroLogo } from "@/components/brand/temaro-logo";
-import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { demoTenant } from "@/lib/demo/data";
 import { hasSupabaseAdminEnv } from "@/lib/env";
 import { createAdminClient } from "@/lib/supabase/admin";
@@ -143,14 +142,13 @@ export default async function DirectoryPage({ searchParams }: DirectoryPageProps
   const tenants = await getDirectoryTenants(query, location, industry);
 
   return (
-    <main className="signal-hero signal-grid min-h-screen bg-background px-4 py-8 text-foreground sm:px-6 lg:px-8">
+    <main className="temaro-public-light signal-hero signal-grid min-h-screen px-4 py-8 text-foreground sm:px-6 lg:px-8">
       <div className="mx-auto w-full max-w-[1180px]">
         <header className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-border/80 bg-card/88 p-4 shadow-sm backdrop-blur">
           <Link href="/" className="flex items-center gap-3">
             <TemaroLogo />
           </Link>
           <div className="flex items-center gap-2">
-            <ThemeToggle compact />
             <Link href="/" className="hidden rounded-md border border-border bg-background px-4 py-2 text-sm font-semibold shadow-sm hover:bg-muted sm:inline-flex">
               Pro podniky
             </Link>

@@ -2568,20 +2568,6 @@
     animation-play-state: paused;
   }
 
-  .temaro-time-page {
-    --background: var(--porcelain);
-    --foreground: var(--ink);
-    --card: var(--surface-card);
-    --card-foreground: var(--ink);
-    --border: var(--paper-line);
-    --primary: var(--cobalt);
-    --primary-foreground: #ffffff;
-    color-scheme: light;
-    color: var(--ink);
-    scroll-padding-top: 7rem;
-    background: var(--porcelain);
-  }
-
   .font-serif-accent {
     font-family: var(--font-serif);
     font-style: italic;
@@ -2605,6 +2591,72 @@
       radial-gradient(circle at 18% 16%, color-mix(in srgb, var(--cobalt) 24%, transparent), transparent 32rem),
       radial-gradient(circle at 82% 12%, oklch(0.68 0.145 246 / 0.16), transparent 28rem),
       linear-gradient(135deg, oklch(0.18 0.018 255), oklch(0.13 0.014 255));
+  }
+
+  .temaro-time-page,
+  .temaro-public-light,
+  .temaro-public-auth {
+    --background: var(--porcelain);
+    --foreground: var(--ink);
+    --card: var(--surface-card);
+    --card-foreground: var(--ink);
+    --popover: var(--surface-card);
+    --popover-foreground: var(--ink);
+    --primary: var(--cobalt);
+    --primary-foreground: #ffffff;
+    --secondary: var(--porcelain-deep);
+    --secondary-foreground: var(--ink-soft);
+    --muted: var(--porcelain-deep);
+    --muted-foreground: var(--ink-faint);
+    --accent: var(--apricot);
+    --accent-foreground: var(--ink);
+    --destructive: oklch(0.55 0.22 27);
+    --success: oklch(0.64 0.145 151);
+    --warning: oklch(0.73 0.135 82);
+    --info: oklch(0.68 0.145 246);
+    --border: var(--paper-line);
+    --input: var(--paper-line);
+    --ring: var(--cobalt);
+    --tag-blue: oklch(0.55 0.13 235);
+    --tag-green: oklch(0.58 0.13 155);
+    --tag-amber: oklch(0.72 0.15 75);
+    --tag-violet: oklch(0.55 0.15 295);
+    --chart-1: var(--cobalt);
+    --chart-2: var(--apricot);
+    --chart-3: var(--mint);
+    --chart-4: var(--signal-red);
+    --chart-5: oklch(0.73 0.135 82);
+    color-scheme: light;
+    color: var(--ink);
+  }
+
+  .temaro-time-page {
+    scroll-padding-top: 7rem;
+    background: var(--porcelain);
+  }
+
+  @supports selector(body:has(main)) {
+    body:has(.temaro-time-page),
+    body:has(.temaro-public-light),
+    body:has(.temaro-public-auth) {
+      background: var(--porcelain);
+      color: var(--ink);
+    }
+  }
+
+  .temaro-public-light.signal-hero,
+  .temaro-public-light .signal-hero,
+  .dark .temaro-public-light .signal-hero,
+  .dark .temaro-public-light.signal-hero {
+    background:
+      radial-gradient(circle at 18% 16%, color-mix(in srgb, var(--cobalt) 18%, transparent), transparent 32rem),
+      radial-gradient(circle at 82% 12%, oklch(0.68 0.145 246 / 0.16), transparent 28rem),
+      linear-gradient(135deg, oklch(0.99 0.004 255), oklch(0.94 0.010 255));
+  }
+
+  .temaro-public-auth,
+  .dark .temaro-public-auth {
+    background: linear-gradient(180deg, #ffffff 0%, #f7f8f1 48%, #eef1e8 100%);
   }
 
   .command-surface {

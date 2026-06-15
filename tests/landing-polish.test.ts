@@ -8,6 +8,16 @@ function readProjectFile(path: string) {
   return readFileSync(join(rootDir, path), "utf8");
 }
 
+function getCssBlock(css: string, selector: string) {
+  const start = css.indexOf(selector);
+  if (start === -1) return "";
+
+  const end = css.indexOf("}", start);
+  if (end === -1) return "";
+
+  return css.slice(start, end + 1);
+}
+
 const forbiddenOldLandingSignatures = [
   "dispatch-day-rail",
   "mobile-day-rail",
@@ -474,11 +484,34 @@ describe("landing polish guard", () => {
 
     expect(header).not.toContain("ThemeToggle");
     expect(page).toContain("temaro-time-page");
-    expect(globals).toContain("--background: var(--porcelain)");
-    expect(globals).toContain("--foreground: var(--ink)");
-    expect(globals).toContain("--card: var(--surface-card)");
-    expect(globals).toContain("--primary: var(--cobalt)");
-    expect(globals).toContain("color-scheme: light");
+
+    const timePageBlock = getCssBlock(globals, ".temaro-time-page");
+
+    expect(timePageBlock).toContain("--background: var(--porcelain)");
+    expect(timePageBlock).toContain("--foreground: var(--ink)");
+    expect(timePageBlock).toContain("--card: var(--surface-card)");
+    expect(timePageBlock).toContain("--popover: var(--surface-card)");
+    expect(timePageBlock).toContain("--secondary: var(--porcelain-deep)");
+    expect(timePageBlock).toContain("--muted: var(--porcelain-deep)");
+    expect(timePageBlock).toContain("--muted-foreground: var(--ink-faint)");
+    expect(timePageBlock).toContain("--input: var(--paper-line)");
+    expect(timePageBlock).toContain("--primary: var(--cobalt)");
+    expect(timePageBlock).toContain("color-scheme: light");
+    expect(globals).toContain("body:has(.temaro-time-page)");
+    expect(globals).toContain("body:has(.temaro-public-light)");
+    expect(globals).toContain("body:has(.temaro-public-auth)");
+  });
+
+  test("public marketing subpages stay light-only without theme toggles", () => {
+    const industryLanding = readProjectFile("components/marketing/industry-landing-page.tsx");
+    const noShowPage = readProjectFile("app/jak-snizit-no-show/page.tsx");
+    const smsPage = readProjectFile("app/sms-pripominky-rezervaci/page.tsx");
+    const marketplacePage = readProjectFile("app/rezervacni-system-bez-marketplace-provizi/page.tsx");
+
+    for (const page of [industryLanding, noShowPage, smsPage, marketplacePage]) {
+      expect(page).toContain("temaro-public-light");
+      expect(page).not.toContain("ThemeToggle");
+    }
   });
 
   test("mobile CTA, menu and header match the salon direction", () => {
@@ -672,7 +705,7 @@ describe("landing polish guard", () => {
     expect(directory).toContain("Kde");
     expect(directory).toContain("Město, adresa nebo čtvrť");
     expect(directory).toContain("Pro zákazníky");
-    expect(directory).toContain("ThemeToggle");
+    expect(directory).not.toContain("ThemeToggle");
     expect(directory).not.toContain("zeměpisná šířka");
     expect(directory).not.toContain("zeměpisná délka");
     expect(directory).not.toContain('name="lat"');
@@ -684,19 +717,30 @@ describe("landing polish guard", () => {
     const bookingPage = readProjectFile("app/(booking)/[slug]/page.tsx");
 
     expect(bookingPage).toContain("Zpět na web");
-    expect(bookingPage).toContain("ThemeToggle");
+    expect(bookingPage).not.toContain("ThemeToggle");
     expect(bookingPage).toContain("/ukazka");
     expect(bookingPage).toContain("/register");
   });
 
-  test("auth entry points expose a way back and theme controls", () => {
+  test("auth entry points expose a way back without public theme controls", () => {
     const loginPage = readProjectFile("app/(auth)/login/page.tsx");
     const registerPage = readProjectFile("app/(auth)/register/page.tsx");
+    const completeRegisterPage = readProjectFile("app/(auth)/register/complete/page.tsx");
+    const forgotPasswordPage = readProjectFile("app/(auth)/forgot-password/page.tsx");
+    const resetPasswordPage = readProjectFile("app/(auth)/reset-password/page.tsx");
     const customerLoginPage = readProjectFile("app/account/login/page.tsx");
 
-    for (const page of [loginPage, registerPage, customerLoginPage]) {
-      expect(page).toContain("ThemeToggle");
+    for (const page of [
+      loginPage,
+      registerPage,
+      completeRegisterPage,
+      forgotPasswordPage,
+      resetPasswordPage,
+      customerLoginPage,
+    ]) {
+      expect(page).not.toContain("ThemeToggle");
       expect(page).toContain("Zpět na web");
+      expect(page).toContain("temaro-public-auth");
     }
   });
 });

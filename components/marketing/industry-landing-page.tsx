@@ -81,7 +81,7 @@ export function IndustryLandingPage({
   jsonLd,
 }: IndustryLandingPageProps) {
   return (
-    <main className="min-h-screen bg-background text-foreground">
+    <main className="temaro-public-light min-h-screen bg-background text-foreground">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

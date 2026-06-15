@@ -1,6 +1,6 @@
 # Runtime checklist
 
-Aktualizováno: 2026-06-15 20:04 CEST
+Aktualizováno: 2026-06-15 20:49 CEST
 
 Tento checklist je pro první reálné ověření mimo demo režim.
 
@@ -22,6 +22,7 @@ curl -I http://localhost:3000
 
 Aktuální známý stav:
 
+- Lokální public light-only pass 2026-06-15 20:49 CEST: veřejné stránky `/`, `/ukazka`, `/podniky`, `/demo-barber`, auth/customer vstupy a SEO/oborové landingy nemají `ThemeToggle` a vynucují světlé tokeny přes `temaro-time-page`, `temaro-public-light` nebo `temaro-public-auth` i při uloženém `localStorage.temaro-theme=dark`. Dashboardový toggle zůstává. Ověření: landing guard 24/24, cílený public Playwright smoke 6/6, browser audit `output/playwright/public-light-pass-2026-06-15-body-guard/` pro 18 route/viewport kombinací (`themeButtons=0`, `overflowX=0`, `consoleErrors=[]`, `bodyBg=rgb(246, 244, 239)`) a plný `npm run check` s 612 Vitest testy, migrations check, type-check, lint a produkční build.
 - Lokální OAuth two-step registration pass 2026-06-15 19:59 CEST: `/register`, `/login` a `/account/login` mají brandově barevné OAuth entrypointy Google/Facebook/Apple s logy. Server actions používají sdílený `redirectToOAuth`; podnikatelská OAuth registrace nejdřív nastaví intent cookie a po callbacku vede na `/register/complete`, kde se teprve validuje název podniku a jméno vlastníka a vzniká tenant/profile/owner metadata. Zákaznický `/account` callback s účtem bez tenant metadata nevolá aktivní tenant lookup. Ověření: focused auth/callback/helpers 89/89, Playwright OAuth entrypoint smoke 2/2, screenshot `output/playwright/register-oauth-redesign.png` a plný `npm run check` s 611 Vitest testy, migrations check, type-check, lint a produkční build. Runtime před pilotem: Google je na staging Supabase zapnutý; Facebook/Apple zapnout až po dodání credentials.
 - Staging OAuth two-step pass 2026-06-15 20:04 CEST: `https://rezervacni-system-dev.vercel.app` míří na preview deploy `dpl_2sjmwQ9gorRysbJTdBLUUp8FKqdb` z commitu `ae0a0a9`. `/api/health` vrací `status=ok`, `env.ok=true`, `supabase.ok=true`, `rate_limit.configured=false`; HTML `/login`, `/register` a `/account/login` obsahuje Google/Facebook/Apple entrypointy, staging Playwright OAuth smoke prošel 2/2 a klik na Google z `/register` bez vyplnění polí vede na `accounts.google.com` s návratem na `/register/complete`.
 - Runtime OAuth config pass 2026-06-15 20:04 CEST: Supabase Auth `uri_allow_list` obsahuje `https://rezervacni-system-dev.vercel.app/**`; dev alias míří na `dpl_2sjmwQ9gorRysbJTdBLUUp8FKqdb` nasazený s build-time `NEXT_PUBLIC_APP_URL=https://rezervacni-system-dev.vercel.app`. `/api/health=ok`, staging OAuth entrypoint smoke 2/2. Google provider je zapnutý; Facebook/Apple provider flags jsou dál vypnuté, dokud nejsou dodané provider credentials.
@@ -127,7 +128,7 @@ Aktuální známý stav:
 - Produkční alias `https://rezervacni-system-xi.vercel.app` po homepage vizuálním rytmu vrací `/api/health` se `status=ok`; produkční public smoke prošel 2026-06-06 17:30 CEST 10/10.
 - `npm run check` prošlo 2026-06-06 18:26 CEST po hero product restore: 593 Vitest testů, migrations check, type-check, lint a produkční build. Lokální public smoke prošel 10/10. Runtime ověřit, že homepage hero je dvousloupcový, text/CTA/trust/proof jsou vlevo, produktový PC + telefon mock je vpravo, kotva `#produkt` míří na hero a samostatná tmavá produktová sekce už není duplicitně pod herem.
 - Poznámka k lokálnímu ověření: public smoke nespouštět paralelně s `npm run check`, protože souběžný Next build může dočasně přepsat `.next` manifesty pro Playwright web server. Po dokončení buildu samostatný public smoke prošel 10/10.
-- Runtime ověřit na `/demo-barber`: topbar obsahuje `Zpět na web`, `Interaktivní ukázka`, `Registrovat podnik` a theme toggle. Reálné tenant booking stránky `/{slug}` mají zůstat tenant-branded bez plné Temaro navigace.
+- Runtime ověřit na `/demo-barber`: topbar obsahuje `Zpět na web`, `Interaktivní ukázka` a `Registrovat podnik`, ale žádný theme toggle. Reálné tenant booking stránky `/{slug}` mají zůstat tenant-branded bez plné Temaro navigace a také light-only.
 - `npm run check` prošlo 2026-06-08 18:40 CEST po public demo hotfixu: 593 Vitest testů, migrations check, type-check, lint a produkční build. Lokální public smoke prošel 10/10 a regresně hlídá, že `/demo-barber` na mobilu nemá horizontální overflow ani 404 assety.
 - `npm run check` prošlo 2026-06-08 19:05 CEST po roadmap cleanupu a customer account redirect fixu: 593 Vitest testů, migrations check, type-check, lint a produkční build. `npx playwright test tests/e2e/admin-demo-smoke.spec.ts` prošel 2/2 a hlídá anonymní `/account*` redirect na `/account/login`.
 - `npm run check` prošlo 2026-06-08 20:30 CEST po homepage nav/demo polishi: 595 Vitest testů, migrations check, type-check, lint a produkční build. Lokální i produkční public smoke prošel 10/10. Runtime ověřit, že otevření `Řešení` zavře dropdown `Produkt` a že homepage obsahuje blok `Produktová ukázka`.
@@ -536,8 +537,8 @@ Aktuální známý stav:
 - V tabulkách klientů, služeb a týmu ručně ověřit okamžité hledání při psaní a persistenci viditelných sloupců po refreshi.
 - V tabulkách klientů, služeb a týmu ručně ověřit stránkování, default 10 řádků, volbu 10/25/50 a součet záznamů ve footeru tabulky.
 - V tabulkách klientů, služeb a týmu ručně ověřit řazení klikem na hlavičku, rozbalovací `Filtry` a konzistentní šířku řádkových akcí.
-- Ručně ověřit dark mode tokeny a dvoustavový theme toggle na landing i dashboardu; default má být světlý režim.
-- V dark mode ručně ověřit kontrast landing hero textu, `Bento provozu` a `Signal Map`; kontrast byl opravený v CSS, ale browser proklik zatím není hotový.
+- Ručně ověřit dark mode tokeny a dvoustavový theme toggle v dashboardu; veřejný web už toggle nemá a musí zůstat light-only i při uloženém dark režimu.
+- Při uloženém `localStorage.temaro-theme=dark` ručně ověřit `/`, `/ukazka`, `/podniky`, `/demo-barber`, `/login`, `/register`, `/account/login` a SEO stránky: žádný toggle, světlé pozadí, světlé karty, žádný horizontální overflow.
 - Ručně ověřit booking receipt success state, animaci při běžném motion nastavení a statický stav při `prefers-reduced-motion`.
 - Branding veřejného bookingu používá tenant pole `public_description`, `logo_url`, `cover_image_url` a `brand_color`.
 - Branding veřejného bookingu umí nahrát logo/cover do Supabase Storage bucketu `tenant-assets`.
