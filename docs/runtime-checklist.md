@@ -1,6 +1,6 @@
 # Runtime checklist
 
-Aktualizováno: 2026-06-15 13:32 CEST
+Aktualizováno: 2026-06-15 13:28 CEST
 
 Tento checklist je pro první reálné ověření mimo demo režim.
 
@@ -22,7 +22,6 @@ curl -I http://localhost:3000
 
 Aktuální známý stav:
 
-- Staging ověření po Fresha large product hero passu 2026-06-15 13:32 CEST: `https://rezervacni-system-dev.vercel.app` míří na ruční preview deploy `dpl_EuF1y4cZv51dS3K6MjH5jfTw8J9a` z commitu `5bd588a`. `/api/health` vrací `status=ok`, `env.ok=true`, `supabase.ok=true`, `rate_limit.configured=false`. HTML obsahuje `temaro-fresha-product-hero`, `temaro-fresha-copy-shell`, `temaro-fresha-product-shell`, `temaro-product-glow`, `temaro-product-desktop`, `temaro-product-phone`, `temaro-hero-photo-card` a neobsahuje `temaro-black-hero-grid`, `id="produktovy-pribeh"`, `FeatureStoryBento` ani `temaro-salon-wall`. Staging browser metrics: desktop/mobile `overflowX=0`, desktop product `1120x709`, desktop phone `304x544`, mobile product `358x458`, mobile phone `248x441`, mobilní první fotka je až pod produktem. Console error je pouze Vercel Live feedback script blokovaný CSP.
 - Lokální automatická kontrola po Fresha large product hero passu 2026-06-15 13:28 CEST: `npm run check` prošlo s 600 Vitest testy, migrations check, TypeScript type-check, lint a produkční build. Cíleně prošlo `npx vitest run tests/landing-polish.test.ts` 22/22, `git diff --check` a `npx impeccable detect app components`. Browser audit je v `output/playwright/fresha-large-product-hero-2026-06-15/`: desktop/mobile `overflowX=0`, desktop product `1120x709`, desktop phone `304x544`, mobile product `358x458`, mobile phone `248x441`, mobilní produkt je před fotkami.
 - Runtime po Fresha large product hero passu ověřit na staging `/`: first fold musí obsahovat `Plnější kalendář bez volání.`, `temaro-fresha-product-hero`, `temaro-fresha-copy-shell`, `temaro-fresha-product-shell`, `temaro-product-glow`, `temaro-product-desktop`, `temaro-product-phone`, černé primární CTA a podpůrné fotky `temaro-hero-photo-card`. Hero pozadí je čisté bílé s jemným růžovo-fialovým glowem dole; nesmí se vrátit oranžové/mint ambientní fleky ani `temaro-black-hero-grid`. Proof band má být světlý levandulový/white, ne černý. Na desktopu i mobilu nesmí být horizontální overflow a na mobilu má produktový náhled předcházet fotkám.
 - Staging ověření po Fresha Black salon platform passu 2026-06-15 13:08 CEST: `https://rezervacni-system-dev.vercel.app` míří na ruční preview deploy `dpl_FyixXtWECEd1cp5KvU3XDJFLwZp2` z commitu `daceac5`. `/api/health` vrací `status=ok`, `env.ok=true`, `supabase.ok=true`, `rate_limit.configured=false`. HTML obsahuje `temaro-black-hero-grid`, `temaro-hero-photo-stack`, `temaro-hero-platform-card`, `Bez provize`, `No-show krytí`, `Klikací CRM` a neobsahuje staré story/salon-wall/image-strip signatury. Staging browser metrics: desktop/mobile `overflowX=0`, header `80px`, desktop product `545x496`, photoCards `4`, mobile copy/H1/CTA/product width `358px`, mobile visible photoCards `2`, `oldStory=false`. Console error je pouze Vercel Live feedback script blokovaný CSP.
