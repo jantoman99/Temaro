@@ -205,13 +205,13 @@ export function IndustryLandingPage({
       <nav className="temaro-article-mini-nav mx-auto max-w-[1180px] px-4 sm:px-6 lg:px-8" aria-label="Obsah stránky">
         <div className="flex gap-2 overflow-x-auto rounded-full border border-[var(--paper-line)] bg-white/88 p-1 shadow-sm backdrop-blur">
           {articleNav.map(([href, label]) => (
-            <Link
+            <a
               key={href}
               href={href}
               className="temaro-focus-ring whitespace-nowrap rounded-full px-4 py-2 text-sm font-black text-[var(--ink-soft)] transition hover:bg-[var(--porcelain-deep)] hover:text-[var(--ink)]"
             >
               {label}
-            </Link>
+            </a>
           ))}
         </div>
       </nav>
@@ -224,10 +224,10 @@ export function IndustryLandingPage({
             </div>
             <h2 className="text-xl font-black tracking-[-0.025em] text-[var(--ink)]">{benefit.title}</h2>
             <p className="mt-3 text-sm font-semibold leading-6 text-[var(--ink-faint)]">{benefit.text}</p>
-            <Link href="#pravidla" className="mt-5 inline-flex items-center gap-2 text-sm font-black text-[var(--cobalt)]">
+            <a href="#pravidla" className="mt-5 inline-flex items-center gap-2 text-sm font-black text-[var(--cobalt)]">
               Číst kapitolu
               <ArrowRight className="size-4" />
-            </Link>
+            </a>
           </article>
         ))}
       </section>

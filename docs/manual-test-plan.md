@@ -1,6 +1,6 @@
 # Manualni test plan
 
-Aktualizováno: 2026-06-15 22:16 CEST
+Aktualizováno: 2026-06-15 22:32 CEST
 
 Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 
@@ -93,7 +93,7 @@ Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 - Ověřit, že stejný zákaznický účet bez tenant metadata nemá přístup do `/dashboard`, `/calendar`, `/clients`, `/services`, `/staff`, `/settings` ani `/payments`.
 - Otevřít všech 8 veřejných článkových/SEO rout: `/rezervacni-system-pro-barbery`, `/rezervacni-system-pro-kadernictvi`, `/rezervacni-system-pro-kosmeticky-salon`, `/rezervacni-system-pro-masaze`, `/rezervacni-system-pro-wellness`, `/jak-snizit-no-show`, `/sms-pripominky-rezervaci`, `/rezervacni-system-bez-marketplace-provizi`.
 - Na každé článkové routě ověřit desktop i mobil: image-led hero, `temaro-article-photo`, `temaro-article-product-card`, sticky kapitoly `temaro-article-mini-nav`, tmavý `temaro-article-product-proof`, `<details>` FAQ, light-only vzhled i při uloženém dark režimu a nulový horizontální overflow.
-- Na každé článkové routě prokliknout mini záložky `Kroky`, `Pravidla`, `Produkt`, `FAQ`; URL hash má skončit na `#kroky`, `#pravidla`, `#produkt`, `#faq` a příslušná sekce musí být viditelná.
+- Na každé článkové routě prokliknout mini záložky `Kroky`, `Pravidla`, `Produkt`, `FAQ`; URL hash má skončit přesně na `#kroky`, `#pravidla`, `#produkt`, `#faq`, nikdy na slepené hodnotě typu `#pravidla#produkt`, a příslušná sekce musí být viditelná.
 - Z libovolného článku prokliknout desktop navigaci `Ceník`, `Bezpečnost`, dropdown `Produkt -> Produktový pohled`, dropdown `Pro koho -> Barbery` a dropdown `Návody -> SMS připomínky`; odkazy musí vést na homepage root kotvy nebo správnou route, ne na lokální hash neexistující subpage.
 - U všech článků ověřit, že se nevrátil starý textový `signal-hero signal-grid` layout bez fotek.
 - Ve footeru homepage ověřit odkazy `Pro barbery`, `Pro kadeřnictví`, `Pro beauty salon`, `Pro masáže`, `No-show guide`, `SMS připomínky` a `Bez marketplace provizí`.

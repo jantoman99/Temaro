@@ -15,6 +15,21 @@ function mainNavigation(page: Page) {
   return page.getByLabel("Hlavní navigace");
 }
 
+async function openMainNavigationGroup(page: Page, name: string) {
+  const button = page.getByRole("button", { name });
+
+  await expect(button).toBeVisible();
+  await expect
+    .poll(async () => {
+      if ((await button.getAttribute("aria-expanded")) !== "true") {
+        await button.click();
+      }
+
+      return button.getAttribute("aria-expanded");
+    })
+    .toBe("true");
+}
+
 test.describe("public smoke", () => {
   test("health endpoint and security headers are available", async ({ page, request }) => {
     const health = await request.get("/api/health");
@@ -48,10 +63,10 @@ test.describe("public smoke", () => {
     await expect(page.getByText("Ukázka").first()).toBeVisible();
     await expect(page.getByText("Návody").first()).toBeVisible();
     await expect(page.getByRole("link", { name: "Ukázka", exact: true }).first()).toHaveAttribute("href", "/ukazka");
-    await page.getByRole("button", { name: "Produkt" }).click();
+    await openMainNavigationGroup(page, "Produkt");
     const productDropdownLink = page.locator('a[href="/#produkt"]').filter({ hasText: /Produktový/ }).first();
     await expect(productDropdownLink).toBeVisible();
-    await page.getByRole("button", { name: "Návody" }).click();
+    await openMainNavigationGroup(page, "Návody");
     await expect(productDropdownLink).not.toBeVisible();
     await expect(page.locator('a[href="/jak-snizit-no-show"]').first()).toBeVisible();
     await expect(page.getByRole("heading", { name: /Jedna rezervace projde celým provozem/i })).toBeVisible();
@@ -98,7 +113,7 @@ test.describe("public smoke", () => {
     await page.goto("/rezervacni-system-pro-kadernictvi", { waitUntil: "domcontentloaded" });
     await expect(page.getByText("Rezervační systém pro kadeřnictví").first()).toBeVisible();
     await expect(page.getByRole("button", { name: "Produkt" })).toBeVisible();
-    await page.getByRole("button", { name: "Návody" }).click();
+    await openMainNavigationGroup(page, "Návody");
     await expect(mainNavigation(page).getByRole("link", { name: "Jak snížit no-show", exact: true })).toBeVisible();
     await expect(mainNavigation(page).getByRole("link", { name: "SMS připomínky", exact: true })).toBeVisible();
 
@@ -158,7 +173,7 @@ test.describe("public smoke", () => {
     expect(Math.round(after!.y)).toBe(Math.round(before!.y));
     expect(Math.abs(after!.height - before!.height)).toBeLessThan(1);
 
-    await page.getByRole("button", { name: "Návody" }).click();
+    await openMainNavigationGroup(page, "Návody");
     await expect(mainNavigation(page).getByRole("link", { name: "SMS připomínky", exact: true })).toBeVisible();
   });
 
@@ -172,7 +187,7 @@ test.describe("public smoke", () => {
     await expect(page.locator("#bezpecnost")).toBeVisible();
 
     await page.goto("/sms-pripominky-rezervaci", { waitUntil: "domcontentloaded" });
-    await page.getByRole("button", { name: "Produkt" }).click();
+    await openMainNavigationGroup(page, "Produkt");
     const productClickStartedAt = Date.now();
     await page.locator('a[href="/#produkt"]').filter({ hasText: /Produktový/ }).first().click();
     await expect(page).toHaveURL(/\/#produkt$/);
@@ -215,17 +230,17 @@ test.describe("public smoke", () => {
       await expect(page).toHaveURL(/\/#bezpecnost$/);
 
       await page.goto(route, { waitUntil: "domcontentloaded" });
-      await page.getByRole("button", { name: "Produkt" }).click();
+      await openMainNavigationGroup(page, "Produkt");
       await mainNavigation(page).locator('a[href="/#produkt"]').filter({ hasText: /Produktový/ }).click();
       await expect(page).toHaveURL(/\/#produkt$/);
 
       await page.goto(route, { waitUntil: "domcontentloaded" });
-      await page.getByRole("button", { name: "Pro koho" }).click();
+      await openMainNavigationGroup(page, "Pro koho");
       await mainNavigation(page).getByRole("link", { name: "Barbery", exact: true }).click();
       await expect(page).toHaveURL(/\/rezervacni-system-pro-barbery$/);
 
       await page.goto(route, { waitUntil: "domcontentloaded" });
-      await page.getByRole("button", { name: "Návody" }).click();
+      await openMainNavigationGroup(page, "Návody");
       await mainNavigation(page).getByRole("link", { name: "SMS připomínky", exact: true }).click();
       await expect(page).toHaveURL(/\/sms-pripominky-rezervaci$/);
     }
