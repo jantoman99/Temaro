@@ -1,6 +1,6 @@
 # Runtime checklist
 
-Aktualizováno: 2026-06-15 11:18 CEST
+Aktualizováno: 2026-06-15 11:28 CEST
 
 Tento checklist je pro první reálné ověření mimo demo režim.
 
@@ -22,6 +22,7 @@ curl -I http://localhost:3000
 
 Aktuální známý stav:
 
+- Staging ověření po Fresha color/proof passu 2026-06-15 11:28 CEST: `https://rezervacni-system-dev.vercel.app` míří na ruční preview deploy `dpl_CAetMTJDuEHsnZtyFi5drTDFVfux` z commitu `c71a9b6`. `/api/health` vrací `status=ok`, `env.ok=true`, `supabase.ok=true`, `rate_limit.configured=false`. HTML obsahuje `temaro-hero-proof-shell`, `temaro-hero-proof-rating-row`, `Plnější kalendář`, `Vlastní kanály`, `CRM demo`. Staging screenshoty jsou v `output/playwright/fresha-color-proof-pass-2026-06-15/staging/`, desktop/mobile `overflowX=0`, proof karty `4`, rating row položky `4`.
 - Lokální automatická kontrola po Fresha color/proof passu 2026-06-15 11:18 CEST: `npm run check` prošlo s 600 Vitest testy, migrations check, TypeScript type-check, lint a produkční build. Screenshot audit je v `output/playwright/fresha-color-proof-pass-2026-06-15/`; desktop/mobile `overflowX=0`, proof karty `4`, rating row položky `4`, mobilní scroll barevnost `colorful_pct=33.2 %`.
 - Lokální automatická kontrola po navázání 2026-06-15 10:57 CEST: `npm run check` prošlo s 600 Vitest testy, migrations check, TypeScript type-check, lint a produkční build.
 - Deploy pravidlo od 2026-06-10: nové změny nejdřív pushnout na `dev`, ověřit staging URL `https://rezervacni-system-dev.vercel.app` a až po explicitním schválení promovat na produkci. Produkční alias `https://rezervacni-system-xi.vercel.app` nepoužívat jako první testovací cíl. Přímý `npx vercel --prod --yes` je povolený jen pro schválený release nebo urgentní rollback.

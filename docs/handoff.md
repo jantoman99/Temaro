@@ -1,6 +1,6 @@
 # Handoff
 
-Aktualizováno: 2026-06-15 11:18 CEST
+Aktualizováno: 2026-06-15 11:28 CEST
 
 ## Jak navázat
 
@@ -21,6 +21,7 @@ Aktualizováno: 2026-06-15 11:18 CEST
 - Staging deploy je připravený přes GitHub Actions workflow `.github/workflows/vercel-staging.yml`: push do branche `dev` vytvoří Vercel preview deploy bez zásahu do production aliasu a nastaví alias `https://rezervacni-system-dev.vercel.app`. Samostatný Supabase staging projekt `gzkurmputkhqdqgrlaje` je vytvořený, migrace jsou aplikované a GitHub Actions secrets `STAGING_NEXT_PUBLIC_SUPABASE_URL`, `STAGING_NEXT_PUBLIC_SUPABASE_ANON_KEY`, `STAGING_SUPABASE_SERVICE_ROLE_KEY` a `VERCEL_TOKEN` jsou nastavené.
 - Vercel SSO deployment protection je vypnutá, aby stabilní staging URL byla veřejně ověřitelná. Staging `/api/health` vrací `status=ok`, Supabase je configured/ok a `rate_limit.configured=false`, protože staging Upstash zatím není nastavený.
 - Aktuální frontend/design směr: homepage drží `Fresha-like Premium Salon Platform`, ale barevný rytmus je posílený po srovnání s Fresha. Root landing používá claim `Plnější kalendář bez volání.`, zklidněný H1 (`font-weight: 780`, tracking `-0.045em`), code-native `temaro-hero-product-visual`, full-bleed gradient proof strip `temaro-hero-proof-band` s `temaro-hero-proof-shell`/`temaro-hero-proof-rating-row`, metrikami `0 %`, `4 kanály`, `SMS + záloha`, `CRM demo` a produktový bento blok `#produktovy-pribeh`.
+- Poslední staging ověření 2026-06-15 11:28 CEST po Fresha color/proof passu: commit `c71a9b6` je na `origin/dev`. GitHub Actions staging run selhal v kroku `Pull Vercel preview environment`, proto byl staging nasazen ručně přes `npx vercel build`, `npx vercel deploy --prebuilt --yes` a `npx vercel alias set`. Preview deploy `dpl_CAetMTJDuEHsnZtyFi5drTDFVfux` je aliasovaný na `https://rezervacni-system-dev.vercel.app`. Ověřeno `/api/health=ok`, HTML obsahuje `temaro-hero-proof-shell`, `temaro-hero-proof-rating-row`, `Plnější kalendář`, `Vlastní kanály`, desktop/mobile screenshoty jsou v `output/playwright/fresha-color-proof-pass-2026-06-15/staging/`, `overflowX=0`, proof karty `4`, rating row položky `4`.
 - Poslední lokální Fresha color/proof pass 2026-06-15 11:18 CEST: screenshot/vision audit je v `output/playwright/fresha-color-proof-pass-2026-06-15/desktop-top.png`, `desktop-scroll1.png`, `mobile-top.png`, `mobile-scroll1.png`. Ověřeno `overflowX=0`, proof karty `4`, rating row položky `4`; mobilní scroll barevnost vzrostla z `colorful_pct 2.5 %` na `33.2 %`. `npm run check` prošlo s 600 Vitest testy, migrations check, TypeScript type-check, lint a produkční build.
 - Poslední lokální Fresha discipline pass 2026-06-15 00:21 CEST: screenshot/vision audit je v `output/playwright/fresha-pass-2026-06-15/desktop-final.png` a `mobile-final.png`; metrics `overflowX=0`, mobile `compactVisible=false`, cílený landing guard 22/22. Další případná větší slabina je vysoký hero mockup, neřešit ji přidáváním dalších karet.
 - Poslední lokální ověření po navázání 2026-06-15 10:57 CEST: `npm run check` prošlo s 600 Vitest testy, migrations check, TypeScript type-check, lint a produkční build.
