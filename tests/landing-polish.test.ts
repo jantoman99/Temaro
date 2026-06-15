@@ -504,12 +504,18 @@ describe("landing polish guard", () => {
 
   test("public marketing subpages stay light-only without theme toggles", () => {
     const industryLanding = readProjectFile("components/marketing/industry-landing-page.tsx");
+    const seoArticle = readProjectFile("components/marketing/seo-article-page.tsx");
     const noShowPage = readProjectFile("app/jak-snizit-no-show/page.tsx");
     const smsPage = readProjectFile("app/sms-pripominky-rezervaci/page.tsx");
     const marketplacePage = readProjectFile("app/rezervacni-system-bez-marketplace-provizi/page.tsx");
 
-    for (const page of [industryLanding, noShowPage, smsPage, marketplacePage]) {
+    for (const page of [industryLanding, seoArticle]) {
       expect(page).toContain("temaro-public-light");
+      expect(page).not.toContain("ThemeToggle");
+    }
+
+    for (const page of [noShowPage, smsPage, marketplacePage]) {
+      expect(page).toContain("SeoArticlePage");
       expect(page).not.toContain("ThemeToggle");
     }
   });
@@ -546,6 +552,11 @@ describe("landing polish guard", () => {
     expect(navigation).toContain("Bezpečnost");
     expect(navigation).toContain("Produktový pohled");
     expect(navigation).toContain("Produktový důkaz");
+    expect(navigation).toContain('["/#produkt", "Produktový pohled"');
+    expect(navigation).toContain('["/#produktovy-dukaz", "Produktový důkaz"');
+    expect(navigation).toContain('["/#cenik", "Ceník"]');
+    expect(navigation).toContain('["/#bez-marketplace", "Bez marketplace"]');
+    expect(navigation).toContain('["/#bezpecnost", "Bezpečnost"]');
     expect(navigation).toContain("/rezervacni-system-pro-barbery");
     expect(navigation).toContain("/rezervacni-system-pro-kadernictvi");
     expect(navigation).toContain("/rezervacni-system-pro-kosmeticky-salon");
@@ -554,19 +565,59 @@ describe("landing polish guard", () => {
     expect(navigation).toContain("text-[0.95rem]");
     expect(navigation).toContain("xl:flex");
     expect(navigation).toContain("whitespace-nowrap");
+    expect(navigation).not.toContain('["#produkt"');
+    expect(navigation).not.toContain('["#cenik"');
+    expect(navigation).not.toContain('["#bezpecnost"');
     expect(navigation).not.toContain("<details");
+  });
+
+  test("SEO answer articles share the Fresha-inspired visual article system", () => {
+    const article = readProjectFile("components/marketing/seo-article-page.tsx");
+    const globals = readProjectFile("app/globals.css");
+    const pages = [
+      readProjectFile("app/jak-snizit-no-show/page.tsx"),
+      readProjectFile("app/sms-pripominky-rezervaci/page.tsx"),
+      readProjectFile("app/rezervacni-system-bez-marketplace-provizi/page.tsx"),
+    ];
+
+    expect(article).toContain("next/image");
+    expect(article).toContain("MarketingHeader");
+    expect(article).toContain("temaro-seo-article");
+    expect(article).toContain("temaro-article-hero");
+    expect(article).toContain("temaro-article-photo");
+    expect(article).toContain("temaro-article-product-card");
+    expect(article).toContain("temaro-article-mini-nav");
+    expect(article).toContain("temaro-article-flow");
+    expect(article).toContain("temaro-article-faq");
+    expect(article).toContain("<details");
+    expect(article).toContain("Číst kapitolu");
+    expect(globals).toContain(".temaro-article-hero");
+    expect(globals).toContain(".temaro-article-photo");
+    expect(globals).toContain(".temaro-article-product-card");
+    expect(globals).toContain(".temaro-article-faq details");
+
+    for (const page of pages) {
+      expect(page).toContain("SeoArticlePage");
+      expect(page).toContain("imageSrc");
+      expect(page).toContain("/marketing/industries/");
+      expect(page).not.toContain("signal-hero signal-grid");
+      expect(page).not.toContain("TemaroLogo");
+    }
   });
 
   test("business marketing pages keep the same shared header", () => {
     const sharedHeader = readProjectFile("components/marketing/marketing-header.tsx");
     const mobileMenu = readProjectFile("components/marketing/mobile-marketing-menu.tsx");
-    const businessPages = [
+    const sharedArticle = readProjectFile("components/marketing/seo-article-page.tsx");
+    const directHeaderPages = [
       "app/page.tsx",
       "components/marketing/industry-landing-page.tsx",
+      "app/ukazka/page.tsx",
+    ];
+    const articlePages = [
       "app/jak-snizit-no-show/page.tsx",
       "app/sms-pripominky-rezervaci/page.tsx",
       "app/rezervacni-system-bez-marketplace-provizi/page.tsx",
-      "app/ukazka/page.tsx",
     ];
 
     expect(sharedHeader).toContain("<LandingNavigation />");
@@ -578,11 +629,20 @@ describe("landing polish guard", () => {
     expect(sharedHeader).not.toContain("ThemeToggle");
     expect(sharedHeader).toContain("Přihlášení");
     expect(sharedHeader).toContain("Registrovat salon");
+    expect(sharedArticle).toContain("MarketingHeader");
 
-    for (const filePath of businessPages) {
+    for (const filePath of directHeaderPages) {
       const source = readProjectFile(filePath);
 
       expect(source).toContain("MarketingHeader");
+      expect(source).not.toContain("<LandingNavigation />");
+      expect(source).not.toContain('aria-label="Hlavní navigace"');
+    }
+
+    for (const filePath of articlePages) {
+      const source = readProjectFile(filePath);
+
+      expect(source).toContain("SeoArticlePage");
       expect(source).not.toContain("<LandingNavigation />");
       expect(source).not.toContain('aria-label="Hlavní navigace"');
     }

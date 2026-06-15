@@ -96,9 +96,9 @@ Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 - Otevřít `/rezervacni-system-pro-kosmeticky-salon` a ověřit title/hero/FAQ/CTA, desktop i mobil, light-only vzhled i při uloženém dark režimu.
 - Otevřít `/rezervacni-system-pro-masaze` a ověřit title/hero/FAQ/CTA, desktop i mobil, light-only vzhled i při uloženém dark režimu.
 - Otevřít `/rezervacni-system-pro-wellness` a ověřit title/hero/FAQ/CTA, desktop i mobil, light-only vzhled i při uloženém dark režimu.
-- Otevřít `/jak-snizit-no-show` a ověřit article layout, FAQ, interní odkazy a CTA, desktop i mobil, light-only vzhled i při uloženém dark režimu.
-- Otevřít `/sms-pripominky-rezervaci` a ověřit article layout, FAQ, interní odkazy a CTA, desktop i mobil, light-only vzhled i při uloženém dark režimu.
-- Otevřít `/rezervacni-system-bez-marketplace-provizi` a ověřit article layout, FAQ, interní odkazy a CTA, desktop i mobil, light-only vzhled i při uloženém dark režimu.
+- Otevřít `/jak-snizit-no-show`, `/sms-pripominky-rezervaci` a `/rezervacni-system-bez-marketplace-provizi`; na desktopu i mobilu ověřit nový `SeoArticlePage`: hero fotka, `temaro-article-product-card`, sticky kapitoly, druhá provozní fotka, tmavý produktový proof blok, `<details>` FAQ a light-only vzhled i při uloženém dark režimu.
+- Z libovolného SEO článku prokliknout desktop navigaci `Bezpečnost` a ověřit přechod na homepage `/#bezpecnost`; v dropdownu `Produkt` kliknout `Produktový pohled` a ověřit `/#produkt`; na mobilu z hamburger menu kliknout `Bez marketplace` a ověřit `/#bez-marketplace`.
+- U SEO článků ověřit, že se nevrátil starý textový `signal-hero signal-grid` layout bez fotek a že stránka nemá horizontální overflow.
 - Ve footeru homepage ověřit odkazy `Pro barbery`, `Pro kadeřnictví`, `Pro beauty salon`, `Pro masáže`, `No-show guide`, `SMS připomínky` a `Bez marketplace provizí`.
 - Po prihlaseni otevrit dashboard a zkontrolovat Signal OS shell: Temaro logo v tmavem ink sidebaru, fialovo-modry aktivni signal, topbar search, CTA pro novou rezervaci a logout.
 - Na desktopu zkontrolovat, že dashboard entity neplavou v úzkém centrovaném sloupci; pracovní plocha má využívat dostupnou šířku mezi sidebarem a pravým okrajem.

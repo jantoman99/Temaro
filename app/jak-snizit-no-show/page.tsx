@@ -1,18 +1,13 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import {
-  ArrowRight,
   BellRing,
   CalendarClock,
-  CheckCircle2,
   CreditCard,
   MailCheck,
-  PhoneCall,
   ShieldAlert,
 } from "lucide-react";
 
-import { TemaroLogo } from "@/components/brand/temaro-logo";
-import { MarketingHeader } from "@/components/marketing/marketing-header";
+import { SeoArticlePage } from "@/components/marketing/seo-article-page";
 
 export const metadata: Metadata = {
   title: "Jak snížit no-show v salonu | Temaro",
@@ -28,29 +23,75 @@ const steps = [
     icon: MailCheck,
     title: "Potvrďte rezervaci ihned",
     text: "Klient musí po vytvoření rezervace dostat jasné potvrzení: služba, datum, čas, místo a pravidla změny termínu.",
+    href: "#pravidla",
   },
   {
     icon: BellRing,
     title: "Připomeňte termín včas",
     text: "E-mail je minimum. U provozů s vyšším no-show rizikem dává smysl SMS připomínka 24 hodin předem.",
+    href: "#produkt",
   },
   {
     icon: CalendarClock,
     title: "Usnadněte přesun termínu",
-    text: "Klient, který se nemůže dostavit, nesmí muset volat. Self-service přesun nebo zrušení zachrání část prázdných oken.",
+    text: "Klient, který se nemůže dostavit, nesmí muset volat. Self-service přesun zachrání část prázdných oken.",
+    href: "#produkt",
   },
   {
     icon: CreditCard,
     title: "U drahých služeb zvažte zálohu",
-    text: "U dlouhých služeb, barvení, wellness balíčků nebo prémiových termínů může záloha snížit impulzivní rezervace bez účasti.",
+    text: "U dlouhých služeb, barvení, wellness balíčků nebo prémiových termínů může záloha snížit impulzivní rezervace.",
+    href: "#faq",
   },
 ] as const;
 
 const policyRules = [
-  ["Krátké služby", "Stačí potvrzení, připomínka a jednoduchý přesun."],
-  ["Dlouhé služby", "Přidejte jasné storno pravidlo a později zálohu."],
-  ["Opakované no-show", "Označte klienta, sledujte historii a vyžadujte potvrzení nebo zálohu."],
-  ["Noví klienti", "Chtějte telefon/e-mail a pošlete jasné instrukce k termínu."],
+  {
+    label: "Krátké služby",
+    value: "Lehký režim",
+    text: "Stačí potvrzení, připomínka a jednoduchý přesun. Rezervaci zbytečně nezpomalujte.",
+  },
+  {
+    label: "Dlouhé služby",
+    value: "Silnější pravidla",
+    text: "Přidejte jasné storno pravidlo a později zálohu, protože prázdné okno bolí víc.",
+  },
+  {
+    label: "Opakované no-show",
+    value: "Rizikový klient",
+    text: "Označte klienta, sledujte historii a vyžadujte potvrzení nebo zálohu.",
+  },
+  {
+    label: "Noví klienti",
+    value: "Jistota kontaktu",
+    text: "Chtějte telefon/e-mail a pošlete jasné instrukce k termínu bez ručního dopisování.",
+  },
+] as const;
+
+const productSlots = [
+  { time: "08:30", title: "Pánský střih", meta: "Potvrzeno e-mailem", tone: "amber" },
+  { time: "10:30", title: "Barva a foukaná", meta: "SMS 24 h předem", tone: "green" },
+  { time: "12:15", title: "Kosmetika", meta: "Možnost přesunu", tone: "blue" },
+  { time: "16:00", title: "Nová rezervace", meta: "Instagram klient", tone: "dark" },
+] as const;
+
+const productHighlights = [
+  {
+    title: "Potvrzení hned po rezervaci",
+    text: "Klient dostane službu, čas, místo a pravidla změny dřív, než začne hledat zprávy v chatu.",
+  },
+  {
+    title: "Přesun bez telefonátu",
+    text: "Když klient nemůže dorazit, má udělat jeden bezpečný krok, ne volat během práce.",
+  },
+  {
+    title: "Historie klienta",
+    text: "Opakované no-show se neztratí v hlavě provozovatele. Je vidět u další rezervace.",
+  },
+  {
+    title: "Zálohy jen tam, kde dávají smysl",
+    text: "Dlouhé nebo drahé služby chráníte silněji, běžné střihy necháte rychlé.",
+  },
 ] as const;
 
 const faqs = [
@@ -93,7 +134,7 @@ const jsonLd = {
         "@type": "Organization",
         name: "Temaro",
       },
-      dateModified: "2026-05-02",
+      dateModified: "2026-06-15",
       inLanguage: "cs",
     },
     {
@@ -129,175 +170,62 @@ const jsonLd = {
 
 export default function ReduceNoShowPage() {
   return (
-    <main className="temaro-public-light min-h-screen bg-background text-foreground">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <section className="signal-hero signal-grid px-4 py-4 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-[1180px]">
-          <MarketingHeader />
-
-          <div className="grid items-center gap-10 pb-16 pt-28 lg:grid-cols-[0.92fr_1.08fr] lg:pb-24 lg:pt-32">
-            <section>
-              <p className="inline-flex items-center gap-2 rounded-full border border-primary/15 bg-card/75 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-primary shadow-sm backdrop-blur">
-                <ShieldAlert className="size-4" />
-                No-show v salonu
-              </p>
-              <h1 className="mt-7 text-balance text-5xl font-semibold leading-[0.98] tracking-[-0.045em] sm:text-6xl">
-                Jak snížit no-show
-                <br />
-                bez složitého <span className="font-serif-accent text-primary">systému.</span>
-              </h1>
-              <p className="mt-6 max-w-xl text-lg font-medium leading-8 text-muted-foreground">
-                Klienti často nezapomenou schválně. Potřebují jasné potvrzení, připomínku a jednoduchý způsob, jak
-                termín přesunout dřív, než vznikne prázdné okno v kalendáři.
-              </p>
-            </section>
-
-            <aside className="rounded-xl border border-border bg-card/88 p-5 shadow-[var(--shadow-command)] backdrop-blur">
-              <div className="grid gap-3 sm:grid-cols-3">
-                {[
-                  ["1", "potvrzení ihned"],
-                  ["24 h", "připomínka předem"],
-                  ["0", "zbytečných volání"],
-                ].map(([value, label]) => (
-                  <div key={label} className="rounded-xl border border-border bg-background/80 p-4">
-                    <p className="nums-tabular text-3xl font-semibold text-primary">{value}</p>
-                    <p className="mt-2 text-sm font-medium text-muted-foreground">{label}</p>
-                  </div>
-                ))}
-              </div>
-              <div className="mt-5 rounded-xl border border-border bg-background/80 p-4">
-                <p className="text-sm font-semibold">Praktické pravidlo</p>
-                <p className="mt-2 text-sm font-medium leading-6 text-muted-foreground">
-                  Čím delší nebo dražší služba, tím silnější potvrzení potřebuje: připomínku, jasné storno podmínky a
-                  později zálohu.
-                </p>
-              </div>
-            </aside>
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="grid gap-4 lg:grid-cols-4">
-          {steps.map((step) => (
-            <article key={step.title} className="rounded-2xl border border-border bg-card p-5 shadow-sm">
-              <div className="mb-5 flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                <step.icon className="size-5" />
-              </div>
-              <h2 className="text-lg font-semibold tracking-tight">{step.title}</h2>
-              <p className="mt-3 text-sm font-medium leading-6 text-muted-foreground">{step.text}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="grid gap-8 lg:grid-cols-[0.82fr_1.18fr]">
-          <header>
-            <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Pravidla podle rizika</p>
-            <h2 className="mt-3 text-balance text-4xl font-semibold tracking-tight">
-              Ne každá služba potřebuje stejnou ochranu.
-            </h2>
-            <p className="mt-4 text-sm font-medium leading-6 text-muted-foreground">
-              U běžného střihu nechcete brzdit rezervaci. U dlouhé služby za několik hodin už dává smysl silnější
-              potvrzení a později záloha.
-            </p>
-          </header>
-          <div className="overflow-hidden rounded-xl border border-border bg-card shadow-sm">
-            <div className="divide-y divide-border">
-              {policyRules.map(([type, rule]) => (
-                <div key={type} className="grid gap-2 p-5 sm:grid-cols-[13rem_1fr]">
-                  <p className="font-semibold">{type}</p>
-                  <p className="text-sm font-medium leading-6 text-muted-foreground">{rule}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="rounded-xl border border-border bg-card p-6 shadow-sm sm:p-8">
-          <div className="grid gap-6 lg:grid-cols-[1fr_0.9fr] lg:items-center">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Jak to řeší Temaro</p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-tight">No-show ochrana začíná už při rezervaci.</h2>
-              <p className="mt-4 text-sm font-medium leading-6 text-muted-foreground">
-                Temaro už dnes řeší online rezervace, e-mailové potvrzení, klientskou historii, počítadlo no-show a
-                změny termínu bez telefonátu. SMS připomínky a zálohy jsou další kandidáti pro placený pilot.
-              </p>
-            </div>
-            <div className="grid gap-3">
-              {[
-                [CheckCircle2, "Klientská historie a poznámky"],
-                [CheckCircle2, "No-show counter a flag"],
-                [CheckCircle2, "Self-service přesun nebo zrušení"],
-                [PhoneCall, "SMS připomínky jako P0 kandidát"],
-              ].map(([Icon, label]) => (
-                <div key={label as string} className="flex items-center gap-3 rounded-xl border border-border bg-background/80 p-3">
-                  <Icon className="size-5 text-primary" />
-                  <span className="text-sm font-semibold">{label as string}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="grid gap-4 lg:grid-cols-2">
-          {faqs.map((faq) => (
-            <article key={faq.question} className="rounded-xl border border-border bg-card p-5 shadow-sm">
-              <h2 className="text-lg font-semibold">{faq.question}</h2>
-              <p className="mt-3 text-sm font-medium leading-6 text-muted-foreground">{faq.answer}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-4 pb-20 sm:px-6 lg:px-8">
-        <div className="rounded-xl border border-border bg-card p-6 shadow-[var(--shadow-command)] sm:p-8">
-          <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Další krok</p>
-              <h2 className="mt-2 text-3xl font-semibold tracking-tight">Chcete no-show řešit přímo v rezervacích?</h2>
-              <p className="mt-3 max-w-2xl text-sm font-medium leading-6 text-muted-foreground">
-                Začněte online rezervacemi, klientskou historií a připomínkami. Zálohy a SMS pak přidávejte podle rizika
-                služeb, ne plošně všem.
-              </p>
-            </div>
-            <div className="flex flex-col gap-3 sm:flex-row">
-              <Link
-                href="/register"
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-primary px-6 text-base font-semibold text-primary-foreground shadow-sm transition hover:bg-primary/92"
-              >
-                Začít zdarma
-                <ArrowRight className="size-5" />
-              </Link>
-              <Link
-                href="/rezervacni-system-pro-barbery"
-                className="inline-flex h-12 items-center justify-center rounded-lg border border-border bg-card px-6 text-base font-semibold text-foreground shadow-sm transition hover:bg-muted"
-              >
-                Rezervační systém pro barbery
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <footer className="border-t border-border px-4 py-8 sm:px-6 lg:px-8">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 text-sm font-medium text-muted-foreground">
-          <TemaroLogo />
-          <div className="flex flex-wrap gap-3">
-            <Link href="/">Úvod</Link>
-            <Link href="/rezervacni-system-pro-barbery">Pro barbery</Link>
-            <Link href="/register">Registrace</Link>
-          </div>
-        </div>
-      </footer>
-    </main>
+    <SeoArticlePage
+      jsonLd={jsonLd}
+      badgeIcon={ShieldAlert}
+      badge="No-show v salonu"
+      title={(
+        <>
+          Jak snížit no-show
+          <br />
+          <span className="font-serif-accent text-[var(--cobalt)]">bez složitého systému.</span>
+        </>
+      )}
+      intro="Klienti často nezapomenou schválně. Potřebují jasné potvrzení, připomínku a jednoduchý způsob, jak termín přesunout dřív, než vznikne prázdné okno v kalendáři."
+      imageSrc="/marketing/industries/barber.webp"
+      imageAlt="Barber salon s připraveným termínem v online kalendáři"
+      imageLabel="No-show ochrana začíná před termínem"
+      metrics={[
+        { value: "1", label: "potvrzení ihned" },
+        { value: "24 h", label: "připomínka" },
+        { value: "0", label: "zbytečných volání" },
+      ]}
+      steps={steps}
+      comparisonKicker="Pravidla podle rizika"
+      comparisonTitle="Ne každá služba potřebuje stejnou ochranu."
+      comparisonIntro="U běžného střihu nechcete brzdit rezervaci. U dlouhé služby za několik hodin už dává smysl silnější potvrzení a později záloha."
+      comparisonRows={policyRules}
+      secondaryImageSrc="/marketing/industries/hair-salon-wide.webp"
+      secondaryImageAlt="Kadeřnický salon s delší službou, která potřebuje pevnější pravidla rezervace"
+      secondaryImageLabel="Pravidla podle délky služby"
+      proofTitle="No-show ochrana začíná už při rezervaci."
+      proofText="Temaro spojuje online rezervace, e-mailové potvrzení, klientskou historii, počítadlo no-show a změny termínu bez telefonátu. SMS a zálohy mají být cílené podle rizika, ne plošný strašák."
+      productSlots={productSlots}
+      productHighlights={productHighlights}
+      faqs={faqs}
+      ctaTitle="Chcete no-show řešit přímo v rezervacích?"
+      ctaText="Začněte online rezervacemi, klientskou historií a připomínkami. Zálohy a SMS pak přidávejte podle rizika služeb, ne plošně všem."
+      primaryCtaHref="/register"
+      primaryCtaLabel="Začít zdarma"
+      secondaryCtaHref="/rezervacni-system-pro-barbery"
+      secondaryCtaLabel="Pro barbery"
+      related={[
+        {
+          href: "/sms-pripominky-rezervaci",
+          label: "SMS připomínky",
+          text: "Kdy SMS chrání dražší termíny a kdy je zbytečná.",
+        },
+        {
+          href: "/rezervacni-system-bez-marketplace-provizi",
+          label: "Bez marketplace provizí",
+          text: "Jak držet vlastní klientský vztah bez další provizní vrstvy.",
+        },
+        {
+          href: "/ukazka",
+          label: "Produktová ukázka",
+          text: "Proklikněte interní CRM pohled majitele salonu.",
+        },
+      ]}
+    />
   );
 }

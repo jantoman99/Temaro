@@ -1,17 +1,13 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import {
-  ArrowRight,
   BellRing,
-  CheckCircle2,
   CircleDollarSign,
   Clock3,
   MailCheck,
   MessageSquareText,
 } from "lucide-react";
 
-import { TemaroLogo } from "@/components/brand/temaro-logo";
-import { MarketingHeader } from "@/components/marketing/marketing-header";
+import { SeoArticlePage } from "@/components/marketing/seo-article-page";
 
 export const metadata: Metadata = {
   title: "SMS připomínky rezervací: kdy dávají smysl | Temaro",
@@ -27,36 +23,75 @@ const decisionRules = [
     icon: MailCheck,
     title: "E-mail je levný základ",
     text: "U nízkorizikových a kratších služeb často stačí potvrzení rezervace a e-mailová připomínka před termínem.",
+    href: "#pravidla",
   },
   {
     icon: BellRing,
     title: "SMS funguje, když okno bolí víc",
     text: "Čím dražší nebo delší termín, tím větší šance, že se SMS vyplatí víc než prázdné místo v kalendáři.",
+    href: "#produkt",
   },
   {
     icon: Clock3,
     title: "Ne každá služba potřebuje stejné pravidlo",
     text: "SMS není potřeba plošně. Dává smysl hlavně pro rizikové termíny, nové klienty nebo opakované no-show.",
+    href: "#pravidla",
   },
   {
     icon: CircleDollarSign,
     title: "Náklad musí být čitelný",
     text: "SMS mají být transparentní provozní náklad, ne skrytý poplatek, který znejasní cenu celého systému.",
+    href: "#faq",
   },
 ] as const;
 
 const whenRows = [
-  ["Krátký střih nebo kontrola", "Spíš ne", "Často stačí potvrzení a e-mailová připomínka."],
-  ["Barvení, wellness balíček, 90+ minut", "Ano", "Prázdné okno je dražší než cena jedné SMS."],
-  ["Nový klient bez historie", "Často ano", "Pomáhá zvýšit jistotu, že klient termín opravdu zachytí."],
-  ["Opakovaný no-show klient", "Ano", "SMS je vhodný mezikrok před zavedením zálohy nebo přísnějšího potvrzení."],
+  {
+    label: "Krátký střih",
+    value: "Spíš ne",
+    text: "Často stačí potvrzení a e-mailová připomínka.",
+  },
+  {
+    label: "90+ minut",
+    value: "Ano",
+    text: "Prázdné okno u barvení, wellness balíčku nebo delší masáže je dražší než cena jedné SMS.",
+  },
+  {
+    label: "Nový klient",
+    value: "Často ano",
+    text: "Pomáhá zvýšit jistotu, že klient termín opravdu zachytí.",
+  },
+  {
+    label: "Opakovaný no-show",
+    value: "Ano",
+    text: "SMS je vhodný mezikrok před zavedením zálohy nebo přísnějšího potvrzení.",
+  },
 ] as const;
 
-const rolloutSteps = [
-  ["Začněte e-mailem", "Nejdřív mějte jisté potvrzení rezervace, jasná storno pravidla a jednoduchou změnu termínu bez telefonátu."],
-  ["Označte rizikové služby", "Vyberte služby, kde neobsazené okno stojí nejvíc času nebo tržby."],
-  ["SMS nespouštějte plošně", "Pošlete je jen tam, kde mají ekonomický smysl: delší termíny, nový klient, vyšší riziko."],
-  ["Sledujte no-show a náklad", "Průběžně porovnávejte, jestli SMS opravdu snižují výpadky a mají lepší návratnost než nic nedělat."],
+const productSlots = [
+  { time: "09:00", title: "E-mail potvrzení", meta: "odesláno ihned", tone: "blue" },
+  { time: "Den předem", title: "SMS připomínka", meta: "jen rizikový slot", tone: "green" },
+  { time: "12:15", title: "Dlouhá služba", meta: "vyšší priorita", tone: "amber" },
+  { time: "16:00", title: "No-show signál", meta: "historie klienta", tone: "dark" },
+] as const;
+
+const productHighlights = [
+  {
+    title: "SMS jen pro rizikové termíny",
+    text: "Neplatíte za každou rezervaci, když stačí levnější e-mail.",
+  },
+  {
+    title: "E-mail jako základní vrstva",
+    text: "Potvrzení a připomínka běží bez ručního dopisování klientům.",
+  },
+  {
+    title: "Rozhodnutí podle služby",
+    text: "Dlouhé, drahé nebo nové termíny mohou dostat silnější notifikaci.",
+  },
+  {
+    title: "Čitelná ekonomika",
+    text: "SMS je provozní náklad, který má být vidět a vyhodnocovatelný.",
+  },
 ] as const;
 
 const faqs = [
@@ -99,7 +134,7 @@ const jsonLd = {
         "@type": "Organization",
         name: "Temaro",
       },
-      dateModified: "2026-05-03",
+      dateModified: "2026-06-15",
       inLanguage: "cs",
     },
     {
@@ -135,173 +170,62 @@ const jsonLd = {
 
 export default function SmsRemindersPage() {
   return (
-    <main className="temaro-public-light min-h-screen bg-background text-foreground">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <section className="signal-hero signal-grid px-4 py-4 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-[1180px]">
-          <MarketingHeader />
-
-          <div className="grid items-center gap-10 pb-16 pt-28 lg:grid-cols-[0.92fr_1.08fr] lg:pb-24 lg:pt-32">
-            <section>
-              <p className="inline-flex items-center gap-2 rounded-full border border-primary/15 bg-card/75 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-primary shadow-sm backdrop-blur">
-                <MessageSquareText className="size-4" />
-                SMS připomínky rezervací
-              </p>
-              <h1 className="mt-7 text-balance text-5xl font-semibold leading-[0.98] tracking-[-0.045em] sm:text-6xl">
-                Kdy SMS opravdu
-                <br />
-                <span className="font-serif-accent text-primary">dávají smysl.</span>
-              </h1>
-              <p className="mt-6 max-w-xl text-lg font-medium leading-8 text-muted-foreground">
-                SMS připomínka není povinná výbava pro každý termín. Má největší smysl tam, kde je prázdné okno dražší
-                než cena jedné zprávy a e-mail už nestačí jako jistota.
-              </p>
-            </section>
-
-            <aside className="rounded-xl border border-border bg-card/88 p-5 shadow-[var(--shadow-command)] backdrop-blur">
-              <div className="grid gap-3 sm:grid-cols-3">
-                {[
-                  ["24 h", "typická připomínka"],
-                  ["SMS", "jen pro rizikové sloty"],
-                  ["0", "skrytých poplatků"],
-                ].map(([value, label]) => (
-                  <div key={label} className="rounded-xl border border-border bg-background/80 p-4">
-                    <p className="nums-tabular text-3xl font-semibold text-primary">{value}</p>
-                    <p className="mt-2 text-sm font-medium text-muted-foreground">{label}</p>
-                  </div>
-                ))}
-              </div>
-              <div className="mt-5 rounded-xl border border-border bg-background/80 p-4">
-                <p className="text-sm font-semibold">Praktické pravidlo</p>
-                <p className="mt-2 text-sm font-medium leading-6 text-muted-foreground">
-                  Čím delší služba a vyšší no-show riziko, tím větší šance, že se SMS vrátí lépe než další prázdný
-                  slot v kalendáři.
-                </p>
-              </div>
-            </aside>
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="grid gap-4 lg:grid-cols-4">
-          {decisionRules.map((rule) => (
-            <article key={rule.title} className="rounded-2xl border border-border bg-card p-5 shadow-sm">
-              <div className="mb-5 flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                <rule.icon className="size-5" />
-              </div>
-              <h2 className="text-lg font-semibold tracking-tight">{rule.title}</h2>
-              <p className="mt-3 text-sm font-medium leading-6 text-muted-foreground">{rule.text}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="grid gap-8 lg:grid-cols-[0.82fr_1.18fr]">
-          <header>
-            <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Kdy ano a kdy ne</p>
-            <h2 className="mt-3 text-balance text-4xl font-semibold tracking-tight">
-              SMS nepřidávejte plošně. Přidávejte ji tam, kde chrání dražší čas.
-            </h2>
-            <p className="mt-4 text-sm font-medium leading-6 text-muted-foreground">
-              Rozhodujte podle ekonomiky termínu, ne podle dojmu, že bez SMS není systém dost profesionální.
-            </p>
-          </header>
-          <div className="overflow-hidden rounded-xl border border-border bg-card shadow-sm">
-            <div className="divide-y divide-border">
-              {whenRows.map(([service, fit, rule]) => (
-                <div key={service} className="grid gap-2 p-5 sm:grid-cols-[12rem_7rem_1fr]">
-                  <p className="font-semibold">{service}</p>
-                  <p className="text-sm font-semibold text-primary">{fit}</p>
-                  <p className="text-sm font-medium leading-6 text-muted-foreground">{rule}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="rounded-xl border border-border bg-card p-6 shadow-sm sm:p-8">
-          <div className="grid gap-6 lg:grid-cols-[1fr_0.9fr] lg:items-center">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Jak zavádět SMS rozumně</p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-tight">Nejdřív flow, potom dražší notifikace.</h2>
-              <p className="mt-4 text-sm font-medium leading-6 text-muted-foreground">
-                Temaro už dnes řeší potvrzení rezervace, e-mailové připomínky, klientský kontext a změny termínu bez telefonátu.
-                SMS připomínka je silný kandidát pro pilot, ale dává smysl až nad jasně nastaveným základem.
-              </p>
-            </div>
-            <div className="grid gap-3">
-              {rolloutSteps.map(([title, text]) => (
-                <div key={title} className="rounded-xl border border-border bg-background/80 p-4">
-                  <p className="text-sm font-semibold">{title}</p>
-                  <p className="mt-2 text-sm font-medium leading-6 text-muted-foreground">{text}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="grid gap-4 lg:grid-cols-2">
-          {faqs.map((faq) => (
-            <article key={faq.question} className="rounded-xl border border-border bg-card p-5 shadow-sm">
-              <h2 className="flex items-start gap-3 text-lg font-semibold">
-                <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-primary" />
-                {faq.question}
-              </h2>
-              <p className="mt-3 text-sm font-medium leading-6 text-muted-foreground">{faq.answer}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-4 pb-20 sm:px-6 lg:px-8">
-        <div className="rounded-xl border border-border bg-card p-6 shadow-[var(--shadow-command)] sm:p-8">
-          <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Další krok</p>
-              <h2 className="mt-2 text-3xl font-semibold tracking-tight">Chcete nejdřív zpevnit no-show základ?</h2>
-              <p className="mt-3 max-w-2xl text-sm font-medium leading-6 text-muted-foreground">
-                Začněte potvrzením rezervace, klientskou historií a jednoduchým přesunem termínu. SMS pak přidejte tam,
-                kde ekonomicky chrání nejcennější sloty dne.
-              </p>
-            </div>
-            <div className="flex flex-col gap-3 sm:flex-row">
-              <Link
-                href="/jak-snizit-no-show"
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-primary px-6 text-base font-semibold text-primary-foreground shadow-sm transition hover:bg-primary/92"
-              >
-                Jak snížit no-show
-                <ArrowRight className="size-5" />
-              </Link>
-              <Link
-                href="/register"
-                className="inline-flex h-12 items-center justify-center rounded-lg border border-border bg-card px-6 text-base font-semibold text-foreground shadow-sm transition hover:bg-muted"
-              >
-                Začít zdarma
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <footer className="border-t border-border px-4 py-8 sm:px-6 lg:px-8">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 text-sm font-medium text-muted-foreground">
-          <TemaroLogo />
-          <div className="flex flex-wrap gap-3">
-            <Link href="/">Úvod</Link>
-            <Link href="/jak-snizit-no-show">No-show návod</Link>
-            <Link href="/rezervacni-system-pro-barbery">Pro barbery</Link>
-          </div>
-        </div>
-      </footer>
-    </main>
+    <SeoArticlePage
+      jsonLd={jsonLd}
+      badgeIcon={MessageSquareText}
+      badge="SMS připomínky rezervací"
+      title={(
+        <>
+          Kdy SMS opravdu
+          <br />
+          <span className="font-serif-accent text-[var(--cobalt)]">dávají smysl.</span>
+        </>
+      )}
+      intro="SMS připomínka není povinná výbava pro každý termín. Má největší smysl tam, kde je prázdné okno dražší než cena jedné zprávy a e-mail už nestačí jako jistota."
+      imageSrc="/marketing/industries/beauty.webp"
+      imageAlt="Beauty salon, kde delší termíny potřebují jistější připomínku"
+      imageLabel="SMS jako cílená pojistka"
+      metrics={[
+        { value: "24 h", label: "typický timing" },
+        { value: "SMS", label: "rizikové sloty" },
+        { value: "0", label: "skrytých poplatků" },
+      ]}
+      steps={decisionRules}
+      comparisonKicker="Kdy ano a kdy ne"
+      comparisonTitle="SMS nepřidávejte plošně. Přidávejte ji tam, kde chrání dražší čas."
+      comparisonIntro="Rozhodujte podle ekonomiky termínu, ne podle dojmu, že bez SMS není systém dost profesionální."
+      comparisonRows={whenRows}
+      secondaryImageSrc="/marketing/industries/massage-wide.webp"
+      secondaryImageAlt="Masážní studio s delšími bloky v kalendáři"
+      secondaryImageLabel="Dlouhé služby chráníte silněji"
+      proofTitle="Nejdřív flow, potom dražší notifikace."
+      proofText="Temaro řeší potvrzení rezervace, e-mailové připomínky, klientský kontext a změny termínu bez telefonátu. SMS připomínka má přijít až nad tímto základem."
+      productSlots={productSlots}
+      productHighlights={productHighlights}
+      faqs={faqs}
+      ctaTitle="Chcete nejdřív zpevnit no-show základ?"
+      ctaText="Začněte potvrzením rezervace, klientskou historií a jednoduchým přesunem termínu. SMS pak přidejte tam, kde ekonomicky chrání nejcennější sloty dne."
+      primaryCtaHref="/jak-snizit-no-show"
+      primaryCtaLabel="Jak snížit no-show"
+      secondaryCtaHref="/register"
+      secondaryCtaLabel="Začít zdarma"
+      related={[
+        {
+          href: "/jak-snizit-no-show",
+          label: "No-show návod",
+          text: "Praktický rámec pro potvrzení, přesun termínu a zálohy.",
+        },
+        {
+          href: "/rezervacni-system-pro-masaze",
+          label: "Pro masáže",
+          text: "Dlouhé bloky, klid mezi klienty a jasné připomínky.",
+        },
+        {
+          href: "/ukazka",
+          label: "Produktová ukázka",
+          text: "Podívejte se na kalendář a klientský kontext v Temaru.",
+        },
+      ]}
+    />
   );
 }

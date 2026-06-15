@@ -34,7 +34,7 @@ test.describe("public smoke", () => {
     await expect(page.getByText("Návody").first()).toBeVisible();
     await expect(page.getByRole("link", { name: "Ukázka", exact: true }).first()).toHaveAttribute("href", "/ukazka");
     await page.getByRole("button", { name: "Produkt" }).click();
-    const productDropdownLink = page.locator('a[href="#produkt"]').filter({ hasText: /Produktový/ }).first();
+    const productDropdownLink = page.locator('a[href="/#produkt"]').filter({ hasText: /Produktový/ }).first();
     await expect(productDropdownLink).toBeVisible();
     await page.getByRole("button", { name: "Návody" }).click();
     await expect(productDropdownLink).not.toBeVisible();
@@ -145,6 +145,33 @@ test.describe("public smoke", () => {
 
     await page.getByRole("button", { name: "Návody" }).click();
     await expect(page.getByRole("link", { name: /SMS připomínky/ })).toBeVisible();
+  });
+
+  test("marketing nav links from SEO articles resolve to homepage sections", async ({ page }) => {
+    await page.goto("/jak-snizit-no-show", { waitUntil: "domcontentloaded" });
+
+    const securityClickStartedAt = Date.now();
+    await page.getByRole("link", { name: "Bezpečnost", exact: true }).click();
+    await expect(page).toHaveURL(/\/#bezpecnost$/);
+    expect(Date.now() - securityClickStartedAt).toBeLessThan(4000);
+    await expect(page.locator("#bezpecnost")).toBeVisible();
+
+    await page.goto("/sms-pripominky-rezervaci", { waitUntil: "domcontentloaded" });
+    await page.getByRole("button", { name: "Produkt" }).click();
+    const productClickStartedAt = Date.now();
+    await page.locator('a[href="/#produkt"]').filter({ hasText: /Produktový/ }).first().click();
+    await expect(page).toHaveURL(/\/#produkt$/);
+    expect(Date.now() - productClickStartedAt).toBeLessThan(4000);
+    await expect(page.locator("#produkt")).toBeVisible();
+
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto("/rezervacni-system-bez-marketplace-provizi", { waitUntil: "domcontentloaded" });
+    await page.getByRole("button", { name: "Otevřít menu" }).click();
+    const marketplaceClickStartedAt = Date.now();
+    await page.getByRole("link", { name: "Bez marketplace", exact: true }).click();
+    await expect(page).toHaveURL(/\/#bez-marketplace$/);
+    expect(Date.now() - marketplaceClickStartedAt).toBeLessThan(4000);
+    await expect(page.locator("#bez-marketplace")).toBeVisible();
   });
 
   test("demo booking page renders selectable booking flow", async ({ page }) => {

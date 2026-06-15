@@ -8,8 +8,8 @@ export const navGroups = [
   {
     label: "Produkt",
     items: [
-      ["#produkt", "Produktový pohled", "Kalendář, rezervace, klienti a vlastní kanály."],
-      ["#produktovy-dukaz", "Produktový důkaz", "App pohledy místo lifestyle galerie."],
+      ["/#produkt", "Produktový pohled", "Kalendář, rezervace, klienti a vlastní kanály."],
+      ["/#produktovy-dukaz", "Produktový důkaz", "App pohledy místo lifestyle galerie."],
       ["/ukazka", "Ukázka", "Průchod rezervací z pohledu majitele i klienta."],
     ],
   },
@@ -33,9 +33,9 @@ export const navGroups = [
 ] as const;
 
 export const navDirectLinks = [
-  ["#cenik", "Ceník"],
-  ["#bez-marketplace", "Bez marketplace"],
-  ["#bezpecnost", "Bezpečnost"],
+  ["/#cenik", "Ceník"],
+  ["/#bez-marketplace", "Bez marketplace"],
+  ["/#bezpecnost", "Bezpečnost"],
   ["/ukazka", "Ukázka"],
 ] as const;
 
