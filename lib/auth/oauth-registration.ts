@@ -9,31 +9,10 @@ const OAUTH_REGISTRATION_MAX_AGE_SECONDS = 10 * 60;
 
 type OAuthRegistrationPayload = OauthBusinessRegistrationInput;
 
-function encodePayload(payload: OAuthRegistrationPayload) {
-  return Buffer.from(JSON.stringify(payload), "utf8").toString("base64url");
-}
-
-function decodePayload(value: string): OAuthRegistrationPayload | null {
-  try {
-    const parsed = JSON.parse(Buffer.from(value, "base64url").toString("utf8")) as Partial<OAuthRegistrationPayload>;
-
-    if (typeof parsed.businessName !== "string" || typeof parsed.fullName !== "string") {
-      return null;
-    }
-
-    return {
-      businessName: parsed.businessName,
-      fullName: parsed.fullName,
-    };
-  } catch {
-    return null;
-  }
-}
-
-export async function setOAuthBusinessRegistrationCookie(payload: OAuthRegistrationPayload) {
+export async function setOAuthBusinessRegistrationIntentCookie() {
   const cookieStore = await cookies();
 
-  cookieStore.set(OAUTH_REGISTRATION_COOKIE, encodePayload(payload), {
+  cookieStore.set(OAUTH_REGISTRATION_COOKIE, "1", {
     httpOnly: true,
     maxAge: OAUTH_REGISTRATION_MAX_AGE_SECONDS,
     path: "/auth/callback",
@@ -42,13 +21,13 @@ export async function setOAuthBusinessRegistrationCookie(payload: OAuthRegistrat
   });
 }
 
-export async function consumeOAuthBusinessRegistrationCookie() {
+export async function consumeOAuthBusinessRegistrationIntentCookie() {
   const cookieStore = await cookies();
   const value = cookieStore.get(OAUTH_REGISTRATION_COOKIE)?.value;
 
   cookieStore.delete(OAUTH_REGISTRATION_COOKIE);
 
-  return value ? decodePayload(value) : null;
+  return Boolean(value);
 }
 
 export async function createBusinessForOAuthUser({

@@ -68,6 +68,7 @@ describe("helper functions", () => {
     expect(getSafeRedirectPath("/calendar?view=day")).toBe("/calendar?view=day");
     expect(getSafeRedirectPath("/account")).toBe("/account");
     expect(getSafeRedirectPath("/start")).toBe("/start");
+    expect(getSafeRedirectPath("/register/complete")).toBe("/register/complete");
     expect(getSafeRedirectPath("https://evil.example")).toBe("/dashboard");
     expect(getSafeRedirectPath("//evil.example")).toBe("/dashboard");
     expect(getSafeRedirectPath("/login")).toBe("/dashboard");

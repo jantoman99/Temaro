@@ -224,10 +224,15 @@ test.describe("public smoke", () => {
 
     await page.goto("/register");
 
-    await expect(page.getByRole("heading", { name: "Založení podniku" })).toBeVisible();
-    await expect(page.getByRole("button", { name: "Vytvořit podnik přes Google" })).toBeVisible();
-    await expect(page.getByRole("button", { name: "Vytvořit podnik přes Facebook" })).toBeVisible();
-    await expect(page.getByRole("button", { name: "Vytvořit podnik přes Apple" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Založení podniku." })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Pokračovat přes Google" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Pokračovat přes Facebook" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Pokračovat přes Apple" })).toBeVisible();
+    await expect(page.getByText("Název podniku doplníte až po ověření účtu.")).toBeVisible();
+
+    await page.goto("/register/complete");
+
+    await expect(page).toHaveURL(/\/register$/);
   });
 
   test("booking button embed script renders a safe CTA in browser", async ({ page }) => {

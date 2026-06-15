@@ -8,6 +8,7 @@ const SAFE_REDIRECT_PREFIXES = [
   "/settings",
   "/staff",
   "/start",
+  "/register/complete",
   "/reset-password",
 ];
 

@@ -9,6 +9,7 @@ import {
   registerWithFacebookAction,
   registerWithGoogleAction,
 } from "@/app/(auth)/actions";
+import { SocialProviderIcon } from "@/components/auth/social-provider-icon";
 import { Button } from "@/components/ui/button";
 import { EMAIL_INPUT_MAX_LENGTH } from "@/lib/email-input";
 import { PASSWORD_INPUT_MAX_LENGTH } from "@/lib/password-input";
@@ -25,6 +26,46 @@ export function RegisterForm({ notice }: { notice?: string | null }) {
 
   return (
     <form action={formAction} className="flex w-full flex-col gap-5">
+      <div className="grid gap-3">
+        <Button
+          type="submit"
+          formAction={registerWithGoogleAction}
+          formNoValidate
+          size="xl"
+          className="w-full border-[#dadce0] bg-white text-[#1f1f1f] shadow-sm hover:bg-[#f8fafd]"
+        >
+          <SocialProviderIcon provider="google" className="size-5" />
+          Pokračovat přes Google
+        </Button>
+        <Button
+          type="submit"
+          formAction={registerWithFacebookAction}
+          formNoValidate
+          size="xl"
+          className="w-full border-[#1877f2] bg-[#1877f2] text-white shadow-sm hover:bg-[#166fe5]"
+        >
+          <SocialProviderIcon provider="facebook" className="size-5" />
+          Pokračovat přes Facebook
+        </Button>
+        <Button
+          type="submit"
+          formAction={registerWithAppleAction}
+          formNoValidate
+          size="xl"
+          className="w-full border-black bg-black text-white shadow-sm hover:bg-black/90"
+        >
+          <SocialProviderIcon provider="apple" className="size-5" />
+          Pokračovat přes Apple
+        </Button>
+      </div>
+      <p className="rounded-lg border border-border bg-muted/50 px-4 py-3 text-center text-sm font-medium leading-6 text-muted-foreground">
+        Podnik doplníte až po ověření účtu. Google už je aktivní, Facebook a Apple zapneme po doplnění providerů.
+      </p>
+      <div className="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.16em] text-muted-foreground">
+        <span className="h-px flex-1 bg-border" />
+        nebo e-mailem
+        <span className="h-px flex-1 bg-border" />
+      </div>
       <div className="grid gap-5 sm:grid-cols-2">
         <div className="flex flex-col gap-2.5 sm:col-span-2">
           <label className="text-sm font-medium text-foreground" htmlFor="businessName">
@@ -111,21 +152,6 @@ export function RegisterForm({ notice }: { notice?: string | null }) {
       <Button type="submit" size="xl" disabled={isPending} className="w-full">
         {isPending ? "Vytvářím účet..." : "Vytvořit podnik"}
       </Button>
-      <div className="grid gap-3">
-        <Button type="submit" formAction={registerWithGoogleAction} formNoValidate variant="secondary" size="xl" className="w-full">
-          Vytvořit podnik přes Google
-        </Button>
-        <Button type="submit" formAction={registerWithFacebookAction} formNoValidate variant="secondary" size="xl" className="w-full">
-          Vytvořit podnik přes Facebook
-        </Button>
-        <Button type="submit" formAction={registerWithAppleAction} formNoValidate variant="secondary" size="xl" className="w-full">
-          Vytvořit podnik přes Apple
-        </Button>
-      </div>
-      <p className="text-center text-xs font-medium leading-5 text-muted-foreground">
-        Při registraci přes Google, Facebook nebo Apple stačí vyplnit název podniku a jméno vlastníka.
-        Podnik vznikne až po úspěšném ověření účtu.
-      </p>
       <p className="rounded-lg bg-muted px-4 py-3 text-center text-sm font-medium text-muted-foreground">
         Už máte účet?{" "}
         <Link href="/login" className="font-semibold text-primary underline-offset-4 hover:underline">

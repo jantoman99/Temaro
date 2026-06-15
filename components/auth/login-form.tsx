@@ -9,6 +9,7 @@ import {
   signInWithFacebookAction,
   signInWithGoogleAction,
 } from "@/app/(auth)/actions";
+import { SocialProviderIcon } from "@/components/auth/social-provider-icon";
 import { Button } from "@/components/ui/button";
 import { EMAIL_INPUT_MAX_LENGTH } from "@/lib/email-input";
 import { PASSWORD_INPUT_MAX_LENGTH } from "@/lib/password-input";
@@ -34,19 +35,22 @@ export function LoginForm({
       <div className="grid gap-3">
         <form action={signInWithGoogleAction}>
           <input type="hidden" name="redirectedFrom" value={redirectedFrom} />
-          <Button type="submit" variant="secondary" size="xl" className="w-full">
+          <Button type="submit" size="xl" className="w-full border-[#dadce0] bg-white text-[#1f1f1f] shadow-sm hover:bg-[#f8fafd]">
+            <SocialProviderIcon provider="google" className="size-5" />
             Pokračovat přes Google
           </Button>
         </form>
         <form action={signInWithFacebookAction}>
           <input type="hidden" name="redirectedFrom" value={redirectedFrom} />
-          <Button type="submit" variant="secondary" size="xl" className="w-full">
+          <Button type="submit" size="xl" className="w-full border-[#1877f2] bg-[#1877f2] text-white shadow-sm hover:bg-[#166fe5]">
+            <SocialProviderIcon provider="facebook" className="size-5" />
             Pokračovat přes Facebook
           </Button>
         </form>
         <form action={signInWithAppleAction}>
           <input type="hidden" name="redirectedFrom" value={redirectedFrom} />
-          <Button type="submit" variant="secondary" size="xl" className="w-full">
+          <Button type="submit" size="xl" className="w-full border-black bg-black text-white shadow-sm hover:bg-black/90">
+            <SocialProviderIcon provider="apple" className="size-5" />
             Pokračovat přes Apple
           </Button>
         </form>

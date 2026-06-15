@@ -5,6 +5,7 @@ import {
   signInCustomerWithFacebookAction,
   signInCustomerWithGoogleAction,
 } from "@/app/(auth)/actions";
+import { SocialProviderIcon } from "@/components/auth/social-provider-icon";
 import { TemaroLogo } from "@/components/brand/temaro-logo";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
@@ -29,17 +30,20 @@ export default function CustomerAccountLoginPage() {
           </p>
           <div className="mt-6 grid gap-3">
             <form action={signInCustomerWithGoogleAction}>
-              <Button type="submit" size="xl" className="w-full">
+              <Button type="submit" size="xl" className="w-full border-[#dadce0] bg-white text-[#1f1f1f] shadow-sm hover:bg-[#f8fafd]">
+                <SocialProviderIcon provider="google" className="size-5" />
                 Pokračovat přes Google
               </Button>
             </form>
             <form action={signInCustomerWithFacebookAction}>
-              <Button type="submit" variant="secondary" size="xl" className="w-full">
+              <Button type="submit" size="xl" className="w-full border-[#1877f2] bg-[#1877f2] text-white shadow-sm hover:bg-[#166fe5]">
+                <SocialProviderIcon provider="facebook" className="size-5" />
                 Pokračovat přes Facebook
               </Button>
             </form>
             <form action={signInCustomerWithAppleAction}>
-              <Button type="submit" variant="secondary" size="xl" className="w-full">
+              <Button type="submit" size="xl" className="w-full border-black bg-black text-white shadow-sm hover:bg-black/90">
+                <SocialProviderIcon provider="apple" className="size-5" />
                 Pokračovat přes Apple
               </Button>
             </form>

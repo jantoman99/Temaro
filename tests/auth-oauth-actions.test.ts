@@ -10,7 +10,8 @@ const mocks = vi.hoisted(() => ({
   redirect: vi.fn((url: string) => {
     throw new Error(`NEXT_REDIRECT:${url}`);
   }),
-  setOAuthBusinessRegistrationCookie: vi.fn(),
+  createBusinessForOAuthUser: vi.fn(),
+  setOAuthBusinessRegistrationIntentCookie: vi.fn(),
 }));
 
 vi.mock("next/navigation", () => ({
@@ -36,7 +37,8 @@ vi.mock("@/lib/rate-limit/auth", () => ({
 }));
 
 vi.mock("@/lib/auth/oauth-registration", () => ({
-  setOAuthBusinessRegistrationCookie: mocks.setOAuthBusinessRegistrationCookie,
+  createBusinessForOAuthUser: mocks.createBusinessForOAuthUser,
+  setOAuthBusinessRegistrationIntentCookie: mocks.setOAuthBusinessRegistrationIntentCookie,
 }));
 
 function createFormData(entries: Record<string, string>) {
@@ -50,10 +52,12 @@ function createFormData(entries: Record<string, string>) {
 }
 
 type OAuthAction = (formData?: FormData) => Promise<void>;
+type FormState = { error?: string };
+type FormStateAction = (state: FormState, formData: FormData) => Promise<FormState | void>;
 type OAuthCall = { options: { redirectTo: string }; provider: string };
 
 async function loadActions() {
-  return await import("@/app/(auth)/actions") as unknown as Record<string, OAuthAction>;
+  return await import("@/app/(auth)/actions") as unknown as Record<string, FormStateAction | OAuthAction>;
 }
 
 describe("OAuth auth actions", () => {
@@ -63,9 +67,12 @@ describe("OAuth auth actions", () => {
     mocks.hasSupabaseAdminEnv.mockReset();
     mocks.hasSupabaseEnv.mockReset();
     mocks.redirect.mockClear();
-    mocks.setOAuthBusinessRegistrationCookie.mockReset();
+    mocks.createBusinessForOAuthUser.mockReset();
+    mocks.setOAuthBusinessRegistrationIntentCookie.mockReset();
     mocks.hasSupabaseAdminEnv.mockReturnValue(true);
     mocks.hasSupabaseEnv.mockReturnValue(true);
+    mocks.limitRegister.mockResolvedValue({ success: true });
+    mocks.createBusinessForOAuthUser.mockResolvedValue({ error: null, tenantId: "tenant-1" });
     process.env.NEXT_PUBLIC_APP_URL = "https://app.temaro.test";
   });
 
@@ -80,9 +87,10 @@ describe("OAuth auth actions", () => {
       },
     });
     const actions = await loadActions();
+    const action = actions[actionName] as OAuthAction;
 
-    expect(actions[actionName]).toBeTypeOf("function");
-    await expect(actions[actionName](formData)).rejects.toThrow(`NEXT_REDIRECT:https://auth.example/${provider}`);
+    expect(action).toBeTypeOf("function");
+    await expect(action(formData)).rejects.toThrow(`NEXT_REDIRECT:https://auth.example/${provider}`);
     expect(signInWithOAuth).toHaveBeenCalledWith({
       provider,
       options: {
@@ -117,16 +125,47 @@ describe("OAuth auth actions", () => {
     ["registerWithGoogleAction", "google"],
     ["registerWithFacebookAction", "facebook"],
     ["registerWithAppleAction", "apple"],
-  ])("ulozi pending podnik a spusti OAuth registraci pres %s", async (actionName, provider) => {
-    const formData = createFormData({
-      businessName: "Studio Magnolia",
-      fullName: "Jana Novakova",
+  ])("ulozi registracni intent a spusti OAuth registraci pres %s bez nazvu podniku", async (actionName, provider) => {
+    const redirectTo = await expectProviderRedirect(actionName, provider);
+
+    expect(mocks.setOAuthBusinessRegistrationIntentCookie).toHaveBeenCalledOnce();
+    expect(mocks.createBusinessForOAuthUser).not.toHaveBeenCalled();
+    expect(redirectTo).toBe("https://app.temaro.test/auth/callback?next=%2Fregister%2Fcomplete");
+  });
+
+  it("dokonci OAuth registraci az po vyplneni nazvu podniku", async () => {
+    const actions = await loadActions();
+    const action = actions.completeOAuthBusinessRegistrationAction as FormStateAction;
+    const refreshSession = vi.fn(async () => ({ error: null }));
+    mocks.createClient.mockResolvedValue({
+      auth: {
+        getUser: vi.fn(async () => ({
+          data: {
+            user: {
+              app_metadata: {},
+              email: "owner@example.com",
+              id: "user-1",
+            },
+          },
+          error: null,
+        })),
+        refreshSession,
+        signOut: vi.fn(async () => ({ error: null })),
+      },
     });
 
-    await expectProviderRedirect(actionName, provider, formData);
-    expect(mocks.setOAuthBusinessRegistrationCookie).toHaveBeenCalledWith({
+    await expect(action({}, createFormData({
       businessName: "Studio Magnolia",
       fullName: "Jana Novakova",
+    }))).rejects.toThrow("NEXT_REDIRECT:/start");
+
+    expect(mocks.limitRegister).toHaveBeenCalledWith("owner@example.com");
+    expect(mocks.createBusinessForOAuthUser).toHaveBeenCalledWith({
+      businessName: "Studio Magnolia",
+      email: "owner@example.com",
+      fullName: "Jana Novakova",
+      userId: "user-1",
     });
+    expect(refreshSession).toHaveBeenCalledOnce();
   });
 });

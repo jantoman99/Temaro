@@ -2,10 +2,8 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { NextRequest } from "next/server";
 
 const mocks = vi.hoisted(() => ({
-  consumeOAuthBusinessRegistrationCookie: vi.fn(),
-  createBusinessForOAuthUser: vi.fn(),
+  consumeOAuthBusinessRegistrationIntentCookie: vi.fn(),
   createClient: vi.fn(),
-  hasSupabaseAdminEnv: vi.fn(),
 }));
 
 vi.mock("@/lib/supabase/server", () => ({
@@ -13,12 +11,7 @@ vi.mock("@/lib/supabase/server", () => ({
 }));
 
 vi.mock("@/lib/auth/oauth-registration", () => ({
-  consumeOAuthBusinessRegistrationCookie: mocks.consumeOAuthBusinessRegistrationCookie,
-  createBusinessForOAuthUser: mocks.createBusinessForOAuthUser,
-}));
-
-vi.mock("@/lib/env", () => ({
-  hasSupabaseAdminEnv: mocks.hasSupabaseAdminEnv,
+  consumeOAuthBusinessRegistrationIntentCookie: mocks.consumeOAuthBusinessRegistrationIntentCookie,
 }));
 
 import { GET } from "@/app/auth/callback/route";
@@ -91,13 +84,9 @@ function createSupabaseAuthMock({
 
 describe("auth callback route", () => {
   beforeEach(() => {
-    mocks.consumeOAuthBusinessRegistrationCookie.mockReset();
-    mocks.consumeOAuthBusinessRegistrationCookie.mockResolvedValue(null);
-    mocks.createBusinessForOAuthUser.mockReset();
-    mocks.createBusinessForOAuthUser.mockResolvedValue({ error: null, tenantId: "tenant-1" });
+    mocks.consumeOAuthBusinessRegistrationIntentCookie.mockReset();
+    mocks.consumeOAuthBusinessRegistrationIntentCookie.mockResolvedValue(false);
     mocks.createClient.mockReset();
-    mocks.hasSupabaseAdminEnv.mockReset();
-    mocks.hasSupabaseAdminEnv.mockReturnValue(true);
   });
 
   it("po uspesnem callbacku povoli jen bezpecne dashboard presmerovani", async () => {
@@ -145,41 +134,28 @@ describe("auth callback route", () => {
     expect(supabase.auth.signOut).toHaveBeenCalledOnce();
   });
 
-  it("pri Google registraci vytvori tenant z pending cookie a obnovi session", async () => {
+  it("pri OAuth registraci s intentem pusti uzivatele na dokonceni podniku", async () => {
     const supabase = createSupabaseAuthMock({
-      refreshedUser: {
-        app_metadata: { role: "owner", tenant_id: "tenant-1" },
-        email: "owner@example.com",
-        id: "user-1",
-      },
       user: {
         app_metadata: {},
         email: "owner@example.com",
         id: "user-1",
       },
     });
-    mocks.consumeOAuthBusinessRegistrationCookie.mockResolvedValue({
-      businessName: "Google Barber",
-      fullName: "Owner Google",
-    });
+    mocks.consumeOAuthBusinessRegistrationIntentCookie.mockResolvedValue(true);
     mocks.createClient.mockResolvedValue(supabase);
 
-    const response = await GET(createRequest("http://localhost:3000/auth/callback?code=abc&next=/calendar"));
+    const response = await GET(createRequest("http://localhost:3000/auth/callback?code=abc&next=/register/complete"));
 
     expect(response.status).toBe(307);
-    expect(response.headers.get("location")).toBe("http://localhost:3000/calendar");
-    expect(mocks.createBusinessForOAuthUser).toHaveBeenCalledWith({
-      businessName: "Google Barber",
-      email: "owner@example.com",
-      fullName: "Owner Google",
-      userId: "user-1",
-    });
-    expect(supabase.auth.refreshSession).toHaveBeenCalledOnce();
+    expect(response.headers.get("location")).toBe("http://localhost:3000/register/complete");
+    expect(supabase.auth.refreshSession).not.toHaveBeenCalled();
     expect(supabase.auth.signOut).not.toHaveBeenCalled();
   });
 
   it("pusti zakaznicky ucet bez tenant metadata jen na account routu", async () => {
     const supabase = createSupabaseAuthMock({
+      tenantLookup: { data: null, error: null },
       user: {
         app_metadata: {},
         email: "client@example.com",
@@ -192,8 +168,8 @@ describe("auth callback route", () => {
 
     expect(response.status).toBe(307);
     expect(response.headers.get("location")).toBe("http://localhost:3000/account");
-    expect(mocks.consumeOAuthBusinessRegistrationCookie).not.toHaveBeenCalled();
-    expect(mocks.createBusinessForOAuthUser).not.toHaveBeenCalled();
+    expect(mocks.consumeOAuthBusinessRegistrationIntentCookie).not.toHaveBeenCalled();
+    expect(supabase.from).not.toHaveBeenCalled();
     expect(supabase.auth.signOut).not.toHaveBeenCalled();
   });
 
@@ -211,12 +187,11 @@ describe("auth callback route", () => {
 
     expect(response.status).toBe(307);
     expect(response.headers.get("location")).toBe("http://localhost:3000/reset-password");
-    expect(mocks.consumeOAuthBusinessRegistrationCookie).not.toHaveBeenCalled();
-    expect(mocks.createBusinessForOAuthUser).not.toHaveBeenCalled();
+    expect(mocks.consumeOAuthBusinessRegistrationIntentCookie).not.toHaveBeenCalled();
     expect(supabase.auth.signOut).not.toHaveBeenCalled();
   });
 
-  it("pri neuspesne Google registraci odhlasi uzivatele", async () => {
+  it("odhlasi OAuth registraci bez intent cookie", async () => {
     const supabase = createSupabaseAuthMock({
       user: {
         app_metadata: {},
@@ -224,17 +199,13 @@ describe("auth callback route", () => {
         id: "user-1",
       },
     });
-    mocks.consumeOAuthBusinessRegistrationCookie.mockResolvedValue({
-      businessName: "Google Barber",
-      fullName: "Owner Google",
-    });
-    mocks.createBusinessForOAuthUser.mockResolvedValue({ error: "registration_failed" });
+    mocks.consumeOAuthBusinessRegistrationIntentCookie.mockResolvedValue(false);
     mocks.createClient.mockResolvedValue(supabase);
 
-    const response = await GET(createRequest("http://localhost:3000/auth/callback?code=abc&next=/calendar"));
+    const response = await GET(createRequest("http://localhost:3000/auth/callback?code=abc&next=/register/complete"));
 
     expect(response.status).toBe(307);
-    expect(response.headers.get("location")).toBe("http://localhost:3000/login?error=oauth_registration_failed");
+    expect(response.headers.get("location")).toBe("http://localhost:3000/login?error=missing_tenant");
     expect(supabase.auth.signOut).toHaveBeenCalledOnce();
   });
 

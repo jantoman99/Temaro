@@ -3,7 +3,10 @@
 import { redirect } from "next/navigation";
 
 import { getActiveAuthContextError } from "@/lib/auth/active-context";
-import { setOAuthBusinessRegistrationCookie } from "@/lib/auth/oauth-registration";
+import {
+  createBusinessForOAuthUser,
+  setOAuthBusinessRegistrationIntentCookie,
+} from "@/lib/auth/oauth-registration";
 import { getSafeRedirectPath } from "@/lib/auth/redirects";
 import { getAuthContextError } from "@/lib/auth/session-context";
 import { findAvailableTenantSlug } from "@/lib/auth/tenant-slug";
@@ -120,20 +123,14 @@ async function redirectToOAuth(provider: OAuthProvider, nextPath: string): Promi
   redirect(data.url);
 }
 
-async function registerWithOAuthProvider(provider: OAuthProvider, formData: FormData): Promise<void> {
+async function registerWithOAuthProvider(provider: OAuthProvider): Promise<void> {
   if (!hasSupabaseAdminEnv()) {
     redirect("/register?error=oauth_admin_env");
   }
 
-  const parsed = oauthBusinessRegistrationSchema.safeParse(getOAuthBusinessRegistrationInput(formData));
+  await setOAuthBusinessRegistrationIntentCookie();
 
-  if (!parsed.success) {
-    redirect("/register?error=oauth_registration_input");
-  }
-
-  await setOAuthBusinessRegistrationCookie(parsed.data);
-
-  await redirectToOAuth(provider, "/start");
+  await redirectToOAuth(provider, "/register/complete");
 }
 
 async function softDeleteTenant(
@@ -443,6 +440,83 @@ export async function updatePasswordAction(
   return { success: "Heslo bylo změněné. Teď se můžete přihlásit." };
 }
 
+export async function completeOAuthBusinessRegistrationAction(
+  _previousState: AuthActionState,
+  formData: FormData,
+): Promise<AuthActionState> {
+  if (!hasSupabaseEnv()) {
+    redirect("/start");
+  }
+
+  if (!hasSupabaseAdminEnv()) {
+    return { error: "Dokončení registrace vyžaduje Supabase service role klíč." };
+  }
+
+  const parsed = oauthBusinessRegistrationSchema.safeParse(getOAuthBusinessRegistrationInput(formData));
+
+  if (!parsed.success) {
+    return { error: parsed.error.issues[0]?.message ?? "Doplňte název podniku a jméno vlastníka." };
+  }
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
+
+  if (userError || !user) {
+    redirect("/register");
+  }
+
+  const authContextError = getAuthContextError(user);
+
+  if (!authContextError) {
+    redirect("/start");
+  }
+
+  if (authContextError !== "missing_tenant") {
+    await supabase.auth.signOut();
+    redirect(`/login?error=${authContextError}`);
+  }
+
+  if (!user.email) {
+    await supabase.auth.signOut();
+    return { error: "Účet nemá ověřený e-mail. Přihlaste se znovu." };
+  }
+
+  let rateLimit = { success: true };
+
+  try {
+    rateLimit = await limitRegister(user.email);
+  } catch {
+    rateLimit = { success: true };
+  }
+
+  if (!rateLimit.success) {
+    return { error: "Příliš mnoho pokusů. Zkuste to později." };
+  }
+
+  const registration = await createBusinessForOAuthUser({
+    businessName: parsed.data.businessName,
+    email: user.email,
+    fullName: parsed.data.fullName,
+    userId: user.id,
+  });
+
+  if (registration.error) {
+    return { error: "Registraci se nepodařilo dokončit." };
+  }
+
+  const { error: refreshError } = await supabase.auth.refreshSession();
+
+  if (refreshError) {
+    await supabase.auth.signOut();
+    return { error: "Registrace proběhla, ale přihlášení se nepodařilo obnovit. Přihlaste se znovu." };
+  }
+
+  redirect("/start");
+}
+
 export async function signInWithGoogleAction(formData: FormData): Promise<void> {
   await redirectToOAuth("google", getStringValue(formData, "redirectedFrom"));
 }
@@ -467,16 +541,16 @@ export async function signInCustomerWithAppleAction(): Promise<void> {
   await redirectToOAuth("apple", "/account");
 }
 
-export async function registerWithGoogleAction(formData: FormData): Promise<void> {
-  await registerWithOAuthProvider("google", formData);
+export async function registerWithGoogleAction(): Promise<void> {
+  await registerWithOAuthProvider("google");
 }
 
-export async function registerWithFacebookAction(formData: FormData): Promise<void> {
-  await registerWithOAuthProvider("facebook", formData);
+export async function registerWithFacebookAction(): Promise<void> {
+  await registerWithOAuthProvider("facebook");
 }
 
-export async function registerWithAppleAction(formData: FormData): Promise<void> {
-  await registerWithOAuthProvider("apple", formData);
+export async function registerWithAppleAction(): Promise<void> {
+  await registerWithOAuthProvider("apple");
 }
 
 export async function logoutAction() {

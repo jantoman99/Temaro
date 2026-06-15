@@ -1,10 +1,9 @@
 import { NextResponse, type NextRequest } from "next/server";
 
 import { getActiveAuthContextError } from "@/lib/auth/active-context";
-import { consumeOAuthBusinessRegistrationCookie, createBusinessForOAuthUser } from "@/lib/auth/oauth-registration";
+import { consumeOAuthBusinessRegistrationIntentCookie } from "@/lib/auth/oauth-registration";
 import { getSafeRedirectPath } from "@/lib/auth/redirects";
 import { getAuthContextError } from "@/lib/auth/session-context";
-import { hasSupabaseAdminEnv } from "@/lib/env";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: NextRequest) {
@@ -25,7 +24,7 @@ export async function GET(request: NextRequest) {
       data: { user },
       error: userError,
     } = await supabase.auth.getUser();
-    let activeUser = user;
+    const activeUser = user;
 
     if (userError || !activeUser) {
       await supabase.auth.signOut();
@@ -39,43 +38,15 @@ export async function GET(request: NextRequest) {
     }
 
     if (authContextError === "missing_tenant") {
-      const pendingRegistration = await consumeOAuthBusinessRegistrationCookie();
+      const hasRegistrationIntent = safeNext === "/register/complete"
+        ? await consumeOAuthBusinessRegistrationIntentCookie()
+        : false;
 
-      if (!pendingRegistration || !hasSupabaseAdminEnv() || !activeUser.email) {
+      if (!hasRegistrationIntent) {
         await supabase.auth.signOut();
         return NextResponse.redirect(new URL("/login?error=missing_tenant", requestUrl.origin));
       }
 
-      const registration = await createBusinessForOAuthUser({
-        businessName: pendingRegistration.businessName,
-        email: activeUser.email,
-        fullName: pendingRegistration.fullName,
-        userId: activeUser.id,
-      });
-
-      if (registration.error) {
-        await supabase.auth.signOut();
-        return NextResponse.redirect(new URL("/login?error=oauth_registration_failed", requestUrl.origin));
-      }
-
-      const { error: refreshError } = await supabase.auth.refreshSession();
-
-      if (refreshError) {
-        await supabase.auth.signOut();
-        return NextResponse.redirect(new URL("/login?error=oauth_registration_failed", requestUrl.origin));
-      }
-
-      const {
-        data: { user: refreshedUser },
-        error: refreshedUserError,
-      } = await supabase.auth.getUser();
-
-      if (refreshedUserError || !refreshedUser) {
-        await supabase.auth.signOut();
-        return NextResponse.redirect(new URL("/login?error=oauth_registration_failed", requestUrl.origin));
-      }
-
-      activeUser = refreshedUser;
       authContextError = null;
     }
 
@@ -84,11 +55,17 @@ export async function GET(request: NextRequest) {
       return NextResponse.redirect(new URL(`/login?error=${authContextError}`, requestUrl.origin));
     }
 
-    const activeAuthContextError = await getActiveAuthContextError(supabase, activeUser);
+    const shouldCheckActiveContext = !safeNext.startsWith("/account")
+      && safeNext !== "/reset-password"
+      && safeNext !== "/register/complete";
 
-    if (safeNext !== "/reset-password" && activeAuthContextError) {
-      await supabase.auth.signOut();
-      return NextResponse.redirect(new URL(`/login?error=${activeAuthContextError}`, requestUrl.origin));
+    if (shouldCheckActiveContext) {
+      const activeAuthContextError = await getActiveAuthContextError(supabase, activeUser);
+
+      if (activeAuthContextError) {
+        await supabase.auth.signOut();
+        return NextResponse.redirect(new URL(`/login?error=${activeAuthContextError}`, requestUrl.origin));
+      }
     }
   }
 

@@ -1,6 +1,6 @@
 # Runtime checklist
 
-Aktualizováno: 2026-06-15 19:23 CEST
+Aktualizováno: 2026-06-15 19:59 CEST
 
 Tento checklist je pro první reálné ověření mimo demo režim.
 
@@ -22,7 +22,7 @@ curl -I http://localhost:3000
 
 Aktuální známý stav:
 
-- Lokální OAuth provider pass 2026-06-15 18:53 CEST: `/register`, `/login` a `/account/login` mají OAuth entrypointy Google/Facebook/Apple. Server actions používají sdílený `redirectToOAuth`; tenant vzniká jen přes pending OAuth registrační cookie. Ověření: `tests/auth-oauth-actions.test.ts` RED/GREEN, focused auth/callback 23/23, Playwright OAuth entrypoint smoke 2/2 a plný `npm run check` s 610 Vitest testy, migrations check, type-check, lint bez warningů a produkční build. Runtime před pilotem: v Supabase zapnout Google, Facebook a Apple providery, nastavit OAuth credentials a callback URL pro aktuální doménu.
+- Lokální OAuth two-step registration pass 2026-06-15 19:59 CEST: `/register`, `/login` a `/account/login` mají brandově barevné OAuth entrypointy Google/Facebook/Apple s logy. Server actions používají sdílený `redirectToOAuth`; podnikatelská OAuth registrace nejdřív nastaví intent cookie a po callbacku vede na `/register/complete`, kde se teprve validuje název podniku a jméno vlastníka a vzniká tenant/profile/owner metadata. Zákaznický `/account` callback s účtem bez tenant metadata nevolá aktivní tenant lookup. Ověření: focused auth/callback/helpers 89/89, Playwright OAuth entrypoint smoke 2/2, screenshot `output/playwright/register-oauth-redesign.png` a plný `npm run check` s 611 Vitest testy, migrations check, type-check, lint a produkční build. Runtime před pilotem: Google je na staging Supabase zapnutý; Facebook/Apple zapnout až po dodání credentials.
 - Staging OAuth provider pass 2026-06-15 18:57 CEST: `https://rezervacni-system-dev.vercel.app` míří na preview deploy `dpl_AhGG7GdfzvTqwoj42vUSCDj2BDL6` z commitu `7bb2b6b`. `/api/health` vrací `status=ok`, `env.ok=true`, `supabase.ok=true`, `rate_limit.configured=false`; HTML `/login`, `/register` a `/account/login` obsahuje Google/Facebook/Apple entrypointy a staging Playwright OAuth smoke prošel 2/2.
 - Runtime OAuth config pass 2026-06-15 19:08 CEST: Supabase Auth `uri_allow_list` obsahuje `https://rezervacni-system-dev.vercel.app/**`; dev alias míří na `dpl_4JryD4wBmsqMEvBBkpED8nqQYWn6` nasazený s build-time `NEXT_PUBLIC_APP_URL=https://rezervacni-system-dev.vercel.app`. `/api/health=ok`, staging OAuth entrypoint smoke 2/2. Google/Facebook/Apple provider flags jsou dál vypnuté, dokud nejsou dodané provider credentials.
 - Google OAuth runtime pass 2026-06-15 19:23 CEST: Supabase Google provider je zapnutý a staging klik z `/login` na Google jde na `accounts.google.com`. Další ruční test: dokončit přihlášení Google test uživatelem a ověřit podnikatelskou registraci přes `/register` i zákaznický login přes `/account/login`. Facebook/Apple zůstávají vypnuté do dodání credentials.
