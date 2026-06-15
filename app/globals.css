@@ -778,6 +778,155 @@
     margin-top: 0.45rem;
   }
 
+  .temaro-booking-scene {
+    background: linear-gradient(180deg, color-mix(in srgb, var(--porcelain) 62%, white) 0%, #ffffff 100%);
+    position: relative;
+  }
+
+  .temaro-booking-scene-copy {
+    background: var(--ink);
+    border: 1px solid color-mix(in srgb, #ffffff 14%, transparent);
+    border-radius: 2rem;
+    box-shadow: 0 2rem 6rem rgba(23, 26, 33, 0.2);
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+    min-height: 32rem;
+    overflow: hidden;
+    padding: clamp(1.35rem, 3vw, 2.35rem);
+  }
+
+  .temaro-booking-scene-copy .section-eyebrow {
+    color: color-mix(in srgb, var(--mint) 82%, white);
+  }
+
+  .temaro-booking-scene-copy .section-eyebrow::before {
+    background: var(--mint);
+  }
+
+  .temaro-booking-scene-copy h2 {
+    font-family: var(--font-body-stack);
+    font-size: clamp(3rem, 5.8vw, 5.9rem);
+    font-weight: 840;
+    letter-spacing: -0.07em;
+    line-height: 0.88;
+    margin-top: 2rem;
+    max-width: 8ch;
+  }
+
+  .temaro-booking-scene-copy p:not(.section-eyebrow) {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 1.06rem;
+    font-weight: 650;
+    line-height: 1.65;
+    margin-top: 1.35rem;
+    max-width: 31rem;
+  }
+
+  .temaro-booking-scene-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin-top: 2rem;
+  }
+
+  .temaro-booking-scene-meta span {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 999px;
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 0.8rem;
+    font-weight: 850;
+    padding: 0.64rem 0.85rem;
+  }
+
+  .temaro-booking-scene-grid {
+    display: grid;
+    gap: 0.85rem;
+    grid-template-columns: minmax(0, 1.08fr) minmax(16rem, 0.72fr);
+    min-height: 32rem;
+  }
+
+  .temaro-booking-scene-card {
+    background: var(--ink);
+    border-radius: 1.65rem;
+    box-shadow: 0 1.6rem 4.6rem rgba(23, 26, 33, 0.14);
+    isolation: isolate;
+    min-height: 15.5rem;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .temaro-booking-scene-lead {
+    border-radius: 2rem;
+    grid-row: span 2;
+    min-height: 32rem;
+  }
+
+  .temaro-booking-scene-card img {
+    transform: scale(1.02);
+  }
+
+  .temaro-booking-scene-card::before {
+    background: linear-gradient(180deg, rgba(23, 26, 33, 0.04) 0%, rgba(23, 26, 33, 0.14) 42%, rgba(23, 26, 33, 0.74) 100%);
+    content: "";
+    inset: 0;
+    pointer-events: none;
+    position: absolute;
+    z-index: 1;
+  }
+
+  .temaro-booking-scene-overlay {
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(255, 255, 255, 0.72);
+    border-radius: 1.2rem;
+    bottom: 1rem;
+    box-shadow: 0 1.2rem 3rem rgba(23, 26, 33, 0.22);
+    display: grid;
+    gap: 0.22rem;
+    left: 1rem;
+    max-width: min(21rem, calc(100% - 2rem));
+    padding: 0.85rem 0.95rem;
+    position: absolute;
+    right: 1rem;
+    z-index: 2;
+  }
+
+  .temaro-booking-scene-lead .temaro-booking-scene-overlay {
+    border-radius: 1.45rem;
+    bottom: 1.35rem;
+    left: 1.35rem;
+    padding: 1.05rem 1.15rem;
+    right: auto;
+    width: min(24rem, calc(100% - 2.7rem));
+  }
+
+  .temaro-booking-scene-overlay span {
+    color: var(--cobalt);
+    font-family: var(--font-time-stack);
+    font-size: 0.72rem;
+    font-weight: 850;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .temaro-booking-scene-overlay strong {
+    color: var(--ink);
+    font-size: clamp(1.05rem, 1.9vw, 1.5rem);
+    font-weight: 930;
+    letter-spacing: -0.045em;
+    line-height: 1.04;
+  }
+
+  .temaro-booking-scene-overlay small {
+    color: var(--ink-soft);
+    font-size: 0.78rem;
+    font-weight: 820;
+    line-height: 1.35;
+  }
+
   .temaro-feature-bento {
     background: linear-gradient(180deg, #ffffff 0%, #f8f8f5 48%, var(--porcelain) 100%);
   }
@@ -1575,6 +1724,25 @@
   }
 
   @media (max-width: 1024px) {
+    .temaro-booking-scene-copy {
+      min-height: 0;
+    }
+
+    .temaro-booking-scene-copy h2 {
+      max-width: 11ch;
+    }
+
+    .temaro-booking-scene-grid {
+      grid-template-columns: 1fr 1fr;
+      min-height: 0;
+    }
+
+    .temaro-booking-scene-lead {
+      grid-column: 1 / -1;
+      grid-row: auto;
+      min-height: 30rem;
+    }
+
     .temaro-reservation-flow,
     .temaro-flow-status-grid {
       grid-template-columns: 1fr;
@@ -1618,6 +1786,47 @@
   }
 
   @media (max-width: 640px) {
+    .temaro-booking-scene-copy {
+      border-radius: 1.55rem;
+      padding: 1.25rem;
+    }
+
+    .temaro-booking-scene-copy h2 {
+      font-size: clamp(2.65rem, 17vw, 4.2rem);
+      margin-top: 1.4rem;
+    }
+
+    .temaro-booking-scene-copy p:not(.section-eyebrow) {
+      font-size: 0.98rem;
+      line-height: 1.55;
+    }
+
+    .temaro-booking-scene-grid {
+      gap: 0.7rem;
+      grid-template-columns: 1fr;
+    }
+
+    .temaro-booking-scene-card,
+    .temaro-booking-scene-lead {
+      border-radius: 1.35rem;
+      min-height: 16rem;
+    }
+
+    .temaro-booking-scene-lead {
+      min-height: 24rem;
+    }
+
+    .temaro-booking-scene-overlay,
+    .temaro-booking-scene-lead .temaro-booking-scene-overlay {
+      border-radius: 1rem;
+      bottom: 0.72rem;
+      left: 0.72rem;
+      max-width: calc(100% - 1.44rem);
+      padding: 0.76rem 0.82rem;
+      right: 0.72rem;
+      width: auto;
+    }
+
     .temaro-flow-board {
       border-radius: 1.45rem;
       min-height: 34rem;

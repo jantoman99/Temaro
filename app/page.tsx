@@ -119,6 +119,33 @@ const heroProofItems = [
   },
 ] as const;
 
+const bookingScenePanels = [
+  {
+    label: "Kadeřnictví",
+    title: "10:30 Barva a foukaná",
+    channel: "Google",
+    note: "záloha připravena",
+    image: "/marketing/industries/hair-salon-wide.webp",
+    alt: "Kadeřnický provoz s pracovními místy pro rezervace",
+  },
+  {
+    label: "Barber",
+    title: "08:30 Pánský střih",
+    channel: "Web podniku",
+    note: "volné okno po službě",
+    image: "/marketing/industries/barber.webp",
+    alt: "Barber provoz připravený na online rezervace",
+  },
+  {
+    label: "Beauty",
+    title: "12:15 Kosmetika",
+    channel: "QR recepce",
+    note: "historie klienta u termínu",
+    image: "/marketing/industries/beauty.webp",
+    alt: "Beauty provoz s rezervačním kontextem",
+  },
+] as const;
+
 const productProofScenes = [
   {
     icon: CalendarDays,
@@ -308,6 +335,47 @@ export default async function Home() {
               </article>
             </Reveal>
           ))}
+        </div>
+      </section>
+
+      <section className="temaro-booking-scene px-4 py-16 sm:px-6 sm:py-20 lg:px-8" aria-label="Fotky provozu a rezervační kontext">
+        <div className="mx-auto grid w-full max-w-[1280px] gap-5 lg:grid-cols-[0.82fr_1.18fr] lg:items-stretch">
+          <Reveal>
+            <div className="temaro-booking-scene-copy">
+              <p className="section-eyebrow">Vizuální důkaz</p>
+              <h2>Salon na fotce. Rezervace v kontextu.</h2>
+              <p>
+                Fotky provozu musí vysvětlovat rezervace, ne jen zdobit stránku.
+                Každý záběr proto ukazuje konkrétní čas, zdroj a další krok pro tým.
+              </p>
+              <div className="temaro-booking-scene-meta" aria-label="Co fotky vysvětlují">
+                <span>fotka provozu</span>
+                <span>volný čas</span>
+                <span>zdroj rezervace</span>
+              </div>
+            </div>
+          </Reveal>
+
+          <div className="temaro-booking-scene-grid">
+            {bookingScenePanels.map((panel, index) => (
+              <Reveal key={panel.label} delay={index * 70} className="h-full">
+                <article className={`temaro-booking-scene-card ${index === 0 ? "temaro-booking-scene-lead" : ""}`}>
+                  <Image
+                    src={panel.image}
+                    alt={panel.alt}
+                    fill
+                    sizes={index === 0 ? "(min-width: 1024px) 50vw, 92vw" : "(min-width: 1024px) 24vw, 92vw"}
+                    className="object-cover"
+                  />
+                  <div className="temaro-booking-scene-overlay">
+                    <span>{panel.label}</span>
+                    <strong>{panel.title}</strong>
+                    <small>{panel.channel} · {panel.note}</small>
+                  </div>
+                </article>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 
