@@ -1,6 +1,6 @@
 # Manualni test plan
 
-Aktualizováno: 2026-06-15 19:08 CEST
+Aktualizováno: 2026-06-15 19:23 CEST
 
 Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 
@@ -76,6 +76,7 @@ Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 - Na `/login`, `/register` a `/account/login` ověřit OAuth tlačítka `Google`, `Facebook` a `Apple`. Poslední automatické ověření 2026-06-15 18:53 CEST: focused auth/callback 23/23, OAuth entrypoint Playwright smoke 2/2 a plný `npm run check` s 610 Vitest testy. Runtime test skutečného přihlášení dělat až po zapnutí providerů v Supabase; podnikatelská OAuth registrace musí vytvořit tenant jen po vyplnění názvu podniku a jména vlastníka, zákaznický OAuth login nesmí vytvořit tenant.
 - Na stagingu je pro OAuth entrypointy poslední ověřený deploy `dpl_AhGG7GdfzvTqwoj42vUSCDj2BDL6` z 2026-06-15 18:57 CEST; `/api/health=ok`, HTML auth stránek obsahuje Google/Facebook/Apple tlačítka a staging Playwright OAuth smoke prošel 2/2.
 - Runtime OAuth config 2026-06-15 19:08 CEST: Supabase allow-list už obsahuje `https://rezervacni-system-dev.vercel.app/**` a aktuální dev deploy je `dpl_4JryD4wBmsqMEvBBkpED8nqQYWn6` s dev `NEXT_PUBLIC_APP_URL`. Před skutečným klikacím testem je pořád nutné dodat a v Supabase zapnout Google/Facebook/Apple client ID/secret.
+- Google OAuth 2026-06-15 19:23 CEST: Google provider je zapnutý a staging klik z `/login` přesměruje na Google. Ručně dokončit login testovacím Google účtem, potom ověřit `/register` a `/account/login`. Facebook/Apple ještě netestovat, dokud nejsou zapnuté providery.
 - Otevřít `/forgot-password`, `/reset-password` a `/account/login`; ověřit stejný návrat `Zpět na web` a theme toggle bez plné marketing navigace.
 - Google OAuth runtime test je odložený až po zakoupení produkční domény; do té doby Google provider v Supabase nezapínat.
 - Po zakoupení domény na `/register` vyplnit název podniku a jméno vlastníka, kliknout `Vytvořit podnik přes Google` a ověřit, že po callbacku vznikne nový tenant a dashboard se otevře jako owner.
