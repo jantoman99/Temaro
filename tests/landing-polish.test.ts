@@ -573,6 +573,7 @@ describe("landing polish guard", () => {
 
   test("SEO answer articles share the Fresha-inspired visual article system", () => {
     const article = readProjectFile("components/marketing/seo-article-page.tsx");
+    const industry = readProjectFile("components/marketing/industry-landing-page.tsx");
     const globals = readProjectFile("app/globals.css");
     const pages = [
       readProjectFile("app/jak-snizit-no-show/page.tsx"),
@@ -591,6 +592,15 @@ describe("landing polish guard", () => {
     expect(article).toContain("temaro-article-faq");
     expect(article).toContain("<details");
     expect(article).toContain("Číst kapitolu");
+    expect(industry).toContain("temaro-seo-article");
+    expect(industry).toContain("temaro-article-hero");
+    expect(industry).toContain("temaro-article-photo");
+    expect(industry).toContain("temaro-article-product-card");
+    expect(industry).toContain("temaro-article-mini-nav");
+    expect(industry).toContain("temaro-article-product-proof");
+    expect(industry).toContain("temaro-article-faq");
+    expect(industry).toContain("<details");
+    expect(industry).not.toContain("signal-hero signal-grid");
     expect(globals).toContain(".temaro-article-hero");
     expect(globals).toContain(".temaro-article-photo");
     expect(globals).toContain(".temaro-article-product-card");

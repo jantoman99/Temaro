@@ -1,6 +1,6 @@
 # Manualni test plan
 
-Aktualizováno: 2026-06-15 20:58 CEST
+Aktualizováno: 2026-06-15 22:16 CEST
 
 Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 
@@ -91,14 +91,11 @@ Toto je navod na pozdeji, az budeme chtit projekt otestovat rucne v prohlizeci.
 - Otevřít cizí nebo neplatné `/account/bookings/<bookingId>`; očekávání je 404 nebo login redirect, nikdy zobrazení cizí rezervace.
 - Automatika už ověřuje, že `/account/login` renderuje zákaznický Google vstup; reálný Supabase Google callback a data v `/account` ověřit až po doméně.
 - Ověřit, že stejný zákaznický účet bez tenant metadata nemá přístup do `/dashboard`, `/calendar`, `/clients`, `/services`, `/staff`, `/settings` ani `/payments`.
-- Otevřít `/rezervacni-system-pro-barbery` a ověřit title/hero/FAQ/CTA, desktop i mobil, light-only vzhled i při uloženém dark režimu.
-- Otevřít `/rezervacni-system-pro-kadernictvi` a ověřit title/hero/FAQ/CTA, desktop i mobil, light-only vzhled i při uloženém dark režimu.
-- Otevřít `/rezervacni-system-pro-kosmeticky-salon` a ověřit title/hero/FAQ/CTA, desktop i mobil, light-only vzhled i při uloženém dark režimu.
-- Otevřít `/rezervacni-system-pro-masaze` a ověřit title/hero/FAQ/CTA, desktop i mobil, light-only vzhled i při uloženém dark režimu.
-- Otevřít `/rezervacni-system-pro-wellness` a ověřit title/hero/FAQ/CTA, desktop i mobil, light-only vzhled i při uloženém dark režimu.
-- Otevřít `/jak-snizit-no-show`, `/sms-pripominky-rezervaci` a `/rezervacni-system-bez-marketplace-provizi`; na desktopu i mobilu ověřit nový `SeoArticlePage`: hero fotka, `temaro-article-product-card`, sticky kapitoly, druhá provozní fotka, tmavý produktový proof blok, `<details>` FAQ a light-only vzhled i při uloženém dark režimu.
-- Z libovolného SEO článku prokliknout desktop navigaci `Bezpečnost` a ověřit přechod na homepage `/#bezpecnost`; v dropdownu `Produkt` kliknout `Produktový pohled` a ověřit `/#produkt`; na mobilu z hamburger menu kliknout `Bez marketplace` a ověřit `/#bez-marketplace`.
-- U SEO článků ověřit, že se nevrátil starý textový `signal-hero signal-grid` layout bez fotek a že stránka nemá horizontální overflow.
+- Otevřít všech 8 veřejných článkových/SEO rout: `/rezervacni-system-pro-barbery`, `/rezervacni-system-pro-kadernictvi`, `/rezervacni-system-pro-kosmeticky-salon`, `/rezervacni-system-pro-masaze`, `/rezervacni-system-pro-wellness`, `/jak-snizit-no-show`, `/sms-pripominky-rezervaci`, `/rezervacni-system-bez-marketplace-provizi`.
+- Na každé článkové routě ověřit desktop i mobil: image-led hero, `temaro-article-photo`, `temaro-article-product-card`, sticky kapitoly `temaro-article-mini-nav`, tmavý `temaro-article-product-proof`, `<details>` FAQ, light-only vzhled i při uloženém dark režimu a nulový horizontální overflow.
+- Na každé článkové routě prokliknout mini záložky `Kroky`, `Pravidla`, `Produkt`, `FAQ`; URL hash má skončit na `#kroky`, `#pravidla`, `#produkt`, `#faq` a příslušná sekce musí být viditelná.
+- Z libovolného článku prokliknout desktop navigaci `Ceník`, `Bezpečnost`, dropdown `Produkt -> Produktový pohled`, dropdown `Pro koho -> Barbery` a dropdown `Návody -> SMS připomínky`; odkazy musí vést na homepage root kotvy nebo správnou route, ne na lokální hash neexistující subpage.
+- U všech článků ověřit, že se nevrátil starý textový `signal-hero signal-grid` layout bez fotek.
 - Ve footeru homepage ověřit odkazy `Pro barbery`, `Pro kadeřnictví`, `Pro beauty salon`, `Pro masáže`, `No-show guide`, `SMS připomínky` a `Bez marketplace provizí`.
 - Po prihlaseni otevrit dashboard a zkontrolovat Signal OS shell: Temaro logo v tmavem ink sidebaru, fialovo-modry aktivni signal, topbar search, CTA pro novou rezervaci a logout.
 - Na desktopu zkontrolovat, že dashboard entity neplavou v úzkém centrovaném sloupci; pracovní plocha má využívat dostupnou šířku mezi sidebarem a pravým okrajem.

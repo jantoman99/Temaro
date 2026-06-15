@@ -1,4 +1,19 @@
-import { expect, test } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
+
+const publicArticleRoutes = [
+  "/rezervacni-system-pro-barbery",
+  "/rezervacni-system-pro-kadernictvi",
+  "/rezervacni-system-pro-kosmeticky-salon",
+  "/rezervacni-system-pro-masaze",
+  "/rezervacni-system-pro-wellness",
+  "/jak-snizit-no-show",
+  "/sms-pripominky-rezervaci",
+  "/rezervacni-system-bez-marketplace-provizi",
+] as const;
+
+function mainNavigation(page: Page) {
+  return page.getByLabel("Hlavní navigace");
+}
 
 test.describe("public smoke", () => {
   test("health endpoint and security headers are available", async ({ page, request }) => {
@@ -78,26 +93,26 @@ test.describe("public smoke", () => {
   test("segment SEO pages render and cross-link", async ({ page }) => {
     await page.goto("/rezervacni-system-pro-barbery", { waitUntil: "domcontentloaded" });
     await expect(page.getByText("Rezervační systém pro barbery").first()).toBeVisible();
-    await expect(page.getByRole("link", { name: "No-show návod", exact: true })).toBeVisible();
+    await expect(page.getByRole("link", { name: "No-show návod", exact: true }).first()).toBeVisible();
 
     await page.goto("/rezervacni-system-pro-kadernictvi", { waitUntil: "domcontentloaded" });
     await expect(page.getByText("Rezervační systém pro kadeřnictví").first()).toBeVisible();
     await expect(page.getByRole("button", { name: "Produkt" })).toBeVisible();
     await page.getByRole("button", { name: "Návody" }).click();
-    await expect(page.getByRole("link", { name: /Jak snížit no-show/ })).toBeVisible();
-    await expect(page.getByRole("link", { name: /SMS připomínky/ })).toBeVisible();
+    await expect(mainNavigation(page).getByRole("link", { name: "Jak snížit no-show", exact: true })).toBeVisible();
+    await expect(mainNavigation(page).getByRole("link", { name: "SMS připomínky", exact: true })).toBeVisible();
 
     await page.goto("/rezervacni-system-pro-kosmeticky-salon", { waitUntil: "domcontentloaded" });
     await expect(page.getByText("Rezervační systém pro kosmetický salon").first()).toBeVisible();
-    await expect(page.getByRole("link", { name: "Pro masáže", exact: true })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Pro masáže", exact: true }).first()).toBeVisible();
 
     await page.goto("/rezervacni-system-pro-masaze", { waitUntil: "domcontentloaded" });
     await expect(page.getByText("Rezervační systém pro masáže").first()).toBeVisible();
-    await expect(page.getByRole("link", { name: "Pro wellness", exact: true })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Pro wellness", exact: true }).first()).toBeVisible();
 
     await page.goto("/rezervacni-system-pro-wellness", { waitUntil: "domcontentloaded" });
     await expect(page.getByText("Rezervační systém pro wellness").first()).toBeVisible();
-    await expect(page.getByRole("link", { name: "Pro masáže", exact: true })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Pro masáže", exact: true }).first()).toBeVisible();
 
     await page.goto("/jak-snizit-no-show", { waitUntil: "domcontentloaded" });
     await expect(page.getByRole("heading", { name: /Jak snížit no-show/i })).toBeVisible();
@@ -144,7 +159,7 @@ test.describe("public smoke", () => {
     expect(Math.abs(after!.height - before!.height)).toBeLessThan(1);
 
     await page.getByRole("button", { name: "Návody" }).click();
-    await expect(page.getByRole("link", { name: /SMS připomínky/ })).toBeVisible();
+    await expect(mainNavigation(page).getByRole("link", { name: "SMS připomínky", exact: true })).toBeVisible();
   });
 
   test("marketing nav links from SEO articles resolve to homepage sections", async ({ page }) => {
@@ -172,6 +187,48 @@ test.describe("public smoke", () => {
     await expect(page).toHaveURL(/\/#bez-marketplace$/);
     expect(Date.now() - marketplaceClickStartedAt).toBeLessThan(4000);
     await expect(page.locator("#bez-marketplace")).toBeVisible();
+  });
+
+  test("all public article routes keep unified visuals and clickable tabs", async ({ page }) => {
+    for (const route of publicArticleRoutes) {
+      await page.goto(route, { waitUntil: "domcontentloaded" });
+
+      await expect(page.locator(".temaro-seo-article")).toBeVisible();
+      await expect(page.locator(".temaro-article-photo").first()).toBeVisible();
+      await expect(page.locator(".temaro-article-product-card").first()).toBeVisible();
+      await expect(page.locator(".temaro-article-mini-nav").first()).toBeVisible();
+      await expect.poll(async () => page.locator(".temaro-article-faq details").count()).toBeGreaterThanOrEqual(4);
+      await expect(page.locator("img").first()).toBeVisible();
+
+      for (const anchor of ["#kroky", "#pravidla", "#produkt", "#faq"]) {
+        await page.locator(`.temaro-article-mini-nav a[href="${anchor}"]`).click();
+        await expect.poll(async () => page.evaluate(() => window.location.hash)).toBe(anchor);
+        await expect(page.locator(anchor)).toBeVisible();
+      }
+
+      await page.goto(route, { waitUntil: "domcontentloaded" });
+      await mainNavigation(page).getByRole("link", { name: "Ceník", exact: true }).click();
+      await expect(page).toHaveURL(/\/#cenik$/);
+
+      await page.goto(route, { waitUntil: "domcontentloaded" });
+      await mainNavigation(page).getByRole("link", { name: "Bezpečnost", exact: true }).click();
+      await expect(page).toHaveURL(/\/#bezpecnost$/);
+
+      await page.goto(route, { waitUntil: "domcontentloaded" });
+      await page.getByRole("button", { name: "Produkt" }).click();
+      await mainNavigation(page).locator('a[href="/#produkt"]').filter({ hasText: /Produktový/ }).click();
+      await expect(page).toHaveURL(/\/#produkt$/);
+
+      await page.goto(route, { waitUntil: "domcontentloaded" });
+      await page.getByRole("button", { name: "Pro koho" }).click();
+      await mainNavigation(page).getByRole("link", { name: "Barbery", exact: true }).click();
+      await expect(page).toHaveURL(/\/rezervacni-system-pro-barbery$/);
+
+      await page.goto(route, { waitUntil: "domcontentloaded" });
+      await page.getByRole("button", { name: "Návody" }).click();
+      await mainNavigation(page).getByRole("link", { name: "SMS připomínky", exact: true }).click();
+      await expect(page).toHaveURL(/\/sms-pripominky-rezervaci$/);
+    }
   });
 
   test("demo booking page renders selectable booking flow", async ({ page }) => {
