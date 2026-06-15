@@ -48,7 +48,6 @@ describe("landing polish guard", () => {
 
   test("homepage uses the Fresha-like premium salon platform architecture", () => {
     const page = readProjectFile("app/page.tsx");
-    const bento = readProjectFile("components/marketing/feature-story-bento.tsx");
 
     expect(page).toContain("temaro-time-page");
     expect(page).toContain("<MarketingHeader />");
@@ -63,12 +62,8 @@ describe("landing polish guard", () => {
     expect(page).toContain("Jeden kalendář");
     expect(page).toContain("No-show ochrana");
     expect(page).toContain("Produktová ukázka");
-    expect(page).toContain("FeatureStoryBento");
-    expect(bento).toContain("Jedna rezervace projde celým provozem");
-    expect(bento).toContain('id="produktovy-pribeh"');
-    expect(bento).toContain("Instagram termín padá rovnou do kalendáře");
-    expect(bento).toContain("SMS připomínka připravena");
-    expect(bento).toContain("300 Kč záloha připravena");
+    expect(page).not.toContain("FeatureStoryBento");
+    expect(page).not.toContain('id="produktovy-pribeh"');
     expect(page).toContain("industryCards");
     expect(page).toContain("featuredIndustry");
     expect(page).toContain("secondaryIndustries");
@@ -372,8 +367,13 @@ describe("landing polish guard", () => {
     expect(globals).toContain("font-family: var(--font-body-stack)");
     expect(globals).toContain("font-weight: 780");
     expect(globals).toContain("letter-spacing: -0.045em");
-    expect(globals).toContain("linear-gradient(180deg, #ffffff 0%, #fbfcf9 48%, #f7f2ea 100%)");
-    expect(globals).toContain("linear-gradient(120deg, #2B3FF2 0%, #7A5BFF 38%, #FF8FC2 72%, #FFB98A 100%)");
+    expect(globals).toContain("linear-gradient(180deg, #ffffff 0%, #ffffff 48%, #f7f8f5 100%)");
+    expect(globals).toContain(".temaro-premium-stage::before");
+    expect(globals).toContain("linear-gradient(180deg, #111523 0%, #070912 100%)");
+    expect(globals).toContain(".temaro-feature-panel");
+    expect(globals).not.toContain("linear-gradient(120deg, #2B3FF2 0%, #7A5BFF 38%, #FF8FC2 72%, #FFB98A 100%)");
+    expect(globals).not.toContain("radial-gradient(circle at 88% 66%, rgba(255, 185, 138, 0.18), transparent 26rem)");
+    expect(globals).not.toContain("radial-gradient(circle at 94% 5%, color-mix(in srgb, var(--apricot) 22%, transparent), transparent 18rem)");
     expect(globals).toContain("aspect-ratio: 9 / 16");
     expect(globals).toContain("min-height: 34rem");
     expect(globals).toContain("bottom: 1.15rem");
@@ -480,6 +480,8 @@ describe("landing polish guard", () => {
     expect(sharedHeader).toContain("<LandingNavigation />");
     expect(sharedHeader).toContain("<MobileMarketingMenu />");
     expect(sharedHeader).toContain("marketing-fixed-header");
+    expect(sharedHeader).toContain("min-h-[4.75rem]");
+    expect(sharedHeader).toContain("h-11");
     expect(sharedHeader).not.toContain("ThemeToggle");
     expect(sharedHeader).toContain("Přihlášení");
     expect(sharedHeader).toContain("Registrovat salon");
