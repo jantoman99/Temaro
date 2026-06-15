@@ -97,24 +97,24 @@ const compactIndustries = [industryCards[2], industryCards[4], industryCards[5]]
 
 const heroProofItems = [
   {
-    label: "Vlastní klienti",
+    label: "Bez provize",
     title: "0 %",
-    text: "provize z rezervací z vašeho webu, Instagramu, Googlu nebo QR.",
+    text: "z rezervací z vašeho webu, Instagramu, Googlu nebo QR kódu.",
   },
   {
-    label: "Jeden kalendář",
-    title: "4 kanály",
-    text: "web, Instagram, Google a QR končí ve stejném provozním pohledu.",
+    label: "Vlastní kanály",
+    title: "Web / IG / QR",
+    text: "každý vstup končí ve stejném provozním kalendáři.",
   },
   {
-    label: "No-show ochrana",
+    label: "No-show krytí",
     title: "SMS + záloha",
     text: "připomínka a další krok jsou vidět dřív než prázdná židle.",
   },
   {
-    label: "Produktová ukázka",
-    title: "CRM demo",
-    text: "klikací kalendář po přihlášení, ne statické screenshoty webu.",
+    label: "Klikací CRM",
+    title: "Demo",
+    text: "kalendář, klientská karta a zdroj rezervace místo statického screenshotu.",
   },
 ] as const;
 
@@ -299,10 +299,10 @@ export default async function Home() {
       <section className="temaro-hero-proof-band px-4 py-10 sm:px-6 sm:py-12 lg:px-8" aria-label="Důkaz produktu Temaro">
         <div className="temaro-hero-proof-shell mx-auto w-full max-w-[1180px]">
           <div className="temaro-hero-proof-rating-row" aria-label="Stav produktu Temaro">
+            <span>Bez provize</span>
             <span>Vlastní kanály</span>
-            <span>Online rezervace</span>
-            <span>SMS a záloha</span>
-            <span>CRM demo</span>
+            <span>No-show krytí</span>
+            <span>Klikací CRM</span>
           </div>
           <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
             {heroProofItems.map((item, index) => (

@@ -343,7 +343,7 @@
   }
 
   .temaro-premium-hero {
-    background: linear-gradient(180deg, #ffffff 0%, #ffffff 48%, #f7f8f5 100%);
+    background: linear-gradient(180deg, #ffffff 0%, #ffffff 56%, #f5f5f2 100%);
   }
 
   .temaro-premium-copy {
@@ -371,28 +371,170 @@
     padding: 0.75rem 1rem;
   }
 
+  .temaro-black-hero-grid {
+    isolation: isolate;
+  }
+
+  .temaro-hero-segment-pill {
+    align-items: center;
+    background: white;
+    border: 1px solid var(--paper-line);
+    border-radius: 999px;
+    box-shadow: 0 12px 32px rgba(23, 26, 33, 0.06);
+    color: var(--ink);
+    display: inline-flex;
+    font-size: 0.86rem;
+    font-weight: 850;
+    justify-content: center;
+    min-height: 2.65rem;
+    padding: 0.65rem 0.95rem;
+  }
+
+  .temaro-hero-photo-stack {
+    min-height: 43rem;
+    position: relative;
+  }
+
+  .temaro-hero-photo-card {
+    background: var(--ink);
+    border: 0.42rem solid #ffffff;
+    border-radius: 2rem;
+    box-shadow: 0 24px 76px rgba(23, 26, 33, 0.16);
+    overflow: hidden;
+    position: absolute;
+  }
+
+  .temaro-hero-photo-card img {
+    object-fit: cover;
+  }
+
+  .temaro-hero-photo-card::before {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 35%, rgba(0, 0, 0, 0.68) 100%);
+    content: "";
+    inset: 0;
+    pointer-events: none;
+    position: absolute;
+    z-index: 1;
+  }
+
+  .temaro-hero-photo-card > div {
+    bottom: 1rem;
+    color: white;
+    display: grid;
+    gap: 0.18rem;
+    left: 1rem;
+    position: absolute;
+    right: 1rem;
+    z-index: 2;
+  }
+
+  .temaro-hero-photo-card span {
+    font-family: var(--font-plex-mono);
+    font-size: 0.66rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .temaro-hero-photo-card strong {
+    font-size: 1.08rem;
+    font-weight: 950;
+    letter-spacing: -0.04em;
+  }
+
+  .temaro-hero-photo-card.card-1 {
+    height: 17.25rem;
+    left: 0;
+    top: 0.45rem;
+    width: min(19rem, 33%);
+  }
+
+  .temaro-hero-photo-card.card-2 {
+    height: 12.2rem;
+    right: 3.2rem;
+    top: 0;
+    width: min(17rem, 29%);
+  }
+
+  .temaro-hero-photo-card.card-3 {
+    bottom: 2.2rem;
+    height: 13rem;
+    left: 1rem;
+    width: min(16rem, 28%);
+    z-index: 3;
+  }
+
+  .temaro-hero-photo-card.card-4 {
+    bottom: 0;
+    height: 10rem;
+    right: 0.5rem;
+    width: min(15rem, 26%);
+    z-index: 3;
+  }
+
+  .temaro-hero-photo-stack .temaro-premium-stage {
+    bottom: 2rem;
+    margin: 0;
+    position: absolute;
+    right: 1.25rem;
+    width: min(46rem, 72%);
+    z-index: 2;
+  }
+
+  .temaro-hero-platform-card {
+    background: linear-gradient(180deg, #111111 0%, #000000 100%);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 1.45rem;
+    bottom: 5.2rem;
+    box-shadow: 0 22px 64px rgba(0, 0, 0, 0.26);
+    color: white;
+    display: grid;
+    gap: 0.4rem;
+    left: 0.4rem;
+    max-width: 18rem;
+    padding: 1.1rem;
+    position: absolute;
+    z-index: 4;
+  }
+
+  .temaro-hero-platform-card span {
+    color: rgba(255, 255, 255, 0.72);
+    font-family: var(--font-plex-mono);
+    font-size: 0.66rem;
+    font-weight: 800;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+  }
+
+  .temaro-hero-platform-card strong {
+    font-size: 1.2rem;
+    font-weight: 900;
+    letter-spacing: -0.045em;
+    line-height: 1.05;
+  }
+
   .temaro-premium-stage {
-    margin: 2.25rem auto 0;
-    max-width: 1360px;
+    margin: 2rem auto 0;
+    max-width: 1040px;
     position: relative;
   }
 
   .temaro-premium-stage::before {
-    background: linear-gradient(180deg, #111523 0%, #070912 100%);
-    border-radius: 2.8rem;
-    bottom: -1.5rem;
-    box-shadow: 0 38px 120px rgba(7, 9, 18, 0.24);
+    background: linear-gradient(180deg, #111111 0%, #000000 100%);
+    border-radius: 2.35rem;
+    bottom: -1rem;
+    box-shadow: 0 32px 92px rgba(0, 0, 0, 0.22);
     content: "";
-    height: 16.5rem;
+    height: 12.5rem;
     left: 50%;
     position: absolute;
     transform: translateX(-50%);
-    width: min(1240px, calc(100% - 2rem));
+    width: min(880px, calc(100% - 1.4rem));
     z-index: 0;
   }
 
   .temaro-hero-product-visual {
-    min-height: 39rem;
+    min-height: 31rem;
   }
 
   .temaro-premium-product {
@@ -407,10 +549,15 @@
   }
 
   .temaro-product-desktop {
-    border: 0.62rem solid color-mix(in srgb, var(--ink) 88%, var(--cobalt));
-    border-radius: 2.75rem;
-    box-shadow: 0 34px 110px rgba(23, 26, 33, 0.18);
-    min-height: 39rem;
+    aspect-ratio: 1.08 / 1;
+    border: 0.52rem solid color-mix(in srgb, var(--ink) 92%, black);
+    border-radius: 2.35rem;
+    block-size: 31rem;
+    box-shadow: 0 28px 82px rgba(23, 26, 33, 0.18);
+    height: 31rem;
+    max-block-size: 31rem;
+    max-height: 31rem;
+    min-height: 28rem;
     overflow: hidden;
   }
 
@@ -429,15 +576,15 @@
 
   .temaro-product-side-nav {
     background: color-mix(in srgb, var(--ink) 96%, var(--cobalt));
-    border-radius: 1.5rem;
+    border-radius: 1.25rem;
     display: grid;
-    gap: 0.75rem;
-    inline-size: 3.85rem;
+    gap: 0.58rem;
+    inline-size: 3.35rem;
     justify-items: center;
-    left: 1rem;
-    padding: 0.75rem;
+    left: 0.85rem;
+    padding: 0.62rem;
     position: absolute;
-    top: 6.2rem;
+    top: 5.4rem;
     z-index: 6;
   }
 
@@ -446,9 +593,9 @@
     border-radius: 1rem;
     color: rgba(255, 255, 255, 0.62);
     display: inline-flex;
-    height: 2.35rem;
+    height: 2.05rem;
     justify-content: center;
-    width: 2.35rem;
+    width: 2.05rem;
   }
 
   .temaro-product-side-nav span.active {
@@ -463,7 +610,7 @@
     display: flex;
     gap: 1rem;
     justify-content: space-between;
-    padding: 1.35rem 1.25rem 1.1rem;
+    padding: 1rem 1rem 0.9rem;
   }
 
   .temaro-product-action-icons {
@@ -481,17 +628,21 @@
     border-radius: 999px;
     color: var(--ink);
     display: inline-flex;
-    font-size: 0.78rem;
+    font-size: 0.72rem;
     font-weight: 800;
     gap: 0.4rem;
-    min-height: 2.35rem;
-    padding: 0.5rem 0.75rem;
+    min-height: 2.1rem;
+    padding: 0.42rem 0.62rem;
   }
 
   .temaro-product-calendar {
+    block-size: 23rem;
     display: grid;
-    grid-template-columns: 8rem minmax(0, 1fr) 20rem;
-    min-height: 31rem;
+    grid-template-columns: 5rem minmax(0, 1fr) 14rem;
+    height: 23rem;
+    max-block-size: 23rem;
+    max-height: 23rem;
+    min-height: 23rem;
     position: relative;
   }
 
@@ -502,7 +653,7 @@
     font-size: 0.72rem;
     font-weight: 800;
     grid-template-rows: repeat(5, 1fr);
-    padding: 4.4rem 0.8rem 2rem 6.5rem;
+    padding: 3.45rem 0.6rem 1.35rem 3.55rem;
     text-align: right;
   }
 
@@ -513,9 +664,9 @@
       rgba(255, 255, 255, 0.54);
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    grid-template-rows: 4.2rem repeat(5, minmax(4.8rem, 1fr));
+    grid-template-rows: 3.35rem repeat(5, minmax(3.65rem, 1fr));
     min-width: 0;
-    padding: 0 0.95rem 1rem;
+    padding: 0 0.7rem 0.72rem;
     position: relative;
   }
 
@@ -523,7 +674,7 @@
     align-items: center;
     display: flex;
     justify-content: center;
-    padding-top: 1rem;
+    padding-top: 0.75rem;
   }
 
   .temaro-product-staff span {
@@ -531,32 +682,32 @@
     border: 1px solid var(--paper-line);
     border-radius: 999px;
     box-shadow: 0 10px 28px rgba(23, 26, 33, 0.06);
-    font-size: 0.8rem;
+    font-size: 0.72rem;
     font-weight: 850;
-    padding: 0.48rem 0.78rem;
+    padding: 0.4rem 0.6rem;
   }
 
   .temaro-calendar-event {
     align-self: start;
     border: 1px solid rgba(255, 255, 255, 0.72);
-    border-radius: 1.1rem;
-    box-shadow: 0 16px 44px rgba(23, 26, 33, 0.12);
-    min-height: 6.4rem;
-    padding: 0.9rem;
+    border-radius: 0.95rem;
+    box-shadow: 0 14px 36px rgba(23, 26, 33, 0.12);
+    min-height: 4.6rem;
+    padding: 0.7rem;
   }
 
   .temaro-calendar-event h3 {
-    font-size: 1rem;
+    font-size: 0.82rem;
     font-weight: 900;
     letter-spacing: -0.035em;
-    margin-top: 0.35rem;
+    margin-top: 0.22rem;
   }
 
   .temaro-calendar-event span {
     display: inline-flex;
-    font-size: 0.72rem;
+    font-size: 0.66rem;
     font-weight: 850;
-    margin-top: 0.7rem;
+    margin-top: 0.42rem;
     opacity: 0.78;
   }
 
@@ -589,11 +740,11 @@
     align-self: stretch;
     background: white;
     border-left: 1px solid var(--paper-line);
-    padding: 2rem 1.35rem;
+    padding: 1.25rem 1rem;
   }
 
   .temaro-booking-detail-card h3 {
-    font-size: 2.2rem;
+    font-size: 1.55rem;
     font-weight: 900;
     letter-spacing: -0.055em;
     line-height: 0.95;
@@ -604,12 +755,12 @@
     align-items: center;
     background: var(--porcelain);
     border: 1px solid var(--paper-line);
-    border-radius: 1rem;
+    border-radius: 0.85rem;
     display: flex;
-    font-size: 0.86rem;
+    font-size: 0.72rem;
     font-weight: 850;
-    min-height: 2.8rem;
-    padding: 0.7rem 0.85rem;
+    min-height: 2.25rem;
+    padding: 0.52rem 0.65rem;
   }
 
   .temaro-booking-detail-card span.paid {
@@ -620,11 +771,11 @@
     align-items: center;
     background: color-mix(in srgb, var(--porcelain) 72%, white);
     border: 1px solid var(--paper-line);
-    border-radius: 1.15rem;
+    border-radius: 0.95rem;
     display: flex;
     gap: 0.8rem;
     margin-top: 1rem;
-    padding: 0.85rem;
+    padding: 0.68rem;
   }
 
   .temaro-booking-client strong,
@@ -650,18 +801,18 @@
     background:
       linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0.86)),
       var(--porcelain);
-    border: 0.55rem solid color-mix(in srgb, var(--ink) 88%, var(--cobalt));
-    border-radius: 2.75rem;
-    bottom: 1.15rem;
-    box-shadow: 0 32px 90px rgba(23, 26, 33, 0.22);
+    border: 0.48rem solid color-mix(in srgb, var(--ink) 92%, black);
+    border-radius: 2.3rem;
+    bottom: 0.75rem;
+    box-shadow: 0 28px 72px rgba(23, 26, 33, 0.22);
     display: flex;
     flex-direction: column;
-    min-height: 34rem;
+    min-height: 28rem;
     overflow: hidden;
-    padding: 1.3rem 1rem 1rem;
+    padding: 1.15rem 0.86rem 0.86rem;
     position: absolute;
-    right: 4.2rem;
-    width: min(19rem, 24vw);
+    right: 2rem;
+    width: min(15.5rem, 22vw);
     z-index: 3;
   }
 
@@ -739,7 +890,7 @@
   }
 
   .temaro-hero-proof-band {
-    background: linear-gradient(180deg, #111523 0%, #070912 100%);
+    background: linear-gradient(180deg, #111111 0%, #000000 100%);
     color: white;
     margin-top: 0;
     position: relative;
@@ -1382,6 +1533,56 @@
   }
 
   @media (max-width: 1024px) {
+    .temaro-black-hero-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .temaro-premium-copy {
+      margin-inline: auto;
+      max-width: 46rem;
+      text-align: center;
+    }
+
+    .temaro-premium-copy > p {
+      margin-inline: auto;
+    }
+
+    .temaro-hero-segment-pill {
+      flex: 1 1 8rem;
+    }
+
+    .temaro-hero-photo-stack {
+      margin-inline: auto;
+      max-width: 54rem;
+      min-height: 42rem;
+      width: 100%;
+    }
+
+    .temaro-hero-photo-stack .temaro-premium-stage {
+      bottom: 2.5rem;
+      left: 50%;
+      right: auto;
+      transform: translateX(-50%);
+      width: min(46rem, 94%);
+    }
+
+    .temaro-hero-photo-card.card-1 {
+      width: min(16rem, 34%);
+    }
+
+    .temaro-hero-photo-card.card-2 {
+      right: 0.5rem;
+      width: min(15rem, 32%);
+    }
+
+    .temaro-hero-photo-card.card-3 {
+      left: 0.5rem;
+    }
+
+    .temaro-hero-photo-card.card-4 {
+      right: 0;
+    }
+
     .temaro-bento-grid {
       grid-template-columns: 1fr 1fr;
     }
@@ -1408,6 +1609,63 @@
   }
 
   @media (max-width: 640px) {
+    .temaro-premium-copy {
+      text-align: left;
+      width: 100%;
+    }
+
+    .temaro-premium-copy > p {
+      margin-inline: 0;
+    }
+
+    .temaro-hero-photo-stack {
+      display: grid;
+      gap: 0.85rem;
+      min-height: auto;
+    }
+
+    .temaro-hero-photo-card,
+    .temaro-hero-photo-card.card-1,
+    .temaro-hero-photo-card.card-2,
+    .temaro-hero-photo-card.card-3,
+    .temaro-hero-photo-card.card-4 {
+      bottom: auto;
+      height: 9.5rem;
+      left: auto;
+      position: relative;
+      right: auto;
+      top: auto;
+      width: 100%;
+    }
+
+    .temaro-hero-photo-card.card-1 {
+      height: 13rem;
+    }
+
+    .temaro-hero-photo-card.card-3,
+    .temaro-hero-photo-card.card-4 {
+      display: none;
+    }
+
+    .temaro-hero-photo-stack .temaro-premium-stage {
+      bottom: auto;
+      left: auto;
+      max-width: 100%;
+      overflow: hidden;
+      position: relative;
+      right: auto;
+      transform: none;
+      width: 100%;
+    }
+
+    .temaro-hero-platform-card {
+      bottom: auto;
+      left: auto;
+      max-width: none;
+      position: relative;
+      right: auto;
+    }
+
     .temaro-bento-grid {
       grid-template-columns: 1fr;
     }
@@ -1479,15 +1737,17 @@
     }
 
     .temaro-premium-copy h1 {
-      font-size: clamp(2.85rem, 13vw, 3.45rem);
-      letter-spacing: -0.045em;
+      font-size: clamp(2.35rem, 10.5vw, 2.95rem);
+      letter-spacing: -0.065em;
       line-height: 0.92;
+      max-width: 100%;
     }
 
     .temaro-premium-copy > p {
       font-size: 1rem;
       line-height: 1.65;
       margin-top: 1rem;
+      max-width: 100%;
     }
 
     .temaro-premium-stat {
@@ -1501,10 +1761,18 @@
 
     .temaro-premium-product {
       border-radius: 1.65rem;
+      inline-size: 100%;
+      max-width: 100%;
+      min-width: 0;
+      width: 100%;
     }
 
     .temaro-product-desktop {
+      inline-size: 100%;
+      max-width: 100%;
       min-height: 18.5rem;
+      min-width: 0;
+      width: 100%;
     }
 
     .temaro-product-side-nav,
@@ -1521,8 +1789,12 @@
     }
 
     .temaro-product-calendar {
-      grid-template-columns: 2.9rem minmax(0, 1fr);
+      grid-template-columns: 2.4rem minmax(0, 1fr);
+      inline-size: 100%;
+      max-width: 100%;
       min-height: 16.5rem;
+      min-width: 0;
+      width: 100%;
     }
 
     .temaro-product-rail {
@@ -1531,8 +1803,9 @@
     }
 
     .temaro-product-grid {
-      grid-template-columns: repeat(3, minmax(6.8rem, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       grid-template-rows: 3.35rem repeat(4, 4.8rem);
+      min-width: 0;
       overflow: hidden;
       padding: 0 0.5rem 0.7rem;
     }
@@ -1565,14 +1838,14 @@
     }
 
     .temaro-product-phone {
-      bottom: -1.35rem;
+      bottom: 0.75rem;
       border-width: 0.42rem;
       left: 50%;
       min-height: 22.6rem;
       padding: 1.15rem 0.82rem 0.82rem;
       right: auto;
       transform: translateX(-50%);
-      width: min(17.4rem, calc(100% - 6.4rem));
+      width: min(15.5rem, calc(100% - 5rem));
     }
 
     .temaro-phone-event {

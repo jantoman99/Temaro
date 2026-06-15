@@ -1,6 +1,6 @@
 # Runtime checklist
 
-Aktualizováno: 2026-06-15 12:07 CEST
+Aktualizováno: 2026-06-15 13:02 CEST
 
 Tento checklist je pro první reálné ověření mimo demo režim.
 
@@ -22,6 +22,8 @@ curl -I http://localhost:3000
 
 Aktuální známý stav:
 
+- Lokální automatická kontrola po Fresha Black salon platform passu 2026-06-15 13:02 CEST: `npm run check` prošlo s 600 Vitest testy, migrations check, TypeScript type-check, lint a produkční build. Cíleně prošlo `npx vitest run tests/landing-polish.test.ts` 22/22, `git diff --check` a `npx impeccable detect app components`. Browser audit je v `output/playwright/fresha-black-platform-2026-06-15/`: desktop/mobile `overflowX=0`, header `80px`, desktop product `545x496`, mobile copy/H1/CTA/product width `358px`, fotokarty desktop/mobile `4/2`.
+- Runtime po Fresha Black salon platform passu ověřit na staging `/`: first fold musí obsahovat `Plnější kalendář bez volání.`, `temaro-black-hero-grid`, `temaro-hero-photo-stack`, `temaro-hero-photo-card`, `temaro-hero-platform-card`, fotky `/marketing/premium/salon-hero-wide.webp`, `/marketing/premium/beauty-room.webp`, `/marketing/premium/barber-chair.webp`, `/marketing/industries/massage-wide.webp`, větší 80px marketing header a černé primární CTA. Proof band má obsahovat `Bez provize`, `Vlastní kanály`, `No-show krytí`, `Klikací CRM` a čistý ink gradient. Na desktopu i mobilu nesmí být horizontální overflow ani ořezaný hero text.
 - Staging ověření po Fresha/Reservio ink passu 2026-06-15 12:07 CEST: `https://rezervacni-system-dev.vercel.app` míří na ruční preview deploy `dpl_7FrUWeGPx4de8JtRvJs1hDi1Rrmo` z commitu `2b7cd7c`. `/api/health` vrací `status=ok`, `env.ok=true`, `supabase.ok=true`, `rate_limit.configured=false`. HTML obsahuje `temaro-hero-proof-band`, `temaro-hero-proof-rating-row` a `id="pro-koho"`; neobsahuje `id="produktovy-pribeh"` ani `FeatureStoryBento`. Staging browser metrics: desktop/mobile `overflowX=0`, header `76px`, proof karty `4`, rating položky `4`, `storySectionExists=false`, `proKohoExists=true`.
 - Lokální browser ověření po Fresha/Reservio ink passu 2026-06-15 11:54 CEST: root landing má větší header `76px`, bílý hero canvas bez oranžových/mint ambientních radials, ink product stage/proof band, `temaro-hero-proof-card` počet `4`, `#produktovy-pribeh` se nerenderuje (`storySectionExists=false`) a desktop/mobile mají `overflowX=0`. Screenshoty/metrics: `output/playwright/fresha-reservio-ink-pass-2026-06-15/`.
 - Staging ověření po Fresha color/proof passu 2026-06-15 11:28 CEST: `https://rezervacni-system-dev.vercel.app` míří na ruční preview deploy `dpl_CAetMTJDuEHsnZtyFi5drTDFVfux` z commitu `c71a9b6`. `/api/health` vrací `status=ok`, `env.ok=true`, `supabase.ok=true`, `rate_limit.configured=false`. HTML obsahuje `temaro-hero-proof-shell`, `temaro-hero-proof-rating-row`, `Plnější kalendář`, `Vlastní kanály`, `CRM demo`. Staging screenshoty jsou v `output/playwright/fresha-color-proof-pass-2026-06-15/staging/`, desktop/mobile `overflowX=0`, proof karty `4`, rating row položky `4`.

@@ -82,7 +82,7 @@ export function LandingNavigation() {
               type="button"
               aria-expanded={isOpen}
               aria-controls={panelId}
-              className="temaro-focus-ring flex min-h-11 items-center justify-center gap-1.5 rounded-full px-3.5 py-2 text-[0.92rem] font-bold text-[var(--ink-soft)] transition hover:bg-[var(--porcelain-deep)] hover:text-[var(--ink)]"
+              className="temaro-focus-ring flex min-h-12 items-center justify-center gap-1.5 rounded-full px-4 py-2 text-[0.98rem] font-bold text-[var(--ink-soft)] transition hover:bg-[var(--ink)] hover:text-white"
               onClick={() => setOpenGroup(isOpen ? null : group.label)}
             >
               {group.label}
@@ -118,7 +118,7 @@ export function LandingNavigation() {
         <Link
           key={href}
           href={href}
-          className="temaro-focus-ring rounded-full px-3 py-2 text-center text-[0.92rem] font-bold text-[var(--ink-soft)] transition hover:bg-[var(--porcelain-deep)] hover:text-[var(--ink)] lg:px-3.5"
+          className="temaro-focus-ring rounded-full px-3.5 py-2.5 text-center text-[0.98rem] font-bold text-[var(--ink-soft)] transition hover:bg-[var(--ink)] hover:text-white lg:px-4"
           onClick={() => setOpenGroup(null)}
         >
           {label}
