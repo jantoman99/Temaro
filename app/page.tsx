@@ -17,6 +17,7 @@ import { headers } from "next/headers";
 import PublicSlugBookingPage from "@/app/(booking)/[slug]/page";
 import { TemaroLogo } from "@/components/brand/temaro-logo";
 import { BusinessDiscoveryHero } from "@/components/marketing/business-discovery-hero";
+import { FeatureStoryBento } from "@/components/marketing/feature-story-bento";
 import { MarketingHeader } from "@/components/marketing/marketing-header";
 import { MobileStickyCta } from "@/components/marketing/mobile-sticky-cta";
 import { Reveal } from "@/components/motion/reveal";
@@ -97,24 +98,24 @@ const compactIndustries = [industryCards[2], industryCards[4], industryCards[5]]
 
 const heroProofItems = [
   {
-    label: "Bez provize",
+    label: "Vlastní klienti",
     title: "0 %",
-    text: "z rezervací z vašeho webu, Instagramu, Googlu nebo QR kódu.",
+    text: "provize z rezervací z vašeho webu, Instagramu, Googlu nebo QR.",
   },
   {
-    label: "Vlastní kanály",
-    title: "Web / IG / QR",
-    text: "každý vstup končí ve stejném provozním kalendáři.",
+    label: "Jeden kalendář",
+    title: "4 kanály",
+    text: "web, Instagram, Google a QR končí ve stejném provozním pohledu.",
   },
   {
-    label: "No-show krytí",
+    label: "No-show ochrana",
     title: "SMS + záloha",
     text: "připomínka a další krok jsou vidět dřív než prázdná židle.",
   },
   {
-    label: "Klikací CRM",
-    title: "Demo",
-    text: "kalendář, klientská karta a zdroj rezervace místo statického screenshotu.",
+    label: "Produktová ukázka",
+    title: "CRM demo",
+    text: "klikací kalendář po přihlášení, ne statické screenshoty webu.",
   },
 ] as const;
 
@@ -296,27 +297,21 @@ export default async function Home() {
       <BusinessDiscoveryHero />
       <MobileStickyCta />
 
-      <section className="temaro-hero-proof-band px-4 py-10 sm:px-6 sm:py-12 lg:px-8" aria-label="Důkaz produktu Temaro">
-        <div className="temaro-hero-proof-shell mx-auto w-full max-w-[1180px]">
-          <div className="temaro-hero-proof-rating-row" aria-label="Stav produktu Temaro">
-            <span>Bez provize</span>
-            <span>Vlastní kanály</span>
-            <span>No-show krytí</span>
-            <span>Klikací CRM</span>
-          </div>
-          <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
-            {heroProofItems.map((item, index) => (
-              <Reveal key={item.label} delay={index * 50} className="h-full">
-                <article className="temaro-hero-proof-card h-full">
-                  <p>{item.label}</p>
-                  <h2>{item.title}</h2>
-                  <span>{item.text}</span>
-                </article>
-              </Reveal>
-            ))}
-          </div>
+      <section className="temaro-hero-proof-band px-4 py-8 sm:px-6 sm:py-9 lg:px-8" aria-label="Důkaz produktu Temaro">
+        <div className="mx-auto grid w-full max-w-[1180px] gap-3 md:grid-cols-2 xl:grid-cols-4">
+          {heroProofItems.map((item, index) => (
+            <Reveal key={item.label} delay={index * 50} className="h-full">
+              <article className="temaro-hero-proof-card h-full">
+                <p>{item.label}</p>
+                <h2>{item.title}</h2>
+                <span>{item.text}</span>
+              </article>
+            </Reveal>
+          ))}
         </div>
       </section>
+
+      <FeatureStoryBento />
 
       <section id="pro-koho" className="temaro-premium-industries temaro-industry-showcase mx-auto w-full max-w-[1180px] px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
         <Reveal>

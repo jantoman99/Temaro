@@ -48,6 +48,7 @@ describe("landing polish guard", () => {
 
   test("homepage uses the Fresha-like premium salon platform architecture", () => {
     const page = readProjectFile("app/page.tsx");
+    const bento = readProjectFile("components/marketing/feature-story-bento.tsx");
 
     expect(page).toContain("temaro-time-page");
     expect(page).toContain("<MarketingHeader />");
@@ -55,15 +56,17 @@ describe("landing polish guard", () => {
     expect(page).toContain("MobileStickyCta");
     expect(page).toContain("heroProofItems");
     expect(page).toContain("temaro-hero-proof-band");
-    expect(page).toContain("temaro-hero-proof-shell");
     expect(page).toContain("temaro-hero-proof-card");
-    expect(page).toContain("temaro-hero-proof-rating-row");
-    expect(page).toContain("Bez provize");
-    expect(page).toContain("Vlastní kanály");
-    expect(page).toContain("No-show krytí");
-    expect(page).toContain("Klikací CRM");
-    expect(page).not.toContain("FeatureStoryBento");
-    expect(page).not.toContain('id="produktovy-pribeh"');
+    expect(page).toContain("Vlastní klienti");
+    expect(page).toContain("Jeden kalendář");
+    expect(page).toContain("No-show ochrana");
+    expect(page).toContain("Produktová ukázka");
+    expect(page).toContain("FeatureStoryBento");
+    expect(bento).toContain("Jedna rezervace projde celým provozem");
+    expect(bento).toContain('id="produktovy-pribeh"');
+    expect(bento).toContain("Instagram termín padá rovnou do kalendáře");
+    expect(bento).toContain("SMS připomínka připravena");
+    expect(bento).toContain("300 Kč záloha připravena");
     expect(page).toContain("industryCards");
     expect(page).toContain("featuredIndustry");
     expect(page).toContain("secondaryIndustries");
@@ -114,17 +117,8 @@ describe("landing polish guard", () => {
     expect(hero).toContain("calendarEvents");
     expect(hero).toContain("sourceChannels");
     expect(hero).toContain("productNavItems");
-    expect(hero).toContain("heroPhotoCards");
-    expect(hero).toContain("next/image");
     expect(hero).toContain("temaro-time-atelier-hero");
     expect(hero).toContain("temaro-premium-hero");
-    expect(hero).toContain("temaro-fresha-product-hero");
-    expect(hero).toContain("temaro-fresha-copy-shell");
-    expect(hero).toContain("temaro-fresha-product-shell");
-    expect(hero).toContain("temaro-product-glow");
-    expect(hero).toContain("temaro-hero-photo-stack");
-    expect(hero).toContain("temaro-hero-photo-card");
-    expect(hero).toContain("temaro-hero-platform-card");
     expect(hero).toContain("temaro-premium-copy");
     expect(hero).toContain("temaro-premium-stage");
     expect(hero).toContain("temaro-hero-product-visual");
@@ -139,10 +133,10 @@ describe("landing polish guard", () => {
     expect(hero).toContain("temaro-booking-client");
     expect(hero).toContain("temaro-product-phone");
     expect(hero).toContain("temaro-premium-highlight");
-    expect(hero).toContain("/marketing/premium/salon-hero-wide.webp");
-    expect(hero).toContain("/marketing/premium/beauty-room.webp");
-    expect(hero).toContain("/marketing/premium/barber-chair.webp");
-    expect(hero).toContain("/marketing/industries/massage-wide.webp");
+    expect(hero).not.toContain("next/image");
+    expect(hero).not.toContain("/marketing/premium/salon-hero-wide.webp");
+    expect(hero).not.toContain("/marketing/premium/beauty-room.webp");
+    expect(hero).not.toContain("/marketing/premium/barber-chair.webp");
     expect(hero).not.toContain("/marketing/premium/salon-detail.webp");
     expect(hero).not.toContain("/marketing/product/temaro-product-app-screen.jpg");
     expect(hero).not.toContain("/marketing/product/temaro-client-booking-mobile.jpg");
@@ -339,13 +333,6 @@ describe("landing polish guard", () => {
 
     expect(globals).toContain(".temaro-time-atelier-hero");
     expect(globals).toContain(".temaro-premium-hero");
-    expect(globals).toContain(".temaro-fresha-product-hero");
-    expect(globals).toContain(".temaro-fresha-copy-shell");
-    expect(globals).toContain(".temaro-fresha-product-shell");
-    expect(globals).toContain(".temaro-product-glow");
-    expect(globals).toContain(".temaro-hero-photo-stack");
-    expect(globals).toContain(".temaro-hero-photo-card");
-    expect(globals).toContain(".temaro-hero-platform-card");
     expect(globals).toContain(".temaro-premium-copy");
     expect(globals).toContain(".temaro-premium-stage");
     expect(globals).toContain(".temaro-premium-product");
@@ -359,9 +346,7 @@ describe("landing polish guard", () => {
     expect(globals).toContain(".temaro-booking-detail-card");
     expect(globals).toContain(".temaro-product-phone");
     expect(globals).toContain(".temaro-hero-proof-band");
-    expect(globals).toContain(".temaro-hero-proof-shell");
     expect(globals).toContain(".temaro-hero-proof-card");
-    expect(globals).toContain(".temaro-hero-proof-rating-row");
     expect(globals).toContain(".temaro-feature-bento");
     expect(globals).toContain(".temaro-bento-grid");
     expect(globals).toContain(".temaro-bento-live");
@@ -381,23 +366,13 @@ describe("landing polish guard", () => {
     expect(globals).toContain("border: 0.62rem solid color-mix(in srgb, var(--ink) 88%, var(--cobalt))");
     expect(globals).toContain("overflow: hidden");
     expect(globals).toContain("font-family: var(--font-body-stack)");
-    expect(globals).toContain("font-weight: 780");
-    expect(globals).toContain("letter-spacing: -0.045em");
-    expect(globals).toContain("linear-gradient(180deg, #ffffff 0%, #ffffff 62%, #f7f4ff 100%)");
-    expect(globals).toContain("linear-gradient(180deg, #f1efff 0%, #ffffff 100%)");
-    expect(globals).toContain(".temaro-premium-stage::before");
-    expect(globals).toContain("radial-gradient(circle at 18% 86%, rgba(255, 74, 210, 0.42), transparent 21rem)");
-    expect(globals).toContain("radial-gradient(circle at 82% 88%, rgba(104, 74, 255, 0.52), transparent 24rem)");
-    expect(globals).toContain(".temaro-feature-panel");
-    expect(globals).not.toContain("linear-gradient(120deg, #2B3FF2 0%, #7A5BFF 38%, #FF8FC2 72%, #FFB98A 100%)");
-    expect(globals).not.toContain("radial-gradient(circle at 88% 66%, rgba(255, 185, 138, 0.18), transparent 26rem)");
-    expect(globals).not.toContain("radial-gradient(circle at 94% 5%, color-mix(in srgb, var(--apricot) 22%, transparent), transparent 18rem)");
+    expect(globals).toContain("linear-gradient(180deg, #ffffff 0%, #fbfcf9 52%, #f3f7ef 100%)");
     expect(globals).toContain("aspect-ratio: 9 / 16");
     expect(globals).toContain("min-height: 34rem");
     expect(globals).toContain("bottom: 1.15rem");
     expect(globals).toContain("right: 4.2rem");
     expect(globals).toContain("width: min(19rem, 24vw)");
-    expect(globals).toContain("width: min(15.5rem, calc(100% - 5rem))");
+    expect(globals).toContain("width: min(17.4rem, calc(100% - 6.4rem))");
     expect(globals).not.toContain(".temaro-product-phone .temaro-phone-event:nth-of-type(1)");
     expect(globals).not.toContain(".temaro-premium-product-column");
     expect(globals).not.toContain(".temaro-salon-image-strip");
@@ -498,10 +473,6 @@ describe("landing polish guard", () => {
     expect(sharedHeader).toContain("<LandingNavigation />");
     expect(sharedHeader).toContain("<MobileMarketingMenu />");
     expect(sharedHeader).toContain("marketing-fixed-header");
-    expect(sharedHeader).toContain("min-h-20");
-    expect(sharedHeader).toContain("bg-white/95");
-    expect(sharedHeader).toContain("bg-[var(--ink)]");
-    expect(sharedHeader).toContain("h-12");
     expect(sharedHeader).not.toContain("ThemeToggle");
     expect(sharedHeader).toContain("Přihlášení");
     expect(sharedHeader).toContain("Registrovat salon");

@@ -14,7 +14,6 @@ import {
   Tag,
   UsersRound,
 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 
 function InstagramGlyph({ className }: { className?: string }) {
@@ -63,29 +62,6 @@ const sourceChannels = [
   { icon: InstagramGlyph, label: "Instagram" },
   { icon: Search, label: "Google" },
   { icon: QrCode, label: "QR recepce" },
-] as const;
-
-const heroPhotoCards = [
-  {
-    src: "/marketing/premium/salon-hero-wide.webp",
-    label: "Kadeřnictví",
-    title: "Barva a foukaná",
-  },
-  {
-    src: "/marketing/premium/barber-chair.webp",
-    label: "Barber",
-    title: "Volné okno",
-  },
-  {
-    src: "/marketing/premium/beauty-room.webp",
-    label: "Beauty",
-    title: "Klientská karta",
-  },
-  {
-    src: "/marketing/industries/massage-wide.webp",
-    label: "Masáže",
-    title: "Klidný blok",
-  },
 ] as const;
 
 const productNavItems = [
@@ -202,71 +178,36 @@ export function BusinessDiscoveryHero() {
   return (
     <section
       id="produkt"
-      className="temaro-time-atelier-hero temaro-premium-hero relative overflow-hidden px-4 pb-0 pt-28 sm:px-6 sm:pt-32 lg:px-8"
+      className="temaro-time-atelier-hero temaro-premium-hero relative overflow-hidden px-4 pb-12 pt-28 sm:px-6 sm:pb-16 sm:pt-32 lg:px-8"
     >
-      <div className="temaro-fresha-product-hero mx-auto w-full max-w-[1320px]">
-        <div className="temaro-fresha-copy-shell temaro-premium-copy mx-auto min-w-0 w-full max-w-[56rem] text-center">
-          <p className="font-time text-xs font-semibold uppercase tracking-[0.2em] text-[var(--ink-soft)]">
-            Rezervační systém pro služby
-          </p>
-          <h1 className="font-display mx-auto mt-5 max-w-full break-words text-balance text-[clamp(2.35rem,10.5vw,2.95rem)] font-semibold leading-[0.92] tracking-[-0.065em] sm:max-w-4xl sm:text-[clamp(4.2rem,6.5vw,6.35rem)] sm:leading-[0.88] sm:tracking-[-0.078em]">
-            <span className="block">Plnější kalendář</span>
-            <span className="temaro-premium-highlight block sm:inline-block">bez volání.</span>
-          </h1>
+      <div className="temaro-premium-copy mx-auto max-w-[1040px] text-center">
+        <h1 className="font-display mx-auto max-w-5xl text-balance text-[clamp(3.2rem,13vw,4rem)] font-semibold leading-[0.92] tracking-[-0.078em] sm:text-[clamp(3.8rem,7.2vw,7rem)] sm:leading-[0.88]">
+          Plnější kalendář <span className="temaro-premium-highlight">bez volání.</span>
+        </h1>
 
-          <p className="mx-auto mt-5 max-w-[40rem] text-pretty text-base font-semibold leading-7 text-[var(--ink-soft)] sm:text-xl sm:leading-8">
-            Online rezervace, klienti, SMS a zálohy v jednom pohledu pro salony, barbery a služby.
-          </p>
+        <p className="mx-auto mt-4 max-w-2xl text-pretty text-base font-semibold leading-7 text-[var(--ink-soft)] sm:text-xl sm:leading-8">
+          Online rezervace, klienti, SMS a zálohy v jednom pohledu pro salony, barbery a služby.
+        </p>
 
-          <div className="mt-6 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
-            <Link
-              href="/register"
-              className="temaro-focus-ring group inline-flex h-14 items-center justify-center gap-2 rounded-full bg-[var(--ink)] px-7 text-base font-bold text-white shadow-[0_22px_58px_rgba(0,0,0,0.24)] transition hover:-translate-y-0.5 hover:bg-black"
-            >
-              Registrovat salon
-              <ArrowRight className="size-5 transition group-hover:translate-x-1" />
-            </Link>
-            <Link
-              href="/ukazka"
-              className="temaro-focus-ring inline-flex h-14 items-center justify-center rounded-full border border-[var(--paper-line)] bg-white px-7 text-base font-bold text-[var(--ink)] transition hover:border-[var(--ink)]"
-            >
-              Vidět ukázku
-            </Link>
-          </div>
-
-          <div className="mx-auto mt-7 grid max-w-[32rem] grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:justify-center">
-            {["Salony", "Barbeři", "Beauty", "Masáže"].map((item) => (
-              <span key={item} className="temaro-hero-segment-pill">
-                {item}
-              </span>
-            ))}
-          </div>
+        <div className="mt-5 flex flex-col items-center justify-center gap-3 sm:mt-7 sm:flex-row">
+          <Link
+            href="/register"
+            className="temaro-focus-ring group inline-flex h-13 w-full items-center justify-center gap-2 rounded-full bg-[var(--cobalt)] px-7 text-base font-bold text-white shadow-[0_18px_44px_rgba(43,63,242,0.24)] transition hover:-translate-y-0.5 hover:bg-[var(--cobalt-deep)] sm:w-auto"
+          >
+            Registrovat salon
+            <ArrowRight className="size-5 transition group-hover:translate-x-1" />
+          </Link>
+          <Link
+            href="/ukazka"
+            className="temaro-focus-ring inline-flex h-13 w-full items-center justify-center rounded-full border border-[var(--paper-line)] bg-white px-7 text-base font-bold text-[var(--ink)] transition hover:border-[var(--cobalt)] sm:w-auto"
+          >
+            Vidět ukázku
+          </Link>
         </div>
 
-        <div className="temaro-fresha-product-shell temaro-hero-photo-stack" aria-label="Temaro pro salony a služby">
-          <div className="temaro-product-glow" aria-hidden="true" />
-          {heroPhotoCards.map((card, index) => (
-            <article key={card.src} className={`temaro-hero-photo-card card-${index + 1}`}>
-              <Image
-                src={card.src}
-                alt={`${card.label} v Temaro`}
-                fill
-                sizes="(min-width: 1024px) 22vw, (min-width: 640px) 42vw, 84vw"
-                priority={index === 0}
-              />
-              <div>
-                <span>{card.label}</span>
-                <strong>{card.title}</strong>
-              </div>
-            </article>
-          ))}
-          <PremiumProductStage />
-          <aside className="temaro-hero-platform-card" aria-label="Produktová zkratka">
-            <span>Bez marketplace provize</span>
-            <strong>Web, Instagram, Google a QR v jednom kalendáři.</strong>
-          </aside>
-        </div>
       </div>
+
+      <PremiumProductStage />
     </section>
   );
 }
