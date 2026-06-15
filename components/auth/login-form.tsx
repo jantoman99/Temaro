@@ -3,7 +3,12 @@
 import Link from "next/link";
 import { useActionState } from "react";
 
-import { loginAction, signInWithGoogleAction } from "@/app/(auth)/actions";
+import {
+  loginAction,
+  signInWithAppleAction,
+  signInWithFacebookAction,
+  signInWithGoogleAction,
+} from "@/app/(auth)/actions";
 import { Button } from "@/components/ui/button";
 import { EMAIL_INPUT_MAX_LENGTH } from "@/lib/email-input";
 import { PASSWORD_INPUT_MAX_LENGTH } from "@/lib/password-input";
@@ -26,12 +31,26 @@ export function LoginForm({
 
   return (
     <div className="flex w-full flex-col gap-5">
-      <form action={signInWithGoogleAction}>
-        <input type="hidden" name="redirectedFrom" value={redirectedFrom} />
-        <Button type="submit" variant="secondary" size="xl" className="w-full">
-          Pokračovat přes Google
-        </Button>
-      </form>
+      <div className="grid gap-3">
+        <form action={signInWithGoogleAction}>
+          <input type="hidden" name="redirectedFrom" value={redirectedFrom} />
+          <Button type="submit" variant="secondary" size="xl" className="w-full">
+            Pokračovat přes Google
+          </Button>
+        </form>
+        <form action={signInWithFacebookAction}>
+          <input type="hidden" name="redirectedFrom" value={redirectedFrom} />
+          <Button type="submit" variant="secondary" size="xl" className="w-full">
+            Pokračovat přes Facebook
+          </Button>
+        </form>
+        <form action={signInWithAppleAction}>
+          <input type="hidden" name="redirectedFrom" value={redirectedFrom} />
+          <Button type="submit" variant="secondary" size="xl" className="w-full">
+            Pokračovat přes Apple
+          </Button>
+        </form>
+      </div>
       <div className="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.16em] text-muted-foreground">
         <span className="h-px flex-1 bg-border" />
         nebo e-mailem

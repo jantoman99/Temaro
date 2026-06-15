@@ -13,6 +13,8 @@ type RegisterPageProps = {
 const noticeCopy = {
   google_admin_env: "Registrace přes Google vyžaduje Supabase service role klíč. Použijte e-mail a heslo nebo doplňte env.",
   google_registration_input: "Pro Google registraci vyplňte nejdřív název podniku a jméno vlastníka.",
+  oauth_admin_env: "Registrace přes externí účet vyžaduje Supabase service role klíč. Použijte e-mail a heslo nebo doplňte env.",
+  oauth_registration_input: "Pro registraci přes externí účet vyplňte nejdřív název podniku a jméno vlastníka.",
 } as const;
 
 export default async function RegisterPage({ searchParams }: RegisterPageProps) {

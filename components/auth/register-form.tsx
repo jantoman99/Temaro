@@ -3,7 +3,12 @@
 import Link from "next/link";
 import { useActionState } from "react";
 
-import { registerAction, registerWithGoogleAction } from "@/app/(auth)/actions";
+import {
+  registerAction,
+  registerWithAppleAction,
+  registerWithFacebookAction,
+  registerWithGoogleAction,
+} from "@/app/(auth)/actions";
 import { Button } from "@/components/ui/button";
 import { EMAIL_INPUT_MAX_LENGTH } from "@/lib/email-input";
 import { PASSWORD_INPUT_MAX_LENGTH } from "@/lib/password-input";
@@ -106,11 +111,20 @@ export function RegisterForm({ notice }: { notice?: string | null }) {
       <Button type="submit" size="xl" disabled={isPending} className="w-full">
         {isPending ? "Vytvářím účet..." : "Vytvořit podnik"}
       </Button>
-      <Button type="submit" formAction={registerWithGoogleAction} formNoValidate variant="secondary" size="xl" className="w-full">
-        Vytvořit podnik přes Google
-      </Button>
+      <div className="grid gap-3">
+        <Button type="submit" formAction={registerWithGoogleAction} formNoValidate variant="secondary" size="xl" className="w-full">
+          Vytvořit podnik přes Google
+        </Button>
+        <Button type="submit" formAction={registerWithFacebookAction} formNoValidate variant="secondary" size="xl" className="w-full">
+          Vytvořit podnik přes Facebook
+        </Button>
+        <Button type="submit" formAction={registerWithAppleAction} formNoValidate variant="secondary" size="xl" className="w-full">
+          Vytvořit podnik přes Apple
+        </Button>
+      </div>
       <p className="text-center text-xs font-medium leading-5 text-muted-foreground">
-        U Google registrace stačí vyplnit název podniku a jméno vlastníka. Podnik vznikne až po úspěšném ověření Google účtu.
+        Při registraci přes Google, Facebook nebo Apple stačí vyplnit název podniku a jméno vlastníka.
+        Podnik vznikne až po úspěšném ověření účtu.
       </p>
       <p className="rounded-lg bg-muted px-4 py-3 text-center text-sm font-medium text-muted-foreground">
         Už máte účet?{" "}

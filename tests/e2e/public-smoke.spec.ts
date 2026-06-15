@@ -202,7 +202,7 @@ test.describe("public smoke", () => {
     await expect(page.getByRole("heading", { name: "Rezervace je odeslaná" })).not.toBeVisible();
   });
 
-  test("customer account login exposes Google entry point", async ({ page }) => {
+  test("customer account login exposes OAuth entry points", async ({ page }) => {
     await page.goto("/account/login");
 
     await expect(page.getByRole("link", { name: "Zpět na web" })).toHaveAttribute("href", "/");
@@ -210,6 +210,24 @@ test.describe("public smoke", () => {
     await expect(page.getByRole("heading", { name: "Vaše rezervace napříč podniky" })).toBeVisible();
     await expect(page.getByText("podle ověřeného e-mailu")).toBeVisible();
     await expect(page.getByRole("button", { name: "Pokračovat přes Google" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Pokračovat přes Facebook" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Pokračovat přes Apple" })).toBeVisible();
+  });
+
+  test("business auth pages expose OAuth entry points", async ({ page }) => {
+    await page.goto("/login");
+
+    await expect(page.getByRole("heading", { name: "Vítejte zpět" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Pokračovat přes Google" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Pokračovat přes Facebook" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Pokračovat přes Apple" })).toBeVisible();
+
+    await page.goto("/register");
+
+    await expect(page.getByRole("heading", { name: "Založení podniku" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Vytvořit podnik přes Google" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Vytvořit podnik přes Facebook" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Vytvořit podnik přes Apple" })).toBeVisible();
   });
 
   test("booking button embed script renders a safe CTA in browser", async ({ page }) => {

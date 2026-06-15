@@ -1,6 +1,10 @@
 import Link from "next/link";
 
-import { signInCustomerWithGoogleAction } from "@/app/(auth)/actions";
+import {
+  signInCustomerWithAppleAction,
+  signInCustomerWithFacebookAction,
+  signInCustomerWithGoogleAction,
+} from "@/app/(auth)/actions";
 import { TemaroLogo } from "@/components/brand/temaro-logo";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
@@ -21,13 +25,25 @@ export default function CustomerAccountLoginPage() {
           <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Zákaznický účet</p>
           <h1 className="mt-2 text-2xl font-semibold tracking-tight">Vaše rezervace napříč podniky</h1>
           <p className="mt-2 text-sm leading-6 text-muted-foreground">
-            Přihlaste se Google účtem. Temaro zobrazí rezervace podle ověřeného e-mailu, ne podle odkazu v URL.
+            Přihlaste se ověřeným účtem. Temaro zobrazí rezervace podle ověřeného e-mailu, ne podle odkazu v URL.
           </p>
-          <form action={signInCustomerWithGoogleAction} className="mt-6">
-            <Button type="submit" size="xl" className="w-full">
-              Pokračovat přes Google
-            </Button>
-          </form>
+          <div className="mt-6 grid gap-3">
+            <form action={signInCustomerWithGoogleAction}>
+              <Button type="submit" size="xl" className="w-full">
+                Pokračovat přes Google
+              </Button>
+            </form>
+            <form action={signInCustomerWithFacebookAction}>
+              <Button type="submit" variant="secondary" size="xl" className="w-full">
+                Pokračovat přes Facebook
+              </Button>
+            </form>
+            <form action={signInCustomerWithAppleAction}>
+              <Button type="submit" variant="secondary" size="xl" className="w-full">
+                Pokračovat přes Apple
+              </Button>
+            </form>
+          </div>
           <p className="mt-4 rounded-lg bg-muted px-4 py-3 text-sm font-medium leading-6 text-muted-foreground">
             Správa konkrétní rezervace dál používá bezpečný odkaz z e-mailu. Účet zatím slouží jako přehled termínů.
           </p>

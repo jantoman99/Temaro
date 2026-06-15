@@ -25,6 +25,8 @@ type AuthActionState = {
   success?: string;
 };
 
+type OAuthProvider = "google" | "facebook" | "apple";
+
 const PASSWORD_RESET_SUCCESS =
   "Pokud e-mail v Temaru existuje, poslali jsme na něj odkaz pro nastavení nového hesla.";
 
@@ -97,7 +99,7 @@ function getOAuthBusinessRegistrationInput(formData: FormData) {
   };
 }
 
-async function redirectToGoogleOAuth(nextPath: string): Promise<void> {
+async function redirectToOAuth(provider: OAuthProvider, nextPath: string): Promise<void> {
   if (!hasSupabaseEnv()) {
     redirect("/start");
   }
@@ -105,7 +107,7 @@ async function redirectToGoogleOAuth(nextPath: string): Promise<void> {
   const supabase = await createClient();
   const redirectTo = `${getBaseAppUrl()}/auth/callback?next=${encodeURIComponent(getSafeRedirectPath(nextPath))}`;
   const { data, error } = await supabase.auth.signInWithOAuth({
-    provider: "google",
+    provider,
     options: {
       redirectTo,
     },
@@ -116,6 +118,22 @@ async function redirectToGoogleOAuth(nextPath: string): Promise<void> {
   }
 
   redirect(data.url);
+}
+
+async function registerWithOAuthProvider(provider: OAuthProvider, formData: FormData): Promise<void> {
+  if (!hasSupabaseAdminEnv()) {
+    redirect("/register?error=oauth_admin_env");
+  }
+
+  const parsed = oauthBusinessRegistrationSchema.safeParse(getOAuthBusinessRegistrationInput(formData));
+
+  if (!parsed.success) {
+    redirect("/register?error=oauth_registration_input");
+  }
+
+  await setOAuthBusinessRegistrationCookie(parsed.data);
+
+  await redirectToOAuth(provider, "/start");
 }
 
 async function softDeleteTenant(
@@ -426,27 +444,39 @@ export async function updatePasswordAction(
 }
 
 export async function signInWithGoogleAction(formData: FormData): Promise<void> {
-  await redirectToGoogleOAuth(getStringValue(formData, "redirectedFrom"));
+  await redirectToOAuth("google", getStringValue(formData, "redirectedFrom"));
+}
+
+export async function signInWithFacebookAction(formData: FormData): Promise<void> {
+  await redirectToOAuth("facebook", getStringValue(formData, "redirectedFrom"));
+}
+
+export async function signInWithAppleAction(formData: FormData): Promise<void> {
+  await redirectToOAuth("apple", getStringValue(formData, "redirectedFrom"));
 }
 
 export async function signInCustomerWithGoogleAction(): Promise<void> {
-  await redirectToGoogleOAuth("/account");
+  await redirectToOAuth("google", "/account");
+}
+
+export async function signInCustomerWithFacebookAction(): Promise<void> {
+  await redirectToOAuth("facebook", "/account");
+}
+
+export async function signInCustomerWithAppleAction(): Promise<void> {
+  await redirectToOAuth("apple", "/account");
 }
 
 export async function registerWithGoogleAction(formData: FormData): Promise<void> {
-  if (!hasSupabaseAdminEnv()) {
-    redirect("/register?error=google_admin_env");
-  }
+  await registerWithOAuthProvider("google", formData);
+}
 
-  const parsed = oauthBusinessRegistrationSchema.safeParse(getOAuthBusinessRegistrationInput(formData));
+export async function registerWithFacebookAction(formData: FormData): Promise<void> {
+  await registerWithOAuthProvider("facebook", formData);
+}
 
-  if (!parsed.success) {
-    redirect("/register?error=google_registration_input");
-  }
-
-  await setOAuthBusinessRegistrationCookie(parsed.data);
-
-  await redirectToGoogleOAuth("/start");
+export async function registerWithAppleAction(formData: FormData): Promise<void> {
+  await registerWithOAuthProvider("apple", formData);
 }
 
 export async function logoutAction() {
