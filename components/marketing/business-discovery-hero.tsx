@@ -14,7 +14,6 @@ import {
   Tag,
   UsersRound,
 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 
 function InstagramGlyph({ className }: { className?: string }) {
@@ -65,27 +64,6 @@ const sourceChannels = [
   { icon: QrCode, label: "QR recepce" },
 ] as const;
 
-const heroPhotoCards = [
-  {
-    label: "Kadeřnictví",
-    detail: "10:30 barva a foukaná",
-    image: "/marketing/industries/hair-salon-wide.webp",
-    alt: "Kadeřnické studio s pracovními místy",
-  },
-  {
-    label: "Barber",
-    detail: "08:30 pánský střih",
-    image: "/marketing/industries/barber.webp",
-    alt: "Barber studio s křeslem pro střih",
-  },
-  {
-    label: "Beauty",
-    detail: "12:15 kosmetika",
-    image: "/marketing/industries/beauty.webp",
-    alt: "Beauty salon připravený na rezervaci",
-  },
-] as const;
-
 const productNavItems = [
   { icon: CalendarDays, label: "Kalendář", active: true },
   { icon: Tag, label: "Služby", active: false },
@@ -94,33 +72,9 @@ const productNavItems = [
   { icon: Settings, label: "Nastavení", active: false },
 ] as const;
 
-function HeroPhotoRibbon() {
-  return (
-    <div className="temaro-hero-photo-ribbon" aria-label="Typy služeb v Temaro kalendáři">
-      {heroPhotoCards.map(({ label, detail, image, alt }, index) => (
-        <figure key={label} className="temaro-hero-photo-card">
-          <Image
-            src={image}
-            alt={alt}
-            fill
-            loading={index === 0 ? undefined : "lazy"}
-            preload={index === 0}
-            sizes="(max-width: 640px) 30vw, 220px"
-          />
-          <figcaption>
-            <strong>{label}</strong>
-            <span>{detail}</span>
-          </figcaption>
-        </figure>
-      ))}
-    </div>
-  );
-}
-
 function PremiumProductStage() {
   return (
     <div className="temaro-premium-stage temaro-hero-product-visual">
-      <HeroPhotoRibbon />
       <div className="temaro-premium-product temaro-product-desktop">
         <nav className="temaro-product-side-nav" aria-label="Produktové moduly">
           {productNavItems.map(({ icon: Icon, label, active }) => (

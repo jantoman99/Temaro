@@ -125,12 +125,13 @@ describe("landing polish guard", () => {
     expect(hero).toContain("temaro-premium-copy");
     expect(hero).toContain("temaro-premium-stage");
     expect(hero).toContain("temaro-hero-product-visual");
-    expect(hero).toContain("heroPhotoCards");
-    expect(hero).toContain("temaro-hero-photo-ribbon");
-    expect(hero).toContain("temaro-hero-photo-card");
-    expect(hero).toContain("/marketing/industries/hair-salon-wide.webp");
-    expect(hero).toContain("/marketing/industries/barber.webp");
-    expect(hero).toContain("/marketing/industries/beauty.webp");
+    expect(hero).not.toContain("heroPhotoCards");
+    expect(hero).not.toContain("HeroPhotoRibbon");
+    expect(hero).not.toContain("temaro-hero-photo-ribbon");
+    expect(hero).not.toContain("temaro-hero-photo-card");
+    expect(hero).not.toContain("/marketing/industries/hair-salon-wide.webp");
+    expect(hero).not.toContain("/marketing/industries/barber.webp");
+    expect(hero).not.toContain("/marketing/industries/beauty.webp");
     expect(hero).toContain("temaro-premium-product");
     expect(hero).toContain("temaro-product-desktop");
     expect(hero).toContain("temaro-product-calendar");
@@ -142,7 +143,7 @@ describe("landing polish guard", () => {
     expect(hero).toContain("temaro-booking-client");
     expect(hero).toContain("temaro-product-phone");
     expect(hero).toContain("temaro-premium-highlight");
-    expect(hero).toContain("next/image");
+    expect(hero).not.toContain("next/image");
     expect(hero).not.toContain("/marketing/premium/salon-hero-wide.webp");
     expect(hero).not.toContain("/marketing/premium/beauty-room.webp");
     expect(hero).not.toContain("/marketing/premium/barber-chair.webp");
@@ -181,24 +182,24 @@ describe("landing polish guard", () => {
     expect(hero).not.toContain("Rezervace, které vidíte hned v kalendáři");
   });
 
-  test("homepage removes decorative grids and calms Fresha-like typography", () => {
+  test("homepage removes decorative grids and avoids tiny hero image overlays", () => {
     const hero = readProjectFile("components/marketing/business-discovery-hero.tsx");
     const globals = readProjectFile("app/globals.css");
 
     expect(globals).toMatch(/\.temaro-premium-copy h1 \{[\s\S]*font-family: var\(--font-body-stack\);[\s\S]*font-weight: 780;/);
     expect(globals).toContain("font-size: clamp(3.05rem, 6.1vw, 5.15rem)");
-    expect(globals).toContain(".temaro-hero-photo-ribbon");
-    expect(globals).toContain(".temaro-hero-photo-card");
-    expect(globals).toContain(".temaro-hero-photo-card img");
+    expect(globals).not.toContain(".temaro-hero-photo-ribbon");
+    expect(globals).not.toContain(".temaro-hero-photo-card");
+    expect(globals).not.toContain(".temaro-hero-photo-card img");
     expect(globals).not.toContain("background-size: 7.5rem 100%, auto");
     expect(globals).not.toContain("background-size: 9rem 100%, auto");
     expect(globals).not.toContain("background-size: 4.5rem 4.5rem");
     expect(globals).not.toContain("linear-gradient(90deg, color-mix(in srgb, var(--ink) 7%, transparent) 1px");
     expect(globals).not.toContain("linear-gradient(90deg, color-mix(in srgb, var(--ink) 5%, transparent) 1px");
     expect(globals).not.toContain("linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px");
-    expect(hero).toContain("Kadeřnictví");
-    expect(hero).toContain("Barber");
-    expect(hero).toContain("Beauty");
+    expect(hero).not.toContain("Kadeřnické studio");
+    expect(hero).not.toContain("Barber studio");
+    expect(hero).not.toContain("Beauty salon");
   });
 
   test("hero control room shows product truth without fabricated testimonials or logos", () => {
@@ -364,8 +365,6 @@ describe("landing polish guard", () => {
     expect(globals).toContain(".temaro-premium-hero");
     expect(globals).toContain(".temaro-premium-copy");
     expect(globals).toContain(".temaro-premium-stage");
-    expect(globals).toContain(".temaro-hero-photo-ribbon");
-    expect(globals).toContain(".temaro-hero-photo-card");
     expect(globals).toContain(".temaro-premium-product");
     expect(globals).toContain(".temaro-hero-product-visual");
     expect(globals).toContain(".temaro-product-desktop");
