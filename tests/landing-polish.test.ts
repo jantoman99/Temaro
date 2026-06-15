@@ -498,11 +498,14 @@ describe("landing polish guard", () => {
     expect(navigation).toContain("/rezervacni-system-pro-masaze");
     expect(navigation).toContain("min-h-11");
     expect(navigation).toContain("text-[0.95rem]");
+    expect(navigation).toContain("xl:flex");
+    expect(navigation).toContain("whitespace-nowrap");
     expect(navigation).not.toContain("<details");
   });
 
   test("business marketing pages keep the same shared header", () => {
     const sharedHeader = readProjectFile("components/marketing/marketing-header.tsx");
+    const mobileMenu = readProjectFile("components/marketing/mobile-marketing-menu.tsx");
     const businessPages = [
       "app/page.tsx",
       "components/marketing/industry-landing-page.tsx",
@@ -517,6 +520,7 @@ describe("landing polish guard", () => {
     expect(sharedHeader).toContain("marketing-fixed-header");
     expect(sharedHeader).toContain("min-h-[4.75rem]");
     expect(sharedHeader).toContain("h-11");
+    expect(mobileMenu).toContain("xl:hidden");
     expect(sharedHeader).not.toContain("ThemeToggle");
     expect(sharedHeader).toContain("Přihlášení");
     expect(sharedHeader).toContain("Registrovat salon");
