@@ -66,10 +66,10 @@ Run: `npm run check`. Expected: 600 Vitest tests and build pass.
 **Files:**
 - Modify: docs from Task 3
 
-- [ ] **Step 1: Commit and push**
+- [x] **Step 1: Commit and push**
 
 Commit implementation and docs to `dev`, push to `origin/dev`.
 
-- [ ] **Step 2: Deploy dev Vercel**
+- [x] **Step 2: Deploy dev Vercel**
 
 Run `npx vercel build`, `npx vercel deploy --prebuilt --yes --format json`, alias preview to `rezervacni-system-dev.vercel.app`, and verify `/api/health` plus HTML/browser signatures.
