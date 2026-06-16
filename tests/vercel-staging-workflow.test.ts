@@ -5,9 +5,14 @@ import { describe, expect, it } from "vitest";
 
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const workflowPath = path.join(rootDir, ".github/workflows/vercel-staging.yml");
+const keepaliveWorkflowPath = path.join(rootDir, ".github/workflows/staging-keepalive.yml");
 
 async function readWorkflow() {
   return readFile(workflowPath, "utf8");
+}
+
+async function readKeepaliveWorkflow() {
+  return readFile(keepaliveWorkflowPath, "utf8");
 }
 
 describe("Vercel staging workflow", () => {
@@ -34,5 +39,21 @@ describe("Vercel staging workflow", () => {
     expect(workflow).toContain("refusing to deploy degraded staging");
     expect(workflow).not.toContain("https://rezervacni-system-xi.vercel.app");
     expect(workflow).not.toContain("sb_publishable__uR26T1MisHeSlPrnz6AZQ_kkptmUOb");
+  });
+
+  it("ma samostatny denni keep-alive pro staging Supabase bez produkcnich hodnot", async () => {
+    const workflow = await readKeepaliveWorkflow();
+
+    expect(workflow).toContain("name: Staging Supabase Keepalive");
+    expect(workflow).toContain("schedule:");
+    expect(workflow).toContain('cron: "17 7 * * *"');
+    expect(workflow).toContain("workflow_dispatch:");
+    expect(workflow).toContain(
+      "curl --fail --silent --show-error --max-time 30 https://rezervacni-system-dev.vercel.app/api/health",
+    );
+    expect(workflow).not.toContain("https://rezervacni-system-xi.vercel.app");
+    expect(workflow).not.toContain("SUPABASE_SERVICE_ROLE_KEY");
+    expect(workflow).not.toContain("STAGING_SUPABASE_SERVICE_ROLE_KEY");
+    expect(workflow).not.toContain("VERCEL_TOKEN");
   });
 });

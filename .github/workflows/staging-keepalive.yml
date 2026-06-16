@@ -1,0 +1,15 @@
+name: Staging Supabase Keepalive
+
+on:
+  schedule:
+    - cron: "17 7 * * *"
+  workflow_dispatch:
+
+jobs:
+  ping:
+    name: Ping staging health endpoint
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Call staging health endpoint
+        run: curl --fail --silent --show-error --max-time 30 https://rezervacni-system-dev.vercel.app/api/health
